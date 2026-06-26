@@ -1,16 +1,16 @@
 /**
- * KUEPER · Solar Science Foundation (SSF)
- * Path:      app/page.tsx
- * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/app/page.tsx
- * Name:      HomePage
- * Version:   0.1.0
- * Created:   2026-06-26
- * Modified:  2026-06-26 14:55 CEST
- * Depends:   next/link, lib/modules
+ * KUEPER - Solar Science Foundation (SSF)
+ * Path: app/page.tsx
+ * Repo: github.com/thomaspeterkueper/solarsciencefoundation/blob/main/app/page.tsx
+ * Name: HomePage
+ * Version: 0.1.0
+ * Created: 2026-06-26
+ * Modified: 2026-06-26 18:25 CEST
+ * Depends: next/link, lib/kxf
  */
 
 import Link from 'next/link';
-import { learningModules } from '../lib/modules';
+import { getKxfLearningModules } from '../lib/kxf';
 
 const subjects = [
   {
@@ -45,8 +45,9 @@ const subjects = [
   }
 ];
 
-export default function HomePage() {
-  const featured = learningModules[0];
+export default async function HomePage() {
+  const modules = await getKxfLearningModules();
+  const featured = modules[0];
 
   return (
     <div className="container" style={{ paddingTop: 58, paddingBottom: 8 }}>
