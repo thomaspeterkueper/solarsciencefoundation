@@ -1,3 +1,14 @@
+<!--
+KUEPER - Solar Science Foundation (SSF)
+Path: docs/MISSION.md
+Repo: github.com/thomaspeterkueper/solarsciencefoundation/blob/main/docs/MISSION.md
+Name: Mission
+Version: 0.1.0
+Created: 2026-06-26
+Modified: 2026-06-26 14:25 CEST
+Depends: none
+-->
+
 # Solar Science Foundation Mission
 
 Solar Science Foundation translates the KUEPER Knowledge Graph into short, understandable and game-compatible learning modules.
