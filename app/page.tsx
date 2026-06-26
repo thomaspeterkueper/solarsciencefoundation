@@ -1,25 +1,57 @@
+/**
+ * KUEPER · Solar Science Foundation (SSF)
+ * Path:      app/page.tsx
+ * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/app/page.tsx
+ * Name:      HomePage
+ * Version:   0.1.0
+ * Created:   2026-06-26
+ * Modified:  2026-06-26 13:00 CEST
+ * Depends:   next/link, lib/modules
+ */
+
+import Link from 'next/link';
 import { learningModules } from '../lib/modules';
 
 export default function HomePage() {
-  const firstModule = learningModules[0];
+  const featured = learningModules[0];
 
   return (
-    <main style={{ padding: '56px', maxWidth: 1080, margin: '0 auto' }}>
-      <p className="badge">Solar Science Foundation</p>
-      <h1 style={{ fontSize: 56, lineHeight: 1.05, margin: '24px 0 16px' }}>
-        Scientific learning between the KUEPER Knowledge Graph and NOXIA.
-      </h1>
-      <p style={{ color: 'var(--muted)', fontSize: 20, lineHeight: 1.6, maxWidth: 760 }}>
-        SSF translates foundational science into short learning modules, stores progress and exposes game-compatible unlocks for NOXIA.
+    <div className="container" style={{ paddingTop: 40, paddingBottom: 8 }}>
+      <p className="kicker">Independent science learning</p>
+      <h1 className="hero">Learn how the universe works.</h1>
+      <p className="lede">
+        Short, connected science learning modules. Built on the KUEPER Knowledge Graph.
+        Available in German and English.
+      </p>
+      <p className="subjects">
+        Astronomy &nbsp;·&nbsp; Physics &nbsp;·&nbsp; Mathematics &nbsp;·&nbsp; Biology &nbsp;·&nbsp; Earth science
       </p>
 
-      <section className="card" style={{ marginTop: 36 }}>
-        <p className="badge">First proof module</p>
-        <h2>{firstModule.id}: {firstModule.title}</h2>
-        <p style={{ color: 'var(--muted)', lineHeight: 1.6 }}>{firstModule.summary}</p>
-        <p><strong>Unlock:</strong> {firstModule.unlocks.join(', ')}</p>
-        <p><strong>API:</strong> /api/modules · /api/modules/SSF-PHY-1101 · /api/noxia/unlocks/demo</p>
-      </section>
-    </main>
+      <div style={{ marginTop: 30 }}>
+        <Link href={`/modules/${featured.id}`} style={{ color: 'inherit' }}>
+          <div className="card">
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 4 }}>
+              <span className="code">{featured.id}</span>
+              <span className="mono" style={{ fontSize: 11, color: 'var(--steel)' }}>
+                {featured.domain} · {featured.durationMinutes} min
+              </span>
+            </div>
+            <div className="module-title">{featured.title}</div>
+            <p style={{ color: 'var(--steel)', margin: 0 }}>{featured.summary}</p>
+            <p style={{ color: 'var(--link)', fontSize: 13, marginTop: 14, marginBottom: 0 }}>
+              Begin module →
+            </p>
+          </div>
+        </Link>
+      </div>
+
+      <div style={{ marginTop: 36, borderTop: '0.5px solid var(--border)', paddingTop: 22 }}>
+        <p className="section-title">Applications</p>
+        <p style={{ color: 'var(--steel)', maxWidth: '58ch', margin: 0 }}>
+          Progress earned here can unlock capabilities in partner projects. The NOXIA universe is
+          the first; others may follow.
+        </p>
+      </div>
+    </div>
   );
 }
