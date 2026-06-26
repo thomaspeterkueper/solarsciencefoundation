@@ -1,0 +1,39 @@
+:root {
+  color-scheme: dark;
+  --bg: #071019;
+  --panel: #101b27;
+  --text: #f3f7fb;
+  --muted: #9fb1c3;
+  --accent: #f6c15c;
+}
+
+body {
+  margin: 0;
+  background: #071019;
+  color: var(--text);
+  font-family: Arial, sans-serif;
+}
+
+a {
+  color: inherit;
+}
+
+main {
+  min-height: 100vh;
+}
+
+.card {
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 22px;
+  background: rgba(16, 27, 39, 0.78);
+  padding: 24px;
+}
+
+.badge {
+  display: inline-flex;
+  border: 1px solid rgba(246, 193, 92, 0.45);
+  border-radius: 999px;
+  color: var(--accent);
+  padding: 6px 11px;
+  font-size: 13px;
+}
