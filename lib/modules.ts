@@ -1,3 +1,14 @@
+/**
+ * KUEPER · Solar Science Foundation (SSF)
+ * Path:      lib/modules.ts
+ * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/modules.ts
+ * Name:      modules — learning module registry
+ * Version:   0.1.0
+ * Created:   2026-06-26
+ * Modified:  2026-06-26 14:25 CEST
+ * Depends:   —
+ */
+
 export type Exercise = {
   id: string;
   type: 'single_choice';
