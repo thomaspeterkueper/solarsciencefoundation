@@ -5,45 +5,13 @@
  * Name: HomePage
  * Version: 0.1.0
  * Created: 2026-06-26
- * Modified: 2026-06-26 18:25 CEST
- * Depends: next/link, lib/kxf
+ * Modified: 2026-06-27 09:00 CEST
+ * Depends: next/link, lib/kxf, lib/subjects
  */
 
 import Link from 'next/link';
 import { getKxfLearningModules } from '../lib/kxf';
-
-const subjects = [
-  {
-    mark: '☉',
-    name: 'Astronomy',
-    count: '24 modules',
-    text: 'From the Solar System to galaxies and the structure of the cosmos.'
-  },
-  {
-    mark: 'α',
-    name: 'Physics',
-    count: '36 modules',
-    text: 'Matter, energy, motion and the laws that govern the universe.'
-  },
-  {
-    mark: 'Σ',
-    name: 'Mathematics',
-    count: '28 modules',
-    text: 'The language of science: logic, numbers, structures and models.'
-  },
-  {
-    mark: 'φ',
-    name: 'Biology',
-    count: '22 modules',
-    text: 'Life, systems, evolution and living worlds beyond Earth.'
-  },
-  {
-    mark: '△',
-    name: 'Earth science',
-    count: '18 modules',
-    text: 'Our planet, its systems and our place within them.'
-  }
-];
+import { subjects } from '../lib/subjects';
 
 export default async function HomePage() {
   const modules = await getKxfLearningModules();
@@ -60,11 +28,11 @@ export default async function HomePage() {
             Available in German and English.
           </p>
           <p className="subjects">
-            Astronomy <span>·</span> Physics <span>·</span> Mathematics <span>·</span> Biology <span>·</span> Earth science
+            Mathematics <span>·</span> Physics <span>·</span> Chemistry <span>·</span> Astronomy <span>·</span> Biology
           </p>
           <div className="hero-actions">
             <Link className="btn" href={`/modules/${featured.id}`}>Start learning →</Link>
-            <Link className="btn secondary" href="#subjects">Browse modules →</Link>
+            <Link className="btn secondary" href="/subjects">Browse subjects →</Link>
           </div>
         </div>
 
@@ -103,16 +71,18 @@ export default async function HomePage() {
       <section id="subjects" className="subject-section">
         <div className="section-row">
           <h2 className="section-title" style={{ fontSize: 34 }}>Browse by subject</h2>
-          <a href="#" style={{ fontWeight: 600 }}>View all subjects →</a>
+          <Link href="/subjects" style={{ fontWeight: 600 }}>View all subjects →</Link>
         </div>
         <div className="subject-grid">
-          {subjects.map((subject) => (
-            <article key={subject.name} className="subject-card">
-              <div className="subject-mark">{subject.mark}</div>
-              <strong>{subject.name}</strong>
-              <small>{subject.count}</small>
-              <p>{subject.text}</p>
-            </article>
+          {subjects.slice(0, 5).map((subject) => (
+            <Link key={subject.id} href={`/subjects/${subject.slug}`} style={{ color: 'inherit' }}>
+              <article className="subject-card">
+                <div className="subject-mark">{subject.mark}</div>
+                <strong>{subject.title}</strong>
+                <small>{subject.levelRange}</small>
+                <p>{subject.description}</p>
+              </article>
+            </Link>
           ))}
         </div>
       </section>
