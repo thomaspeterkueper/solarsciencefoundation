@@ -1,12 +1,12 @@
 /**
- * KUEPER · Solar Science Foundation (SSF)
- * Path:      app/layout.tsx
- * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/app/layout.tsx
- * Name:      RootLayout
- * Version:   0.1.0
- * Created:   2026-06-26
- * Modified:  2026-06-26 13:00 CEST
- * Depends:   next, next/link, components/Signet, app/globals.css
+ * KUEPER - Solar Science Foundation (SSF)
+ * Path: app/layout.tsx
+ * Repo: github.com/thomaspeterkueper/solarsciencefoundation/blob/main/app/layout.tsx
+ * Name: RootLayout
+ * Version: 0.1.0
+ * Created: 2026-06-26
+ * Modified: 2026-06-27 09:20 CEST
+ * Depends: next, next/link, components/Signet, app/globals.css
  */
 
 import type { Metadata } from 'next';
@@ -32,11 +32,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               <span className="wordmark">Solar Science Foundation</span>
             </Link>
             <nav className="nav">
-              <a href="#">Knowledge</a>
-              <a href="#">Courses</a>
-              <a href="#">Library</a>
-              <a href="#">Community</a>
-              <a href="#" className="accent">NOXIA</a>
+              <Link href="/subjects">Subjects</Link>
+              <Link href="/subjects/mathematics">Mathematics</Link>
+              <Link href="/api/kxf">KXF</Link>
+              <Link href="/membership">Membership</Link>
+              <a href="https://noxiagame.vercel.app" className="accent">NOXIA</a>
               <span className="sep">·</span>
               <span className="mono" style={{ fontSize: 11 }}>DE / EN</span>
             </nav>
@@ -47,14 +47,17 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 
         <footer className="site-footer">
           <div className="container">
-            <div className="honest">A science learning project by Thomas Peter Küper.</div>
-            <div className="meta">
-              <span>Not an accredited institution. NOXIA is the first partner project.</span>
+            <div>
+              <div className="honest">A science learning project by Thomas Peter Küper.</div>
+              <div className="meta">
+                <span>Not an accredited institution. NOXIA is the first partner project.</span>
+              </div>
             </div>
             <div className="meta">
               <a href="#">Impressum</a>
               <a href="#">Datenschutz</a>
               <Link href="/about">About</Link>
+              <Link href="/membership">Membership</Link>
             </div>
           </div>
         </footer>
