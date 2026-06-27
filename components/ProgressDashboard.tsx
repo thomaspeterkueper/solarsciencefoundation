@@ -1,17 +1,7 @@
 'use client';
 
-/**
- * KUEPER - Solar Science Foundation (SSF)
- * Path: components/ProgressDashboard.tsx
- * Repo: github.com/thomaspeterkueper/solarsciencefoundation/blob/main/components/ProgressDashboard.tsx
- * Name: ProgressDashboard
- * Version: 0.1.0
- * Created: 2026-06-27
- * Modified: 2026-06-27 10:25 CEST
- * Depends: react, SSF progress APIs
- */
-
 import { useEffect, useState } from 'react';
+import { createBrowserSupabaseClient } from '../lib/supabase/client';
 
 type ProgressResponse = {
   progress: {
@@ -39,35 +29,54 @@ type AchievementResponse = {
 
 export default function ProgressDashboard() {
   const [playerId, setPlayerId] = useState('local');
+  const [signedIn, setSignedIn] = useState(false);
   const [progress, setProgress] = useState<ProgressResponse['progress'] | null>(null);
   const [unlocks, setUnlocks] = useState<UnlockResponse['unlocks']>([]);
   const [achievements, setAchievements] = useState<AchievementResponse['achievements']>([]);
 
   useEffect(() => {
-    try {
-      const key = 'ssf:playerId';
-      let id = window.localStorage.getItem(key);
-      if (!id) {
-        id =
-          typeof crypto !== 'undefined' && 'randomUUID' in crypto
-            ? crypto.randomUUID()
-            : 'local-' + Math.random().toString(36).slice(2);
+    async function init() {
+      let id = 'local';
+      try {
+        const key = 'ssf:playerId';
+        const stored = window.localStorage.getItem(key);
+        id = stored ?? (typeof crypto !== 'undefined' && 'randomUUID' in crypto ? crypto.randomUUID() : 'local-' + Math.random().toString(36).slice(2));
         window.localStorage.setItem(key, id);
-      }
+      } catch {}
+
+      try {
+        const supabase = createBrowserSupabaseClient();
+        const session = await supabase.auth.getSession();
+        const userId = session.data.session?.user.id;
+        if (userId) {
+          id = userId;
+          setSignedIn(true);
+        }
+      } catch {}
+
       setPlayerId(id);
-    } catch {
-      setPlayerId('local');
     }
+    init();
   }, []);
 
   useEffect(() => {
     let cancelled = false;
 
     async function load() {
+      let token: string | null = null;
+      try {
+        const supabase = createBrowserSupabaseClient();
+        const session = await supabase.auth.getSession();
+        token = session.data.session?.access_token ?? null;
+      } catch {}
+
+      const headers: Record<string, string> = {};
+      if (token) headers.Authorization = `Bearer ${token}`;
+
       const [progressRes, unlockRes, achievementRes] = await Promise.all([
-        fetch(`/api/player/${playerId}/progress`),
-        fetch(`/api/player/${playerId}/unlocks`),
-        fetch(`/api/player/${playerId}/achievements`)
+        fetch(`/api/player/${playerId}/progress`, { headers }),
+        fetch(`/api/player/${playerId}/unlocks`, { headers }),
+        fetch(`/api/player/${playerId}/achievements`, { headers })
       ]);
 
       if (cancelled) return;
@@ -82,9 +91,7 @@ export default function ProgressDashboard() {
     }
 
     load().catch(() => {
-      if (!cancelled) {
-        setProgress({ playerId, completedModules: [], attempts: 0 });
-      }
+      if (!cancelled) setProgress({ playerId, completedModules: [], attempts: 0 });
     });
 
     return () => {
@@ -97,26 +104,16 @@ export default function ProgressDashboard() {
 
   return (
     <div>
+      <p className="mono" style={{ color: 'var(--steel)', marginTop: 20 }}>
+        {signedIn ? 'Signed-in Supabase profile' : 'Local demo profile'} · Player {playerId.slice(0, 8)}
+      </p>
       <section className="platform-grid" style={{ marginTop: 34 }}>
-        <div className="platform-card">
-          <p className="section-title">Completed modules</p>
-          <p style={{ fontSize: 42, color: 'var(--navy)', lineHeight: 1 }}>{completedCount}</p>
-        </div>
-        <div className="platform-card">
-          <p className="section-title">Unlocks earned</p>
-          <p style={{ fontSize: 42, color: 'var(--navy)', lineHeight: 1 }}>{unlocks.length}</p>
-        </div>
-        <div className="platform-card">
-          <p className="section-title">Achievements</p>
-          <p style={{ fontSize: 42, color: 'var(--navy)', lineHeight: 1 }}>{completedAchievements}</p>
-        </div>
+        <div className="platform-card"><p className="section-title">Completed modules</p><p style={{ fontSize: 42, color: 'var(--navy)', lineHeight: 1 }}>{completedCount}</p></div>
+        <div className="platform-card"><p className="section-title">Unlocks earned</p><p style={{ fontSize: 42, color: 'var(--navy)', lineHeight: 1 }}>{unlocks.length}</p></div>
+        <div className="platform-card"><p className="section-title">Achievements</p><p style={{ fontSize: 42, color: 'var(--navy)', lineHeight: 1 }}>{completedAchievements}</p></div>
       </section>
-
       <section className="subject-section">
-        <div className="section-row">
-          <h2 className="section-title" style={{ fontSize: 34 }}>Achievements</h2>
-          <span className="mono" style={{ color: 'var(--steel)' }}>Player {playerId.slice(0, 8)}</span>
-        </div>
+        <div className="section-row"><h2 className="section-title" style={{ fontSize: 34 }}>Achievements</h2></div>
         <div className="subject-grid">
           {achievements.map((achievement) => (
             <article key={achievement.id} className="subject-card">
@@ -129,11 +126,8 @@ export default function ProgressDashboard() {
           ))}
         </div>
       </section>
-
       <section className="subject-section">
-        <div className="section-row">
-          <h2 className="section-title" style={{ fontSize: 34 }}>Completed modules</h2>
-        </div>
+        <div className="section-row"><h2 className="section-title" style={{ fontSize: 34 }}>Completed modules</h2></div>
         {progress && progress.completedModules.length > 0 ? (
           <div className="subject-grid">
             {progress.completedModules.map((module) => (
@@ -145,9 +139,7 @@ export default function ProgressDashboard() {
               </article>
             ))}
           </div>
-        ) : (
-          <p style={{ color: 'var(--steel)' }}>No completed modules yet. Start with the featured module or the mathematics foundations path.</p>
-        )}
+        ) : <p style={{ color: 'var(--steel)' }}>No completed modules yet. Start with the featured module or the mathematics foundations path.</p>}
       </section>
     </div>
   );
