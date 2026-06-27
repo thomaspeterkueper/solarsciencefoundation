@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getSupabaseUserFromRequest } from '../../../../lib/auth';
+import { getBearerTokenFromRequest, getSupabaseUserFromRequest } from '../../../../lib/auth';
 import { saveCompletionToSupabase } from '../../../../lib/dbProgress';
 import { recordCompletion, type SubmittedAnswer } from '../../../../lib/progress';
 
@@ -55,6 +55,7 @@ export async function POST(request: Request) {
     );
   }
 
+  const token = getBearerTokenFromRequest(request);
   const user = await getSupabaseUserFromRequest(request);
   const effectivePlayerId = user?.id ?? playerId;
   const result = recordCompletion(effectivePlayerId, moduleId, parsedAnswers);
@@ -65,8 +66,9 @@ export async function POST(request: Request) {
 
   let persistence = { mode: 'memory', saved: false };
 
-  if (user && result.status === 'completed') {
+  if (user && token && result.status === 'completed') {
     const saved = await saveCompletionToSupabase({
+      accessToken: token,
       userId: user.id,
       moduleId,
       score: result.score,
