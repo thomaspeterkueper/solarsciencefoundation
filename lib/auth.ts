@@ -1,8 +1,12 @@
 import { createServerSupabaseClient } from './supabase/server';
 
-export async function getSupabaseUserFromRequest(request: Request) {
+export function getBearerTokenFromRequest(request: Request) {
   const authHeader = request.headers.get('authorization');
-  const token = authHeader?.startsWith('Bearer ') ? authHeader.slice('Bearer '.length) : null;
+  return authHeader?.startsWith('Bearer ') ? authHeader.slice('Bearer '.length) : null;
+}
+
+export async function getSupabaseUserFromRequest(request: Request) {
+  const token = getBearerTokenFromRequest(request);
 
   if (!token) return null;
 
@@ -13,18 +17,5 @@ export async function getSupabaseUserFromRequest(request: Request) {
     return data.user;
   } catch {
     return null;
-  }
-}
-
-export async function upsertProfile(userId: string, displayName?: string | null) {
-  try {
-    const supabase = createServerSupabaseClient();
-    await supabase.from('profiles').upsert({
-      id: userId,
-      display_name: displayName ?? null,
-      updated_at: new Date().toISOString()
-    });
-  } catch {
-    // Schema may not be pushed yet. Auth should still work as far as possible.
   }
 }
