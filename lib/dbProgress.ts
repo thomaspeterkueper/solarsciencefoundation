@@ -1,5 +1,5 @@
 import { buildUnlocks, type ModuleCompletion, type SubmittedAnswer, type Unlock } from './progress';
-import { createServerSupabaseClient } from './supabase/server';
+import { createUserScopedSupabaseClient } from './supabase/server';
 
 export type DbProgress = {
   playerId: string;
@@ -8,6 +8,7 @@ export type DbProgress = {
 };
 
 export async function saveCompletionToSupabase(args: {
+  accessToken: string;
   userId: string;
   moduleId: string;
   score: number;
@@ -15,19 +16,20 @@ export async function saveCompletionToSupabase(args: {
   graded: { exerciseId: string; selectedOption: number; correct: boolean }[];
 }): Promise<{ saved: boolean; unlocks: Unlock[] }> {
   try {
-    const supabase = createServerSupabaseClient();
+    const supabase = createUserScopedSupabaseClient(args.accessToken);
     const now = new Date().toISOString();
 
-    await supabase.from('learning_progress').upsert({
+    const progressResult = await supabase.from('learning_progress').upsert({
       user_id: args.userId,
       module_id: args.moduleId,
       score: args.score,
       completed_at: now,
       source: 'ssf'
     });
+    if (progressResult.error) throw progressResult.error;
 
     if (args.graded.length > 0) {
-      await supabase.from('exercise_attempts').insert(
+      const attemptsResult = await supabase.from('exercise_attempts').insert(
         args.graded.map((answer) => ({
           user_id: args.userId,
           module_id: args.moduleId,
@@ -36,11 +38,12 @@ export async function saveCompletionToSupabase(args: {
           correct: answer.correct
         }))
       );
+      if (attemptsResult.error) throw attemptsResult.error;
     }
 
     const unlocks = buildUnlocks([args.moduleId]);
     if (unlocks.length > 0) {
-      await supabase.from('unlocks').upsert(
+      const unlockResult = await supabase.from('unlocks').upsert(
         unlocks.map((unlock) => ({
           user_id: args.userId,
           unlock_id: unlock.id,
@@ -51,6 +54,7 @@ export async function saveCompletionToSupabase(args: {
         })),
         { onConflict: 'user_id,unlock_id' }
       );
+      if (unlockResult.error) throw unlockResult.error;
     }
 
     return { saved: true, unlocks };
@@ -59,10 +63,10 @@ export async function saveCompletionToSupabase(args: {
   }
 }
 
-export async function getDbProgress(userId: string): Promise<DbProgress | null> {
+export async function getDbProgress(userId: string, accessToken: string): Promise<DbProgress | null> {
   try {
-    const supabase = createServerSupabaseClient();
-    const [{ data: progress }, { count }] = await Promise.all([
+    const supabase = createUserScopedSupabaseClient(accessToken);
+    const [{ data: progress, error: progressError }, { count, error: countError }] = await Promise.all([
       supabase
         .from('learning_progress')
         .select('module_id, completed_at, score')
@@ -73,6 +77,8 @@ export async function getDbProgress(userId: string): Promise<DbProgress | null> 
         .select('id', { count: 'exact', head: true })
         .eq('user_id', userId)
     ]);
+
+    if (progressError || countError) return null;
 
     return {
       playerId: userId,
@@ -88,19 +94,21 @@ export async function getDbProgress(userId: string): Promise<DbProgress | null> 
   }
 }
 
-export async function getDbCompletedModuleIds(userId: string): Promise<string[] | null> {
-  const progress = await getDbProgress(userId);
+export async function getDbCompletedModuleIds(userId: string, accessToken: string): Promise<string[] | null> {
+  const progress = await getDbProgress(userId, accessToken);
   return progress?.completedModules.map((module) => module.moduleId) ?? null;
 }
 
-export async function getDbUnlocks(userId: string): Promise<Unlock[] | null> {
+export async function getDbUnlocks(userId: string, accessToken: string): Promise<Unlock[] | null> {
   try {
-    const supabase = createServerSupabaseClient();
-    const { data } = await supabase
+    const supabase = createUserScopedSupabaseClient(accessToken);
+    const { data, error } = await supabase
       .from('unlocks')
       .select('unlock_id, source_module, target_system, status')
       .eq('user_id', userId)
       .eq('status', 'granted');
+
+    if (error) return null;
 
     return (data ?? []).map((item) => ({
       id: String(item.unlock_id),
