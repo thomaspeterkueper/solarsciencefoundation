@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getSupabaseUserFromRequest } from '../../../../../lib/auth';
+import { getBearerTokenFromRequest, getSupabaseUserFromRequest } from '../../../../../lib/auth';
 import { getDbProgress } from '../../../../../lib/dbProgress';
 import { getPlayerProgress } from '../../../../../lib/progress';
 
@@ -9,9 +9,10 @@ type RouteContext = {
 
 export async function GET(request: Request, context: RouteContext) {
   const { id } = await context.params;
+  const token = getBearerTokenFromRequest(request);
   const user = await getSupabaseUserFromRequest(request);
   const effectiveId = user?.id ?? id;
-  const dbProgress = user ? await getDbProgress(user.id) : null;
+  const dbProgress = user && token ? await getDbProgress(user.id, token) : null;
 
   return NextResponse.json({
     schema: 'SSF-API-0.1',
