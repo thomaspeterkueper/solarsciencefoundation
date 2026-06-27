@@ -3,7 +3,7 @@
 -- Name: auth profile trigger and default role
 -- Version: 0.1.0
 -- Created: 2026-06-27
--- Modified: 2026-06-27 13:30 CEST
+-- Modified: 2026-06-27 13:40 CEST
 
 create or replace function public.handle_new_user()
 returns trigger
@@ -33,5 +33,7 @@ create trigger on_auth_user_created
 after insert on auth.users
 for each row execute function public.handle_new_user();
 
-create policy if not exists "profiles_insert_own" on public.profiles
+drop policy if exists "profiles_insert_own" on public.profiles;
+
+create policy "profiles_insert_own" on public.profiles
   for insert with check (auth.uid() = id);
