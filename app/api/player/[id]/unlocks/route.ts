@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getSupabaseUserFromRequest } from '../../../../../lib/auth';
+import { getBearerTokenFromRequest, getSupabaseUserFromRequest } from '../../../../../lib/auth';
 import { getDbCompletedModuleIds, getDbUnlocks } from '../../../../../lib/dbProgress';
 import { getCompletedModuleIds, getPlayerUnlocks } from '../../../../../lib/progress';
 
@@ -9,10 +9,11 @@ type RouteContext = {
 
 export async function GET(request: Request, context: RouteContext) {
   const { id } = await context.params;
+  const token = getBearerTokenFromRequest(request);
   const user = await getSupabaseUserFromRequest(request);
   const effectiveId = user?.id ?? id;
-  const dbCompleted = user ? await getDbCompletedModuleIds(user.id) : null;
-  const dbUnlocks = user ? await getDbUnlocks(user.id) : null;
+  const dbCompleted = user && token ? await getDbCompletedModuleIds(user.id, token) : null;
+  const dbUnlocks = user && token ? await getDbUnlocks(user.id, token) : null;
 
   return NextResponse.json({
     schema: 'SSF-NOXIA-0.1',
