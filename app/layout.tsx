@@ -5,7 +5,7 @@
  * Name: RootLayout
  * Version: 0.1.0
  * Created: 2026-06-26
- * Modified: 2026-06-27 09:20 CEST
+ * Modified: 2026-06-27 10:25 CEST
  * Depends: next, next/link, components/Signet, app/globals.css
  */
 
@@ -34,8 +34,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <nav className="nav">
               <Link href="/subjects">Subjects</Link>
               <Link href="/subjects/mathematics">Mathematics</Link>
-              <Link href="/api/kxf">KXF</Link>
+              <Link href="/progress">Progress</Link>
               <Link href="/membership">Membership</Link>
+              <Link href="/api/kxf">KXF</Link>
               <a href="https://noxiagame.vercel.app" className="accent">NOXIA</a>
               <span className="sep">·</span>
               <span className="mono" style={{ fontSize: 11 }}>DE / EN</span>
@@ -58,6 +59,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               <a href="#">Datenschutz</a>
               <Link href="/about">About</Link>
               <Link href="/membership">Membership</Link>
+              <Link href="/progress">Progress</Link>
             </div>
           </div>
         </footer>
