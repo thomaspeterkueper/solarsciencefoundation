@@ -1,15 +1,6 @@
-/**
- * KUEPER · Solar Science Foundation (SSF)
- * Path:      app/api/progress/complete/route.ts
- * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/app/api/progress/complete/route.ts
- * Name:      POST /api/progress/complete
- * Version:   0.1.0
- * Created:   2026-06-26
- * Modified:  2026-06-26 13:00 CEST
- * Depends:   next/server, lib/progress
- */
-
 import { NextResponse } from 'next/server';
+import { getSupabaseUserFromRequest } from '../../../../lib/auth';
+import { saveCompletionToSupabase } from '../../../../lib/dbProgress';
 import { recordCompletion, type SubmittedAnswer } from '../../../../lib/progress';
 
 type CompleteBody = {
@@ -64,15 +55,31 @@ export async function POST(request: Request) {
     );
   }
 
-  const result = recordCompletion(playerId, moduleId, parsedAnswers);
+  const user = await getSupabaseUserFromRequest(request);
+  const effectivePlayerId = user?.id ?? playerId;
+  const result = recordCompletion(effectivePlayerId, moduleId, parsedAnswers);
 
   if (result.status === 'module_not_found') {
     return NextResponse.json({ error: 'Module not found' }, { status: 404 });
   }
 
+  let persistence = { mode: 'memory', saved: false };
+
+  if (user && result.status === 'completed') {
+    const saved = await saveCompletionToSupabase({
+      userId: user.id,
+      moduleId,
+      score: result.score,
+      answers: parsedAnswers,
+      graded: result.graded
+    });
+    persistence = { mode: 'supabase', saved: saved.saved };
+  }
+
   return NextResponse.json({
     schema: 'SSF-API-0.1',
-    playerId,
+    playerId: effectivePlayerId,
+    persistence,
     ...result
   });
 }
