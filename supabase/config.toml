@@ -1,0 +1,12 @@
+project_id = "eiwudquwkymshqdskjxm"
+
+[api]
+enabled = true
+
+[db]
+major_version = 17
+
+[auth]
+enabled = true
+site_url = "https://solarsciencefoundation.vercel.app"
+additional_redirect_urls = ["http://localhost:3000"]
