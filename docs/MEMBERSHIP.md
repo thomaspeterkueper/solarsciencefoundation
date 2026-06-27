@@ -1,50 +1,135 @@
+<!--
+KUEPER - Solar Science Foundation (SSF)
+Path: docs/MEMBERSHIP.md
+Repo: github.com/thomaspeterkueper/solarsciencefoundation/blob/main/docs/MEMBERSHIP.md
+Name: Membership model
+Version: 0.1.0
+Created: 2026-06-26
+Modified: 2026-06-27 09:20 CEST
+Depends: lib/membership.ts
+-->
+
 # Solar Science Foundation Membership
 
 SSF includes a membership and supporter layer in addition to the learning system.
 
 Membership must support the project without turning NOXIA into pay-to-win. Learning progress may unlock game capabilities. Payment status must not directly buy scientific power in NOXIA.
 
-## Initial roles
+## Ecosystem principle
 
-### Free Member
+Membership is not only an SSF concern. It should be compatible with the wider KUEPER ecosystem:
 
-- Can use public learning modules.
-- Can complete exercises.
-- Can store progress once accounts exist.
-- Can earn NOXIA unlocks through learning.
+```text
+SSF          learning, progress, membership source
+NOXIA        consumes learning progress and selected project-access flags
+Knowledge KG canonical people, organisations and contributor mappings later
+OTA          may consume contributor / curator status later
+kueper.com   may consume public author / contributor attribution later
+```
 
-### Supporting Member
+Therefore the model separates:
 
-- Supports the project financially.
-- May receive recognition, supporter updates or access to additional community areas.
-- Does not receive direct game power.
+```text
+Member       who the person is inside the ecosystem
+Role         what the person is allowed to do
+Scope        concrete permission-like capability
+System       where that access applies
+Progress     what the person learned
+Unlock       what learning enables in partner projects
+```
 
-### Donor / Patron
+## Current roles
 
-- Supports SSF through donations.
-- May optionally be listed as a patron.
-- Does not receive direct game power.
+Defined in `lib/membership.ts`:
 
-### Co-Author
+```text
+ROLE:SSF:guest
+ROLE:SSF:free-member
+ROLE:SSF:supporting-member
+ROLE:SSF:donor
+ROLE:SSF:contributor
+ROLE:SSF:co-author
+ROLE:SSF:curator
+ROLE:SSF:admin
+```
 
-- Contributes learning content, mappings, documentation or exercises.
-- Work is reviewed and curated before publication.
-- May be linked to modules and documents as contributor metadata.
+## Current scopes
 
-### Curator / Admin
+```text
+read_public_content
+store_learning_progress
+earn_learning_unlocks
+support_project
+submit_content
+review_content
+publish_content
+manage_membership
+```
 
-- Reviews, approves, publishes and versions content.
-- Manages mappings between KUEPER, SSF, kueper.com, OTA and NOXIA.
+## API endpoints
 
-## Later possible roles
+```text
+GET /api/membership/roles
+GET /api/membership/demo
+GET /api/membership/project-access/[memberId]/[system]
+```
 
-- Teacher
-- Student
-- Research Partner
-- Institutional Partner
-- Translator
-- Reviewer
+Examples:
 
-## Rule
+```text
+/api/membership/project-access/MEM:SSF:demo-free/noxia
+/api/membership/project-access/MEM:SSF:demo-coauthor/knowledge-graph
+```
 
-Membership can support access, recognition, contribution and governance. Scientific unlocks should come from learning achievement, not payment.
+The project-access endpoint returns a neutral shape that NOXIA and later systems can consume:
+
+```json
+{
+  "schema": "KUEPER-PROJECT-ACCESS-0.1",
+  "access": {
+    "memberId": "MEM:SSF:demo-free",
+    "system": "SYS:KUEPER:noxia",
+    "active": true,
+    "roles": ["ROLE:SSF:free-member"],
+    "scopes": ["read_public_content", "store_learning_progress", "earn_learning_unlocks"],
+    "canGrantGamePower": false
+  }
+}
+```
+
+## Hard rule
+
+```text
+Membership can support access, recognition, contribution and governance.
+Scientific or game-relevant unlocks come from learning achievement, not payment.
+```
+
+This rule is encoded in every role with:
+
+```json
+"canGrantGamePower": false
+```
+
+## Later database model
+
+When persistence is added, start with these tables:
+
+```text
+members
+roles
+member_roles
+systems
+member_system_access
+supporter_records
+contributor_attributions
+```
+
+Progress remains separate:
+
+```text
+learning_progress
+exercise_attempts
+unlocks
+```
+
+That separation keeps membership compatible with NOXIA and future projects without turning support status into game power.
