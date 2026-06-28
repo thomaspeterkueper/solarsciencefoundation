@@ -1,9 +1,11 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { createBrowserSupabaseClient } from '../lib/supabase/client';
 
 export default function AuthPanel() {
+  const router = useRouter();
   const [isSignup, setIsSignup] = useState(false);
   const [email, setEmail] = useState('');
   const [secret, setSecret] = useState('');
@@ -18,11 +20,19 @@ export default function AuthPanel() {
       const result = isSignup
         ? await supabase.auth.signUp({ email, password: secret })
         : await supabase.auth.signInWithPassword({ email, password: secret });
+
       if (result.error) {
         setMessage(result.error.message);
-      } else {
-        setMessage(isSignup ? 'Account created. Check your email if confirmation is required.' : 'Signed in. Progress can now be stored.');
+        return;
       }
+
+      if (isSignup) {
+        setMessage('Account created. Check your email if confirmation is required.');
+        return;
+      }
+
+      router.replace('/');
+      router.refresh();
     } catch {
       setMessage('Authentication is not available yet. Check the Supabase environment variables.');
     } finally {
