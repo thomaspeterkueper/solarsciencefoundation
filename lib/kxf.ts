@@ -5,7 +5,7 @@
  * Name: kxf - fetch and normalise KUEPER Exchange Format
  * Version: 0.1.0
  * Created: 2026-06-26
- * Modified: 2026-06-27 09:00 CEST
+ * Modified: 2026-07-01 10:35 CEST
  * Depends: lib/modules
  */
 
@@ -48,6 +48,8 @@ export type KxfExport = {
   records?: {
     entities?: KxfEntity[];
     documents?: unknown[];
+    knowledgeDomains?: unknown[];
+    prerequisites?: unknown[];
     learningModules?: KxfLearningModule[];
     unlocks?: KxfUnlock[];
     buildings?: unknown[];
