@@ -1,19 +1,10 @@
-/**
- * KUEPER - Solar Science Foundation (SSF)
- * Path: app/api/kxf/route.ts
- * Repo: github.com/thomaspeterkueper/solarsciencefoundation/blob/main/app/api/kxf/route.ts
- * Name: GET /api/kxf
- * Version: 0.1.0
- * Created: 2026-06-26
- * Modified: 2026-06-26 18:25 CEST
- * Depends: next/server, lib/kxf
- */
-
 import { NextResponse } from 'next/server';
+import { findUnresolvedRequirements } from '../../../lib/kxfDiagnostics';
 import { fetchKxfSnapshot, normaliseKxfModules } from '../../../lib/kxf';
 
 export async function GET() {
   const snapshot = await fetchKxfSnapshot();
+  const unresolvedRequirements = await findUnresolvedRequirements();
 
   return NextResponse.json({
     schema: 'SSF-KXF-ADAPTER-0.1',
@@ -23,7 +14,8 @@ export async function GET() {
     kxf: snapshot.data ?? null,
     normalised: snapshot.data
       ? {
-          modules: normaliseKxfModules(snapshot.data)
+          modules: normaliseKxfModules(snapshot.data),
+          unresolvedRequirements
         }
       : null
   });
