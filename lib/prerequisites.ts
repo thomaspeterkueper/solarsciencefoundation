@@ -110,6 +110,10 @@ function normaliseDomain(item: RawKnowledgeDomain): KnowledgeDomain | null {
   };
 }
 
+function isDocumentPrerequisite(value: DocumentPrerequisite | null): value is DocumentPrerequisite {
+  return value !== null;
+}
+
 async function fetchStandaloneKnowledgeDomains(): Promise<KnowledgeDomain[]> {
   try {
     const response = await fetch(knowledgeDomainsUrl(), {
@@ -159,26 +163,27 @@ export async function getPrerequisites(): Promise<DocumentPrerequisite[]> {
   const snapshot = await fetchKxfSnapshot();
   const raw = (snapshot.data?.records as { prerequisites?: RawPrerequisite[] } | undefined)?.prerequisites ?? [];
 
-  return raw
-    .map((item) => {
-      const documentId = asString(item.documentId) ?? asString(item.document) ?? asString(item.target);
-      const domainId = asString(item.domainId) ?? asString(item.domain);
-      const level = asLevel(item.level);
-      if (!documentId || !domainId || !level) return null;
-      const code = asString(item.code) ?? codeFromId(domainId);
-      const purpose = item.purpose === 'create' || item.purpose === 'recommended' ? item.purpose : 'read';
+  const mapped: Array<DocumentPrerequisite | null> = raw.map((item) => {
+    const documentId = asString(item.documentId) ?? asString(item.document) ?? asString(item.target);
+    const domainId = asString(item.domainId) ?? asString(item.domain);
+    const level = asLevel(item.level);
+    if (!documentId || !domainId || !level) return null;
+    const code = asString(item.code) ?? codeFromId(domainId);
+    const purpose = item.purpose === 'create' || item.purpose === 'recommended' ? item.purpose : 'read';
 
-      return {
-        documentId,
-        domainId,
-        code,
-        level,
-        learnerFacing: isLearnerFacingLevel(level),
-        purpose,
-        description: asString(item.description) ?? undefined
-      } satisfies DocumentPrerequisite;
-    })
-    .filter((item): item is DocumentPrerequisite => Boolean(item))
+    return {
+      documentId,
+      domainId,
+      code,
+      level,
+      learnerFacing: isLearnerFacingLevel(level),
+      purpose,
+      description: asString(item.description) ?? undefined
+    };
+  });
+
+  return mapped
+    .filter(isDocumentPrerequisite)
     .sort((a, b) => `${a.documentId}-${a.code}-${a.level}`.localeCompare(`${b.documentId}-${b.code}-${b.level}`));
 }
 
