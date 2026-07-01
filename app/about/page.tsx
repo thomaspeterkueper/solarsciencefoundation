@@ -1,28 +1,15 @@
-/**
- * KUEPER · Solar Science Foundation (SSF)
- * Path:      app/about/page.tsx
- * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/app/about/page.tsx
- * Name:      AboutPage
- * Version:   0.1.0
- * Created:   2026-06-26
- * Modified:  2026-06-26 13:00 CEST
- * Depends:   —
- */
-
 export default function AboutPage() {
   return (
     <div className="container" style={{ paddingTop: 40 }}>
-      <p className="kicker">About</p>
-      <h1 className="hero" style={{ fontSize: 26 }}>An independent science learning project.</h1>
+      <p className="kicker">About - NOXIA universe project</p>
+      <h1 className="hero" style={{ fontSize: 26 }}>A fictional science learning platform.</h1>
       <p style={{ color: 'var(--steel)', maxWidth: '60ch', marginTop: 18 }}>
-        The Solar Science Foundation is an independent science learning project created and
-        maintained by Thomas Peter Küper. It turns knowledge from the KUEPER Knowledge Graph into
-        short learning modules in German and English.
+        The Solar Science Foundation is a fictional educational organization within the NOXIA universe.
+        In the NOXIA timeline, it was founded in 2164 on Luna Prime.
       </p>
       <p style={{ color: 'var(--steel)', maxWidth: '60ch' }}>
-        It is not an accredited educational institution and issues no formal qualifications.
-        Progress earned here can be used by partner projects — the NOXIA science and exploration
-        universe is the first of these.
+        SSF turns knowledge from the KUEPER Knowledge Graph into short learning modules in German and English.
+        The modules can be used independently or connected to NOXIA progress and unlocks.
       </p>
     </div>
   );
