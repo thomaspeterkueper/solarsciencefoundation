@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 function toGermanPath(pathname: string): string {
   if (pathname === '/') return '/de';
   if (pathname.startsWith('/de')) return pathname;
-  if (pathname.startsWith('/subjects')) return `/de${pathname}`;
+  if (pathname.startsWith('/subjects') || pathname.startsWith('/learn')) return `/de${pathname}`;
   if (pathname === '/about' || pathname === '/membership' || pathname === '/progress' || pathname === '/login') return `/de${pathname}`;
   return '/de';
 }
@@ -24,6 +24,7 @@ export default function SiteNav() {
 
   return (
     <nav className="nav">
+      <Link href={`${prefix}/learn`}>{isGerman ? 'Lernen' : 'Learn'}</Link>
       <Link href={`${prefix}/subjects`}>{isGerman ? 'Faecher' : 'Subjects'}</Link>
       <Link href={`${prefix}/subjects/mathematics`}>{isGerman ? 'Mathematik' : 'Mathematics'}</Link>
       <Link href={`${prefix}/progress`}>{isGerman ? 'Fortschritt' : 'Progress'}</Link>
