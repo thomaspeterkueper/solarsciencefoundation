@@ -3,16 +3,19 @@
  * Path: lib/kxf.ts
  * Repo: github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/kxf.ts
  * Name: kxf - fetch and normalise KUEPER Exchange Format
- * Version: 0.1.0
+ * Version: 0.2.0
  * Created: 2026-06-26
- * Modified: 2026-07-01 10:35 CEST
+ * Modified: 2026-07-02
  * Depends: lib/modules
  */
 
 import { learningModules, type LearningModule } from './modules';
 
-const DEFAULT_KXF_URL =
+const DEFAULT_LEGACY_KXF_URL =
   'https://raw.githubusercontent.com/thomaspeterkueper/kueper-knowledge-graph/main/exports/kxf-0.1.json';
+
+const DEFAULT_LEARNING_MODULES_URL =
+  'https://raw.githubusercontent.com/thomaspeterkueper/kueper-knowledge-graph/main/exports/kxf-learning-modules-0.1.json';
 
 export type KxfEntity = {
   id: string;
@@ -26,9 +29,25 @@ export type KxfLearningModule = {
   id: string;
   system?: string;
   name?: string;
+  title?: string;
   teaches?: string[];
   requires?: string[];
   unlocks?: string[];
+  meta?: {
+    title?: string;
+    subject?: string;
+    status?: string;
+    duration_min?: number;
+    duration_max?: number;
+    entry_question?: string;
+  };
+  dependencies?: {
+    requires?: string[];
+    module_unlocks?: string[];
+  };
+  noxia?: {
+    grants?: string[];
+  };
 };
 
 export type KxfUnlock = {
@@ -51,6 +70,7 @@ export type KxfExport = {
     knowledgeDomains?: unknown[];
     prerequisites?: unknown[];
     learningModules?: KxfLearningModule[];
+    learning_modules?: KxfLearningModule[];
     unlocks?: KxfUnlock[];
     buildings?: unknown[];
     mappings?: unknown[];
@@ -65,12 +85,14 @@ export type KxfSnapshot = {
 };
 
 export function kxfUrl() {
-  return process.env.KUEPER_KG_KXF_URL ?? DEFAULT_KXF_URL;
+  return process.env.KUEPER_KG_KXF_URL ?? DEFAULT_LEGACY_KXF_URL;
 }
 
-export async function fetchKxfSnapshot(): Promise<KxfSnapshot> {
-  const sourceUrl = kxfUrl();
+export function learningModulesUrl() {
+  return process.env.KUEPER_KXF_MODULES_URL ?? DEFAULT_LEARNING_MODULES_URL;
+}
 
+async function fetchJsonSnapshot(sourceUrl: string): Promise<KxfSnapshot> {
   try {
     const response = await fetch(sourceUrl, {
       next: { revalidate: 300 },
@@ -105,10 +127,19 @@ export async function fetchKxfSnapshot(): Promise<KxfSnapshot> {
   }
 }
 
+export async function fetchKxfSnapshot(): Promise<KxfSnapshot> {
+  return fetchJsonSnapshot(kxfUrl());
+}
+
+export async function fetchLearningModulesSnapshot(): Promise<KxfSnapshot> {
+  return fetchJsonSnapshot(learningModulesUrl());
+}
+
 function isKxfExport(value: unknown): value is KxfExport {
   if (typeof value !== 'object' || value === null) return false;
   const record = value as Record<string, unknown>;
-  return record.schema === 'KXF-0.1' && typeof record.records === 'object';
+  const records = record.records;
+  return typeof record.schema === 'string' && typeof records === 'object' && records !== null;
 }
 
 export function toSsfModuleId(kxfModuleId: string) {
@@ -128,7 +159,16 @@ export function toKxfModuleId(ssfModuleId: string) {
 function domainFromKxf(module: KxfLearningModule, entities: KxfEntity[]) {
   const firstTaught = module.teaches?.[0];
   const entity = firstTaught ? entities.find((item) => item.id === firstTaught) : undefined;
-  return entity?.domain ?? 'Science';
+  if (entity?.domain) return entity.domain;
+
+  const subject = module.meta?.subject;
+  if (subject === 'MAT') return 'Mathematics';
+  if (subject === 'PHY') return 'Physics';
+  if (subject === 'CHE' || subject === 'CHM') return 'Chemistry';
+  if (subject === 'AST') return 'Astronomy';
+  if (subject === 'BIO') return 'Biology';
+  if (subject === 'EAR') return 'Earth science';
+  return 'Science';
 }
 
 function fallbackModuleFor(ssfId: string) {
@@ -148,9 +188,17 @@ function moduleSortValue(module: LearningModule) {
   return `${domainOrder[module.domain] ?? 8}-${module.id}`;
 }
 
-export function normaliseKxfModules(kxf: KxfExport): LearningModule[] {
-  const kxfModules = kxf.records?.learningModules ?? [];
-  const entities = kxf.records?.entities ?? [];
+function modulesFromExport(kxf: KxfExport): KxfLearningModule[] {
+  return kxf.records?.learning_modules ?? kxf.records?.learningModules ?? [];
+}
+
+function moduleUnlocks(module: KxfLearningModule) {
+  return module.dependencies?.module_unlocks ?? module.unlocks ?? [];
+}
+
+export function normaliseKxfModules(kxf: KxfExport, legacyKxf?: KxfExport): LearningModule[] {
+  const kxfModules = modulesFromExport(kxf);
+  const entities = legacyKxf?.records?.entities ?? kxf.records?.entities ?? [];
 
   if (kxfModules.length === 0) {
     return learningModules;
@@ -161,21 +209,23 @@ export function normaliseKxfModules(kxf: KxfExport): LearningModule[] {
   for (const module of kxfModules) {
     const ssfId = toSsfModuleId(module.id);
     const fallback = fallbackModuleFor(ssfId);
+    const durationMinutes = module.meta?.duration_min ?? fallback?.durationMinutes ?? 8;
 
     merged.set(ssfId, {
       id: ssfId,
-      title: fallback?.title ?? module.name ?? ssfId,
+      title: fallback?.title ?? module.meta?.title ?? module.title ?? module.name ?? ssfId,
       domain: fallback?.domain ?? domainFromKxf(module, entities),
       difficulty: fallback?.difficulty ?? 1,
-      durationMinutes: fallback?.durationMinutes ?? 8,
+      durationMinutes,
       summary:
         fallback?.summary ??
+        module.meta?.entry_question ??
         'A learning module imported from the KUEPER Knowledge Graph. Detailed SSF text will be added by the didactic layer.',
       source: {
         authority: 'kueper-knowledge-graph',
         kxfEntityIds: module.teaches ?? fallback?.source.kxfEntityIds ?? []
       },
-      unlocks: module.unlocks ?? fallback?.unlocks ?? [],
+      unlocks: moduleUnlocks(module) ?? fallback?.unlocks ?? [],
       exercises: fallback?.exercises ?? []
     });
   }
@@ -190,11 +240,20 @@ export function normaliseKxfModules(kxf: KxfExport): LearningModule[] {
 }
 
 export async function getKxfLearningModules(): Promise<LearningModule[]> {
-  const snapshot = await fetchKxfSnapshot();
-  if (!snapshot.loaded || !snapshot.data) {
-    return learningModules;
+  const [learningSnapshot, legacySnapshot] = await Promise.all([
+    fetchLearningModulesSnapshot(),
+    fetchKxfSnapshot()
+  ]);
+
+  if (learningSnapshot.loaded && learningSnapshot.data) {
+    return normaliseKxfModules(learningSnapshot.data, legacySnapshot.data);
   }
-  return normaliseKxfModules(snapshot.data);
+
+  if (legacySnapshot.loaded && legacySnapshot.data) {
+    return normaliseKxfModules(legacySnapshot.data);
+  }
+
+  return learningModules;
 }
 
 export async function getKxfLearningModuleById(id: string): Promise<LearningModule | null> {
