@@ -14,8 +14,8 @@ export default function SiteFooter() {
         <div>
           <div className="honest">
             {isGerman
-              ? 'Eine fiktive Wissenschafts-, Lern- und Archivplattform innerhalb des NO&#967;&#185;&#916;-Universums.'
-              : 'A fictional science learning and archive platform within the NO&#967;&#185;&#916; universe.'}
+              ? 'Eine fiktive Wissenschafts-, Lern- und Archivplattform innerhalb des NOχ¹Δ-Universums.'
+              : 'A fictional science learning and archive platform within the NOχ¹Δ universe.'}
           </div>
           <div className="meta">
             <span>
