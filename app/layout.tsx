@@ -2,13 +2,13 @@ import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import Link from 'next/link';
 import Signet from '../components/Signet';
+import SiteFooter from '../components/SiteFooter';
 import SiteNav from '../components/SiteNav';
 import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Solar Science Foundation',
-  description:
-    'A fictional science learning and archive platform within the NO&#967;&#185;&#916; universe.'
+  description: 'A fictional science learning and archive platform.'
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
@@ -27,24 +27,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 
         <main>{children}</main>
 
-        <footer className="site-footer">
-          <div className="container">
-            <div>
-              <div className="honest">A fictional science learning and archive platform within the NO&#967;&#185;&#916; universe.</div>
-              <div className="meta">
-                <span>Founded 2045 in Geneva. Not a real foundation or accredited institution.</span>
-              </div>
-            </div>
-            <div className="meta">
-              <a href="#">Impressum</a>
-              <a href="#">Datenschutz</a>
-              <Link href="/about">About</Link>
-              <Link href="/membership">Membership</Link>
-              <Link href="/progress">Progress</Link>
-              <Link href="/login">Login</Link>
-            </div>
-          </div>
-        </footer>
+        <SiteFooter />
       </body>
     </html>
   );
