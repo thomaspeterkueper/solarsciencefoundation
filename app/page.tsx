@@ -10,10 +10,10 @@ export default async function HomePage() {
     <div className="container" style={{ paddingTop: 58, paddingBottom: 8 }}>
       <section className="hero-grid">
         <div>
-          <p className="kicker">Fictional NOXIA universe academy - founded 2164, Luna Prime</p>
-          <h1 className="hero">Learn how the universe works.</h1>
+          <p className="kicker">Fictional NO&#967;&#185;&#916; universe archive - founded 2045, Geneva</p>
+          <h1 className="hero">Knowledge must keep flowing.</h1>
           <p className="lede">
-            The Solar Science Foundation is a fictional science learning platform within the NOXIA universe.
+            The Solar Science Foundation is a fictional science learning and archive platform within the NO&#967;&#185;&#916; universe.
             It turns connected knowledge from the KUEPER Knowledge Graph into short modules in German and English.
           </p>
           <p className="subjects">
@@ -24,7 +24,7 @@ export default async function HomePage() {
             <Link className="btn secondary" href="/subjects">Browse subjects →</Link>
           </div>
           <p style={{ color: 'var(--steel)', maxWidth: 760, lineHeight: 1.55, marginTop: 22, fontSize: 14 }}>
-            SSF is educational worldbuilding for learning modules and optional NOXIA progress integration.
+            SSF is educational worldbuilding for learning modules, archive records and optional NO&#967;&#185;&#916; progress integration.
           </p>
         </div>
 
@@ -55,8 +55,8 @@ export default async function HomePage() {
           <p>SSF turns knowledge into modules, exercises and reusable progress records.</p>
         </div>
         <div className="platform-card">
-          <p className="section-title">NOXIA unlocks</p>
-          <p>Progress earned here can optionally unlock capabilities in NOXIA.</p>
+          <p className="section-title">NO&#967;&#185;&#916; unlocks</p>
+          <p>Progress earned here can optionally unlock capabilities in NO&#967;&#185;&#916;.</p>
         </div>
       </section>
 
