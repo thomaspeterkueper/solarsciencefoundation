@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import Link from 'next/link';
 import Signet from '../components/Signet';
+import SiteNav from '../components/SiteNav';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -20,19 +21,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               <Signet />
               <span className="wordmark">Solar Science Foundation</span>
             </Link>
-            <nav className="nav">
-              <Link href="/subjects">Subjects</Link>
-              <Link href="/subjects/mathematics">Mathematics</Link>
-              <Link href="/progress">Progress</Link>
-              <Link href="/membership">Membership</Link>
-              <Link href="/login">Login</Link>
-              <Link href="/api/kxf">KXF</Link>
-              <a href="https://noxiagame.vercel.app" className="accent">NO&#967;&#185;&#916;</a>
-              <span className="sep">·</span>
-              <Link href="/de" className="mono" style={{ fontSize: 11 }}>DE</Link>
-              <span className="mono" style={{ fontSize: 11 }}>/</span>
-              <Link href="/" className="mono" style={{ fontSize: 11 }}>EN</Link>
-            </nav>
+            <SiteNav />
           </div>
         </header>
 
