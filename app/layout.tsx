@@ -1,14 +1,3 @@
-/**
- * KUEPER - Solar Science Foundation (SSF)
- * Path: app/layout.tsx
- * Repo: github.com/thomaspeterkueper/solarsciencefoundation/blob/main/app/layout.tsx
- * Name: RootLayout
- * Version: 0.1.0
- * Created: 2026-06-26
- * Modified: 2026-06-27 11:25 CEST
- * Depends: next, next/link, components/Signet, app/globals.css
- */
-
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import Link from 'next/link';
@@ -18,7 +7,7 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'Solar Science Foundation',
   description:
-    'An independent science learning project by Thomas Peter Küper. Short, connected learning modules in German and English.'
+    'A fictional science learning and archive platform within the NO&#967;&#185;&#916; universe.'
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
@@ -38,9 +27,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               <Link href="/membership">Membership</Link>
               <Link href="/login">Login</Link>
               <Link href="/api/kxf">KXF</Link>
-              <a href="https://noxiagame.vercel.app" className="accent">NOXIA</a>
+              <a href="https://noxiagame.vercel.app" className="accent">NO&#967;&#185;&#916;</a>
               <span className="sep">·</span>
-              <span className="mono" style={{ fontSize: 11 }}>DE / EN</span>
+              <Link href="/de" className="mono" style={{ fontSize: 11 }}>DE</Link>
+              <span className="mono" style={{ fontSize: 11 }}>/</span>
+              <Link href="/" className="mono" style={{ fontSize: 11 }}>EN</Link>
             </nav>
           </div>
         </header>
@@ -50,9 +41,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <footer className="site-footer">
           <div className="container">
             <div>
-              <div className="honest">A science learning project by Thomas Peter Küper.</div>
+              <div className="honest">A fictional science learning and archive platform within the NO&#967;&#185;&#916; universe.</div>
               <div className="meta">
-                <span>Not an accredited institution. NOXIA is the first partner project.</span>
+                <span>Founded 2045 in Geneva. Not a real foundation or accredited institution.</span>
               </div>
             </div>
             <div className="meta">
