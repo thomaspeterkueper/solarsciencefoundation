@@ -1,0 +1,86 @@
+id: TM2-STRESS-001
+type: LearningModule
+status: draft
+source:
+  document: Zusammengesetzte Beanspruchung Lernheft
+  source_file: Zusammengesetzte_Beanspruchung_Lernheft.pdf
+  source_sections:
+    - Teil C · Der Spannungszustand in einem Punkt
+    - C.1 Schon ein Zugstab hat Schub — unter dem schrägen Schnitt
+    - C.2 Der ebene Spannungszustand und die Transformation
+language:
+  primary: de
+  planned:
+    - en
+title:
+  de: Spannungszustand im Punkt
+  en: Stress state at a point
+summary:
+  de: >
+    Das Modul führt die zentrale Idee ein, dass Spannung von der Schnittrichtung
+    abhängt. Ein Punkt besitzt keinen einzelnen Spannungswert, sondern einen
+    Spannungszustand mit Normal- und Schubanteilen.
+  en: >
+    This module introduces the central idea that stress depends on the orientation
+    of the section. A point does not have one single stress value, but a stress state
+    with normal and shear components.
+level:
+  ssf_level: N3
+  academic_context: TM2 Festigkeitslehre
+duration_minutes: 75
+learning_objectives:
+  de:
+    - Erklären, warum ein Zugstab unter schrägem Schnitt Schubspannung zeigt.
+    - Normal- und Schubanteil eines schrägen Schnitts berechnen.
+    - Den ebenen Spannungszustand mit σx, σy und τxy beschreiben.
+    - Transformationsformeln für gedrehte Schnitte anwenden.
+  en:
+    - Explain why a tensile bar shows shear stress on an inclined section.
+    - Calculate normal and shear components on an inclined section.
+    - Describe plane stress using σx, σy and τxy.
+    - Apply stress transformation formulas for rotated sections.
+prerequisites:
+  modules:
+    - TM2-COMB-001
+  concepts:
+    - CON:TM:normal-stress
+    - CON:TM:shear-stress
+    - CON:MATH:trigonometry
+    - CON:MATH:coordinate-transformation
+key_concepts:
+  - CON:TM:stress-state
+  - CON:TM:inclined-section
+  - CON:TM:plane-stress
+  - CON:TM:stress-transformation
+formulas:
+  - id: EQ:TM2:STRESS:inclined-normal
+    latex: "\\sigma_\\varphi=\\sigma_0\\cos^2\\varphi"
+  - id: EQ:TM2:STRESS:inclined-shear
+    latex: "\\tau_\\varphi=\\sigma_0\\sin\\varphi\\cos\\varphi=\\frac{\\sigma_0}{2}\\sin(2\\varphi)"
+  - id: EQ:TM2:STRESS:transform-normal
+    latex: "\\sigma_\\xi=\\frac{\\sigma_x+\\sigma_y}{2}+\\frac{\\sigma_x-\\sigma_y}{2}\\cos 2\\varphi+\\tau_{xy}\\sin 2\\varphi"
+  - id: EQ:TM2:STRESS:transform-shear
+    latex: "\\tau_{\\xi\\eta}=-\\frac{\\sigma_x-\\sigma_y}{2}\\sin 2\\varphi+\\tau_{xy}\\cos 2\\varphi"
+canonical_examples:
+  - id: EX:TM2:STRESS:001
+    title:
+      de: Schrägschnitt am Zugstab
+      en: Inclined section in a tensile bar
+    source_section: C.1
+assessment:
+  formative:
+    - Berechnung von σφ und τφ für mehrere Schnittwinkel.
+    - Transformationsaufgabe für einen ebenen Spannungszustand.
+  mastery_criteria:
+    - Lernende können begründen, warum Spannung richtungsabhängig ist.
+    - Lernende setzen die Transformationsformeln mit korrektem Winkelbezug ein.
+relations:
+  requires:
+    - TM2-COMB-001
+  precedes:
+    - TM2-PRINCIPAL-001
+ssf_notes:
+  de: >
+    Dieses Modul ist didaktisch der Umschaltpunkt von Einzelspannungen zu
+    tensoriellem Denken. Es sollte im SSF-System als Voraussetzung für alle Module
+    mit Hauptspannungen, Vergleichsspannungen und Bruchhypothesen markiert werden.
