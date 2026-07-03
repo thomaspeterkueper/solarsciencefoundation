@@ -1,0 +1,84 @@
+id: TM2-STRAIN-001
+type: LearningModule
+status: draft
+source:
+  document: Zusammengesetzte Beanspruchung Lernheft
+  source_file: Zusammengesetzte_Beanspruchung_Lernheft.pdf
+  source_sections:
+    - Teil E · Verformung: Hooke für 2D/3D und DMS
+    - E.1 Querkontraktion und das Hooke'sche Gesetz in mehreren Achsen
+language:
+  primary: de
+  planned:
+    - en
+title:
+  de: Mehrachsige Dehnung, Hooke und DMS
+  en: Multiaxial strain, Hooke's law and strain gauges
+summary:
+  de: >
+    Das Modul behandelt Querkontraktion und das Hooke'sche Gesetz für mehrachsige
+    Spannungszustände. Es zeigt außerdem, warum Spannungen experimentell häufig über
+    Dehnungen und DMS-Rosetten erschlossen werden.
+  en: >
+    This module covers Poisson contraction and Hooke's law for multiaxial stress
+    states. It also explains why stresses are often determined experimentally through
+    strains and strain-gauge rosettes.
+level:
+  ssf_level: N4
+  academic_context: TM2 Festigkeitslehre
+duration_minutes: 60
+learning_objectives:
+  de:
+    - Querkontraktion als Kopplung zwischen Längs- und Querdehnung verstehen.
+    - Ebenes Hooke-Gesetz für σx und σy anwenden.
+    - Erkennen, dass auch in spannungsfreier Dickenrichtung Dehnung auftreten kann.
+    - DMS und DMS-Rosetten als experimentellen Zugang zum Spannungszustand einordnen.
+  en:
+    - Understand Poisson contraction as coupling between longitudinal and transverse strain.
+    - Apply plane Hooke's law for σx and σy.
+    - Recognize that strain can occur even in the stress-free thickness direction.
+    - Classify strain gauges and strain-gauge rosettes as an experimental route to the stress state.
+prerequisites:
+  modules:
+    - TM2-STRESS-001
+  concepts:
+    - CON:TM:strain
+    - CON:TM:elasticity
+    - CON:TM:hookes-law
+    - CON:TM:poisson-ratio
+key_concepts:
+  - CON:TM:multiaxial-hooke-law
+  - CON:TM:poisson-contraction
+  - CON:TM:strain-gauge
+  - CON:TM:strain-gauge-rosette
+  - CON:TM:experimental-stress-analysis
+formulas:
+  - id: EQ:TM2:STRAIN:plane-hooke-x
+    latex: "\\varepsilon_x=\\frac{1}{E}(\\sigma_x-\\nu\\sigma_y)"
+  - id: EQ:TM2:STRAIN:plane-hooke-y
+    latex: "\\varepsilon_y=\\frac{1}{E}(\\sigma_y-\\nu\\sigma_x)"
+  - id: EQ:TM2:STRAIN:plane-hooke-z
+    latex: "\\varepsilon_z=-\\frac{\\nu}{E}(\\sigma_x+\\sigma_y)"
+canonical_examples:
+  - id: EX:TM2:STRAIN:001
+    title:
+      de: Aus Dehnungen auf Spannungen schließen
+      en: Inferring stresses from strains
+    source_section: E.1
+assessment:
+  formative:
+    - Rechenaufgabe zum ebenen Hooke-Gesetz.
+    - Verständnisfrage zur Dehnung in Dickenrichtung bei σz = 0.
+  mastery_criteria:
+    - Lernende können εx, εy und εz aus σx, σy, E und ν bestimmen.
+    - Lernende erklären die Rolle einer 0°/45°/90°-DMS-Rosette.
+relations:
+  requires:
+    - TM2-STRESS-001
+  supports:
+    - TM2-PRINCIPAL-001
+ssf_notes:
+  de: >
+    Dieses Modul ergänzt die rechnerische Festigkeitslehre um den experimentellen
+    Zugang. Es sollte später mit Labor-, Sensorik- und Messdatenauswertungsmodulen
+    verknüpft werden.
