@@ -1,0 +1,91 @@
+id: TM2-COMB-002
+type: LearningModule
+status: draft
+source:
+  document: Zusammengesetzte Beanspruchung Lernheft
+  source_file: Zusammengesetzte_Beanspruchung_Lernheft.pdf
+  source_sections:
+    - Teil D · Der Klassiker: Biegung + Torsion
+    - Aufgabe D1 — Welle unter Biegung und Torsion
+language:
+  primary: de
+  planned:
+    - en
+title:
+  de: Biegung und Torsion an Wellen
+  en: Bending and torsion in shafts
+summary:
+  de: >
+    Das Modul verbindet Biegespannung und Torsionsschubspannung am kritischen
+    Randpunkt einer Welle. Danach wird aus den Einzelspannungen ein ebener
+    Spannungszustand aufgebaut und über Hauptspannungen ausgewertet.
+  en: >
+    This module combines bending stress and torsional shear stress at the critical
+    outer point of a shaft. The individual stresses are then assembled into a plane
+    stress state and evaluated using principal stresses.
+level:
+  ssf_level: N4
+  academic_context: TM2 Festigkeitslehre
+duration_minutes: 75
+learning_objectives:
+  de:
+    - Den kritischen Punkt bei Biegung und Torsion bestimmen.
+    - Biegespannung und Torsionsschubspannung an einer Rundwelle berechnen.
+    - Querkraftschub am Rand korrekt vernachlässigen.
+    - Hauptspannungen aus σb und τT berechnen.
+    - Vergleichsspannung als nächsten Festigkeitsnachweis einordnen.
+  en:
+    - Determine the critical point under bending and torsion.
+    - Calculate bending stress and torsional shear stress in a circular shaft.
+    - Correctly neglect transverse shear at the outer boundary.
+    - Calculate principal stresses from σb and τT.
+    - Place equivalent stress as the next step in strength verification.
+prerequisites:
+  modules:
+    - TM2-COMB-001
+    - TM2-PRINCIPAL-001
+  concepts:
+    - CON:TM:bending-stress
+    - CON:TM:torsional-shear-stress
+    - CON:TM:section-modulus
+    - CON:TM:polar-section-modulus
+key_concepts:
+  - CON:TM:shaft
+  - CON:TM:critical-point
+  - CON:TM:bending-and-torsion
+  - CON:TM:von-mises-preview
+formulas:
+  - id: EQ:TM2:COMB2:bending-stress
+    latex: "\\sigma_b=\\frac{M_b}{W}"
+  - id: EQ:TM2:COMB2:torsional-shear
+    latex: "\\tau_T=\\frac{M_T}{W_T}"
+  - id: EQ:TM2:COMB2:round-section-modulus
+    latex: "W=\\frac{\\pi d^3}{32},\\quad W_T=\\frac{\\pi d^3}{16}=2W"
+  - id: EQ:TM2:COMB2:principal-stress-special-case
+    latex: "\\sigma_{1,2}=\\frac{\\sigma_b}{2}\\pm\\sqrt{\\left(\\frac{\\sigma_b}{2}\\right)^2+\\tau_T^2}"
+  - id: EQ:TM2:COMB2:von-mises-preview
+    latex: "\\sigma_V=\\sqrt{\\sigma_b^2+3\\tau_T^2}"
+canonical_examples:
+  - id: EX:TM2:COMB2:001
+    title:
+      de: Eingespannte Welle mit Biegemoment und Torsionsmoment
+      en: Cantilevered shaft with bending moment and torque
+    source_section: Aufgabe D1
+assessment:
+  formative:
+    - Prüfungsaufgabe mit d, Mb und MT.
+    - Kritischer-Punkt-Begründung anhand der Spannungsverläufe.
+  mastery_criteria:
+    - Lernende erkennen, dass am Rand σb und τT maximal sind, τQ aber null ist.
+    - Lernende berechnen σ1, σ2 und τmax für den kritischen Punkt.
+relations:
+  requires:
+    - TM2-COMB-001
+    - TM2-PRINCIPAL-001
+  precedes:
+    - TM2-EQUIV-001
+ssf_notes:
+  de: >
+    Dieses Modul ist eine ideale technische Anwendungsbrücke. Es zeigt, wie die
+    abstrakten Hauptspannungen in einem realistischen Maschinenbauproblem benötigt
+    werden.
