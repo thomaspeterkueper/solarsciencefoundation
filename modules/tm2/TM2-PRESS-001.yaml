@@ -1,0 +1,82 @@
+id: TM2-PRESS-001
+type: LearningModule
+status: draft
+source:
+  document: Zusammengesetzte Beanspruchung Lernheft
+  source_file: Zusammengesetzte_Beanspruchung_Lernheft.pdf
+  source_sections:
+    - Teil B · Kesselformeln
+    - B.1 Warum ein Druckbehälter zwei verschiedene Spannungen hat
+language:
+  primary: de
+  planned:
+    - en
+title:
+  de: Dünnwandige Druckbehälter und Kesselformeln
+  en: Thin-walled pressure vessels and boiler formulas
+summary:
+  de: >
+    Das Modul erklärt, warum ein dünnwandiger Zylinder unter Innendruck zwei
+    Hauptspannungen besitzt: Längsspannung und Umfangsspannung. Die Umfangsspannung
+    ist beim dünnwandigen Zylinder doppelt so groß wie die Längsspannung.
+  en: >
+    This module explains why a thin-walled cylinder under internal pressure has two
+    principal stresses: longitudinal stress and hoop stress. In a thin-walled cylinder,
+    hoop stress is twice the longitudinal stress.
+level:
+  ssf_level: N3
+  academic_context: TM2 Festigkeitslehre
+duration_minutes: 45
+learning_objectives:
+  de:
+    - Längs- und Umfangsspannung an einem Druckbehälter unterscheiden.
+    - Kesselformeln aus Gleichgewichtsbedingungen nachvollziehen.
+    - Erkennen, dass die Kesselschnitte schubspannungsfrei und damit Hauptschnitte sind.
+    - Den Zusammenhang zwischen Rissrichtung und größter Spannung erklären.
+  en:
+    - Distinguish longitudinal and hoop stress in a pressure vessel.
+    - Derive boiler formulas from equilibrium conditions.
+    - Recognize that the pressure-vessel sections are shear-free principal sections.
+    - Explain the relation between crack direction and the largest stress.
+prerequisites:
+  modules:
+    - TM2-COMB-001
+  concepts:
+    - CON:TM:stress
+    - CON:TM:equilibrium
+    - CON:MATH:circle-area
+    - CON:TM:thin-walled-assumption
+key_concepts:
+  - CON:TM:pressure-vessel
+  - CON:TM:hoop-stress
+  - CON:TM:longitudinal-stress
+  - CON:TM:principal-section
+formulas:
+  - id: EQ:TM2:PRESS:longitudinal-stress
+    latex: "\\sigma_l=\\frac{p d_i}{4t}"
+  - id: EQ:TM2:PRESS:hoop-stress
+    latex: "\\sigma_t=\\frac{p d_i}{2t}"
+  - id: EQ:TM2:PRESS:stress-ratio
+    latex: "\\sigma_t=2\\sigma_l"
+canonical_examples:
+  - id: EX:TM2:PRESS:001
+    title:
+      de: Dünnwandiger Zylinder mit Innendruck
+      en: Thin-walled cylinder under internal pressure
+    source_section: B.1
+assessment:
+  formative:
+    - Kurze Herleitung über Deckel-Schnitt und Längs-Schnitt.
+    - Zahlenaufgabe mit Innendurchmesser, Wanddicke und Druck.
+  mastery_criteria:
+    - Lernende berechnen σ_l und σ_t korrekt.
+    - Lernende können erklären, warum σ_t doppelt so groß ist wie σ_l.
+relations:
+  requires:
+    - TM2-COMB-001
+  precedes:
+    - TM2-STRESS-001
+ssf_notes:
+  de: >
+    Dieses Modul ist als anschauliche Brücke gut geeignet, weil es direkt zeigt,
+    dass reale Bauteile mehr als eine relevante Spannung besitzen können.
