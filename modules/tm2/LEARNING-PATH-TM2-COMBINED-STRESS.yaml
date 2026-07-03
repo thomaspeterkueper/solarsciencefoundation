@@ -1,0 +1,67 @@
+id: LP:TM2:COMBINED-STRESS
+status: draft
+type: LearningPath
+source:
+  document: Zusammengesetzte Beanspruchung Lernheft
+  source_file: Zusammengesetzte_Beanspruchung_Lernheft.pdf
+language:
+  primary: de
+  planned:
+    - en
+title:
+  de: Zusammengesetzte Beanspruchung
+  en: Combined loading and stress states
+summary:
+  de: >
+    Lernpfad aus dem Lernheft "Zusammengesetzte Beanspruchung". Der Pfad führt von
+    der Überlagerung gleichartiger Spannungen über Druckbehälter und ebene
+    Spannungszustände zu Hauptspannungen, Biegung plus Torsion sowie mehrachsiger
+    Dehnung und DMS.
+  en: >
+    Learning path based on the booklet "Combined Loading". It leads from the
+    superposition of stresses through pressure vessels and plane stress states to
+    principal stresses, bending plus torsion, and multiaxial strain with strain gauges.
+level_range:
+  from: N3
+  to: N4
+duration_minutes_total: 405
+modules_ordered:
+  - id: TM2-COMB-001
+    title_de: Überlagerung von Spannungen
+    role: foundation
+  - id: TM2-PRESS-001
+    title_de: Dünnwandige Druckbehälter und Kesselformeln
+    role: applied_bridge
+  - id: TM2-STRESS-001
+    title_de: Spannungszustand im Punkt
+    role: conceptual_core
+  - id: TM2-PRINCIPAL-001
+    title_de: Hauptspannungen und Mohrscher Kreis
+    role: advanced_core
+  - id: TM2-COMB-002
+    title_de: Biegung und Torsion an Wellen
+    role: engineering_application
+  - id: TM2-STRAIN-001
+    title_de: Mehrachsige Dehnung, Hooke und DMS
+    role: measurement_and_extension
+knowledge_graph_requirements:
+  entities_needed:
+    - LearningPath
+    - LearningModule
+    - Concept
+    - Formula
+    - Example
+    - Assessment
+  relations_needed:
+    - requires
+    - precedes
+    - supports
+    - contains_concept
+    - uses_formula
+    - has_example
+    - assesses_objective
+ssf_curriculum_notes:
+  de: >
+    Dieser Lernpfad ist als erstes konkretes Testobjekt für die SSF-Modulstruktur
+    geeignet. Er zeigt, welche Metadaten der Knowledge Graph liefern muss, damit
+    Website, Kurse, Aufgaben und später NOXIA dieselben Wissensobjekte verwenden können.
