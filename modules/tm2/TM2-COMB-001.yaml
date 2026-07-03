@@ -1,0 +1,87 @@
+id: TM2-COMB-001
+type: LearningModule
+status: draft
+source:
+  document: Zusammengesetzte Beanspruchung Lernheft
+  source_file: Zusammengesetzte_Beanspruchung_Lernheft.pdf
+  source_sections:
+    - Teil A · Überlagerung
+    - A.1 Das Prinzip: gleichartige Spannungen addieren sich
+    - A.2 Kombinierte Normalspannung aus Normalkraft und Biegung
+    - Aufgabe A1 — außermittige Zugkraft
+language:
+  primary: de
+  planned:
+    - en
+title:
+  de: Überlagerung von Spannungen
+  en: Superposition of stresses
+summary:
+  de: >
+    Einführung in zusammengesetzte Beanspruchung: Normalspannungen aus Normalkraft
+    und Biegung werden punktweise skalar überlagert, Schubspannungen je nach Richtung
+    skalar oder vektoriell. Normal- und Schubspannung werden nicht direkt addiert,
+    sondern führen zum Spannungszustand im Punkt.
+  en: >
+    Introduction to combined loading: normal stresses from axial force and bending
+    are superposed point by point, while shear stresses are combined according to
+    their direction. Normal and shear stress are not added directly; together they
+    form the stress state at a point.
+level:
+  ssf_level: N3
+  academic_context: TM2 Festigkeitslehre
+duration_minutes: 60
+learning_objectives:
+  de:
+    - Gleichartige Spannungen sicher erkennen und addieren.
+    - Normalspannungen aus Normalkraft und zweiachsiger Biegung berechnen.
+    - Schubspannungen von Normalspannungen begrifflich trennen.
+    - Exzentrische Zugkraft als Kraft plus Momentenpaar modellieren.
+  en:
+    - Identify and add stresses of the same type.
+    - Calculate normal stress from axial force and biaxial bending.
+    - Distinguish shear stress from normal stress conceptually.
+    - Model eccentric tensile loading as force plus bending moments.
+prerequisites:
+  modules: []
+  concepts:
+    - CON:TM:stress
+    - CON:TM:normal-stress
+    - CON:TM:shear-stress
+    - CON:TM:axial-force
+    - CON:TM:bending-moment
+    - CON:TM:second-moment-of-area
+key_concepts:
+  - CON:TM:stress-superposition
+  - CON:TM:eccentric-load
+  - CON:TM:section-modulus
+  - CON:TM:biaxial-bending
+formulas:
+  - id: EQ:TM2:COMB:normal-stress-biaxial
+    latex: "\\sigma(y,z)=\\frac{N}{A}+\\frac{M_y}{I_y}z-\\frac{M_z}{I_z}y"
+  - id: EQ:TM2:COMB:max-normal-stress
+    latex: "|\\sigma_{max}|=\\left|\\frac{N}{A}\\right|+\\left|\\frac{M_y}{W_y}\\right|+\\left|\\frac{M_z}{W_z}\\right|"
+canonical_examples:
+  - id: EX:TM2:COMB:001
+    title:
+      de: Außermittige Zugkraft am Rechteckquerschnitt
+      en: Eccentric tensile force on a rectangular cross-section
+    source_section: Aufgabe A1
+assessment:
+  formative:
+    - Rechenaufgabe zur exzentrischen Zugkraft.
+    - Vorzeichenprüfung am gefährlichsten Eckpunkt.
+  mastery_criteria:
+    - Lernende können aus einer exzentrischen Kraft die äquivalenten Schnittgrößen N, My und Mz bestimmen.
+    - Lernende können erklären, warum Normalspannung und Schubspannung nicht direkt addiert werden.
+relations:
+  precedes:
+    - TM2-PRESS-001
+    - TM2-STRESS-001
+  supports:
+    - TM2-COMB-002
+ssf_notes:
+  de: >
+    Dieses Modul eignet sich als Einstieg in zusammengesetzte Beanspruchung. Es liefert
+    zugleich das didaktische Muster für SSF-Module: Grundidee, Formel, Bildmodell,
+    Beispielaufgabe, Merksatz.
