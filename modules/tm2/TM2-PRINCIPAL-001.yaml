@@ -1,0 +1,87 @@
+id: TM2-PRINCIPAL-001
+type: LearningModule
+status: draft
+source:
+  document: Zusammengesetzte Beanspruchung Lernheft
+  source_file: Zusammengesetzte_Beanspruchung_Lernheft.pdf
+  source_sections:
+    - C.3 Die Hauptspannungen — das Ziel des ganzen Kapitels
+    - C.4 Zwei Wege zum Ziel — Formel oder Mohrscher Kreis
+    - Aufgabe C1 — Hauptspannungen eines ebenen Spannungszustands
+language:
+  primary: de
+  planned:
+    - en
+title:
+  de: Hauptspannungen und Mohrscher Kreis
+  en: Principal stresses and Mohr's circle
+summary:
+  de: >
+    Das Modul behandelt die Extremwerte der Normalspannung, die zugehörigen
+    Hauptrichtungen, die maximale Schubspannung und den Mohrschen Spannungskreis
+    als geometrische Kontroll- und Verständnisform.
+  en: >
+    This module covers the extrema of normal stress, the corresponding principal
+    directions, maximum shear stress, and Mohr's circle as a geometric tool for
+    checking and understanding stress transformation.
+level:
+  ssf_level: N4
+  academic_context: TM2 Festigkeitslehre
+duration_minutes: 90
+learning_objectives:
+  de:
+    - Hauptspannungen aus einem ebenen Spannungszustand berechnen.
+    - Hauptrichtung bestimmen und als schubspannungsfreien Schnitt interpretieren.
+    - Maximale Schubspannung als Radius des Mohrschen Kreises verstehen.
+    - Formelweg und Mohrschen Kreis als äquivalente Methoden nutzen.
+  en:
+    - Calculate principal stresses from a plane stress state.
+    - Determine principal direction and interpret it as a shear-free section.
+    - Understand maximum shear stress as the radius of Mohr's circle.
+    - Use formulas and Mohr's circle as equivalent methods.
+prerequisites:
+  modules:
+    - TM2-STRESS-001
+  concepts:
+    - CON:TM:plane-stress
+    - CON:TM:stress-transformation
+    - CON:MATH:quadratic-extrema
+    - CON:MATH:circle-geometry
+key_concepts:
+  - CON:TM:principal-stress
+  - CON:TM:principal-direction
+  - CON:TM:maximum-shear-stress
+  - CON:TM:mohr-circle
+  - CON:TM:stress-invariant
+formulas:
+  - id: EQ:TM2:PRINCIPAL:principal-stresses
+    latex: "\\sigma_{1,2}=\\frac{\\sigma_x+\\sigma_y}{2}\\pm\\sqrt{\\left(\\frac{\\sigma_x-\\sigma_y}{2}\\right)^2+\\tau_{xy}^2}"
+  - id: EQ:TM2:PRINCIPAL:principal-direction
+    latex: "\\tan 2\\varphi^*=\\frac{2\\tau_{xy}}{\\sigma_x-\\sigma_y}"
+  - id: EQ:TM2:PRINCIPAL:max-shear
+    latex: "\\tau_{max}=\\frac{\\sigma_1-\\sigma_2}{2}"
+  - id: EQ:TM2:PRINCIPAL:invariant
+    latex: "\\sigma_1+\\sigma_2=\\sigma_x+\\sigma_y"
+canonical_examples:
+  - id: EX:TM2:PRINCIPAL:001
+    title:
+      de: Hauptspannungen eines ebenen Spannungszustands
+      en: Principal stresses of a plane stress state
+    source_section: Aufgabe C1
+assessment:
+  formative:
+    - Prüfungsaufgabe mit σx, σy, τxy und Schnittwinkel.
+    - Geometrische Prüfung des Ergebnisses am Mohrschen Kreis.
+  mastery_criteria:
+    - Lernende bestimmen σ1, σ2, τmax und φ* numerisch korrekt.
+    - Lernende prüfen ihr Ergebnis mit der Invariante σ1 + σ2 = σx + σy.
+relations:
+  requires:
+    - TM2-STRESS-001
+  precedes:
+    - TM2-COMB-002
+ssf_notes:
+  de: >
+    Dieses Modul ist ein fortgeschrittenes Kernmodul. Es sollte im Knowledge Graph
+    stark mit Transformation, Invarianten, Versagenshypothesen und DMS-Rosetten
+    verknüpft werden.
