@@ -1,0 +1,95 @@
+id: TM2-EQUIV-001
+type: LearningModule
+status: draft
+source:
+  document: Zusammengesetzte Beanspruchung Lernheft
+  source_file: Zusammengesetzte_Beanspruchung_Lernheft.pdf
+  source_sections:
+    - Ausblick Kapitel 8 — Die Vergleichsspannung
+    - Teil D · Der Klassiker: Biegung + Torsion (Ausblick-Abschnitt)
+language:
+  primary: de
+  planned:
+    - en
+title:
+  de: Vergleichsspannung und Festigkeitsnachweis
+  en: Equivalent stress and strength verification
+summary:
+  de: >
+    Mehrachsige Spannungszustände lassen sich nicht direkt mit einem einachsigen
+    Zugversuch vergleichen. Die Vergleichsspannung überführt den mehrachsigen Zustand
+    in einen äquivalenten einachsigen Wert. Das Modul behandelt die
+    Gestaltänderungsenergie-Hypothese (GEH / von Mises) als Standardverfahren im
+    Maschinenbau.
+  en: >
+    Multiaxial stress states cannot be compared directly with a uniaxial tensile test.
+    The equivalent stress converts the multiaxial state into an equivalent uniaxial
+    value. This module covers the von Mises criterion (distortion energy hypothesis)
+    as the standard method in mechanical engineering.
+level:
+  ssf_level: N4
+  academic_context: TM2 Festigkeitslehre
+duration_minutes: 60
+learning_objectives:
+  de:
+    - Erklären, warum ein mehrachsiger Spannungszustand nicht direkt mit Re verglichen werden kann.
+    - Die GEH-Vergleichsspannung für den Fall σ + τ berechnen.
+    - Die allgemeine GEH-Formel mit Hauptspannungen anwenden.
+    - Einen einfachen Festigkeitsnachweis σV ≤ Re / S durchführen.
+  en:
+    - Explain why a multiaxial stress state cannot be compared directly with Re.
+    - Calculate the von Mises equivalent stress for the σ + τ case.
+    - Apply the general von Mises formula using principal stresses.
+    - Perform a basic strength verification σV ≤ Re / S.
+prerequisites:
+  modules:
+    - TM2-COMB-002
+  concepts:
+    - CON:TM:principal-stress
+    - CON:TM:yield-strength
+    - CON:TM:safety-factor
+    - CON:TM:uniaxial-tensile-test
+key_concepts:
+  - CON:TM:equivalent-stress
+  - CON:TM:von-mises-criterion
+  - CON:TM:distortion-energy-hypothesis
+  - CON:TM:strength-verification
+formulas:
+  - id: EQ:TM2:EQUIV:von-mises-general
+    latex: "\sigma_V=\sqrt{\sigma_1^2-\sigma_1\sigma_2+\sigma_2^2}"
+  - id: EQ:TM2:EQUIV:von-mises-sigma-tau
+    latex: "\sigma_V=\sqrt{\sigma_b^2+3\tau_T^2}"
+  - id: EQ:TM2:EQUIV:von-mises-uniaxial
+    latex: "\sigma_V=\sqrt{\sigma_x^2-\sigma_x\sigma_y+\sigma_y^2+3\tau_{xy}^2}"
+  - id: EQ:TM2:EQUIV:strength-verification
+    latex: "\sigma_V \leq \frac{R_e}{S}"
+canonical_examples:
+  - id: EX:TM2:EQUIV:001
+    title:
+      de: Festigkeitsnachweis einer Welle unter Biegung und Torsion
+      en: Strength verification of a shaft under bending and torsion
+    description:
+      de: >
+        Fortsetzung von Aufgabe D1 (TM2-COMB-002): σb = 47,7 N/mm², τT = 15,9 N/mm².
+        σV = √(47,7² + 3·15,9²) ≈ 55,3 N/mm². Vergleich mit Re und Sicherheitsfaktor S.
+      en: >
+        Continuation of exercise D1 (TM2-COMB-002): σb = 47.7 N/mm², τT = 15.9 N/mm².
+        σV = √(47.7² + 3·15.9²) ≈ 55.3 N/mm². Compare with Re and safety factor S.
+assessment:
+  formative:
+    - Vergleichsspannung für gegebene σ1, σ2 berechnen.
+    - Vergleichsspannung für gegebene σb, τT berechnen und Festigkeitsnachweis führen.
+  mastery_criteria:
+    - Lernende wählen die richtige Formel je nach gegebenen Größen (Hauptspannungen oder σ+τ).
+    - Lernende interpretieren σV ≤ Re/S korrekt als Sicherheitsnachweis.
+relations:
+  requires:
+    - TM2-COMB-002
+  extends:
+    - TM2-PRINCIPAL-001  # GEH nutzt Hauptspannungen — direkter konzeptioneller Anschluss
+ssf_notes:
+  de: >
+    Dieses Modul ist der Abschluss des TM2-Lernpfads und der eigentliche
+    Festigkeitsnachweis-Schritt. Es verbindet alle vorherigen Module zu einem
+    anwendbaren Werkzeug. Später mit Werkstoffkunde-Modulen (Re-Werte, Kerbwirkung,
+    Schwingfestigkeit) verknüpfen.
