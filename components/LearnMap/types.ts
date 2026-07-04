@@ -2,11 +2,12 @@
  * KUEPER - Solar Science Foundation (SSF)
  * Path: components/LearnMap/types.ts
  * Name: LearnMap types
- * Version: 0.1.0
+ * Version: 0.2.0
  * Created: 2026-07-02
+ * Modified: 2026-07-04
  */
 
-export type SubjectCode = 'PHY' | 'CHE' | 'BIO' | 'MAT' | 'AST' | 'EAR';
+export type SubjectCode = 'PHY' | 'CHE' | 'BIO' | 'MAT' | 'AST' | 'EAR' | 'ENG';
 
 export type ModuleStatus = 'built' | 'in_progress' | 'planned';
 export type ModuleType = 'learning_path' | 'reference' | 'experiment';
