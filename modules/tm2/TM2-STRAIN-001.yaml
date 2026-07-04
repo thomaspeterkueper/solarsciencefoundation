@@ -54,11 +54,11 @@ key_concepts:
   - CON:TM:experimental-stress-analysis
 formulas:
   - id: EQ:TM2:STRAIN:plane-hooke-x
-    latex: "\\varepsilon_x=\\frac{1}{E}(\\sigma_x-\\nu\\sigma_y)"
+    latex: "\varepsilon_x=\frac{1}{E}(\sigma_x-\nu\sigma_y)"
   - id: EQ:TM2:STRAIN:plane-hooke-y
-    latex: "\\varepsilon_y=\\frac{1}{E}(\\sigma_y-\\nu\\sigma_x)"
+    latex: "\varepsilon_y=\frac{1}{E}(\sigma_y-\nu\sigma_x)"
   - id: EQ:TM2:STRAIN:plane-hooke-z
-    latex: "\\varepsilon_z=-\\frac{\\nu}{E}(\\sigma_x+\\sigma_y)"
+    latex: "\varepsilon_z=-\frac{\nu}{E}(\sigma_x+\sigma_y)"
 canonical_examples:
   - id: EX:TM2:STRAIN:001
     title:
@@ -75,8 +75,10 @@ assessment:
 relations:
   requires:
     - TM2-STRESS-001
-  supports:
-    - TM2-PRINCIPAL-001
+  extends:
+    - TM2-PRINCIPAL-001  # erweitert PRINCIPAL um den experimentellen Zugang (DMS-Rosette)
+    # 'extends' statt 'supports': STRAIN kommt nach PRINCIPAL im Lernpfad
+    # und baut thematisch darauf auf, ist aber keine Voraussetzung dafür.
 ssf_notes:
   de: >
     Dieses Modul ergänzt die rechnerische Festigkeitslehre um den experimentellen
