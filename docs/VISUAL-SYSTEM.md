@@ -47,17 +47,55 @@ Nach Generierung auf max. 15–20% Opacity reduzieren, als WebP exportieren
 - Gold-Dots: `scale` 1.0 → 1.25 → 1.0, `duration: 9s`
 - Kanten: keine Animation
 
-**Bildprompt:**
+**Vier Bilder — langsame Überblendung (CSS-only, ~45s Zyklus):**
 
+Alle vier zeigen organische Netzwerke aus verschiedenen Naturbereichen.
+Dateinamen: `ssf-hero1.png` bis `ssf-hero4.png` → `public/images/hero/`.
+Nach Generierung: 12–18% Opacity, als WebP exportieren (max. 400 KB je Bild).
+
+**ssf-hero1.png — Myzel**
 ```
-"A fine-line network of interconnected circular nodes on a warm off-white
-paper texture. Scientific, precise, minimal. Thin warm-gray lines, small
-nodes. Very low contrast, no focal point, evenly distributed across the
-frame. No text, no labels, no human figures, no glowing effects, no dark
-areas. Flat, diffuse lighting. Scientific illustration on paper. 16:9."
+Extreme macro photograph of fungal mycelium threads on warm cream paper.
+Very fine pale filaments branching and connecting at nodes. Diffuse overhead
+lighting, no shadows, no depth of field blur. Off-white to warm gray threads,
+almost like pencil on paper. Scientific, delicate, precise. 16:9, ultra-sharp.
 
-Negative: "dark background, neon, glow, stars, space, cyberpunk,
-photorealistic, dramatic lighting, text, labels, shadows"
+Negative: dark background, color, neon, glow, bokeh, dramatic lighting,
+space, text, watermark
+```
+
+**ssf-hero2.png — Neuronen**
+```
+Extreme macro photograph of neural dendrites, fluorescence microscopy style
+but rendered in warm sepia tones on cream background. Fine branching structures
+connecting at cell bodies. Even lighting, flat, no drama. Like an anatomical
+illustration from a 19th century science atlas. 16:9, ultra-sharp.
+
+Negative: dark background, neon blue, high contrast, dramatic lighting,
+modern digital look, space, text, watermark
+```
+
+**ssf-hero3.png — Kristallgitter**
+```
+Macro photograph of a salt or mineral crystal lattice structure, warm cream
+background, extreme close-up showing the geometric node-and-edge pattern of
+the crystal surface. Diffuse light, no shadows, no color grading.
+Scientific neutrality. 16:9, ultra-sharp.
+
+Negative: dark background, color saturation, neon, glow, dramatic shadows,
+space, text, watermark
+```
+
+**ssf-hero4.png — Manganknollen**
+```
+Underwater macro photograph of manganese nodules on deep ocean floor sediment.
+Dark rounded nodules clustered on pale sandy seafloor. Diffuse, even lighting —
+no dramatic shadows, no rays of light. Warm cream to pale gray tones.
+The nodules read as nodes in a network. Scientific, calm, geological.
+16:9, ultra-sharp.
+
+Negative: dark water, blue tones, dramatic underwater lighting, bubbles,
+fish, coral, neon, glow, text, watermark
 ```
 
 ---
@@ -170,7 +208,8 @@ components/
 
 ---
 
-*Solar Science Foundation · docs/VISUAL-SYSTEM.md · v0.2.0 · 2026-07-04*  
-*v0.2.0: TYPE-B auf Fragen/Beobachtungen umgestellt (nicht Fächer),
-TYPE-C auf drei Ebenen (SVG/Experiment/Foto), TYPE-D entfernt (Systemgrafik
-ist kein Besucherinhalt), TYPE-A auf Bild+SVG kombiniert*
+*Solar Science Foundation · docs/VISUAL-SYSTEM.md · v0.3.0 · 2026-07-04*  
+*v0.2.0: TYPE-B auf Fragen/Beobachtungen umgestellt, TYPE-C drei Ebenen,
+TYPE-D entfernt, TYPE-A auf Bild+SVG kombiniert*  
+*v0.3.0: Vier Hero-Bildprompts (ssf-hero1–4): Myzel, Neuronen, Kristall,
+Manganknollen — langsame CSS-Überblendung*
