@@ -9,28 +9,22 @@ export default async function HomePage() {
 
   return (
     <>
-      {/* Hero — full viewport width, image bleeds edge to edge */}
+      {/* Hero — full width, image bleeds edge to edge */}
       <section className="hero-section">
         <HeroBackground />
-
-        {/* Single content panel — floated left, image visible right */}
         <div className="hero-panel">
-          <p className="kicker">Geneva · Est. 2045 · NOχ¹Δ universe</p>
           <h1 className="hero">Knowledge must keep flowing.</h1>
           <p className="lede">
             An independent institution for scientific curiosity.
             Questions connected to knowledge.
           </p>
-          <div className="hero-actions">
-            <Link className="btn" href="/learn">Start exploring →</Link>
-            <Link className="btn secondary" href="/membership">Membership →</Link>
-          </div>
         </div>
       </section>
 
       <div className="container" style={{ paddingBottom: 8 }}>
-        {/* Featured module — below the hero */}
-        <div className="featured-module-row">
+
+        {/* Featured module + actions — below hero */}
+        <div className="hero-below">
           <Link href={`/modules/${featured.id}`} style={{ color: 'inherit' }}>
             <div className="card prominent">
               <div className="module-meta">
@@ -45,6 +39,10 @@ export default async function HomePage() {
               </p>
             </div>
           </Link>
+          <div className="hero-actions" style={{ marginTop: 24 }}>
+            <Link className="btn" href="/learn">Start exploring →</Link>
+            <Link className="btn secondary" href="/membership">Membership →</Link>
+          </div>
         </div>
 
         <section className="platform-grid">
