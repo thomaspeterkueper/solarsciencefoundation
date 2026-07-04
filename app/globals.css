@@ -30,7 +30,7 @@ a:hover { text-decoration: underline; }
 .site-header .container { display: flex; align-items: center; justify-content: space-between; padding-top: 20px; padding-bottom: 20px; }
 .brand { display: flex; align-items: center; gap: 14px; }
 .brand-text { display: flex; flex-direction: column; gap: 1px; }
-.brand .wordmark { font-family: var(--font-serif); font-size: 23px; color: var(--navy); letter-spacing: 0.1px; font-weight: 600; }
+.brand .wordmark { font-family: var(--font-serif); font-size: 26px; color: var(--navy); letter-spacing: 0.1px; font-weight: 600; }
 .brand .tagline { font-family: var(--font-mono); font-size: 10px; color: var(--steel); letter-spacing: 1.8px; text-transform: uppercase; }
 .hero-below { padding: 40px 0 0; max-width: 560px; }
 .nav { display: flex; align-items: center; gap: 24px; font-size: 16px; color: var(--steel); }
@@ -46,7 +46,7 @@ h1.hero { font-family: var(--font-serif); font-size: 78px; line-height: 0.98; co
 .subjects span { color: var(--gold); margin: 0 9px; }
 .hero-grid { display: grid; grid-template-columns: minmax(0, 1.02fr) minmax(460px, 0.98fr); gap: 72px; align-items: center; padding-top: 18px; }
 .hero-section { position: relative; overflow: hidden; width: 100%; min-height: 520px; display: flex; align-items: center; }
-.hero-panel { position: relative; z-index: 1; background: rgba(251,250,247,0.88); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-right: 1px solid rgba(207,198,182,0.4); padding: 56px 52px 56px 48px; max-width: 580px; width: 50%; }
+.hero-panel { position: relative; z-index: 1; background: rgba(251,250,247,0.86); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-left: 4px solid var(--navy); border-right: 1px solid rgba(207,198,182,0.3); border-top: 1px solid rgba(207,198,182,0.2); border-bottom: 1px solid rgba(207,198,182,0.2); border-radius: 0 12px 12px 0; padding: 52px 52px 52px 44px; max-width: 560px; width: 48%; margin-left: 46px; box-shadow: 0 24px 60px rgba(7,21,35,0.10), 4px 0 0 0 var(--navy); }
 .featured-module-row { margin: 40px 0 0; max-width: 560px; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
 
