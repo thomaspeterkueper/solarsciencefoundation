@@ -3,9 +3,9 @@
  * Path: lib/subjects.ts
  * Repo: github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/subjects.ts
  * Name: subjects - subject and learning path registry
- * Version: 0.1.0
+ * Version: 0.2.0
  * Created: 2026-06-27
- * Modified: 2026-06-27 09:00 CEST
+ * Modified: 2026-07-04
  * Depends: lib/modules
  */
 
@@ -89,6 +89,16 @@ export const subjects: Subject[] = [
     description: 'Earth systems, geology, climate, oceans and planetary comparison.',
     longDescription:
       'SSF Earth Science starts with our own planet and uses it as the reference point for understanding other worlds.'
+  },
+  {
+    id: 'SUB:ENG',
+    slug: 'engineering',
+    title: 'Engineering',
+    mark: '⚙',
+    levelRange: 'Advanced school to university foundations',
+    description: 'Mechanics, materials, structures, machines and applied technical systems.',
+    longDescription:
+      'SSF Engineering connects mathematics and physics with real technical systems. The first public test path is TM2 Festigkeitslehre: combined loading, pressure vessels, stress states, principal stresses, shafts and strain measurement.'
   }
 ];
 
@@ -105,6 +115,21 @@ export const learningPaths: LearningPath[] = [
       'SSF-MAT-0003',
       'SSF-MAT-0004',
       'SSF-MAT-0005'
+    ]
+  },
+  {
+    id: 'PATH:ENG:tm2-combined-stress',
+    subject: 'engineering',
+    title: 'TM2 · Zusammengesetzte Beanspruchung',
+    description:
+      'A six-module learning path from stress superposition through pressure vessels and stress states to principal stresses, bending plus torsion, and multiaxial strain with DMS.',
+    moduleIds: [
+      'TM2-COMB-001',
+      'TM2-PRESS-001',
+      'TM2-STRESS-001',
+      'TM2-PRINCIPAL-001',
+      'TM2-COMB-002',
+      'TM2-STRAIN-001'
     ]
   }
 ];
