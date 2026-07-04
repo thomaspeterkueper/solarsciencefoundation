@@ -45,7 +45,7 @@ export const learningModules: LearningModule[] = [
     difficulty: 0,
     durationMinutes: 7,
     summary:
-      'Warum ist die 7 in 472 nicht dasselbe wie die 7 in 72 — obwohl es dieselbe Ziffer ist?',
+      'Warum ist die 7 in 472 nicht dasselbe wie die 7 in 742 — obwohl es dieselbe Ziffer ist?',
     source: { authority: 'ssf-local', kxfEntityIds: ['CON:MAT:L0:numbers', 'CON:MAT:L0:place-value'] },
     unlocks: [],
     exercises: [
