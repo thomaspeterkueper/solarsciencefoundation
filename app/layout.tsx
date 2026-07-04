@@ -19,7 +19,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <div className="container">
             <Link href="/" className="brand" style={{ color: 'inherit' }}>
               <Signet />
-              <span className="wordmark">Solar Science Foundation</span>
+              <span className="brand-text">
+                <span className="wordmark">Solar Science Foundation</span>
+                <span className="tagline">Sundern · Est. 2045 · NOχ¹Δ universe</span>
+              </span>
             </Link>
             <SiteNav />
           </div>
