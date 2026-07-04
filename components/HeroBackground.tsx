@@ -144,11 +144,11 @@ export default function HeroBackground() {
         }}
       >
         <defs>
-          <radialGradient id="hero-vignette" cx="50%" cy="45%" r="60%">
-            <stop offset="0%"   stopColor="#fbfaf7" stopOpacity="0" />
-            <stop offset="80%"  stopColor="#fbfaf7" stopOpacity="0.65" />
+          <linearGradient id="hero-vignette" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stopColor="#fbfaf7" stopOpacity="0.15" />
+            <stop offset="60%"  stopColor="#fbfaf7" stopOpacity="0" />
             <stop offset="100%" stopColor="#fbfaf7" stopOpacity="1" />
-          </radialGradient>
+          </linearGradient>
         </defs>
 
         <g stroke="#cfc6b6" strokeWidth="1" opacity="0.35">
