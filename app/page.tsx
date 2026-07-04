@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { getKxfLearningModules } from '../lib/kxf';
 import { subjects } from '../lib/subjects';
+import HeroBackground from '../components/HeroBackground';
 
 export default async function HomePage() {
   const modules = await getKxfLearningModules();
@@ -8,8 +9,14 @@ export default async function HomePage() {
 
   return (
     <div className="container" style={{ paddingTop: 58, paddingBottom: 8 }}>
-      <section className="hero-grid">
-        <div>
+      <section
+        className="hero-grid"
+        style={{ position: 'relative', overflow: 'hidden', borderRadius: 24, padding: '48px 48px 48px 0', marginLeft: -48 }}
+      >
+        <HeroBackground />
+
+        {/* Text column — sits above SVG */}
+        <div style={{ position: 'relative', zIndex: 1 }}>
           <p className="kicker">Fictional NO&#967;&#185;&#916; universe archive - founded 2045, Geneva</p>
           <h1 className="hero">Knowledge must keep flowing.</h1>
           <p className="lede">
@@ -28,7 +35,8 @@ export default async function HomePage() {
           </p>
         </div>
 
-        <Link href={`/modules/${featured.id}`} style={{ color: 'inherit' }}>
+        {/* Card column — sits above SVG */}
+        <Link href={`/modules/${featured.id}`} style={{ color: 'inherit', position: 'relative', zIndex: 1 }}>
           <div className="card prominent">
             <div className="module-meta">
               <span className="code">{featured.id}</span>
