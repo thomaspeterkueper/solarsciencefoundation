@@ -3,9 +3,9 @@ KUEPER · Solar Science Foundation (SSF)
 Path:      docs/VISUAL-SYSTEM.md
 Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/docs/VISUAL-SYSTEM.md
 Name:      Visual System — Bilder, Grafiken, Animationen
-Version:   0.1.0
+Version:   0.2.0
 Created:   2026-07-04
-Modified:  2026-07-04 00:00 CEST
+Modified:  2026-07-04 12:00 CEST
 Depends:   docs/BRAND.md
 -->
 
@@ -27,82 +27,113 @@ Kein Dekor. Kein Füllmaterial. Keine Stock-Fotos.
 
 ---
 
-## 1. Vier Bildtypen
+## 1. Drei Bildtypen
 
 ### TYPE-A · Atmosphäre (Hero / Landing)
 
 **Zweck:** Raumgefühl, Identität, erster Eindruck. Kein Informationsgehalt.  
-**Anforderung:** Funktioniert als subtiler Hintergrund — Text und UI bleiben
-vollständig lesbar.  
-**Palette:** Ausschließlich aus `--bg` (#fbfaf7), `--border` (#cfc6b6),
-`--gold` (#b98b2d) — keine Fremdfarben.  
-**Zwei Varianten (offen, eine wird gewählt):**
+**Ansatz:** Generiertes Bild als Basis-Textur + animiertes SVG-Netzwerk
+darüber — Bild gibt Tiefe, SVG gibt organische Bewegung.
 
-- **TYPE-A1 · Generiertes Bild** (Midjourney / Stable Diffusion)
-- **TYPE-A2 · Animiertes SVG** (CSS-Keyframes, kein JS-Loop)
+**Bild-Ebene (statisch):**  
+Generiertes Bild als `background-image` auf dem Hero-Container.  
+Nach Generierung auf max. 15–20% Opacity reduzieren, als WebP exportieren
+(max. 400 KB). Kein dunkles Bild — die Seite bleibt `light-first`.
 
-→ Bildprompt und SVG-Animation: siehe §4 und §5.
+**SVG-Ebene (animiert):**  
+`HeroBackground.tsx` (bestehend) wird mit CSS-Keyframes belebt:
+- Knoten: `opacity` 0.25 → 0.5 → 0.25, `duration: 7–11s`, `ease-in-out`,
+  individueller `animation-delay` pro Knoten (0–5s) für organisches Pulsieren
+- Gold-Dots: `scale` 1.0 → 1.25 → 1.0, `duration: 9s`
+- Kanten: keine Animation
 
----
+**Bildprompt:**
 
-### TYPE-B · Fachbild (Subjects-Übersicht)
+```
+"A fine-line network of interconnected circular nodes on a warm off-white
+paper texture. Scientific, precise, minimal. Thin warm-gray lines, small
+nodes. Very low contrast, no focal point, evenly distributed across the
+frame. No text, no labels, no human figures, no glowing effects, no dark
+areas. Flat, diffuse lighting. Scientific illustration on paper. 16:9."
 
-**Zweck:** Je Fach ein charakteristisches, nicht-dekoratives Bild.  
-**Stil:** Wissenschaftlich-sachlich. Echte Phänomene, keine Illustrationen.  
-**Format:** 3:2, max. 800px breit, WebP.  
-**Einsatzort:** `subject-card` Header, Subjects-Index, ggf. Modul-Header.
-
-| Fach | Motiv | Bildprompt-Schlagwort |
-|------|-------|----------------------|
-| Mathematik | Geometrische Musterstruktur | `mathematical lattice crystal macro` |
-| Physik | Welleninterferenz im Wasser | `water wave interference macro photograph` |
-| Chemie | Kristallstruktur unter Mikroskop | `salt crystal macro electron microscope` |
-| Astronomie | Sonnenoberfläche / Granulation | `solar granulation NASA photograph` |
-| Biologie | Zellmembran / Neuronen-Netz | `neuron network microscope fluorescent` |
-
-**Regel:** Kein Mensch, kein Gesicht, keine erkennbare Institution im Bild.
+Negative: "dark background, neon, glow, stars, space, cyberpunk,
+photorealistic, dramatic lighting, text, labels, shadows"
+```
 
 ---
 
-### TYPE-C · Erklärvisualisierung (Modulseiten)
+### TYPE-B · Einstiegsbilder (Fragen / Beobachtungen)
 
-**Zweck:** Ein Konzept zeigen, das Text allein nicht vollständig vermitteln kann.  
-**Format:** SVG (bevorzugt) oder PNG, inline im Modul.  
-**Verpflichtend:** Nur einsetzen, wenn die Visualisierung das Verständnis
-nachweislich erhöht. Kein Dekor.
+**Zweck:** Jede Einstiegsfrage oder Beobachtung bekommt ein passendes Bild
+oder eine Grafik — kein Fach-Label, kein Kategorie-Icon.
 
-Beispiele nach Domäne:
+Die Navigation läuft nicht über Disziplinen ("Physik", "Chemie"),
+sondern über Fragen und Beobachtungen:
 
-| Domäne | Visualisierung |
-|--------|----------------|
-| Physik | Wellendiagramm (Amplitude, Frequenz, Wellenlänge) |
-| Mathematik | Zahlenstrahl, Funktionsgraph, geometrische Konstruktion |
-| Chemie | Molekülstruktur (2D), Reaktionsschema |
-| Astronomie | Orbitdarstellung, Maßstabsvergleich |
-| Biologie | Zellaufbau, Stoffwechselkette |
+> *Warum klingt ein vorbeifahrendes Auto anders?*  
+> *Warum schillert eine CD im Licht?*  
+> *Warum kühlt Kaffee in einer breiten Tasse schneller ab?*
 
-**Quelle:** Eigene SVGs (bevorzugt) → lizenzfreie NASA/ESA-Grafiken
-(mit Quellenangabe) → generierte Illustrationen (nur als letzter Ausweg).
+Das Bild zur Frage ist konkret, sachlich, nicht dekorativ.
+Es zeigt das Phänomen — nicht das Konzept dahinter.
+
+**Format:** 3:2, max. 800px breit, WebP oder SVG.  
+**Regel:** Kein Mensch, kein Gesicht, keine erkennbare Institution.
+
+Beispiele:
+
+| Einstiegsfrage | Bild/Grafik |
+|----------------|-------------|
+| Warum klingt ein vorbeifahrendes Auto anders? | Schallwellen-Kompression (SVG) oder Straßenfoto mit Bewegungsunschärfe |
+| Warum schillert eine CD? | Makrofoto CD-Oberfläche mit Lichtbrechung |
+| Warum kühlt Kaffee in breiter Tasse schneller? | Zwei Tassen von oben, klar sichtbare Oberfläche |
+| Wie groß ist die Sonne wirklich? | Maßstabsvergleich SVG (Sonne / Erde / Punkt) |
+| Was ist eine Zelle? | Fluoreszenzmikroskop-Aufnahme (frei lizenziert) |
 
 ---
 
-### TYPE-D · Systemgrafik (Dokumentation / About)
+### TYPE-C · Modul-Visualisierungen (Lerninhalt)
 
-**Zweck:** Ökosystem-Übersicht, KG-Architektur, KXF-Fluss.  
-**Format:** SVG, eingebettet in Markdown oder als eigene Seite.  
-**Einsatzort:** `/about`, `docs/`, evtl. Footer-Bereich.
+**Zweck:** Konzepte zeigen, die Text allein nicht vollständig vermitteln kann.  
+**Format:** SVG (bevorzugt), interaktive HTML-Komponente, oder Foto.  
+**Verpflichtend:** Jedes Modul bekommt mindestens eine Visualisierung.
+
+**Drei Ebenen — aufsteigend nach Aufwand:**
+
+#### C1 · Erklär-SVG (statisch)
+Inline-SVG, direkt im Modul. Zeigt das Kernkonzept visuell.  
+Beispiele: Wellendiagramm, Zahlenstrahl, Molekülstruktur, Orbitschema.
+
+#### C2 · Interaktives Experiment (React-Komponente)
+Kleine Simulation im Browser — Lernende können Parameter verändern
+und das Ergebnis sofort sehen.  
+Beispiele: Frequenz-Schieberegler → Wellenform ändert sich live,
+Linsen-Simulator, Stöchiometrie-Rechner.
+
+#### C3 · Echtes Bild (Foto / NASA / ESA)
+Nur wo SVG oder Experiment nicht ausreichen — echte Aufnahmen von
+Phänomenen (Sonnenoberfläche, Kristallstruktur, Neuronennetz).  
+Quelle immer angeben. Nur frei lizenzierte Bilder (CC0, NASA, ESA).
+
+**Entscheidungsregel:**
+```
+Kann ich das Konzept als SVG zeigen?     → C1
+Würde Interaktion das Verständnis erhöhen? → C2
+Braucht es ein echtes Phänomenfoto?       → C3
+```
 
 ---
 
 ## 2. Was nie eingesetzt wird
 
-Verboten (aus BRAND.md):
-
+Aus BRAND.md:
 - Starfelder, Galaxien, Nebel, Weltraumfotos im NASA-Poster-Stil
 - Lens Flares, Neon-Blau, Cyberpunk-Ästhetik
 - Stock-Fotos von Menschen oder Laboren
 - KI-generierte Gesichter oder „Wissenschaftler"-Illustrationen
-- Animations-Loops die UI-Elemente überlagern oder ablenken
+- Fach-Kategorie-Icons oder Disziplinlabels als visuelle Elemente
+- Systemgrafiken des KUEPER-Ökosystems — das ist interne Architektur,
+  nicht Besucherinhalt
 
 ---
 
@@ -112,70 +143,34 @@ Verboten (aus BRAND.md):
 public/
   images/
     hero/
-      hero-network.svg          ← TYPE-A2 (animiertes SVG, falls gewählt)
-      hero-bg.webp               ← TYPE-A1 (generiertes Bild, falls gewählt)
-    subjects/
-      mathematics.webp
-      physics.webp
-      chemistry.webp
-      astronomy.webp
-      biology.webp
+      hero-bg.webp               ← TYPE-A Hintergrundbild
+    questions/
+      {frage-slug}.webp          ← TYPE-B Einstiegsbilder
+      {frage-slug}.svg
     modules/
-      {module-id}-fig-01.svg    ← TYPE-C Erklärvisualisierungen
+      {module-id}-fig-01.svg     ← TYPE-C Erklär-SVGs
+      {module-id}-fig-01.webp    ← TYPE-C Fotos
+components/
+  HeroBackground.tsx             ← TYPE-A SVG-Animation
+  ModuleFigure.tsx               ← TYPE-C Wrapper (Caption, Lizenz)
+  ModuleExperiment.tsx           ← TYPE-C2 interaktive Experimente
 ```
 
-Namenskonvention: `{kontext}-{beschreibung}.{ext}` — alles lowercase, keine Leerzeichen.
+---
+
+## 4. Umsetzungsreihenfolge
+
+| Priorität | Typ | Was | Status |
+|-----------|-----|-----|--------|
+| 1 | TYPE-A | SVG-Animation in HeroBackground.tsx | OFFEN |
+| 2 | TYPE-A | Hintergrundbild generieren + einbinden | OFFEN |
+| 3 | TYPE-B | Einstiegsbilder für erste 5 Module | — |
+| 4 | TYPE-C1 | Erklär-SVGs für erste 3 Module | — |
+| 5 | TYPE-C2 | Erstes interaktives Experiment | — |
 
 ---
 
-## 4. TYPE-A1 · Bildprompt (Generiertes Hintergrundbild)
-
-```
-Prompt (Midjourney / Stable Diffusion):
-
-"A subtle, fine-line network of interconnected nodes and edges on a warm
-off-white surface, resembling a scientific knowledge graph or neural
-structure. Minimal, precise, technical. Thin lines in warm gray (#cfc6b6),
-small circular nodes with faint gold centers (#b98b2d). Very low contrast,
-background texture only. No text, no labels, no human figures, no glowing
-effects. Soft, even lighting. Scientific illustration style. 16:9 aspect ratio.
-High resolution."
-
-Negative prompt:
-"dark background, neon, glow, stars, space, fantasy, cyberpunk,
-photorealistic, bokeh, depth of field, dramatic lighting, text, labels"
-```
-
-**Nach Generierung:** In Photoshop / Figma auf max. 25% Opacity reduzieren,
-mit `--bg` (#fbfaf7) überlagern, als WebP exportieren (max. 400 KB).
-
----
-
-## 5. TYPE-A2 · Animiertes SVG (Alternative zum Bild)
-
-Bestehende `HeroBackground.tsx` als Basis.
-
-Geplante Animation (CSS-Keyframes, kein JS):
-
-- Knoten: `opacity` von 0.3 → 0.55 → 0.3, `duration: 6–10s`, `ease-in-out`,
-  jeder Knoten mit individuellem `animation-delay` (0–4s) für organische Wirkung
-- Kanten: keine Animation (zu unruhig)
-- Gold-Dots: dezentes `scale` 1.0 → 1.3 → 1.0, `duration: 8s`
-
-Implementierungsaufwand: ~30 Zeilen CSS. Sofort umsetzbar.
-
----
-
-## 6. Umsetzungsreihenfolge
-
-| Priorität | Typ | Aufwand | Status |
-|-----------|-----|---------|--------|
-| 1 | TYPE-A: Hero entscheiden (A1 vs A2) | klein | OFFEN |
-| 2 | TYPE-A2: SVG-Animation implementieren | 30 min | — |
-| 3 | TYPE-B: 5 Fachbilder generieren/beschaffen | mittel | — |
-| 4 | TYPE-C: Erste Erklärvisualisierungen (PHY, MAT) | groß | — |
-| 5 | TYPE-D: Systemgrafik KG-Ökosystem | mittel | — |
-
----
-
-*Solar Science Foundation · docs/VISUAL-SYSTEM.md · v0.1.0 · 2026-07-04*
+*Solar Science Foundation · docs/VISUAL-SYSTEM.md · v0.2.0 · 2026-07-04*  
+*v0.2.0: TYPE-B auf Fragen/Beobachtungen umgestellt (nicht Fächer),
+TYPE-C auf drei Ebenen (SVG/Experiment/Foto), TYPE-D entfernt (Systemgrafik
+ist kein Besucherinhalt), TYPE-A auf Bild+SVG kombiniert*
