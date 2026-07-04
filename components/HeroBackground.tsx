@@ -144,10 +144,10 @@ export default function HeroBackground() {
         }}
       >
         <defs>
+          {/* Subtle overall brightening so images don't overpower text */}
           <linearGradient id="hero-vignette" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%"   stopColor="#fbfaf7" stopOpacity="0.15" />
-            <stop offset="60%"  stopColor="#fbfaf7" stopOpacity="0" />
-            <stop offset="100%" stopColor="#fbfaf7" stopOpacity="1" />
+            <stop offset="0%"   stopColor="#fbfaf7" stopOpacity="0.08" />
+            <stop offset="100%" stopColor="#fbfaf7" stopOpacity="0.08" />
           </linearGradient>
         </defs>
 
