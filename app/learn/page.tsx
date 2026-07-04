@@ -3,8 +3,8 @@ import { fetchLearningModules } from '../../lib/learning-modules';
 import { LearnMap } from '../../components/LearnMap';
 
 export const metadata: Metadata = {
-  title: 'Themenkarte · Solar Science Foundation',
-  description: 'Alle Lernmodule der Solar Science Foundation — verfügbar, in Entwicklung und geplant.'
+  title: 'Entdecken · Solar Science Foundation',
+  description: 'Folge deiner Neugier durch Physik, Chemie, Mathematik, Geschichte, Sprache und mehr.'
 };
 
 export default async function LearnPage() {
