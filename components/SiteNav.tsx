@@ -31,9 +31,11 @@ export default function SiteNav() {
       <Link href={`${prefix}/login`}>Login</Link>
       <a href="https://noxiagame.vercel.app" className="accent">NO&#967;&#185;&#916;</a>
       <span className="sep">·</span>
-      <Link href={toGermanPath(pathname)} className="mono" style={{ fontSize: 11 }}>DE</Link>
-      <span className="mono" style={{ fontSize: 11 }}>/</span>
-      <Link href={toEnglishPath(pathname)} className="mono" style={{ fontSize: 11 }}>EN</Link>
+      <span className="lang-switcher">
+        <Link href={toGermanPath(pathname)} className="mono" style={{ fontSize: 11 }}>DE</Link>
+        <span className="mono" style={{ fontSize: 11, color: 'var(--border)' }}>/</span>
+        <Link href={toEnglishPath(pathname)} className="mono" style={{ fontSize: 11 }}>EN</Link>
+      </span>
     </nav>
   );
 }
