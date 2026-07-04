@@ -9,27 +9,29 @@ export default async function HomePage() {
 
   return (
     <>
-      {/* Hero — full viewport width, breaks out of container */}
+      {/* Hero — full viewport width, image bleeds edge to edge */}
       <section className="hero-section">
         <HeroBackground />
-        <div className="container hero-grid">
-          <div style={{ position: 'relative', zIndex: 1 }}>
-            <p className="kicker">Geneva · Est. 2045 · NOχ¹Δ universe</p>
-            <h1 className="hero">Knowledge must keep flowing.</h1>
-            <p className="lede">
-              The Solar Science Foundation is an independent institution for scientific curiosity.
-              We connect questions to knowledge — in physics, chemistry, mathematics, history, language, and beyond.
-            </p>
-            <p className="subjects">
-              Mathematics <span>·</span> Physics <span>·</span> Chemistry <span>·</span> Astronomy <span>·</span> Biology <span>·</span> History <span>·</span> Language
-            </p>
-            <div className="hero-actions">
-              <Link className="btn" href="/learn">Start exploring →</Link>
-              <Link className="btn secondary" href="/membership">Apply for membership →</Link>
-            </div>
-          </div>
 
-          <Link href={`/modules/${featured.id}`} style={{ color: 'inherit', position: 'relative', zIndex: 1 }}>
+        {/* Single content panel — floated left, image visible right */}
+        <div className="hero-panel">
+          <p className="kicker">Geneva · Est. 2045 · NOχ¹Δ universe</p>
+          <h1 className="hero">Knowledge must keep flowing.</h1>
+          <p className="lede">
+            An independent institution for scientific curiosity.
+            Questions connected to knowledge.
+          </p>
+          <div className="hero-actions">
+            <Link className="btn" href="/learn">Start exploring →</Link>
+            <Link className="btn secondary" href="/membership">Membership →</Link>
+          </div>
+        </div>
+      </section>
+
+      <div className="container" style={{ paddingBottom: 8 }}>
+        {/* Featured module — below the hero */}
+        <div className="featured-module-row">
+          <Link href={`/modules/${featured.id}`} style={{ color: 'inherit' }}>
             <div className="card prominent">
               <div className="module-meta">
                 <span className="mono" style={{ fontSize: 13, color: 'var(--steel)' }}>
@@ -44,9 +46,7 @@ export default async function HomePage() {
             </div>
           </Link>
         </div>
-      </section>
 
-      <div className="container" style={{ paddingBottom: 8 }}>
         <section className="platform-grid">
           <div className="platform-card">
             <p className="section-title">Explore</p>
