@@ -26,7 +26,7 @@ main { min-height: 70vh; }
 a { color: var(--link); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
-.site-header { background: rgba(255,255,255,0.86); border-bottom: 1px solid var(--border); }
+.site-header { background: rgba(251,250,247,0.92); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
 .site-header .container { display: flex; align-items: center; justify-content: space-between; padding-top: 20px; padding-bottom: 20px; }
 .brand { display: flex; align-items: center; gap: 14px; }
 .brand .wordmark { font-family: var(--font-serif); font-size: 23px; color: var(--navy); letter-spacing: 0.1px; font-weight: 600; }
@@ -34,6 +34,7 @@ a:hover { text-decoration: underline; }
 .nav a { color: var(--steel); }
 .nav a.accent { color: var(--link); font-weight: 600; }
 .nav .sep { color: #8d806d; }
+.lang-switcher { display: flex; align-items: center; gap: 4px; }
 
 .kicker { font-family: var(--font-mono); font-size: 13px; color: var(--gold); letter-spacing: 2.6px; text-transform: uppercase; font-weight: 600; }
 h1.hero { font-family: var(--font-serif); font-size: 78px; line-height: 0.98; color: var(--navy); margin: 18px 0 0; font-weight: 600; max-width: 10em; letter-spacing: -1.7px; }
