@@ -29,7 +29,10 @@ a:hover { text-decoration: underline; }
 .site-header { background: rgba(251,250,247,0.92); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
 .site-header .container { display: flex; align-items: center; justify-content: space-between; padding-top: 20px; padding-bottom: 20px; }
 .brand { display: flex; align-items: center; gap: 14px; }
+.brand-text { display: flex; flex-direction: column; gap: 1px; }
 .brand .wordmark { font-family: var(--font-serif); font-size: 23px; color: var(--navy); letter-spacing: 0.1px; font-weight: 600; }
+.brand .tagline { font-family: var(--font-mono); font-size: 10px; color: var(--steel); letter-spacing: 1.8px; text-transform: uppercase; }
+.hero-below { padding: 40px 0 0; max-width: 560px; }
 .nav { display: flex; align-items: center; gap: 24px; font-size: 16px; color: var(--steel); }
 .nav a { color: var(--steel); }
 .nav a.accent { color: var(--link); font-weight: 600; }
