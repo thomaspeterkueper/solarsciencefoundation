@@ -25,7 +25,9 @@ export default function ModuleRunner({ learningModule }: { learningModule: Learn
       const key = 'ssf:playerId';
       let id = window.localStorage.getItem(key);
       if (!id) {
-        id = typeof crypto !== 'undefined' && 'randomUUID' in crypto ? crypto.randomUUID() : 'local-' + Math.random().toString(36).slice(2);
+        id = typeof crypto !== 'undefined' && 'randomUUID' in crypto
+          ? crypto.randomUUID()
+          : 'local-' + Math.random().toString(36).slice(2);
         window.localStorage.setItem(key, id);
       }
       setPlayerId(id);
@@ -55,41 +57,84 @@ export default function ModuleRunner({ learningModule }: { learningModule: Learn
         body: JSON.stringify({
           playerId,
           moduleId: learningModule.id,
-          answers: Object.entries(answers).map(([exerciseId, selectedOption]) => ({ exerciseId, selectedOption }))
+          answers: Object.entries(answers).map(([exerciseId, selectedOption]) => ({
+            exerciseId,
+            selectedOption
+          }))
         })
       });
       setResult((await res.json()) as CompleteResponse);
     } catch {
-      setError('Could not reach the server. Try again.');
+      setError('Verbindung fehlgeschlagen. Bitte erneut versuchen.');
     } finally {
       setSubmitting(false);
     }
   }
 
+  if (learningModule.exercises.length === 0) return null;
+
   return (
-    <div style={{ marginTop: 28 }}>
-      <p className="section-title">Exercises</p>
+    <div style={{ marginTop: 40 }}>
       {learningModule.exercises.map((ex, i) => (
-        <div key={ex.id} style={{ marginBottom: 18 }}>
-          <p style={{ margin: '0 0 6px' }}>{i + 1}. {ex.question}</p>
+        <div key={ex.id} style={{ marginBottom: 28 }}>
+          <p style={{ fontFamily: 'var(--font-serif)', fontSize: 19, lineHeight: 1.55, margin: '0 0 12px', color: 'var(--navy)' }}>
+            {ex.question}
+          </p>
           {ex.options.map((option, idx) => (
-            <button key={idx} type="button" className={answers[ex.id] === idx ? 'option selected' : 'option'} onClick={() => setAnswers((prev) => ({ ...prev, [ex.id]: idx }))}>
+            <button
+              key={idx}
+              type="button"
+              className={answers[ex.id] === idx ? 'option selected' : 'option'}
+              onClick={() => setAnswers((prev) => ({ ...prev, [ex.id]: idx }))}
+            >
               {option}
             </button>
           ))}
         </div>
       ))}
-      <button className="btn" onClick={submit} disabled={!allAnswered || submitting}>{submitting ? 'Checking…' : 'Complete module'}</button>
-      {error && <p style={{ color: '#a32d2d', marginTop: 14 }}>{error}</p>}
-      {result && result.status === 'completed' && (
-        <div className="result ok">
-          <p style={{ margin: '0 0 8px' }}>Module completed. All answers correct.</p>
-          <p style={{ margin: '0 0 8px', color: 'var(--steel)' }}>Storage: {result.persistence?.mode ?? 'memory'}{result.persistence?.saved ? ' saved' : ''}</p>
-          {result.unlocks && result.unlocks.length > 0 && <p style={{ margin: 0 }}>Unlock granted: <span className="unlock">{result.unlocks[0].id}</span></p>}
+
+      {!result && (
+        <button
+          className="btn"
+          onClick={submit}
+          disabled={!allAnswered || submitting}
+          style={{ marginTop: 8 }}
+        >
+          {submitting ? 'Wird geprüft …' : 'Antworten prüfen →'}
+        </button>
+      )}
+
+      {error && (
+        <p style={{ color: '#a32d2d', marginTop: 14, fontSize: 15 }}>{error}</p>
+      )}
+
+      {result?.status === 'completed' && (
+        <div className="result ok" style={{ marginTop: 24 }}>
+          <p style={{ margin: '0 0 6px', fontFamily: 'var(--font-serif)', fontSize: 18 }}>
+            Richtig. Du hast das verstanden.
+          </p>
+          {result.unlocks && result.unlocks.length > 0 && (
+            <p style={{ margin: '8px 0 0', fontSize: 14, color: 'var(--steel)' }}>
+              In NOχ¹Δ freigeschaltet: <span className="unlock">{result.unlocks[0].id}</span>
+            </p>
+          )}
         </div>
       )}
-      {result && result.status === 'incomplete' && (
-        <div className="result"><p style={{ margin: 0 }}>Not quite — {Math.round(result.score * 100)}% correct. Review the module and try again. No unlock granted until every answer is correct.</p></div>
+
+      {result?.status === 'incomplete' && (
+        <div className="result" style={{ marginTop: 24 }}>
+          <p style={{ margin: 0, fontFamily: 'var(--font-serif)', fontSize: 18 }}>
+            Noch nicht ganz — schau dir die Fragen nochmal an.
+          </p>
+          <button
+            className="btn secondary"
+            style={{ marginTop: 14 }}
+            onClick={() => { setAnswers({}); setResult(null); }}
+            type="button"
+          >
+            Nochmal versuchen
+          </button>
+        </div>
       )}
     </div>
   );
