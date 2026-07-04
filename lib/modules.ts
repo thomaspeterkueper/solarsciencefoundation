@@ -3,9 +3,9 @@
  * Path: lib/modules.ts
  * Repo: github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/modules.ts
  * Name: modules - local didactic fallback registry
- * Version: 0.1.0
+ * Version: 0.2.0
  * Created: 2026-06-26
- * Modified: 2026-06-27 09:00 CEST
+ * Modified: 2026-07-04
  * Depends: none
  */
 
@@ -218,6 +218,221 @@ export const learningModules: LearningModule[] = [
           'Because ships do not need fuel.',
           'Because stations cannot move.',
           'Because planets have no mass.'
+        ],
+        correctOption: 0
+      }
+    ]
+  },
+  {
+    id: 'TM2-COMB-001',
+    title: 'Überlagerung von Spannungen',
+    domain: 'Engineering',
+    difficulty: 3,
+    durationMinutes: 60,
+    summary:
+      'Normalspannungen aus Normalkraft und Biegung werden punktweise addiert. Schubspannungen werden je nach Richtung addiert oder vektoriell überlagert; Normal- und Schubspannung führen gemeinsam zum Spannungszustand.',
+    source: {
+      authority: 'ssf-local-module-yaml',
+      kxfEntityIds: ['CON:TM:stress-superposition', 'CON:TM:eccentric-load', 'CON:TM:biaxial-bending']
+    },
+    unlocks: [],
+    exercises: [
+      {
+        id: 'EX:TM2-COMB-001:001',
+        type: 'single_choice',
+        question: 'Welche Spannungen dürfen bei zusammengesetzter Beanspruchung direkt skalar addiert werden?',
+        options: [
+          'Normalspannung und Schubspannung immer direkt zusammen',
+          'Gleichartige Spannungen mit gleicher Richtung',
+          'Nur Torsionsspannungen',
+          'Nur Spannungen aus Druckbehältern'
+        ],
+        correctOption: 1
+      },
+      {
+        id: 'EX:TM2-COMB-001:002',
+        type: 'single_choice',
+        question: 'Wie modelliert man eine außermittig angreifende Zugkraft im Schwerpunkt?',
+        options: [
+          'Als reine Querkraft',
+          'Als mittige Kraft plus ergänzende Momente',
+          'Als reine Torsion',
+          'Als spannungsfreien Zustand'
+        ],
+        correctOption: 1
+      }
+    ]
+  },
+  {
+    id: 'TM2-PRESS-001',
+    title: 'Dünnwandige Druckbehälter und Kesselformeln',
+    domain: 'Engineering',
+    difficulty: 3,
+    durationMinutes: 45,
+    summary:
+      'Ein dünnwandiger Zylinder unter Innendruck besitzt Längsspannung und Umfangsspannung. Die Umfangsspannung ist doppelt so groß wie die Längsspannung und beide liegen in schubspannungsfreien Hauptschnitten.',
+    source: {
+      authority: 'ssf-local-module-yaml',
+      kxfEntityIds: ['CON:TM:pressure-vessel', 'CON:TM:hoop-stress', 'CON:TM:longitudinal-stress']
+    },
+    unlocks: [],
+    exercises: [
+      {
+        id: 'EX:TM2-PRESS-001:001',
+        type: 'single_choice',
+        question: 'Welche Spannung ist beim dünnwandigen Zylinder unter Innendruck größer?',
+        options: ['Die Längsspannung', 'Die Umfangsspannung', 'Beide sind immer null', 'Die Querkraftspannung'],
+        correctOption: 1
+      },
+      {
+        id: 'EX:TM2-PRESS-001:002',
+        type: 'single_choice',
+        question: 'Warum können σt und σl beim Kessel direkt als Hauptspannungen betrachtet werden?',
+        options: [
+          'Weil auf diesen Schnitten keine Schubspannung wirkt',
+          'Weil Druck keine Spannung erzeugt',
+          'Weil sie immer negativ sind',
+          'Weil Wanddicke und Durchmesser gleich sind'
+        ],
+        correctOption: 0
+      }
+    ]
+  },
+  {
+    id: 'TM2-STRESS-001',
+    title: 'Spannungszustand im Punkt',
+    domain: 'Engineering',
+    difficulty: 3,
+    durationMinutes: 75,
+    summary:
+      'Spannung hängt von der Schnittrichtung ab. Ein Punkt besitzt keinen einzelnen Spannungswert, sondern einen ebenen Spannungszustand aus Normalspannungen und Schubspannung.',
+    source: {
+      authority: 'ssf-local-module-yaml',
+      kxfEntityIds: ['CON:TM:stress-state', 'CON:TM:inclined-section', 'CON:TM:stress-transformation']
+    },
+    unlocks: [],
+    exercises: [
+      {
+        id: 'EX:TM2-STRESS-001:001',
+        type: 'single_choice',
+        question: 'Was zeigt ein schräger Schnitt durch einen Zugstab?',
+        options: [
+          'Nur Normalkraft, aber keine Spannung',
+          'Normal- und Schubspannungsanteile',
+          'Immer nur Torsion',
+          'Immer nur Druckspannung'
+        ],
+        correctOption: 1
+      },
+      {
+        id: 'EX:TM2-STRESS-001:002',
+        type: 'single_choice',
+        question: 'Welche Größen beschreiben den ebenen Spannungszustand typischerweise?',
+        options: ['σx, σy und τxy', 'Nur die Dichte', 'Nur die Temperatur', 'Nur die Länge des Bauteils'],
+        correctOption: 0
+      }
+    ]
+  },
+  {
+    id: 'TM2-PRINCIPAL-001',
+    title: 'Hauptspannungen und Mohrscher Kreis',
+    domain: 'Engineering',
+    difficulty: 4,
+    durationMinutes: 90,
+    summary:
+      'Hauptspannungen sind die Extremwerte der Normalspannung. Der Mohrsche Kreis zeigt Mittelpunkt, Radius, maximale Schubspannung und die Beziehung zwischen Bauteildrehung und Spannungszustand.',
+    source: {
+      authority: 'ssf-local-module-yaml',
+      kxfEntityIds: ['CON:TM:principal-stress', 'CON:TM:principal-direction', 'CON:TM:mohr-circle']
+    },
+    unlocks: [],
+    exercises: [
+      {
+        id: 'EX:TM2-PRINCIPAL-001:001',
+        type: 'single_choice',
+        question: 'Was kennzeichnet einen Hauptschnitt?',
+        options: [
+          'Die Schubspannung ist dort null',
+          'Die Normalspannung ist dort immer null',
+          'Er liegt immer parallel zur Gewichtskraft',
+          'Er existiert nur bei Druckbehältern'
+        ],
+        correctOption: 0
+      },
+      {
+        id: 'EX:TM2-PRINCIPAL-001:002',
+        type: 'single_choice',
+        question: 'Was entspricht der maximalen Schubspannung im Mohrschen Kreis?',
+        options: ['Dem Radius', 'Dem Durchmesser des Bauteils', 'Der Wanddicke', 'Der Summe aller Kräfte'],
+        correctOption: 0
+      }
+    ]
+  },
+  {
+    id: 'TM2-COMB-002',
+    title: 'Biegung und Torsion an Wellen',
+    domain: 'Engineering',
+    difficulty: 4,
+    durationMinutes: 75,
+    summary:
+      'Bei Wellen treffen am Rand maximale Biegespannung und maximale Torsionsschubspannung zusammen, während Querkraftschub dort verschwindet. Daraus wird der kritische Spannungszustand aufgebaut.',
+    source: {
+      authority: 'ssf-local-module-yaml',
+      kxfEntityIds: ['CON:TM:shaft', 'CON:TM:critical-point', 'CON:TM:bending-and-torsion']
+    },
+    unlocks: [],
+    exercises: [
+      {
+        id: 'EX:TM2-COMB-002:001',
+        type: 'single_choice',
+        question: 'Wo liegt bei Biegung und Torsion einer Rundwelle typischerweise der kritische Punkt?',
+        options: ['Am Rand oben oder unten', 'Immer exakt im Schwerpunkt', 'Außerhalb des Bauteils', 'Nur an der neutralen Faser'],
+        correctOption: 0
+      },
+      {
+        id: 'EX:TM2-COMB-002:002',
+        type: 'single_choice',
+        question: 'Welche Schubspannung ist am Rand bei der klassischen Wellenaufgabe relevant?',
+        options: ['Torsionsschubspannung', 'Querkraftschubspannung als Maximum', 'Keine Schubspannung', 'Nur hydrostatischer Druck'],
+        correctOption: 0
+      }
+    ]
+  },
+  {
+    id: 'TM2-STRAIN-001',
+    title: 'Mehrachsige Dehnung, Hooke und DMS',
+    domain: 'Engineering',
+    difficulty: 4,
+    durationMinutes: 60,
+    summary:
+      'Das Modul behandelt Querkontraktion, Hooke für mehrachsige Spannungszustände und DMS-Rosetten als experimentellen Zugang zur Bestimmung von Dehnungs- und Spannungszuständen.',
+    source: {
+      authority: 'ssf-local-module-yaml',
+      kxfEntityIds: ['CON:TM:multiaxial-hooke-law', 'CON:TM:poisson-contraction', 'CON:TM:strain-gauge-rosette']
+    },
+    unlocks: [],
+    exercises: [
+      {
+        id: 'EX:TM2-STRAIN-001:001',
+        type: 'single_choice',
+        question: 'Was beschreibt die Querkontraktionszahl?',
+        options: [
+          'Die Kopplung zwischen Längsdehnung und Querdehnung',
+          'Den Durchmesser eines Mohrschen Kreises',
+          'Die Anzahl der Lagerkräfte',
+          'Die Dichte eines Werkstoffs'
+        ],
+        correctOption: 0
+      },
+      {
+        id: 'EX:TM2-STRAIN-001:002',
+        type: 'single_choice',
+        question: 'Wozu dient eine DMS-Rosette?',
+        options: [
+          'Zur Erfassung des ebenen Dehnungszustands aus mehreren Messrichtungen',
+          'Nur zur Farbmessung',
+          'Zum Ersetzen der Gleichgewichtsbedingungen',
+          'Zur Vermeidung jeder Spannung'
         ],
         correctOption: 0
       }
