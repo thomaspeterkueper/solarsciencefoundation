@@ -53,11 +53,11 @@ key_concepts:
   - CON:TM:principal-section
 formulas:
   - id: EQ:TM2:PRESS:longitudinal-stress
-    latex: "\\sigma_l=\\frac{p d_i}{4t}"
+    latex: "\sigma_l=\frac{p d_i}{4t}"
   - id: EQ:TM2:PRESS:hoop-stress
-    latex: "\\sigma_t=\\frac{p d_i}{2t}"
+    latex: "\sigma_t=\frac{p d_i}{2t}"
   - id: EQ:TM2:PRESS:stress-ratio
-    latex: "\\sigma_t=2\\sigma_l"
+    latex: "\sigma_t=2\sigma_l"
 canonical_examples:
   - id: EX:TM2:PRESS:001
     title:
@@ -74,8 +74,9 @@ assessment:
 relations:
   requires:
     - TM2-COMB-001
-  precedes:
-    - TM2-STRESS-001
+  # role: optional_bridge — PRESS ist keine Voraussetzung für STRESS-001,
+  # sondern eine anschauliche Anwendungsbrücke im Lernpfad.
+  # TM2-STRESS-001 wurde daher nicht als precedes-Ziel geführt.
 ssf_notes:
   de: >
     Dieses Modul ist als anschauliche Brücke gut geeignet, weil es direkt zeigt,
