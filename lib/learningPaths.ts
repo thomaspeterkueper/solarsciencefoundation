@@ -3,9 +3,9 @@
  * Path:      lib/learningPaths.ts
  * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/learningPaths.ts
  * Name:      Learning Paths registry
- * Version:   0.2.0
+ * Version:   0.3.0
  * Created:   2026-07-03
- * Modified:  2026-07-04 18:00 CEST
+ * Modified:  2026-07-04 19:00 CEST
  * Depends:   —
  */
 
@@ -18,6 +18,16 @@ export type LearningPathSection = {
   depthPoints?: number;
   /** True if this section contains interactive/audio elements (Web Audio API, Canvas) */
   interactive?: boolean;
+  /**
+   * Optional image for observation cards.
+   * Path relative to /public — e.g. "/images/observations/kaffeetasse-tku.jpg"
+   * Convention: suffix -tku = photo by Thomas Küper
+   */
+  image?: {
+    src: string;
+    alt: string;
+    credit?: string;
+  };
 };
 
 export type LearningPathUnit = {
@@ -75,7 +85,7 @@ export const learningPaths: LearningPath[] = [
       ],
       ssf: [
         'Didactic sequencing and entry questions (no discipline labels)',
-        'Personal observations by Thomas Kueper (Kontrakomologie, Kaffeetasse, Jalousie)',
+        'Personal observations and photos by Thomas Kueper (Kontrakomologie, Kaffeetasse, Jalousie)',
         'Interactive experiments: Web Audio (cup resonance, wave mixer), Canvas wave viz, light spectrum slider',
         'Mini-experiment instructions for physical props (cup + spoon, marble, prism/CD)',
         'Quiz gates, optional branches, depth scoring'
@@ -89,6 +99,18 @@ export const learningPaths: LearningPath[] = [
         entryQuestion: 'Warum klingt eine Kaffeetasse anders, je nachdem wie voll sie ist?',
         gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:LICHT' },
         sections: [
+          {
+            id: 'OBS:KAFFEETASSE',
+            kind: 'observation',
+            title: 'Die klingende Tasse',
+            summary: 'Klopf an eine halb gefuellte Tasse — dann trink die Haelfte. Der Ton aendert sich. Warum?',
+            image: {
+              src: '/images/observations/kaffeetasse-tku.jpg',
+              alt: 'Weisse Porzellanasse mit Goldverzierung, Untertasse und Loeffel auf Holztisch',
+              credit: 'Thomas Kueper'
+            },
+            depthPoints: 4
+          },
           {
             id: 'OBS:BACH-DAVIS',
             kind: 'observation',
@@ -108,14 +130,14 @@ export const learningPaths: LearningPath[] = [
             id: 'EXP:WELLENMISCHER',
             kind: 'experiment',
             title: 'Experiment 2: Wellen ueberlagern',
-            summary: 'Zwei Oszillatoren mischbar (Frequenz + Amplitude). Summe hoerbar und sichtbar. Zeigt konstruktive/destruktive Interferenz. Mini-Experiment: zwei Steine in ruhiges Wasser.',
+            summary: 'Zwei Oszillatoren mischbar (Frequenz + Amplitude). Summe hoerbar und sichtbar. Zeigt konstruktive/destruktive Interferenz.',
             interactive: true,
             depthPoints: 6
           },
           {
             id: 'OBS:MURMEL',
             kind: 'observation',
-            title: 'Beobachtung: Murmel auf verschiedenen Untergründen',
+            title: 'Beobachtung: Murmel auf verschiedenen Untergruenden',
             summary: 'Holz vs. Teppich vs. Fliesen: Energie-Absorption und Reflexion im Alltag.',
             optional: true,
             depthPoints: 3
@@ -124,7 +146,7 @@ export const learningPaths: LearningPath[] = [
             id: 'BRANCH:FOURIER',
             kind: 'branch',
             title: 'Seitenast: Fourier & Klangfarbe',
-            summary: 'Fourier-Zerlegung als Bruecke von Klang zu Spektrum. Jede periodische Schwingung = Summe von Sinusstoenen.',
+            summary: 'Fourier-Zerlegung als Bruecke von Klang zu Spektrum.',
             optional: true,
             depthPoints: 8
           },
@@ -132,7 +154,7 @@ export const learningPaths: LearningPath[] = [
             id: 'QUIZ:KLANG',
             kind: 'quiz',
             title: 'Quiz Klangstruktur',
-            summary: 'Drei Fragen: Resonanzlaenge (Tasse), Klangfarbe (Obertone), Interferenz (destruktiv).',
+            summary: 'Drei Fragen: Resonanzlaenge (Tasse), Klangfarbe (Obertoene), Interferenz (destruktiv).',
             depthPoints: 15
           }
         ]
@@ -146,14 +168,14 @@ export const learningPaths: LearningPath[] = [
             id: 'OBS:JALOUSIE',
             kind: 'observation',
             title: 'Beobachtung: Licht durch Jalousienritze',
-            summary: 'Beugung und Farbsaeume an Lichtstreifen — Licht verhalt sich wie eine Welle.',
+            summary: 'Beugung und Farbsaeume an Lichtstreifen — Licht verhaelt sich wie eine Welle.',
             depthPoints: 4
           },
           {
             id: 'EXP:LICHTSPEKTRUM',
             kind: 'experiment',
             title: 'Experiment 3: Licht als Frequenz',
-            summary: 'Wellenlaengen-Slider 380–700 nm: Farbe, Frequenz (THz) und Energie (eV) aendern sich live. Canvas zeigt Welle mit Eigenfarbe. Fraunhofer-Linien annotiert. Mini-Experiment: CD als Prisma.',
+            summary: 'Wellenlaengen-Slider 380–700 nm mit Farbe, Frequenz (THz) und Energie (eV) live. Fraunhofer-Linien annotiert.',
             interactive: true,
             depthPoints: 4
           },
@@ -161,14 +183,14 @@ export const learningPaths: LearningPath[] = [
             id: 'EXP:ABSORPTIONSLINIEN',
             kind: 'explanation',
             title: 'Absorptionslinien: Fingerabdruck der Elemente',
-            summary: 'Fraunhofer-Linien im Sonnenspektrum. Jedes Element absorbiert charakteristische Frequenzen. Basis der Astrophysik.',
+            summary: 'Fraunhofer-Linien im Sonnenspektrum. Jedes Element absorbiert charakteristische Frequenzen.',
             depthPoints: 8
           },
           {
             id: 'OBS:DOPPLER-AUTO',
             kind: 'observation',
             title: 'Beobachtung: Doppler-Effekt im Strassenverkehr',
-            summary: 'Ton eines Autos: hoeher beim Naeherkommen, tiefer beim Entfernen. Bei Licht: blau/rot statt hoeher/tiefer. Basis von Hubbles Entdeckung.',
+            summary: 'Ton eines Autos: hoeher beim Naeherkommen, tiefer beim Entfernen. Bei Licht: blau/rot statt hoeher/tiefer.',
             depthPoints: 3
           },
           {
@@ -183,7 +205,7 @@ export const learningPaths: LearningPath[] = [
             id: 'QUIZ:LICHT',
             kind: 'quiz',
             title: 'Quiz Spektren',
-            summary: 'Drei Fragen: Vakuum-Ausbreitung (kein Medium), Lichtlaufzeit (Zeitmaschine), Fraunhofer-Linien (Fingerabdruck).',
+            summary: 'Drei Fragen: Vakuum-Ausbreitung, Lichtlaufzeit (Zeitmaschine), Fraunhofer-Linien (Fingerabdruck).',
             depthPoints: 18
           }
         ]
