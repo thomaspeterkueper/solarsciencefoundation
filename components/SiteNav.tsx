@@ -24,11 +24,11 @@ export default function SiteNav() {
 
   return (
     <nav className="nav">
-      <Link href={`${prefix}/learn`}>{isGerman ? 'Entdecken' : 'Explore'}</Link>
-      <Link href={`${prefix}/learning-paths`}>{isGerman ? 'Lernpfade' : 'Paths'}</Link>
-      <Link href={`${prefix}/subjects`}>{isGerman ? 'Fächer' : 'Fields'}</Link>
-      <Link href={`${prefix}/membership`}>{isGerman ? 'Mitgliedschaft' : 'Membership'}</Link>
-      <Link href={`${prefix}/progress`}>{isGerman ? 'Fortschritt' : 'Progress'}</Link>
+      <Link href={`${prefix}/learn`}>Explore</Link>
+      <Link href={`${prefix}/learning-paths`}>Paths</Link>
+      <Link href={`${prefix}/subjects`}>Fields</Link>
+      <Link href={`${prefix}/membership`}>Membership</Link>
+      <Link href={`${prefix}/progress`}>Progress</Link>
       <Link href={`${prefix}/login`}>Login</Link>
       <a href="https://noxiagame.vercel.app" className="accent">NO&#967;&#185;&#916;</a>
       <span className="sep">·</span>
