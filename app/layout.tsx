@@ -8,7 +8,7 @@ import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Solar Science Foundation',
-  description: 'A fictional science learning and archive platform.'
+  description: 'An independent institution for scientific curiosity — open to everyone, everywhere.'
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
