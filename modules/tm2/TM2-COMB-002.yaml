@@ -56,15 +56,15 @@ key_concepts:
   - CON:TM:von-mises-preview
 formulas:
   - id: EQ:TM2:COMB2:bending-stress
-    latex: "\\sigma_b=\\frac{M_b}{W}"
+    latex: "\sigma_b=\frac{M_b}{W}"
   - id: EQ:TM2:COMB2:torsional-shear
-    latex: "\\tau_T=\\frac{M_T}{W_T}"
+    latex: "\tau_T=\frac{M_T}{W_T}"
   - id: EQ:TM2:COMB2:round-section-modulus
-    latex: "W=\\frac{\\pi d^3}{32},\\quad W_T=\\frac{\\pi d^3}{16}=2W"
+    latex: "W=\frac{\pi d^3}{32},\quad W_T=\frac{\pi d^3}{16}=2W"
   - id: EQ:TM2:COMB2:principal-stress-special-case
-    latex: "\\sigma_{1,2}=\\frac{\\sigma_b}{2}\\pm\\sqrt{\\left(\\frac{\\sigma_b}{2}\\right)^2+\\tau_T^2}"
+    latex: "\sigma_{1,2}=\frac{\sigma_b}{2}\pm\sqrt{\left(\frac{\sigma_b}{2}\right)^2+\tau_T^2}"
   - id: EQ:TM2:COMB2:von-mises-preview
-    latex: "\\sigma_V=\\sqrt{\\sigma_b^2+3\\tau_T^2}"
+    latex: "\sigma_V=\sqrt{\sigma_b^2+3\tau_T^2}"
 canonical_examples:
   - id: EX:TM2:COMB2:001
     title:
@@ -83,7 +83,7 @@ relations:
     - TM2-COMB-001
     - TM2-PRINCIPAL-001
   precedes:
-    - TM2-EQUIV-001
+    - TM2-EQUIV-001  # [AUSSTEHEND] — Vergleichsspannung / von Mises, noch nicht angelegt
 ssf_notes:
   de: >
     Dieses Modul ist eine ideale technische Anwendungsbrücke. Es zeigt, wie die
