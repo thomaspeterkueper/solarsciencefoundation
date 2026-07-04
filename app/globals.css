@@ -42,6 +42,7 @@ h1.hero { font-family: var(--font-serif); font-size: 78px; line-height: 0.98; co
 .subjects { color: var(--navy); font-size: 16px; letter-spacing: 0.2px; margin-top: 24px; }
 .subjects span { color: var(--gold); margin: 0 9px; }
 .hero-grid { display: grid; grid-template-columns: minmax(0, 1.02fr) minmax(460px, 0.98fr); gap: 72px; align-items: center; padding-top: 18px; }
+.hero-section { position: relative; overflow: hidden; width: 100%; padding: 64px 0 72px; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
 
 .card { background: var(--panel); border: 1px solid var(--border); border-radius: 18px; padding: 34px 36px; }
