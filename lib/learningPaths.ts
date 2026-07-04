@@ -3,9 +3,9 @@
  * Path:      lib/learningPaths.ts
  * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/learningPaths.ts
  * Name:      Learning Paths registry
- * Version:   0.4.0
+ * Version:   0.5.0
  * Created:   2026-07-03
- * Modified:  2026-07-04 20:00 CEST
+ * Modified:  2026-07-04 21:00 CEST
  * Depends:   —
  */
 
@@ -117,6 +117,19 @@ export const learningPaths: LearningPath[] = [
             title: 'Eigene Beobachtung: Kontrakomologie',
             summary: 'Bach und Miles Davis erzeugen verschiedene Zeitstrukturen im Klang. Ausgangspunkt fuer die Frage: Was ist Klang physikalisch?',
             depthPoints: 4
+          },
+          {
+            id: 'OBS:WASSERGLAS',
+            kind: 'observation',
+            title: 'Beobachtung: Das kalte Wasserglas',
+            summary: 'Ein kaltes Glas an einem warmen Tag: aussen Kondensation, innen Brechung des Hintergrunds, Fuelstand als Resonanzlinie — drei Phaenomene auf einmal sichtbar.',
+            image: {
+              src: '/images/observations/wasserglas-tku.jpg',
+              alt: 'Kaltes Wasserglas auf Holztisch, Kondensation aussen, Gelaender und Himmel dahinter durch das Glas gebrochen',
+              credit: 'Thomas Kueper'
+            },
+            optional: true,
+            depthPoints: 3
           },
           {
             id: 'EXP:KAFFEETASSE',
