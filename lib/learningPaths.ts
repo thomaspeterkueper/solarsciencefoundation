@@ -3,9 +3,9 @@
  * Path:      lib/learningPaths.ts
  * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/learningPaths.ts
  * Name:      Learning Paths registry
- * Version:   0.3.0
+ * Version:   0.4.0
  * Created:   2026-07-03
- * Modified:  2026-07-04 19:00 CEST
+ * Modified:  2026-07-04 20:00 CEST
  * Depends:   —
  */
 
@@ -169,6 +169,11 @@ export const learningPaths: LearningPath[] = [
             kind: 'observation',
             title: 'Beobachtung: Licht durch Jalousienritze',
             summary: 'Beugung und Farbsaeume an Lichtstreifen — Licht verhaelt sich wie eine Welle.',
+            image: {
+              src: '/images/observations/rolladen-tku.jpg',
+              alt: 'Rolladen-Lamellen mit Lichtstreifen — sichtbare Spektren durch Beugung und Dispersion',
+              credit: 'Thomas Kueper'
+            },
             depthPoints: 4
           },
           {
