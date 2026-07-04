@@ -220,7 +220,7 @@ export function normaliseKxfModules(kxf: KxfExport, legacyKxf?: KxfExport): Lear
       summary:
         fallback?.summary ??
         module.meta?.entry_question ??
-        'A learning module imported from the KUEPER Knowledge Graph. Detailed SSF text will be added by the didactic layer.',
+        '',
       source: {
         authority: 'kueper-knowledge-graph',
         kxfEntityIds: module.teaches ?? fallback?.source.kxfEntityIds ?? []
