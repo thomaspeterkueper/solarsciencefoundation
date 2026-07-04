@@ -1,9 +1,9 @@
 /**
  * KUEPER - Solar Science Foundation (SSF)
  * Path: lib/modules.ts
- * Repo: github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/modules.ts
- * Name: modules - local didactic fallback registry
- * Version: 0.2.0
+ * Repo: github.com/thomaspeterkueper/SolarScienceFoundation/blob/main/lib/modules.ts
+ * Name: modules - local didactic content registry
+ * Version: 0.3.0
  * Created: 2026-06-26
  * Modified: 2026-07-04
  * Depends: none
@@ -23,6 +23,8 @@ export type LearningModule = {
   domain: string;
   difficulty: number;
   durationMinutes: number;
+  // summary is the entry question — the first thing a visitor reads.
+  // It should open curiosity, not describe content.
   summary: string;
   source: {
     authority: string;
@@ -33,6 +35,9 @@ export type LearningModule = {
 };
 
 export const learningModules: LearningModule[] = [
+
+  // ── Mathematik ──────────────────────────────────────────────────────────────
+
   {
     id: 'SSF-MAT-0001',
     title: 'Numbers and place value',
@@ -40,11 +45,8 @@ export const learningModules: LearningModule[] = [
     difficulty: 0,
     durationMinutes: 7,
     summary:
-      'A first mathematics module about digits, place value and why the position of a digit changes its value.',
-    source: {
-      authority: 'ssf-local-fallback',
-      kxfEntityIds: ['CON:MAT:L0:numbers', 'CON:MAT:L0:place-value']
-    },
+      'Warum ist die 7 in 472 nicht dasselbe wie die 7 in 72 — obwohl es dieselbe Ziffer ist?',
+    source: { authority: 'ssf-local', kxfEntityIds: ['CON:MAT:L0:numbers', 'CON:MAT:L0:place-value'] },
     unlocks: [],
     exercises: [
       {
@@ -68,6 +70,7 @@ export const learningModules: LearningModule[] = [
       }
     ]
   },
+
   {
     id: 'SSF-MAT-0002',
     title: 'Addition as combining quantities',
@@ -75,11 +78,8 @@ export const learningModules: LearningModule[] = [
     difficulty: 0,
     durationMinutes: 7,
     summary:
-      'A foundation module about addition as combining quantities and using it to count totals reliably.',
-    source: {
-      authority: 'ssf-local-fallback',
-      kxfEntityIds: ['CON:MAT:L0:addition']
-    },
+      'Wenn du 6 Äpfel und 4 Orangen hast — was genau passiert, wenn du beide zusammenzählst?',
+    source: { authority: 'ssf-local', kxfEntityIds: ['CON:MAT:L0:addition'] },
     unlocks: [],
     exercises: [
       {
@@ -98,6 +98,7 @@ export const learningModules: LearningModule[] = [
       }
     ]
   },
+
   {
     id: 'SSF-MAT-0003',
     title: 'Multiplication as repeated addition',
@@ -105,11 +106,8 @@ export const learningModules: LearningModule[] = [
     difficulty: 0,
     durationMinutes: 8,
     summary:
-      'A first multiplication module: equal groups, repeated addition and why multiplication is useful in science.',
-    source: {
-      authority: 'ssf-local-fallback',
-      kxfEntityIds: ['CON:MAT:L0:multiplication']
-    },
+      'Vier Schachteln, drei Äpfel pro Schachtel — warum reicht eine einzige Rechnung statt vier?',
+    source: { authority: 'ssf-local', kxfEntityIds: ['CON:MAT:L0:multiplication'] },
     unlocks: [],
     exercises: [
       {
@@ -128,6 +126,7 @@ export const learningModules: LearningModule[] = [
       }
     ]
   },
+
   {
     id: 'SSF-MAT-0004',
     title: 'Fractions as parts of a whole',
@@ -135,11 +134,8 @@ export const learningModules: LearningModule[] = [
     difficulty: 1,
     durationMinutes: 10,
     summary:
-      'A foundation module about fractions: numerator, denominator and parts of one whole.',
-    source: {
-      authority: 'ssf-local-fallback',
-      kxfEntityIds: ['CON:MAT:L1:fractions']
-    },
+      'Du teilst eine Pizza in 4 Stücke und nimmst 3 — wie schreibt man das, ohne zu zeichnen?',
+    source: { authority: 'ssf-local', kxfEntityIds: ['CON:MAT:L1:fractions'] },
     unlocks: ['UNL:NOX:basic-ratio-thinking'],
     exercises: [
       {
@@ -158,6 +154,7 @@ export const learningModules: LearningModule[] = [
       }
     ]
   },
+
   {
     id: 'SSF-MAT-0005',
     title: 'Percentages as hundredths',
@@ -165,11 +162,8 @@ export const learningModules: LearningModule[] = [
     difficulty: 1,
     durationMinutes: 10,
     summary:
-      'A first percentage module: percent means per hundred and helps compare parts, rates and progress.',
-    source: {
-      authority: 'ssf-local-fallback',
-      kxfEntityIds: ['CON:MAT:L1:percentages']
-    },
+      'Ein Laden bietet 25% Rabatt. Ein anderer 1/4 Rabatt. Welches Angebot ist besser — oder sind beide gleich?',
+    source: { authority: 'ssf-local', kxfEntityIds: ['CON:MAT:L1:percentages'] },
     unlocks: ['UNL:NOX:efficiency-readouts'],
     exercises: [
       {
@@ -188,41 +182,134 @@ export const learningModules: LearningModule[] = [
       }
     ]
   },
+
+  // ── SSF-MAT-1001 (KG: MAT-1001 "Zahlen und Muster") ────────────────────────
+  {
+    id: 'SSF-MAT-1001',
+    title: 'Zahlen und Muster',
+    domain: 'Mathematics',
+    difficulty: 1,
+    durationMinutes: 30,
+    summary:
+      'Warum sehen Schuppen einer Tannenzapfen, Spiralen einer Sonnenblume und Kurven einer Muschel so ähnlich aus — obwohl sie nichts voneinander wissen?',
+    source: { authority: 'ssf-local', kxfEntityIds: ['CON:MAT:L1:numbers', 'CON:MAT:L1:patterns'] },
+    unlocks: [],
+    exercises: [
+      {
+        id: 'EX:SSF-MAT-1001:001',
+        type: 'single_choice',
+        question: 'Was haben die Fibonacci-Zahlen (1, 1, 2, 3, 5, 8, 13 …) mit der Natur zu tun?',
+        options: [
+          'Nichts — sie sind rein abstrakt.',
+          'Sie beschreiben, wie sich viele Wachstumsmuster in der Natur aufbauen.',
+          'Sie gelten nur für Spiralen im Weltall.',
+          'Sie wurden erst im 20. Jahrhundert entdeckt.'
+        ],
+        correctOption: 1
+      },
+      {
+        id: 'EX:SSF-MAT-1001:002',
+        type: 'single_choice',
+        question: 'Was ist ein Muster in der Mathematik?',
+        options: [
+          'Eine zufällige Anordnung ohne Regel.',
+          'Eine sich wiederholende oder regelmäßige Struktur, die sich beschreiben lässt.',
+          'Immer eine Symmetrie um eine Achse.',
+          'Nur etwas Visuelles, kein mathematisches Konzept.'
+        ],
+        correctOption: 1
+      }
+    ]
+  },
+
+  // ── SSF-MAT-1002 (KG: MAT-1002 "Algebra Grundlagen") ──────────────────────
+  {
+    id: 'SSF-MAT-1002',
+    title: 'Algebra Grundlagen',
+    domain: 'Mathematics',
+    difficulty: 1,
+    durationMinutes: 30,
+    summary:
+      'Jeder Rabatt, jeder Zins, jede Gleichgewichtsberechnung folgt demselben Prinzip — warum reicht dafür ein einziger Buchstabe?',
+    source: { authority: 'ssf-local', kxfEntityIds: ['CON:MAT:L1:algebra', 'CON:MAT:L1:variables'] },
+    unlocks: [],
+    exercises: [
+      {
+        id: 'EX:SSF-MAT-1002:001',
+        type: 'single_choice',
+        question: 'Was bedeutet es, wenn in einer Gleichung ein Buchstabe wie x steht?',
+        options: [
+          'Der Buchstabe ist nur ein Platzhalter ohne Bedeutung.',
+          'Der Buchstabe steht für eine unbekannte Zahl, die wir suchen oder beschreiben.',
+          'Der Buchstabe bedeutet immer 10.',
+          'Buchstaben kommen nur in der Geometrie vor.'
+        ],
+        correctOption: 1
+      },
+      {
+        id: 'EX:SSF-MAT-1002:002',
+        type: 'single_choice',
+        question: 'Ein T-Shirt kostet x Euro. Du kaufst 3 davon. Wie schreibt man den Gesamtpreis?',
+        options: ['x + 3', 'x − 3', '3x', 'x / 3'],
+        correctOption: 2
+      },
+      {
+        id: 'EX:SSF-MAT-1002:003',
+        type: 'single_choice',
+        question: 'Was beschreibt die Algebra grundsätzlich?',
+        options: [
+          'Ausschließlich Dreiecke und Winkel.',
+          'Strukturen und Regeln, die für viele konkrete Zahlen gleichzeitig gelten.',
+          'Nur Berechnungen mit sehr großen Zahlen.',
+          'Die Schreibweise von Dezimalzahlen.'
+        ],
+        correctOption: 1
+      }
+    ]
+  },
+
+  // ── Physik ───────────────────────────────────────────────────────────────────
+
   {
     id: 'SSF-PHY-1101',
-    title: 'What is gravity?',
+    title: 'Was ist Schwerkraft?',
     domain: 'Physics',
     difficulty: 1,
     durationMinutes: 8,
     summary:
-      'A short foundation module about gravity as attraction between masses and as the basis for orbits, falling bodies and space navigation.',
-    source: {
-      authority: 'kueper-knowledge-graph',
-      kxfEntityIds: ['CON:L1:gravitation', 'CON:L1:orbitalmechanik']
-    },
+      'Warum fällt ein Apfel nicht zur Seite — und warum bleibt der Mond trotzdem oben?',
+    source: { authority: 'ssf-local', kxfEntityIds: ['CON:L1:gravitation', 'CON:L1:orbitalmechanik'] },
     unlocks: ['UNL:NOX:orbital-navigation'],
     exercises: [
       {
         id: 'EX:SSF-PHY-1101:001',
         type: 'single_choice',
-        question: 'What does gravity do between masses?',
-        options: ['It repels them.', 'It attracts them.', 'It removes inertia.', 'It creates light.'],
+        question: 'Was bewirkt Schwerkraft zwischen zwei Massen?',
+        options: [
+          'Sie stoßen sich ab.',
+          'Sie ziehen sich an.',
+          'Sie bewegen sich immer in gerader Linie voneinander weg.',
+          'Schwerkraft wirkt nur auf der Erde.'
+        ],
         correctOption: 1
       },
       {
         id: 'EX:SSF-PHY-1101:002',
         type: 'single_choice',
-        question: 'Why is gravity important for NOXIA orbital navigation?',
+        question: 'Warum fällt der Mond nicht auf die Erde, obwohl die Erde ihn anzieht?',
         options: [
-          'Because routes depend on orbital motion.',
-          'Because ships do not need fuel.',
-          'Because stations cannot move.',
-          'Because planets have no mass.'
+          'Weil der Mond zu weit entfernt ist, um angezogen zu werden.',
+          'Weil seine Seitwärtsbewegung ihn immer wieder am Fallen vorbeibringt — er ist ständig im freien Fall.',
+          'Weil der Mond leichter als Luft ist.',
+          'Weil die Sonne den Mond abstößt.'
         ],
-        correctOption: 0
+        correctOption: 1
       }
     ]
   },
+
+  // ── Engineering TM2 (unverändert — gut formuliert) ───────────────────────────
+
   {
     id: 'TM2-COMB-001',
     title: 'Überlagerung von Spannungen',
@@ -230,11 +317,8 @@ export const learningModules: LearningModule[] = [
     difficulty: 3,
     durationMinutes: 60,
     summary:
-      'Normalspannungen aus Normalkraft und Biegung werden punktweise addiert. Schubspannungen werden je nach Richtung addiert oder vektoriell überlagert; Normal- und Schubspannung führen gemeinsam zum Spannungszustand.',
-    source: {
-      authority: 'ssf-local-module-yaml',
-      kxfEntityIds: ['CON:TM:stress-superposition', 'CON:TM:eccentric-load', 'CON:TM:biaxial-bending']
-    },
+      'Wann darf man Spannungen einfach addieren — und wann entsteht stattdessen ein Spannungszustand?',
+    source: { authority: 'ssf-local-module-yaml', kxfEntityIds: ['CON:TM:stress-superposition'] },
     unlocks: [],
     exercises: [
       {
@@ -263,6 +347,7 @@ export const learningModules: LearningModule[] = [
       }
     ]
   },
+
   {
     id: 'TM2-PRESS-001',
     title: 'Dünnwandige Druckbehälter und Kesselformeln',
@@ -270,11 +355,8 @@ export const learningModules: LearningModule[] = [
     difficulty: 3,
     durationMinutes: 45,
     summary:
-      'Ein dünnwandiger Zylinder unter Innendruck besitzt Längsspannung und Umfangsspannung. Die Umfangsspannung ist doppelt so groß wie die Längsspannung und beide liegen in schubspannungsfreien Hauptschnitten.',
-    source: {
-      authority: 'ssf-local-module-yaml',
-      kxfEntityIds: ['CON:TM:pressure-vessel', 'CON:TM:hoop-stress', 'CON:TM:longitudinal-stress']
-    },
+      'Warum ist die Umfangsspannung beim Kessel doppelt so groß wie die Längsspannung?',
+    source: { authority: 'ssf-local-module-yaml', kxfEntityIds: ['CON:TM:pressure-vessel'] },
     unlocks: [],
     exercises: [
       {
@@ -298,6 +380,7 @@ export const learningModules: LearningModule[] = [
       }
     ]
   },
+
   {
     id: 'TM2-STRESS-001',
     title: 'Spannungszustand im Punkt',
@@ -305,11 +388,8 @@ export const learningModules: LearningModule[] = [
     difficulty: 3,
     durationMinutes: 75,
     summary:
-      'Spannung hängt von der Schnittrichtung ab. Ein Punkt besitzt keinen einzelnen Spannungswert, sondern einen ebenen Spannungszustand aus Normalspannungen und Schubspannung.',
-    source: {
-      authority: 'ssf-local-module-yaml',
-      kxfEntityIds: ['CON:TM:stress-state', 'CON:TM:inclined-section', 'CON:TM:stress-transformation']
-    },
+      'Warum gibt es nicht die eine Spannung im Punkt — sondern immer einen ganzen Zustand?',
+    source: { authority: 'ssf-local-module-yaml', kxfEntityIds: ['CON:TM:stress-state'] },
     unlocks: [],
     exercises: [
       {
@@ -333,6 +413,7 @@ export const learningModules: LearningModule[] = [
       }
     ]
   },
+
   {
     id: 'TM2-PRINCIPAL-001',
     title: 'Hauptspannungen und Mohrscher Kreis',
@@ -340,11 +421,8 @@ export const learningModules: LearningModule[] = [
     difficulty: 4,
     durationMinutes: 90,
     summary:
-      'Hauptspannungen sind die Extremwerte der Normalspannung. Der Mohrsche Kreis zeigt Mittelpunkt, Radius, maximale Schubspannung und die Beziehung zwischen Bauteildrehung und Spannungszustand.',
-    source: {
-      authority: 'ssf-local-module-yaml',
-      kxfEntityIds: ['CON:TM:principal-stress', 'CON:TM:principal-direction', 'CON:TM:mohr-circle']
-    },
+      'In welcher Richtung wird die Normalspannung maximal — und wie sieht man das ohne zu rechnen?',
+    source: { authority: 'ssf-local-module-yaml', kxfEntityIds: ['CON:TM:principal-stress'] },
     unlocks: [],
     exercises: [
       {
@@ -368,6 +446,7 @@ export const learningModules: LearningModule[] = [
       }
     ]
   },
+
   {
     id: 'TM2-COMB-002',
     title: 'Biegung und Torsion an Wellen',
@@ -375,11 +454,8 @@ export const learningModules: LearningModule[] = [
     difficulty: 4,
     durationMinutes: 75,
     summary:
-      'Bei Wellen treffen am Rand maximale Biegespannung und maximale Torsionsschubspannung zusammen, während Querkraftschub dort verschwindet. Daraus wird der kritische Spannungszustand aufgebaut.',
-    source: {
-      authority: 'ssf-local-module-yaml',
-      kxfEntityIds: ['CON:TM:shaft', 'CON:TM:critical-point', 'CON:TM:bending-and-torsion']
-    },
+      'Warum ist der Randpunkt einer Welle bei gleichzeitiger Biegung und Torsion der gefährlichste Ort?',
+    source: { authority: 'ssf-local-module-yaml', kxfEntityIds: ['CON:TM:shaft'] },
     unlocks: [],
     exercises: [
       {
@@ -398,6 +474,7 @@ export const learningModules: LearningModule[] = [
       }
     ]
   },
+
   {
     id: 'TM2-STRAIN-001',
     title: 'Mehrachsige Dehnung, Hooke und DMS',
@@ -405,11 +482,8 @@ export const learningModules: LearningModule[] = [
     difficulty: 4,
     durationMinutes: 60,
     summary:
-      'Das Modul behandelt Querkontraktion, Hooke für mehrachsige Spannungszustände und DMS-Rosetten als experimentellen Zugang zur Bestimmung von Dehnungs- und Spannungszuständen.',
-    source: {
-      authority: 'ssf-local-module-yaml',
-      kxfEntityIds: ['CON:TM:multiaxial-hooke-law', 'CON:TM:poisson-contraction', 'CON:TM:strain-gauge-rosette']
-    },
+      'Wie kommt man von drei gemessenen Dehnungen am Bauteil zu den tatsächlichen Spannungen?',
+    source: { authority: 'ssf-local-module-yaml', kxfEntityIds: ['CON:TM:multiaxial-hooke-law'] },
     unlocks: [],
     exercises: [
       {
@@ -438,6 +512,7 @@ export const learningModules: LearningModule[] = [
       }
     ]
   }
+
 ];
 
 export function getModuleById(id: string) {
