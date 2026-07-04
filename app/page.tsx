@@ -4,85 +4,173 @@ import { subjects } from '../lib/subjects';
 import HeroBackground from '../components/HeroBackground';
 
 export default async function HomePage() {
-  const modules = await getKxfLearningModules();
-  const featured = modules[0];
+  const modules  = await getKxfLearningModules();
+  const featured = modules.find(m => m.summary && !m.summary.startsWith('A learning')) ?? modules[0];
 
   return (
     <>
-      {/* Hero — full width, images bleed edge to edge, fade at bottom */}
+      {/* ── HERO ──────────────────────────────────────── */}
       <section className="hero-section">
         <HeroBackground />
-
-        {/* Text panel: not flush-left, frosted glass, navy left bar, shadow */}
         <div className="hero-panel">
-          <h1 className="hero" style={{ fontSize: 'clamp(36px, 4.5vw, 58px)', letterSpacing: '-1px' }}>
-            Knowledge must keep flowing.
-          </h1>
-          <p className="lede" style={{ fontSize: 20, marginTop: 20 }}>
-            An independent institution for scientific curiosity.
-            Questions connected to knowledge.
+          <p className="hero-sub">Geneva · Est. 2045</p>
+          <h1 className="hero">Knowledge must keep flowing.</h1>
+          <p className="lede">
+            An independent institution for scientific curiosity —
+            physics, chemistry, mathematics, history, language and beyond.
           </p>
-          <div className="hero-actions" style={{ marginTop: 28 }}>
-            <Link className="btn" href="/learn">Start exploring →</Link>
-            <Link className="btn secondary" href="/membership">Membership →</Link>
+          <div className="hero-actions">
+            <Link className="btn gold" href="/learn">Start exploring →</Link>
+            <Link className="btn secondary" href="/about">About the SSF</Link>
           </div>
         </div>
       </section>
 
-      <div className="container" style={{ paddingBottom: 8 }}>
-
-        {/* Featured module — below hero */}
-        <div className="hero-below">
-          <Link href={`/modules/${featured.id}`} style={{ color: 'inherit' }}>
-            <div className="card prominent">
-              <div className="module-meta">
-                <span className="mono" style={{ fontSize: 13, color: 'var(--steel)' }}>
-                  {featured.domain} · {featured.durationMinutes} min
-                </span>
-              </div>
-              <div className="module-title">{featured.title}</div>
-              <p style={{ color: 'var(--steel)', margin: 0 }}>{featured.summary}</p>
-              <p style={{ color: 'var(--link)', fontSize: 17, marginTop: 22, marginBottom: 0, fontWeight: 600 }}>
-                Begin →
-              </p>
+      {/* ── MISSION ───────────────────────────────────── */}
+      <section className="mission-strip">
+        <div className="container">
+          <div>
+            <h2 className="mission-headline">
+              Science begins with a question.
+            </h2>
+            <p className="mission-body">
+              The SSF connects everyday observations to the knowledge behind them.
+              No curriculum. No grades. Follow what you want to understand —
+              for as long as you want to understand it.
+              Students from Generation Mars began here.
+            </p>
+            <div style={{ marginTop: 28 }}>
+              <Link className="btn" href="/membership"
+                style={{ background: 'rgba(255,255,255,.12)', border: '1px solid rgba(255,255,255,.25)', color: '#fff' }}>
+                Apply for membership →
+              </Link>
             </div>
-          </Link>
+          </div>
+          <div className="mission-stats">
+            {[
+              ['∞',   'Depth levels'],
+              ['7',   'Fields of inquiry'],
+              ['NOχ¹Δ', 'Connected universe'],
+              ['Free', 'Always'],
+            ].map(([n, l]) => (
+              <div key={l}>
+                <div className="mission-stat-n">{n}</div>
+                <div className="mission-stat-l">{l}</div>
+              </div>
+            ))}
+          </div>
         </div>
+      </section>
 
-        <section className="platform-grid">
-          <div className="platform-card">
-            <p className="section-title">Explore</p>
-            <p>Follow your curiosity through physics, chemistry, mathematics, history, language — wherever the questions lead.</p>
-          </div>
-          <div className="platform-card">
-            <p className="section-title">Exchange programmes</p>
-            <p>Apply for SSF fellowships and exchange programmes. Students from Generation Mars began here.</p>
-          </div>
-          <div className="platform-card">
-            <p className="section-title">NO&#967;&#185;&#916;</p>
-            <p>What you learn here can open new capabilities in the NOχ¹Δ universe.</p>
+      <div className="container">
+
+        {/* ── THREE ENTRIES ─────────────────────────────── */}
+        <section className="entries-section">
+          <p className="section-eyebrow">Where to begin</p>
+          <h2 className="section-headline">Three ways in</h2>
+          <div className="entries-grid">
+            <Link href="/learn" style={{ color: 'inherit', textDecoration: 'none' }}>
+              <div className="entry-card">
+                <div className="entry-icon">📚</div>
+                <h3>Explore</h3>
+                <p>Follow a question. Each discovery opens three more. No fixed path — only curiosity.</p>
+                <span className="entry-link">Explore all topics →</span>
+              </div>
+            </Link>
+            <Link href="/learning-paths" style={{ color: 'inherit', textDecoration: 'none' }}>
+              <div className="entry-card">
+                <div className="entry-icon">🔭</div>
+                <h3>Learning paths</h3>
+                <p>Structured sequences from foundations to advanced topics — at your own pace, stop when you want.</p>
+                <span className="entry-link">View paths →</span>
+              </div>
+            </Link>
+            <a href="https://noxiagame.vercel.app" style={{ color: 'inherit', textDecoration: 'none' }}>
+              <div className="entry-card">
+                <div className="entry-icon">🎮</div>
+                <h3>NOχ¹Δ</h3>
+                <p>What you understand here unlocks capabilities in the NOχ¹Δ universe. Knowledge has consequences.</p>
+                <span className="entry-link">Enter NOχ¹Δ →</span>
+              </div>
+            </a>
           </div>
         </section>
 
-        <section id="subjects" className="subject-section">
-          <div className="section-row">
-            <h2 className="section-title" style={{ fontSize: 34 }}>Fields of inquiry</h2>
-            <Link href="/subjects" style={{ fontWeight: 600 }}>All fields →</Link>
+        {/* ── FEATURED MODULE ───────────────────────────── */}
+        <section className="featured-section">
+          <p className="section-eyebrow">Start here</p>
+          <h2 className="section-headline" style={{ marginBottom: 24 }}>A question worth asking</h2>
+          <Link href={`/modules/${featured.id}`} className="featured-card">
+            <div className="featured-card-stripe" />
+            <div className="featured-card-body">
+              <p className="featured-eyebrow">{featured.domain} · {featured.durationMinutes} min</p>
+              <h3 className="featured-question">{featured.summary}</h3>
+              <p style={{ color: 'var(--muted)', fontSize: 16, lineHeight: 1.6, maxWidth: '58ch', margin: 0 }}>
+                Begin with the observation. The explanation follows from what you already know.
+              </p>
+              <div className="featured-meta">
+                <span className="featured-begin">Begin this exploration →</span>
+              </div>
+            </div>
+          </Link>
+        </section>
+
+        {/* ── FIELDS ────────────────────────────────────── */}
+        <section className="fields-section">
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 28 }}>
+            <div>
+              <p className="section-eyebrow">Fields of inquiry</p>
+              <h2 className="section-headline" style={{ marginBottom: 0 }}>Choose your world</h2>
+            </div>
+            <Link href="/subjects" style={{ fontWeight: 600, fontSize: 15 }}>All fields →</Link>
           </div>
-          <div className="subject-grid">
-            {subjects.slice(0, 5).map((subject) => (
-              <Link key={subject.id} href={`/subjects/${subject.slug}`} style={{ color: 'inherit' }}>
-                <article className="subject-card">
-                  <div className="subject-mark">{subject.mark}</div>
-                  <strong>{subject.title}</strong>
-                  <small>{subject.levelRange}</small>
-                  <p>{subject.description}</p>
-                </article>
+          <div className="fields-grid">
+            {subjects.map((s) => (
+              <Link key={s.id} href={`/subjects/${s.slug}`} className="field-card">
+                <div className="field-mark">{s.mark}</div>
+                <strong>{s.title}</strong>
+                <small>{s.levelRange}</small>
+                <p>{s.description}</p>
               </Link>
             ))}
           </div>
         </section>
       </div>
+
+      {/* ── NOXIA STRIP ───────────────────────────────── */}
+      <section className="noxia-strip">
+        <div className="container">
+          <div className="noxia-inner">
+            <div>
+              <p className="noxia-eyebrow">NOχ¹Δ Universe</p>
+              <h2 className="noxia-headline">
+                What you learn here<br />has consequences.
+              </h2>
+              <p className="noxia-body" style={{ marginBottom: 28 }}>
+                NOχ¹Δ is a science-exploration universe where knowledge unlocks capabilities.
+                Students of Generation Mars earned their mission clearances through the SSF.
+                Your understanding is your equipment.
+              </p>
+              <a href="https://noxiagame.vercel.app" className="btn gold">Enter NOχ¹Δ →</a>
+            </div>
+            <div className="noxia-keys">
+              {[
+                { icon: '🔬', key: 'SENSOR:SPECTRAL', desc: 'Unlocked by completing the light module' },
+                { icon: '⚗️', key: 'MISSION:LAB-ALPHA', desc: 'Unlocked by the chemistry foundations' },
+                { icon: '🌍', key: 'MISSION:ORBITAL', desc: 'Unlocked by understanding gravity and orbits' },
+              ].map(({ icon, key, desc }) => (
+                <div key={key} className="noxia-key">
+                  <span className="noxia-key-icon">{icon}</span>
+                  <div>
+                    <span className="noxia-key-label">{key}</span>
+                    <span className="noxia-key-desc">{desc}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 }
