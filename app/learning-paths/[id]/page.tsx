@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import Image from 'next/image';
 import { getLearningPathById } from '../../../lib/learningPaths';
 
 type PageProps = {
@@ -11,67 +12,127 @@ export default async function LearningPathDetailPage({ params }: PageProps) {
 
   if (!path) notFound();
 
-  const totalDepth = path.units.flatMap((unit) => unit.sections).reduce((sum, section) => sum + (section.depthPoints ?? 0), 0);
-
   return (
-    <div className="container reading" style={{ paddingTop: 56 }}>
-      <p className="kicker">Learning path prototype</p>
-      <div style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
-        <span className="code">{path.id}</span>
-        <span className="mono" style={{ color: 'var(--steel)', fontSize: 13 }}>{path.kxfModuleId}</span>
-      </div>
-      <h1 className="hero" style={{ fontSize: 56, marginTop: 16 }}>{path.title}</h1>
-      <p style={{ color: 'var(--steel)', maxWidth: '68ch', fontSize: 20 }}>{path.subtitle}</p>
+    <div className="container reading" style={{ paddingTop: 56, paddingBottom: 96 }}>
 
-      <div className="card" style={{ marginTop: 28 }}>
-        <p className="section-title">Systemrollen</p>
-        <RoleBlock title="Knowledge Graph" items={path.suppliedBy.knowledgeGraph} />
-        <RoleBlock title="kueper.com" items={path.suppliedBy.kueperCom} />
-        <RoleBlock title="OverTime Archive" items={path.suppliedBy.overtimeArchive} />
-        <RoleBlock title="SSF" items={path.suppliedBy.ssf} />
-      </div>
+      {/* Path intro */}
+      <p className="kicker" style={{ marginBottom: 12 }}>{path.title}</p>
+      <p style={{ color: 'var(--steel)', maxWidth: '60ch', fontSize: 18, lineHeight: 1.7 }}>
+        {path.subtitle}
+      </p>
 
-      <div className="card" style={{ marginTop: 18 }}>
-        <p className="section-title">Lerntiefe und Unlocks</p>
-        <p className="mono" style={{ color: 'var(--steel)' }}>Maximale Roh-Tiefe: {totalDepth}</p>
-        <p className="mono" style={{ color: 'var(--link)' }}>Unlocks: {path.unlocks.join(' · ')}</p>
-        <p className="mono" style={{ color: 'var(--steel)' }}>Domains: {path.domainsNeeded.join(' · ')}</p>
-      </div>
+      {/* NOXIA unlocks */}
+      {path.unlocks.length > 0 && (
+        <div style={{
+          display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap',
+          marginTop: 20, padding: '10px 14px',
+          background: 'var(--gold-tint, #F5F0E0)',
+          border: '1px solid var(--gold-border, #DFC87A)',
+          borderRadius: 6
+        }}>
+          <span style={{ fontSize: 12, color: 'var(--steel)', fontFamily: 'var(--font-mono)' }}>
+            NOXIA
+          </span>
+          {path.unlocks.map(key => (
+            <span key={key} style={{
+              fontFamily: 'var(--font-mono)', fontSize: 11,
+              background: 'var(--gold-tint, #F5F0E0)',
+              border: '1px solid var(--gold-border, #DFC87A)',
+              color: 'var(--navy, #1C2B3A)',
+              padding: '2px 8px', borderRadius: 4
+            }}>{key}</span>
+          ))}
+        </div>
+      )}
 
-      <div style={{ display: 'grid', gap: 18, marginTop: 28 }}>
-        {path.units.map((unit, index) => (
-          <article key={unit.id} className="card">
-            <p className="section-title">Einheit {index + 1}</p>
-            <h2 className="module-title" style={{ fontSize: 30 }}>{unit.title}</h2>
-            {unit.gate && <p className="mono" style={{ color: 'var(--steel)' }}>Gate: {unit.gate.type} → {unit.gate.unlocksUnitId}</p>}
-            <div style={{ display: 'grid', gap: 10, marginTop: 18 }}>
+      {/* Units */}
+      <div style={{ display: 'grid', gap: 48, marginTop: 48 }}>
+        {path.units.map((unit, unitIndex) => (
+          <section key={unit.id}>
+
+            {/* Unit header */}
+            <p style={{
+              fontFamily: 'var(--font-mono)', fontSize: 10,
+              color: 'var(--steel)', letterSpacing: '0.1em',
+              textTransform: 'uppercase', marginBottom: 12
+            }}>
+              Einheit {unitIndex + 1}
+            </p>
+            {unit.entryQuestion && (
+              <h2 style={{
+                fontFamily: 'var(--font-serif, Georgia, serif)',
+                fontSize: 'clamp(20px, 3.5vw, 27px)',
+                fontWeight: 'normal', lineHeight: 1.25,
+                letterSpacing: '-0.01em', marginBottom: 32,
+                borderBottom: '1px solid var(--border)', paddingBottom: 20
+              }}>
+                {unit.entryQuestion}
+              </h2>
+            )}
+
+            {/* Sections */}
+            <div style={{ display: 'grid', gap: 16 }}>
               {unit.sections.map((section) => (
-                <div key={section.id} style={{ border: '1px solid var(--border)', borderRadius: 12, padding: 14 }}>
-                  <div className="module-meta">
-                    <span className="code">{section.kind}</span>
-                    <span className="mono" style={{ color: 'var(--steel)', fontSize: 12 }}>
-                      {section.optional ? 'optional' : 'main'} · depth {section.depthPoints ?? 0}
-                    </span>
+                <div key={section.id} style={{
+                  border: '1px solid var(--border)',
+                  borderRadius: 8,
+                  overflow: 'hidden',
+                  opacity: section.optional ? 0.85 : 1
+                }}>
+                  {/* Section image if present */}
+                  {section.image && (
+                    <div style={{ position: 'relative', width: '100%', aspectRatio: '16/7', overflow: 'hidden' }}>
+                      <Image
+                        src={section.image.src}
+                        alt={section.image.alt}
+                        fill
+                        style={{ objectFit: 'cover' }}
+                        sizes="(max-width: 768px) 100vw, 720px"
+                      />
+                      {section.image.credit && (
+                        <span style={{
+                          position: 'absolute', bottom: 8, right: 10,
+                          fontFamily: 'var(--font-mono)', fontSize: 10,
+                          color: 'rgba(255,255,255,0.7)', letterSpacing: '0.05em'
+                        }}>
+                          © {section.image.credit}
+                        </span>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Section body */}
+                  <div style={{ padding: '14px 18px' }}>
+                    <div style={{
+                      display: 'flex', alignItems: 'center',
+                      gap: 8, marginBottom: 6, flexWrap: 'wrap'
+                    }}>
+                      <span className="code" style={{ fontSize: 10 }}>{section.kind}</span>
+                      {section.optional && (
+                        <span style={{
+                          fontFamily: 'var(--font-mono)', fontSize: 10,
+                          color: 'var(--steel)'
+                        }}>optional</span>
+                      )}
+                      {section.interactive && (
+                        <span style={{
+                          fontFamily: 'var(--font-mono)', fontSize: 10,
+                          color: 'var(--link)'
+                        }}>interaktiv</span>
+                      )}
+                    </div>
+                    <strong style={{ display: 'block', marginBottom: 4 }}>{section.title}</strong>
+                    <p style={{ color: 'var(--steel)', marginBottom: 0, fontSize: 14, lineHeight: 1.6 }}>
+                      {section.summary}
+                    </p>
                   </div>
-                  <strong>{section.title}</strong>
-                  <p style={{ color: 'var(--steel)', marginBottom: 0 }}>{section.summary}</p>
                 </div>
               ))}
             </div>
-          </article>
+          </section>
         ))}
       </div>
-    </div>
-  );
-}
 
-function RoleBlock({ title, items }: { title: string; items: string[] }) {
-  return (
-    <div style={{ marginTop: 18 }}>
-      <strong>{title}</strong>
-      <ul style={{ color: 'var(--steel)', marginTop: 8 }}>
-        {items.map((item) => <li key={item}>{item}</li>)}
-      </ul>
     </div>
   );
 }
