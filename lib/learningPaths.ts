@@ -3,9 +3,9 @@
  * Path:      lib/learningPaths.ts
  * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/learningPaths.ts
  * Name:      Learning Paths registry
- * Version:   0.5.0
+ * Version:   0.6.0
  * Created:   2026-07-03
- * Modified:  2026-07-04 21:00 CEST
+ * Modified:  2026-07-05 10:00 CEST
  * Depends:   —
  */
 
@@ -187,6 +187,19 @@ export const learningPaths: LearningPath[] = [
               alt: 'Rolladen-Lamellen mit Lichtstreifen — sichtbare Spektren durch Beugung und Dispersion',
               credit: 'Thomas Kueper'
             },
+            depthPoints: 4
+          },
+          {
+            id: 'OBS:CD-SPEKTRUM',
+            kind: 'observation',
+            title: 'Beobachtung: CD im Sonnenlicht',
+            summary: 'Eine CD zerlegt weisses Sonnenlicht in alle Farben des Spektrums — nicht durch Brechung wie ein Prisma, sondern durch Interferenz an den winzigen Rillen des Beugungsgitters.',
+            image: {
+              src: '/images/observations/cd-spektrum-tku.jpg',
+              alt: 'CD an einer Hauswand im Sonnenlicht — das gesamte sichtbare Spektrum als Interferenzmuster sichtbar',
+              credit: 'Thomas Kueper'
+            },
+            optional: true,
             depthPoints: 4
           },
           {
