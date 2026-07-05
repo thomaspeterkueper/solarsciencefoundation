@@ -6,9 +6,7 @@ import { usePathname } from 'next/navigation';
 function toGermanPath(pathname: string): string {
   if (pathname === '/') return '/de';
   if (pathname.startsWith('/de')) return pathname;
-  if (pathname.startsWith('/subjects') || pathname.startsWith('/learn') || pathname.startsWith('/learning-paths')) return `/de${pathname}`;
-  if (pathname === '/about' || pathname === '/membership' || pathname === '/progress' || pathname === '/login') return `/de${pathname}`;
-  return '/de';
+  return `/de${pathname}`;
 }
 
 function toEnglishPath(pathname: string): string {
@@ -30,7 +28,7 @@ export default function SiteNav() {
       <Link href={`${prefix}/membership`}>Membership</Link>
       <Link href={`${prefix}/progress`}>Progress</Link>
       <Link href={`${prefix}/login`}>Login</Link>
-      <a href="https://noxiagame.vercel.app" className="accent">NO&#967;&#185;&#916;</a>
+      <a href="https://noxiagame.vercel.app" className="nav-noxia">NOχ¹Δ</a>
       <span className="sep">·</span>
       <span className="lang-switcher">
         <Link href={toGermanPath(pathname)} className="mono" style={{ fontSize: 11 }}>DE</Link>
