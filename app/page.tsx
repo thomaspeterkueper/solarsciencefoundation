@@ -4,6 +4,7 @@ import { getKxfLearningModules } from '../lib/kxf';
 import { subjects } from '../lib/subjects';
 import HeroBackground from '../components/HeroBackground';
 import RandomPathEntry from '../components/RandomPathEntry';
+import ObservationTeaser from '../components/ObservationTeaser';
 
 export default async function HomePage() {
   const modules  = await getKxfLearningModules();
@@ -113,93 +114,12 @@ export default async function HomePage() {
           </Link>
         </section>
 
-        {/* ── OBSERVATION GALLERY ───────────────────────── */}
-        <section style={{ marginBottom: 64 }}>
-          <p className="section-eyebrow">From everyday life</p>
-          <h2 className="section-headline" style={{ marginBottom: 24 }}>What have you noticed?</h2>
-          <p style={{ color: 'var(--muted)', fontSize: 16, maxWidth: '58ch', marginBottom: 28, lineHeight: 1.65 }}>
-            Every learning path begins with something you can see, hear or touch.
-            These observations come from real life — each one opens a path.
-          </p>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
-            gap: 12,
-          }}>
-            {[
-              {
-                src: '/images/observations/kaffeetasse-tku.jpg',
-                alt: 'Kaffeetasse mit Löffel',
-                caption: 'Warum klingt eine Tasse anders, je nachdem wie voll sie ist?',
-                href: '/learning-paths/PATH%3ASSF%3APHY-WAVE-SPECTRUM-0001',
-              },
-              {
-                src: '/images/observations/rolladen-tku.jpg',
-                alt: 'Rolladen-Lamellen mit Lichtspektren',
-                caption: 'Warum entstehen Farben, wo Licht durch einen schmalen Spalt fällt?',
-                href: '/learning-paths/PATH%3ASSF%3APHY-WAVE-SPECTRUM-0001',
-              },
-              {
-                src: '/images/observations/wasserglas-tku.jpg',
-                alt: 'Wasserglas mit Kondensation',
-                caption: 'Warum beschlägt ein kaltes Glas — und warum sieht alles dahinter verschoben aus?',
-                href: '/learning-paths/PATH%3ASSF%3APHY-WAVE-SPECTRUM-0001',
-              },
-              {
-                src: '/images/observations/cd-spektrum-tku.jpg',
-                alt: 'CD im Sonnenlicht mit vollem Spektrum',
-                caption: 'Wie zerlegt eine CD das Sonnenlicht in alle Farben?',
-                href: '/learning-paths/PATH%3ASSF%3APHY-WAVE-SPECTRUM-0001',
-              },
-            ].map((obs) => (
-              <Link
-                key={obs.src}
-                href={obs.href}
-                style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}
-              >
-                <div style={{
-                  borderRadius: 8,
-                  overflow: 'hidden',
-                  border: '1px solid var(--border)',
-                  transition: 'box-shadow 0.15s, border-color 0.15s',
-                  background: 'var(--surface, #F0EFE9)',
-                }}
-                  onMouseEnter={e => {
-                    (e.currentTarget as HTMLDivElement).style.boxShadow = '0 4px 16px rgba(0,0,0,0.1)';
-                    (e.currentTarget as HTMLDivElement).style.borderColor = 'var(--gold, #C9A84C)';
-                  }}
-                  onMouseLeave={e => {
-                    (e.currentTarget as HTMLDivElement).style.boxShadow = 'none';
-                    (e.currentTarget as HTMLDivElement).style.borderColor = 'var(--border)';
-                  }}
-                >
-                  <div style={{ position: 'relative', aspectRatio: '1/1', overflow: 'hidden' }}>
-                    <Image
-                      src={obs.src}
-                      alt={obs.alt}
-                      fill
-                      style={{ objectFit: 'cover' }}
-                      sizes="(max-width: 640px) 100vw, 280px"
-                    />
-                  </div>
-                  <div style={{ padding: '12px 14px' }}>
-                    <p style={{
-                      fontFamily: 'var(--font-serif, Georgia, serif)',
-                      fontSize: 14,
-                      lineHeight: 1.55,
-                      color: 'var(--text)',
-                      margin: 0,
-                    }}>
-                      {obs.caption}
-                    </p>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
+        {/* ── OBSERVATION TEASER ──────────────────────── */}
+        <section style={{ marginBottom: 80 }}>
+          <ObservationTeaser />
         </section>
 
-        {/* ── FIELDS ────────────────────────────────────── */}
+                {/* ── FIELDS ────────────────────────────────────── */}
         <section className="fields-section">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 28 }}>
             <div>
