@@ -15,16 +15,11 @@ export default async function HomePage() {
       <section className="hero-section">
         <HeroBackground />
         <div className="hero-panel">
-          <p className="hero-sub">Geneva · Est. 2045</p>
           <h1 className="hero">Knowledge must keep flowing.</h1>
           <p className="lede">
             An independent institution for scientific curiosity —
             physics, chemistry, mathematics, history, language and beyond.
           </p>
-          <div className="hero-actions">
-            <Link className="btn gold" href="/learn">Start exploring →</Link>
-            <Link className="btn secondary" href="/about">About the SSF</Link>
-          </div>
           <RandomPathEntry />
         </div>
       </section>
