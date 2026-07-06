@@ -20,17 +20,37 @@ export default function SiteNav() {
   const isGerman = pathname === '/de' || pathname.startsWith('/de/');
   const prefix = isGerman ? '/de' : '';
 
+  const labels = isGerman
+    ? {
+        explore: 'Entdecken',
+        map: 'Wissenskarte',
+        subjects: 'Fächer',
+        paths: 'Lernpfade',
+        research: 'Forschung',
+        community: 'Community',
+        login: 'Login'
+      }
+    : {
+        explore: 'Explore',
+        map: 'Knowledge Map',
+        subjects: 'Subjects',
+        paths: 'Learning Paths',
+        research: 'Research',
+        community: 'Community',
+        login: 'Login'
+      };
+
   return (
-    <nav className="nav">
-      <Link href={`${prefix}/learn`}>Explore</Link>
-      <Link href={`${prefix}/learning-paths`}>Paths</Link>
-      <Link href={`${prefix}/subjects`}>Fields</Link>
-      <Link href={`${prefix}/membership`}>Membership</Link>
-      <Link href={`${prefix}/progress`}>Progress</Link>
-      <Link href={`${prefix}/login`}>Login</Link>
+    <nav className="nav" aria-label={isGerman ? 'Hauptnavigation' : 'Main navigation'}>
+      <Link href={`${prefix}/learn`}>{labels.explore}</Link>
+      <Link href={`${prefix}/learn`}>{labels.map}</Link>
+      <Link href={`${prefix}/subjects`}>{labels.subjects}</Link>
+      <Link href={`${prefix}/learning-paths`}>{labels.paths}</Link>
+      <Link href={`${prefix}/research`}>{labels.research}</Link>
+      <Link href={`${prefix}/community`}>{labels.community}</Link>
       <a href="https://noxiagame.vercel.app" className="nav-noxia">NOχ¹Δ</a>
-      <span className="sep">·</span>
-      <span className="lang-switcher">
+      <Link href={`${prefix}/login`} className="nav-login">{labels.login}</Link>
+      <span className="lang-switcher" aria-label={isGerman ? 'Sprache wechseln' : 'Switch language'}>
         <Link href={toGermanPath(pathname)} className="mono" style={{ fontSize: 11 }}>DE</Link>
         <span className="mono" style={{ fontSize: 11, color: 'var(--border)' }}>/</span>
         <Link href={toEnglishPath(pathname)} className="mono" style={{ fontSize: 11 }}>EN</Link>
