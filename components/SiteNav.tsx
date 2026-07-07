@@ -15,7 +15,7 @@ function toEnglishPath(pathname: string): string {
   return pathname || '/';
 }
 
-export default function SiteNav() {
+export default function SiteNav({ mode = 'main' }: { mode?: 'main' | 'utility' }) {
   const pathname = usePathname() || '/';
   const isGerman = pathname === '/de' || pathname.startsWith('/de/');
   const prefix = isGerman ? '/de' : '';
@@ -27,8 +27,8 @@ export default function SiteNav() {
         subjects: 'Fächer',
         paths: 'Lernpfade',
         research: 'Forschung',
-        community: 'Community',
-        login: 'Login'
+        login: 'Anmelden',
+        lang: 'DE'
       }
     : {
         explore: 'Explore',
@@ -36,25 +36,30 @@ export default function SiteNav() {
         subjects: 'Subjects',
         paths: 'Learning Paths',
         research: 'Research',
-        community: 'Community',
-        login: 'Login'
+        login: 'Sign in',
+        lang: 'EN'
       };
 
+  if (mode === 'utility') {
+    return (
+      <nav className="nav nav-utility" aria-label={isGerman ? 'Systemnavigation' : 'System navigation'}>
+        <a href="https://noxiagame.vercel.app" className="nav-noxia" target="_blank" rel="noreferrer">NOχ¹Δ ↗</a>
+        <span className="lang-switcher" aria-label={isGerman ? 'Sprache wechseln' : 'Switch language'}>
+          <span aria-hidden="true">◉</span>
+          <Link href={isGerman ? toEnglishPath(pathname) : toGermanPath(pathname)} className="mono">{labels.lang}⌄</Link>
+        </span>
+        <Link href={`${prefix}/login`} className="nav-login">{labels.login}</Link>
+      </nav>
+    );
+  }
+
   return (
-    <nav className="nav" aria-label={isGerman ? 'Hauptnavigation' : 'Main navigation'}>
+    <nav className="nav nav-main" aria-label={isGerman ? 'Hauptnavigation' : 'Main navigation'}>
       <Link href={`${prefix}/learn`}>{labels.explore}</Link>
       <Link href={`${prefix}/learn`}>{labels.map}</Link>
       <Link href={`${prefix}/subjects`}>{labels.subjects}</Link>
       <Link href={`${prefix}/learning-paths`}>{labels.paths}</Link>
       <Link href={`${prefix}/research`}>{labels.research}</Link>
-      <Link href={`${prefix}/community`}>{labels.community}</Link>
-      <a href="https://noxiagame.vercel.app" className="nav-noxia">NOχ¹Δ</a>
-      <Link href={`${prefix}/login`} className="nav-login">{labels.login}</Link>
-      <span className="lang-switcher" aria-label={isGerman ? 'Sprache wechseln' : 'Switch language'}>
-        <Link href={toGermanPath(pathname)} className="mono" style={{ fontSize: 11 }}>DE</Link>
-        <span className="mono" style={{ fontSize: 11, color: 'var(--border)' }}>/</span>
-        <Link href={toEnglishPath(pathname)} className="mono" style={{ fontSize: 11 }}>EN</Link>
-      </span>
     </nav>
   );
 }
