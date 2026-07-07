@@ -16,11 +16,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en">
       <body>
         <header className="site-header">
-          <div className="container">
+          <div className="container header-container">
             <Link href="/" className="brand" style={{ color: 'inherit' }}>
-              <Signet size={48} />
+              <Signet size={58} />
               <span className="brand-text">
                 <span className="wordmark">Solar Science Foundation</span>
+                <span className="tagline">Founded Sundern 2045 · NOχ¹Δ Universe</span>
               </span>
             </Link>
             <SiteNav />
