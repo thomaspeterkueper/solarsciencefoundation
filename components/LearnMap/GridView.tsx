@@ -2,6 +2,7 @@
 
 import type { KxfLearningModule, SubjectCode } from './types';
 import { groupBySubject, SUBJECT_CONFIG } from '@/lib/learning-modules';
+import { Section } from '@/components/ui';
 import { NodeCard } from './NodeCard';
 
 export function GridView({ modules, onSelect }: { modules: KxfLearningModule[]; onSelect: (module: KxfLearningModule) => void }) {
@@ -11,19 +12,18 @@ export function GridView({ modules, onSelect }: { modules: KxfLearningModule[]; 
 
   return (
     <div className="learn-grid-view">
-      {orderedSubjects.map((subject) => (
-        <section className="learn-subject-section" key={subject}>
-          <div className="learn-subject-heading">
-            <h2>{SUBJECT_CONFIG[subject].name}</h2>
-            <span>{grouped[subject].length} Module</span>
-          </div>
-          <div className="learn-card-grid">
-            {grouped[subject].map((module) => (
-              <NodeCard key={module.id} module={module} onClick={() => onSelect(module)} />
-            ))}
-          </div>
-        </section>
-      ))}
+      {orderedSubjects.map((subject) => {
+        const countLabel = grouped[subject].length + ' Module';
+        return (
+          <Section className="learn-subject-section" key={subject} eyebrow={countLabel} title={SUBJECT_CONFIG[subject].name}>
+            <div className="learn-card-grid">
+              {grouped[subject].map((module) => (
+                <NodeCard key={module.id} module={module} onClick={() => onSelect(module)} />
+              ))}
+            </div>
+          </Section>
+        );
+      })}
     </div>
   );
 }
