@@ -1,10 +1,7 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import { getKxfLearningModules } from '../lib/kxf';
 import { subjects } from '../lib/subjects';
 import HeroBackground from '../components/HeroBackground';
-import RandomPathEntry from '../components/RandomPathEntry';
-import ObservationTeaser from '../components/ObservationTeaser';
 
 export default async function HomePage() {
   const modules  = await getKxfLearningModules();
@@ -13,56 +10,43 @@ export default async function HomePage() {
   return (
     <>
       {/* ── HERO ──────────────────────────────────────── */}
-      <section className="hero-section">
+      <section className="home-hero">
         <HeroBackground />
-        <div className="hero-panel">
-          <h1 className="hero">Knowledge must keep flowing.</h1>
-          <p className="lede">
-            An independent institution for scientific curiosity —
-            physics, chemistry, mathematics, history, language and beyond.
-          </p>
-          <RandomPathEntry />
-        </div>
-      </section>
-
-      {/* ── MISSION ───────────────────────────────────── */}
-      <section className="mission-strip">
-        <div className="container">
-          <div>
-            <h2 className="mission-headline">
-              Science begins with a question.
-            </h2>
-            <p className="mission-body">
-              The SSF connects everyday observations to the knowledge behind them.
-              No curriculum. No grades. Follow what you want to understand —
-              for as long as you want to understand it.
-              Students from Generation Mars began here.
+        <div className="home-hero-inner">
+          <div className="home-hero-copy">
+            <p className="section-eyebrow">Independent science learning</p>
+            <h1 className="home-hero-title">Science begins with a question.</h1>
+            <p className="home-hero-lede">
+              Follow curiosity. Explore physics, chemistry, mathematics, astronomy,
+              biology, Earth science and history through connected knowledge instead
+              of fixed curricula.
             </p>
-            <div style={{ marginTop: 28 }}>
-              <Link className="btn" href="/membership"
-                style={{ background: 'rgba(255,255,255,.12)', border: '1px solid rgba(255,255,255,.25)', color: '#fff' }}>
-                Apply for membership →
-              </Link>
+            <div className="home-hero-actions">
+              <Link className="btn" href="/learn">Explore the knowledge map →</Link>
+              <Link className="btn secondary" href={`/modules/${featured.id}`}>Start learning</Link>
             </div>
           </div>
-          <div className="mission-stats">
-            {[
-              ['∞',   'Depth levels'],
-              ['7',   'Fields of inquiry'],
-              ['NOχ¹Δ', 'Connected universe'],
-              ['Free', 'Always'],
-            ].map(([n, l]) => (
-              <div key={l}>
-                <div className="mission-stat-n">{n}</div>
-                <div className="mission-stat-l">{l}</div>
-              </div>
-            ))}
-          </div>
+
+          <aside className="home-hero-map" aria-label="Knowledge flow example">
+            <p className="section-eyebrow">Connected knowledge</p>
+            <div className="hero-flow">
+              <span>Question</span>
+              <i />
+              <span>Knowledge</span>
+              <i />
+              <span>Connections</span>
+              <i />
+              <span>Application</span>
+            </div>
+            <p>
+              A question opens a path. Each concept reveals what it depends on —
+              and where it can be used next.
+            </p>
+          </aside>
         </div>
       </section>
 
       <div className="container">
-
         {/* ── THREE ENTRIES ─────────────────────────────── */}
         <section className="entries-section">
           <p className="section-eyebrow">Where to begin</p>
@@ -80,51 +64,27 @@ export default async function HomePage() {
               <div className="entry-card">
                 <div className="entry-icon">🔭</div>
                 <h3>Learning paths</h3>
-                <p>Structured sequences from foundations to advanced topics — at your own pace, stop when you want.</p>
+                <p>Structured sequences from foundations to advanced topics — at your own pace.</p>
                 <span className="entry-link">View paths →</span>
               </div>
             </Link>
-            <a href="https://noxiagame.vercel.app" style={{ color: 'inherit', textDecoration: 'none' }}>
+            <Link href="/subjects" style={{ color: 'inherit', textDecoration: 'none' }}>
               <div className="entry-card">
-                <div className="entry-icon">🎮</div>
-                <h3>NOχ¹Δ</h3>
-                <p>What you understand here unlocks capabilities in the NOχ¹Δ universe. Knowledge has consequences.</p>
-                <span className="entry-link">Enter NOχ¹Δ →</span>
+                <div className="entry-icon">🧭</div>
+                <h3>Subjects</h3>
+                <p>Browse astronomy, physics, chemistry, mathematics, biology, Earth science and history.</p>
+                <span className="entry-link">Browse subjects →</span>
               </div>
-            </a>
+            </Link>
           </div>
         </section>
 
-        {/* ── FEATURED MODULE ───────────────────────────── */}
-        <section className="featured-section">
-          <p className="section-eyebrow">Start here</p>
-          <h2 className="section-headline" style={{ marginBottom: 24 }}>A question worth asking</h2>
-          <Link href={`/modules/${featured.id}`} className="featured-card">
-            <div className="featured-card-stripe" />
-            <div className="featured-card-body">
-              <p className="featured-eyebrow">{featured.domain} · {featured.durationMinutes} min</p>
-              <h3 className="featured-question">{featured.summary}</h3>
-              <p style={{ color: 'var(--muted)', fontSize: 16, lineHeight: 1.6, maxWidth: '58ch', margin: 0 }}>
-                Begin with the observation. The explanation follows from what you already know.
-              </p>
-              <div className="featured-meta">
-                <span className="featured-begin">Begin this exploration →</span>
-              </div>
-            </div>
-          </Link>
-        </section>
-
-        {/* ── OBSERVATION TEASER ──────────────────────── */}
-        <section style={{ marginBottom: 80 }}>
-          <ObservationTeaser />
-        </section>
-
-                {/* ── FIELDS ────────────────────────────────────── */}
+        {/* ── FIELDS ────────────────────────────────────── */}
         <section className="fields-section">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 28 }}>
+          <div className="section-row">
             <div>
               <p className="section-eyebrow">Fields of inquiry</p>
-              <h2 className="section-headline" style={{ marginBottom: 0 }}>Choose your world</h2>
+              <h2 className="section-headline">Choose your world</h2>
             </div>
             <Link href="/subjects" style={{ fontWeight: 600, fontSize: 15 }}>All fields →</Link>
           </div>
@@ -152,7 +112,6 @@ export default async function HomePage() {
               </h2>
               <p className="noxia-body" style={{ marginBottom: 28 }}>
                 NOχ¹Δ is a science-exploration universe where knowledge unlocks capabilities.
-                Students of Generation Mars earned their mission clearances through the SSF.
                 Your understanding is your equipment.
               </p>
               <a href="https://noxiagame.vercel.app" className="btn gold">Enter NOχ¹Δ →</a>
