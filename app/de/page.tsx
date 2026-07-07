@@ -1,83 +1,135 @@
 import Link from 'next/link';
 import { getKxfLearningModules } from '../../lib/kxf';
 import { subjects } from '../../lib/subjects';
+import HeroBackground from '../../components/HeroBackground';
 
 export default async function GermanHomePage() {
-  const modules = await getKxfLearningModules();
-  const featured = modules[0];
+  const modules  = await getKxfLearningModules();
+  const featured = modules.find(m => m.summary && !m.summary.startsWith('A learning')) ?? modules[0];
 
   return (
-    <div className="container" style={{ paddingTop: 58, paddingBottom: 8 }}>
-      <section className="hero-grid">
-        <div>
-          <p className="kicker">Fiktives NO&#967;&#185;&#916;-Universumsarchiv - gegruendet 2045 in Genf</p>
-          <h1 className="hero">Wissen muss im Fluss bleiben.</h1>
-          <p className="lede">
-            Die Solar Science Foundation ist eine fiktive Wissenschafts-, Lern- und Archivplattform innerhalb des NO&#967;&#185;&#916;-Universums.
-            Sie uebersetzt verbundenes Wissen aus dem KUEPER Knowledge Graph in kurze Lernmodule auf Deutsch und Englisch.
-          </p>
-          <p className="subjects">
-            Mathematik <span>·</span> Physik <span>·</span> Chemie <span>·</span> Astronomie <span>·</span> Biologie
-          </p>
-          <div className="hero-actions">
-            <Link className="btn" href={`/modules/${featured.id}`}>Lernen starten →</Link>
-            <Link className="btn secondary" href="/subjects">Faecher ansehen →</Link>
-          </div>
-          <p style={{ color: 'var(--steel)', maxWidth: 760, lineHeight: 1.55, marginTop: 22, fontSize: 14 }}>
-            SSF ist Bildungs-Worldbuilding fuer Lernmodule, Archivdokumente und optionale NO&#967;&#185;&#916;-Fortschritte.
-          </p>
-        </div>
-
-        <Link href={`/modules/${featured.id}`} style={{ color: 'inherit' }}>
-          <div className="card prominent">
-            <div className="module-meta">
-              <span className="code">{featured.id}</span>
-              <span className="mono" style={{ fontSize: 13, color: 'var(--steel)' }}>
-                {featured.domain} · {featured.durationMinutes} min
-              </span>
-            </div>
-            <div className="module-title">{featured.title}</div>
-            <p style={{ color: 'var(--steel)', margin: 0 }}>{featured.summary}</p>
-            <p style={{ color: 'var(--link)', fontSize: 17, marginTop: 22, marginBottom: 0, fontWeight: 600 }}>
-              Modul beginnen →
+    <>
+      <section className="home-hero">
+        <HeroBackground />
+        <div className="home-hero-inner">
+          <div className="home-hero-copy">
+            <p className="section-eyebrow">Unabhängiges Wissenschaftslernen</p>
+            <h1 className="home-hero-title">Wissenschaft beginnt mit einer Frage.</h1>
+            <p className="home-hero-lede">
+              Folge deiner Neugier. Erkunde Physik, Chemie, Mathematik, Astronomie,
+              Biologie, Geowissenschaften und Geschichte als verbundenes Wissen —
+              nicht als festen Lehrplan.
             </p>
+            <div className="home-hero-actions">
+              <Link className="btn" href="/de/learn">Wissenskarte erkunden →</Link>
+              <Link className="btn secondary" href={`/de/modules/${featured.id}`}>Lernen starten</Link>
+            </div>
           </div>
-        </Link>
+
+          <aside className="home-hero-map" aria-label="Beispiel für Wissensfluss">
+            <p className="section-eyebrow">Verbundenes Wissen</p>
+            <div className="hero-flow">
+              <span>Frage</span>
+              <i />
+              <span>Wissen</span>
+              <i />
+              <span>Verbindungen</span>
+              <i />
+              <span>Anwendung</span>
+            </div>
+            <p>
+              Eine Frage öffnet einen Pfad. Jedes Konzept zeigt, worauf es aufbaut —
+              und wo es später verwendet werden kann.
+            </p>
+          </aside>
+        </div>
       </section>
 
-      <section className="platform-grid">
-        <div className="platform-card">
-          <p className="section-title">Knowledge Graph</p>
-          <p>Kanonische Konzepte, Dokumente und Zuordnungen kommen aus dem KUEPER Knowledge Graph.</p>
-        </div>
-        <div className="platform-card">
-          <p className="section-title">Lernfortschritt</p>
-          <p>SSF macht aus Wissen Module, Uebungen und wiederverwendbare Fortschrittsdaten.</p>
-        </div>
-        <div className="platform-card">
-          <p className="section-title">NO&#967;&#185;&#916; Freischaltungen</p>
-          <p>Fortschritt kann optional Faehigkeiten in NO&#967;&#185;&#916; freischalten.</p>
-        </div>
-      </section>
-
-      <section id="subjects" className="subject-section">
-        <div className="section-row">
-          <h2 className="section-title" style={{ fontSize: 34 }}>Nach Fach suchen</h2>
-          <Link href="/subjects" style={{ fontWeight: 600 }}>Alle Faecher ansehen →</Link>
-        </div>
-        <div className="subject-grid">
-          {subjects.slice(0, 5).map((subject) => (
-            <Link key={subject.id} href={`/subjects/${subject.slug}`} style={{ color: 'inherit' }}>
-              <article className="subject-card">
-                <div className="subject-mark">{subject.mark}</div>
-                <strong>{subject.title}</strong>
-                <small>{subject.levelRange}</small>
-                <p>{subject.description}</p>
-              </article>
+      <div className="container">
+        <section className="entries-section">
+          <p className="section-eyebrow">Wo beginnen?</p>
+          <h2 className="section-headline">Drei Einstiege</h2>
+          <div className="entries-grid">
+            <Link href="/de/learn" style={{ color: 'inherit', textDecoration: 'none' }}>
+              <div className="entry-card">
+                <div className="entry-icon">📚</div>
+                <h3>Entdecken</h3>
+                <p>Folge einer Frage. Jede Entdeckung öffnet drei weitere. Kein fester Weg — nur Neugier.</p>
+                <span className="entry-link">Alle Themen erkunden →</span>
+              </div>
             </Link>
-          ))}
+            <Link href="/de/learning-paths" style={{ color: 'inherit', textDecoration: 'none' }}>
+              <div className="entry-card">
+                <div className="entry-icon">🔭</div>
+                <h3>Lernpfade</h3>
+                <p>Strukturierte Wege von Grundlagen zu fortgeschrittenen Themen — in deinem Tempo.</p>
+                <span className="entry-link">Lernpfade ansehen →</span>
+              </div>
+            </Link>
+            <Link href="/de/subjects" style={{ color: 'inherit', textDecoration: 'none' }}>
+              <div className="entry-card">
+                <div className="entry-icon">🧭</div>
+                <h3>Fächer</h3>
+                <p>Erkunde Astronomie, Physik, Chemie, Mathematik, Biologie, Erde und Geschichte.</p>
+                <span className="entry-link">Fächer ansehen →</span>
+              </div>
+            </Link>
+          </div>
+        </section>
+
+        <section className="fields-section">
+          <div className="section-row">
+            <div>
+              <p className="section-eyebrow">Felder der Neugier</p>
+              <h2 className="section-headline">Wähle deine Welt</h2>
+            </div>
+            <Link href="/de/subjects" style={{ fontWeight: 600, fontSize: 15 }}>Alle Fächer →</Link>
+          </div>
+          <div className="fields-grid">
+            {subjects.map((s) => (
+              <Link key={s.id} href={`/de/subjects/${s.slug}`} className="field-card">
+                <div className="field-mark">{s.mark}</div>
+                <strong>{s.title}</strong>
+                <small>{s.levelRange}</small>
+                <p>{s.description}</p>
+              </Link>
+            ))}
+          </div>
+        </section>
+      </div>
+
+      <section className="noxia-strip">
+        <div className="container">
+          <div className="noxia-inner">
+            <div>
+              <p className="noxia-eyebrow">NOχ¹Δ Universe</p>
+              <h2 className="noxia-headline">
+                Was du hier lernst,<br />hat Folgen.
+              </h2>
+              <p className="noxia-body" style={{ marginBottom: 28 }}>
+                NOχ¹Δ ist ein Science-Exploration-Universum, in dem Wissen Fähigkeiten freischaltet.
+                Dein Verständnis ist deine Ausrüstung.
+              </p>
+              <a href="https://noxiagame.vercel.app" className="btn gold">NOχ¹Δ betreten →</a>
+            </div>
+            <div className="noxia-keys">
+              {[
+                { icon: '🔬', key: 'SENSOR:SPECTRAL', desc: 'Freigeschaltet durch das Lichtmodul' },
+                { icon: '⚗️', key: 'MISSION:LAB-ALPHA', desc: 'Freigeschaltet durch Chemie-Grundlagen' },
+                { icon: '🌍', key: 'MISSION:ORBITAL', desc: 'Freigeschaltet durch Gravitation und Umlaufbahnen' },
+              ].map(({ icon, key, desc }) => (
+                <div key={key} className="noxia-key">
+                  <span className="noxia-key-icon">{icon}</span>
+                  <div>
+                    <span className="noxia-key-label">{key}</span>
+                    <span className="noxia-key-desc">{desc}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
-    </div>
+    </>
   );
 }
