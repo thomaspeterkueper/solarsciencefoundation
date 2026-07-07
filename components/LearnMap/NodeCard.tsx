@@ -13,7 +13,7 @@ export function NodeCard({ module, onClick }: { module: KxfLearningModule; onCli
 
   return (
     <button className="learn-node-button" onClick={onClick} type="button">
-      <Card className="learn-node-card" style={{ '--subject-color': subject.color } as React.CSSProperties}>
+      <Card className="learn-node-card">
         <div className="learn-node-accent" />
         <div className="learn-node-topline">
           <Badge className="learn-node-subject">{subject.name}</Badge>
@@ -27,7 +27,7 @@ export function NodeCard({ module, onClick }: { module: KxfLearningModule; onCli
           <span>{requirementCount} Voraussetzungen</span>
         </div>
         <div className="learn-node-footer">
-          <span>{unlockCount > 0 ? `${unlockCount} Verbindungen` : 'Offener Einstieg'}</span>
+          <span>{unlockCount > 0 ? unlockCount + ' Verbindungen' : 'Offener Einstieg'}</span>
           <strong>Öffnen →</strong>
         </div>
       </Card>
