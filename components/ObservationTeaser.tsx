@@ -4,8 +4,9 @@
  * KUEPER · Solar Science Foundation (SSF)
  * Path:      components/ObservationTeaser.tsx
  * Name:      ObservationTeaser — rotating observation photo kacheln
- * Version:   0.1.0
+ * Version:   0.1.1
  * Created:   2026-07-05
+ * Updated:   2026-07-07 — duplicate transition style removed
  */
 
 import { useEffect, useState, useCallback } from 'react';
@@ -94,7 +95,6 @@ export default function ObservationTeaser() {
             borderRadius: 14, overflow: 'hidden',
             border: '1.5px solid var(--border)',
             boxShadow: '0 8px 28px rgba(30,78,140,.07)',
-            transition: 'box-shadow .2s, border-color .2s',
             cursor: 'pointer',
             opacity: fading ? 0 : 1,
             transition: 'opacity 0.3s ease, box-shadow .2s, border-color .2s',
