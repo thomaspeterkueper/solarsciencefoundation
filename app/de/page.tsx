@@ -9,8 +9,8 @@ export default async function GermanHomePage() {
 
   return (
     <>
-      <section className="home-hero editorial-hero">
-        <div className="home-hero-inner editorial-hero-inner">
+      <section className="home-hero">
+        <div className="home-hero-inner">
           <div className="home-hero-copy">
             <p className="section-eyebrow">Unabhängiges Wissenschaftslernen</p>
             <h1 className="home-hero-title">Wissenschaft beginnt mit Neugier.</h1>
@@ -24,16 +24,36 @@ export default async function GermanHomePage() {
             </div>
           </div>
 
-          <div className="editorial-hero-visual" aria-label="Solar Science Foundation Discovery Hall">
+          <div
+            aria-label="Solar Science Foundation Discovery Hall"
+            style={{
+              position: 'relative',
+              minHeight: 520,
+              height: 'min(62vh, 680px)',
+              borderRadius: 24,
+              overflow: 'hidden',
+              border: '1px solid rgba(255,255,255,.68)',
+              boxShadow: '0 28px 90px rgba(20,39,64,.16)',
+              background: 'var(--soft)'
+            }}
+          >
             <Image
               src="/images/hero/discover-hero.png"
               alt="Solar Science Foundation Discovery Hall"
               fill
               priority
               sizes="(max-width: 760px) 100vw, 56vw"
-              className="editorial-hero-image"
+              style={{ objectFit: 'cover' }}
             />
-            <div className="editorial-hero-fade" aria-hidden="true" />
+            <div
+              aria-hidden="true"
+              style={{
+                position: 'absolute',
+                inset: 0,
+                background: 'linear-gradient(90deg, rgba(250,250,248,.36) 0%, rgba(250,250,248,.12) 26%, rgba(250,250,248,0) 52%)',
+                pointerEvents: 'none'
+              }}
+            />
           </div>
         </div>
       </section>
