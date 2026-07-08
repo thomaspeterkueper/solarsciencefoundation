@@ -1,24 +1,22 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { getKxfLearningModules } from '../../lib/kxf';
 import { subjects } from '../../lib/subjects';
-import HeroBackground from '../../components/HeroBackground';
 
 export default async function GermanHomePage() {
-  const modules  = await getKxfLearningModules();
-  const featured = modules.find(m => m.summary && !m.summary.startsWith('A learning')) ?? modules[0];
+  const modules = await getKxfLearningModules();
+  const featured = modules.find((m) => m.summary && !m.summary.startsWith('A learning')) ?? modules[0];
 
   return (
     <>
-      <section className="home-hero">
-        <HeroBackground />
-        <div className="home-hero-inner">
+      <section className="home-hero editorial-hero">
+        <div className="home-hero-inner editorial-hero-inner">
           <div className="home-hero-copy">
             <p className="section-eyebrow">Unabhängiges Wissenschaftslernen</p>
-            <h1 className="home-hero-title">Wissenschaft beginnt mit einer Frage.</h1>
+            <h1 className="home-hero-title">Wissenschaft beginnt mit Neugier.</h1>
             <p className="home-hero-lede">
-              Folge deiner Neugier. Erkunde Physik, Chemie, Mathematik, Astronomie,
-              Biologie, Geowissenschaften und Geschichte als verbundenes Wissen —
-              nicht als festen Lehrplan.
+              Erkunde das verbundene Wissen hinter unserem Universum. Lerne in deinem Tempo,
+              ohne Noten und ohne Druck.
             </p>
             <div className="home-hero-actions">
               <Link className="btn" href="/de/learn">Wissenskarte erkunden →</Link>
@@ -26,22 +24,17 @@ export default async function GermanHomePage() {
             </div>
           </div>
 
-          <aside className="home-hero-map" aria-label="Beispiel für Wissensfluss">
-            <p className="section-eyebrow">Verbundenes Wissen</p>
-            <div className="hero-flow">
-              <span>Frage</span>
-              <i />
-              <span>Wissen</span>
-              <i />
-              <span>Verbindungen</span>
-              <i />
-              <span>Anwendung</span>
-            </div>
-            <p>
-              Eine Frage öffnet einen Pfad. Jedes Konzept zeigt, worauf es aufbaut —
-              und wo es später verwendet werden kann.
-            </p>
-          </aside>
+          <div className="editorial-hero-visual" aria-label="Solar Science Foundation Discovery Hall">
+            <Image
+              src="/images/hero/discover-hero.png"
+              alt="Solar Science Foundation Discovery Hall"
+              fill
+              priority
+              sizes="(max-width: 760px) 100vw, 56vw"
+              className="editorial-hero-image"
+            />
+            <div className="editorial-hero-fade" aria-hidden="true" />
+          </div>
         </div>
       </section>
 
@@ -52,7 +45,6 @@ export default async function GermanHomePage() {
           <div className="entries-grid">
             <Link href="/de/learn" style={{ color: 'inherit', textDecoration: 'none' }}>
               <div className="entry-card">
-                <div className="entry-icon">📚</div>
                 <h3>Entdecken</h3>
                 <p>Folge einer Frage. Jede Entdeckung öffnet drei weitere. Kein fester Weg — nur Neugier.</p>
                 <span className="entry-link">Alle Themen erkunden →</span>
@@ -60,7 +52,6 @@ export default async function GermanHomePage() {
             </Link>
             <Link href="/de/learning-paths" style={{ color: 'inherit', textDecoration: 'none' }}>
               <div className="entry-card">
-                <div className="entry-icon">🔭</div>
                 <h3>Lernpfade</h3>
                 <p>Strukturierte Wege von Grundlagen zu fortgeschrittenen Themen — in deinem Tempo.</p>
                 <span className="entry-link">Lernpfade ansehen →</span>
@@ -68,7 +59,6 @@ export default async function GermanHomePage() {
             </Link>
             <Link href="/de/subjects" style={{ color: 'inherit', textDecoration: 'none' }}>
               <div className="entry-card">
-                <div className="entry-icon">🧭</div>
                 <h3>Fächer</h3>
                 <p>Erkunde Astronomie, Physik, Chemie, Mathematik, Biologie, Erde und Geschichte.</p>
                 <span className="entry-link">Fächer ansehen →</span>
@@ -97,39 +87,6 @@ export default async function GermanHomePage() {
           </div>
         </section>
       </div>
-
-      <section className="noxia-strip">
-        <div className="container">
-          <div className="noxia-inner">
-            <div>
-              <p className="noxia-eyebrow">NOχ¹Δ Universe</p>
-              <h2 className="noxia-headline">
-                Was du hier lernst,<br />hat Folgen.
-              </h2>
-              <p className="noxia-body" style={{ marginBottom: 28 }}>
-                NOχ¹Δ ist ein Science-Exploration-Universum, in dem Wissen Fähigkeiten freischaltet.
-                Dein Verständnis ist deine Ausrüstung.
-              </p>
-              <a href="https://noxiagame.vercel.app" className="btn gold">NOχ¹Δ betreten →</a>
-            </div>
-            <div className="noxia-keys">
-              {[
-                { icon: '🔬', key: 'SENSOR:SPECTRAL', desc: 'Freigeschaltet durch das Lichtmodul' },
-                { icon: '⚗️', key: 'MISSION:LAB-ALPHA', desc: 'Freigeschaltet durch Chemie-Grundlagen' },
-                { icon: '🌍', key: 'MISSION:ORBITAL', desc: 'Freigeschaltet durch Gravitation und Umlaufbahnen' },
-              ].map(({ icon, key, desc }) => (
-                <div key={key} className="noxia-key">
-                  <span className="noxia-key-icon">{icon}</span>
-                  <div>
-                    <span className="noxia-key-label">{key}</span>
-                    <span className="noxia-key-desc">{desc}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
     </>
   );
 }
