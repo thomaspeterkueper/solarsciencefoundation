@@ -1,26 +1,41 @@
 /**
- * KUEPER · Solar Science Foundation (SSF)
- * Path:      app/api/noxia/unlocks/demo/route.ts
- * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/app/api/noxia/unlocks/demo/route.ts
- * Name:      GET /api/noxia/unlocks/demo
- * Version:   0.1.0
- * Created:   2026-06-26
- * Modified:  2026-06-26 13:00 CEST
- * Depends:   next/server, lib/progress
+ * KUEPER - Solar Science Foundation (SSF)
+ * Path: app/api/noxia/unlocks/demo/route.ts
+ * Name: POST /api/noxia/unlocks/demo — Demo unlock check (no auth)
+ * Version: 0.2.0
  */
-
 import { NextResponse } from 'next/server';
-import { buildUnlocks } from '../../../../../lib/progress';
+import { getNoxiaDemoUnlockState } from '../../../../../lib/noxiaBridge';
 
-const DEMO_COMPLETED = ['SSF-PHY-1101'];
+type CheckBody = {
+  completedModules?: unknown;
+  unlockId?: unknown;
+};
 
-// Fixed demo unlock for the first proof loop. Now sourced from the shared
-// unlock builder so the demo and real player endpoints can never drift apart.
-export function GET() {
+/**
+ * Demo endpoint — no authentication required.
+ * For testing only. Do not use in production NOXIA integration.
+ */
+export async function POST(request: Request) {
+  let body: CheckBody;
+  try {
+    body = (await request.json()) as CheckBody;
+  } catch {
+    return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 });
+  }
+
+  const completedModules = Array.isArray(body.completedModules)
+    ? body.completedModules.filter((item): item is string => typeof item === 'string')
+    : [];
+  const unlockId = typeof body.unlockId === 'string' ? body.unlockId : null;
+  const state = getNoxiaDemoUnlockState(completedModules);
+
   return NextResponse.json({
-    schema: 'SSF-NOXIA-0.1',
-    playerId: 'demo',
-    completedModules: DEMO_COMPLETED,
-    unlocks: buildUnlocks(DEMO_COMPLETED)
+    schema: 'SSF-NOXIA-UNLOCK-CHECK-DEMO-0.1',
+    mode: 'demo',
+    warning: 'This endpoint accepts unverified completedModules from the request body. Use /api/noxia/unlocks/check for production.',
+    unlockId,
+    granted: unlockId ? state.unlocks.some((unlock) => unlock.id === unlockId) : false,
+    ...state
   });
 }
