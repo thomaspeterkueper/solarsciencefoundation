@@ -100,6 +100,10 @@ function levelFromId(id: string) {
   return match ? asLevel(match[1]) : null;
 }
 
+function stripOtaPrefix(id: string) {
+  return id.startsWith('DOC:OTA:') ? id.slice('DOC:OTA:'.length) : id;
+}
+
 function normaliseDomain(item: RawKnowledgeDomain): KnowledgeDomain | null {
   const code = asString(item.code);
   const id = asString(item.id) ?? (code ? `KNOW:${code}` : null);
@@ -212,11 +216,12 @@ export async function getPrerequisiteView(documentId: string): Promise<Prerequis
   const [domains, prerequisites] = await Promise.all([getKnowledgeDomains(), getPrerequisites()]);
   const domainById = new Map(domains.map((domain) => [domain.id, domain]));
   const domainByCode = new Map(domains.map((domain) => [domain.code, domain]));
+  const requested = stripOtaPrefix(documentId);
 
   return {
     documentId,
     prerequisites: prerequisites
-      .filter((item) => item.documentId === documentId || item.documentId === `DOC:OTA:${documentId}`)
+      .filter((item) => stripOtaPrefix(item.documentId) === requested)
       .map((item) => ({ ...item, domain: domainById.get(item.domainId) ?? domainByCode.get(item.code) }))
   };
 }
