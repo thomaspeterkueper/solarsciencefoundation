@@ -10,7 +10,11 @@
 export type SubjectCode = 'PHY' | 'CHE' | 'BIO' | 'MAT' | 'AST' | 'EAR' | 'ENG';
 
 export type ModuleStatus = 'built' | 'in_progress' | 'planned';
-export type ModuleType = 'learning_path' | 'reference' | 'experiment';
+// KXF v0.1.x legacy types
+export type ModuleTypeLegacy = 'learning_path' | 'reference' | 'experiment';
+// KXF v0.2.0 canonical types (ARC-0006)
+export type ModuleTypeCanonical = 'grundmodul' | 'brueckenmodul' | 'archivmodul';
+export type ModuleType = ModuleTypeLegacy | ModuleTypeCanonical;
 
 export interface KxfLearningModule {
   id: string;
