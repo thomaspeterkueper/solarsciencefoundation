@@ -12,12 +12,6 @@ export const metadata: Metadata = {
 // These grow organically from the prerequisites of existing paths
 const HORIZON_PATHS = [
   {
-    title: 'Warum ist der Himmel blau — und die Sonne beim Untergang rot?',
-    tag: 'Licht · Atmosphäre',
-    dependsOn: 'PATH:SSF:PHY-WAVE-SPECTRUM-0001',
-    note: 'Baut auf Spektren und Wellenlängen auf',
-  },
-  {
     title: 'Wie alt ist ein Stern — und wie kann man das wissen?',
     tag: 'Astronomie · Zeit',
     dependsOn: 'PATH:SSF:PHY-WAVE-SPECTRUM-0001',
@@ -29,6 +23,12 @@ const HORIZON_PATHS = [
     dependsOn: 'PATH:SSF:PHY-WAVE-SPECTRUM-0001',
     note: 'Baut auf Obertönen und Frequenzverhältnissen auf',
   },
+  {
+    title: 'Warum ist Wasser flüssig — obwohl H₂ und O₂ beide Gase sind?',
+    tag: 'Chemie · Bindungen',
+    dependsOn: 'PATH:SSF:PHY-SKY-0001',
+    note: 'Öffnet sich nach dem Atmosphären-Pfad',
+  },
 ];
 
 // Observation images associated with each active path
@@ -36,6 +36,10 @@ const PATH_IMAGES: Record<string, { src: string; alt: string }> = {
   'PATH:SSF:PHY-WAVE-SPECTRUM-0001': {
     src: '/images/observations/kaffeetasse-tku.jpg',
     alt: 'Kaffeetasse mit Löffel — Einstieg in Klang und Schwingungen',
+  },
+  'PATH:SSF:PHY-SKY-0001': {
+    src: '/images/observations/rolladen-tku.jpg',  // placeholder until sky photo arrives
+    alt: 'Lichtspektren durch Rolladen — Einstieg in Licht und Streuung',
   },
 };
 
