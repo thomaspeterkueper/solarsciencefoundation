@@ -52,7 +52,7 @@ img { display: block; max-width: 100%; }
 /* ── Site header ── */
 .site-header {
   background: rgba(250,250,248,0.96);
-  border-bottom: 1px solid var(--border);
+  border-bottom: none;
   position: sticky; top: 0; z-index: 100;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -96,7 +96,7 @@ img { display: block; max-width: 100%; }
   align-items: center;
   margin-top: 11px;
   padding-top: 13px;
-  border-top: 1px solid rgba(229,231,235,.8);
+  border-top: none;
 }
 .nav-indent { width: 71px; }
 .nav {
@@ -193,18 +193,23 @@ img { display: block; max-width: 100%; }
   min-height: calc(100vh - 132px);
   overflow: hidden;
   background: #fbfaf7;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid rgba(229,231,235,.72);
 }
-.home-hero::before {
-  content: '';
+.home-hero-bg {
+  object-fit: cover;
+  object-position: center right;
+  z-index: 0;
+}
+.home-hero-overlay {
   position: absolute;
   inset: 0;
   z-index: 1;
   background:
-    radial-gradient(circle at 70% 30%, rgba(255,255,255,.24), rgba(255,255,255,.72) 45%, rgba(255,255,255,.9) 76%),
-    linear-gradient(90deg, rgba(250,250,248,.98) 0%, rgba(250,250,248,.92) 40%, rgba(250,250,248,.66) 100%);
+    linear-gradient(90deg, rgba(250,250,248,.98) 0%, rgba(250,250,248,.94) 28%, rgba(250,250,248,.68) 47%, rgba(250,250,248,.22) 68%, rgba(250,250,248,.03) 100%),
+    linear-gradient(0deg, rgba(250,250,248,.96) 0%, rgba(250,250,248,.42) 20%, rgba(250,250,248,0) 44%);
   pointer-events: none;
 }
+.home-hero::before { display: none; }
 .home-hero-inner {
   position: relative;
   z-index: 2;
@@ -212,10 +217,11 @@ img { display: block; max-width: 100%; }
   min-height: calc(100vh - 132px);
   margin: 0 auto;
   padding: clamp(64px, 9vh, 112px) 46px 72px 97px;
-  display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(320px, .72fr);
+  display: flex;
   align-items: center;
-  gap: clamp(42px, 7vw, 108px);
+}
+.home-hero-copy {
+  width: min(670px, 50vw);
 }
 .section-eyebrow {
   font-family: var(--font-mono);
@@ -243,43 +249,6 @@ img { display: block; max-width: 100%; }
   margin-bottom: 30px;
 }
 .home-hero-actions { display: flex; flex-wrap: wrap; gap: 14px; }
-.home-hero-map {
-  align-self: center;
-  background: rgba(255,255,255,.72);
-  border: 1px solid rgba(229,231,235,.9);
-  border-radius: 24px;
-  padding: 30px;
-  box-shadow: 0 24px 80px rgba(30,78,140,.10);
-  backdrop-filter: blur(8px);
-}
-.home-hero-map p:last-child {
-  margin: 18px 0 0;
-  color: var(--muted);
-  font-size: 15px;
-  line-height: 1.6;
-}
-.hero-flow {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 10px;
-}
-.hero-flow span {
-  display: block;
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 13px 15px;
-  color: var(--navy-2);
-  font-weight: 700;
-  box-shadow: 0 8px 20px rgba(30,78,140,.06);
-}
-.hero-flow i {
-  display: block;
-  width: 1px;
-  height: 18px;
-  background: #D8B25A;
-  margin-left: 18px;
-}
 
 /* ── Homepage sections ── */
 .entries-section,
@@ -391,10 +360,9 @@ img { display: block; max-width: 100%; }
   .brand-grid { grid-template-columns: 1fr auto; gap: 14px; }
   .nav-row { grid-template-columns: 71px minmax(0, 1fr); }
   .nav { flex-wrap: wrap; gap: 14px 18px; }
-  .home-hero-inner,
   .noxia-inner { grid-template-columns: 1fr; }
   .home-hero-inner { padding-left: 91px; }
-  .home-hero-map { max-width: 560px; }
+  .home-hero-copy { width: min(620px, 72vw); }
   .entries-grid { grid-template-columns: 1fr; }
   .fields-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
@@ -416,8 +384,14 @@ img { display: block; max-width: 100%; }
   .container { padding: 0 22px; }
   .home-hero { min-height: auto; }
   .home-hero-inner { min-height: auto; padding: 64px 22px 60px; }
+  .home-hero-copy { width: 100%; }
   .home-hero-title { font-size: clamp(38px, 11vw, 52px); letter-spacing: -1.1px; }
-  .home-hero-map { display: none; }
+  .home-hero-bg { object-position: center right; }
+  .home-hero-overlay {
+    background:
+      linear-gradient(90deg, rgba(250,250,248,.98) 0%, rgba(250,250,248,.92) 64%, rgba(250,250,248,.42) 100%),
+      linear-gradient(0deg, rgba(250,250,248,.96) 0%, rgba(250,250,248,.48) 36%, rgba(250,250,248,.12) 100%);
+  }
   .section-row { display: block; }
   .fields-grid { grid-template-columns: 1fr; }
 }
