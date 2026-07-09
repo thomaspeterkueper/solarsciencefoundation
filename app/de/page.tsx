@@ -10,6 +10,15 @@ export default async function GermanHomePage() {
   return (
     <>
       <section className="home-hero">
+        <Image
+          src="/images/hero/discover-hero.png"
+          alt="Solar Science Foundation Discovery Hall"
+          fill
+          priority
+          sizes="100vw"
+          className="home-hero-bg"
+        />
+        <div className="home-hero-overlay" aria-hidden="true" />
         <div className="home-hero-inner">
           <div className="home-hero-copy">
             <p className="section-eyebrow">Unabhängiges Wissenschaftslernen</p>
@@ -22,38 +31,6 @@ export default async function GermanHomePage() {
               <Link className="btn" href="/de/learn">Wissenskarte erkunden →</Link>
               <Link className="btn secondary" href={`/de/modules/${featured.id}`}>Lernen starten</Link>
             </div>
-          </div>
-
-          <div
-            aria-label="Solar Science Foundation Discovery Hall"
-            style={{
-              position: 'relative',
-              minHeight: 520,
-              height: 'min(62vh, 680px)',
-              borderRadius: 24,
-              overflow: 'hidden',
-              border: '1px solid rgba(255,255,255,.68)',
-              boxShadow: '0 28px 90px rgba(20,39,64,.16)',
-              background: 'var(--soft)'
-            }}
-          >
-            <Image
-              src="/images/hero/discover-hero.png"
-              alt="Solar Science Foundation Discovery Hall"
-              fill
-              priority
-              sizes="(max-width: 760px) 100vw, 56vw"
-              style={{ objectFit: 'cover' }}
-            />
-            <div
-              aria-hidden="true"
-              style={{
-                position: 'absolute',
-                inset: 0,
-                background: 'linear-gradient(90deg, rgba(250,250,248,.36) 0%, rgba(250,250,248,.12) 26%, rgba(250,250,248,0) 52%)',
-                pointerEvents: 'none'
-              }}
-            />
           </div>
         </div>
       </section>
