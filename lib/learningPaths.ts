@@ -3,9 +3,9 @@
  * Path:      lib/learningPaths.ts
  * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/learningPaths.ts
  * Name:      Learning Paths registry
- * Version:   0.6.0
+ * Version:   0.7.0
  * Created:   2026-07-03
- * Modified:  2026-07-05 10:00 CEST
+ * Modified:  2026-07-05 12:00 CEST
  * Depends:   —
  */
 
@@ -237,6 +237,128 @@ export const learningPaths: LearningPath[] = [
             kind: 'quiz',
             title: 'Quiz Spektren',
             summary: 'Drei Fragen: Vakuum-Ausbreitung, Lichtlaufzeit (Zeitmaschine), Fraunhofer-Linien (Fingerabdruck).',
+            depthPoints: 18
+          }
+        ]
+      }
+    ]
+  }
+,
+
+  {
+    id: 'PATH:SSF:PHY-SKY-0001',
+    title: 'Warum ist der Himmel blau',
+    subtitle: 'Von der Farbe des Himmels zu Sonnenuntergaengen: Rayleigh-Streuung, Wellenlaenge und das Auge.',
+    status: 'prototype',
+    sourceModuleId: 'SSF-PHY-1103',
+    kxfModuleId: 'LRN:SSF:PHY-1103',
+    domainsNeeded: ['KNOW:PHYS-WAVE', 'KNOW:PHYS-OPTICS', 'KNOW:ASTRO-ATMO'],
+    suppliedBy: {
+      knowledgeGraph: [
+        'Knowledge Domain IDs',
+        'Prerequisite link to PATH:SSF:PHY-WAVE-SPECTRUM-0001',
+        'Unlock mapping to NOXIA'
+      ],
+      kueperCom: [],
+      overtimeArchive: [],
+      ssf: [
+        'Didactic sequencing, entry questions',
+        'Interactive Rayleigh-Streuungs-Experiment (Wellenlaengen-Slider + Streuungsintensitaet)',
+        'Atmosphaeren-Weglaengen-Experiment (Sonnenwinkel-Slider + Farbwechsel)',
+        'Seitenast: Warum nicht violett?',
+        'Persoenliche Beobachtungen (Foto kommt spaeter)'
+      ]
+    },
+    unlocks: ['SENSOR:ATMOSPHERE', 'NAV:ORBITAL'],
+    units: [
+      {
+        id: 'UNIT:HIMMEL-BLAU',
+        title: 'Warum blau?',
+        entryQuestion: 'Warum ist der Himmel blau — obwohl das Sonnenlicht weiss ist?',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:UNTERGANG-ROT' },
+        sections: [
+          {
+            id: 'OBS:HIMMEL',
+            kind: 'observation',
+            title: 'Beobachtung: Der blaue Himmel',
+            summary: 'Schau an einem klaren Tag in den Himmel — nicht in die Sonne. Blau. Aber die Sonne selbst ist weisslich-gelb. Dasselbe Licht, zwei verschiedene Farben. Wie?',
+            // image will be added when photo arrives
+            depthPoints: 4
+          },
+          {
+            id: 'EXP:RAYLEIGH',
+            kind: 'experiment',
+            title: 'Experiment: Rayleigh-Streuung live',
+            summary: 'Wellenlaengen-Slider 380–700 nm: Streuungsintensitaet steigt mit lambda^-4. Blau (450 nm) wird ~5.5x staerker gestreut als Rot (700 nm). Canvas zeigt Streuung visuell.',
+            interactive: true,
+            depthPoints: 8
+          },
+          {
+            id: 'EXP:ATMOSPHAERE-PFAD',
+            kind: 'experiment',
+            title: 'Experiment: Lichtweg durch die Atmosphaere',
+            summary: 'Sonnenwinkel-Slider 0–90 Grad: zeigt wie viel Atmosphaere das Licht durchquert. Bei flachem Winkel vielfach laengerer Weg — Blau fast vollstaendig weggestreut.',
+            interactive: true,
+            depthPoints: 8
+          },
+          {
+            id: 'BRANCH:NICHT-VIOLETT',
+            kind: 'branch',
+            title: 'Seitenast: Warum nicht violett?',
+            summary: 'Violett wird staerker gestreut als Blau — trotzdem ist der Himmel blau. Drei Gruende: Sonnenspektrum, Augenempfindlichkeit, Absorption in der oberen Atmosphaere.',
+            optional: true,
+            depthPoints: 10
+          },
+          {
+            id: 'QUIZ:HIMMEL-BLAU',
+            kind: 'quiz',
+            title: 'Quiz: Rayleigh-Streuung',
+            summary: 'Drei Fragen: Warum blau (nicht rot), was ist lambda^-4, warum nicht violett.',
+            depthPoints: 15
+          }
+        ]
+      },
+      {
+        id: 'UNIT:UNTERGANG-ROT',
+        title: 'Warum rot beim Untergang?',
+        entryQuestion: 'Warum ist die Sonne beim Untergang rot — obwohl sie mittags weiss-gelb ist?',
+        sections: [
+          {
+            id: 'OBS:UNTERGANG',
+            kind: 'observation',
+            title: 'Beobachtung: Sonnenuntergang',
+            summary: 'Dieselbe Sonne, eine andere Farbe. Mittags fast weiss. Beim Untergang tief orange-rot. Nicht die Sonne aendert sich — der Weg des Lichts durch die Atmosphaere wird laenger.',
+            depthPoints: 4
+          },
+          {
+            id: 'EXP:WEGLAENGE',
+            kind: 'experiment',
+            title: 'Experiment: Weglaenge bestimmt die Farbe',
+            summary: 'Interaktiver Querschnitt durch die Atmosphaere: Sonnenposition veraendert Weglaenge, Canvas zeigt Farbwechsel von weiss zu orange zu tiefrot. Wellenlaengen-Filterung sichtbar.',
+            interactive: true,
+            depthPoints: 8
+          },
+          {
+            id: 'BRANCH:DUNSTROT',
+            kind: 'branch',
+            title: 'Seitenast: Warum ist Dunst auch rot?',
+            summary: 'Dunst, Nebel, Staub verstaerken die Streuung — groessere Partikel streuen alle Wellenlaengen staerker (Mie-Streuung). Waldbraende, Saharastaub, Vulkanasche machen Untergang roter.',
+            optional: true,
+            depthPoints: 8
+          },
+          {
+            id: 'BRANCH:MOND-ROT',
+            kind: 'branch',
+            title: 'Seitenast: Warum ist der Mond bei der Mondfinsternis rot?',
+            summary: 'Alle Sonnenuntergaenge der Erde gleichzeitig beleuchten den Mond in der Erdschatten — das Licht das durchkommt ist das Rot das die Atmosphaere durchlaesst. Derselbe Mechanismus.',
+            optional: true,
+            depthPoints: 10
+          },
+          {
+            id: 'QUIZ:UNTERGANG-ROT',
+            kind: 'quiz',
+            title: 'Quiz: Weglaenge und Farbe',
+            summary: 'Drei Fragen: Warum laengerer Weg beim Untergang, welche Wellenlaenge bleibt uebrig, was hat die Mondfinsternis damit zu tun.',
             depthPoints: 18
           }
         ]
