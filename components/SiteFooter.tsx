@@ -35,8 +35,15 @@ export default function SiteFooter() {
 
           <div className="site-footer-group">
             <span>{isGerman ? 'Rechtliches' : 'Legal'}</span>
-            <Link href="/imprint">{isGerman ? 'Impressum' : 'Imprint'}</Link>
-            <Link href="/legal/privacy">{isGerman ? 'Datenschutz' : 'Privacy'}</Link>
+            <Link href={`${prefix}/impressum`}>
+              {isGerman ? 'Impressum' : 'Imprint'}
+            </Link>
+            <Link href={`${prefix}/datenschutz`}>
+              {isGerman ? 'Datenschutz' : 'Privacy'}
+            </Link>
+            <Link href={`${prefix}/nutzungsbedingungen`}>
+              {isGerman ? 'Nutzungsbedingungen' : 'Terms'}
+            </Link>
           </div>
         </nav>
       </div>
