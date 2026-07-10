@@ -10,27 +10,40 @@ export default function SiteFooter() {
 
   return (
     <footer className="site-footer">
-      <div className="container">
-        <div>
-          <div className="honest">
+      <div className="ui-container ui-container-wide site-footer-inner">
+        <div className="site-footer-brand">
+          <strong>Solar Science Foundation</strong>
+          <p>
             {isGerman
-              ? 'Eine unabhängige Institution für wissenschaftliche Neugier — offen für alle, überall.'
-              : 'An independent institution for scientific curiosity — open to everyone, everywhere.'}
-          </div>
-          <div className="meta" style={{ marginTop: 8 }}>
+              ? 'Eine unabhängige Plattform für wissenschaftliche Neugier — offen für alle, überall.'
+              : 'An independent platform for scientific curiosity — open to everyone, everywhere.'}
+          </p>
+          <span className="site-footer-fiction">
             {isGerman
-              ? 'Gegründet in Genf. Teil des NOχ¹Δ-Universums.'
-              : 'Founded in Geneva. Part of the NOχ¹Δ universe.'}
+              ? 'Gegründet in Sundern 2045 · NOχ¹Δ Universe · Fiktives Wissenschaftsprojekt'
+              : 'Founded in Sundern 2045 · NOχ¹Δ Universe · Fictional science project'}
+          </span>
+        </div>
+
+        <nav className="site-footer-nav" aria-label={isGerman ? 'Fußnavigation' : 'Footer navigation'}>
+          <div className="site-footer-group">
+            <span>{isGerman ? 'Projekt' : 'Project'}</span>
+            <Link href={`${prefix}/about`}>{isGerman ? 'Über die SSF' : 'About'}</Link>
+            <Link href={`${prefix}/membership`}>{isGerman ? 'Mitgliedschaft' : 'Membership'}</Link>
+            <Link href={`${prefix}/login`}>{isGerman ? 'Anmelden' : 'Sign in'}</Link>
           </div>
-        </div>
-        <div className="meta">
-          <a href="#">Impressum</a>
-          <a href="#">Datenschutz</a>
-          <Link href={`${prefix}/about`}>{isGerman ? 'Über die SSF' : 'About'}</Link>
-          <Link href={`${prefix}/membership`}>{isGerman ? 'Mitgliedschaft' : 'Membership'}</Link>
-          <Link href={`${prefix}/progress`}>{isGerman ? 'Fortschritt' : 'Progress'}</Link>
-          <Link href={`${prefix}/login`}>Login</Link>
-        </div>
+
+          <div className="site-footer-group">
+            <span>{isGerman ? 'Rechtliches' : 'Legal'}</span>
+            <Link href="/imprint">{isGerman ? 'Impressum' : 'Imprint'}</Link>
+            <Link href="/legal/privacy">{isGerman ? 'Datenschutz' : 'Privacy'}</Link>
+          </div>
+        </nav>
+      </div>
+
+      <div className="ui-container ui-container-wide site-footer-bottom">
+        <span>© {new Date().getFullYear()} Thomas Peter Küper</span>
+        <span>{isGerman ? 'Wissen verbindet.' : 'Knowledge connects.'}</span>
       </div>
     </footer>
   );
