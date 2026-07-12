@@ -13,14 +13,14 @@ export const metadata: Metadata = {
 export default async function NutzungsbedingungenPage() {
   const content = await fetchLegalContent();
   return (
-    <main style={ maxWidth: '820px', margin: '3rem auto', padding: '0 2rem' }>
+    <main style={{ maxWidth: '820px', margin: '3rem auto', padding: '0 2rem' }}>
       {content.status === 'draft_productive' && (
-        <p style={ marginBottom: '2rem', padding: '0.5rem 1rem', background: '#FFF8E7',
-          border: '1px solid #F4A300', fontSize: '0.8rem' }>
+        <p style={{ marginBottom: '2rem', padding: '0.5rem 1rem', background: '#FFF8E7',
+          border: '1px solid #F4A300', fontSize: '0.8rem' }}>
           ⚠ Entwurf — nicht juristisch freigegeben.
         </p>
       )}
-      <div className="prose" style={ fontFamily: 'var(--font-serif)', lineHeight: 1.8 }
+      <div className="prose" style={{ fontFamily: 'var(--font-serif)', lineHeight: 1.8 }}
         dangerouslySetInnerHTML={{ __html: content.terms.replace(/\n/g, '<br />') }}
       />
     </main>
