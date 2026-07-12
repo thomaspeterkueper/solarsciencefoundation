@@ -182,3 +182,57 @@ NOXIA has ECO-L0-0001/0002/0003/ECO-L1-0001/0002 hardcoded in
 `lib/knowledge/data.ts` with `player_learning_progress` table.
 Once SSF delivers canonical modules, NOXIA will switch to SSF IDs
 and remove local duplicates.
+
+---
+
+## Addendum 2026-07-11 — PATH:SSF:ECO-FOUNDATIONS-0001
+
+**New request:** Register a canonical learning path for economics foundations.
+
+NOXIA has `kurs_05_angebot_nachfrage` ("Angebot & Nachfrage") mapped to
+`PATH:SSF:ECO-FOUNDATIONS-0001` as of migration `032_kg_path_id.sql`.
+This path does not yet exist in the KG.
+
+### Requested path record
+
+```json
+{
+  "id": "PATH:SSF:ECO-FOUNDATIONS-0001",
+  "title": "Wirtschaftliche Grundlagen",
+  "status": "planned",
+  "kind": "application_learning_sequence",
+  "steps": [
+    "ECO-L0-000001",
+    "ECO-L0-000002",
+    "ECO-L0-000003",
+    "ECO-L1-000001",
+    "ECO-L1-000002"
+  ],
+  "estimatedMinutes": 15,
+  "knowledgeDomains": ["KD:ECO:L0", "KD:ECO:L1"],
+  "prerequisites": [],
+  "unlocks": [
+    "UNL:NOX:bank-credit",
+    "UNL:NOX:bank-compound",
+    "UNL:NOX:bank-collateral",
+    "UNL:NOX:advanced-trading",
+    "UNL:NOX:land-value"
+  ]
+}
+```
+
+### NOXIA course mapping (confirmed live, 2026-07-11)
+
+| NOXIA kurs_id           | kg_path_id                    |
+|-------------------------|-------------------------------|
+| kurs_00_einheiten       | PATH:SSF:MAT-FOUNDATIONS-0001 |
+| kurs_01_prozentrechnung | PATH:SSF:MAT-FOUNDATIONS-0001 |
+| kurs_02_physik_grundlagen | PATH:NOXIA:GEN-MARS:SCIENCE-FOUNDATION |
+| kurs_03_energie_arbeit  | PATH:NOXIA:GEN-MARS:SCIENCE-FOUNDATION |
+| kurs_04_kraefte_bewegung | PATH:NOXIA:GEN-MARS:SCIENCE-FOUNDATION |
+| kurs_05_angebot_nachfrage | PATH:SSF:ECO-FOUNDATIONS-0001 |
+
+### Blocks
+
+- `kurs_05_angebot_nachfrage` has no resolvable KG path until this is registered
+- KB-REQUEST-0004 (ID normalization) should align ECO module IDs before this path goes live
