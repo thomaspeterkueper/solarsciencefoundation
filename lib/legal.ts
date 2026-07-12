@@ -82,6 +82,36 @@ export async function fetchLegalContent(): Promise<LegalContent> {
   };
 }
 
+export function buildConfirmSignupEmailText(info: LegalProjectInfo, locale: 'de' | 'en'): string {
+  if (locale === 'de') {
+    return [
+      `Willkommen bei ${info.projectName}.`,
+      '',
+      'Bitte bestätige deine Registrierung über den Link in dieser E-Mail.',
+      '',
+      info.statusNote,
+      '',
+      `${info.operatorName}`,
+      info.postalAddress,
+      `Kontakt: ${info.contactEmail}`,
+      info.websiteUrl
+    ].filter(Boolean).join('\n');
+  }
+
+  return [
+    `Welcome to ${info.projectName}.`,
+    '',
+    'Please confirm your registration using the link in this email.',
+    '',
+    info.statusNote,
+    '',
+    `${info.operatorName}`,
+    info.postalAddress,
+    `Contact: ${info.contactEmail}`,
+    info.websiteUrl
+  ].filter(Boolean).join('\n');
+}
+
 export async function getLegalProjectInfo(): Promise<LegalProjectInfo> {
   try {
     const legal = await fetchLegalContent();
