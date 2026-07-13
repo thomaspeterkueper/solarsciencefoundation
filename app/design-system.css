@@ -88,6 +88,17 @@
   .site-footer-nav { gap: 32px; }
 }
 
+.path-card {
+  border: 1.5px solid var(--border);
+  box-shadow: 0 4px 20px rgba(30,78,140,.06);
+  transition: box-shadow .2s, border-color .2s;
+  cursor: pointer;
+}
+.path-card:hover {
+  box-shadow: 0 12px 40px rgba(30,78,140,.13);
+  border-color: var(--gold);
+}
+
 .ui-container {
   width: min(100%, var(--maxw));
   margin: 0 auto;
