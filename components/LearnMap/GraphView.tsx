@@ -1,7 +1,7 @@
 'use client';
 
 import type { KxfLearningModule, SubjectCode } from './types';
-import { SUBJECT_CONFIG } from '@/lib/learning-modules';
+import { SUBJECT_CONFIG } from '../../lib/learning-modules';
 
 export function GraphView({ modules, onSelect }: { modules: KxfLearningModule[]; onSelect: (module: KxfLearningModule) => void }) {
   const byId = new Map(modules.map((module) => [module.id, module]));
