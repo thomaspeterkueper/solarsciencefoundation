@@ -4,16 +4,16 @@ export default function AboutPage() {
       <p className="kicker">About · SSF · NOχ¹Δ</p>
       <h1 className="hero" style={{ fontSize: 26 }}>A fictional science learning platform.</h1>
       <p style={{ color: 'var(--steel)', maxWidth: '60ch', marginTop: 18 }}>
-        The Solar Science Foundation is a fictional educational organization within the NOχ¹Δ universe.
-        In the NOχ¹Δ timeline, it was founded in 2045 in Geneva.
+        The Solar Science Foundation is a fictional institution within the NOχ¹Δ universe,
+        founded in Sundern in 2045.
       </p>
       <p style={{ color: 'var(--steel)', maxWidth: '60ch' }}>
-        Die Solar Science Foundation ist eine fiktive Wissenschafts- und Lernplattform innerhalb des NOχ¹Δ-Universums.
-        In der NOχ¹Δ-Zeitlinie wurde sie 2045 in Genf gegründet.
+        Die Solar Science Foundation ist eine fiktive Institution innerhalb des NOχ¹Δ-Universums,
+        gegründet in Sundern im Jahr 2045.
       </p>
       <p style={{ color: 'var(--steel)', maxWidth: '60ch' }}>
-        KUEPER Knowledge Graph → SSF → NOχ¹Δ.
-        Learning modules can be used independently or connected to NOχ¹Δ progress and unlocks.
+        The science it teaches is real, presented in German and English.
+        Progress earned here unlocks capabilities within NOχ¹Δ.
       </p>
     </div>
   );
