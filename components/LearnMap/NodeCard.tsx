@@ -2,8 +2,8 @@
 
 import type { KxfLearningModule, SubjectCode } from './types';
 import { STATUS_LABEL } from './types';
-import { SUBJECT_CONFIG, assetCount } from '@/lib/learning-modules';
-import { Badge, Card } from '@/components/ui';
+import { SUBJECT_CONFIG, assetCount } from '../../lib/learning-modules';
+import { Badge, Card } from '../ui';
 
 export function NodeCard({ module, onClick }: { module: KxfLearningModule; onClick: () => void }) {
   const subject = SUBJECT_CONFIG[module.meta.subject as SubjectCode];
