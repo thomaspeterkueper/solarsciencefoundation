@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import type { KxfLearningModule, SubjectCode } from './types';
-import { SUBJECT_CONFIG } from '@/lib/learning-modules';
-import { Container, PageHeader, Stat, Tabs } from '@/components/ui';
+import { SUBJECT_CONFIG } from '../../lib/learning-modules';
+import { Container, PageHeader, Stat, Tabs } from '../ui';
 import { GridView } from './GridView';
 import { GraphView } from './GraphView';
 import { DetailPanel } from './DetailPanel';
