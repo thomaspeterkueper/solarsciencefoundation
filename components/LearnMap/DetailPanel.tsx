@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import type { KxfLearningModule, SubjectCode } from './types';
 import { STATUS_LABEL } from './types';
-import { SUBJECT_CONFIG, assetCount } from '@/lib/learning-modules';
+import { SUBJECT_CONFIG, assetCount } from '../../lib/learning-modules';
 
 const MODULE_URLS: Record<string, string> = {
   'LRN:SSF:PHY-1101': '/modules/SSF-PHY-1101',
