@@ -94,27 +94,13 @@ export default function LearningPathsPage() {
                 href={`/learning-paths/${encodeURIComponent(path.id)}`}
                 style={{ textDecoration: 'none', color: 'inherit' }}
               >
-                <article style={{
+                <article className="path-card" style={{
                   display: 'grid',
                   gridTemplateColumns: img ? '280px 1fr' : '1fr',
                   borderRadius: 16,
                   overflow: 'hidden',
-                  border: '1.5px solid var(--border)',
                   background: 'var(--panel)',
-                  boxShadow: '0 4px 20px rgba(30,78,140,.06)',
-                  transition: 'box-shadow .2s, border-color .2s',
-                  cursor: 'pointer',
                 }}
-                  onMouseEnter={e => {
-                    const el = e.currentTarget as HTMLElement;
-                    el.style.boxShadow = '0 12px 40px rgba(30,78,140,.13)';
-                    el.style.borderColor = 'var(--gold)';
-                  }}
-                  onMouseLeave={e => {
-                    const el = e.currentTarget as HTMLElement;
-                    el.style.boxShadow = '0 4px 20px rgba(30,78,140,.06)';
-                    el.style.borderColor = 'var(--border)';
-                  }}
                 >
                   {/* Image */}
                   {img && (
