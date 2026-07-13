@@ -1,4 +1,4 @@
-import type { KxfLearningModule, KxfLearningModulesExport, SubjectCode } from '@/components/LearnMap/types';
+import type { KxfLearningModule, KxfLearningModulesExport, SubjectCode } from '../components/LearnMap/types';
 
 const KXF_MODULES_URL =
   process.env.KUEPER_KXF_MODULES_URL ??
