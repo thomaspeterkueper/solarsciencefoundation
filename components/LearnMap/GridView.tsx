@@ -1,8 +1,8 @@
 'use client';
 
 import type { KxfLearningModule, SubjectCode } from './types';
-import { groupBySubject, SUBJECT_CONFIG } from '@/lib/learning-modules';
-import { Section } from '@/components/ui';
+import { groupBySubject, SUBJECT_CONFIG } from '../../lib/learning-modules';
+import { Section } from '../ui';
 import { NodeCard } from './NodeCard';
 
 export function GridView({ modules, onSelect }: { modules: KxfLearningModule[]; onSelect: (module: KxfLearningModule) => void }) {
