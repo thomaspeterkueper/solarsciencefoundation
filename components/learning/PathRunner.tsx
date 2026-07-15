@@ -4,7 +4,7 @@
  * KUEPER · Solar Science Foundation (SSF)
  * Path:     components/learning/PathRunner.tsx
  * Name:     PathRunner — renders a LearningPath inline within the SSF shell
- * Version:  0.1.0
+ * Version:  0.2.0
  * Created:  2026-07-15
  *
  * Renders all units and sections of a LearningPath as SSF-styled content.
@@ -18,12 +18,26 @@ import styles from './PathRunner.module.css';
 
 // ── Experiment registry ──────────────────────────────────
 // Add new experiment components here as they are ported.
-import RayleighExperiment from './RayleighExperiment';
-import LGSExperiment from './LGSExperiment';
+import RayleighExperiment      from './RayleighExperiment';
+import LGSExperiment           from './LGSExperiment';
+import SunsetExperiment        from './SunsetExperiment';
+import VectorExperiment        from './VectorExperiment';
+import DensityErrorExperiment  from './DensityErrorExperiment';
+import FourierExperiment       from './FourierExperiment';
 
 const EXPERIMENT_MAP: Record<string, React.ComponentType> = {
-  'EXP:RAYLEIGH':           RayleighExperiment,
-  'EXP:LGS-GRAFISCH':       LGSExperiment,
+  // PHY-SKY
+  'EXP:RAYLEIGH':         RayleighExperiment,
+  'EXP:ATMOSPHAERE-PFAD': SunsetExperiment,
+  'EXP:WEGLAENGE':        SunsetExperiment,
+  // MAT-LGS
+  'EXP:LGS-GRAFISCH':     LGSExperiment,
+  // MAT-VEC
+  'EXP:VEC-RECHNER':      VectorExperiment,
+  // MAT-ERROR
+  'EXP:KUGELDICHTE':      DensityErrorExperiment,
+  // MAT-SERIES
+  'EXP:FOURIER':          FourierExperiment,
 };
 
 // ── Depth bar ────────────────────────────────────────────
