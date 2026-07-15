@@ -1,14 +1,16 @@
 /**
  * KUEPER - Solar Science Foundation (SSF)
  * Path: app/modules/[id]/page.tsx
- * Version: 0.2.0
- * Modified: 2026-07-04
+ * Version: 0.3.0
+ * Modified: 2026-07-15
  */
 
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import type { Metadata } from 'next';
 import { getKxfLearningModuleById } from '../../../lib/kxf';
+import { getRegisteredLearningPathForModule } from '../../../lib/learningPathRegistry';
 import ModuleRunner from '../../../components/ModuleRunner';
+import Link from 'next/link';
 
 type PageProps = {
   params: Promise<{ id: string }>;
@@ -30,8 +32,11 @@ export default async function ModulePage({ params }: PageProps) {
 
   if (!mod) notFound();
 
-  // Use entry question as headline if available and meaningful.
-  // The internal module ID and domain are not shown to visitors.
+  const path = getRegisteredLearningPathForModule(mod.id);
+  if (path) {
+    redirect(`/learning-paths/${encodeURIComponent(path.id)}`);
+  }
+
   const headline = mod.summary && !mod.summary.startsWith('A learning module')
     ? mod.summary
     : mod.title;
@@ -40,13 +45,10 @@ export default async function ModulePage({ params }: PageProps) {
 
   return (
     <div className="container reading" style={{ paddingTop: 52, paddingBottom: 80 }}>
-
-      {/* Field label — subtle, no ID, no difficulty number */}
       <p className="mono" style={{ fontSize: 13, color: 'var(--muted)', marginBottom: 18, letterSpacing: '0.04em' }}>
         {mod.domain} · {mod.durationMinutes} min
       </p>
 
-      {/* The question or title — this is what the visitor sees first */}
       <h1 style={{
         fontFamily: 'var(--font-serif)',
         fontSize: 'clamp(28px, 5vw, 46px)',
@@ -63,9 +65,18 @@ export default async function ModulePage({ params }: PageProps) {
       {hasExercises
         ? <ModuleRunner learningModule={mod} />
         : (
-          <p style={{ color: 'var(--steel)', fontSize: 18, lineHeight: 1.7, maxWidth: '58ch' }}>
-            Dieser Bereich wird gerade vorbereitet. Schau bald wieder vorbei.
-          </p>
+          <div style={{
+            border: '1px solid var(--border)',
+            borderRadius: 14,
+            padding: '24px 26px',
+            background: 'var(--panel)'
+          }}>
+            <p style={{ color: 'var(--steel)', fontSize: 17, lineHeight: 1.7, maxWidth: '58ch', marginBottom: 16 }}>
+              Für dieses Wissensmodul ist noch kein vollständiger Lernpfad veröffentlicht.
+              Die vorhandenen interaktiven Pfade findest du in der Lernpfadübersicht.
+            </p>
+            <Link href="/learning-paths" className="btn">Zu den Lernpfaden →</Link>
+          </div>
         )
       }
     </div>
