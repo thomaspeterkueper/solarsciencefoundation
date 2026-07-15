@@ -3,9 +3,9 @@
  * Path:      lib/learningPaths.ts
  * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/learningPaths.ts
  * Name:      Learning Paths registry
- * Version:   0.9.2
+ * Version:   0.9.3
  * Created:   2026-07-03
- * Modified:  2026-07-15 20:00 CEST
+ * Modified:  2026-07-15 21:00 CEST
  * Depends:   —
  */
 
@@ -35,6 +35,12 @@ export type LearningPathUnit = {
   title: string;
   /** The question displayed to the learner — no discipline label */
   entryQuestion?: string;
+  /**
+   * Short insight shown after the quiz is completed.
+   * One sentence, written as a realisation — not a summary.
+   * Example: "Dehnung ist keine Zahl — sie ist ein Verhältnis."
+   */
+  takeaway?: string;
   gate?: {
     type: 'quiz_all_correct';
     unlocksUnitId?: string;
