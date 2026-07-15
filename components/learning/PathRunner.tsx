@@ -4,7 +4,7 @@
  * KUEPER · Solar Science Foundation (SSF)
  * Path:     components/learning/PathRunner.tsx
  * Name:     PathRunner — renders a LearningPath inline within the SSF shell
- * Version:  0.2.0
+ * Version:  0.3.0
  * Created:  2026-07-15
  *
  * Renders all units and sections of a LearningPath as SSF-styled content.
@@ -253,7 +253,7 @@ function UnitBlock({
       <div className={styles.unitLocked}>
         <div className={styles.lockIcon}>🔒</div>
         <p className={styles.lockText}>
-          Schließe Einheit {index} ab um weiterzugehen.
+          Schließe Kapitel {index} ab um weiterzugehen.
         </p>
       </div>
     );
@@ -268,7 +268,7 @@ function UnitBlock({
   return (
     <section className={styles.unit}>
       <div className={styles.unitHeader}>
-        <p className={styles.unitIndex}>Einheit {index + 1}</p>
+        <p className={styles.unitIndex}>Kapitel {index + 1}</p>
         {unit.entryQuestion && (
           <h2 className={styles.unitQuestion}>{unit.entryQuestion}</h2>
         )}
@@ -283,6 +283,14 @@ function UnitBlock({
           />
         ))}
       </div>
+
+      {/* Takeaway — shown after quiz completes */}
+      {quizDone && unit.takeaway && (
+        <div className={styles.takeaway}>
+          <span className={styles.takeawayLabel}>Erkenntnis</span>
+          <p className={styles.takeawayText}>{unit.takeaway}</p>
+        </div>
+      )}
     </section>
   );
 }
