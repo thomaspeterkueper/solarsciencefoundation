@@ -3,9 +3,9 @@
  * Path:      lib/learningPaths.ts
  * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/learningPaths.ts
  * Name:      Learning Paths registry
- * Version:   0.8.0
+ * Version:   0.9.0
  * Created:   2026-07-03
- * Modified:  2026-07-15 CEST
+ * Modified:  2026-07-15 18:00 CEST
  * Depends:   —
  */
 
@@ -557,6 +557,58 @@ export const learningPaths: LearningPath[] = [
           { id: 'OBS:SCHIENE', kind: 'observation', title: 'Beobachtung: Eisenbahnkurven', summary: 'Kruemmungsradius darf nicht zu klein sein — Ingenieure brauchen kappa an jedem Punkt.', depthPoints: 3 },
           { id: 'EXP:SCHMIEGEKREIS', kind: 'experiment', title: 'Experiment: Schmiegekreis live', summary: 'Parabel, Evolvente, Spirale — Punkt-Slider, Schmiegekreis als blauer Kreis live.', interactive: true, depthPoints: 7 },
           { id: 'QUIZ:KRUEMMUNG', kind: 'quiz', title: 'Quiz Kruemmung', summary: 'Grosser rK bedeutet, Trick bei Evolvente, warum Polar fuer Spirale.', depthPoints: 18 }
+        ]
+      }
+    ]
+  }
+,
+  {
+    id: 'PATH:SSF:MAT-VEC-0001',
+    title: 'Warum greift man eine Tuer am Rand an',
+    subtitle: 'Vektoren als Pfeile mit Richtung und Betrag — Skalarprodukt, Winkel, Kreuzprodukt und Drehmoment.',
+    status: 'prototype',
+    sourceModuleId: 'SSF-MAT-1104',
+    kxfModuleId: 'LRN:SSF:MAT-1104',
+    domainsNeeded: ['KNOW:MAT-VECTORS', 'KNOW:PHYS-MECH', 'KNOW:ENG-STATICS'],
+    suppliedBy: {
+      knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: ['Vektor-Rechner: Addition + Parallelogramm live auf Canvas', 'Skalarprodukt: Projektion + Winkel live', 'Drehmoment: Hebelarm + Winkel + Effizienz-Balken live', 'Seitenast Statik-Anwendung (Arbeit, schiefe Ebene)', 'Seitenast Kreuzprodukt-Berechnung (Determinante, Sarrus)']
+    },
+    unlocks: ['MECH:WORK', 'MECH:TORQUE', 'CIRCUIT:MOMENT'],
+    units: [
+      {
+        id: 'UNIT:VEC-GRUNDLAGEN',
+        title: 'Vektoren & Grundrechenarten',
+        entryQuestion: 'Was ist der Unterschied zwischen 50 km/h und 50 km/h nach Norden?',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:SKALARPRODUKT' },
+        sections: [
+          { id: 'OBS:KRAFT-RICHTUNG', kind: 'observation', title: 'Beobachtung: Kraft braucht Richtung', summary: 'Tisch auf Rollen — schraeg druecken bewegt ihn in anderer Richtung als gerade. Eine Zahl reicht nicht.', depthPoints: 3 },
+          { id: 'EXP:VEC-RECHNER', kind: 'experiment', title: 'Experiment: Vektor-Rechner', summary: 'ax, ay, bx, by als Slider — Parallelogramm-Addition live auf Canvas, Betrag berechnet.', interactive: true, depthPoints: 5 },
+          { id: 'QUIZ:VEC-1', kind: 'quiz', title: 'Quiz Vektoren', summary: 'Skalar vs. Vektor, Betrag von (3,4), Kraeftegleichgewicht.', depthPoints: 12 }
+        ]
+      },
+      {
+        id: 'UNIT:SKALARPRODUKT',
+        title: 'Skalarprodukt & Winkel',
+        entryQuestion: 'Wie viel Arbeit leistet eine Kraft — wenn sie nicht in Bewegungsrichtung zeigt?',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:KREUZPRODUKT' },
+        sections: [
+          { id: 'OBS:KOFFER', kind: 'observation', title: 'Beobachtung: Koffer ziehen', summary: 'Schraeger Griff — Winkel zwischen Kraft und Bewegung bestimmt Effizienz. Bei 90 Grad: keine Arbeit.', depthPoints: 3 },
+          { id: 'EXP:SKALAR', kind: 'experiment', title: 'Experiment: Skalarprodukt live', summary: 'Winkel-Slider 0-180 Grad: Projektion und Skalarprodukt live. Bei 90 Grad: springt auf 0.', interactive: true, depthPoints: 5 },
+          { id: 'BRANCH:STATIK', kind: 'branch', title: 'Seitenast: Statik-Anwendung', summary: 'Arbeit W=F*s, Leistung P=F*v, schiefe Ebene: Hangabtriebskraft als Projektion.', optional: true, depthPoints: 7 },
+          { id: 'QUIZ:VEC-2', kind: 'quiz', title: 'Quiz Skalarprodukt', summary: 'Orthogonalit aet, Arbeit senkrechter Kraft, Winkel (3,0)*(0,4).', depthPoints: 15 }
+        ]
+      },
+      {
+        id: 'UNIT:KREUZPRODUKT',
+        title: 'Kreuzprodukt & Drehmoment',
+        entryQuestion: 'Warum greift man eine Tuer am Rand an — und nicht an der Angel?',
+        sections: [
+          { id: 'OBS:TUER', kind: 'observation', title: 'Beobachtung: Tuer und Schraubenschluessel', summary: 'Angel: kein Drehmoment. Rand: maximales Drehmoment. Laengerer Schluessel: mehr Moment.', depthPoints: 3 },
+          { id: 'EXP:DREHMOMENT', kind: 'experiment', title: 'Experiment: Drehmoment M=r×F', summary: 'Hebelarm r, Kraft F, Winkel alpha als Slider — Drehmoment und Effizienz-Balken live.', interactive: true, depthPoints: 6 },
+          { id: 'BRANCH:KREUZPROD', kind: 'branch', title: 'Seitenast: Kreuzprodukt berechnen', summary: 'Determinante 3x3, Sarrus-Regel, Antikommutativitaet a×b = -b×a.', optional: true, depthPoints: 8 },
+          { id: 'QUIZ:VEC-3', kind: 'quiz', title: 'Quiz Drehmoment', summary: 'Warum kein Moment an Angel, maximales Moment bei 90 Grad, parallele Vektoren.', depthPoints: 18 }
         ]
       }
     ]
