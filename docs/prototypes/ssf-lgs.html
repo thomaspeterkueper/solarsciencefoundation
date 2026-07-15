@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SSF · Wie löst man zwei Bedingungen gleichzeitig?</title>
+<style>
+:root {
+  --bg:#F9F8F5;--surface:#F0EFE9;--surface2:#E6E4DC;
+  --border:#D8D6CE;--soft:#E8E6DE;
+  --text:#1A1916;--text-2:#4A4840;--text-3:#8A8880;
+  --navy:#1C2B3A;--navy-2:#2C3F52;
+  --gold:#C9A84C;--gold-bg:#F5F0E0;--gold-b:#DFC87A;
+  --ok-bg:#EEF3EE;--ok-b:#7AAD7A;--ok-t:#2A5C2A;
+  --no-bg:#F5EEEE;--no-b:#C49090;--no-t:#6B2222;
+  --r:4px;
+  --serif:Georgia,'Palatino Linotype',serif;
+  --sans:system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'SFMono-Regular','Cascadia Code','Fira Code',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.site-header{border-bottom:1px solid var(--border);padding:1rem 0;position:sticky;top:0;background:var(--bg);z-index:60}
+.h-inner{max-width:740px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;gap:.875rem}
+.signet{width:24px;height:24px;flex-shrink:0}
+.site-name{font-family:var(--mono);font-size:11px;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase}
+.h-space{flex:1}
+.mod-id{font-family:var(--mono);font-size:10px;color:var(--text-3)}
+.depth-wrap{background:var(--bg);border-bottom:1px solid var(--soft);padding:.5rem 0;position:sticky;top:57px;z-index:50}
+.depth-inner{max-width:740px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;gap:.875rem}
+.depth-lbl{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.depth-track{flex:1;height:5px;background:var(--surface2);border-radius:3px;overflow:hidden}
+.depth-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--gold),var(--navy));width:0%;transition:width 1.4s cubic-bezier(.22,1,.36,1)}
+.depth-val{font-family:var(--mono);font-size:11px;color:var(--text-2);min-width:2.5ch;text-align:right}
+.depth-note{font-family:var(--mono);font-size:9.5px;color:var(--text-3);white-space:nowrap}
+@media(max-width:480px){.depth-note{display:none}}
+.wrap{max-width:740px;margin:0 auto;padding:0 1.5rem}
+main{padding:0 0 8rem}
+.intro{padding:3rem 0 0;margin-bottom:3.5rem}
+.eyebrow{font-family:var(--mono);font-size:10.5px;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem}
+.path-title{font-family:var(--serif);font-size:clamp(24px,4vw,34px);font-weight:normal;color:var(--text);line-height:1.2;letter-spacing:-.015em;margin-bottom:1rem}
+.path-desc{font-size:16px;color:var(--text-2);line-height:1.7;max-width:54ch}
+.unit{margin-bottom:1.5rem;scroll-margin-top:115px}
+.unit-hdr{padding:2.5rem 0 0;margin-bottom:2rem;border-top:1px solid var(--border)}
+.unit-idx{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.875rem}
+.unit-q{font-family:var(--serif);font-size:clamp(19px,3vw,26px);font-weight:normal;color:var(--text);line-height:1.25;letter-spacing:-.01em;margin-bottom:1.5rem}
+.sec-lbl{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:1.25rem;display:flex;align-items:center;gap:.75rem}
+.sec-lbl::after{content:'';flex:1;height:1px;background:var(--soft)}
+.section{margin-bottom:2.75rem}
+.hr{border:none;border-top:1px solid var(--soft);margin:2.5rem 0}
+.prose{font-family:var(--serif);font-size:17px;line-height:1.82;color:var(--text)}
+.prose p{margin-bottom:1.2rem}
+.prose p:last-child{margin-bottom:0}
+.tip{border-bottom:1.5px dashed var(--gold);cursor:help;position:relative}
+.tip-pop{display:none;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;font-family:var(--sans);font-size:13px;line-height:1.5;padding:.75rem 1rem;border-radius:6px;width:260px;z-index:200;pointer-events:none;box-shadow:0 4px 20px rgba(0,0,0,.28)}
+.tip-pop::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:var(--navy)}
+.tip-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#E8D9A8;margin-bottom:.2rem}
+.tip:hover .tip-pop,.tip:focus .tip-pop{display:block}
+.obs{background:var(--surface);border-left:3px solid var(--gold);border-radius:0 var(--r) var(--r) 0;padding:1.25rem 1.5rem;margin:1.75rem 0}
+.obs-ey{font-family:var(--mono);font-size:10px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem}
+.obs-txt{font-family:var(--serif);font-size:16.5px;color:var(--text-2);line-height:1.72;font-style:italic}
+.skip-bar{display:flex;align-items:center;gap:.75rem;margin-bottom:2rem;padding:.625rem 1rem;background:var(--surface);border-radius:var(--r);border:1px solid var(--soft)}
+.skip-bar span{font-size:13px;color:var(--text-3);flex:1}
+.skip-btn{font-size:12.5px;color:var(--text-3);background:transparent;border:1px solid var(--border);border-radius:var(--r);padding:4px 12px;cursor:pointer;font-family:var(--sans)}
+.skip-btn:hover{color:var(--text-2);border-color:var(--text-3)}
+.skippable.hidden{display:none}
+.info{background:var(--surface);border-radius:var(--r);padding:1.125rem 1.375rem;margin:1.5rem 0;border-left:3px solid var(--navy)}
+.info-lbl{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.09em;text-transform:uppercase;margin-bottom:.5rem}
+.info-txt{font-size:15px;color:var(--text);line-height:1.7}
+.formula-block{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.125rem 1.5rem;margin:1.5rem 0}
+.formula{font-family:var(--mono);font-size:14px;color:var(--navy);display:block;margin-bottom:.375rem;line-height:1.8}
+.formula-cap{font-size:13px;color:var(--text-3);line-height:1.55}
+.exp-card{border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:1.75rem 0}
+.exp-header{background:var(--surface);padding:1rem 1.375rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.875rem}
+.exp-icon{font-size:20px;flex-shrink:0}
+.exp-tag{font-family:var(--mono);font-size:9.5px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.2rem}
+.exp-name{font-family:var(--serif);font-size:16px;color:var(--text)}
+.exp-do{background:#F5F4EE;border-left:3px solid var(--gold);padding:1rem 1.25rem;border-bottom:1px solid var(--soft)}
+.exp-do-lbl{font-family:var(--mono);font-size:9.5px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.375rem}
+.exp-do-txt{font-size:14.5px;color:var(--text-2);line-height:1.65}
+.exp-body{padding:1.375rem}
+.exp-row{display:flex;gap:1.25rem;align-items:flex-start;flex-wrap:wrap}
+.exp-controls{flex:0 0 220px;min-width:200px}
+.exp-visual{flex:1;min-width:220px}
+.slider-group{margin-bottom:1rem}
+.slider-lbl{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.375rem}
+.slider-name{font-family:var(--mono);font-size:10.5px;color:var(--text-3);letter-spacing:.07em;text-transform:uppercase}
+.slider-val{font-family:var(--mono);font-size:13px;color:var(--navy)}
+input[type=range]{width:100%;-webkit-appearance:none;height:5px;background:var(--surface2);border-radius:3px;outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--navy);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--navy);border:none;cursor:pointer}
+.lgs-canvas{display:block;width:100%;border-radius:var(--r);background:#F9F8F5;border:1px solid var(--border)}
+.stat-row{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:.75rem}
+.stat-box{background:var(--surface);border-radius:var(--r);padding:.625rem .875rem;border:1px solid var(--soft)}
+.stat-lbl{font-family:var(--mono);font-size:9.5px;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.25rem}
+.stat-val{font-family:var(--mono);font-size:14px;color:var(--navy)}
+.stat-val.highlight{color:var(--ok-t);font-weight:600;font-size:16px}
+.stat-val.warn{color:#DC143C}
+/* Gauss steps */
+.gauss-step{background:var(--surface);border-radius:var(--r);border:1px solid var(--border);padding:1rem 1.25rem;margin-bottom:.625rem;transition:border-color .3s}
+.gauss-step.active{border-color:var(--gold);background:var(--gold-bg)}
+.gauss-step-lbl{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5rem}
+.gauss-step.active .gauss-step-lbl{color:var(--gold)}
+.gauss-matrix{font-family:var(--mono);font-size:13px;color:var(--navy);line-height:1.8}
+.gauss-op{font-family:var(--mono);font-size:11px;color:var(--text-3);margin-top:.375rem;font-style:italic}
+/* Aufgaben */
+.aufgabe{border:1px solid var(--border);border-radius:var(--r);padding:1.125rem 1.375rem;margin-bottom:.875rem}
+.aufg-nr{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5rem}
+.aufg-txt{font-size:15px;color:var(--text);line-height:1.65}
+.hint-btn{margin-top:.75rem;padding:3px 11px;font-size:12px;border:1px solid var(--border);border-radius:var(--r);background:transparent;color:var(--text-3);cursor:pointer;font-family:var(--sans)}
+.hint-body{display:none;font-size:13.5px;color:var(--text-2);line-height:1.65;margin-top:.75rem;padding-top:.75rem;border-top:1px solid var(--soft)}
+.hint-body.open{display:block}
+/* Quiz */
+.quiz-q{margin-bottom:1.75rem}
+.quiz-txt{font-family:var(--serif);font-size:16px;color:var(--text);line-height:1.55;margin-bottom:.75rem}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opt{padding:10px 14px;border:1px solid var(--border);border-radius:var(--r);font-size:14px;color:var(--text);background:var(--surface);text-align:left;cursor:pointer;line-height:1.45;transition:border-color .12s,background .12s;font-family:var(--sans)}
+.opt:hover:not(.locked){border-color:var(--navy-2);background:var(--surface2)}
+.opt.correct{border-color:var(--ok-b);background:var(--ok-bg);color:var(--ok-t)}
+.opt.wrong{border-color:var(--no-b);background:var(--no-bg);color:var(--no-t)}
+.opt.locked{cursor:default}
+.quiz-fb{display:none;font-size:13.5px;color:var(--text-2);line-height:1.65;margin-top:.75rem;padding:.75rem 1rem;background:var(--surface);border-radius:var(--r);border:1px solid var(--soft)}
+.quiz-fb.open{display:block}
+.score-row{display:flex;align-items:center;gap:.875rem;flex-wrap:wrap;padding-top:1.375rem;border-top:1px solid var(--border);margin-top:.5rem}
+.score-n{font-family:var(--serif);font-size:26px;color:var(--text);letter-spacing:-.02em}
+.score-lbl{font-size:13px;color:var(--text-3)}
+.reset-btn{margin-left:auto;padding:5px 13px;font-size:12px;border:1px solid var(--border);border-radius:var(--r);background:transparent;color:var(--text-3);cursor:pointer;font-family:var(--sans)}
+/* Branch */
+.branch{margin:2.5rem 0;padding:1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;display:none}
+.branch.visible{display:block}
+.branch-lbl{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:.75rem}
+.branch-lbl::after{content:'';flex:1;height:1px;background:var(--soft)}
+.branch-cards{display:grid;grid-template-columns:1fr 1fr;gap:.875rem;margin-top:.875rem}
+@media(max-width:460px){.branch-cards{grid-template-columns:1fr}}
+.b-card{border:1px solid var(--border);border-radius:var(--r);padding:1rem 1.125rem;cursor:pointer;background:var(--bg);transition:border-color .15s;text-align:left;font-family:var(--sans)}
+.b-card:hover{border-color:var(--navy-2)}
+.b-card.active{border-color:var(--gold);box-shadow:0 0 0 2px rgba(201,168,76,.2)}
+.b-icon{font-size:20px;margin-bottom:.5rem}
+.b-name{font-family:var(--mono);font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--navy);margin-bottom:.375rem}
+.b-desc{font-size:13px;color:var(--text-3);line-height:1.5}
+.b-panel{display:none;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:1.25rem 0}
+.b-panel.open{display:block}
+.b-panel-hdr{padding:1rem 1.375rem;background:var(--gold-bg);border-bottom:1px solid var(--gold-b);display:flex;align-items:center;gap:.75rem}
+.b-panel-tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;padding:2px 7px;border-radius:3px;background:#E8D9A8;color:var(--navy)}
+.b-panel-title{font-family:var(--serif);font-size:16px;color:var(--text)}
+.b-panel-body{padding:1.375rem;background:var(--bg)}
+/* Preview */
+.preview-card{margin:2.5rem 0;border-radius:6px;border:1px solid var(--border);overflow:hidden;position:relative;transition:border-color .4s}
+.preview-card.unlocked{border-color:var(--gold-b)}
+.prev-hdr{padding:1.25rem 1.5rem;background:var(--surface);display:flex;align-items:flex-start;gap:1rem;border-bottom:1px solid var(--border);transition:background .4s}
+.preview-card.unlocked .prev-hdr{background:var(--gold-bg);border-bottom-color:var(--gold-b)}
+.prev-icon{width:36px;height:36px;border-radius:50%;background:var(--surface2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:17px}
+.prev-meta{flex:1}
+.prev-ey{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.375rem;transition:color .4s}
+.preview-card.unlocked .prev-ey{color:var(--gold)}
+.prev-title{font-family:var(--serif);font-size:17px;color:var(--text);line-height:1.3;transition:filter .4s}
+.preview-card:not(.unlocked) .prev-title{filter:blur(2.5px);user-select:none}
+.prev-body{padding:1.125rem 1.5rem;position:relative}
+.prev-teaser{font-size:14px;color:var(--text-2);line-height:1.65;transition:filter .4s}
+.preview-card:not(.unlocked) .prev-teaser{filter:blur(3px);color:#AAA;user-select:none}
+.prev-keys{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.875rem;transition:filter .4s}
+.preview-card:not(.unlocked) .prev-keys{filter:blur(3px);pointer-events:none}
+.pkey{font-family:var(--mono);font-size:11px;color:var(--navy);background:var(--gold-bg);border:1px solid var(--gold-b);padding:3px 9px;border-radius:var(--r)}
+.lock-ov{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;background:rgba(249,248,245,.55);backdrop-filter:blur(1px);transition:opacity .4s;pointer-events:none}
+.preview-card.unlocked .lock-ov{opacity:0}
+.lock-ico{font-size:22px}
+.lock-txt{font-family:var(--mono);font-size:11px;color:var(--text-3);letter-spacing:.07em;text-transform:uppercase}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(201,168,76,.5)}70%{box-shadow:0 0 0 12px rgba(201,168,76,0)}100%{box-shadow:0 0 0 0 rgba(201,168,76,0)}}
+.just-unlocked{animation:pulse .7s ease-out}
+.completion{display:none;background:var(--gold-bg);border:1px solid var(--gold-b);border-radius:8px;padding:2.25rem 1.5rem;text-align:center;margin:3rem 0}
+.completion.visible{display:block}
+.comp-title{font-family:var(--serif);font-size:22px;color:var(--navy);margin-bottom:.5rem}
+.comp-sub{font-size:14px;color:var(--text-2);line-height:1.65;margin-bottom:1.25rem;max-width:48ch;margin-left:auto;margin-right:auto}
+.comp-keys{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.25rem}
+.comp-depth{font-family:var(--mono);font-size:11px;color:var(--text-3)}
+.horizon{display:none;margin:1.5rem 0 6rem;padding:1.25rem 1.5rem;border-top:1px solid var(--soft)}
+.horizon.visible{display:block}
+.horizon-txt{font-family:var(--serif);font-size:15.5px;color:var(--text-3);line-height:1.8;font-style:italic;max-width:52ch;margin-bottom:1.25rem}
+@media(max-width:580px){.prose{font-size:16px}.path-title{font-size:22px}.unit-q{font-size:18px}.exp-row{flex-direction:column}.exp-controls{flex:none;width:100%}}
+:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="h-inner">
+    <svg class="signet" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+      <circle cx="13" cy="13" r="12" stroke="#1C2B3A" stroke-width="1.1" fill="none"/>
+      <circle cx="13" cy="13" r="3.5" fill="#C9A84C"/>
+      <ellipse cx="13" cy="13" rx="10" ry="4" stroke="#1C2B3A" stroke-width=".7" fill="none" transform="rotate(-25 13 13)"/>
+      <ellipse cx="13" cy="13" rx="10" ry="4" stroke="#1C2B3A" stroke-width=".7" fill="none" transform="rotate(25 13 13)"/>
+    </svg>
+    <span class="site-name">Solar Science Foundation</span>
+    <div class="h-space"></div>
+    <span class="mod-id">LRN:SSF:MAT-1105</span>
+  </div>
+</header>
+
+<div class="depth-wrap">
+  <div class="depth-inner">
+    <span class="depth-lbl">Tiefe</span>
+    <div class="depth-track"><div class="depth-fill" id="dfill"></div></div>
+    <span class="depth-val" id="dval">0</span>
+    <span class="depth-note" id="dnote">— Beginn</span>
+  </div>
+</div>
+
+<main><div class="wrap">
+
+<div class="intro">
+  <div class="eyebrow">Lernpfad · Lineare Algebra</div>
+  <h1 class="path-title">Wie löst man zwei Bedingungen gleichzeitig?</h1>
+  <p class="path-desc">Zwei Einheiten: Der geometrische Blick — zwei Geraden, ein Schnittpunkt. Und das systematische Verfahren — Gauß-Elimination Schritt für Schritt.</p>
+</div>
+
+
+<!-- ════════════════════════════════════
+     EINHEIT 1: GRAFISCH & GEOMETRISCH
+════════════════════════════════════ -->
+<div class="unit" id="unit-1">
+  <div class="unit-hdr">
+    <div class="unit-idx">Einheit 1 von 2</div>
+    <h2 class="unit-q">Zwei Rohre füllen ein Becken — wie lange braucht jedes allein?</h2>
+  </div>
+
+  <div class="skip-bar">
+    <span>Beispiele und Aufgaben sind optional.</span>
+    <button class="skip-btn" onclick="skipTo('quiz-1')">Direkt zum Quiz →</button>
+  </div>
+
+  <div class="section skippable" id="bsp-1">
+    <div class="sec-lbl">Beobachtung</div>
+
+    <div class="obs">
+      <div class="obs-ey">Alltagsproblem</div>
+      <div class="obs-txt">Rohr A und Rohr B füllen zusammen ein Becken in 3 Stunden. Rohr A allein braucht 2 Stunden länger als Rohr B allein. Wie lange braucht jedes Rohr allein? — Eine Unbekannte reicht nicht. Man braucht zwei Gleichungen für zwei Unbekannte.</div>
+    </div>
+
+    <div class="prose">
+      <p>Ein <span class="tip">lineares Gleichungssystem<span class="tip-pop"><span class="tip-lbl">Lineares Gleichungssystem (LGS)</span>n Gleichungen mit n Unbekannten, wobei jede Gleichung linear ist (keine x², keine xy, keine sin x). Geometrisch: jede Gleichung ist eine Gerade (2D), eine Ebene (3D) oder eine Hyperebene (nD). Die Lösung ist der gemeinsame Schnittpunkt.</span></span> (LGS) entsteht immer wenn mehrere Bedingungen gleichzeitig erfüllt sein müssen. Jede Bedingung ist eine Gleichung — jede Gleichung ist eine Gerade im Koordinatensystem.</p>
+      <p>Das Schöne: Die Lösung sieht man im Bild sofort. Wo sich die beiden Geraden schneiden — dort sind beide Bedingungen gleichzeitig erfüllt. Das ist der Punkt (x, y) der die Lösung ist.</p>
+    </div>
+
+    <div class="formula-block">
+      <span class="formula">a₁x + b₁y = c₁</span>
+      <span class="formula">a₂x + b₂y = c₂</span>
+      <div class="formula-cap">2×2 LGS: zwei Gleichungen, zwei Unbekannte x und y<br>Jede Zeile = eine Gerade. Lösung = Schnittpunkt der Geraden.</div>
+    </div>
+
+    <!-- EXPERIMENT 1: Grafische Lösung -->
+    <div class="exp-card">
+      <div class="exp-header">
+        <div class="exp-icon">📈</div>
+        <div>
+          <div class="exp-tag">Experiment 1</div>
+          <div class="exp-name">Zwei Geraden — ein Schnittpunkt</div>
+        </div>
+      </div>
+      <div class="exp-do">
+        <div class="exp-do-lbl">Erkunden</div>
+        <div class="exp-do-txt">Verändere die Koeffizienten der beiden Gleichungen. Beobachte wie sich die Geraden im Koordinatensystem verschieben — und wo ihr Schnittpunkt liegt. Was passiert wenn beide Geraden parallel werden?</div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-row">
+          <div class="exp-controls">
+            <div style="font-family:var(--mono);font-size:10px;color:var(--gold);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5rem">Gleichung 1 (blau)</div>
+            <div class="slider-group">
+              <div class="slider-lbl"><span class="slider-name">a₁</span><span class="slider-val" id="a1-val">2</span></div>
+              <input type="range" id="a1" min="-5" max="5" value="2" step="1" oninput="updateLGS()">
+            </div>
+            <div class="slider-group">
+              <div class="slider-lbl"><span class="slider-name">b₁</span><span class="slider-val" id="b1-val">1</span></div>
+              <input type="range" id="b1" min="-5" max="5" value="1" step="1" oninput="updateLGS()">
+            </div>
+            <div class="slider-group">
+              <div class="slider-lbl"><span class="slider-name">c₁</span><span class="slider-val" id="c1-val">5</span></div>
+              <input type="range" id="c1" min="-10" max="10" value="5" step="1" oninput="updateLGS()">
+            </div>
+            <div style="font-family:var(--mono);font-size:10px;color:#DC143C;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5rem;margin-top:.5rem">Gleichung 2 (rot)</div>
+            <div class="slider-group">
+              <div class="slider-lbl"><span class="slider-name">a₂</span><span class="slider-val" id="a2-val">1</span></div>
+              <input type="range" id="a2" min="-5" max="5" value="1" step="1" oninput="updateLGS()">
+            </div>
+            <div class="slider-group">
+              <div class="slider-lbl"><span class="slider-name">b₂</span><span class="slider-val" id="b2-val">-1</span></div>
+              <input type="range" id="b2" min="-5" max="5" value="-1" step="1" oninput="updateLGS()">
+            </div>
+            <div class="slider-group">
+              <div class="slider-lbl"><span class="slider-name">c₂</span><span class="slider-val" id="c2-val">1</span></div>
+              <input type="range" id="c2" min="-10" max="10" value="1" step="1" oninput="updateLGS()">
+            </div>
+            <div class="stat-row">
+              <div class="stat-box" style="grid-column:span 2">
+                <div class="stat-lbl">Lösung</div>
+                <div class="stat-val highlight" id="lgs-sol">x = 2, y = 1</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-lbl">Status</div>
+                <div class="stat-val" id="lgs-status">eindeutig</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-lbl">det A</div>
+                <div class="stat-val" id="lgs-det">−3</div>
+              </div>
+            </div>
+            <div id="lgs-note" style="margin-top:.75rem;font-size:12px;color:var(--text-3);line-height:1.5">
+              Schnittpunkt bei (2, 1) — beide Gleichungen erfüllt.
+            </div>
+          </div>
+          <div class="exp-visual">
+            <canvas id="lgs-canvas" class="lgs-canvas" height="280"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p>Drei mögliche Situationen: Die Geraden schneiden sich in genau einem Punkt → <strong>eindeutige Lösung</strong>. Die Geraden sind parallel → <strong>keine Lösung</strong> (widersprüchliche Bedingungen). Die Geraden sind identisch → <strong>unendlich viele Lösungen</strong> (eine Bedingung ist überflüssig).</p>
+      <p>Der Schlüssel ist die <span class="tip">Determinante<span class="tip-pop"><span class="tip-lbl">Determinante</span>det A = a₁b₂ − a₂b₁. Ist det ≠ 0: eindeutige Lösung. Ist det = 0: die Geraden sind parallel (oder identisch) — keine oder unendlich viele Lösungen. Die Determinante sagt sofort ob ein LGS lösbar ist.</span></span>: det A = a₁b₂ − a₂b₁. Ist sie null, sind die Geraden parallel.</p>
+    </div>
+
+    <hr class="hr">
+
+    <div class="section skippable" id="aufg-1">
+      <div class="sec-lbl">Aufgaben</div>
+      <div class="aufgabe">
+        <div class="aufg-nr">Aufgabe 1</div>
+        <div class="aufg-txt">Zwei Züge starten gleichzeitig aufeinander zu: Zug A mit 120 km/h, Zug B mit 80 km/h, Abstand 500 km. Stelle das LGS auf und löse grafisch: Wann und wo treffen sie sich?</div>
+        <button class="hint-btn" onclick="hintToggle(this)">Hinweis</button>
+        <div class="hint-body">Sei t die Zeit (h) und s die Position von Zug A (km). Zug A: s = 120t. Zug B: s = 500 − 80t. Gleichsetzen: 120t = 500 − 80t → 200t = 500 → t = 2,5 h. Position: s = 120·2,5 = 300 km. Die Grafik zeigt zwei Geraden: s = 120t (steigend) und s = 500−80t (fallend). Schnittpunkt bei t = 2,5, s = 300.</div>
+      </div>
+      <div class="aufgabe">
+        <div class="aufg-nr">Aufgabe 2</div>
+        <div class="aufg-txt">Wann hat ein LGS keine Lösung? Stelle ein Beispiel auf und erkläre geometrisch warum.</div>
+        <button class="hint-btn" onclick="hintToggle(this)">Hinweis</button>
+        <div class="hint-body">Beispiel: x + y = 2 und x + y = 5. Beide Geraden haben dieselbe Steigung (−1), aber verschiedene Achsenabschnitte — sie sind parallel und treffen sich nie. Geometrisch: Parallele Geraden haben keinen Schnittpunkt. Algebraisch: det A = 1·1 − 1·1 = 0 → kein eindeutiger Punkt.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="hr">
+
+  <div class="section" id="quiz-1">
+    <div class="sec-lbl">Quiz · Einheit 1</div>
+    <div class="quiz-q">
+      <div class="quiz-txt">Was bedeutet es geometrisch wenn ein 2×2 LGS eine eindeutige Lösung hat?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,'u1',0,false)">Beide Geraden haben dieselbe Steigung.</button>
+        <button class="opt" onclick="ans(this,'u1',0,true)">Die beiden Geraden schneiden sich in genau einem Punkt — und dieser Punkt ist die Lösung (x, y).</button>
+        <button class="opt" onclick="ans(this,'u1',0,false)">Die Geraden sind parallel und haben keinen Schnittpunkt.</button>
+        <button class="opt" onclick="ans(this,'u1',0,false)">Beide Gleichungen sind identisch.</button>
+      </div>
+      <div class="quiz-fb" id="fb-u1-0">Jede Gleichung des LGS beschreibt eine Gerade. Die Lösung ist der Punkt der auf allen Geraden gleichzeitig liegt — also der Schnittpunkt. Bei zwei Geraden in der Ebene: ein Schnittpunkt → eindeutige Lösung, parallel → keine Lösung, identisch → unendlich viele.</div>
+    </div>
+    <div class="quiz-q">
+      <div class="quiz-txt">Was sagt die Determinante det A = a₁b₂ − a₂b₁ aus?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,'u1',1,false)">Sie berechnet direkt die Lösung x und y.</button>
+        <button class="opt" onclick="ans(this,'u1',1,true)">Ist det ≠ 0: eindeutige Lösung. Ist det = 0: Geraden parallel oder identisch — keine eindeutige Lösung.</button>
+        <button class="opt" onclick="ans(this,'u1',1,false)">Sie gibt die Steigung der ersten Geraden an.</button>
+        <button class="opt" onclick="ans(this,'u1',1,false)">Sie ist immer positiv.</button>
+      </div>
+      <div class="quiz-fb" id="fb-u1-1">det A = a₁b₂ − a₂b₁. Wenn det ≠ 0: Die Koeffizientenmatrix ist invertierbar → eindeutige Lösung. Wenn det = 0: Die Geraden sind parallel oder identisch → keine oder unendlich viele Lösungen. Die Determinante ist der schnellste Test ob ein LGS lösbar ist.</div>
+    </div>
+    <div class="quiz-q">
+      <div class="quiz-txt">Gegeben: 2x + y = 5 und x − y = 1. Was ist die Lösung?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,'u1',2,false)">x = 1, y = 3</button>
+        <button class="opt" onclick="ans(this,'u1',2,true)">x = 2, y = 1</button>
+        <button class="opt" onclick="ans(this,'u1',2,false)">x = 3, y = −1</button>
+        <button class="opt" onclick="ans(this,'u1',2,false)">Keine Lösung — det = 0</button>
+      </div>
+      <div class="quiz-fb" id="fb-u1-2">Addition der Gleichungen: (2x+y) + (x−y) = 5+1 → 3x = 6 → x = 2. Einsetzen: 2+y = 5 → y = 1. Probe: 2·2+1 = 5 ✓, 2−1 = 1 ✓. det = 2·(−1) − 1·1 = −3 ≠ 0 → eindeutige Lösung.</div>
+    </div>
+    <div class="score-row">
+      <span class="score-n" id="score-u1">0 / 3</span>
+      <span class="score-lbl">korrekt</span>
+      <button class="reset-btn" onclick="resetQ('u1')">Neu</button>
+    </div>
+  </div>
+
+  <div class="preview-card" id="preview-1">
+    <div class="prev-hdr">
+      <div class="prev-icon">🔢</div>
+      <div class="prev-meta">
+        <div class="prev-ey" id="prev-ey-1">Einheit 2 — noch gesperrt</div>
+        <div class="prev-title">Gauß-Elimination: Wie löst man ein LGS systematisch — auch wenn es 3 oder 10 Unbekannte hat?</div>
+      </div>
+    </div>
+    <div class="prev-body">
+      <div class="prev-teaser">Die grafische Methode versagt bei 3 Unbekannten. Gauß-Elimination ist das universelle Verfahren: Zeilen umformen bis die Lösung ablesbar ist — animiert Schritt für Schritt.</div>
+      <div class="prev-keys"><span class="pkey">MATH:LGS</span><span class="pkey">ANALYSIS:MATRIX</span></div>
+      <div class="lock-ov" id="lock-1"><div class="lock-ico">🔒</div><div class="lock-txt">Quiz abschließen</div></div>
+    </div>
+  </div>
+</div><!-- /unit-1 -->
+
+
+<!-- ════════════════════════════════════
+     EINHEIT 2: GAUSS-ELIMINATION
+════════════════════════════════════ -->
+<div class="unit" id="unit-2" style="opacity:.3;pointer-events:none;transition:opacity .6s" aria-disabled="true">
+  <div class="unit-hdr">
+    <div class="unit-idx">Einheit 2 von 2</div>
+    <h2 class="unit-q">Wie löst man drei Gleichungen mit drei Unbekannten — ohne zu raten?</h2>
+  </div>
+
+  <div class="skip-bar">
+    <span>Aufgaben sind optional.</span>
+    <button class="skip-btn" onclick="skipTo('quiz-2')">Direkt zum Quiz →</button>
+  </div>
+
+  <div class="section skippable" id="bsp-2">
+    <div class="sec-lbl">Erklärung</div>
+    <div class="obs">
+      <div class="obs-ey">Das Prinzip</div>
+      <div class="obs-txt">Bei zwei Unbekannten sieht man den Schnittpunkt im Bild. Bei drei Unbekannten schneiden sich Ebenen — das kann man nicht mehr einfach zeichnen. Gauß-Elimination löst das Problem systematisch: Man formt die Gleichungen so um, bis man eine davon direkt ablesen kann — und setzt rückwärts ein.</div>
+    </div>
+
+    <div class="prose">
+      <p>Die Idee: Erlaubte Operationen die das LGS nicht verändern — eine Gleichung mit einer Zahl multiplizieren, zwei Gleichungen addieren, zwei Gleichungen tauschen. Durch geschickte Kombination eliminiert man eine Unbekannte nach der anderen.</p>
+      <p>Das Ziel: Die <span class="tip">Stufenform<span class="tip-pop"><span class="tip-lbl">Zeilenstufenform</span>Eine Matrix in Zeilenstufenform hat unter jeder Pivot-Position nur Nullen. Die letzte Zeile hat nur eine Unbekannte — die kann man direkt ablesen. Dann rückwärts einsetzen: von unten nach oben jede Zeile auflösen.</span></span> — ein Dreieck aus Nullen entsteht. Die unterste Zeile hat nur noch eine Unbekannte, die man direkt abliest. Dann von unten nach oben rückwärts einsetzen.</p>
+    </div>
+
+    <!-- EXPERIMENT 2: Gauß-Elimination animiert -->
+    <div class="exp-card">
+      <div class="exp-header">
+        <div class="exp-icon">🔢</div>
+        <div>
+          <div class="exp-tag">Experiment 2</div>
+          <div class="exp-name">Gauß-Elimination — Schritt für Schritt</div>
+        </div>
+      </div>
+      <div class="exp-do">
+        <div class="exp-do-lbl">Erkunden</div>
+        <div class="exp-do-txt">Klicke durch die Schritte der Gauß-Elimination. Beobachte wie in jedem Schritt eine Unbekannte eliminiert wird — bis die Lösung ablesbar ist.</div>
+      </div>
+      <div class="exp-body">
+        <div style="margin-bottom:1rem">
+          <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5rem">Beispiel LGS</div>
+          <div style="font-family:var(--mono);font-size:13px;color:var(--navy);line-height:2;background:var(--surface);padding:.875rem 1rem;border-radius:var(--r);border:1px solid var(--border)">
+            2x + y − z = 8<br>
+            −3x − y + 2z = −11<br>
+            −2x + y + 2z = −3
+          </div>
+        </div>
+        <div id="gauss-steps">
+          <div class="gauss-step active" id="gs-0">
+            <div class="gauss-step-lbl">Schritt 0 — Ausgangsmatrix</div>
+            <div class="gauss-matrix">
+              | 2  &nbsp;1  −1 | &nbsp;8 |<br>
+              |−3  −1  &nbsp;2 | −11|<br>
+              |−2  &nbsp;1  &nbsp;2 | &nbsp;−3|
+            </div>
+          </div>
+          <div class="gauss-step" id="gs-1">
+            <div class="gauss-step-lbl">Schritt 1 — Pivot: erste Spalte</div>
+            <div class="gauss-matrix">
+              | 2  &nbsp;1  −1 | &nbsp;8 |<br>
+              | 0  &nbsp;1  &nbsp;1 | &nbsp;1 |<br>
+              | 0  &nbsp;2  &nbsp;1 | &nbsp;5 |
+            </div>
+            <div class="gauss-op">Z₂ ← 2·Z₂ + 3·Z₁ &nbsp;·&nbsp; Z₃ ← Z₃ + Z₁</div>
+          </div>
+          <div class="gauss-step" id="gs-2">
+            <div class="gauss-step-lbl">Schritt 2 — Pivot: zweite Spalte</div>
+            <div class="gauss-matrix">
+              | 2  &nbsp;1  −1 | &nbsp;8 |<br>
+              | 0  &nbsp;1  &nbsp;1 | &nbsp;1 |<br>
+              | 0  &nbsp;0  −1 | &nbsp;3 |
+            </div>
+            <div class="gauss-op">Z₃ ← Z₃ − 2·Z₂</div>
+          </div>
+          <div class="gauss-step" id="gs-3">
+            <div class="gauss-step-lbl">Schritt 3 — Rückwärtseinsetzen</div>
+            <div class="gauss-matrix" style="color:var(--ok-t)">
+              z = −3 &nbsp;(aus Z₃: −z = 3)<br>
+              y = 1 − z = 1+3 = <strong>4</strong> &nbsp;(aus Z₂)<br>
+              x = (8−y+z)/2 = (8−4−3)/2 = <strong>2</strong>
+            </div>
+            <div class="gauss-op" style="color:var(--gold)">Lösung: x = 2, y = 4, z = −3</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:.625rem;margin-top:1rem">
+          <button onclick="gaussStep(-1)" style="padding:7px 16px;font-family:var(--mono);font-size:12px;border:1px solid var(--border);border-radius:var(--r);background:var(--surface);color:var(--text-3);cursor:pointer">← Zurück</button>
+          <button onclick="gaussStep(1)" style="padding:7px 16px;font-family:var(--mono);font-size:12px;border:1px solid var(--navy);border-radius:var(--r);background:var(--navy);color:#fff;cursor:pointer">Weiter →</button>
+          <span id="gauss-counter" style="font-family:var(--mono);font-size:11px;color:var(--text-3);align-self:center">Schritt 0 von 3</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Branch: Cramer & Determinante -->
+    <div class="branch visible" id="branch-cramer" style="display:block">
+      <div class="branch-lbl">Seitenast — optional</div>
+      <div style="font-family:var(--serif);font-size:17px;color:var(--text);margin-bottom:.5rem">Cramer'sche Regel — Lösung als Quotient von Determinanten</div>
+      <div class="branch-cards">
+        <button class="b-card" onclick="openB('b-cramer')" id="bc-cramer">
+          <div class="b-icon">📐</div>
+          <div class="b-name">Cramer</div>
+          <div class="b-desc">Für 2×2 LGS: x = det(A_x)/det(A), y = det(A_y)/det(A). Elegant für kleine Systeme.</div>
+        </button>
+        <button class="b-card" onclick="document.getElementById('branch-cramer').style.display='none'">
+          <div class="b-icon">→</div>
+          <div class="b-name" style="color:var(--text-3)">Weiter</div>
+          <div class="b-desc">Direkt zum Quiz.</div>
+        </button>
+      </div>
+    </div>
+
+    <div class="b-panel" id="b-cramer">
+      <div class="b-panel-hdr">
+        <span class="b-panel-tag">Seitenast · Cramer</span>
+        <span class="b-panel-title">Cramer'sche Regel</span>
+      </div>
+      <div class="b-panel-body">
+        <div class="prose">
+          <p>Für das 2×2 LGS a₁x + b₁y = c₁ und a₂x + b₂y = c₂:</p>
+        </div>
+        <div class="formula-block" style="margin-top:1rem">
+          <span class="formula">det A = a₁b₂ − a₂b₁</span>
+          <span class="formula">x = (c₁b₂ − c₂b₁) / det A</span>
+          <span class="formula">y = (a₁c₂ − a₂c₁) / det A</span>
+          <div class="formula-cap">A_x entsteht indem man die x-Spalte durch c ersetzt — analog A_y.<br>Elegant für 2×2, aufwendig für große Systeme → dann lieber Gauß.</div>
+        </div>
+        <div class="prose" style="margin-top:1rem">
+          <p>Für 2x + y = 5 und x − y = 1: det A = 2·(−1) − 1·1 = −3. x = (5·(−1) − 1·1)/(−3) = −6/(−3) = 2. y = (2·1 − 1·5)/(−3) = −3/(−3) = 1. Schnell und elegant — aber bei 10 Unbekannten nicht mehr praktikabel. Dann ist Gauß-Elimination effizienter.</p>
+        </div>
+      </div>
+    </div>
+
+    <hr class="hr">
+
+    <div class="section skippable" id="aufg-2">
+      <div class="sec-lbl">Aufgaben</div>
+      <div class="aufgabe">
+        <div class="aufg-nr">Aufgabe 1</div>
+        <div class="aufg-txt">Löse mit Gauß-Elimination: x + y = 4 und 3x − y = 8.</div>
+        <button class="hint-btn" onclick="hintToggle(this)">Hinweis</button>
+        <div class="hint-body">Matrix: [1 1 | 4] und [3 −1 | 8]. Schritt 1: Z₂ ← Z₂ − 3·Z₁: [3−3 −1−3 | 8−12] = [0 −4 | −4]. Aus Z₂: −4y = −4 → y = 1. Rückwärts in Z₁: x + 1 = 4 → x = 3. Lösung: x = 3, y = 1.</div>
+      </div>
+      <div class="aufgabe">
+        <div class="aufg-nr">Aufgabe 2</div>
+        <div class="aufg-txt">In der Statik: Zwei Kräfte F₁ und F₂ halten ein Bauteil im Gleichgewicht. ΣFx = 0: F₁·cos30° + F₂·cos60° = 100 N. ΣFy = 0: F₁·sin30° − F₂·sin60° = 0. Löse das LGS für F₁ und F₂.</div>
+        <button class="hint-btn" onclick="hintToggle(this)">Hinweis</button>
+        <div class="hint-body">cos30° = √3/2 ≈ 0,866, sin30° = 0,5, cos60° = 0,5, sin60° = √3/2 ≈ 0,866. System: 0,866·F₁ + 0,5·F₂ = 100 und 0,5·F₁ − 0,866·F₂ = 0. Aus Gl.2: F₁ = 1,732·F₂. Einsetzen in Gl.1: 0,866·1,732·F₂ + 0,5·F₂ = 100 → 1,5·F₂ + 0,5·F₂ = 100 → F₂ = 50 N. F₁ = 1,732·50 = 86,6 N.</div>
+      </div>
+    </div>
+
+    <hr class="hr">
+
+    <div class="section" id="quiz-2">
+      <div class="sec-lbl">Quiz · Einheit 2</div>
+      <div class="quiz-q">
+        <div class="quiz-txt">Was ist das Ziel der Gauß-Elimination?</div>
+        <div class="opts">
+          <button class="opt" onclick="ans(this,'u2',0,false)">Die Koeffizientenmatrix zu transponieren.</button>
+          <button class="opt" onclick="ans(this,'u2',0,true)">Die erweiterte Koeffizientenmatrix durch erlaubte Zeilenoperationen in Zeilenstufenform zu bringen — dann kann man rückwärts einsetzen.</button>
+          <button class="opt" onclick="ans(this,'u2',0,false)">Alle Koeffizienten auf 1 zu normieren.</button>
+          <button class="opt" onclick="ans(this,'u2',0,false)">Die Determinante zu berechnen.</button>
+        </div>
+        <div class="quiz-fb" id="fb-u2-0">Zeilenstufenform: Unter jeder Pivot-Position stehen nur Nullen — das System sieht aus wie ein Dreieck. Die unterste Zeile hat nur noch eine Unbekannte. Von dort rückwärts einsetzen: jede Zeile hat dann eine Unbekannte mehr, die man aus den bereits bekannten berechnet.</div>
+      </div>
+      <div class="quiz-q">
+        <div class="quiz-txt">Welche Operationen sind bei der Gauß-Elimination erlaubt — ohne das LGS zu verändern?</div>
+        <div class="opts">
+          <button class="opt" onclick="ans(this,'u2',1,false)">Nur Zeilen tauschen.</button>
+          <button class="opt" onclick="ans(this,'u2',1,false)">Beliebige Koeffizienten durch neue ersetzen.</button>
+          <button class="opt" onclick="ans(this,'u2',1,true)">Eine Zeile mit einer Zahl ≠ 0 multiplizieren, zwei Zeilen addieren/subtrahieren (auch mit Vielfachen), zwei Zeilen tauschen.</button>
+          <button class="opt" onclick="ans(this,'u2',1,false)">Die rechte Seite (c-Werte) separat verändern.</button>
+        </div>
+        <div class="quiz-fb" id="fb-u2-1">Drei erlaubte Operationen (Elementaroperationen): (1) Zeile mit λ ≠ 0 multiplizieren, (2) Vielfaches einer Zeile zu einer anderen addieren, (3) zwei Zeilen tauschen. Diese Operationen ändern die Lösungsmenge nicht — sie formen nur die Darstellung um. Alles andere wäre verboten.</div>
+      </div>
+      <div class="quiz-q">
+        <div class="quiz-txt">Wann hat das LGS 2x + 4y = 6 und x + 2y = 3 unendlich viele Lösungen?</div>
+        <div class="opts">
+          <button class="opt" onclick="ans(this,'u2',2,false)">Niemals — jedes LGS hat entweder 0 oder 1 Lösungen.</button>
+          <button class="opt" onclick="ans(this,'u2',2,false)">Wenn x = 0 gesetzt wird.</button>
+          <button class="opt" onclick="ans(this,'u2',2,true)">Immer — die zweite Gleichung ist die erste mal 1/2. Beide Geraden sind identisch. Jeder Punkt auf der Geraden x + 2y = 3 ist eine Lösung.</button>
+          <button class="opt" onclick="ans(this,'u2',2,false)">Wenn y = 1 gesetzt wird.</button>
+        </div>
+        <div class="quiz-fb" id="fb-u2-2">2x+4y=6 ist dasselbe wie x+2y=3 (mal 2). Beide Gleichungen sind identisch — sie beschreiben dieselbe Gerade. Gauß würde Z₂ ← Z₂ − Z₁/2 = [0 0 | 0] ergeben — eine Nullzeile. Das bedeutet: eine Gleichung ist überflüssig, eine Unbekannte ist frei wählbar (freier Parameter). Unendlich viele Lösungen: x = 3−2t, y = t für beliebiges t.</div>
+      </div>
+      <div class="score-row">
+        <span class="score-n" id="score-u2">0 / 3</span>
+        <span class="score-lbl">korrekt</span>
+        <button class="reset-btn" onclick="resetQ('u2')">Neu</button>
+      </div>
+    </div>
+
+    <div class="branch" id="branch-2">
+      <div class="branch-lbl">Abschluss</div>
+      <div class="branch-cards">
+        <button class="b-card" onclick="openB('b2-finish')">
+          <div class="b-icon">✓</div>
+          <div class="b-name" style="color:var(--text-3)">Abschließen</div>
+          <div class="b-desc">Pfad abschließen und NOXIA-Schlüssel freischalten.</div>
+        </button>
+      </div>
+    </div>
+  </div><!-- /unit-2 -->
+
+  <div class="completion" id="completion">
+    <div class="comp-title">Lernpfad abgeschlossen</div>
+    <div class="comp-sub">Grafisch: zwei Geraden, ein Schnittpunkt. Systematisch: Gauß-Elimination bis zur Stufenform. Beides löst dasselbe Problem — auf verschiedenen Wegen.</div>
+    <div class="comp-keys"><span class="pkey">MATH:LGS</span><span class="pkey">ANALYSIS:MATRIX</span></div>
+    <div class="comp-depth" id="comp-depth">Lerntiefe: —</div>
+  </div>
+  <div class="horizon" id="horizon">
+    <div class="horizon-txt">Der nächste Horizont: Extremwerte bei Polynomen — wo liegt das globale Minimum von P₁(x)·P₂(x)? Die Ableitung auf null setzen führt wieder auf ein LGS-ähnliches Problem.</div>
+  </div>
+
+</div></main>
+
+<script>
+// ═══ DEPTH ═══
+let depthRaw=0;
+const depthPoints={u1_quiz:12,u2_quiz:15,lgs_interact:5,gauss_step:6,b_cramer:7,finish:5};
+const depthGiven={};
+function awardDepth(k){if(depthGiven[k])return;depthGiven[k]=true;depthRaw+=depthPoints[k]||0;renderDepth();}
+function renderDepth(){
+  const d=Math.round(100*(1-1/(1+depthRaw/26)));
+  document.getElementById('dfill').style.width=d+'%';
+  document.getElementById('dval').textContent=d;
+  const labels=[[10,'Beginn'],[22,'Einstieg'],[38,'Orientierung'],[52,'Grundlagen'],[65,'Mechanismus'],[76,'Theorie'],[87,'Forschungsnähe'],[100,'Forschungsrand']];
+  for(const [t,l] of [...labels].reverse()){if(d>=t){document.getElementById('dnote').textContent='— '+l;break;}}
+}
+
+// ═══ LGS GRAFISCH ═══
+function updateLGS(){
+  awardDepth('lgs_interact');
+  const a1=+document.getElementById('a1').value;
+  const b1=+document.getElementById('b1').value;
+  const c1=+document.getElementById('c1').value;
+  const a2=+document.getElementById('a2').value;
+  const b2=+document.getElementById('b2').value;
+  const c2=+document.getElementById('c2').value;
+  document.getElementById('a1-val').textContent=a1;
+  document.getElementById('b1-val').textContent=b1;
+  document.getElementById('c1-val').textContent=c1;
+  document.getElementById('a2-val').textContent=a2;
+  document.getElementById('b2-val').textContent=b2;
+  document.getElementById('c2-val').textContent=c2;
+
+  const det=a1*b2-a2*b1;
+  document.getElementById('lgs-det').textContent=det.toFixed(0);
+
+  let solText,statusText,noteText;
+  if(Math.abs(det)<0.001){
+    // Check if same line
+    const cross=c1*b2-c2*b1;
+    if(Math.abs(cross)<0.001){
+      solText='∞ viele';statusText='identisch';noteText='Beide Gleichungen beschreiben dieselbe Gerade — unendlich viele Lösungen.';
+    } else {
+      solText='keine';statusText='parallel';noteText='Geraden sind parallel — kein Schnittpunkt, keine Lösung.';
+    }
+  } else {
+    const x=(c1*b2-c2*b1)/det;
+    const y=(a1*c2-a2*c1)/det;
+    solText=`x = ${x.toFixed(2)}, y = ${y.toFixed(2)}`;
+    statusText='eindeutig';
+    noteText=`Schnittpunkt bei (${x.toFixed(2)}, ${y.toFixed(2)}) — beide Gleichungen erfüllt.`;
+  }
+  document.getElementById('lgs-sol').textContent=solText;
+  document.getElementById('lgs-status').textContent=statusText;
+  document.getElementById('lgs-note').textContent=noteText;
+  const statusEl=document.getElementById('lgs-status');
+  statusEl.style.color=statusText==='eindeutig'?'var(--ok-t)':statusText==='parallel'?'#DC143C':'var(--gold)';
+
+  drawLGS(a1,b1,c1,a2,b2,c2,det);
+}
+
+function drawLGS(a1,b1,c1,a2,b2,c2,det){
+  const canvas=document.getElementById('lgs-canvas');
+  const dpr=window.devicePixelRatio||1;
+  canvas.width=canvas.offsetWidth*dpr;canvas.height=280*dpr;
+  const ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);
+  const W=canvas.offsetWidth,H=280;
+  const cx=W/2,cy=H/2,scale=22;
+
+  ctx.fillStyle='#F9F8F5';ctx.fillRect(0,0,W,H);
+
+  // Grid
+  ctx.strokeStyle='#E8E6DE';ctx.lineWidth=1;
+  for(let i=-6;i<=6;i++){
+    ctx.beginPath();ctx.moveTo(cx+i*scale,0);ctx.lineTo(cx+i*scale,H);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(0,cy+i*scale);ctx.lineTo(W,cy+i*scale);ctx.stroke();
+  }
+  // Axes
+  ctx.strokeStyle='#C0BEBA';ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.moveTo(0,cy);ctx.lineTo(W,cy);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(cx,0);ctx.lineTo(cx,H);ctx.stroke();
+  // Axis labels
+  ctx.fillStyle='#8A8880';ctx.font='9px monospace';ctx.textAlign='center';
+  ctx.fillText('x',W-8,cy-4);ctx.fillText('y',cx+8,8);
+
+  function drawLine(a,b,c,color){
+    // ax + by = c → y = (c - ax)/b (if b≠0) or x = c/a
+    ctx.strokeStyle=color;ctx.lineWidth=2.5;ctx.shadowColor=color;ctx.shadowBlur=3;
+    ctx.beginPath();
+    if(Math.abs(b)>0.001){
+      // y = (c-ax)/b
+      const x1=-W/scale;const y1=(c-a*x1)/b;
+      const x2=W/scale;const y2=(c-a*x2)/b;
+      ctx.moveTo(cx+x1*scale,cy-y1*scale);ctx.lineTo(cx+x2*scale,cy-y2*scale);
+    } else if(Math.abs(a)>0.001){
+      const xConst=c/a;
+      ctx.moveTo(cx+xConst*scale,0);ctx.lineTo(cx+xConst*scale,H);
+    }
+    ctx.stroke();ctx.shadowBlur=0;
+  }
+
+  drawLine(a1,b1,c1,'#5B8FB9');
+  drawLine(a2,b2,c2,'#DC143C');
+
+  // Intersection point
+  if(Math.abs(det)>0.001){
+    const x=(c1*b2-c2*b1)/det;
+    const y=(a1*c2-a2*c1)/det;
+    const px=cx+x*scale,py=cy-y*scale;
+    if(px>5&&px<W-5&&py>5&&py<H-5){
+      ctx.beginPath();ctx.arc(px,py,7,0,Math.PI*2);
+      ctx.fillStyle='#C9A84C';ctx.shadowColor='#C9A84C';ctx.shadowBlur=8;ctx.fill();ctx.shadowBlur=0;
+      ctx.strokeStyle='#1C2B3A';ctx.lineWidth=1.5;ctx.stroke();
+      ctx.fillStyle='#1C2B3A';ctx.font='bold 11px monospace';ctx.textAlign='left';
+      ctx.fillText(`(${x.toFixed(1)}, ${y.toFixed(1)})`,px+10,py-4);
+    }
+  }
+
+  // Equation labels
+  ctx.font='11px monospace';ctx.textAlign='left';
+  ctx.fillStyle='#5B8FB9';
+  ctx.fillText(`${a1}x + ${b1}y = ${c1}`,8,18);
+  ctx.fillStyle='#DC143C';
+  ctx.fillText(`${a2}x + ${b2}y = ${c2}`,8,34);
+}
+
+// ═══ GAUSS STEPS ═══
+let gaussCurrentStep=0;
+const gaussTotalSteps=3;
+function gaussStep(dir){
+  awardDepth('gauss_step');
+  gaussCurrentStep=Math.max(0,Math.min(gaussTotalSteps,gaussCurrentStep+dir));
+  for(let i=0;i<=gaussTotalSteps;i++){
+    const el=document.getElementById('gs-'+i);
+    if(el) el.classList.toggle('active',i===gaussCurrentStep);
+  }
+  document.getElementById('gauss-counter').textContent=`Schritt ${gaussCurrentStep} von ${gaussTotalSteps}`;
+}
+
+// ═══ QUIZ ═══
+const QS={u1:{answers:[null,null,null],score:0,done:false},u2:{answers:[null,null,null],score:0,done:false}};
+function ans(btn,uid,qi,correct){
+  const q=QS[uid];if(q.answers[qi]!==null)return;
+  q.answers[qi]=correct;if(correct)q.score++;
+  btn.classList.add(correct?'correct':'wrong');
+  btn.closest('.quiz-q').querySelectorAll('.opt').forEach(o=>{
+    o.classList.add('locked');
+    if(!correct&&(o.getAttribute('onclick')||'').includes(',true)'))o.classList.add('correct');
+  });
+  const fb=document.getElementById('fb-'+uid+'-'+qi);if(fb)fb.classList.add('open');
+  const answered=q.answers.filter(a=>a!==null).length;
+  document.getElementById('score-'+uid).textContent=q.score+' / '+answered;
+  if(answered===3&&q.score===3&&!q.done){
+    q.done=true;
+    if(uid==='u1'){awardDepth('u1_quiz');unlockU2();}
+    if(uid==='u2'){awardDepth('u2_quiz');showBranch2();}
+  }
+}
+function resetQ(uid){
+  const q=QS[uid];q.answers=[null,null,null];q.score=0;q.done=false;
+  const unit=document.getElementById('unit-'+uid.replace('u',''));
+  if(unit){unit.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong','locked'));unit.querySelectorAll('.quiz-fb').forEach(f=>f.classList.remove('open'));}
+  document.getElementById('score-'+uid).textContent='0 / 3';
+}
+function skipTo(id){
+  const el=document.getElementById(id);if(!el)return;
+  el.closest('.unit').querySelectorAll('.skippable').forEach(s=>s.classList.add('hidden'));
+  setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),50);
+}
+function hintToggle(btn){
+  const body=btn.nextElementSibling;const open=body.classList.contains('open');
+  body.classList.toggle('open',!open);btn.textContent=open?'Hinweis':'Schließen';
+}
+function unlockU2(){
+  const card=document.getElementById('preview-1');
+  card.classList.add('unlocked','just-unlocked');setTimeout(()=>card.classList.remove('just-unlocked'),800);
+  document.getElementById('prev-ey-1').textContent='Jetzt zugänglich';
+  const u2=document.getElementById('unit-2');
+  u2.style.opacity='1';u2.style.pointerEvents='auto';u2.removeAttribute('aria-disabled');
+  setTimeout(()=>u2.scrollIntoView({behavior:'smooth',block:'start'}),700);
+}
+function showBranch2(){
+  document.getElementById('branch-2').classList.add('visible');
+  setTimeout(()=>document.getElementById('branch-2').scrollIntoView({behavior:'smooth',block:'start'}),500);
+}
+function openB(id){
+  if(id==='b-cramer'){
+    awardDepth('b_cramer');
+    document.getElementById('b-cramer').classList.add('open');
+    document.getElementById('bc-cramer').classList.add('active');
+    setTimeout(()=>document.getElementById('b-cramer').scrollIntoView({behavior:'smooth',block:'start'}),100);return;
+  }
+  if(id==='b2-finish'){awardDepth('finish');showCompletion();}
+}
+function showCompletion(){
+  const d=document.getElementById('dval').textContent;
+  const note=document.getElementById('dnote').textContent.replace('— ','');
+  document.getElementById('comp-depth').textContent='Lerntiefe: '+d+' — '+note;
+  document.getElementById('completion').classList.add('visible');
+  document.getElementById('horizon').classList.add('visible');
+  setTimeout(()=>document.getElementById('completion').scrollIntoView({behavior:'smooth',block:'start'}),300);
+}
+window.addEventListener('load',()=>{updateLGS();renderDepth();});
+window.addEventListener('resize',()=>{clearTimeout(window._rt);window._rt=setTimeout(updateLGS,100);});
+</script>
+</body>
+</html>
