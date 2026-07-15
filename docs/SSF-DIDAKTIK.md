@@ -1,8 +1,9 @@
 # SSF-DIDAKTIK.md
 ## Solar Science Foundation · Didaktisches Grundprinzip
 
-**Version:** 0.1.0
+**Version:** 0.2.0
 **Erstellt:** 2026-07-15
+**Geändert:** 2026-07-15 · v0.2.0: Entdeckung, Lernszenen-Regel, Einstiegsfragen-Kapitel, Disziplin-Präzisierung
 **Status:** Kanonisch
 **Repo:** thomaspeterkueper/solarsciencefoundation
 
@@ -19,9 +20,11 @@ Der Unterschied:
 | Vermittelt Stoff | Ermöglicht Entdeckung |
 | Beginnt mit Definitionen | Beginnt mit Beobachtungen |
 | Endet mit Prüfung | Endet mit Verstehen |
-| Lernender konsumiert | Lernender erlebt |
+| Lernender konsumiert | Lernender entdeckt |
 
 Ein Nutzer sollte nach jedem Abschnitt das Gefühl haben, etwas **selbst entdeckt** zu haben — nicht nur etwas gelesen zu haben.
+
+Die SSF ist keine Lernplattform im klassischen Sinn. Sie ist eine **Plattform zum Entdecken**.
 
 ---
 
@@ -84,13 +87,13 @@ Nicht jeder Schritt muss explizit vorhanden sein — aber die Reihenfolge ist ni
    3/3 korrekt → Takeaway + nächstes Kapitel öffnet sich.
 
 ⑨ Takeaway
-   Ein Satz. Die Kern-Erkenntnis des Kapitels.
+   Ein Satz. Die Kern-Entdeckung des Kapitels.
    Geschrieben als Einsicht, nicht als Zusammenfassung.
    Erscheint erst nach 3/3 Quiz.
 
 ⑩ Nächster Horizont
    Vorschau auf das folgende Kapitel — sichtbar aber gesperrt.
-   Titel und erste Frage lesbar. Kein Blur auf die Einstiegsfrage.
+   Titel und erste Frage lesbar.
    Erzeugt Anticipation, keine Obligation.
 ```
 
@@ -100,15 +103,26 @@ Nicht jeder Schritt muss explizit vorhanden sein — aber die Reihenfolge ist ni
 
 Eine **Lernszene** ist die kleinste didaktische Einheit der SSF.
 
-Sie hat genau **einen Gedanken**.
+### Grundregel: Eine Lernszene beantwortet genau eine Frage.
 
-Beispiele:
-- *Warum wird ein Gummiband dünner wenn man es dehnt?*
-- *Was passiert mit Licht wenn es auf ein Luftmolekül trifft?*
-- *Warum ändert sich der Widerstand eines Drahtes wenn er sich dehnt?*
+Eine Lernszene endet nicht mit einem Thema. Sie endet mit einer **beantworteten Frage** — und damit mit einer neuen Entdeckung.
+
+**Schlecht:**
+> Schwingungen
+
+> DMS
+
+> Rayleigh-Streuung
+
+**Gut:**
+> Warum schwingt eine Gitarrensaite?
+
+> Warum ändert sich der Widerstand eines Drahtes beim Dehnen?
+
+> Warum streuen Luftmoleküle blaues Licht stärker als rotes?
 
 Das ist noch kein Kapitel. Noch kein Modul. Noch kein Pfad.
-Es ist eine einzelne **Erfahrung** — eine Szene.
+Es ist eine einzelne **Entdeckung** — eine Szene.
 
 Mehrere Lernszenen bilden ein **Kapitel**.
 Mehrere Kapitel bilden einen **Lernpfad**.
@@ -126,7 +140,49 @@ Die didaktischen Begriffe werden in der UI und in der Dokumentation verwendet.
 
 ---
 
-## 5. Was SSF nicht ist
+## 5. Die gute Einstiegsfrage
+
+Die Einstiegsfrage ist der sichtbarste Teil eines Kapitels. Sie ist der erste Kontakt des Lernenden mit dem Inhalt. Sie entscheidet ob jemand weiterliest oder nicht.
+
+### Merkmale einer guten Einstiegsfrage
+
+- Beschreibt eine Beobachtung oder ein Phänomen
+- Enthält keine Lösung
+- Enthält **keine Fachbegriffe**
+- Macht neugierig — lässt mehrere Vermutungen zu
+- Ist aus der Perspektive des Lernenden formuliert, nicht aus der des Lehrenden
+
+### Beispiele
+
+**Gut:**
+> Warum ist der Himmel blau?
+
+> Warum wird ein Gummiband dünner wenn man es dehnt?
+
+> Warum klingt ein vorbeifahrendes Auto anders als ein stehendes?
+
+> Wie schneidet man Stahl der härter ist als jedes Werkzeug?
+
+**Nicht gut:**
+> Rayleigh-Streuung (Fachbegriff, keine Frage)
+
+> Doppler-Effekt (Fachbegriff, keine Frage)
+
+> Hookesches Gesetz (Fachbegriff, keine Frage)
+
+> Was ist der Wärmeausdehnungskoeffizient? (beginnt mit Lösung, nicht Beobachtung)
+
+### Prüffragen für Autoren
+
+Bevor eine Einstiegsfrage akzeptiert wird, sollte sie diese drei Tests bestehen:
+
+1. **Kann ein 12-Jähriger die Frage verstehen?** — Wenn nicht, zu viele Fachbegriffe.
+2. **Lässt die Frage mehrere Antworten zu?** — Wenn nicht, ist es keine echte Frage, sondern eine Aufgabe.
+3. **Würde jemand diese Frage stellen, wenn er aus dem Fenster schaut?** — Wenn nicht, beginnt die Frage beim Wissen, nicht bei der Welt.
+
+---
+
+## 6. Was SSF nicht ist
 
 - Kein MOOC — kein Kurs mit festem Start- und Endpunkt
 - Kein Schulbuch — kein Top-Down-Curriculum
@@ -140,29 +196,33 @@ Niemand schreibt vor wo man beginnen oder enden muss.
 
 ---
 
-## 6. Disziplinlabels — verboten in der Lernenden-Ansicht
+## 7. Disziplinlabels — kein Einstiegspunkt für Lernende
 
-Lernende sehen **keine Disziplinbezeichnungen**.
+**Disziplinbezeichnungen strukturieren die Inhalte intern. Sie sind niemals der Einstiegspunkt für Lernende.**
 
-Verboten in der UI:
-- "Physik", "Chemie", "Mathematik", "Ingenieurwesen"
-- "Kapitel 3 aus TM2" oder ähnliche Vorlesungs-IDs
-- Fachsemester-Angaben
+Lernende sehen als Einstieg immer eine Frage — nie eine Disziplinbezeichnung.
 
-Erlaubt (nur intern, im KG und in der Entwicklerdokumentation):
+Intern (KG, Entwicklerdokumentation, Metadaten) erlaubt:
 - Kanonische IDs wie `LRN:SSF:PHY-SKY-0001`
 - Domainfelder wie `PHY`, `MAT`, `ENG`
-- Verweise auf Lehrstühle oder Quellen
+- Verweise auf Quellen und Lehrstühle
 
-Die Einstiegsfrage ist der einzige sichtbare Bezeichner eines Kapitels.
+In der Lernenden-Ansicht erlaubt (nur als Kontext, nie als Einstieg):
+- Verweise unter "Mehr erfahren" oder "Quellen"
+- Horizont-Karten die verwandte Themen zeigen
+
+In der Lernenden-Ansicht verboten als Einstieg:
+- "Physik · Optik · Kapitel 3"
+- "TM2-STRAIN-001"
+- "Vorlesung Technische Mechanik 2"
 
 ---
 
-## 7. Formelregel
+## 8. Formelregel
 
 Formeln erscheinen **nach** der intuitiven Erklärung — nie davor.
 
-Richtige Reihenfolge:
+**Richtige Reihenfolge:**
 ```
 ① Beobachtung: Stahl dehnt sich aus.
 ② Experiment: Slider zeigt wie viel.
@@ -170,20 +230,20 @@ Richtige Reihenfolge:
 ④ Formel: ΔL = α · L₀ · ΔT
 ```
 
-Falsche Reihenfolge:
+**Falsche Reihenfolge:**
 ```
 ① Formel: ΔL = α · L₀ · ΔT
 ② Erklärung dazu
 ③ Beispiel
 ```
 
-Die Formel ist die Verdichtung der Erkenntnis — nicht ihr Ausgangspunkt.
+Die Formel ist die **Verdichtung** der Entdeckung — nicht ihr Ausgangspunkt.
 
 ---
 
-## 8. Zehn Schritte früher
+## 9. Zehn Schritte früher
 
-Die SSF beginnt dort wo andere Plattformen und Vorlesungen **aufhören zu erklären**.
+Die SSF beginnt dort wo andere Plattformen und Vorlesungen aufhören zu erklären.
 
 Hochschulen beginnen oft bei:
 ```
@@ -198,9 +258,26 @@ Warum wird ein Gummiband länger?
 Das ist kein Qualitätsproblem der Hochschulen.
 Es ist eine andere Zielgruppe und ein anderes Ziel.
 
-SSF richtet sich an Menschen die verstehen wollen — nicht an Menschen die bestehen müssen.
+SSF richtet sich an Menschen die **verstehen** wollen — nicht an Menschen die bestehen müssen.
 
 ---
 
-*Solar Science Foundation · SSF-DIDAKTIK.md · v0.1.0 · 2026-07-15*
+## Dokumentfamilie
+
+Dieses Dokument ist die Grundlage. Die Autorenfamilie baut darauf auf:
+
+```
+SSF-DIDAKTIK.md          ← dieses Dokument
+    │
+    ├── SSF-AUTORENLEITFADEN.md      ← wie schreibt man einen Lernpfad
+    ├── SSF-LERNPFAD-TEMPLATE.md     ← Vorlage für neue Pfade
+    ├── SSF-LERNSZENEN-TEMPLATE.md   ← Vorlage für einzelne Szenen
+    └── SSF-QUIZ-RICHTLINIEN.md      ← wie schreibt man gute Quiz-Fragen
+```
+
+---
+
+*Solar Science Foundation · SSF-DIDAKTIK.md · v0.2.0 · 2026-07-15*
 *Autor: Thomas Peter Küper · Repo: thomaspeterkueper/solarsciencefoundation*
+*v0.1.0: Grunddokument — Lernreise, drei Rollen, Dramaturgie, Lernszene, Formelregel*
+*v0.2.0: Entdeckung als Leitbegriff, Einstiegsfragen-Kapitel, Lernszenen-Grundregel, Disziplin-Präzisierung, Dokumentfamilie*
