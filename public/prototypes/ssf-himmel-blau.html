@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SSF · Warum ist der Himmel blau?</title>
+<style>
+:root {
+  --bg:      #F9F8F5;
+  --surface: #F0EFE9;
+  --surface2:#E6E4DC;
+  --border:  #D8D6CE;
+  --soft:    #E8E6DE;
+  --text:    #1A1916;
+  --text-2:  #4A4840;
+  --text-3:  #8A8880;
+  --navy:    #1C2B3A;
+  --navy-2:  #2C3F52;
+  --gold:    #C9A84C;
+  --gold-bg: #F5F0E0;
+  --gold-b:  #DFC87A;
+  --ok-bg:   #EEF3EE; --ok-b: #7AAD7A; --ok-t: #2A5C2A;
+  --no-bg:   #F5EEEE; --no-b: #C49090; --no-t: #6B2222;
+  --r: 4px;
+  --serif: Georgia,'Palatino Linotype',serif;
+  --sans:  system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:  'SFMono-Regular','Cascadia Code','Fira Code',monospace;
+  /* Sky colors */
+  --sky-zenith: #1a6bbf;
+  --sky-horizon:#87CEEB;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* ── Header ── */
+.site-header{border-bottom:1px solid var(--border);padding:1rem 0;position:sticky;top:0;background:var(--bg);z-index:60}
+.h-inner{max-width:740px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;gap:.875rem}
+.signet{width:24px;height:24px;flex-shrink:0}
+.site-name{font-family:var(--mono);font-size:11px;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase}
+.h-space{flex:1}
+.mod-id{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.06em}
+
+/* ── Depth bar ── */
+.depth-wrap{background:var(--bg);border-bottom:1px solid var(--soft);padding:.5rem 0;position:sticky;top:57px;z-index:50}
+.depth-inner{max-width:740px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;gap:.875rem}
+.depth-lbl{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.depth-track{flex:1;height:5px;background:var(--surface2);border-radius:3px;overflow:hidden}
+.depth-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--gold),var(--navy));width:0%;transition:width 1.4s cubic-bezier(.22,1,.36,1)}
+.depth-val{font-family:var(--mono);font-size:11px;color:var(--text-2);min-width:2.5ch;text-align:right}
+.depth-note{font-family:var(--mono);font-size:9.5px;color:var(--text-3);letter-spacing:.05em;white-space:nowrap}
+@media(max-width:480px){.depth-note{display:none}}
+
+/* ── Layout ── */
+.wrap{max-width:740px;margin:0 auto;padding:0 1.5rem}
+main{padding:0 0 8rem}
+
+/* ── Intro ── */
+.intro{padding:3rem 0 0;margin-bottom:3.5rem}
+.eyebrow{font-family:var(--mono);font-size:10.5px;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem}
+.path-title{font-family:var(--serif);font-size:clamp(26px,4vw,36px);font-weight:normal;color:var(--text);line-height:1.2;letter-spacing:-.015em;margin-bottom:1rem}
+.path-desc{font-size:16px;color:var(--text-2);line-height:1.7;max-width:54ch}
+
+/* ── Unit ── */
+.unit{margin-bottom:1.5rem;scroll-margin-top:115px}
+.unit-hdr{padding:2.5rem 0 0;margin-bottom:2rem;border-top:1px solid var(--border)}
+.unit-idx{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.875rem}
+.unit-q{font-family:var(--serif);font-size:clamp(20px,3.5vw,27px);font-weight:normal;color:var(--text);line-height:1.25;letter-spacing:-.01em;margin-bottom:1.5rem}
+.sec-lbl{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:1.25rem;display:flex;align-items:center;gap:.75rem}
+.sec-lbl::after{content:'';flex:1;height:1px;background:var(--soft)}
+.section{margin-bottom:2.75rem}
+.hr{border:none;border-top:1px solid var(--soft);margin:2.5rem 0}
+
+/* ── Prose ── */
+.prose{font-family:var(--serif);font-size:17px;line-height:1.82;color:var(--text)}
+.prose p{margin-bottom:1.2rem}
+.prose p:last-child{margin-bottom:0}
+
+/* ── Tooltip ── */
+.tip{border-bottom:1.5px dashed var(--gold);cursor:help;position:relative}
+.tip-pop{display:none;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;font-family:var(--sans);font-size:13px;line-height:1.5;padding:.75rem 1rem;border-radius:6px;width:260px;z-index:200;pointer-events:none;box-shadow:0 4px 20px rgba(0,0,0,.28)}
+.tip-pop::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:var(--navy)}
+.tip-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#E8D9A8;margin-bottom:.2rem}
+.tip:hover .tip-pop,.tip:focus .tip-pop{display:block}
+
+/* ── Obs card ── */
+.obs{background:var(--surface);border-left:3px solid var(--gold);border-radius:0 var(--r) var(--r) 0;padding:1.25rem 1.5rem;margin:1.75rem 0}
+.obs-ey{font-family:var(--mono);font-size:10px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem}
+.obs-txt{font-family:var(--serif);font-size:16.5px;color:var(--text-2);line-height:1.72;font-style:italic}
+.obs-src{font-family:var(--mono);font-size:10px;color:var(--text-3);margin-top:.625rem}
+
+/* ── Skip ── */
+.skip-bar{display:flex;align-items:center;gap:.75rem;margin-bottom:2rem;padding:.625rem 1rem;background:var(--surface);border-radius:var(--r);border:1px solid var(--soft)}
+.skip-bar span{font-size:13px;color:var(--text-3);flex:1}
+.skip-btn{font-size:12.5px;color:var(--text-3);background:transparent;border:1px solid var(--border);border-radius:var(--r);padding:4px 12px;cursor:pointer;transition:color .12s,border-color .12s;font-family:var(--sans)}
+.skip-btn:hover{color:var(--text-2);border-color:var(--text-3)}
+.skippable.hidden{display:none}
+
+/* ── Info ── */
+.info{background:var(--surface);border-radius:var(--r);padding:1.125rem 1.375rem;margin:1.5rem 0;border-left:3px solid var(--navy)}
+.info-lbl{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.09em;text-transform:uppercase;margin-bottom:.5rem}
+.info-txt{font-size:15px;color:var(--text);line-height:1.7}
+
+/* ── Experiment cards ── */
+.exp-card{border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:1.75rem 0}
+.exp-header{background:var(--surface);padding:1rem 1.375rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.875rem}
+.exp-icon{font-size:20px;flex-shrink:0}
+.exp-tag{font-family:var(--mono);font-size:9.5px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.2rem}
+.exp-name{font-family:var(--serif);font-size:16px;color:var(--text)}
+.exp-do{background:#F5F4EE;border-left:3px solid var(--gold);padding:1rem 1.25rem;border-bottom:1px solid var(--soft)}
+.exp-do-lbl{font-family:var(--mono);font-size:9.5px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.375rem}
+.exp-do-txt{font-size:14.5px;color:var(--text-2);line-height:1.65}
+.exp-body{padding:1.375rem}
+.exp-row{display:flex;gap:1.25rem;align-items:flex-start;flex-wrap:wrap}
+.exp-controls{flex:0 0 230px;min-width:200px}
+.exp-visual{flex:1;min-width:200px}
+.slider-group{margin-bottom:1.125rem}
+.slider-lbl{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.375rem}
+.slider-name{font-family:var(--mono);font-size:10.5px;color:var(--text-3);letter-spacing:.07em;text-transform:uppercase}
+.slider-val{font-family:var(--mono);font-size:13px;color:var(--navy)}
+input[type=range]{width:100%;-webkit-appearance:none;height:5px;background:var(--surface2);border-radius:3px;outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--navy);cursor:pointer}
+input[type=range]::-webkit-slider-thumb:hover{background:var(--gold)}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--navy);border:none;cursor:pointer}
+.wave-canvas{width:100%;border-radius:var(--r);background:var(--surface);display:block}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:.75rem}
+.stat-box{background:var(--surface);border-radius:var(--r);padding:.625rem .875rem;border:1px solid var(--soft)}
+.stat-lbl{font-family:var(--mono);font-size:9.5px;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.25rem}
+.stat-val{font-family:var(--mono);font-size:15px;color:var(--navy)}
+.stat-unit{font-size:11px;color:var(--text-3)}
+
+/* ── Aufgaben ── */
+.aufgabe{border:1px solid var(--border);border-radius:var(--r);padding:1.125rem 1.375rem;margin-bottom:.875rem}
+.aufg-nr{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5rem}
+.aufg-txt{font-size:15px;color:var(--text);line-height:1.65}
+.hint-btn{margin-top:.75rem;padding:3px 11px;font-size:12px;border:1px solid var(--border);border-radius:var(--r);background:transparent;color:var(--text-3);cursor:pointer;font-family:var(--sans)}
+.hint-btn:hover{color:var(--text-2);border-color:var(--text-3)}
+.hint-body{display:none;font-size:13.5px;color:var(--text-2);line-height:1.65;margin-top:.75rem;padding-top:.75rem;border-top:1px solid var(--soft)}
+.hint-body.open{display:block}
+
+/* ── Quiz ── */
+.quiz-q{margin-bottom:1.75rem}
+.quiz-txt{font-family:var(--serif);font-size:16px;color:var(--text);line-height:1.55;margin-bottom:.75rem}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opt{padding:10px 14px;border:1px solid var(--border);border-radius:var(--r);font-size:14px;color:var(--text);background:var(--surface);text-align:left;cursor:pointer;line-height:1.45;transition:border-color .12s,background .12s;font-family:var(--sans)}
+.opt:hover:not(.locked){border-color:var(--navy-2);background:var(--surface2)}
+.opt.correct{border-color:var(--ok-b);background:var(--ok-bg);color:var(--ok-t)}
+.opt.wrong{border-color:var(--no-b);background:var(--no-bg);color:var(--no-t)}
+.opt.locked{cursor:default}
+.quiz-fb{display:none;font-size:13.5px;color:var(--text-2);line-height:1.65;margin-top:.75rem;padding:.75rem 1rem;background:var(--surface);border-radius:var(--r);border:1px solid var(--soft)}
+.quiz-fb.open{display:block}
+.score-row{display:flex;align-items:center;gap:.875rem;flex-wrap:wrap;padding-top:1.375rem;border-top:1px solid var(--border);margin-top:.5rem}
+.score-n{font-family:var(--serif);font-size:26px;color:var(--text);letter-spacing:-.02em}
+.score-lbl{font-size:13px;color:var(--text-3)}
+.reset-btn{margin-left:auto;padding:5px 13px;font-size:12px;border:1px solid var(--border);border-radius:var(--r);background:transparent;color:var(--text-3);cursor:pointer;font-family:var(--sans)}
+
+/* ── Branch ── */
+.branch{margin:2.5rem 0;padding:1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;display:none}
+.branch.visible{display:block}
+.branch-lbl{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:.75rem}
+.branch-lbl::after{content:'';flex:1;height:1px;background:var(--soft)}
+.branch-cards{display:grid;grid-template-columns:1fr 1fr;gap:.875rem;margin-top:.875rem}
+@media(max-width:460px){.branch-cards{grid-template-columns:1fr}}
+.b-card{border:1px solid var(--border);border-radius:var(--r);padding:1rem 1.125rem;cursor:pointer;background:var(--bg);transition:border-color .15s;text-align:left;font-family:var(--sans)}
+.b-card:hover{border-color:var(--navy-2)}
+.b-card.active{border-color:var(--gold);box-shadow:0 0 0 2px rgba(201,168,76,.2)}
+.b-icon{font-size:20px;margin-bottom:.5rem}
+.b-name{font-family:var(--mono);font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--navy);margin-bottom:.375rem}
+.b-desc{font-size:13px;color:var(--text-3);line-height:1.5}
+.b-panel{display:none;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:1.25rem 0}
+.b-panel.open{display:block}
+.b-panel-hdr{padding:1rem 1.375rem;background:var(--gold-bg);border-bottom:1px solid var(--gold-b);display:flex;align-items:center;gap:.75rem}
+.b-panel-tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;padding:2px 7px;border-radius:3px;background:#E8D9A8;color:var(--navy)}
+.b-panel-title{font-family:var(--serif);font-size:16px;color:var(--text)}
+.b-panel-body{padding:1.375rem;background:var(--bg)}
+
+/* ── Preview / lock ── */
+.preview-card{margin:2.5rem 0;border-radius:6px;border:1px solid var(--border);overflow:hidden;position:relative;transition:border-color .4s}
+.preview-card.unlocked{border-color:var(--gold-b)}
+.prev-hdr{padding:1.25rem 1.5rem;background:var(--surface);display:flex;align-items:flex-start;gap:1rem;border-bottom:1px solid var(--border);transition:background .4s}
+.preview-card.unlocked .prev-hdr{background:var(--gold-bg);border-bottom-color:var(--gold-b)}
+.prev-icon{width:36px;height:36px;border-radius:50%;background:var(--surface2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:17px}
+.prev-meta{flex:1}
+.prev-ey{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.375rem;transition:color .4s}
+.preview-card.unlocked .prev-ey{color:var(--gold)}
+.prev-title{font-family:var(--serif);font-size:17px;color:var(--text);line-height:1.3;transition:filter .4s}
+.preview-card:not(.unlocked) .prev-title{filter:blur(2.5px);user-select:none}
+.prev-body{padding:1.125rem 1.5rem;position:relative}
+.prev-teaser{font-size:14px;color:var(--text-2);line-height:1.65;transition:filter .4s}
+.preview-card:not(.unlocked) .prev-teaser{filter:blur(3px);color:#AAA;user-select:none}
+.prev-keys{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.875rem;transition:filter .4s}
+.preview-card:not(.unlocked) .prev-keys{filter:blur(3px);pointer-events:none}
+.pkey{font-family:var(--mono);font-size:11px;color:var(--navy);background:var(--gold-bg);border:1px solid var(--gold-b);padding:3px 9px;border-radius:var(--r)}
+.lock-ov{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;background:rgba(249,248,245,.55);backdrop-filter:blur(1px);transition:opacity .4s;pointer-events:none}
+.preview-card.unlocked .lock-ov{opacity:0}
+.lock-ico{font-size:22px}
+.lock-txt{font-family:var(--mono);font-size:11px;color:var(--text-3);letter-spacing:.07em;text-transform:uppercase}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(201,168,76,.5)}70%{box-shadow:0 0 0 12px rgba(201,168,76,0)}100%{box-shadow:0 0 0 0 rgba(201,168,76,0)}}
+.just-unlocked{animation:pulse .7s ease-out}
+
+/* ── Completion ── */
+.completion{display:none;background:var(--gold-bg);border:1px solid var(--gold-b);border-radius:8px;padding:2.25rem 1.5rem;text-align:center;margin:3rem 0}
+.completion.visible{display:block}
+.comp-title{font-family:var(--serif);font-size:22px;color:var(--navy);margin-bottom:.5rem}
+.comp-sub{font-size:14px;color:var(--text-2);line-height:1.65;margin-bottom:1.25rem;max-width:48ch;margin-left:auto;margin-right:auto}
+.comp-keys{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.25rem}
+.comp-depth{font-family:var(--mono);font-size:11px;color:var(--text-3)}
+.horizon{display:none;margin:1.5rem 0 6rem;padding:1.25rem 1.5rem;border-top:1px solid var(--soft)}
+.horizon.visible{display:block}
+.horizon-txt{font-family:var(--serif);font-size:15.5px;color:var(--text-3);line-height:1.8;font-style:italic;max-width:52ch;margin-bottom:1.25rem}
+.h-btns{display:flex;gap:.75rem;flex-wrap:wrap}
+.h-btn{padding:8px 18px;font-size:13px;border:1px solid var(--border);border-radius:var(--r);background:var(--surface);color:var(--text-2);cursor:pointer;font-family:var(--sans)}
+.h-btn:hover{border-color:var(--navy);color:var(--navy)}
+.h-btn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+/* ── Sky gradient viz ── */
+.sky-gradient{width:100%;height:120px;border-radius:var(--r);margin-bottom:.75rem;position:relative;overflow:hidden;transition:background .3s}
+.sky-sun{position:absolute;border-radius:50%;transition:all .3s;box-shadow:0 0 20px rgba(255,220,100,.8)}
+.sky-label{position:absolute;bottom:8px;right:10px;font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.7);letter-spacing:.05em}
+
+/* ── Atmosphere path viz ── */
+.atmo-canvas{width:100%;border-radius:var(--r);background:#0a1628;display:block}
+
+@media(max-width:580px){.prose{font-size:16px}.path-title{font-size:24px}.unit-q{font-size:19px}.exp-row{flex-direction:column}.exp-controls{flex:none;width:100%}}
+:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="h-inner">
+    <svg class="signet" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+      <circle cx="13" cy="13" r="12" stroke="#1C2B3A" stroke-width="1.1" fill="none"/>
+      <circle cx="13" cy="13" r="3.5" fill="#C9A84C"/>
+      <ellipse cx="13" cy="13" rx="10" ry="4" stroke="#1C2B3A" stroke-width=".7" fill="none" transform="rotate(-25 13 13)"/>
+      <ellipse cx="13" cy="13" rx="10" ry="4" stroke="#1C2B3A" stroke-width=".7" fill="none" transform="rotate(25 13 13)"/>
+    </svg>
+    <span class="site-name">Solar Science Foundation</span>
+    <div class="h-space"></div>
+    <span class="mod-id">LRN:SSF:PHY-1103</span>
+  </div>
+</header>
+
+<div class="depth-wrap">
+  <div class="depth-inner">
+    <span class="depth-lbl">Tiefe</span>
+    <div class="depth-track"><div class="depth-fill" id="dfill"></div></div>
+    <span class="depth-val" id="dval">0</span>
+    <span class="depth-note" id="dnote">— Beginn</span>
+  </div>
+</div>
+
+<main><div class="wrap">
+
+<div class="intro">
+  <div class="eyebrow">Lernpfad · Licht & Atmosphäre</div>
+  <h1 class="path-title">Warum ist der Himmel blau — und die Sonne beim Untergang rot?</h1>
+  <p class="path-desc">Zwei Einheiten. Dasselbe Licht, zwei verschiedene Fragen. Was dazwischen liegt, ist die Atmosphäre — und ein Gesetz das mit der vierten Potenz der Wellenlänge arbeitet.</p>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     EINHEIT 1: WARUM BLAU?
+═══════════════════════════════════════ -->
+<div class="unit" id="unit-1">
+  <div class="unit-hdr">
+    <div class="unit-idx">Einheit 1 von 2</div>
+    <h2 class="unit-q">Warum ist der Himmel blau — obwohl das Sonnenlicht weiß ist?</h2>
+  </div>
+
+  <div class="skip-bar">
+    <span>Beispiele und Aufgaben sind optional.</span>
+    <button class="skip-btn" onclick="skipTo('quiz-1')">Direkt zum Quiz →</button>
+  </div>
+
+  <div class="section skippable" id="bsp-1">
+    <div class="sec-lbl">Beobachtung</div>
+
+    <div class="obs">
+      <div class="obs-ey">Alltagsbeobachtung</div>
+      <div class="obs-txt">An einem klaren Tag: schau in den Himmel — nicht in die Sonne. Blau. Dann schau in die Sonne durch ein Wolkenfenster oder bei Dunst: weißlich-gelb. Dasselbe Licht. Dieselbe Quelle. Zwei vollständig verschiedene Farben — je nachdem wohin du schaust. Warum?</div>
+    </div>
+
+    <!-- Sky gradient viz -->
+    <div style="margin:1.75rem 0">
+      <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.625rem">Wie der Himmel aussieht — je nach Blickrichtung</div>
+      <svg viewBox="0 0 660 160" xmlns="http://www.w3.org/2000/svg" aria-label="Farbverlauf: Im Zenit tiefblau, zum Horizont heller, Sonne weisslich-gelb">
+        <defs>
+          <linearGradient id="sky-grad" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="#1565C0"/>
+            <stop offset="60%" stop-color="#42A5F5"/>
+            <stop offset="100%" stop-color="#B3E5FC"/>
+          </linearGradient>
+          <radialGradient id="sun-glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#FFFFFF"/>
+            <stop offset="40%" stop-color="#FFF9C4"/>
+            <stop offset="100%" stop-color="rgba(255,240,100,0)"/>
+          </radialGradient>
+        </defs>
+        <rect width="660" height="160" fill="url(#sky-grad)"/>
+        <!-- Sun near horizon -->
+        <ellipse cx="560" cy="135" rx="40" ry="40" fill="url(#sun-glow)" opacity=".9"/>
+        <circle cx="560" cy="135" r="16" fill="#FFFDE7"/>
+        <!-- Zenith label -->
+        <text x="16" y="22" font-size="10" fill="rgba(255,255,255,.7)" font-family="monospace">↑ Zenit — tiefes Blau</text>
+        <!-- Horizon label -->
+        <text x="16" y="150" font-size="10" fill="rgba(255,255,255,.7)" font-family="monospace">→ Horizont — blasser</text>
+        <!-- Sun label -->
+        <text x="510" y="122" font-size="10" fill="rgba(255,255,255,.85)" font-family="monospace">Sonne — weißlich</text>
+        <!-- Arrow showing scattering -->
+        <line x1="330" y1="20" x2="330" y2="140" stroke="rgba(255,255,255,.2)" stroke-width=".75" stroke-dasharray="4 3"/>
+        <text x="335" y="80" font-size="9.5" fill="rgba(255,255,255,.5)" font-family="monospace">mehr Atmosphäre →</text>
+      </svg>
+    </div>
+
+    <div class="prose">
+      <p>Die Antwort heißt <span class="tip">Rayleigh-Streuung<span class="tip-pop"><span class="tip-lbl">Rayleigh-Streuung</span>Benannt nach Lord Rayleigh (1871). Wenn Licht auf Teilchen trifft die viel kleiner sind als die Wellenlänge des Lichts (Stickstoff, Sauerstoff), wird es gestreut. Die Streuungsintensität ist proportional zu λ⁻⁴ — eine kleine Änderung der Wellenlänge macht einen riesigen Unterschied.</span></span>. Sonnenlicht trifft auf die Gasmoleküle der Atmosphäre — Stickstoff und Sauerstoff, viel kleiner als die Wellenlänge des Lichts. Diese Moleküle streuen das Licht in alle Richtungen — aber nicht gleichmäßig: kurzwellige Strahlung wird viel stärker gestreut als langwellige.</p>
+      <p>Wie viel stärker? Das Gesetz lautet: Streuungsintensität ∝ λ⁻⁴. Wenn die Wellenlänge halbiert wird, wird die Streuung 2⁴ = 16× stärker. Blaues Licht (450 nm) wird deshalb etwa 5,5× stärker gestreut als rotes Licht (700 nm). Das blaue Licht verteilt sich über den ganzen Himmel — und genau daher ist der Himmel blau.</p>
+    </div>
+
+    <!-- EXPERIMENT 1: Rayleigh Streuung -->
+    <div class="exp-card">
+      <div class="exp-header">
+        <div class="exp-icon">🌤</div>
+        <div>
+          <div class="exp-tag">Experiment 1</div>
+          <div class="exp-name">Rayleigh-Streuung: λ⁻⁴ live</div>
+        </div>
+      </div>
+      <div class="exp-do">
+        <div class="exp-do-lbl">Selbst beobachten</div>
+        <div class="exp-do-txt">Fülle ein Glas mit Wasser und gib einen Tropfen Milch hinein. Leuchte mit einer Taschenlampe seitlich hindurch — das Wasser erscheint bläulich. Das ist Rayleigh-ähnliche Streuung an den Milchpartikeln: dasselbe Prinzip wie beim Himmel, sichtbar im Glas.</div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-row">
+          <div class="exp-controls">
+            <div class="slider-group">
+              <div class="slider-lbl">
+                <span class="slider-name">Wellenlänge</span>
+                <span class="slider-val" id="ray-wl-val">450 nm</span>
+              </div>
+              <input type="range" id="ray-wl" min="380" max="700" value="450" oninput="updateRayleigh(this.value)">
+            </div>
+            <div class="stat-grid">
+              <div class="stat-box">
+                <div class="stat-lbl">Farbe</div>
+                <div class="stat-val" id="ray-color">Blau</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-lbl">Streuung (rel.)</div>
+                <div class="stat-val" id="ray-scatter">5.5 <span class="stat-unit">×</span></div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-lbl">λ⁻⁴ Faktor</div>
+                <div class="stat-val" id="ray-factor">1.00</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-lbl">Himmelsbeitrag</div>
+                <div class="stat-val" id="ray-sky">hoch</div>
+              </div>
+            </div>
+            <div id="ray-note" style="margin-top:.875rem;font-size:12.5px;color:var(--text-3);line-height:1.5">
+              Blaues Licht — maximal gestreut, verteilt sich über den ganzen Himmel.
+            </div>
+          </div>
+          <div class="exp-visual">
+            <div id="ray-swatch" style="height:60px;border-radius:var(--r);margin-bottom:.75rem;transition:background .2s;background:rgb(65,105,225)"></div>
+            <canvas id="ray-canvas" class="wave-canvas" height="100"></canvas>
+            <div style="margin-top:.75rem">
+              <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.07em;text-transform:uppercase;margin-bottom:.375rem">Streuungsintensität nach Wellenlänge</div>
+              <canvas id="scatter-chart" class="wave-canvas" height="80"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p>Aber warum nicht <em>violett</em>? Violettes Licht (380 nm) wird noch stärker gestreut als Blau. Hier liegt eine der schönsten Überraschungen der Physik.</p>
+    </div>
+
+    <!-- Branch: Warum nicht violett -->
+    <div class="branch visible" id="branch-violett" style="display:block">
+      <div class="branch-lbl">Seitenast — optional</div>
+      <div style="font-family:var(--serif);font-size:17px;color:var(--text);margin-bottom:.5rem">Warum nicht violett?</div>
+      <div style="font-size:14px;color:var(--text-2);line-height:1.65;margin-bottom:1.25rem">Wenn Violett stärker gestreut wird als Blau — warum erscheint der Himmel dann blau und nicht violett?</div>
+      <div class="branch-cards">
+        <button class="b-card" onclick="openB('b-violett')" id="bc-violett">
+          <div class="b-icon">🔮</div>
+          <div class="b-name">Erklärung ansehen</div>
+          <div class="b-desc">Drei Gründe warum Blau gewinnt — obwohl Violett stärker gestreut wird.</div>
+        </button>
+        <button class="b-card" onclick="skipBranch()">
+          <div class="b-icon">→</div>
+          <div class="b-name" style="color:var(--text-3)">Weiter</div>
+          <div class="b-desc">Direkt zu den Aufgaben und zum Quiz.</div>
+        </button>
+      </div>
+    </div>
+
+    <div class="b-panel" id="b-violett">
+      <div class="b-panel-hdr">
+        <span class="b-panel-tag">Seitenast</span>
+        <span class="b-panel-title">Warum nicht violett? — Drei Gründe</span>
+      </div>
+      <div class="b-panel-body">
+        <div class="prose">
+          <p><strong>1. Die Sonne sendet weniger Violett.</strong> Das Strahlungsspektrum der Sonne (ein Schwarzkörper bei ~5.800 K) hat sein Maximum im Grün-Gelb-Bereich. Violettes Licht ist im Sonnenlicht von Anfang an schwächer vertreten als Blau.</p>
+          <p><strong>2. Das Auge ist weniger empfindlich für Violett.</strong> Die drei Zapfentypen des menschlichen Auges (S, M, L) reagieren am stärksten auf Blau-Grün und Gelb-Grün. Auf Violett reagiert hauptsächlich der S-Zapfen — und auch nur schwach. Selbst wenn violettes Licht vorhanden ist, nehmen wir es weniger stark wahr.</p>
+          <p><strong>3. Absorption in der oberen Atmosphäre.</strong> Ein Teil des Violettanteils wird in der oberen Atmosphäre von Ozon und anderen Molekülen absorbiert, bevor es zum Boden durchdringt.</p>
+          <p>Das Zusammenspiel dieser drei Faktoren ergibt Blau — nicht als stärkstes Signal, sondern als stärkstes <em>wahrgenommenes</em> Signal.</p>
+        </div>
+        <div class="info" style="margin-top:1.25rem">
+          <div class="info-lbl">Konsequenz</div>
+          <div class="info-txt">Wesen mit anderen Augen sehen einen anderen Himmel. Bienen sehen im UV — ihr Himmel enthält eine Dimension die wir nicht sehen können. Der "blaue Himmel" ist kein physikalischer Fakt, sondern die Antwort eines biologischen Systems auf ein physikalisches Signal.</div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="hr">
+
+    <div class="section skippable" id="aufg-1">
+      <div class="sec-lbl">Aufgaben</div>
+      <div class="aufgabe">
+        <div class="aufg-nr">Aufgabe 1</div>
+        <div class="aufg-txt">Rotes Licht hat λ ≈ 700 nm, Blaues λ ≈ 450 nm. Um welchen Faktor wird Blau stärker gestreut als Rot? Berechne mit λ⁻⁴.</div>
+        <button class="hint-btn" onclick="hintToggle(this)">Hinweis</button>
+        <div class="hint-body">Streuung ∝ λ⁻⁴. Verhältnis: (700/450)⁴ = (1.556)⁴ ≈ 5.85. Blaues Licht wird also fast 6× stärker gestreut als rotes. Das erklärt warum der Himmel blau erscheint — das Blau verteilt sich, das Rot geht geradeaus durch.</div>
+      </div>
+      <div class="aufgabe">
+        <div class="aufg-nr">Aufgabe 2</div>
+        <div class="aufg-txt">Warum sehen Astronauten auf der ISS keinen blauen Himmel, sondern schwarzen Weltraum — obwohl die Sonne dieselbe ist?</div>
+        <button class="hint-btn" onclick="hintToggle(this)">Hinweis</button>
+        <div class="hint-body">Rayleigh-Streuung braucht Gasmoleküle. Im Weltall ist kein Gas — kein Streuer, kein Himmelsblau. Das Licht der Sonne fliegt geradeaus ohne abgelenkt zu werden. Was man sieht ist nur direkte Strahlung auf schwarzem Hintergrund. Der blaue Himmel ist ein Atmosphärenphänomen, kein universelles.</div>
+      </div>
+      <div class="aufgabe">
+        <div class="aufg-nr">Aufgabe 3</div>
+        <div class="aufg-txt">Der Mars hat eine dünne Atmosphäre aus CO₂ mit feinem Staubstaub. Sein Himmel ist bei Tag rötlich-orange. Was lässt sich darüber schlussfolgern?</div>
+        <button class="hint-btn" onclick="hintToggle(this)">Hinweis</button>
+        <div class="hint-body">Auf dem Mars streuen die Staubteilchen größer als Gasmoleküle — das führt zu Mie-Streuung statt Rayleigh-Streuung. Mie-Streuung ist weniger wellenlängenabhängig, und der Eisenoxid-Staub absorbiert bevorzugt Blau. Das Ergebnis: ein rötlicher Himmel. Für Marsastronomen wäre der Sonnenuntergang blau statt rot — genau umgekehrt zur Erde.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="hr">
+
+  <div class="section" id="quiz-1">
+    <div class="sec-lbl">Quiz · Einheit 1</div>
+
+    <div class="quiz-q">
+      <div class="quiz-txt">Warum ist der Himmel blau und nicht rot?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,'u1',0,false)">Weil die Sonne blaues Licht bevorzugt aussendet.</button>
+        <button class="opt" onclick="ans(this,'u1',0,true)">Blaues Licht wird von Luftmolekülen viel stärker gestreut als rotes — proportional zu λ⁻⁴. Es verteilt sich über den ganzen Himmel.</button>
+        <button class="opt" onclick="ans(this,'u1',0,false)">Weil die Atmosphäre rotes Licht absorbiert.</button>
+        <button class="opt" onclick="ans(this,'u1',0,false)">Weil das Auge blau bevorzugt wahrnimmt.</button>
+      </div>
+      <div class="quiz-fb" id="fb-u1-0">Rayleigh-Streuung: Streuungsintensität ∝ λ⁻⁴. Blau (450 nm) wird ~5–6× stärker gestreut als Rot (700 nm). Das gestreute Blau kommt von allen Richtungen — das ist der blaue Himmel. Rotes Licht wird kaum abgelenkt und geht geradeaus durch zur Sonne.</div>
+    </div>
+
+    <div class="quiz-q">
+      <div class="quiz-txt">Was bedeutet λ⁻⁴ in der Rayleigh-Streuung?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,'u1',1,false)">Die Energie des Lichts ist proportional zur vierten Potenz der Wellenlänge.</button>
+        <button class="opt" onclick="ans(this,'u1',1,false)">Licht mit doppelter Wellenlänge wird doppelt so stark gestreut.</button>
+        <button class="opt" onclick="ans(this,'u1',1,true)">Licht mit halb so großer Wellenlänge wird 2⁴ = 16× stärker gestreut — kleine Wellenlängenänderungen haben riesige Auswirkungen auf die Streuung.</button>
+        <button class="opt" onclick="ans(this,'u1',1,false)">Die Streuung ist konstant und unabhängig von der Wellenlänge.</button>
+      </div>
+      <div class="quiz-fb" id="fb-u1-1">λ⁻⁴ bedeutet: die Streuungsintensität ist umgekehrt proportional zur vierten Potenz der Wellenlänge. Halb so große Wellenlänge → 16× stärkere Streuung. Das ist ein extrem steiler Zusammenhang — deshalb dominiert Blau so stark gegenüber Rot, obwohl der Wellenlängenunterschied nur etwa 55% beträgt.</div>
+    </div>
+
+    <div class="quiz-q">
+      <div class="quiz-txt">Warum ist der Himmel trotzdem blau und nicht violett — obwohl Violett noch kürzer ist?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,'u1',2,false)">Violett wird gar nicht gestreut — die Wellenlänge ist zu kurz.</button>
+        <button class="opt" onclick="ans(this,'u1',2,true)">Drei Faktoren zusammen: die Sonne sendet weniger Violett, das Auge ist weniger empfindlich für Violett, und etwas Violett wird in der oberen Atmosphäre absorbiert.</button>
+        <button class="opt" onclick="ans(this,'u1',2,false)">Violettes Licht hat zu viel Energie und ionisiert die Luftmoleküle.</button>
+        <button class="opt" onclick="ans(this,'u1',2,false)">Violett wird von Wasserdampf absorbiert.</button>
+      </div>
+      <div class="quiz-fb" id="fb-u1-2">Das Zusammenspiel von Sonnenspektrum, Augenempfindlichkeit und atmosphärischer Absorption führt dazu, dass wir Blau stärker wahrnehmen als Violett — obwohl Violett physikalisch stärker gestreut wird. Der "blaue Himmel" ist eine biologische Interpretation eines physikalischen Signals.</div>
+    </div>
+
+    <div class="score-row">
+      <span class="score-n" id="score-u1">0 / 3</span>
+      <span class="score-lbl">korrekt</span>
+      <button class="reset-btn" onclick="resetQ('u1')">Neu</button>
+    </div>
+  </div>
+
+  <div class="preview-card" id="preview-1">
+    <div class="prev-hdr">
+      <div class="prev-icon">🌅</div>
+      <div class="prev-meta">
+        <div class="prev-ey" id="prev-ey-1">Einheit 2 — noch gesperrt</div>
+        <div class="prev-title">Warum ist die Sonne beim Untergang rot — obwohl sie mittags weiß ist?</div>
+      </div>
+    </div>
+    <div class="prev-body">
+      <div class="prev-teaser">Derselbe Mechanismus. Aber beim Untergang legt das Licht einen viel längeren Weg durch die Atmosphäre zurück. Das Blau ist längst weggestreut — was bleibt, ist Rot. Und der Mond beim Mondfinsternisrot ist derselbe Effekt aus der Vogelperspektive.</div>
+      <div class="prev-keys">
+        <span class="pkey">SENSOR:ATMOSPHERE</span>
+        <span class="pkey">NAV:ORBITAL</span>
+      </div>
+      <div class="lock-ov" id="lock-1">
+        <div class="lock-ico">🔒</div>
+        <div class="lock-txt">Quiz abschließen</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /unit-1 -->
+
+
+<!-- ═══════════════════════════════════════
+     EINHEIT 2: UNTERGANG ROT
+═══════════════════════════════════════ -->
+<div class="unit" id="unit-2" style="opacity:.3;pointer-events:none;transition:opacity .6s" aria-disabled="true">
+  <div class="unit-hdr">
+    <div class="unit-idx">Einheit 2 von 2</div>
+    <h2 class="unit-q">Warum ist die Sonne beim Untergang rot — obwohl sie mittags weiß ist?</h2>
+  </div>
+
+  <div class="skip-bar">
+    <span>Beispiele und Aufgaben sind optional.</span>
+    <button class="skip-btn" onclick="skipTo('quiz-2')">Direkt zum Quiz →</button>
+  </div>
+
+  <div class="section skippable" id="bsp-2">
+    <div class="sec-lbl">Beobachtung</div>
+    <div class="obs">
+      <div class="obs-ey">Alltagsbeobachtung</div>
+      <div class="obs-txt">Schau die Sonne beim Untergang an — durch Dunst oder Wolkenränder. Tief orange, manchmal fast rot. Dabei ist es dieselbe Sonne wie mittags. Nicht die Sonne ändert sich. Der Weg, den das Licht durch die Atmosphäre nimmt, wird länger — und länger bedeutet: mehr Blau wird herausgefiltert.</div>
+    </div>
+
+    <div class="prose">
+      <p>Am Mittag steht die Sonne im Zenit. Das Licht durchquert die Atmosphäre auf dem kürzesten Weg — etwa 100 km senkrecht. Beim Untergang steht die Sonne am Horizont. Jetzt legt das Licht einen schrägen Weg durch die Atmosphäre zurück — je nach Winkel das 10- bis 40-fache der senkrechten Dicke.</p>
+      <p>Mehr Weg bedeutet mehr Streuung. Das Blau, das bereits bei kurzer Strecke bevorzugt herausgestreut wird, ist nach einem so langen Weg fast vollständig weg. Was übrig bleibt, sind die langen Wellenlängen — Orange und Rot. Die Sonne erscheint rot, weil alle anderen Farben bereits irgendwo über dem Horizont verstreut wurden.</p>
+    </div>
+
+    <!-- EXPERIMENT 2: Atmosphärenweg -->
+    <div class="exp-card">
+      <div class="exp-header">
+        <div class="exp-icon">🌅</div>
+        <div>
+          <div class="exp-tag">Experiment 2</div>
+          <div class="exp-name">Sonnenwinkel und Lichtfarbe</div>
+        </div>
+      </div>
+      <div class="exp-do">
+        <div class="exp-do-lbl">Selbst beobachten</div>
+        <div class="exp-do-txt">Nimm dasselbe Glas mit Milchwasser aus Experiment 1. Leuchte diesmal von sehr schräg durch das Glas — fast horizontal. Das Licht das auf der anderen Seite herauskommt, ist deutlich roter als bei senkrechtem Durchgang. Längerer Weg, mehr Blau weggestreut.</div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-row">
+          <div class="exp-controls">
+            <div class="slider-group">
+              <div class="slider-lbl">
+                <span class="slider-name">Sonnenwinkel</span>
+                <span class="slider-val" id="sun-angle-val">45°</span>
+              </div>
+              <input type="range" id="sun-angle" min="2" max="90" value="45" oninput="updateSunset(this.value)">
+            </div>
+            <div class="stat-grid">
+              <div class="stat-box">
+                <div class="stat-lbl">Relative Wegstrecke</div>
+                <div class="stat-val" id="sun-path">1.4 <span class="stat-unit">×</span></div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-lbl">Blau-Rest</div>
+                <div class="stat-val" id="sun-blue">68 <span class="stat-unit">%</span></div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-lbl">Sonnenfarbe</div>
+                <div class="stat-val" id="sun-color-name">Gelblich</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-lbl">Tageszeit</div>
+                <div class="stat-val" id="sun-time">Nachmittag</div>
+              </div>
+            </div>
+            <div id="sun-note" style="margin-top:.875rem;font-size:12.5px;color:var(--text-3);line-height:1.5">
+              Bei 45° legt das Licht ca. 1.4× den senkrechten Atmosphärenweg zurück.
+            </div>
+          </div>
+          <div class="exp-visual">
+            <canvas id="sunset-canvas" class="atmo-canvas" height="180"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p>Und dann gibt es noch die Mondfinsternis. Wenn der Mond in den Erdschatten tritt, leuchtet er nicht dunkel — er leuchtet kupferrot. Warum? Weil alle Sonnenuntergänge der Erde gleichzeitig auf den Mond scheinen. Das Licht das durch die Erdatmosphäre dringt — und das ist nur das Rote, alles andere wurde gestreut — beleuchtet den Mond. Derselbe Mechanismus, betrachtet von außen.</p>
+    </div>
+
+    <div class="info">
+      <div class="info-lbl">Mie-Streuung — Dunst und Vulkanasche</div>
+      <div class="info-txt">Feine Staubpartikel (größer als Gasmoleküle) streuen nach dem Mie-Gesetz — weniger wellenlängenabhängig, aber insgesamt stärker. Nach großen Waldbränden oder Vulkanausbrüchen (Pinatubo 1991, Tonga 2022) erscheinen Sonnenuntergänge tiefer rot und violett — die Staubschicht verstärkt die Filterung. Jeder Vulkanausbruch zeichnet sich für Wochen in den Sonnenuntergängen weltweit ab.</div>
+    </div>
+  </div>
+
+  <hr class="hr">
+
+  <div class="section skippable" id="aufg-2">
+    <div class="sec-lbl">Aufgaben</div>
+    <div class="aufgabe">
+      <div class="aufg-nr">Aufgabe 1</div>
+      <div class="aufg-txt">Die Atmosphäre ist senkrecht ~100 km dick. Bei einem Sonnenwinkel von 5° beträgt der Weg durch die Atmosphäre etwa das 11-fache. Schätze: wie viel Blau (450 nm) bleibt noch übrig, wenn man weiß dass bei senkrechtem Durchgang etwa 25% gestreut werden?</div>
+      <button class="hint-btn" onclick="hintToggle(this)">Hinweis</button>
+      <div class="hint-body">Bei 1× Wegstrecke: 75% Blau bleibt (25% gestreut). Bei 11× Wegstrecke wird die Streuung 11× stärker. Aber Streuung wirkt als Dämpfung, nicht additiv: verbleibend ≈ 0.75¹¹ ≈ 4.2%. Fast alles Blau ist weg — das erklärt das tiefe Orange-Rot kurz vor dem Untergang.</div>
+    </div>
+    <div class="aufgabe">
+      <div class="aufg-nr">Aufgabe 2</div>
+      <div class="aufg-txt">Warum leuchtet der Mond bei einer Mondfinsternis kupferrot statt dunkel zu werden?</div>
+      <button class="hint-btn" onclick="hintToggle(this)">Hinweis</button>
+      <div class="hint-body">Der Mond befindet sich im Erdschatten — kein direktes Sonnenlicht. Aber Licht das durch die Erdatmosphäre tangential fällt, wird auf den Mond gebogen. Dieses Licht hat den langen Atmosphärenweg zurückgelegt — es ist das Licht aller Sonnenuntergänge der Erde gleichzeitig. Fast nur Rot kommt durch. Der Kupferton ist das Integral aller Erdatmosphären-Filterwirkungen in diesem Moment.</div>
+    </div>
+  </div>
+
+  <hr class="hr">
+
+  <div class="section" id="quiz-2">
+    <div class="sec-lbl">Quiz · Einheit 2</div>
+
+    <div class="quiz-q">
+      <div class="quiz-txt">Warum erscheint die Sonne beim Untergang rot?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,'u2',0,false)">Die Sonne wird abends kühler und strahlt deshalb röter.</button>
+        <button class="opt" onclick="ans(this,'u2',0,true)">Das Licht legt beim flachen Winkel einen viel längeren Weg durch die Atmosphäre zurück. Das Blau ist weitgehend weggestreut — übrig bleibt Rot.</button>
+        <button class="opt" onclick="ans(this,'u2',0,false)">Der Dunst am Horizont absorbiert gezielt blaues Licht.</button>
+        <button class="opt" onclick="ans(this,'u2',0,false)">Das Auge ist abends empfindlicher für Rot.</button>
+      </div>
+      <div class="quiz-fb" id="fb-u2-0">Derselbe Mechanismus wie beim blauen Himmel — nur mit viel längerem Weg. Bei 5° Sonnenwinkel legt das Licht ~11× den senkrechten Atmosphärenweg zurück. Die Rayleigh-Streuung filtert dabei fast das gesamte Blau heraus. Was überlebt, sind die langen Wellenlängen.</div>
+    </div>
+
+    <div class="quiz-q">
+      <div class="quiz-txt">Wie hängen der blaue Taghimmel und der rote Sonnenuntergang zusammen?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,'u2',1,false)">Sie haben nichts miteinander zu tun — verschiedene Phänomene.</button>
+        <button class="opt" onclick="ans(this,'u2',1,false)">Der rote Untergang entsteht durch Reflexion am Boden.</button>
+        <button class="opt" onclick="ans(this,'u2',1,true)">Es ist derselbe Effekt: Rayleigh-Streuung filtert Blau heraus. Tagsüber sieht man das gefilterte Blau (Himmel). Abends sieht man das ungefilterte Restlicht (Sonne) — es ist rot, weil das Blau bereits im Himmel verteilt wurde.</button>
+        <button class="opt" onclick="ans(this,'u2',1,false)">Beim Untergang findet Mie-Streuung statt, tagsüber Rayleigh-Streuung.</button>
+      </div>
+      <div class="quiz-fb" id="fb-u2-1">Dasselbe Licht, derselbe Mechanismus, zwei Perspektiven: Der blaue Himmel ist das Gestreute. Die rote Sonne ist das Nicht-Gestreute — was übrig blieb nachdem das Blau herausgestreut wurde. Blauer Himmel und roter Untergang sind zwei Seiten derselben Münze.</div>
+    </div>
+
+    <div class="quiz-q">
+      <div class="quiz-txt">Warum leuchtet der Mond bei einer Mondfinsternis kupferrot?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,'u2',2,false)">Der Erdschatten reflektiert rotes Licht auf den Mond.</button>
+        <button class="opt" onclick="ans(this,'u2',2,false)">Der Mond erwärmt sich durch die Finsternis.</button>
+        <button class="opt" onclick="ans(this,'u2',2,true)">Licht das tangential durch die Erdatmosphäre fällt — gefiltert wie bei allen Sonnenuntergängen gleichzeitig — beleuchtet den Mond mit fast reinem Rot.</button>
+        <button class="opt" onclick="ans(this,'u2',2,false)">Staubpartikel im Weltraum färben das Licht rot.</button>
+      </div>
+      <div class="quiz-fb" id="fb-u2-2">Der Mond ist im Erdschatten — kein direktes Sonnenlicht. Aber Licht das die Erde tangential streift und durch die Atmosphäre gebogen wird, erreicht ihn noch. Dieses Licht ist das Produkt aller Sonnenuntergänge der Erde in diesem Moment — fast nur rotes Licht überlebt den langen Atmosphärenweg. Der kupferrote Mond ist Rayleigh-Streuung von der Erde aus gesehen.</div>
+    </div>
+
+    <div class="score-row">
+      <span class="score-n" id="score-u2">0 / 3</span>
+      <span class="score-lbl">korrekt</span>
+      <button class="reset-btn" onclick="resetQ('u2')">Neu</button>
+    </div>
+  </div>
+
+  <!-- Branch 2 -->
+  <div class="branch" id="branch-2">
+    <div class="branch-lbl">Tiefer gehen — optional</div>
+    <div style="font-family:var(--serif);font-size:18px;color:var(--text);margin-bottom:.5rem">Wie weit willst du?</div>
+    <div style="font-size:14px;color:var(--text-2);line-height:1.65;margin-bottom:1.25rem">Beide Einheiten abgeschlossen. Du kannst Mie-Streuung vertiefen oder den Pfad abschließen.</div>
+    <div class="branch-cards">
+      <button class="b-card" onclick="openB('b-mie')" id="bc-mie">
+        <div class="b-icon">🌋</div>
+        <div class="b-name">Mie-Streuung</div>
+        <div class="b-desc">Warum Vulkanasche Sonnenuntergänge spektakulärer macht — und was das mit dem Größenunterschied der Teilchen zu tun hat.</div>
+      </button>
+      <button class="b-card" onclick="openB('b2-finish')">
+        <div class="b-icon">✓</div>
+        <div class="b-name" style="color:var(--text-3)">Abschließen</div>
+        <div class="b-desc">Pfad abschließen und NOXIA-Schlüssel freischalten.</div>
+      </button>
+    </div>
+  </div>
+
+  <div class="b-panel" id="b-mie">
+    <div class="b-panel-hdr">
+      <span class="b-panel-tag">Seitenast · Optik</span>
+      <span class="b-panel-title">Mie-Streuung — wenn Teilchen größer werden</span>
+    </div>
+    <div class="b-panel-body">
+      <div class="prose">
+        <p>Rayleigh-Streuung funktioniert nur wenn die Streuer (Gasmoleküle) viel kleiner sind als die Wellenlänge des Lichts. Sobald die Teilchen größer werden — Wassertröpfchen, Staub, Asche — gilt ein anderes Gesetz: Mie-Streuung.</p>
+        <p>Mie-Streuung ist weniger wellenlängenabhängig: alle Farben werden ähnlich stark gestreut. Das Ergebnis: Wolken erscheinen weiß (alle Wellenlängen gleichmäßig gestreut), Nebel ist weiß, und Milch ist weiß.</p>
+        <p>Nach dem Ausbruch des Pinatubo 1991 schwebten jahrelang feine Sulfat-Aerosole in der Stratosphäre. Die Mie-Streuung dieser Partikel erzeugte weltweit Sonnenuntergänge in Magenta- und Violett-Tönen, die normalerweise kaum vorkommen — weil die Partikel in einer Größe waren die gezielt violett zurückwarf.</p>
+        <p>Jeder Vulkanausbruch schreibt sich in die Sonnenuntergänge der nächsten Monate ein — ein atmosphärisches Gedächtnis.</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /unit-2 -->
+
+<!-- Completion -->
+<div class="completion" id="completion">
+  <div class="comp-title">Lernpfad abgeschlossen</div>
+  <div class="comp-sub">Derselbe Mechanismus, zwei Perspektiven: der blaue Himmel ist das Gestreute, der rote Untergang ist das was übrig bleibt. Rayleigh-Streuung verbindet beides. Folgendes wurde in NOXIA freigeschaltet:</div>
+  <div class="comp-keys">
+    <span class="pkey">SENSOR:ATMOSPHERE</span>
+    <span class="pkey">NAV:ORBITAL</span>
+  </div>
+  <div class="comp-depth" id="comp-depth">Lerntiefe: —</div>
+</div>
+
+<div class="horizon" id="horizon">
+  <div class="horizon-txt">Der nächste Horizont: Wie alt ist ein Stern — und wie kann man das aus seinem Lichtspektrum ablesen? Oder: Warum ist Wasser flüssig, obwohl H₂ und O₂ Gase sind?</div>
+  <div class="h-btns">
+    <button class="h-btn primary">Nächsten Pfad erkunden →</button>
+    <button class="h-btn">In NOXIA weitermachen</button>
+  </div>
+</div>
+
+</div></main>
+
+<script>
+// ═══════════ DEPTH ═══════════
+let depthRaw = 0;
+const depthPoints = { u1_quiz:15, u2_quiz:18, ray_interact:4, sun_interact:4, branch_violett:8, branch_mie:8, finish:5 };
+const depthGiven = {};
+function awardDepth(key) {
+  if (depthGiven[key]) return;
+  depthGiven[key] = true;
+  depthRaw += depthPoints[key]||0;
+  renderDepth();
+}
+function renderDepth() {
+  const d = Math.round(100*(1-1/(1+depthRaw/26)));
+  document.getElementById('dfill').style.width = d+'%';
+  document.getElementById('dval').textContent = d;
+  const labels = [[10,'Beginn'],[22,'Einstieg'],[38,'Orientierung'],[52,'Grundlagen'],[65,'Mechanismus'],[76,'Theorie'],[87,'Forschungsnähe'],[100,'Forschungsrand']];
+  for (const [t,l] of [...labels].reverse()) {
+    if (d>=t) { document.getElementById('dnote').textContent='— '+l; break; }
+  }
+}
+
+// ═══════════ RAYLEIGH EXPERIMENT ═══════════
+function wavelengthToRGB(wl) {
+  let r,g,b;
+  if (wl<440){r=-(wl-440)/60;g=0;b=1;}
+  else if(wl<490){r=0;g=(wl-440)/50;b=1;}
+  else if(wl<510){r=0;g=1;b=-(wl-510)/20;}
+  else if(wl<580){r=(wl-510)/70;g=1;b=0;}
+  else if(wl<645){r=1;g=-(wl-645)/65;b=0;}
+  else{r=1;g=0;b=0;}
+  let a=1;
+  if(wl<420)a=0.3+0.7*(wl-380)/40;
+  if(wl>680)a=0.3+0.7*(700-wl)/20;
+  return [Math.round(Math.min(1,r*a)*255),Math.round(Math.min(1,g*a)*255),Math.round(Math.min(1,b*a)*255)];
+}
+function colorName(wl) {
+  if(wl<420)return'Violett';if(wl<450)return'Blauviolett';if(wl<490)return'Blau';
+  if(wl<510)return'Blaugrün';if(wl<530)return'Grün';if(wl<580)return'Gelbgrün';
+  if(wl<600)return'Gelb';if(wl<625)return'Orange';return'Rot';
+}
+
+function updateRayleigh(wl) {
+  wl = +wl;
+  awardDepth('ray_interact');
+  document.getElementById('ray-wl-val').textContent = wl+' nm';
+  const [r,g,b] = wavelengthToRGB(wl);
+  document.getElementById('ray-swatch').style.background = `rgb(${r},${g},${b})`;
+  document.getElementById('ray-color').textContent = colorName(wl);
+
+  // Rayleigh: relative to 700nm red
+  const refWl = 700;
+  const factor = Math.pow(refWl/wl, 4);
+  const scatterRel = factor.toFixed(1);
+  document.getElementById('ray-scatter').innerHTML = scatterRel+' <span class="stat-unit">×</span>';
+  document.getElementById('ray-factor').textContent = (Math.pow(700/wl,4)/Math.pow(700/700,4)).toFixed(2);
+
+  const skyContrib = wl < 500 ? 'sehr hoch' : wl < 560 ? 'mittel' : wl < 620 ? 'gering' : 'sehr gering';
+  document.getElementById('ray-sky').textContent = skyContrib;
+
+  const notes = {
+    380:'Violett — stärker gestreut als Blau, aber Auge weniger empfindlich.',
+    450:'Blau — optimal: stark gestreut, Auge empfindlich. Himmelfarbe.',
+    530:'Grün — moderate Streuung. Dominiert nicht den Himmel.',
+    580:'Gelb — schwache Streuung. Geht fast direkt durch.',
+    650:'Rot — kaum gestreut. Gelangt fast ungefiltert zur Sonne.',
+    700:'Tiefrot — minimale Streuung. Dominiert beim Sonnenuntergang.',
+  };
+  let note = 'Schiebe den Regler um verschiedene Wellenlängen zu erkunden.';
+  for(const [k,v] of Object.entries(notes)) {
+    if(Math.abs(wl-+k)<35){note=v;break;}
+  }
+  document.getElementById('ray-note').textContent = note;
+
+  drawRayleighWave(wl,r,g,b);
+  drawScatterChart(wl);
+}
+
+function drawRayleighWave(wl,r,g,b) {
+  const canvas = document.getElementById('ray-canvas');
+  const dpr = window.devicePixelRatio||1;
+  canvas.width = canvas.offsetWidth*dpr;
+  canvas.height = 100*dpr;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr,dpr);
+  const W=canvas.offsetWidth,H=100;
+  ctx.fillStyle='#1A1916'; ctx.fillRect(0,0,W,H);
+  const cycles = 3+(700-wl)/100;
+  const color = `rgb(${r},${g},${b})`;
+  ctx.beginPath(); ctx.strokeStyle=color; ctx.lineWidth=2;
+  ctx.shadowColor=color; ctx.shadowBlur=8;
+  for(let x=0;x<=W;x++){
+    const y=H/2-28*Math.sin(2*Math.PI*cycles*x/W);
+    x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+  }
+  ctx.stroke(); ctx.shadowBlur=0;
+  ctx.fillStyle='rgba(255,255,255,.45)'; ctx.font='9px monospace'; ctx.textAlign='center';
+  ctx.fillText('λ = '+wl+' nm',W/2,H-6);
+}
+
+function drawScatterChart(activeWl) {
+  const canvas = document.getElementById('scatter-chart');
+  const dpr = window.devicePixelRatio||1;
+  canvas.width = canvas.offsetWidth*dpr;
+  canvas.height = 80*dpr;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr,dpr);
+  const W=canvas.offsetWidth,H=80;
+  ctx.fillStyle='#F0EFE9'; ctx.fillRect(0,0,W,H);
+
+  // Draw bar chart of scatter intensity across spectrum
+  const wls = [];
+  for(let w=380;w<=700;w+=10) wls.push(w);
+  const maxScatter = Math.pow(700/380,4);
+  const barW = W/wls.length;
+
+  wls.forEach((wl,i) => {
+    const scatter = Math.pow(700/wl,4);
+    const h = (scatter/maxScatter)*(H-16);
+    const [r,g,b] = wavelengthToRGB(wl);
+    const isActive = Math.abs(wl-activeWl)<8;
+    ctx.fillStyle = isActive ? `rgb(${r},${g},${b})` : `rgba(${r},${g},${b},0.5)`;
+    ctx.fillRect(i*barW, H-h-8, barW-1, h);
+    if(isActive){
+      ctx.strokeStyle='#1A1916';ctx.lineWidth=1.5;
+      ctx.strokeRect(i*barW, H-h-8, barW-1, h);
+    }
+  });
+
+  // Labels
+  ctx.fillStyle='#8A8880'; ctx.font='9px monospace'; ctx.textAlign='left';
+  ctx.fillText('380nm',2,H-1);
+  ctx.textAlign='right';
+  ctx.fillText('700nm',W-2,H-1);
+  ctx.textAlign='center';
+  ctx.fillText('Streuungsintensität → kurze λ dominieren',W/2,10);
+}
+
+// ═══════════ SUNSET EXPERIMENT ═══════════
+function updateSunset(angle) {
+  angle = +angle;
+  awardDepth('sun_interact');
+  document.getElementById('sun-angle-val').textContent = angle+'°';
+
+  // Path length through atmosphere: ~1/sin(angle)
+  const pathLength = angle < 5 ? 11.5 : (1/Math.sin(angle*Math.PI/180));
+  document.getElementById('sun-path').innerHTML = pathLength.toFixed(1)+' <span class="stat-unit">×</span>';
+
+  // Blue remaining: exponential decay
+  const blueRemaining = Math.max(0, Math.round(Math.pow(0.75, pathLength)*100));
+  document.getElementById('sun-blue').innerHTML = blueRemaining+' <span class="stat-unit">%</span>';
+
+  // Sun color based on remaining blue
+  let sunColor, sunColorName, sunTime;
+  if(angle > 60){
+    sunColor='rgb(255,255,240)'; sunColorName='Weißlich'; sunTime='Mittag';
+  } else if(angle > 30){
+    sunColor='rgb(255,240,180)'; sunColorName='Gelblich'; sunTime='Nachmittag';
+  } else if(angle > 15){
+    sunColor='rgb(255,200,80)'; sunColorName='Gold'; sunTime='Spätnachmittag';
+  } else if(angle > 8){
+    sunColor='rgb(255,140,30)'; sunColorName='Orange'; sunTime='Abend';
+  } else if(angle > 4){
+    sunColor='rgb(240,80,20)'; sunColorName='Tieforange'; sunTime='Kurz vor Untergang';
+  } else {
+    sunColor='rgb(200,40,10)'; sunColorName='Tiefrot'; sunTime='Untergang';
+  }
+  document.getElementById('sun-color-name').textContent = sunColorName;
+  document.getElementById('sun-time').textContent = sunTime;
+
+  const notes = {
+    90:'Senkrechter Einfall — kürzester Weg, fast alles Blau bleibt. Sonne erscheint weiß.',
+    45:'Schräger Einfall — 41% mehr Weg. Leichte Gelbfärbung.',
+    15:'Sehr flacher Winkel — 3.9× längerer Weg. Blau fast verschwunden.',
+    5: 'Extremer Winkel — 11× längerer Weg. Fast nur Rot übrig.',
+  };
+  let note = '';
+  let minDist = 999;
+  for(const [k,v] of Object.entries(notes)){
+    const d=Math.abs(angle-+k);
+    if(d<minDist){minDist=d;note=v;}
+  }
+  document.getElementById('sun-note').textContent = note;
+
+  drawSunsetCanvas(angle, sunColor);
+}
+
+function drawSunsetCanvas(angle, sunColor) {
+  const canvas = document.getElementById('sunset-canvas');
+  const dpr = window.devicePixelRatio||1;
+  canvas.width = canvas.offsetWidth*dpr;
+  canvas.height = 180*dpr;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr,dpr);
+  const W=canvas.offsetWidth, H=180;
+
+  // Night sky background
+  ctx.fillStyle='#0a1628'; ctx.fillRect(0,0,W,H);
+
+  // Earth curve at bottom
+  const earthY = H-30;
+  ctx.beginPath();
+  ctx.ellipse(W/2, earthY+200, 380, 200, 0, 0, Math.PI*2);
+  ctx.fillStyle='#1a3a1a'; ctx.fill();
+
+  // Atmosphere glow layer
+  const atmoGrad = ctx.createLinearGradient(0,earthY-60,0,earthY);
+  atmoGrad.addColorStop(0,'rgba(135,206,235,0)');
+  atmoGrad.addColorStop(1,'rgba(135,206,235,0.15)');
+  ctx.fillStyle=atmoGrad; ctx.fillRect(0,earthY-60,W,60);
+
+  // Sun position based on angle
+  const rad = angle*Math.PI/180;
+  const sunX = W*0.75;
+  const sunY = earthY - Math.sin(rad)*(H*0.7);
+
+  // Sun rays/glow
+  const glow = ctx.createRadialGradient(sunX,sunY,0,sunX,sunY,60);
+  glow.addColorStop(0,sunColor.replace('rgb','rgba').replace(')',',0.6)'));
+  glow.addColorStop(1,'rgba(0,0,0,0)');
+  ctx.fillStyle=glow; ctx.beginPath(); ctx.arc(sunX,sunY,60,0,Math.PI*2); ctx.fill();
+
+  // Sun disk
+  ctx.beginPath(); ctx.arc(sunX,sunY,12,0,Math.PI*2);
+  ctx.fillStyle=sunColor; ctx.fill();
+
+  // Light path line through atmosphere
+  const pathEndX = 30;
+  const pathEndY = earthY-15;
+  ctx.beginPath();
+  ctx.moveTo(sunX,sunY);
+  ctx.lineTo(pathEndX,pathEndY);
+  ctx.strokeStyle='rgba(255,255,200,0.25)'; ctx.lineWidth=2;
+  ctx.setLineDash([6,4]); ctx.stroke(); ctx.setLineDash([]);
+
+  // Atmosphere thickness indicator
+  const atmoH = 50;
+  ctx.strokeStyle='rgba(135,206,235,0.3)'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(0,earthY-atmoH); ctx.lineTo(W,earthY-atmoH); ctx.stroke();
+
+  // Angle arc
+  ctx.strokeStyle='rgba(255,255,255,0.3)'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.arc(pathEndX,pathEndY,35,Math.PI*1.5,-rad+Math.PI*1.5,false);
+  ctx.stroke();
+  ctx.fillStyle='rgba(255,255,255,0.6)'; ctx.font='10px monospace';
+  ctx.fillText(angle+'°',pathEndX+12,pathEndY-20);
+
+  // Label
+  ctx.fillStyle='rgba(255,255,255,0.5)'; ctx.font='10px monospace'; ctx.textAlign='center';
+  ctx.fillText('Lichtweg durch Atmosphäre: '+
+    (angle<5?'~11×':(1/Math.sin(angle*Math.PI/180)).toFixed(1)+'×'),
+    W/2, H-8);
+  ctx.textAlign='left';
+}
+
+// ═══════════ QUIZ ═══════════
+const QS = {
+  u1:{answers:[null,null,null],score:0,done:false},
+  u2:{answers:[null,null,null],score:0,done:false}
+};
+function ans(btn,uid,qi,correct) {
+  const q=QS[uid]; if(q.answers[qi]!==null)return;
+  q.answers[qi]=correct; if(correct)q.score++;
+  btn.classList.add(correct?'correct':'wrong');
+  btn.closest('.quiz-q').querySelectorAll('.opt').forEach(o=>{
+    o.classList.add('locked');
+    if(!correct&&(o.getAttribute('onclick')||'').includes(',true)'))o.classList.add('correct');
+  });
+  const fb=document.getElementById('fb-'+uid+'-'+qi);
+  if(fb)fb.classList.add('open');
+  const answered=q.answers.filter(a=>a!==null).length;
+  document.getElementById('score-'+uid).textContent=q.score+' / '+answered;
+  if(answered===3&&q.score===3&&!q.done){
+    q.done=true;
+    if(uid==='u1'){awardDepth('u1_quiz');unlockU2();}
+    if(uid==='u2'){awardDepth('u2_quiz');showBranch2();}
+  }
+}
+function resetQ(uid) {
+  const q=QS[uid]; q.answers=[null,null,null]; q.score=0; q.done=false;
+  const unit=document.getElementById('unit-'+uid.replace('u',''));
+  if(unit){
+    unit.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong','locked'));
+    unit.querySelectorAll('.quiz-fb').forEach(f=>f.classList.remove('open'));
+  }
+  document.getElementById('score-'+uid).textContent='0 / 3';
+}
+
+// ═══════════ NAV ═══════════
+function skipTo(id) {
+  const el=document.getElementById(id); if(!el)return;
+  el.closest('.unit').querySelectorAll('.skippable').forEach(s=>s.classList.add('hidden'));
+  setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),50);
+}
+function hintToggle(btn) {
+  const body=btn.nextElementSibling;
+  const open=body.classList.contains('open');
+  body.classList.toggle('open',!open);
+  btn.textContent=open?'Hinweis':'Schließen';
+}
+function skipBranch(){
+  document.getElementById('branch-violett').style.display='none';
+}
+
+// ═══════════ UNLOCK ═══════════
+function unlockU2() {
+  const card=document.getElementById('preview-1');
+  card.classList.add('unlocked','just-unlocked');
+  setTimeout(()=>card.classList.remove('just-unlocked'),800);
+  document.getElementById('prev-ey-1').textContent='Jetzt zugänglich';
+  const u2=document.getElementById('unit-2');
+  u2.style.opacity='1'; u2.style.pointerEvents='auto'; u2.removeAttribute('aria-disabled');
+  setTimeout(()=>u2.scrollIntoView({behavior:'smooth',block:'start'}),700);
+}
+function showBranch2(){
+  document.getElementById('branch-2').classList.add('visible');
+  setTimeout(()=>document.getElementById('branch-2').scrollIntoView({behavior:'smooth',block:'start'}),500);
+}
+
+// ═══════════ BRANCHES ═══════════
+function openB(id){
+  if(id==='b-violett'){
+    awardDepth('branch_violett');
+    const p=document.getElementById('b-violett'); p.classList.add('open');
+    document.getElementById('bc-violett').classList.add('active');
+    setTimeout(()=>p.scrollIntoView({behavior:'smooth',block:'start'}),100);
+    return;
+  }
+  if(id==='b-mie'){
+    awardDepth('branch_mie');
+    const p=document.getElementById('b-mie'); p.classList.add('open');
+    document.getElementById('bc-mie').classList.add('active');
+    setTimeout(()=>p.scrollIntoView({behavior:'smooth',block:'start'}),100);
+    return;
+  }
+  if(id==='b2-finish'){
+    awardDepth('finish'); showCompletion();
+  }
+}
+function showCompletion(){
+  const d=document.getElementById('dval').textContent;
+  const note=document.getElementById('dnote').textContent.replace('— ','');
+  document.getElementById('comp-depth').textContent='Lerntiefe: '+d+' — '+note;
+  document.getElementById('completion').classList.add('visible');
+  document.getElementById('horizon').classList.add('visible');
+  setTimeout(()=>document.getElementById('completion').scrollIntoView({behavior:'smooth',block:'start'}),300);
+}
+
+// ═══════════ INIT ═══════════
+window.addEventListener('load',()=>{
+  updateRayleigh(450);
+  updateSunset(45);
+  renderDepth();
+  window.addEventListener('resize',()=>{
+    clearTimeout(window._rt);
+    window._rt=setTimeout(()=>{
+      updateRayleigh(+document.getElementById('ray-wl').value);
+      updateSunset(+document.getElementById('sun-angle').value);
+    },100);
+  });
+});
+</script>
+</body>
+</html>
