@@ -7,6 +7,7 @@ import SiteNav from '../components/SiteNav';
 import './globals.css';
 import './design-system.css';
 import './footer-legal.css';
+import './module-experience.css';
 
 export const metadata: Metadata = {
   title: 'Solar Science Foundation',
