@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SSF · Wie schneidet man Stahl der härter ist als jedes Werkzeug?</title>
+<style>
+:root {
+  --bg:#F9F8F5;--surface:#F0EFE9;--surface2:#E6E4DC;
+  --border:#D8D6CE;--soft:#E8E6DE;
+  --text:#1A1916;--text-2:#4A4840;--text-3:#8A8880;
+  --navy:#1C2B3A;--navy-2:#2C3F52;
+  --gold:#C9A84C;--gold-bg:#F5F0E0;--gold-b:#DFC87A;
+  --ok-bg:#EEF3EE;--ok-b:#7AAD7A;--ok-t:#2A5C2A;
+  --no-bg:#F5EEEE;--no-b:#C49090;--no-t:#6B2222;
+  --spark:#FF6B00;--plasma:#FF3366;
+  --r:4px;
+  --serif:Georgia,'Palatino Linotype',serif;
+  --sans:system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'SFMono-Regular','Cascadia Code','Fira Code',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.site-header{border-bottom:1px solid var(--border);padding:1rem 0;position:sticky;top:0;background:var(--bg);z-index:60}
+.h-inner{max-width:740px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;gap:.875rem}
+.signet{width:24px;height:24px;flex-shrink:0}
+.site-name{font-family:var(--mono);font-size:11px;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase}
+.h-space{flex:1}
+.mod-id{font-family:var(--mono);font-size:10px;color:var(--text-3)}
+.depth-wrap{background:var(--bg);border-bottom:1px solid var(--soft);padding:.5rem 0;position:sticky;top:57px;z-index:50}
+.depth-inner{max-width:740px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;gap:.875rem}
+.depth-lbl{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.depth-track{flex:1;height:5px;background:var(--surface2);border-radius:3px;overflow:hidden}
+.depth-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--gold),var(--navy));width:0%;transition:width 1.4s cubic-bezier(.22,1,.36,1)}
+.depth-val{font-family:var(--mono);font-size:11px;color:var(--text-2);min-width:2.5ch;text-align:right}
+.depth-note{font-family:var(--mono);font-size:9.5px;color:var(--text-3);white-space:nowrap}
+@media(max-width:480px){.depth-note{display:none}}
+.wrap{max-width:740px;margin:0 auto;padding:0 1.5rem}
+main{padding:0 0 8rem}
+.intro{padding:3rem 0 0;margin-bottom:3.5rem}
+.eyebrow{font-family:var(--mono);font-size:10.5px;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem}
+.path-title{font-family:var(--serif);font-size:clamp(24px,4vw,34px);font-weight:normal;color:var(--text);line-height:1.2;letter-spacing:-.015em;margin-bottom:1rem}
+.path-desc{font-size:16px;color:var(--text-2);line-height:1.7;max-width:54ch}
+.unit{margin-bottom:1.5rem;scroll-margin-top:115px}
+.unit-hdr{padding:2.5rem 0 0;margin-bottom:2rem;border-top:1px solid var(--border)}
+.unit-idx{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.875rem}
+.unit-q{font-family:var(--serif);font-size:clamp(19px,3vw,26px);font-weight:normal;color:var(--text);line-height:1.25;letter-spacing:-.01em;margin-bottom:1.5rem}
+.sec-lbl{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:1.25rem;display:flex;align-items:center;gap:.75rem}
+.sec-lbl::after{content:'';flex:1;height:1px;background:var(--soft)}
+.section{margin-bottom:2.75rem}
+.hr{border:none;border-top:1px solid var(--soft);margin:2.5rem 0}
+.prose{font-family:var(--serif);font-size:17px;line-height:1.82;color:var(--text)}
+.prose p{margin-bottom:1.2rem}
+.prose p:last-child{margin-bottom:0}
+.tip{border-bottom:1.5px dashed var(--gold);cursor:help;position:relative}
+.tip-pop{display:none;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;font-family:var(--sans);font-size:13px;line-height:1.5;padding:.75rem 1rem;border-radius:6px;width:260px;z-index:200;pointer-events:none;box-shadow:0 4px 20px rgba(0,0,0,.28)}
+.tip-pop::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:var(--navy)}
+.tip-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#E8D9A8;margin-bottom:.2rem}
+.tip:hover .tip-pop,.tip:focus .tip-pop{display:block}
+.obs{background:var(--surface);border-left:3px solid var(--gold);border-radius:0 var(--r) var(--r) 0;padding:1.25rem 1.5rem;margin:1.75rem 0}
+.obs-ey{font-family:var(--mono);font-size:10px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem}
+.obs-txt{font-family:var(--serif);font-size:16.5px;color:var(--text-2);line-height:1.72;font-style:italic}
+.skip-bar{display:flex;align-items:center;gap:.75rem;margin-bottom:2rem;padding:.625rem 1rem;background:var(--surface);border-radius:var(--r);border:1px solid var(--soft)}
+.skip-bar span{font-size:13px;color:var(--text-3);flex:1}
+.skip-btn{font-size:12.5px;color:var(--text-3);background:transparent;border:1px solid var(--border);border-radius:var(--r);padding:4px 12px;cursor:pointer;font-family:var(--sans)}
+.skip-btn:hover{color:var(--text-2);border-color:var(--text-3)}
+.skippable.hidden{display:none}
+.info{background:var(--surface);border-radius:var(--r);padding:1.125rem 1.375rem;margin:1.5rem 0;border-left:3px solid var(--navy)}
+.info-lbl{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.09em;text-transform:uppercase;margin-bottom:.5rem}
+.info-txt{font-size:15px;color:var(--text);line-height:1.7}
+.formula-block{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.125rem 1.5rem;margin:1.5rem 0}
+.formula{font-family:var(--mono);font-size:14px;color:var(--navy);display:block;margin-bottom:.375rem;line-height:1.7}
+.formula-cap{font-size:13px;color:var(--text-3);line-height:1.55}
+/* Experiment cards */
+.exp-card{border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:1.75rem 0}
+.exp-header{background:var(--surface);padding:1rem 1.375rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.875rem}
+.exp-icon{font-size:20px;flex-shrink:0}
+.exp-tag{font-family:var(--mono);font-size:9.5px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.2rem}
+.exp-name{font-family:var(--serif);font-size:16px;color:var(--text)}
+.exp-do{background:#F5F4EE;border-left:3px solid var(--gold);padding:1rem 1.25rem;border-bottom:1px solid var(--soft)}
+.exp-do-lbl{font-family:var(--mono);font-size:9.5px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.375rem}
+.exp-do-txt{font-size:14.5px;color:var(--text-2);line-height:1.65}
+.exp-body{padding:1.375rem}
+.exp-row{display:flex;gap:1.25rem;align-items:flex-start;flex-wrap:wrap}
+.exp-controls{flex:0 0 220px;min-width:200px}
+.exp-visual{flex:1;min-width:220px}
+.slider-group{margin-bottom:1rem}
+.slider-lbl{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.375rem}
+.slider-name{font-family:var(--mono);font-size:10.5px;color:var(--text-3);letter-spacing:.07em;text-transform:uppercase}
+.slider-val{font-family:var(--mono);font-size:13px;color:var(--navy)}
+input[type=range]{width:100%;-webkit-appearance:none;height:5px;background:var(--surface2);border-radius:3px;outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--navy);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--navy);border:none;cursor:pointer}
+.edm-canvas{display:block;width:100%;border-radius:var(--r);background:#06080f}
+.stat-row{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:.75rem}
+.stat-box{background:var(--surface);border-radius:var(--r);padding:.625rem .875rem;border:1px solid var(--soft)}
+.stat-lbl{font-family:var(--mono);font-size:9.5px;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.25rem}
+.stat-val{font-family:var(--mono);font-size:14px;color:var(--navy)}
+.stat-val.highlight{color:var(--ok-t);font-weight:600}
+.stat-val.danger{color:#DC143C}
+/* Comparison bar */
+.comp-bar-wrap{margin-top:.875rem}
+.comp-bar-item{display:flex;align-items:center;gap:.75rem;margin-bottom:.5rem}
+.comp-bar-lbl{font-family:var(--mono);font-size:10px;color:var(--text-3);width:100px;flex-shrink:0;text-align:right}
+.comp-bar-track{flex:1;height:12px;background:var(--surface2);border-radius:3px;overflow:hidden}
+.comp-bar-fill{height:100%;border-radius:3px;transition:width .4s}
+.comp-bar-val{font-family:var(--mono);font-size:10px;color:var(--text-2);min-width:60px}
+/* Aufgaben */
+.aufgabe{border:1px solid var(--border);border-radius:var(--r);padding:1.125rem 1.375rem;margin-bottom:.875rem}
+.aufg-nr{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5rem}
+.aufg-txt{font-size:15px;color:var(--text);line-height:1.65}
+.hint-btn{margin-top:.75rem;padding:3px 11px;font-size:12px;border:1px solid var(--border);border-radius:var(--r);background:transparent;color:var(--text-3);cursor:pointer;font-family:var(--sans)}
+.hint-body{display:none;font-size:13.5px;color:var(--text-2);line-height:1.65;margin-top:.75rem;padding-top:.75rem;border-top:1px solid var(--soft)}
+.hint-body.open{display:block}
+/* Quiz */
+.quiz-q{margin-bottom:1.75rem}
+.quiz-txt{font-family:var(--serif);font-size:16px;color:var(--text);line-height:1.55;margin-bottom:.75rem}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opt{padding:10px 14px;border:1px solid var(--border);border-radius:var(--r);font-size:14px;color:var(--text);background:var(--surface);text-align:left;cursor:pointer;line-height:1.45;transition:border-color .12s,background .12s;font-family:var(--sans)}
+.opt:hover:not(.locked){border-color:var(--navy-2);background:var(--surface2)}
+.opt.correct{border-color:var(--ok-b);background:var(--ok-bg);color:var(--ok-t)}
+.opt.wrong{border-color:var(--no-b);background:var(--no-bg);color:var(--no-t)}
+.opt.locked{cursor:default}
+.quiz-fb{display:none;font-size:13.5px;color:var(--text-2);line-height:1.65;margin-top:.75rem;padding:.75rem 1rem;background:var(--surface);border-radius:var(--r);border:1px solid var(--soft)}
+.quiz-fb.open{display:block}
+.score-row{display:flex;align-items:center;gap:.875rem;flex-wrap:wrap;padding-top:1.375rem;border-top:1px solid var(--border);margin-top:.5rem}
+.score-n{font-family:var(--serif);font-size:26px;color:var(--text);letter-spacing:-.02em}
+.score-lbl{font-size:13px;color:var(--text-3)}
+.reset-btn{margin-left:auto;padding:5px 13px;font-size:12px;border:1px solid var(--border);border-radius:var(--r);background:transparent;color:var(--text-3);cursor:pointer;font-family:var(--sans)}
+/* Branch */
+.branch{margin:2.5rem 0;padding:1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;display:none}
+.branch.visible{display:block}
+.branch-lbl{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:.75rem}
+.branch-lbl::after{content:'';flex:1;height:1px;background:var(--soft)}
+.branch-cards{display:grid;grid-template-columns:1fr 1fr;gap:.875rem;margin-top:.875rem}
+@media(max-width:460px){.branch-cards{grid-template-columns:1fr}}
+.b-card{border:1px solid var(--border);border-radius:var(--r);padding:1rem 1.125rem;cursor:pointer;background:var(--bg);transition:border-color .15s;text-align:left;font-family:var(--sans)}
+.b-card:hover{border-color:var(--navy-2)}
+.b-card.active{border-color:var(--gold);box-shadow:0 0 0 2px rgba(201,168,76,.2)}
+.b-icon{font-size:20px;margin-bottom:.5rem}
+.b-name{font-family:var(--mono);font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--navy);margin-bottom:.375rem}
+.b-desc{font-size:13px;color:var(--text-3);line-height:1.5}
+.b-panel{display:none;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:1.25rem 0}
+.b-panel.open{display:block}
+.b-panel-hdr{padding:1rem 1.375rem;background:var(--gold-bg);border-bottom:1px solid var(--gold-b);display:flex;align-items:center;gap:.75rem}
+.b-panel-tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;padding:2px 7px;border-radius:3px;background:#E8D9A8;color:var(--navy)}
+.b-panel-title{font-family:var(--serif);font-size:16px;color:var(--text)}
+.b-panel-body{padding:1.375rem;background:var(--bg)}
+/* Preview */
+.preview-card{margin:2.5rem 0;border-radius:6px;border:1px solid var(--border);overflow:hidden;position:relative;transition:border-color .4s}
+.preview-card.unlocked{border-color:var(--gold-b)}
+.prev-hdr{padding:1.25rem 1.5rem;background:var(--surface);display:flex;align-items:flex-start;gap:1rem;border-bottom:1px solid var(--border);transition:background .4s}
+.preview-card.unlocked .prev-hdr{background:var(--gold-bg);border-bottom-color:var(--gold-b)}
+.prev-icon{width:36px;height:36px;border-radius:50%;background:var(--surface2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:17px}
+.prev-meta{flex:1}
+.prev-ey{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.375rem;transition:color .4s}
+.preview-card.unlocked .prev-ey{color:var(--gold)}
+.prev-title{font-family:var(--serif);font-size:17px;color:var(--text);line-height:1.3;transition:filter .4s}
+.preview-card:not(.unlocked) .prev-title{filter:blur(2.5px);user-select:none}
+.prev-body{padding:1.125rem 1.5rem;position:relative}
+.prev-teaser{font-size:14px;color:var(--text-2);line-height:1.65;transition:filter .4s}
+.preview-card:not(.unlocked) .prev-teaser{filter:blur(3px);color:#AAA;user-select:none}
+.prev-keys{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.875rem;transition:filter .4s}
+.preview-card:not(.unlocked) .prev-keys{filter:blur(3px);pointer-events:none}
+.pkey{font-family:var(--mono);font-size:11px;color:var(--navy);background:var(--gold-bg);border:1px solid var(--gold-b);padding:3px 9px;border-radius:var(--r)}
+.lock-ov{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;background:rgba(249,248,245,.55);backdrop-filter:blur(1px);transition:opacity .4s;pointer-events:none}
+.preview-card.unlocked .lock-ov{opacity:0}
+.lock-ico{font-size:22px}
+.lock-txt{font-family:var(--mono);font-size:11px;color:var(--text-3);letter-spacing:.07em;text-transform:uppercase}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(201,168,76,.5)}70%{box-shadow:0 0 0 12px rgba(201,168,76,0)}100%{box-shadow:0 0 0 0 rgba(201,168,76,0)}}
+.just-unlocked{animation:pulse .7s ease-out}
+.completion{display:none;background:var(--gold-bg);border:1px solid var(--gold-b);border-radius:8px;padding:2.25rem 1.5rem;text-align:center;margin:3rem 0}
+.completion.visible{display:block}
+.comp-title{font-family:var(--serif);font-size:22px;color:var(--navy);margin-bottom:.5rem}
+.comp-sub{font-size:14px;color:var(--text-2);line-height:1.65;margin-bottom:1.25rem;max-width:48ch;margin-left:auto;margin-right:auto}
+.comp-keys{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.25rem}
+.comp-depth{font-family:var(--mono);font-size:11px;color:var(--text-3)}
+.horizon{display:none;margin:1.5rem 0 6rem;padding:1.25rem 1.5rem;border-top:1px solid var(--soft)}
+.horizon.visible{display:block}
+.horizon-txt{font-family:var(--serif);font-size:15.5px;color:var(--text-3);line-height:1.8;font-style:italic;max-width:52ch;margin-bottom:1.25rem}
+@media(max-width:580px){.prose{font-size:16px}.path-title{font-size:22px}.unit-q{font-size:18px}.exp-row{flex-direction:column}.exp-controls{flex:none;width:100%}}
+:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="h-inner">
+    <svg class="signet" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+      <circle cx="13" cy="13" r="12" stroke="#1C2B3A" stroke-width="1.1" fill="none"/>
+      <circle cx="13" cy="13" r="3.5" fill="#C9A84C"/>
+      <ellipse cx="13" cy="13" rx="10" ry="4" stroke="#1C2B3A" stroke-width=".7" fill="none" transform="rotate(-25 13 13)"/>
+      <ellipse cx="13" cy="13" rx="10" ry="4" stroke="#1C2B3A" stroke-width=".7" fill="none" transform="rotate(25 13 13)"/>
+    </svg>
+    <span class="site-name">Solar Science Foundation</span>
+    <div class="h-space"></div>
+    <span class="mod-id">LRN:SSF:ENG-1101</span>
+  </div>
+</header>
+
+<div class="depth-wrap">
+  <div class="depth-inner">
+    <span class="depth-lbl">Tiefe</span>
+    <div class="depth-track"><div class="depth-fill" id="dfill"></div></div>
+    <span class="depth-val" id="dval">0</span>
+    <span class="depth-note" id="dnote">— Beginn</span>
+  </div>
+</div>
+
+<main><div class="wrap">
+
+<div class="intro">
+  <div class="eyebrow">Lernpfad · Fertigungstechnik</div>
+  <h1 class="path-title">Wie schneidet man Stahl der härter ist als jedes Schneidwerkzeug?</h1>
+  <p class="path-desc">Drei Einheiten: Das Paradoxon des Erodierens — Funken schneiden was Fräsen nicht kann. Drahterodieren, Bohrerodieren und Senkerodieren: drei Wege, ein Prinzip.</p>
+</div>
+
+
+<!-- ════════════════════════════════════
+     EINHEIT 1: GRUNDPRINZIP & FUNKE
+════════════════════════════════════ -->
+<div class="unit" id="unit-1">
+  <div class="unit-hdr">
+    <div class="unit-idx">Einheit 1 von 3</div>
+    <h2 class="unit-q">Wie kann ein dünner Messingdraht polykristallinen Diamant schneiden — ohne ihn zu berühren?</h2>
+  </div>
+
+  <div class="skip-bar">
+    <span>Beispiele und Aufgaben sind optional.</span>
+    <button class="skip-btn" onclick="skipTo('quiz-1')">Direkt zum Quiz →</button>
+  </div>
+
+  <div class="section skippable" id="bsp-1">
+    <div class="sec-lbl">Beobachtung</div>
+
+    <div class="obs">
+      <div class="obs-ey">Das Paradoxon</div>
+      <div class="obs-txt">Ein Fräser aus Hartmetall kann Stahl schneiden — aber keinen polykristallinen Diamanten, denn Diamant ist härter als jedes Schneidmaterial. Und trotzdem werden Diamant-Werkzeuge in der Industrie täglich mit mikrometergenauer Präzision geformt. Das Werkzeug berührt dabei das Material nicht einmal.</div>
+    </div>
+
+    <div class="prose">
+      <p>Erodieren (englisch: EDM — Electrical Discharge Machining) funktioniert nicht durch mechanische Kraft, sondern durch <span class="tip">elektrische Entladungen<span class="tip-pop"><span class="tip-lbl">Elektrische Entladung / Funken</span>Wenn die Spannung zwischen zwei leitfähigen Flächen einen Schwellwert überschreitet, bricht die Isolation des Dielektrikums (Flüssigkeit) zusammen — ein Plasmakanal entsteht, Temperaturen 8000–12000°C. Das Material verdampft lokal. Danach: Abkühlung, Dielektrikum spült Partikel weg, nächste Entladung.</span></span>. Ein Plasmakanal entsteht, Temperaturen erreichen 8.000 bis 12.000°C — heißer als die Sonnenoberfläche (5.800°C). In Bruchteilen einer Millisekunde verdampft eine winzige Materialmenge. Dann kühlt alles ab, das <span class="tip">Dielektrikum<span class="tip-pop"><span class="tip-lbl">Dielektrikum</span>Eine elektrisch nicht leitende Flüssigkeit (entionisiertes Wasser oder Öl), die den Spalt zwischen Werkzeug und Werkstück füllt. Aufgaben: Isoliert bis zur Entladung, führt Wärme ab, spült Erosionspartikel (Debris) weg, kühlt Werkzeug und Werkstück.</span></span> spült die Partikel weg — und der nächste Funke entlädt sich.</p>
+      <p>Das entscheidende Prinzip: Die Härte des Materials ist irrelevant. Einzige Voraussetzung — das Material muss elektrisch leitfähig sein. Stahl, Titan, Wolframkarbid, selbst polykristalliner Diamant (sofern leitfähig durch Kobalt-Bindephase) — alles erodierbar.</p>
+    </div>
+
+    <div class="formula-block">
+      <span class="formula">W_Puls = U · I · t_on &nbsp;&nbsp; [J = V · A · s]</span>
+      <span class="formula">Ra ∝ √(W_Puls) &nbsp;&nbsp; Abtrag ∝ I · f_Puls</span>
+      <div class="formula-cap">Pulsenergie bestimmt Oberflächenrauheit · Strom und Pulsfrequenz bestimmen Abtragrate<br>Schruppen: hohe Energie → viel Abtrag, rau · Schlichten: kleine Energie → fein, langsam</div>
+    </div>
+
+    <!-- EXPERIMENT 1: Funkenentladung -->
+    <div class="exp-card">
+      <div class="exp-header">
+        <div class="exp-icon">⚡</div>
+        <div>
+          <div class="exp-tag">Experiment 1</div>
+          <div class="exp-name">Funkenentladung — Energie, Abtrag und Rauheit</div>
+        </div>
+      </div>
+      <div class="exp-do">
+        <div class="exp-do-lbl">Erkunden</div>
+        <div class="exp-do-txt">Stelle Spannung, Strom und Pulsbreite ein. Beobachte wie die Pulsenergie den Krater im Querschnitt formt — und wie Abtragrate und Rauheit gegeneinander stehen. Schruppen oder Schlichten?</div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-row">
+          <div class="exp-controls">
+            <div class="slider-group">
+              <div class="slider-lbl"><span class="slider-name">Spannung U</span><span class="slider-val" id="edm-u-val">80 V</span></div>
+              <input type="range" id="edm-u" min="20" max="200" value="80" oninput="updateEDM()">
+            </div>
+            <div class="slider-group">
+              <div class="slider-lbl"><span class="slider-name">Strom I</span><span class="slider-val" id="edm-i-val">10 A</span></div>
+              <input type="range" id="edm-i" min="1" max="50" value="10" oninput="updateEDM()">
+            </div>
+            <div class="slider-group">
+              <div class="slider-lbl"><span class="slider-name">Pulsbreite t_on</span><span class="slider-val" id="edm-t-val">100 µs</span></div>
+              <input type="range" id="edm-t" min="1" max="500" value="100" oninput="updateEDM()">
+            </div>
+            <div class="stat-row">
+              <div class="stat-box">
+                <div class="stat-lbl">Pulsenergie W</div>
+                <div class="stat-val highlight" id="edm-w">80 mJ</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-lbl">Modus</div>
+                <div class="stat-val" id="edm-mode">Schruppen</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-lbl">Rauheit Ra</div>
+                <div class="stat-val" id="edm-ra">~3.5 µm</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-lbl">Abtragrate</div>
+                <div class="stat-val" id="edm-rate">mittel</div>
+              </div>
+            </div>
+            <div id="edm-note" style="margin-top:.75rem;font-size:12px;color:var(--text-3);line-height:1.5">
+              Mittlere Parameter — ausgewogenes Verhältnis aus Abtrag und Qualität.
+            </div>
+          </div>
+          <div class="exp-visual">
+            <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.07em;text-transform:uppercase;margin-bottom:.375rem">Querschnitt: Krater durch Einzelpuls</div>
+            <canvas id="edm-canvas" class="edm-canvas" height="200"></canvas>
+            <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.07em;text-transform:uppercase;margin-top:.625rem;margin-bottom:.375rem">Vergleich: Schruppen vs. Schlichten</div>
+            <div class="comp-bar-wrap">
+              <div class="comp-bar-item">
+                <div class="comp-bar-lbl">Abtragrate</div>
+                <div class="comp-bar-track"><div class="comp-bar-fill" id="bar-rate" style="background:#C9A84C"></div></div>
+                <div class="comp-bar-val" id="bar-rate-val">mittel</div>
+              </div>
+              <div class="comp-bar-item">
+                <div class="comp-bar-lbl">Präzision</div>
+                <div class="comp-bar-track"><div class="comp-bar-fill" id="bar-prec" style="background:#5B8FB9"></div></div>
+                <div class="comp-bar-val" id="bar-prec-val">mittel</div>
+              </div>
+              <div class="comp-bar-item">
+                <div class="comp-bar-lbl">Oberflächengüte</div>
+                <div class="comp-bar-track"><div class="comp-bar-fill" id="bar-surf" style="background:#7AAD7A"></div></div>
+                <div class="comp-bar-val" id="bar-surf-val">Ra ~3.5µm</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p>Der Prozess findet im Submillimeterbereich statt: Der Arbeitsabstand (Spaltbreite) zwischen Elektrode und Werkstück beträgt typisch 0,01 bis 0,5 mm. Bei zu kleinem Abstand: Kurzschluss, kein kontrolliierter Abtrag. Bei zu großem Abstand: keine Entladung. Die Regelung des Abstands in Echtzeit ist das Herzstück jeder EDM-Maschine.</p>
+    </div>
+
+    <div class="info">
+      <div class="info-lbl">Plasma heißer als die Sonnenoberfläche</div>
+      <div class="info-txt">Im Plasmakanal einer Funkenerosion: 8.000–12.000°C. Sonnenoberfläche: 5.800°C. Der Unterschied: Der Plasmakanal ist winzig (< 0,1 mm Durchmesser) und existiert nur wenige Mikrosekunden. Die Gesamtenergie pro Puls ist gering — deshalb bleibt das Werkstück insgesamt kalt, nur lokal verdampft Material.</div>
+    </div>
+  </div>
+
+  <hr class="hr">
+
+  <div class="section skippable" id="aufg-1">
+    <div class="sec-lbl">Aufgaben</div>
+    <div class="aufgabe">
+      <div class="aufg-nr">Aufgabe 1</div>
+      <div class="aufg-txt">Ein EDM-Puls hat U = 80 V, I = 15 A, t_on = 200 µs. Berechne die Pulsenergie W. Handelt es sich eher um Schruppen oder Schlichten?</div>
+      <button class="hint-btn" onclick="hintToggle(this)">Hinweis</button>
+      <div class="hint-body">W = U · I · t_on = 80 · 15 · 200×10⁻⁶ = 0,24 J = 240 mJ. Bei typischen EDM-Prozessen gilt: Pulsenergie > 100 mJ → Schruppen (grober Abtrag, Ra > 3 µm). W = 240 mJ ist deutlich im Schruppbereich — großer Krater, hohe Abtragrate, aber raue Oberfläche.</div>
+    </div>
+    <div class="aufgabe">
+      <div class="aufg-nr">Aufgabe 2</div>
+      <div class="aufg-txt">Warum kann man mit EDM polykristallinen Diamant bearbeiten, aber nicht Keramik wie Al₂O₃ (Aluminiumoxid)?</div>
+      <button class="hint-btn" onclick="hintToggle(this)">Hinweis</button>
+      <div class="hint-body">EDM-Grundvoraussetzung: elektrische Leitfähigkeit des Werkstücks (Spezifischer Widerstand < ca. 100 Ω·cm). Polykristalliner Diamant (PCD) enthält Kobalt als Bindephase → leitfähig. Al₂O₃ ist ein elektrischer Isolator → keine Entladung möglich → kein EDM. Ausnahme: Leitfähige Keramiken wie TiN, TiC lassen sich erodieren.</div>
+    </div>
+  </div>
+
+  <hr class="hr">
+
+  <div class="section" id="quiz-1">
+    <div class="sec-lbl">Quiz · Einheit 1</div>
+    <div class="quiz-q">
+      <div class="quiz-txt">Wodurch wird bei der Funkenerosion Material abgetragen?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,'u1',0,false)">Durch mechanischen Druck der Elektrode auf das Werkstück.</button>
+        <button class="opt" onclick="ans(this,'u1',0,true)">Durch kontrollierte elektrische Entladungen (Funken) die lokale Plasmatemperaturen von 8.000–12.000°C erzeugen und Material verdampfen — ohne Werkzeugkontakt.</button>
+        <button class="opt" onclick="ans(this,'u1',0,false)">Durch chemische Reaktion des Dielektrikums mit dem Werkstück.</button>
+        <button class="opt" onclick="ans(this,'u1',0,false)">Durch Ultraschallschwingungen der Elektrode.</button>
+      </div>
+      <div class="quiz-fb" id="fb-u1-0">EDM = berührungslose Bearbeitung durch Funkenentladung. Der Plasmakanal verdampft lokal Material — die Härte des Werkstücks spielt keine Rolle, solange es elektrisch leitfähig ist. Das ist das Revolutionäre: Man bearbeitet nicht durch Kraft, sondern durch Energie.</div>
+    </div>
+    <div class="quiz-q">
+      <div class="quiz-txt">Was bestimmt hauptsächlich die Oberflächenrauheit beim Erodieren?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,'u1',1,false)">Die Härte des Werkstückmaterials.</button>
+        <button class="opt" onclick="ans(this,'u1',1,false)">Die Vorschubgeschwindigkeit der Elektrode.</button>
+        <button class="opt" onclick="ans(this,'u1',1,true)">Die Pulsenergie (W = U · I · t_on): Größere Pulsenergie → größerer Krater → rauere Oberfläche. Schlichten = kleine Pulse, Schruppen = große Pulse.</button>
+        <button class="opt" onclick="ans(this,'u1',1,false)">Die Temperatur des Dielektrikums.</button>
+      </div>
+      <div class="quiz-fb" id="fb-u1-1">Ra ∝ √(W_Puls). Jeder Puls hinterlässt einen Krater — dessen Größe bestimmt die Rauheit. Kleine Pulse (Schlichten): viele kleine Krater, glatte Oberfläche (Ra < 0,5 µm möglich), langsamer Abtrag. Große Pulse (Schruppen): wenige große Krater, raue Oberfläche, schneller Abtrag. In der Praxis: erst Schruppen, dann Schlichten.</div>
+    </div>
+    <div class="quiz-q">
+      <div class="quiz-txt">Welche Eigenschaft MUSS ein Material haben damit es mit EDM bearbeitet werden kann?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,'u1',2,false)">Es muss magnetisch sein.</button>
+        <button class="opt" onclick="ans(this,'u1',2,false)">Es muss einen Schmelzpunkt über 1000°C haben.</button>
+        <button class="opt" onclick="ans(this,'u1',2,true)">Es muss elektrisch leitfähig sein — sonst kann kein Strom fließen und kein Funken entstehen.</button>
+        <button class="opt" onclick="ans(this,'u1',2,false)">Es muss spröde sein damit es gut absplittert.</button>
+      </div>
+      <div class="quiz-fb" id="fb-u1-2">Elektrische Leitfähigkeit ist die einzige zwingende Materialvoraussetzung. Stahl, Titan, Wolfram, Kupfer, Messing, Graphit, leitfähige Keramiken, PCD — alle erodierbar. Isolatoren (Keramik, Kunststoff, Glas) — nicht erodierbar ohne Hilfsmittel. Das ist sowohl die Stärke (härteunabhängig) als auch die Grenze der EDM-Technologie.</div>
+    </div>
+    <div class="score-row">
+      <span class="score-n" id="score-u1">0 / 3</span>
+      <span class="score-lbl">korrekt</span>
+      <button class="reset-btn" onclick="resetQ('u1')">Neu</button>
+    </div>
+  </div>
+
+  <div class="preview-card" id="preview-1">
+    <div class="prev-hdr">
+      <div class="prev-icon">🧵</div>
+      <div class="prev-meta">
+        <div class="prev-ey" id="prev-ey-1">Einheit 2 — noch gesperrt</div>
+        <div class="prev-title">Wie schneidet ein 0,02 mm dünner Draht präziser als jede Säge — und warum kann er keine Sacklöcher machen?</div>
+      </div>
+    </div>
+    <div class="prev-body">
+      <div class="prev-teaser">Drahterodieren: Ein kontinuierlich zugeführter Messingdraht erodiert Konturen mit Toleranzen von ±0,001 mm. Aber er muss durchgehen — Sacklöcher sind prinzipbedingt unmöglich. Das war Klausurfrage 3.</div>
+      <div class="prev-keys"><span class="pkey">TOOL:WIRE-EDM</span><span class="pkey">PRECISION:MIKRON</span></div>
+      <div class="lock-ov" id="lock-1"><div class="lock-ico">🔒</div><div class="lock-txt">Quiz abschließen</div></div>
+    </div>
+  </div>
+</div><!-- /unit-1 -->
+
+
+<!-- ════════════════════════════════════
+     EINHEIT 2: DRAHTERODIEREN
+════════════════════════════════════ -->
+<div class="unit" id="unit-2" style="opacity:.3;pointer-events:none;transition:opacity .6s" aria-disabled="true">
+  <div class="unit-hdr">
+    <div class="unit-idx">Einheit 2 von 3</div>
+    <h2 class="unit-q">Warum kann man mit Drahterodieren keine Sacklöcher machen?</h2>
+  </div>
+
+  <div class="skip-bar">
+    <span>Aufgaben sind optional.</span>
+    <button class="skip-btn" onclick="skipTo('quiz-2')">Direkt zum Quiz →</button>
+  </div>
+
+  <div class="section skippable" id="bsp-2">
+    <div class="sec-lbl">Erklärung</div>
+    <div class="obs">
+      <div class="obs-ey">Prinzip Drahterodieren</div>
+      <div class="obs-txt">Stell dir vor du schneidest Holz mit einer Bandsäge — aber das Sägeblatt ist unsichtbar, berührt das Holz nicht, und kann Konturen schneiden die kein Fräser erreichen würde. Das ist Drahterodieren. Der Draht (0,02–0,33 mm Messing) läuft kontinuierlich durch das Werkstück — ein neuer Abschnitt kommt immer nach, damit der Draht nicht abnutzt.</div>
+    </div>
+
+    <div class="prose">
+      <p>Beim Drahterodieren spannt der Draht zwischen zwei Führungen. Er wird kontinuierlich von einer Spule abgewickelt und nach der Nutzung entsorgt — so bleibt die Drahtgeometrie immer definiert. Die CNC-Steuerung bewegt das Werkstück relativ zum Draht und schneidet beliebige 2D-Konturen.</p>
+      <p>Die geometrische Einschränkung: Der Draht muss das Werkstück vollständig durchdringen. Das bedeutet — kein Sackschnitt, kein Sackloch. Die Kontur muss oben und unten offen sein. Das macht Drahterodieren ideal für Stanzwerkzeuge, Gesenke, Führungsleisten — aber ungeeignet für Kavitäten.</p>
+      <p>Besondere Stärke: <span class="tip">Konische Schnitte<span class="tip-pop"><span class="tip-lbl">Konischer Schnitt (Taper)</span>Durch unabhängige Bewegung der oberen und unteren Drahtführung kann der Draht geneigt werden — der obere und untere Querschnitt einer Kontur sind dann verschieden. Typische Anwendung: Stanzwerkzeuge mit Freischnitt (oben groß, unten klein) oder aerodynamische Profile.</span></span> sind durch unabhängige Bewegung beider Führungen möglich — der Draht neigt sich, oben und unten entstehen verschiedene Konturen. Auch extrem dünne Stege lassen sich schneiden.</p>
+    </div>
+
+    <!-- EXPERIMENT 2: Draht-Schnitt-Simulator -->
+    <div class="exp-card">
+      <div class="exp-header">
+        <div class="exp-icon">🧵</div>
+        <div>
+          <div class="exp-tag">Experiment 2</div>
+          <div class="exp-name">Draht-Schnitt-Simulator</div>
+        </div>
+      </div>
+      <div class="exp-do">
+        <div class="exp-do-lbl">Erkunden</div>
+        <div class="exp-do-txt">Wähle eine Kontur und beobachte wie der Draht Schrupp- und Schlichtschnitte durchführt. Stelle den Konuswinkel ein — oben und unten entsteht eine verschiedene Form.</div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-row">
+          <div class="exp-controls">
+            <div style="margin-bottom:1rem">
+              <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5rem">Kontur</div>
+              <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                <button class="skip-btn active" id="btn-square" onclick="setWireContour('square')" style="border-color:var(--gold);color:var(--navy)">Quadrat</button>
+                <button class="skip-btn" id="btn-gear" onclick="setWireContour('gear')">Zahnform</button>
+                <button class="skip-btn" id="btn-freeform" onclick="setWireContour('freeform')">Freiform</button>
+              </div>
+            </div>
+            <div class="slider-group">
+              <div class="slider-lbl"><span class="slider-name">Drahtdurchmesser</span><span class="slider-val" id="wire-d-val">0.25 mm</span></div>
+              <input type="range" id="wire-d" min="2" max="33" value="25" oninput="updateWire()">
+            </div>
+            <div class="slider-group">
+              <div class="slider-lbl"><span class="slider-name">Konuswinkel</span><span class="slider-val" id="wire-taper-val">0°</span></div>
+              <input type="range" id="wire-taper" min="0" max="30" value="0" oninput="updateWire()">
+            </div>
+            <div class="slider-group">
+              <div class="slider-lbl"><span class="slider-name">Schnitt-Fortschritt</span><span class="slider-val" id="wire-prog-val">0%</span></div>
+              <input type="range" id="wire-prog" min="0" max="100" value="0" oninput="updateWire()">
+            </div>
+            <div class="stat-row">
+              <div class="stat-box">
+                <div class="stat-lbl">Draht-Ø</div>
+                <div class="stat-val" id="wire-diam">0.25 mm</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-lbl">Schnittspalt</div>
+                <div class="stat-val" id="wire-kerf">~0.30 mm</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-lbl">Konuswinkel</div>
+                <div class="stat-val" id="wire-taper-disp">0°</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-lbl">Sackloch möglich?</div>
+                <div class="stat-val danger">Nein ✗</div>
+              </div>
+            </div>
+            <div id="wire-note" style="margin-top:.75rem;font-size:12px;color:var(--text-3);line-height:1.5">
+              Der Draht muss das Werkstück vollständig durchdringen — Durchgangsschnitt immer nötig.
+            </div>
+          </div>
+          <div class="exp-visual">
+            <canvas id="wire-canvas" class="edm-canvas" height="260"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Branch: Genauigkeit und Anwendungen -->
+    <div class="branch visible" id="branch-wire" style="display:block">
+      <div class="branch-lbl">Seitenast — optional</div>
+      <div style="font-family:var(--serif);font-size:17px;color:var(--text);margin-bottom:.5rem">Toleranzen, Anwendungen und Drahtmaterialien</div>
+      <div class="branch-cards">
+        <button class="b-card" onclick="openB('b-wire')" id="bc-wire">
+          <div class="b-icon">🔬</div>
+          <div class="b-name">Detailwissen</div>
+          <div class="b-desc">±0,001 mm Toleranz. Drahtmaterialien (Messing, beschichtet). Typische Bauteile: Stanzwerkzeuge, Turbinenschaufeln, Uhrenteile.</div>
+        </button>
+        <button class="b-card" onclick="document.getElementById('branch-wire').style.display='none'">
+          <div class="b-icon">→</div>
+          <div class="b-name" style="color:var(--text-3)">Weiter</div>
+          <div class="b-desc">Direkt zu Aufgaben und Quiz.</div>
+        </button>
+      </div>
+    </div>
+
+    <div class="b-panel" id="b-wire">
+      <div class="b-panel-hdr">
+        <span class="b-panel-tag">Seitenast · Drahterodieren</span>
+        <span class="b-panel-title">Toleranzen, Materialien und Anwendungen</span>
+      </div>
+      <div class="b-panel-body">
+        <div class="prose">
+          <p><strong>Genauigkeit:</strong> Drahterodieren erreicht Toleranzen von ±0,001 mm (1 µm) — besser als die meisten Fräsprozesse. Möglich weil: kein Werkzeugverschleiß der die Geometrie verändert, kein Schnittdruck der das Werkstück verbiegt, stabile thermische Bedingungen.</p>
+          <p><strong>Drahtmaterialien:</strong> Messing (standard, günstig), verzinkter Draht (bessere Leitfähigkeit, höhere Schnittgeschwindigkeit), beschichtete Drähte (Molybdän-Kern für Mikroerodieren, Ø bis 0,02 mm). Der Draht wird immer einmal verwendet — er läuft durch die Maschine und wird entsorgt.</p>
+          <p><strong>Typische Anwendungen:</strong> Stanzwerkzeuge und Folgeverbundwerkzeuge, Spritzgussformen mit Kühlkanälen, Turbinenschaufeln aus Nickelsuperlegierungen, Uhrenteile (die Schweizer Uhrenindustrie ist Großkunde), Prototypen aus gehärtetem Stahl.</p>
+        </div>
+        <div class="info" style="margin-top:1.25rem">
+          <div class="info-lbl">Aspektverhältnis beim Bohrerodieren</div>
+          <div class="info-txt">Weltrekord (laut Maschinenmarkt 2015): Aspektverhältnis >1000 — Lochdurchmesser 0,003 mm, Tiefe 3 mm. Kleinstes je gebohrtes Loch laut Guinness: 0,003 mm. Zum Vergleich: Ein menschliches Haar ist 60–100 µm dick — das ist 20–30× dicker als dieses Loch.</div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="hr">
+
+    <div class="section skippable" id="aufg-2">
+      <div class="sec-lbl">Aufgaben</div>
+      <div class="aufgabe">
+        <div class="aufg-nr">Aufgabe 1 (Klausurfrage 3)</div>
+        <div class="aufg-txt">Welche der folgenden Bearbeitungsaufgaben ist mit Drahterodieren prinzipbedingt NICHT möglich? A) Konische Durchbrüche, B) Sacklöcher (nicht durchgängig), C) Extrem harte Materialien schneiden, D) Sehr dünnwandige Stege</div>
+        <button class="hint-btn" onclick="hintToggle(this)">Hinweis</button>
+        <div class="hint-body">Antwort B — Sacklöcher. Der Draht muss das Werkstück vollständig durchdringen (oben rein, unten raus). Ein Sackloch hat keinen Ausgang — der Draht käme nicht durch. A) Konische Schnitte sind möglich (unabhängige Führungsbewegung). C) Harte leitfähige Materialien kein Problem. D) Dünne Stege sind sogar eine Stärke (kein Schnittdruck).</div>
+      </div>
+      <div class="aufgabe">
+        <div class="aufg-nr">Aufgabe 2</div>
+        <div class="aufg-txt">Ein Draht mit Ø 0,25 mm schneidet Stahl. Der Funkenspalt beträgt 0,025 mm auf jeder Seite. Wie breit ist der Schnittspalt (Kerf) insgesamt?</div>
+        <button class="hint-btn" onclick="hintToggle(this)">Hinweis</button>
+        <div class="hint-body">Kerf = Drahtdurchmesser + 2 × Funkenspalt = 0,25 + 2×0,025 = 0,30 mm. Das Werkstück-Feature wird also 0,30 mm breiter als die programmierte Kontur — dieser Versatz muss in der CNC-Programmierung als Werkzeugradius-Korrektur (Offset) berücksichtigt werden.</div>
+      </div>
+    </div>
+
+    <hr class="hr">
+
+    <div class="section" id="quiz-2">
+      <div class="sec-lbl">Quiz · Einheit 2</div>
+      <div class="quiz-q">
+        <div class="quiz-txt">Warum ist das Fertigen von Sacklöchern mit Drahterodieren prinzipbedingt nicht möglich?</div>
+        <div class="opts">
+          <button class="opt" onclick="ans(this,'u2',0,false)">Weil die Pulsenergie für Sacklöcher zu hoch ist.</button>
+          <button class="opt" onclick="ans(this,'u2',0,false)">Weil das Dielektrikum im Sackloch nicht zirkulieren kann.</button>
+          <button class="opt" onclick="ans(this,'u2',0,true)">Weil der Draht das Werkstück vollständig durchdringen muss — er braucht einen Ein- und Ausgang. Ein Sackloch hat keinen Ausgang, der Draht käme nicht durch.</button>
+          <button class="opt" onclick="ans(this,'u2',0,false)">Weil CNC-Maschinen keine vertikalen Schnitte programmieren können.</button>
+        </div>
+        <div class="quiz-fb" id="fb-u2-0">Das ist die Grundbeschränkung des Drahterodierens — geometrisch zwingend, nicht durch Maschinenparameter überwindbar. Der Draht ist wie eine Bandsäge: er schneidet Konturen, aber immer vollständig durch. Senkerodieren kann dagegen Kavitäten und Sacklöcher herstellen — dort bewegt sich die Elektrode von oben ins Material.</div>
+      </div>
+      <div class="quiz-q">
+        <div class="quiz-txt">Was ermöglicht konische (kegelförmige) Durchbrüche beim Drahterodieren?</div>
+        <div class="opts">
+          <button class="opt" onclick="ans(this,'u2',1,false)">Eine schräge Aufspannung des Werkstücks.</button>
+          <button class="opt" onclick="ans(this,'u2',1,true)">Die unabhängige Bewegung der oberen und unteren Drahtführung — der Draht neigt sich, und oben/unten entstehen verschiedene Konturen.</button>
+          <button class="opt" onclick="ans(this,'u2',1,false)">Ein kegelförmiger Draht der sich dem Werkstück anpasst.</button>
+          <button class="opt" onclick="ans(this,'u2',1,false)">Höhere Pulsenergie im unteren Bereich des Schnitts.</button>
+        </div>
+        <div class="quiz-fb" id="fb-u2-1">Obere und untere Führung sind unabhängig in X und Y steuerbar (4-Achsen-Maschine, oft 5-Achsen). Wenn die Führungen gegeneinander versetzt fahren, neigt sich der Draht — oben entsteht eine andere Kontur als unten. Typische Anwendung: Stanzwerkzeuge mit Freischnittwinkel (leichterer Materialaustritt).</div>
+      </div>
+      <div class="quiz-q">
+        <div class="quiz-txt">Warum kann Drahterodieren sehr dünnwandige Stege schneiden die beim Fräsen brechen würden?</div>
+        <div class="opts">
+          <button class="opt" onclick="ans(this,'u2',2,false)">Weil die Temperatur beim Erodieren Stahl weicher macht.</button>
+          <button class="opt" onclick="ans(this,'u2',2,true)">Weil kein mechanischer Schnittdruck auf das Werkstück wirkt — der Materialabtrag erfolgt berührungslos durch Funken. Dünne Stege verbiegen sich nicht.</button>
+          <button class="opt" onclick="ans(this,'u2',2,false)">Weil das Dielektrikum den Steg stützt.</button>
+          <button class="opt" onclick="ans(this,'u2',2,false)">Weil der Draht dünner ist als jedes Fräswerkzeug.</button>
+        </div>
+        <div class="quiz-fb" id="fb-u2-2">Nullkraft-Prozess: Beim Erodieren wirkt keine Zerspankraft auf das Werkstück. Beim Fräsen drückt das Werkzeug gegen das Material — bei dünnen Stegen führt das zu Schwingungen, Verbiegen oder Brechen. EDM ist deshalb die bevorzugte Methode für filigrane Geometrien in gehärtetem Stahl.</div>
+      </div>
+      <div class="score-row">
+        <span class="score-n" id="score-u2">0 / 3</span>
+        <span class="score-lbl">korrekt</span>
+        <button class="reset-btn" onclick="resetQ('u2')">Neu</button>
+      </div>
+    </div>
+
+  <div class="preview-card" id="preview-2">
+    <div class="prev-hdr">
+      <div class="prev-icon">🔩</div>
+      <div class="prev-meta">
+        <div class="prev-ey" id="prev-ey-2">Einheit 3 — noch gesperrt</div>
+        <div class="prev-title">Bohr- und Senkerodieren: Weltrekord-Löcher und negative Abbilder</div>
+      </div>
+    </div>
+    <div class="prev-body">
+      <div class="prev-teaser">Bohrerodieren: Aspektverhältnis >1000, kleinstes Loch der Welt 0,003 mm. Senkerodieren: Die Elektrode ist das negative Abbild des gewünschten Hohlraums — ideal für Spritzgussformen und Gesenke.</div>
+      <div class="prev-keys"><span class="pkey">TOOL:SINK-EDM</span><span class="pkey">TOOL:DRILL-EDM</span></div>
+      <div class="lock-ov" id="lock-2"><div class="lock-ico">🔒</div><div class="lock-txt">Quiz abschließen</div></div>
+    </div>
+  </div>
+</div><!-- /unit-2 -->
+
+
+<!-- ════════════════════════════════════
+     EINHEIT 3: BOHR- & SENKERODIEREN
+════════════════════════════════════ -->
+<div class="unit" id="unit-3" style="opacity:.3;pointer-events:none;transition:opacity .6s" aria-disabled="true">
+  <div class="unit-hdr">
+    <div class="unit-idx">Einheit 3 von 3</div>
+    <h2 class="unit-q">Wie bohrt man ein Loch das 1000× tiefer als breit ist — und wie formt man Hohlräume die kein Fräser erreicht?</h2>
+  </div>
+
+  <div class="skip-bar">
+    <span>Aufgaben sind optional.</span>
+    <button class="skip-btn" onclick="skipTo('quiz-3')">Direkt zum Quiz →</button>
+  </div>
+
+  <div class="section skippable" id="bsp-3">
+    <div class="sec-lbl">Erklärung</div>
+    <div class="obs">
+      <div class="obs-ey">Weltrekord Bohrerodieren</div>
+      <div class="obs-txt">Aspektverhältnis >1000: Lochdurchmesser 0,003 mm, Tiefe 3 mm. Ein menschliches Haar ist 60–100 µm dick — dieses Loch ist 20–30× dünner. Und es wurde nicht gebohrt sondern erodiert: eine rotierende Rohreletrode aus Wolfram, innen hohl für den Dielektrikum-Durchfluss, erodiert sich nach unten.</div>
+    </div>
+
+    <div class="prose">
+      <p><strong>Bohrerodieren</strong> nutzt rotierende rohrförmige Elektroden (Kupfer, Wolfram, Messing). Das Dielektrikum wird durch das Innere der Rohreletrode gespült — es kühlt, isoliert und spült Erosionspartikel aus dem Tiefbohrungskanal. Die Rotation sorgt für gleichmäßigen Elektrodenverschleiß und verhindert dass Debris im Loch stecken bleibt.</p>
+      <p>Anwendung: Kühlbohrungen in Turbinenschaufeln, Einspritzöffnungen in Dieselinjektoren (Ø bis 0,1 mm), Startlöcher für Drahterodieren (man braucht einen Einfädelort für den Draht).</p>
+      <p><strong>Senkerodieren</strong> arbeitet mit einer geformten Elektrode — dem Negativ-Abbild der gewünschten Kavität. Die Elektrode (Kupfer, Graphit) sinkt ins Werkstück und erodiert sukzessive die Form hinein. Schrupp- dann Schlicht-Elektroden werden nacheinander eingesetzt.</p>
+      <p>Stärke des Senkerodierens: 3D-Hohlräume und Hinterschneidungen die kein Fräser erreicht. Typisch für Spritzgusswerkzeuge mit komplexen Innengeometrien, Prägewerkzeuge, Münzen und Medaillen-Matrizen.</p>
+    </div>
+
+    <!-- EXPERIMENT 3: Aspektverhältnis-Visualisierung -->
+    <div class="exp-card">
+      <div class="exp-header">
+        <div class="exp-icon">📏</div>
+        <div>
+          <div class="exp-tag">Experiment 3</div>
+          <div class="exp-name">Aspektverhältnis — Vergleich & Machbarkeit</div>
+        </div>
+      </div>
+      <div class="exp-do">
+        <div class="exp-do-lbl">Erkunden</div>
+        <div class="exp-do-txt">Stelle Durchmesser und Tiefe einer Bohrung ein. Vergleiche das Aspektverhältnis mit herkömmlichem Tiefbohren und Bohrerodieren. Schiebe bis in den Weltrekordbereich.</div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-row">
+          <div class="exp-controls">
+            <div class="slider-group">
+              <div class="slider-lbl"><span class="slider-name">Durchmesser d</span><span class="slider-val" id="asp-d-val">0.10 mm</span></div>
+              <input type="range" id="asp-d" min="3" max="500" value="100" oninput="updateAspect()">
+            </div>
+            <div class="slider-group">
+              <div class="slider-lbl"><span class="slider-name">Tiefe t</span><span class="slider-val" id="asp-t-val">10.0 mm</span></div>
+              <input type="range" id="asp-t" min="1" max="300" value="100" oninput="updateAspect()">
+            </div>
+            <div class="stat-row">
+              <div class="stat-box" style="grid-column:span 2">
+                <div class="stat-lbl">Aspektverhältnis t/d</div>
+                <div class="stat-val highlight" id="asp-ratio" style="font-size:20px">100</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-lbl">Verfahren</div>
+                <div class="stat-val" id="asp-method" style="font-size:12px">Bohrerodieren</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-lbl">Machbarkeit</div>
+                <div class="stat-val" id="asp-feasible">✓ möglich</div>
+              </div>
+            </div>
+            <div id="asp-note" style="margin-top:.75rem;font-size:12px;color:var(--text-3);line-height:1.5">
+              Aspektverhältnis 100 — gut im Bereich des Bohrerodierens.
+            </div>
+          </div>
+          <div class="exp-visual">
+            <canvas id="aspect-canvas" class="edm-canvas" height="260"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p>Die drei EDM-Verfahren ergänzen sich: Bohrerodieren erzeugt das Startloch für den Draht beim Drahterodieren. Drahterodieren schneidet die äußere Kontur. Senkerodieren bildet die innere Form. Gemeinsam decken sie nahezu alle Geometrien ab die konventionelle Zerspanung nicht erreicht — bei Härten bis zu 70 HRC und höher.</p>
+    </div>
+
+    <!-- Branch: Elektroden und Dielektrikum -->
+    <div class="branch visible" id="branch-sink" style="display:block">
+      <div class="branch-lbl">Seitenast — optional</div>
+      <div style="font-family:var(--serif);font-size:17px;color:var(--text);margin-bottom:.5rem">Elektroden und Dielektrikum im Detail</div>
+      <div class="branch-cards">
+        <button class="b-card" onclick="openB('b-sink')" id="bc-sink">
+          <div class="b-icon">⚗️</div>
+          <div class="b-name">Materialien</div>
+          <div class="b-desc">Kupfer vs. Graphit-Elektroden. Öl vs. Wasser als Dielektrikum. Elektrodenverschleiß und Kompensation.</div>
+        </button>
+        <button class="b-card" onclick="document.getElementById('branch-sink').style.display='none'">
+          <div class="b-icon">→</div>
+          <div class="b-name" style="color:var(--text-3)">Weiter</div>
+          <div class="b-desc">Direkt zum Quiz.</div>
+        </button>
+      </div>
+    </div>
+
+    <div class="b-panel" id="b-sink">
+      <div class="b-panel-hdr">
+        <span class="b-panel-tag">Seitenast · Materialien</span>
+        <span class="b-panel-title">Elektroden, Dielektrikum und Verschleiß</span>
+      </div>
+      <div class="b-panel-body">
+        <div class="prose">
+          <p><strong>Elektrodenmaterial Senkerodieren:</strong> Kupfer (präzise, gute Oberflächengüte, teuer), Graphit (billiger, schnellerer Abtrag, mehr Elektrodenverschleiß, besser für Schruppen), Wolfram (für Bohrerodieren, extrem verschleißfest).</p>
+          <p><strong>Dielektrikum:</strong> Kohlenwasserstofföl (Senkerodieren — bessere Oberflächengüte, Brandgefahr), entionisiertes Wasser (Drahterodieren — umweltfreundlicher, höhere Schnittgeschwindigkeit). Das Dielektrikum muss ständig gefiltert werden — Erosionspartikel (Debris) verunreinigen es und können zu Kurzschlüssen führen.</p>
+          <p><strong>Elektrodenverschleiß:</strong> Die Elektrode erodiert mit — typisch 0,1–1% des Werkstückabtrags. Bei Senkerodieren werden deshalb oft mehrere Elektroden eingesetzt: eine grobe Schrupp-Elektrode (viel Abtrag, viel Verschleiß) und eine feine Schlicht-Elektrode (kleine Pulse, wenig Verschleiß). Die Geometrie bleibt erhalten weil die Schlicht-Elektrode fast nicht verschleißt.</p>
+        </div>
+      </div>
+    </div>
+
+    <hr class="hr">
+
+    <div class="section skippable" id="aufg-3">
+      <div class="sec-lbl">Aufgaben</div>
+      <div class="aufgabe">
+        <div class="aufg-nr">Aufgabe 1</div>
+        <div class="aufg-txt">Ein Dieselinjektor braucht Einspritzöffnungen mit Ø 0,12 mm und Tiefe 1,5 mm. Berechne das Aspektverhältnis. Welches EDM-Verfahren eignet sich?</div>
+        <button class="hint-btn" onclick="hintToggle(this)">Hinweis</button>
+        <div class="hint-body">Aspektverhältnis = t/d = 1,5/0,12 = 12,5. Das ist hervorragend für konventionelles Tiefbohren schon schwierig (typisch max. 10 bei normalen Bohrern), aber für Bohrerodieren problemlos (Bereich bis >1000). Bohrerodieren mit Wolfram-Rohrelektrode Ø 0,12 mm, Dielektrikum durch die Elektrode gespült.</div>
+      </div>
+      <div class="aufgabe">
+        <div class="aufg-nr">Aufgabe 2</div>
+        <div class="aufg-txt">Welches EDM-Verfahren eignet sich für: a) Spritzgussform mit komplexer Innengeometrie, b) Konturschnitt eines Stanzwerkzeugs, c) Startloch für Drahterodieren (Ø 0,3 mm)?</div>
+        <button class="hint-btn" onclick="hintToggle(this)">Hinweis</button>
+        <div class="hint-body">a) Senkerodieren — die geformte Elektrode erzeugt die negative Form der Kavität. b) Drahterodieren — der Draht schneidet die 2D-Kontur mit Toleranz ±0,001 mm. c) Bohrerodieren — kleines Loch für den Draht-Einfädelort, Rohreletrode Ø 0,3 mm. In der Praxis kombiniert man oft alle drei: Bohr → Draht → Senk für komplexe Werkzeuge.</div>
+      </div>
+    </div>
+
+    <hr class="hr">
+
+    <div class="section" id="quiz-3">
+      <div class="sec-lbl">Quiz · Einheit 3</div>
+      <div class="quiz-q">
+        <div class="quiz-txt">Wozu wird das Dielektrikum beim Bohrerodieren durch das Innere der Rohrelektrode gespült?</div>
+        <div class="opts">
+          <button class="opt" onclick="ans(this,'u3',0,false)">Um die Elektrode zu isolieren.</button>
+          <button class="opt" onclick="ans(this,'u3',0,true)">Um Erosionspartikel (Debris) aus dem tiefen Bohrloch zu spülen, die Elektrode zu kühlen und frisches Dielektrikum an die Wirkzone zu bringen — ohne das würde der Kanal zusetzen.</button>
+          <button class="opt" onclick="ans(this,'u3',0,false)">Um den Strom durch die Elektrode zu leiten.</button>
+          <button class="opt" onclick="ans(this,'u3',0,false)">Um die Rotation der Elektrode zu ermöglichen.</button>
+        </div>
+        <div class="quiz-fb" id="fb-u3-0">Bei Tiefbohrungen ist der Debris-Abtransport das kritische Problem. Konventionelle Kühlung von außen erreicht den Bohrungsgrund nicht mehr. Die Rohreletrode mit innerer Spülung löst das: Dielektrikum fließt durch die Elektrode nach unten, nimmt Partikel mit und fließt außen am Rand wieder nach oben. Das ermöglicht Aspektverhältnisse >1000.</div>
+      </div>
+      <div class="quiz-q">
+        <div class="quiz-txt">Was ist der Hauptvorteil des Senkerodierens gegenüber Fräsen bei Spritzgusswerkzeugen?</div>
+        <div class="opts">
+          <button class="opt" onclick="ans(this,'u3',1,false)">Senkerodieren ist schneller als Fräsen.</button>
+          <button class="opt" onclick="ans(this,'u3',1,false)">Senkerodieren braucht kein Kühlmittel.</button>
+          <button class="opt" onclick="ans(this,'u3',1,true)">Senkerodieren kann komplexe 3D-Kavitäten und Hinterschneidungen in gehärtetem Stahl erzeugen die kein Fräser erreicht — die geformte Elektrode überträgt ihre Negativform ins Werkstück.</button>
+          <button class="opt" onclick="ans(this,'u3',1,false)">Senkerodieren braucht keine Elektrode.</button>
+        </div>
+        <div class="quiz-fb" id="fb-u3-1">Die Elektrodenform bestimmt die Werkstückform — man kann beliebig komplexe Geometrien erodieren solange man die Elektrode herstellen kann (meist durch Fräsen oder Drahterodieren der Elektrode selbst). Hinterschneidungen, feine Rippen, strukturierte Oberflächen — alles möglich. Und im bereits gehärteten Stahl, was beim Fräsen nicht mehr geht.</div>
+      </div>
+      <div class="quiz-q">
+        <div class="quiz-txt">Warum werden beim Senkerodieren oft eine Schrupp- und eine Schlicht-Elektrode eingesetzt?</div>
+        <div class="opts">
+          <button class="opt" onclick="ans(this,'u3',2,false)">Weil eine Elektrode allein zu teuer wäre.</button>
+          <button class="opt" onclick="ans(this,'u3',2,true)">Weil große Pulse (Schruppen) die Elektrode stark verschleißen — eine zweite Schlicht-Elektrode mit kleinen Pulsen erzeugt die Endgeometrie präzise, ohne nennenswerten Verschleiß.</button>
+          <button class="opt" onclick="ans(this,'u3',2,false)">Weil die erste Elektrode das Werkstück für die zweite vorbereiten muss.</button>
+          <button class="opt" onclick="ans(this,'u3',2,false)">Weil Kupfer und Graphit nie in derselben Maschine eingesetzt werden können.</button>
+        </div>
+        <div class="quiz-fb" id="fb-u3-2">Elektrodenverschleiß beim Schruppen: 1–5% des Werkstückabtrags. Bei einer 10 mm tiefen Kavität wäre die Schrupp-Elektrode nach dem Erodieren 0,1–0,5 mm kürzer — die Endgeometrie wäre ungenau. Die Schlicht-Elektrode mit kleinen Pulsen verschleißt kaum (<0,1%) und erzeugt die präzise Endform und glatte Oberfläche.</div>
+      </div>
+      <div class="score-row">
+        <span class="score-n" id="score-u3">0 / 3</span>
+        <span class="score-lbl">korrekt</span>
+        <button class="reset-btn" onclick="resetQ('u3')">Neu</button>
+      </div>
+    </div>
+
+    <div class="branch" id="branch-3">
+      <div class="branch-lbl">Abschluss</div>
+      <div class="branch-cards">
+        <button class="b-card" onclick="openB('b3-finish')">
+          <div class="b-icon">✓</div>
+          <div class="b-name" style="color:var(--text-3)">Abschließen</div>
+          <div class="b-desc">Pfad abschließen und NOXIA-Schlüssel freischalten.</div>
+        </button>
+      </div>
+    </div>
+  </div><!-- /unit-3 -->
+
+  <div class="completion" id="completion">
+    <div class="comp-title">Lernpfad abgeschlossen</div>
+    <div class="comp-sub">Funken schneiden was Fräsen nicht kann. Drahterodieren, Bohrerodieren, Senkerodieren — drei Wege, ein Prinzip: kontrollierte elektrische Entladungen statt mechanische Kraft. Folgendes wurde in NOXIA freigeschaltet:</div>
+    <div class="comp-keys">
+      <span class="pkey">TOOL:WIRE-EDM</span>
+      <span class="pkey">TOOL:SINK-EDM</span>
+      <span class="pkey">PRECISION:MIKRON</span>
+    </div>
+    <div class="comp-depth" id="comp-depth">Lerntiefe: —</div>
+  </div>
+  <div class="horizon" id="horizon">
+    <div class="horizon-txt">Der nächste Horizont: Wie entsteht die elektrische Entladung im Schaltkreis — Kondensator, Diode, Entladekreis? Und was ist Plasma physikalisch? Erodieren verbindet Fertigungstechnik, Elektrotechnik und Plasmaphysik.</div>
+  </div>
+
+</div></main>
+
+<script>
+// ═══ DEPTH ═══
+let depthRaw=0;
+const depthPoints={u1_quiz:13,u2_quiz:15,u3_quiz:18,edm_interact:5,wire_interact:5,aspect_interact:4,b_wire:7,b_sink:7,finish:5};
+const depthGiven={};
+function awardDepth(k){if(depthGiven[k])return;depthGiven[k]=true;depthRaw+=depthPoints[k]||0;renderDepth();}
+function renderDepth(){
+  const d=Math.round(100*(1-1/(1+depthRaw/28)));
+  document.getElementById('dfill').style.width=d+'%';
+  document.getElementById('dval').textContent=d;
+  const labels=[[10,'Beginn'],[22,'Einstieg'],[38,'Orientierung'],[52,'Grundlagen'],[65,'Mechanismus'],[76,'Theorie'],[87,'Forschungsnähe'],[100,'Forschungsrand']];
+  for(const [t,l] of [...labels].reverse()){if(d>=t){document.getElementById('dnote').textContent='— '+l;break;}}
+}
+
+// ═══ EXPERIMENT 1: EDM FUNKEN ═══
+function updateEDM(){
+  awardDepth('edm_interact');
+  const U=+document.getElementById('edm-u').value;
+  const I=+document.getElementById('edm-i').value;
+  const t_us=+document.getElementById('edm-t').value;
+  document.getElementById('edm-u-val').textContent=U+' V';
+  document.getElementById('edm-i-val').textContent=I+' A';
+  document.getElementById('edm-t-val').textContent=t_us+' µs';
+
+  const W_mJ=U*I*t_us*1e-3; // mJ (t in µs = 1e-6 s, so W = U*I*t*1e-6 J = U*I*t*1e-3 mJ)
+  document.getElementById('edm-w').textContent=W_mJ<1000?W_mJ.toFixed(1)+' mJ':(W_mJ/1000).toFixed(2)+' J';
+
+  // Ra ∝ sqrt(W), normalized
+  const Ra=0.35*Math.sqrt(W_mJ/10);
+  const raText=Ra<0.5?'~'+Ra.toFixed(2)+' µm':Ra<5?'~'+Ra.toFixed(1)+' µm':'~'+Ra.toFixed(0)+' µm';
+  document.getElementById('edm-ra').textContent=raText;
+
+  const mode=W_mJ<5?'Mikro-Schlichten':W_mJ<20?'Schlichten':W_mJ<100?'Halbschruppen':'Schruppen';
+  document.getElementById('edm-mode').textContent=mode;
+
+  const rateNorm=Math.min(100,W_mJ/10);
+  const precNorm=Math.max(0,100-rateNorm*0.85);
+  const surfNorm=Math.max(0,100-rateNorm*0.9);
+  document.getElementById('edm-rate').textContent=rateNorm<20?'sehr gering':rateNorm<40?'gering':rateNorm<70?'mittel':rateNorm<90?'hoch':'sehr hoch';
+  document.getElementById('bar-rate').style.width=rateNorm+'%';
+  document.getElementById('bar-prec').style.width=precNorm+'%';
+  document.getElementById('bar-surf').style.width=surfNorm+'%';
+  document.getElementById('bar-rate-val').textContent=rateNorm<20?'minimal':rateNorm<40?'gering':rateNorm<70?'mittel':'hoch';
+  document.getElementById('bar-prec-val').textContent=precNorm>70?'sehr gut':precNorm>40?'gut':'mittel';
+  document.getElementById('bar-surf-val').textContent=raText;
+
+  const notes={
+    'Mikro-Schlichten':'Winzige Pulse — Ra < 0,5 µm möglich. Extrem langsam. Für Hochpräzisionsflächen.',
+    'Schlichten':'Kleine Pulse — gute Oberfläche, moderate Abtragrate. Endbearbeitung.',
+    'Halbschruppen':'Mittlere Energie — Kompromiss. Oft als Zwischenschritt.',
+    'Schruppen':'Große Pulse — schneller Abtrag, raue Oberfläche. Erster Schnitt.'
+  };
+  document.getElementById('edm-note').textContent=notes[mode];
+
+  drawEDMCrater(W_mJ);
+}
+
+function drawEDMCrater(W_mJ){
+  const canvas=document.getElementById('edm-canvas');
+  const dpr=window.devicePixelRatio||1;
+  canvas.width=canvas.offsetWidth*dpr;canvas.height=200*dpr;
+  const ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);
+  const W=canvas.offsetWidth,H=200;
+  ctx.fillStyle='#06080f';ctx.fillRect(0,0,W,H);
+
+  const craterR=Math.min(80,8+Math.sqrt(W_mJ)*3);
+  const craterD=craterR*0.45;
+  const cx=W/2,cy=H*0.55;
+
+  // Workpiece
+  const grad=ctx.createLinearGradient(0,cy-5,0,H);
+  grad.addColorStop(0,'#2A3A4A');grad.addColorStop(1,'#1A2530');
+  ctx.fillStyle=grad;
+  ctx.beginPath();
+  ctx.moveTo(0,cy);
+  // Crater profile
+  const N=60;
+  for(let i=0;i<=N;i++){
+    const x=W*i/N;
+    const relX=(x-cx)/craterR;
+    let y=cy;
+    if(Math.abs(relX)<1){
+      y=cy+craterD*(1-relX*relX)*Math.sqrt(1-relX*relX);
+    }
+    if(i===0)ctx.lineTo(x,y);else ctx.lineTo(x,y);
+  }
+  ctx.lineTo(W,cy);ctx.lineTo(W,H);ctx.lineTo(0,H);ctx.closePath();ctx.fill();
+
+  // Plasma channel
+  const plasmaH=60+craterR*0.3;
+  const plasmaGrad=ctx.createRadialGradient(cx,cy-plasmaH/2,0,cx,cy-plasmaH/2,craterR*0.4);
+  plasmaGrad.addColorStop(0,'rgba(255,255,255,0.95)');
+  plasmaGrad.addColorStop(0.2,'rgba(255,150,50,0.8)');
+  plasmaGrad.addColorStop(0.6,'rgba(255,50,50,0.4)');
+  plasmaGrad.addColorStop(1,'rgba(255,50,50,0)');
+  ctx.fillStyle=plasmaGrad;
+  ctx.beginPath();ctx.ellipse(cx,cy-plasmaH/2,craterR*0.35,plasmaH/2,0,0,Math.PI*2);ctx.fill();
+
+  // Sparks
+  const sparkCount=6+Math.floor(W_mJ/20);
+  for(let i=0;i<Math.min(sparkCount,12);i++){
+    const ang=Math.random()*Math.PI*2;
+    const dist=craterR*(0.3+Math.random()*0.7);
+    const sx=cx+Math.cos(ang)*dist;
+    const sy=cy-Math.random()*30;
+    ctx.beginPath();ctx.arc(sx,sy,1+Math.random()*2,0,Math.PI*2);
+    ctx.fillStyle=`rgba(255,${100+Math.floor(Math.random()*155)},0,${0.5+Math.random()*0.5})`;
+    ctx.fill();
+  }
+
+  // Electrode (wire)
+  ctx.fillStyle='#C9A84C';
+  ctx.fillRect(cx-4,0,8,cy-plasmaH);
+  ctx.fillStyle='rgba(201,168,76,.2)';
+  ctx.fillRect(cx-12,0,24,cy-plasmaH);
+
+  // Labels
+  ctx.fillStyle='rgba(255,255,255,.5)';ctx.font='9px monospace';ctx.textAlign='left';
+  ctx.fillText('Elektrode',cx+12,20);
+  ctx.fillText('Plasma ~10 000°C',cx+craterR*0.4+4,cy-plasmaH/2+4);
+  ctx.fillStyle='rgba(255,200,100,.6)';
+  ctx.fillText('Krater Ø ~'+craterR.toFixed(0)+' µm',cx-craterR,cy+craterD+16);
+  ctx.fillStyle='rgba(255,255,255,.3)';
+  ctx.fillText('Dielektrikum',8,H-8);
+}
+
+// ═══ EXPERIMENT 2: DRAHTERODIEREN ═══
+let currentContour='square';
+function setWireContour(c){
+  currentContour=c;
+  ['square','gear','freeform'].forEach(id=>{
+    const btn=document.getElementById('btn-'+id);
+    if(btn){btn.style.borderColor=id===c?'var(--gold)':'var(--border)';btn.style.color=id===c?'var(--navy)':'var(--text-3)';}
+  });
+  updateWire();
+}
+
+function updateWire(){
+  awardDepth('wire_interact');
+  const d=+document.getElementById('wire-d').value/100;
+  const taper=+document.getElementById('wire-taper').value;
+  const prog=+document.getElementById('wire-prog').value/100;
+  document.getElementById('wire-d-val').textContent=d.toFixed(2)+' mm';
+  document.getElementById('wire-taper-val').textContent=taper+'°';
+  document.getElementById('wire-prog-val').textContent=Math.round(prog*100)+'%';
+  document.getElementById('wire-diam').textContent=d.toFixed(2)+' mm';
+  document.getElementById('wire-kerf').textContent='~'+(d+0.05).toFixed(2)+' mm';
+  document.getElementById('wire-taper-disp').textContent=taper+'°';
+  drawWireEDM(d,taper,prog);
+}
+
+function getContourPoints(type,scale,taper,viewTop){
+  const pts=[];
+  if(type==='square'){
+    const offset=taper>0&&!viewTop?taper*0.8:0;
+    const s=scale*(viewTop?1:1-offset/scale);
+    pts.push([-s,-s],[s,-s],[s,s],[-s,s],[-s,-s]);
+  } else if(type==='gear'){
+    const teeth=8,R=scale,r=scale*0.7;
+    const o=taper>0&&!viewTop?taper*0.4:0;
+    for(let i=0;i<=teeth*2;i++){
+      const ang=i/teeth*Math.PI;
+      const rad=(i%2===0?R:r)*(viewTop?1:1-o/scale);
+      pts.push([Math.cos(ang)*rad,Math.sin(ang)*rad]);
+    }
+  } else {
+    // Freeform — simple shape
+    const verts=[[0,-scale],[scale*0.6,-scale*0.4],[scale,0],[scale*0.5,scale],[0,scale*0.7],[-scale*0.5,scale],[-scale,0],[-scale*0.6,-scale*0.4]];
+    const o=taper>0&&!viewTop?taper*0.5:0;
+    verts.forEach(([x,y])=>pts.push([x*(viewTop?1:1-o/scale),y*(viewTop?1:1-o/scale)]));
+    pts.push(pts[0]);
+  }
+  return pts;
+}
+
+function drawWireEDM(d,taper,prog){
+  const canvas=document.getElementById('wire-canvas');
+  const dpr=window.devicePixelRatio||1;
+  canvas.width=canvas.offsetWidth*dpr;canvas.height=260*dpr;
+  const ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);
+  const W=canvas.offsetWidth,H=260;
+  ctx.fillStyle='#06080f';ctx.fillRect(0,0,W,H);
+
+  // Two views: top (full contour) and side (cross-section with taper)
+  const topCx=W/4,topCy=H/2,topScale=70;
+  const sideCx=W*0.72,sideCy=H/2,sideScale=70;
+
+  // TOP VIEW — draw contour and wire progress
+  ctx.strokeStyle='rgba(255,255,255,.15)';ctx.lineWidth=1;
+  const topPts=getContourPoints(currentContour,topScale,taper,true);
+  ctx.beginPath();
+  topPts.forEach(([x,y],i)=>i===0?ctx.moveTo(topCx+x,topCy+y):ctx.lineTo(topCx+x,topCy+y));
+  ctx.stroke();
+
+  // Progress — draw cut portion
+  if(prog>0){
+    const cutCount=Math.floor(prog*topPts.length);
+    ctx.strokeStyle='#C9A84C';ctx.lineWidth=2;
+    ctx.beginPath();
+    topPts.slice(0,cutCount+1).forEach(([x,y],i)=>i===0?ctx.moveTo(topCx+x,topCy+y):ctx.lineTo(topCx+x,topCy+y));
+    ctx.stroke();
+    // Wire position
+    if(cutCount<topPts.length){
+      const [wx,wy]=topPts[cutCount];
+      ctx.beginPath();ctx.arc(topCx+wx,topCy+wy,d*topScale/0.3,0,Math.PI*2);
+      ctx.fillStyle='rgba(201,168,76,.8)';ctx.fill();
+      // Spark
+      ctx.beginPath();ctx.arc(topCx+wx,topCy+wy,d*topScale/0.3+3,0,Math.PI*2);
+      ctx.strokeStyle='rgba(255,150,0,.4)';ctx.lineWidth=2;ctx.stroke();
+    }
+  }
+
+  ctx.fillStyle='rgba(255,255,255,.35)';ctx.font='9px monospace';ctx.textAlign='center';
+  ctx.fillText('Draufsicht',topCx,H-8);
+
+  // SIDE VIEW — taper cross-section
+  const taperRad=taper*Math.PI/180;
+  const topW=sideScale;
+  const botW=sideScale*(1+Math.tan(taperRad)*0.8);
+  const sideH=sideScale*1.2;
+
+  ctx.fillStyle='#2A3A4A';
+  ctx.beginPath();
+  ctx.moveTo(sideCx-topW,sideCy-sideH/2);
+  ctx.lineTo(sideCx+topW,sideCy-sideH/2);
+  ctx.lineTo(sideCx+botW,sideCy+sideH/2);
+  ctx.lineTo(sideCx-botW,sideCy+sideH/2);
+  ctx.closePath();ctx.fill();
+
+  // Wire
+  const wireX=sideCx+topW*0.4;
+  ctx.strokeStyle='#C9A84C';ctx.lineWidth=Math.max(1,d*topScale/0.25);
+  ctx.beginPath();ctx.moveTo(wireX,sideCy-sideH/2-20);ctx.lineTo(wireX+Math.tan(taperRad)*sideH,sideCy+sideH/2+20);ctx.stroke();
+
+  // Taper angle label
+  if(taper>0){
+    ctx.strokeStyle='rgba(255,255,255,.3)';ctx.lineWidth=1;ctx.setLineDash([3,3]);
+    ctx.beginPath();ctx.moveTo(sideCx+topW,sideCy-sideH/2);ctx.lineTo(sideCx+topW,sideCy+sideH/2);ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle='rgba(255,255,255,.5)';ctx.font='10px monospace';ctx.textAlign='left';
+    ctx.fillText(taper+'°',sideCx+topW+4,sideCy);
+    ctx.fillText('konisch',sideCx+topW+4,sideCy+14);
+  }
+
+  ctx.fillStyle='rgba(255,255,255,.35)';ctx.font='9px monospace';ctx.textAlign='center';
+  ctx.fillText('Querschnitt',sideCx,H-8);
+  ctx.textAlign='left';
+  ctx.fillText('Draht',wireX+4,sideCy-sideH/2-4);
+}
+
+// ═══ EXPERIMENT 3: ASPEKTVERHÄLTNIS ═══
+function updateAspect(){
+  awardDepth('aspect_interact');
+  const d_um=+document.getElementById('asp-d').value;
+  const t_mm=+document.getElementById('asp-t').value/10;
+  const d_mm=d_um/100;
+  document.getElementById('asp-d-val').textContent=d_mm.toFixed(3)+' mm';
+  document.getElementById('asp-t-val').textContent=t_mm.toFixed(1)+' mm';
+
+  const ratio=Math.round(t_mm/d_mm);
+  document.getElementById('asp-ratio').textContent=ratio;
+
+  let method,feasible,note;
+  if(d_mm>3){method='Konv. Bohren';feasible=ratio<=10?'✓ möglich':'✗ zu tief';note='Konventionelle Bohrer: Aspektverhältnis max. 5–10.';}
+  else if(d_mm>0.3){method='Tiefbohren';feasible=ratio<=50?'✓ möglich':'✗ Bohrerodieren';note='Tiefbohrwerkzeuge erreichen ~50× — mit Innenkühlung.';}
+  else if(d_mm>0.05){method='Bohrerodieren';feasible=ratio<=500?'✓ möglich':ratio<=1000?'✓ anspruchsvoll':'✗ Grenzbereich';note='Bohrerodieren mit Rohrelektrode und Dielektrikum-Spülung — bis Aspektverhältnis ~500.';}
+  else{method='Mikro-Bohrerodieren';feasible=ratio<=1000?'✓ möglich':'⚠ Weltrekordbereich';note=ratio>500?'Weltrekordbereich! Aspektverhältnis >1000 ist Stand der Technik (2015).':'Extremes Mikrobohren — Wolfram-Rohrelektrode, entionisiertes Wasser.';}
+
+  document.getElementById('asp-method').textContent=method;
+  document.getElementById('asp-feasible').textContent=feasible;
+  document.getElementById('asp-feasible').style.color=feasible.startsWith('✓')?'var(--ok-t)':feasible.startsWith('⚠')?'var(--gold)':'#DC143C';
+  document.getElementById('asp-note').textContent=note;
+
+  drawAspect(d_mm,t_mm,ratio);
+}
+
+function drawAspect(d_mm,t_mm,ratio){
+  const canvas=document.getElementById('aspect-canvas');
+  const dpr=window.devicePixelRatio||1;
+  canvas.width=canvas.offsetWidth*dpr;canvas.height=260*dpr;
+  const ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);
+  const W=canvas.offsetWidth,H=260;
+  ctx.fillStyle='#06080f';ctx.fillRect(0,0,W,H);
+
+  // Visualization: hole cross-section, scaled to fit
+  const maxDim=Math.max(d_mm,t_mm);
+  const scaleD=Math.min(60,W*0.25/(d_mm/maxDim));
+  const scaleT=Math.min(200,H*0.85/(t_mm/maxDim));
+  const scale=Math.min(scaleD,scaleT);
+
+  const holeW=Math.max(2,d_mm*scale);
+  const holeH=Math.min(H*0.85,t_mm*scale);
+  const cx=W*0.35;
+  const top=(H-holeH)/2;
+
+  // Workpiece
+  ctx.fillStyle='#2A3A4A';
+  ctx.fillRect(0,top,W*0.7,holeH);
+
+  // Hole
+  ctx.fillStyle='#06080f';
+  ctx.fillRect(cx-holeW/2,top,holeW,holeH);
+
+  // Electrode inside hole
+  const elecW=Math.max(1,holeW*0.5);
+  const elecH=holeH*0.7;
+  ctx.fillStyle='#C9A84C';
+  ctx.fillRect(cx-elecW/2,top-10,elecW,elecH);
+
+  // Dielektrikum flow arrows inside
+  ctx.strokeStyle='rgba(91,143,185,.5)';ctx.lineWidth=1;
+  for(let y=top+10;y<top+elecH-20;y+=20){
+    ctx.beginPath();ctx.moveTo(cx,y);ctx.lineTo(cx,y+12);ctx.stroke();
+  }
+
+  // Dimension annotations
+  ctx.strokeStyle='rgba(255,255,255,.3)';ctx.lineWidth=1;ctx.setLineDash([3,3]);
+  // Width
+  ctx.beginPath();ctx.moveTo(cx-holeW/2,top-18);ctx.lineTo(cx+holeW/2,top-18);ctx.stroke();
+  // Depth
+  ctx.beginPath();ctx.moveTo(W*0.7+8,top);ctx.lineTo(W*0.7+8,top+holeH);ctx.stroke();
+  ctx.setLineDash([]);
+
+  ctx.fillStyle='rgba(255,255,255,.5)';ctx.font='9px monospace';ctx.textAlign='center';
+  ctx.fillText('Ø '+d_mm.toFixed(3)+' mm',cx,top-22);
+  ctx.save();ctx.translate(W*0.7+24,top+holeH/2);ctx.rotate(-Math.PI/2);
+  ctx.fillText(t_mm.toFixed(1)+' mm',0,0);ctx.restore();
+
+  // Aspect ratio display
+  const col=ratio<=10?'#7AAD7A':ratio<=100?'#C9A84C':ratio<=500?'#FF8C00':'#DC143C';
+  ctx.fillStyle=col;ctx.font='bold 22px monospace';ctx.textAlign='center';
+  ctx.fillText('t/d = '+ratio,W*0.83,H/2-10);
+  ctx.font='10px monospace';
+  ctx.fillText(ratio>500?'Weltrekord':ratio>100?'Bohrerodieren':ratio>10?'Tiefbohren':'Standard',W*0.83,H/2+12);
+
+  // Comparison scale
+  ctx.fillStyle='rgba(255,255,255,.2)';ctx.font='9px monospace';ctx.textAlign='left';
+  ctx.fillText('Haar: ~80 µm',W*0.68,H-8);
+  if(d_mm<0.08){
+    ctx.fillStyle='rgba(255,200,50,.6)';
+    ctx.fillText('← dünner als ein Haar',W*0.68,H-20);
+  }
+}
+
+// ═══ QUIZ ═══
+const QS={u1:{answers:[null,null,null],score:0,done:false},u2:{answers:[null,null,null],score:0,done:false},u3:{answers:[null,null,null],score:0,done:false}};
+function ans(btn,uid,qi,correct){
+  const q=QS[uid];if(q.answers[qi]!==null)return;
+  q.answers[qi]=correct;if(correct)q.score++;
+  btn.classList.add(correct?'correct':'wrong');
+  btn.closest('.quiz-q').querySelectorAll('.opt').forEach(o=>{
+    o.classList.add('locked');
+    if(!correct&&(o.getAttribute('onclick')||'').includes(',true)'))o.classList.add('correct');
+  });
+  const fb=document.getElementById('fb-'+uid+'-'+qi);if(fb)fb.classList.add('open');
+  const answered=q.answers.filter(a=>a!==null).length;
+  document.getElementById('score-'+uid).textContent=q.score+' / '+answered;
+  if(answered===3&&q.score===3&&!q.done){
+    q.done=true;
+    if(uid==='u1'){awardDepth('u1_quiz');unlockUnit('unit-2','preview-1','prev-ey-1');}
+    if(uid==='u2'){awardDepth('u2_quiz');unlockUnit('unit-3','preview-2','prev-ey-2');}
+    if(uid==='u3'){awardDepth('u3_quiz');showBranch3();}
+  }
+}
+function resetQ(uid){
+  const q=QS[uid];q.answers=[null,null,null];q.score=0;q.done=false;
+  const unit=document.getElementById('unit-'+uid.replace('u',''));
+  if(unit){unit.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong','locked'));unit.querySelectorAll('.quiz-fb').forEach(f=>f.classList.remove('open'));}
+  document.getElementById('score-'+uid).textContent='0 / 3';
+}
+function unlockUnit(unitId,cardId,eyeId){
+  const card=document.getElementById(cardId);
+  if(card){card.classList.add('unlocked','just-unlocked');setTimeout(()=>card.classList.remove('just-unlocked'),800);}
+  document.getElementById(eyeId).textContent='Jetzt zugänglich';
+  const u=document.getElementById(unitId);
+  u.style.opacity='1';u.style.pointerEvents='auto';u.removeAttribute('aria-disabled');
+  setTimeout(()=>u.scrollIntoView({behavior:'smooth',block:'start'}),700);
+}
+function showBranch3(){
+  document.getElementById('branch-3').classList.add('visible');
+  setTimeout(()=>document.getElementById('branch-3').scrollIntoView({behavior:'smooth',block:'start'}),500);
+}
+function skipTo(id){
+  const el=document.getElementById(id);if(!el)return;
+  el.closest('.unit').querySelectorAll('.skippable').forEach(s=>s.classList.add('hidden'));
+  setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),50);
+}
+function hintToggle(btn){
+  const body=btn.nextElementSibling;const open=body.classList.contains('open');
+  body.classList.toggle('open',!open);btn.textContent=open?'Hinweis':'Schließen';
+}
+function openB(id){
+  if(id==='b-wire'){awardDepth('b_wire');document.getElementById('b-wire').classList.add('open');document.getElementById('bc-wire').classList.add('active');setTimeout(()=>document.getElementById('b-wire').scrollIntoView({behavior:'smooth',block:'start'}),100);return;}
+  if(id==='b-sink'){awardDepth('b_sink');document.getElementById('b-sink').classList.add('open');document.getElementById('bc-sink').classList.add('active');setTimeout(()=>document.getElementById('b-sink').scrollIntoView({behavior:'smooth',block:'start'}),100);return;}
+  if(id==='b3-finish'){awardDepth('finish');showCompletion();}
+}
+function showCompletion(){
+  const d=document.getElementById('dval').textContent;
+  const note=document.getElementById('dnote').textContent.replace('— ','');
+  document.getElementById('comp-depth').textContent='Lerntiefe: '+d+' — '+note;
+  document.getElementById('completion').classList.add('visible');
+  document.getElementById('horizon').classList.add('visible');
+  setTimeout(()=>document.getElementById('completion').scrollIntoView({behavior:'smooth',block:'start'}),300);
+}
+window.addEventListener('load',()=>{
+  updateEDM();
+  updateWire();
+  updateAspect();
+  renderDepth();
+  setWireContour('square');
+  window.addEventListener('resize',()=>{
+    clearTimeout(window._rt);
+    window._rt=setTimeout(()=>{updateEDM();updateWire();updateAspect();},100);
+  });
+});
+</script>
+</body>
+</html>
