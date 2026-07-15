@@ -3,7 +3,7 @@
  * Path:      lib/learningPaths.ts
  * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/learningPaths.ts
  * Name:      Learning Paths registry
- * Version:   0.9.3
+ * Version:   0.9.4
  * Created:   2026-07-03
  * Modified:  2026-07-15 21:00 CEST
  * Depends:   —
@@ -709,6 +709,246 @@ export const learningPaths: LearningPath[] = [
           { id: 'EXP:GAUSS', kind: 'experiment', title: 'Experiment: Gauss-Elimination animiert', summary: '4-Schritt-Walkthrough: Ausgangsmatrix → Pivot Sp.1 → Pivot Sp.2 → Rueckwaertseinsetzen.', interactive: true, depthPoints: 6 },
           { id: 'BRANCH:CRAMER', kind: 'branch', title: 'Seitenast: Cramer-Regel', summary: 'x = det(Ax)/det(A), y = det(Ay)/det(A) — elegant fuer 2x2.', optional: true, depthPoints: 7 },
           { id: 'QUIZ:LGS-2', kind: 'quiz', title: 'Quiz: Gauss', summary: 'Ziel der Gauss-Elimination, erlaubte Operationen, unendlich viele Loesungen.', depthPoints: 15 }
+        ]
+      }
+    ]
+  }
+,
+  {
+    id: 'PATH:SSF:ENG-DMS-0001',
+    title: 'Warum kann Stahl brechen',
+    subtitle: 'Von der Waermedehnung zum Dehnungsmessstreifen: Spannung, Dehnung und wie ein DMS aus Widerstandsaenderung Kraft sichtbar macht.',
+    status: 'prototype',
+    sourceModuleId: 'SSF-ENG-1102',
+    kxfModuleId: 'LRN:SSF:ENG-1102',
+    domainsNeeded: ['KNOW:ENG-MATERIALS', 'KNOW:PHYS-MECHANICS', 'KNOW:EL-BASICS'],
+    suppliedBy: {
+      knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Kapitel 1-8 mit Takeaways',
+        'Experimente: Thermische Dehnung, Hookesches Gesetz, Querkontraktions-Visualisierung, DMS-Bruecke live, Rosetten-Rechner'
+      ]
+    },
+    unlocks: ['SENSOR:STRAIN', 'SENSOR:STRESS', 'CIRCUIT:WHEATSTONE'],
+    units: [
+      {
+        id: 'UNIT:DMS-WAERME',
+        title: 'Warum werden Materialien laenger?',
+        entryQuestion: 'Warum legt man zwischen Schienen-Segmenten Luecken — und warum nur im Sommer?',
+        takeaway: 'Jedes Material dehnt sich bei Waerme aus — der Ausdehnungskoeffizient sagt wie stark. Stahl waechst pro Grad und Meter um 12 Mikrometer.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:DMS-SPANNUNG' },
+        sections: [
+          {
+            id: 'OBS:SCHIENEN',
+            kind: 'observation',
+            title: 'Beobachtung: Schienenstoesse im Sommer',
+            summary: 'Eisenbahnschienen haben Dehnungsfugen. Im Sommer schrumpfen sie fast auf null — im Winter klaffen sie offen. Dasselbe Metall, andere Temperatur, andere Laenge. Warum?',
+            depthPoints: 4
+          },
+          {
+            id: 'EXP:DEHNUNG-WAERME',
+            kind: 'experiment',
+            title: 'Experiment: Thermische Dehnung',
+            summary: 'Material- und Temperatur-Slider: Delta-L = alpha * L0 * Delta-T live. Vergleich Stahl / Aluminium / Beton / Invar.',
+            interactive: true,
+            depthPoints: 6
+          },
+          {
+            id: 'QUIZ:DMS-1',
+            kind: 'quiz',
+            title: 'Quiz: Thermische Dehnung',
+            summary: 'Warum Dehnungsfugen, was ist alpha, Rechenbeispiel Stahl 10m bei 30 Grad.',
+            depthPoints: 12
+          }
+        ]
+      },
+      {
+        id: 'UNIT:DMS-SPANNUNG',
+        title: 'Was ist Spannung?',
+        entryQuestion: 'Wenn zwei Kräfte an einem Stab ziehen — was passiert im Inneren des Materials?',
+        takeaway: 'Spannung ist Kraft pro Fläche — nicht die Kraft selbst. Derselbe Zug auf einen dünnen Draht reisst ihn, auf einen dicken kaum spürbar.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:DMS-DEHNUNG' },
+        sections: [
+          {
+            id: 'OBS:ZUG-DRUCK',
+            kind: 'observation',
+            title: 'Beobachtung: Zugversuch',
+            summary: 'Ein dünner Draht und ein dicker Stab aus demselben Material. Gleiche Kraft — der Draht reisst, der Stab nicht. Der Unterschied liegt nicht in der Kraft, sondern in der Fläche.',
+            depthPoints: 4
+          },
+          {
+            id: 'EXP:SPANNUNG',
+            kind: 'experiment',
+            title: 'Experiment: Normalspannung sigma = F/A',
+            summary: 'Kraft F und Querschnitt A als Slider — Spannung sigma live. Vergleich: Draht vs. Stab. Zugspannung (positiv) und Druckspannung (negativ) sichtbar.',
+            interactive: true,
+            depthPoints: 6
+          },
+          {
+            id: 'QUIZ:DMS-2',
+            kind: 'quiz',
+            title: 'Quiz: Normalspannung',
+            summary: 'Was ist sigma, Einheit N/mm2 = MPa, warum Querschnitt entscheidend.',
+            depthPoints: 12
+          }
+        ]
+      },
+      {
+        id: 'UNIT:DMS-DEHNUNG',
+        title: 'Was ist Dehnung?',
+        entryQuestion: 'Wenn ein Stab unter Spannung steht — wie sehr verändert er seine Länge?',
+        takeaway: 'Dehnung ist dimensionslos — ein Verhältnis. epsilon = 0,001 bedeutet: ein Meter wird um einen Millimeter länger. Kleine Zahlen, grosse Konsequenzen.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:DMS-QUERKONTRAKTION' },
+        sections: [
+          {
+            id: 'EXP:HOOKE',
+            kind: 'experiment',
+            title: 'Experiment: Hookesches Gesetz sigma = E * epsilon',
+            summary: 'E-Modul und epsilon als Slider — sigma live. Spannungs-Dehnungs-Diagramm mit linearem Bereich, Streckgrenze, Bruch. Material-Vergleich: Stahl / Aluminium / Gummi.',
+            interactive: true,
+            depthPoints: 7
+          },
+          {
+            id: 'QUIZ:DMS-3',
+            kind: 'quiz',
+            title: 'Quiz: Dehnung und Hookesches Gesetz',
+            summary: 'Was ist epsilon, E-Modul-Vergleich, warum linear nur bis Streckgrenze.',
+            depthPoints: 12
+          }
+        ]
+      },
+      {
+        id: 'UNIT:DMS-QUERKONTRAKTION',
+        title: 'Warum werden Materialien dünner?',
+        entryQuestion: 'Wenn ein Stab länger wird — wird er gleichzeitig dünner?',
+        takeaway: 'Querkontraktion ist unvermeidlich — Volumen bleibt (näherungsweise) erhalten. Die Poisson-Zahl nu beschreibt das Verhältnis: für Stahl etwa 0,3.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:DMS-PRINZIP' },
+        sections: [
+          {
+            id: 'OBS:RADIERGUMMI',
+            kind: 'observation',
+            title: 'Beobachtung: Radiergummi strecken',
+            summary: 'Nimm einen Radiergummi und zieh ihn in die Länge. Er wird länger — aber auch dünner. Das ist Querkontraktion. Dasselbe passiert in Stahlträgern unter Last, nur unsichtbar klein.',
+            depthPoints: 4
+          },
+          {
+            id: 'EXP:QUERKONTRAKTION',
+            kind: 'experiment',
+            title: 'Experiment: Querkontraktion und Poisson-Zahl',
+            summary: 'Laengsdehnung-Slider — Querdehnung epsilon_q = -nu * epsilon_l live. Visualisierung: Stabquerschnitt verändert sich. Material-Vergleich mit nu-Werten.',
+            interactive: true,
+            depthPoints: 6
+          },
+          {
+            id: 'QUIZ:DMS-4',
+            kind: 'quiz',
+            title: 'Quiz: Querkontraktion',
+            summary: 'Was ist nu, warum negatives Vorzeichen, Kork nu ~ 0 warum ideal fuer Flaschenverschluss.',
+            depthPoints: 12
+          }
+        ]
+      },
+      {
+        id: 'UNIT:DMS-PRINZIP',
+        title: 'Wie misst ein DMS?',
+        entryQuestion: 'Wie kann man aus einer winzigen Längenänderung einen elektrischen Messwert machen?',
+        takeaway: 'Der DMS klebt auf dem Bauteil und dehnt sich mit — sein Widerstand ändert sich proportional zur Dehnung. k-Faktor beschreibt die Empfindlichkeit.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:DMS-BRUECKE' },
+        sections: [
+          {
+            id: 'OBS:DMS-FOTO',
+            kind: 'observation',
+            title: 'Beobachtung: DMS unter der Lupe',
+            summary: 'Ein DMS ist ein mäandrierender Metallfoliengitter auf Trägerfolie — kaum grösser als ein Fingernagel. Er klebt auf dem Bauteil und verformt sich mit ihm. Die Änderung des elektrischen Widerstands verrät die Dehnung.',
+            depthPoints: 4
+          },
+          {
+            id: 'EXP:DMS-WIDERSTAND',
+            kind: 'experiment',
+            title: 'Experiment: DMS-Widerstandsänderung',
+            summary: 'Dehnung epsilon und k-Faktor als Slider — Delta-R/R0 live. Typische Werte: epsilon = 1000 microepsilon, k = 2, Delta-R/R0 = 0,2%. Warum so klein?',
+            interactive: true,
+            depthPoints: 7
+          },
+          {
+            id: 'QUIZ:DMS-5',
+            kind: 'quiz',
+            title: 'Quiz: DMS-Prinzip',
+            summary: 'Was ist der k-Faktor, warum Delta-R/R so klein, was heisst Gauge Factor.',
+            depthPoints: 12
+          }
+        ]
+      },
+      {
+        id: 'UNIT:DMS-BRUECKE',
+        title: 'Die Wheatstone-Brücke',
+        entryQuestion: 'Eine Widerstandsänderung von 0,2% messen — wie geht das präzise?',
+        takeaway: 'Die Wheatstone-Brücke macht aus einer winzigen Widerstandsänderung eine messbare Spannung — und unterdrückt dabei Temperatureinflüsse automatisch.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:DMS-ROSETTE' },
+        sections: [
+          {
+            id: 'EXP:BRUECKE',
+            kind: 'experiment',
+            title: 'Experiment: Wheatstone-Brücke live',
+            summary: 'Viertel-, Halb- und Vollbruecke waehlbar. Dehnung-Slider — Brueckenspannung Uab live. Temperaturkompensation sichtbar: Viertelbruecke driftet, Halbbruecke stabil.',
+            interactive: true,
+            depthPoints: 8
+          },
+          {
+            id: 'QUIZ:DMS-6',
+            kind: 'quiz',
+            title: 'Quiz: Wheatstone-Brücke',
+            summary: 'Warum Bruecke statt direkter Messung, Viertel- vs. Halbbruecke, Temperaturkompensation.',
+            depthPoints: 15
+          }
+        ]
+      },
+      {
+        id: 'UNIT:DMS-ROSETTE',
+        title: 'Die DMS-Rosette',
+        entryQuestion: 'Wenn Spannung in mehrere Richtungen wirkt — wie misst man alle gleichzeitig?',
+        takeaway: 'Drei DMS in 0°/45°/90° geben drei Messungen — daraus lassen sich Hauptspannungen und ihre Richtung berechnen. Das ist der Mohrschen Spannungskreis.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:DMS-AUSWERTUNG' },
+        sections: [
+          {
+            id: 'EXP:ROSETTE',
+            kind: 'experiment',
+            title: 'Experiment: DMS-Rosetten-Rechner',
+            summary: 'Drei Dehnungen epsilon_a/b/c eingeben — Hauptspannungen sigma_1/sigma_2 und Winkel alpha live berechnet. Mohrsche Kreis visualisiert.',
+            interactive: true,
+            depthPoints: 8
+          },
+          {
+            id: 'QUIZ:DMS-7',
+            kind: 'quiz',
+            title: 'Quiz: DMS-Rosette',
+            summary: 'Warum drei DMS, was sind Hauptspannungen, was zeigt der Mohrsche Kreis.',
+            depthPoints: 15
+          }
+        ]
+      },
+      {
+        id: 'UNIT:DMS-AUSWERTUNG',
+        title: 'Vom Messwert zur Spannung',
+        entryQuestion: 'Du hast eine Brückenspannung von 1,2 mV — wie gross ist die mechanische Spannung im Bauteil?',
+        takeaway: 'Der Weg von Uab zu sigma ist eine Kette: Spannung → Dehnung (k-Faktor) → Spannung (E-Modul). Jeder Schritt hat eine Fehlerquelle — deshalb braucht es Kalibrierung.',
+        sections: [
+          {
+            id: 'EXP:AUSWERTUNG',
+            kind: 'experiment',
+            title: 'Experiment: Vollständige Messkette',
+            summary: 'Uab, Uv, k-Faktor, E-Modul als Slider — epsilon und sigma live. Fehlerfortpflanzung: welcher Parameter dominiert?',
+            interactive: true,
+            depthPoints: 8
+          },
+          {
+            id: 'QUIZ:DMS-8',
+            kind: 'quiz',
+            title: 'Quiz: Messkette',
+            summary: 'Vollstaendige Berechnung sigma aus Uab, warum Kalibrierung, typische Fehlerquellen.',
+            depthPoints: 18
+          }
         ]
       }
     ]
