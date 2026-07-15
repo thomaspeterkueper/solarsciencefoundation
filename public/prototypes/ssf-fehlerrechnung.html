@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SSF · Wie genau wissen wir, was wir messen?</title>
+<style>
+:root {
+  --bg:#F9F8F5; --surface:#F0EFE9; --surface2:#E6E4DC;
+  --border:#D8D6CE; --soft:#E8E6DE;
+  --text:#1A1916; --text-2:#4A4840; --text-3:#8A8880;
+  --navy:#1C2B3A; --navy-2:#2C3F52;
+  --gold:#C9A84C; --gold-bg:#F5F0E0; --gold-b:#DFC87A;
+  --ok-bg:#EEF3EE; --ok-b:#7AAD7A; --ok-t:#2A5C2A;
+  --no-bg:#F5EEEE; --no-b:#C49090; --no-t:#6B2222;
+  --r:4px;
+  --serif:Georgia,'Palatino Linotype',serif;
+  --sans:system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'SFMono-Regular','Cascadia Code','Fira Code',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+
+.site-header{border-bottom:1px solid var(--border);padding:1rem 0;position:sticky;top:0;background:var(--bg);z-index:60}
+.h-inner{max-width:740px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;gap:.875rem}
+.signet{width:24px;height:24px;flex-shrink:0}
+.site-name{font-family:var(--mono);font-size:11px;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase}
+.h-space{flex:1}
+.mod-id{font-family:var(--mono);font-size:10px;color:var(--text-3)}
+
+.depth-wrap{background:var(--bg);border-bottom:1px solid var(--soft);padding:.5rem 0;position:sticky;top:57px;z-index:50}
+.depth-inner{max-width:740px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;gap:.875rem}
+.depth-lbl{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.depth-track{flex:1;height:5px;background:var(--surface2);border-radius:3px;overflow:hidden}
+.depth-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--gold),var(--navy));width:0%;transition:width 1.4s cubic-bezier(.22,1,.36,1)}
+.depth-val{font-family:var(--mono);font-size:11px;color:var(--text-2);min-width:2.5ch;text-align:right}
+.depth-note{font-family:var(--mono);font-size:9.5px;color:var(--text-3);white-space:nowrap}
+@media(max-width:480px){.depth-note{display:none}}
+
+.wrap{max-width:740px;margin:0 auto;padding:0 1.5rem}
+main{padding:0 0 8rem}
+
+.intro{padding:3rem 0 0;margin-bottom:3.5rem}
+.eyebrow{font-family:var(--mono);font-size:10.5px;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem}
+.path-title{font-family:var(--serif);font-size:clamp(24px,4vw,34px);font-weight:normal;color:var(--text);line-height:1.2;letter-spacing:-.015em;margin-bottom:1rem}
+.path-desc{font-size:16px;color:var(--text-2);line-height:1.7;max-width:54ch}
+
+.unit{margin-bottom:1.5rem;scroll-margin-top:115px}
+.unit-hdr{padding:2.5rem 0 0;margin-bottom:2rem;border-top:1px solid var(--border)}
+.unit-idx{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.875rem}
+.unit-q{font-family:var(--serif);font-size:clamp(19px,3vw,26px);font-weight:normal;color:var(--text);line-height:1.25;letter-spacing:-.01em;margin-bottom:1.5rem}
+.sec-lbl{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:1.25rem;display:flex;align-items:center;gap:.75rem}
+.sec-lbl::after{content:'';flex:1;height:1px;background:var(--soft)}
+.section{margin-bottom:2.75rem}
+.hr{border:none;border-top:1px solid var(--soft);margin:2.5rem 0}
+
+.prose{font-family:var(--serif);font-size:17px;line-height:1.82;color:var(--text)}
+.prose p{margin-bottom:1.2rem}
+.prose p:last-child{margin-bottom:0}
+
+.tip{border-bottom:1.5px dashed var(--gold);cursor:help;position:relative}
+.tip-pop{display:none;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;font-family:var(--sans);font-size:13px;line-height:1.5;padding:.75rem 1rem;border-radius:6px;width:260px;z-index:200;pointer-events:none;box-shadow:0 4px 20px rgba(0,0,0,.28)}
+.tip-pop::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:var(--navy)}
+.tip-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#E8D9A8;margin-bottom:.2rem}
+.tip:hover .tip-pop,.tip:focus .tip-pop{display:block}
+
+.obs{background:var(--surface);border-left:3px solid var(--gold);border-radius:0 var(--r) var(--r) 0;padding:1.25rem 1.5rem;margin:1.75rem 0}
+.obs-ey{font-family:var(--mono);font-size:10px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem}
+.obs-txt{font-family:var(--serif);font-size:16.5px;color:var(--text-2);line-height:1.72;font-style:italic}
+
+.skip-bar{display:flex;align-items:center;gap:.75rem;margin-bottom:2rem;padding:.625rem 1rem;background:var(--surface);border-radius:var(--r);border:1px solid var(--soft)}
+.skip-bar span{font-size:13px;color:var(--text-3);flex:1}
+.skip-btn{font-size:12.5px;color:var(--text-3);background:transparent;border:1px solid var(--border);border-radius:var(--r);padding:4px 12px;cursor:pointer;font-family:var(--sans)}
+.skip-btn:hover{color:var(--text-2);border-color:var(--text-3)}
+.skippable.hidden{display:none}
+
+.info{background:var(--surface);border-radius:var(--r);padding:1.125rem 1.375rem;margin:1.5rem 0;border-left:3px solid var(--navy)}
+.info-lbl{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.09em;text-transform:uppercase;margin-bottom:.5rem}
+.info-txt{font-size:15px;color:var(--text);line-height:1.7}
+
+/* ── Experiment cards ── */
+.exp-card{border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:1.75rem 0}
+.exp-header{background:var(--surface);padding:1rem 1.375rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.875rem}
+.exp-icon{font-size:20px;flex-shrink:0}
+.exp-tag{font-family:var(--mono);font-size:9.5px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.2rem}
+.exp-name{font-family:var(--serif);font-size:16px;color:var(--text)}
+.exp-do{background:#F5F4EE;border-left:3px solid var(--gold);padding:1rem 1.25rem;border-bottom:1px solid var(--soft)}
+.exp-do-lbl{font-family:var(--mono);font-size:9.5px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.375rem}
+.exp-do-txt{font-size:14.5px;color:var(--text-2);line-height:1.65}
+.exp-body{padding:1.375rem}
+.exp-row{display:flex;gap:1.25rem;align-items:flex-start;flex-wrap:wrap}
+.exp-controls{flex:0 0 240px;min-width:200px}
+.exp-visual{flex:1;min-width:200px}
+.slider-group{margin-bottom:1.125rem}
+.slider-lbl{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.375rem}
+.slider-name{font-family:var(--mono);font-size:10.5px;color:var(--text-3);letter-spacing:.07em;text-transform:uppercase}
+.slider-val{font-family:var(--mono);font-size:13px;color:var(--navy)}
+input[type=range]{width:100%;-webkit-appearance:none;height:5px;background:var(--surface2);border-radius:3px;outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--navy);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--navy);border:none;cursor:pointer}
+
+/* Error display */
+.error-display{background:var(--navy);border-radius:var(--r);padding:1.25rem 1.5rem;color:#fff;margin-top:.75rem}
+.error-formula{font-family:var(--mono);font-size:13px;color:#E8D9A8;margin-bottom:.875rem;line-height:1.6}
+.error-result{font-family:var(--serif);font-size:28px;color:#fff;letter-spacing:-.02em;margin-bottom:.25rem}
+.error-label{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.5);letter-spacing:.08em;text-transform:uppercase}
+.error-breakdown{margin-top:.875rem;display:flex;flex-direction:column;gap:5px}
+.error-bar-row{display:flex;align-items:center;gap:.625rem}
+.error-bar-lbl{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.6);width:60px;flex-shrink:0}
+.error-bar-track{flex:1;height:8px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden}
+.error-bar-fill{height:100%;border-radius:4px;transition:width .3s}
+.error-bar-val{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.8);width:50px;text-align:right;flex-shrink:0}
+
+/* General error builder */
+.var-row{display:grid;grid-template-columns:80px 1fr 100px 80px;gap:.5rem;align-items:center;margin-bottom:.625rem}
+.var-row input[type=number]{width:100%;padding:5px 8px;border:1px solid var(--border);border-radius:var(--r);font-family:var(--mono);font-size:13px;background:var(--surface);color:var(--text)}
+.var-row input[type=range]{margin:0}
+.var-lbl{font-family:var(--mono);font-size:12px;color:var(--text-2)}
+.var-exp-lbl{font-family:var(--mono);font-size:10px;color:var(--text-3);text-align:right}
+
+/* Formula block */
+.formula-block{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.125rem 1.5rem;margin:1.5rem 0;text-align:center}
+.formula{font-family:var(--mono);font-size:18px;color:var(--navy);display:block;margin-bottom:.5rem}
+.formula-cap{font-size:13px;color:var(--text-3);line-height:1.55}
+
+/* Aufgaben */
+.aufgabe{border:1px solid var(--border);border-radius:var(--r);padding:1.125rem 1.375rem;margin-bottom:.875rem}
+.aufg-nr{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5rem}
+.aufg-txt{font-size:15px;color:var(--text);line-height:1.65}
+.hint-btn{margin-top:.75rem;padding:3px 11px;font-size:12px;border:1px solid var(--border);border-radius:var(--r);background:transparent;color:var(--text-3);cursor:pointer;font-family:var(--sans)}
+.hint-body{display:none;font-size:13.5px;color:var(--text-2);line-height:1.65;margin-top:.75rem;padding-top:.75rem;border-top:1px solid var(--soft)}
+.hint-body.open{display:block}
+
+/* Quiz */
+.quiz-q{margin-bottom:1.75rem}
+.quiz-txt{font-family:var(--serif);font-size:16px;color:var(--text);line-height:1.55;margin-bottom:.75rem}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opt{padding:10px 14px;border:1px solid var(--border);border-radius:var(--r);font-size:14px;color:var(--text);background:var(--surface);text-align:left;cursor:pointer;line-height:1.45;transition:border-color .12s,background .12s;font-family:var(--sans)}
+.opt:hover:not(.locked){border-color:var(--navy-2);background:var(--surface2)}
+.opt.correct{border-color:var(--ok-b);background:var(--ok-bg);color:var(--ok-t)}
+.opt.wrong{border-color:var(--no-b);background:var(--no-bg);color:var(--no-t)}
+.opt.locked{cursor:default}
+.quiz-fb{display:none;font-size:13.5px;color:var(--text-2);line-height:1.65;margin-top:.75rem;padding:.75rem 1rem;background:var(--surface);border-radius:var(--r);border:1px solid var(--soft)}
+.quiz-fb.open{display:block}
+.score-row{display:flex;align-items:center;gap:.875rem;flex-wrap:wrap;padding-top:1.375rem;border-top:1px solid var(--border);margin-top:.5rem}
+.score-n{font-family:var(--serif);font-size:26px;color:var(--text);letter-spacing:-.02em}
+.score-lbl{font-size:13px;color:var(--text-3)}
+.reset-btn{margin-left:auto;padding:5px 13px;font-size:12px;border:1px solid var(--border);border-radius:var(--r);background:transparent;color:var(--text-3);cursor:pointer;font-family:var(--sans)}
+
+/* Branch */
+.branch{margin:2.5rem 0;padding:1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;display:none}
+.branch.visible{display:block}
+.branch-lbl{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:.75rem}
+.branch-lbl::after{content:'';flex:1;height:1px;background:var(--soft)}
+.branch-cards{display:grid;grid-template-columns:1fr 1fr;gap:.875rem;margin-top:.875rem}
+@media(max-width:460px){.branch-cards{grid-template-columns:1fr}}
+.b-card{border:1px solid var(--border);border-radius:var(--r);padding:1rem 1.125rem;cursor:pointer;background:var(--bg);transition:border-color .15s;text-align:left;font-family:var(--sans)}
+.b-card:hover{border-color:var(--navy-2)}
+.b-card.active{border-color:var(--gold);box-shadow:0 0 0 2px rgba(201,168,76,.2)}
+.b-icon{font-size:20px;margin-bottom:.5rem}
+.b-name{font-family:var(--mono);font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--navy);margin-bottom:.375rem}
+.b-desc{font-size:13px;color:var(--text-3);line-height:1.5}
+.b-panel{display:none;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:1.25rem 0}
+.b-panel.open{display:block}
+.b-panel-hdr{padding:1rem 1.375rem;background:var(--gold-bg);border-bottom:1px solid var(--gold-b);display:flex;align-items:center;gap:.75rem}
+.b-panel-tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;padding:2px 7px;border-radius:3px;background:#E8D9A8;color:var(--navy)}
+.b-panel-title{font-family:var(--serif);font-size:16px;color:var(--text)}
+.b-panel-body{padding:1.375rem;background:var(--bg)}
+
+/* Preview */
+.preview-card{margin:2.5rem 0;border-radius:6px;border:1px solid var(--border);overflow:hidden;position:relative;transition:border-color .4s}
+.preview-card.unlocked{border-color:var(--gold-b)}
+.prev-hdr{padding:1.25rem 1.5rem;background:var(--surface);display:flex;align-items:flex-start;gap:1rem;border-bottom:1px solid var(--border);transition:background .4s}
+.preview-card.unlocked .prev-hdr{background:var(--gold-bg);border-bottom-color:var(--gold-b)}
+.prev-icon{width:36px;height:36px;border-radius:50%;background:var(--surface2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:17px}
+.prev-meta{flex:1}
+.prev-ey{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.375rem;transition:color .4s}
+.preview-card.unlocked .prev-ey{color:var(--gold)}
+.prev-title{font-family:var(--serif);font-size:17px;color:var(--text);line-height:1.3;transition:filter .4s}
+.preview-card:not(.unlocked) .prev-title{filter:blur(2.5px);user-select:none}
+.prev-body{padding:1.125rem 1.5rem;position:relative}
+.prev-teaser{font-size:14px;color:var(--text-2);line-height:1.65;transition:filter .4s}
+.preview-card:not(.unlocked) .prev-teaser{filter:blur(3px);color:#AAA;user-select:none}
+.prev-keys{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.875rem;transition:filter .4s}
+.preview-card:not(.unlocked) .prev-keys{filter:blur(3px);pointer-events:none}
+.pkey{font-family:var(--mono);font-size:11px;color:var(--navy);background:var(--gold-bg);border:1px solid var(--gold-b);padding:3px 9px;border-radius:var(--r)}
+.lock-ov{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;background:rgba(249,248,245,.55);backdrop-filter:blur(1px);transition:opacity .4s;pointer-events:none}
+.preview-card.unlocked .lock-ov{opacity:0}
+.lock-ico{font-size:22px}
+.lock-txt{font-family:var(--mono);font-size:11px;color:var(--text-3);letter-spacing:.07em;text-transform:uppercase}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(201,168,76,.5)}70%{box-shadow:0 0 0 12px rgba(201,168,76,0)}100%{box-shadow:0 0 0 0 rgba(201,168,76,0)}}
+.just-unlocked{animation:pulse .7s ease-out}
+
+.completion{display:none;background:var(--gold-bg);border:1px solid var(--gold-b);border-radius:8px;padding:2.25rem 1.5rem;text-align:center;margin:3rem 0}
+.completion.visible{display:block}
+.comp-title{font-family:var(--serif);font-size:22px;color:var(--navy);margin-bottom:.5rem}
+.comp-sub{font-size:14px;color:var(--text-2);line-height:1.65;margin-bottom:1.25rem;max-width:48ch;margin-left:auto;margin-right:auto}
+.comp-keys{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.25rem}
+.comp-depth{font-family:var(--mono);font-size:11px;color:var(--text-3)}
+.horizon{display:none;margin:1.5rem 0 6rem;padding:1.25rem 1.5rem;border-top:1px solid var(--soft)}
+.horizon.visible{display:block}
+.horizon-txt{font-family:var(--serif);font-size:15.5px;color:var(--text-3);line-height:1.8;font-style:italic;max-width:52ch;margin-bottom:1.25rem}
+
+@media(max-width:580px){.prose{font-size:16px}.path-title{font-size:22px}.unit-q{font-size:18px}.exp-row{flex-direction:column}.exp-controls{flex:none;width:100%}}
+:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="h-inner">
+    <svg class="signet" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+      <circle cx="13" cy="13" r="12" stroke="#1C2B3A" stroke-width="1.1" fill="none"/>
+      <circle cx="13" cy="13" r="3.5" fill="#C9A84C"/>
+      <ellipse cx="13" cy="13" rx="10" ry="4" stroke="#1C2B3A" stroke-width=".7" fill="none" transform="rotate(-25 13 13)"/>
+      <ellipse cx="13" cy="13" rx="10" ry="4" stroke="#1C2B3A" stroke-width=".7" fill="none" transform="rotate(25 13 13)"/>
+    </svg>
+    <span class="site-name">Solar Science Foundation</span>
+    <div class="h-space"></div>
+    <span class="mod-id">LRN:SSF:MAT-1101</span>
+  </div>
+</header>
+
+<div class="depth-wrap">
+  <div class="depth-inner">
+    <span class="depth-lbl">Tiefe</span>
+    <div class="depth-track"><div class="depth-fill" id="dfill"></div></div>
+    <span class="depth-val" id="dval">0</span>
+    <span class="depth-note" id="dnote">— Beginn</span>
+  </div>
+</div>
+
+<main><div class="wrap">
+
+<div class="intro">
+  <div class="eyebrow">Lernpfad · Messen & Wissen</div>
+  <h1 class="path-title">Wie genau wissen wir, was wir messen?</h1>
+  <p class="path-desc">Jede Messung hat einen Fehler. Nicht weil wir schlecht messen — sondern weil Messung immer Annäherung ist. Zwei Einheiten: Was passiert mit dem Fehler wenn man rechnet — und warum ist der Exponent der entscheidende Faktor.</p>
+</div>
+
+<!-- ═══════════════════════════════
+     EINHEIT 1: FEHLER PFLANZEN SICH FORT
+═══════════════════════════════ -->
+<div class="unit" id="unit-1">
+  <div class="unit-hdr">
+    <div class="unit-idx">Einheit 1 von 2</div>
+    <h2 class="unit-q">Wenn jede Messung ungenau ist — wie ungenau ist dann das Ergebnis?</h2>
+  </div>
+
+  <div class="skip-bar">
+    <span>Beispiele und Aufgaben sind optional.</span>
+    <button class="skip-btn" onclick="skipTo('quiz-1')">Direkt zum Quiz →</button>
+  </div>
+
+  <div class="section skippable" id="bsp-1">
+    <div class="sec-lbl">Beobachtung</div>
+
+    <div class="obs">
+      <div class="obs-ey">Alltagsbeobachtung</div>
+      <div class="obs-txt">Du backst einen Kuchen. Das Rezept sagt 200 g Mehl — deine Waage zeigt ±5 g an. Gleichzeitig soll der Ofen 180°C haben, aber dein Thermometer liegt ±10°C daneben. Werden diese beiden kleinen Fehler einfach addiert? Oder passiert etwas anderes?</div>
+    </div>
+
+    <div class="prose">
+      <p>Die Antwort hängt davon ab, wie die Größen in der Formel zusammenhängen. Wenn Fehler sich einfach addieren würden, wäre das noch überschaubar. Aber wenn eine Größe mit einer Potenz eingeht — zum Beispiel im Quadrat oder in der dritten Potenz — dann multipliziert sich der relative Fehler mit dem Exponenten.</p>
+      <p>Das ist die entscheidende Erkenntnis der <span class="tip">Fehlerrechnung<span class="tip-pop"><span class="tip-lbl">Fehlerfortpflanzung</span>Wenn eine Ergebnisgröße y von mehreren gemessenen Größen x₁, x₂, … abhängt, pflanzen sich die Messfehler Δxᵢ auf y fort. Der maximale absolute Fehler ist: Δy = Σ |∂y/∂xᵢ| · Δxᵢ. Bei reinen Produkten/Quotienten addieren sich die relativen Fehler, gewichtet mit den Exponenten.</span></span>: Ein kleiner Messfehler in einer Größe die mit der dritten Potenz eingeht, wirkt dreifach auf das Ergebnis.</p>
+    </div>
+
+    <div class="formula-block">
+      <span class="formula">Δy/y = |n₁| · Δx₁/x₁ + |n₂| · Δx₂/x₂ + …</span>
+      <div class="formula-cap">Relativer Fehler bei Produkt-/Quotientenformeln<br>nᵢ = Exponent der Größe xᵢ · Beträge addieren sich (pessimistisch: alle Fehler gleichzeitig maximal)</div>
+    </div>
+
+    <!-- EXPERIMENT 1: Kugeldichte -->
+    <div class="exp-card">
+      <div class="exp-header">
+        <div class="exp-icon">⚖️</div>
+        <div>
+          <div class="exp-tag">Experiment 1</div>
+          <div class="exp-name">Kugeldichte — Fehler live</div>
+        </div>
+      </div>
+      <div class="exp-do">
+        <div class="exp-do-lbl">Selbst ausprobieren</div>
+        <div class="exp-do-txt">Nimm eine Murmel und eine Küchenwaage. Wiege die Murmel (m) und miss ihren Durchmesser mit einem Lineal (d → r = d/2). Beide Messungen haben Unsicherheiten. Wie genau ist dann die daraus berechnete Dichte ρ = 3m/(4πr³)?</div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-row">
+          <div class="exp-controls">
+            <div class="slider-group">
+              <div class="slider-lbl">
+                <span class="slider-name">Masse m</span>
+                <span class="slider-val" id="m-val">100 g</span>
+              </div>
+              <input type="range" id="m-slider" min="50" max="500" value="100" oninput="updateDensity()">
+            </div>
+            <div class="slider-group">
+              <div class="slider-lbl">
+                <span class="slider-name">Fehler Δm</span>
+                <span class="slider-val" id="dm-val">0.5 g</span>
+              </div>
+              <input type="range" id="dm-slider" min="0.1" max="10" value="0.5" step="0.1" oninput="updateDensity()">
+            </div>
+            <div class="slider-group">
+              <div class="slider-lbl">
+                <span class="slider-name">Radius r</span>
+                <span class="slider-val" id="r-val">3.0 cm</span>
+              </div>
+              <input type="range" id="r-slider" min="1" max="10" value="3" step="0.1" oninput="updateDensity()">
+            </div>
+            <div class="slider-group">
+              <div class="slider-lbl">
+                <span class="slider-name">Fehler Δr</span>
+                <span class="slider-val" id="dr-val">0.05 cm</span>
+              </div>
+              <input type="range" id="dr-slider" min="0.01" max="1" value="0.05" step="0.01" oninput="updateDensity()">
+            </div>
+          </div>
+
+          <div class="exp-visual">
+            <div class="error-display">
+              <div class="error-formula" id="err-formula">
+                Δρ/ρ = 1·(Δm/m) + 3·(Δr/r)
+              </div>
+              <div class="error-result" id="err-result">5.5 %</div>
+              <div class="error-label">relativer Fehler</div>
+              <div class="error-breakdown" id="err-breakdown">
+                <div class="error-bar-row">
+                  <div class="error-bar-lbl">Δm/m ×1</div>
+                  <div class="error-bar-track"><div class="error-bar-fill" id="bar-m" style="background:#C9A84C;width:10%"></div></div>
+                  <div class="error-bar-val" id="val-m">0.5 %</div>
+                </div>
+                <div class="error-bar-row">
+                  <div class="error-bar-lbl">Δr/r ×3</div>
+                  <div class="error-bar-track"><div class="error-bar-fill" id="bar-r" style="background:#5B8FB9;width:90%"></div></div>
+                  <div class="error-bar-val" id="val-r">5.0 %</div>
+                </div>
+              </div>
+            </div>
+            <div id="density-note" style="margin-top:.75rem;font-size:12.5px;color:var(--text-3);line-height:1.5">
+              Der Radius geht mit der 3. Potenz ein — sein Fehler wirkt dreifach. Willst du ρ genauer bestimmen, musst du zuerst r genauer messen.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p>Das ist die praktische Konsequenz: Wenn du ein Experiment optimieren willst, schau zuerst auf den Beitrag jedes Fehlers. Die Größe mit dem größten Beitrag ist der Engpass. Mehr Aufwand beim Messen lohnt sich nur dort — nicht gleichmäßig überall.</p>
+    </div>
+
+    <!-- Branch: Warum Beträge? -->
+    <div class="branch visible" id="branch-betraege" style="display:block">
+      <div class="branch-lbl">Seitenast — optional</div>
+      <div style="font-family:var(--serif);font-size:17px;color:var(--text);margin-bottom:.5rem">Warum Beträge — und warum addieren?</div>
+      <div style="font-size:14px;color:var(--text-2);line-height:1.65;margin-bottom:1.25rem">Der Fehler könnte doch auch zufällig positiv oder negativ sein — warum rechnet man pessimistisch mit Summen?</div>
+      <div class="branch-cards">
+        <button class="b-card" onclick="openB('b-betraege')" id="bc-betraege">
+          <div class="b-icon">🔍</div>
+          <div class="b-name">Erklärung</div>
+          <div class="b-desc">Die Logik hinter Beträgen, Addition und dem Unterschied zur Gauß'schen Fehlerfortpflanzung.</div>
+        </button>
+        <button class="b-card" onclick="document.getElementById('branch-betraege').style.display='none'">
+          <div class="b-icon">→</div>
+          <div class="b-name" style="color:var(--text-3)">Weiter</div>
+          <div class="b-desc">Direkt zu Aufgaben und Quiz.</div>
+        </button>
+      </div>
+    </div>
+
+    <div class="b-panel" id="b-betraege">
+      <div class="b-panel-hdr">
+        <span class="b-panel-tag">Seitenast</span>
+        <span class="b-panel-title">Warum Beträge? Warum addieren?</span>
+      </div>
+      <div class="b-panel-body">
+        <div class="prose">
+          <p><strong>Pessimistisches Szenario.</strong> Ein Messfehler kann positiv oder negativ sein — die Waage zeigt vielleicht 100,5 g statt 100 g, oder 99,5 g. Im schlimmsten Fall zeigen alle Fehler gleichzeitig in die ungünstigste Richtung: Δm zieht nach oben und Δr zieht ebenfalls nach oben (oder beide nach unten). Dann addieren sich ihre Auswirkungen. Das ist der maximale absolute Fehler.</p>
+          <p><strong>Beträge, weil Richtung egal.</strong> Ob der Fehler das Ergebnis nach oben oder unten zieht, spielt für seine Größe keine Rolle. Deshalb nimmt man Beträge: |∂y/∂xᵢ| — die partielle Ableitung gibt die Empfindlichkeit an, und die ist immer positiv.</p>
+          <p><strong>Gauß'sche Fehlerfortpflanzung.</strong> Wenn die Fehler statistisch unabhängig und zufällig sind, ist das pessimistische Szenario unwahrscheinlich. Die Gauß'sche Fehlerfortpflanzung rechnet mit der Wurzel der Quadratsumme: Δy = √(Σ (∂y/∂xᵢ · Δxᵢ)²). Das ergibt einen kleineren, realistischeren Fehler. Die lineare Addition ist konservativer — sie wird in der Technik bevorzugt, wenn man auf der sicheren Seite bleiben will.</p>
+        </div>
+        <div class="info" style="margin-top:1.25rem">
+          <div class="info-lbl">Faustregel</div>
+          <div class="info-txt">Lineare Addition (Beträge) → maximaler Fehler, konservativ, für Sicherheitsanwendungen. Gauß'sche Addition (Wurzel der Quadratsumme) → wahrscheinlicher Fehler, für statistische Auswertungen. Beide sind korrekt — sie beantworten verschiedene Fragen.</div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="hr">
+
+    <div class="section skippable" id="aufg-1">
+      <div class="sec-lbl">Aufgaben</div>
+      <div class="aufgabe">
+        <div class="aufg-nr">Aufgabe 1</div>
+        <div class="aufg-txt">Die Dichte einer Kugel wird über ρ = 3m/(4πr³) bestimmt. Gemessen: m = 100 g ± 0,5 g, r = 3 cm ± 0,05 cm. Berechne den maximalen relativen Fehler von ρ in Prozent.</div>
+        <button class="hint-btn" onclick="hintToggle(this)">Hinweis</button>
+        <div class="hint-body">Δρ/ρ = |+1|·(Δm/m) + |−3|·(Δr/r) = 0,5/100 + 3·(0,05/3) = 0,005 + 0,05 = 0,055 = 5,5 %. Der Radius trägt 5 %, die Masse nur 0,5 % — obwohl der Radius relativ gut gemessen wurde. Die dritte Potenz macht den Unterschied.</div>
+      </div>
+      <div class="aufgabe">
+        <div class="aufg-nr">Aufgabe 2</div>
+        <div class="aufg-txt">Du willst den Fehler von ρ auf unter 2% reduzieren. Was ist effektiver: Δm von 0,5 g auf 0,1 g reduzieren, oder Δr von 0,05 cm auf 0,02 cm?</div>
+        <button class="hint-btn" onclick="hintToggle(this)">Hinweis</button>
+        <div class="hint-body">Δm-Verbesserung: Δm/m = 0,1/100 = 0,1 %. Δr-Verbesserung: 3·(0,02/3) = 2 %. Zusammen: 0,1 + 2 = 2,1 % — knapp daneben. Nur Δr verbessern: 0,5 + 2 = 2,5 %. Nur Δm: 0,5 + 0 kaum besser. Effektivster Weg: Δr drastisch reduzieren. Die Masse beinahe perfekt zu messen nützt fast nichts solange Δr groß bleibt.</div>
+      </div>
+      <div class="aufgabe">
+        <div class="aufg-nr">Aufgabe 3</div>
+        <div class="aufg-txt">Ein Hebelarm: F_p = F_m · l/h. Die Messfehler sind ΔF_m/F_m = 1%, Δl/l = 2%, Δh/h = 3%. Wie groß ist der maximale relative Fehler von F_p?</div>
+        <button class="hint-btn" onclick="hintToggle(this)">Hinweis</button>
+        <div class="hint-body">F_m geht mit Exponent +1 ein, l mit +1, h mit −1. Relativer Fehler: |1|·1% + |1|·2% + |−1|·3% = 6%. Alle drei Größen tragen gleich stark bei — hier lohnt es sich, alle drei Messungen zu verbessern.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="hr">
+
+  <div class="section" id="quiz-1">
+    <div class="sec-lbl">Quiz · Einheit 1</div>
+
+    <div class="quiz-q">
+      <div class="quiz-txt">Eine Größe y = x³ wird gemessen. Der relative Fehler von x beträgt 2%. Wie groß ist der relative Fehler von y?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,'u1',0,false)">2 % — genauso groß wie der Fehler von x.</button>
+        <button class="opt" onclick="ans(this,'u1',0,false)">2³ = 8 % — der Exponent wird potenziert.</button>
+        <button class="opt" onclick="ans(this,'u1',0,true)">3 × 2 % = 6 % — der Exponent multipliziert den relativen Fehler.</button>
+        <button class="opt" onclick="ans(this,'u1',0,false)">√3 × 2 % ≈ 3,5 % — Gauß'sche Fortpflanzung.</button>
+      </div>
+      <div class="quiz-fb" id="fb-u1-0">Bei Δy/y = |n| · Δx/x multipliziert der Exponent n den relativen Fehler. Bei y = x³ gilt n = 3, also Δy/y = 3 · 2% = 6%. Das ist der Hauptgrund warum Größen mit hohen Exponenten besonders sorgfältig gemessen werden müssen.</div>
+    </div>
+
+    <div class="quiz-q">
+      <div class="quiz-txt">Warum nimmt man bei der Fehlerfortpflanzung Beträge der partiellen Ableitungen?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,'u1',1,false)">Weil partielle Ableitungen immer positiv sind.</button>
+        <button class="opt" onclick="ans(this,'u1',1,true)">Weil ein Messfehler positiv oder negativ sein kann — im schlimmsten Fall addieren sich alle Fehler in derselben Richtung. Beträge geben den maximalen Fehler.</button>
+        <button class="opt" onclick="ans(this,'u1',1,false)">Weil negative Fehler sich aufheben und daher nicht zählen.</button>
+        <button class="opt" onclick="ans(this,'u1',1,false)">Aus Konvention — es würde auch ohne Beträge funktionieren.</button>
+      </div>
+      <div class="quiz-fb" id="fb-u1-1">Die pessimistische Annahme: Alle Fehler zeigen gleichzeitig in die ungünstigste Richtung. Das ergibt den maximalen absoluten Fehler — eine obere Schranke. Sind die Fehler statistisch unabhängig, ist der reale Fehler kleiner (Gauß). Aber für Sicherheitsanwendungen rechnet man lieber zu pessimistisch.</div>
+    </div>
+
+    <div class="quiz-q">
+      <div class="quiz-txt">Bei ρ = 3m/(4πr³): Welche Verbesserung reduziert den Fehler von ρ am meisten — Δm halbieren oder Δr halbieren?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,'u1',2,false)">Δm halbieren — die Masse ist die wichtigste Größe.</button>
+        <button class="opt" onclick="ans(this,'u1',2,true)">Δr halbieren — weil r mit Exponent 3 eingeht, wirkt jede r-Verbesserung dreifach auf den Fehler.</button>
+        <button class="opt" onclick="ans(this,'u1',2,false)">Beide gleich — Masse und Radius tragen gleich bei.</button>
+        <button class="opt" onclick="ans(this,'u1',2,false)">Keines davon hilft — der Fehler ist durch π festgelegt.</button>
+      </div>
+      <div class="quiz-fb" id="fb-u1-2">Δr/r geht mit Faktor 3 in den Fehler ein, Δm/m nur mit Faktor 1. Wenn Δr halbiert wird, sinkt der r-Beitrag um 50% — aber dieser Beitrag ist bereits 3× so groß. Δm halbieren spart nur 50% des kleinen m-Beitrags. Immer zuerst den dominanten Fehler reduzieren.</div>
+    </div>
+
+    <div class="score-row">
+      <span class="score-n" id="score-u1">0 / 3</span>
+      <span class="score-lbl">korrekt</span>
+      <button class="reset-btn" onclick="resetQ('u1')">Neu</button>
+    </div>
+  </div>
+
+  <div class="preview-card" id="preview-1">
+    <div class="prev-hdr">
+      <div class="prev-icon">📐</div>
+      <div class="prev-meta">
+        <div class="prev-ey" id="prev-ey-1">Einheit 2 — noch gesperrt</div>
+        <div class="prev-title">Wie baut man einen allgemeinen Fehler-Rechner — und was verrät er über jede Formel?</div>
+      </div>
+    </div>
+    <div class="prev-body">
+      <div class="prev-teaser">Das Prinzip gilt für jede Formel. Mit einem allgemeinen Fehler-Builder kannst du beliebige Produkt-/Quotientenformeln eingeben und sofort sehen, welche Größe den Fehler dominiert — und wie viel besser du messen müsstest.</div>
+      <div class="prev-keys">
+        <span class="pkey">SENSOR:PRECISION</span>
+        <span class="pkey">ANALYSIS:ERROR</span>
+      </div>
+      <div class="lock-ov" id="lock-1">
+        <div class="lock-ico">🔒</div>
+        <div class="lock-txt">Quiz abschließen</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /unit-1 -->
+
+<!-- ═══════════════════════════════
+     EINHEIT 2: ALLGEMEINER FEHLER-BUILDER
+═══════════════════════════════ -->
+<div class="unit" id="unit-2" style="opacity:.3;pointer-events:none;transition:opacity .6s" aria-disabled="true">
+  <div class="unit-hdr">
+    <div class="unit-idx">Einheit 2 von 2</div>
+    <h2 class="unit-q">Wie findet man den Engpass in jeder Messung?</h2>
+  </div>
+
+  <div class="skip-bar">
+    <span>Aufgaben sind optional.</span>
+    <button class="skip-btn" onclick="skipTo('quiz-2')">Direkt zum Quiz →</button>
+  </div>
+
+  <div class="section skippable" id="bsp-2">
+    <div class="sec-lbl">Erklärung</div>
+    <div class="prose">
+      <p>Das Prinzip lässt sich auf jede Formel anwenden. Wenn du eine Formel der Form y = x₁ⁿ¹ · x₂ⁿ² · x₃ⁿ³ hast, dann ist der maximale relative Fehler:</p>
+    </div>
+
+    <div class="formula-block">
+      <span class="formula">Δy/y = |n₁|·Δx₁/x₁ + |n₂|·Δx₂/x₂ + |n₃|·Δx₃/x₃</span>
+      <div class="formula-cap">Gilt für Produkte, Quotienten, Potenzen — nicht für Summen oder Differenzen.<br>Bei Summen: absoluter Fehler addiert sich, nicht relativer.</div>
+    </div>
+
+    <!-- EXPERIMENT 2: Allgemeiner Fehler-Builder -->
+    <div class="exp-card">
+      <div class="exp-header">
+        <div class="exp-icon">🔧</div>
+        <div>
+          <div class="exp-tag">Experiment 2</div>
+          <div class="exp-name">Fehler-Builder — deine eigene Formel</div>
+        </div>
+      </div>
+      <div class="exp-body">
+        <p style="font-size:14px;color:var(--text-2);margin-bottom:1.25rem;line-height:1.65">Gib für bis zu drei Größen den relativen Messfehler (Δx/x in %) und den Exponenten in der Formel ein. Der Gesamt-Fehler wird live berechnet.</p>
+
+        <div style="background:var(--surface);border-radius:var(--r);padding:1.125rem;margin-bottom:1rem">
+          <div style="display:grid;grid-template-columns:80px 1fr 100px 80px;gap:.5rem;margin-bottom:.5rem">
+            <span style="font-family:var(--mono);font-size:10px;color:var(--text-3);align-self:end">Größe</span>
+            <span style="font-family:var(--mono);font-size:10px;color:var(--text-3);align-self:end">Relativer Fehler Δx/x</span>
+            <span style="font-family:var(--mono);font-size:10px;color:var(--text-3);align-self:end">Exponent n</span>
+            <span style="font-family:var(--mono);font-size:10px;color:var(--text-3);align-self:end">Beitrag</span>
+          </div>
+
+          <div id="builder-rows">
+            <!-- Row 1 -->
+            <div class="var-row" id="row-1">
+              <span class="var-lbl">x₁</span>
+              <div style="display:flex;align-items:center;gap:.5rem">
+                <input type="range" min="0" max="20" value="2" step="0.1" oninput="updateBuilder()" style="flex:1">
+                <span style="font-family:var(--mono);font-size:12px;color:var(--navy);min-width:40px;text-align:right" id="rel1">2.0 %</span>
+              </div>
+              <input type="number" value="1" min="-5" max="5" step="0.5" oninput="updateBuilder()" style="padding:4px 8px;border:1px solid var(--border);border-radius:var(--r);font-family:var(--mono);font-size:13px;background:var(--bg);color:var(--text)" id="exp1">
+              <span style="font-family:var(--mono);font-size:12px;color:var(--gold);text-align:right" id="contrib1">2.0 %</span>
+            </div>
+            <!-- Row 2 -->
+            <div class="var-row" id="row-2" style="margin-top:.5rem">
+              <span class="var-lbl">x₂</span>
+              <div style="display:flex;align-items:center;gap:.5rem">
+                <input type="range" min="0" max="20" value="5" step="0.1" oninput="updateBuilder()" style="flex:1">
+                <span style="font-family:var(--mono);font-size:12px;color:var(--navy);min-width:40px;text-align:right" id="rel2">5.0 %</span>
+              </div>
+              <input type="number" value="2" min="-5" max="5" step="0.5" oninput="updateBuilder()" style="padding:4px 8px;border:1px solid var(--border);border-radius:var(--r);font-family:var(--mono);font-size:13px;background:var(--bg);color:var(--text)" id="exp2">
+              <span style="font-family:var(--mono);font-size:12px;color:var(--gold);text-align:right" id="contrib2">10.0 %</span>
+            </div>
+            <!-- Row 3 -->
+            <div class="var-row" id="row-3" style="margin-top:.5rem">
+              <span class="var-lbl">x₃</span>
+              <div style="display:flex;align-items:center;gap:.5rem">
+                <input type="range" min="0" max="20" value="1" step="0.1" oninput="updateBuilder()" style="flex:1">
+                <span style="font-family:var(--mono);font-size:12px;color:var(--navy);min-width:40px;text-align:right" id="rel3">1.0 %</span>
+              </div>
+              <input type="number" value="3" min="-5" max="5" step="0.5" oninput="updateBuilder()" style="padding:4px 8px;border:1px solid var(--border);border-radius:var(--r);font-family:var(--mono);font-size:13px;background:var(--bg);color:var(--text)" id="exp3">
+              <span style="font-family:var(--mono);font-size:12px;color:var(--gold);text-align:right" id="contrib3">3.0 %</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Result -->
+        <div class="error-display">
+          <div class="error-formula" id="builder-formula">Δy/y = |1|·2.0 + |2|·5.0 + |3|·1.0</div>
+          <div class="error-result" id="builder-result">15.0 %</div>
+          <div class="error-label">maximaler relativer Fehler</div>
+          <div class="error-breakdown" id="builder-bars" style="margin-top:.875rem"></div>
+        </div>
+        <div id="builder-insight" style="margin-top:.75rem;font-size:13px;color:var(--text-3);line-height:1.6">
+          x₂ dominiert mit dem größten Beitrag — hier lohnt sich eine Verbesserung der Messung am meisten.
+        </div>
+      </div>
+    </div>
+
+    <div class="info">
+      <div class="info-lbl">Achtung: Nur für Produkte und Quotienten</div>
+      <div class="info-txt">Diese einfache Formel gilt nur wenn die Größen multipliziert oder durch potenziert werden. Bei Summen oder Differenzen (z.B. y = x₁ + x₂) addieren sich die absoluten Fehler: Δy = Δx₁ + Δx₂. Das kann zu relativen Fehlern führen die viel größer sind als die Einzelfehler — besonders gefährlich wenn sich zwei große Zahlen fast auslöschen (Auslöschung).</div>
+    </div>
+  </div>
+
+  <hr class="hr">
+
+  <div class="section skippable" id="aufg-2">
+    <div class="sec-lbl">Aufgaben</div>
+    <div class="aufgabe">
+      <div class="aufg-nr">Aufgabe 1</div>
+      <div class="aufg-txt">Das Volumen eines Quaders: V = l · b · h. Alle drei Seiten werden mit 1% relativem Fehler gemessen. Wie groß ist Δ V/V?</div>
+      <button class="hint-btn" onclick="hintToggle(this)">Hinweis</button>
+      <div class="hint-body">Δ V/V = |1|·1% + |1|·1% + |1|·1% = 3%. Alle drei Größen tragen gleich bei, weil alle den Exponenten 1 haben. Drei Messungen mit je 1% Fehler → 3% Gesamtfehler. Das ist exakt das Dreifache — lineare Addition der gleichen Beiträge.</div>
+    </div>
+    <div class="aufgabe">
+      <div class="aufg-nr">Aufgabe 2</div>
+      <div class="aufg-txt">Die Leistung P = U²/R. Spannung U wird mit 2% Fehler gemessen, Widerstand R mit 1%. Wie groß ist ΔP/P?</div>
+      <button class="hint-btn" onclick="hintToggle(this)">Hinweis</button>
+      <div class="hint-body">U geht mit Exponent +2 ein, R mit −1. ΔP/P = |2|·2% + |−1|·1% = 4% + 1% = 5%. Die Spannung dominiert wegen des Quadrats — obwohl ihre Messung nicht schlechter ist als die des Widerstands.</div>
+    </div>
+  </div>
+
+  <hr class="hr">
+
+  <div class="section" id="quiz-2">
+    <div class="sec-lbl">Quiz · Einheit 2</div>
+
+    <div class="quiz-q">
+      <div class="quiz-txt">y = x₁² / x₂³. Δx₁/x₁ = 3%, Δx₂/x₂ = 2%. Wie groß ist Δy/y?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,'u2',0,false)">5 % — einfach addieren.</button>
+        <button class="opt" onclick="ans(this,'u2',0,false)">3 % — nur x₁ zählt weil es im Zähler steht.</button>
+        <button class="opt" onclick="ans(this,'u2',0,true)">|2|·3% + |3|·2% = 6% + 6% = 12 %.</button>
+        <button class="opt" onclick="ans(this,'u2',0,false)">√(6² + 6²) ≈ 8,5 % — Gauß'sche Addition.</button>
+      </div>
+      <div class="quiz-fb" id="fb-u2-0">Δy/y = |n₁|·Δx₁/x₁ + |n₂|·Δx₂/x₂ = 2·3% + 3·2% = 6% + 6% = 12%. Ob eine Größe im Zähler oder Nenner steht, ändert nichts am Betrag — nur das Vorzeichen des Exponenten ändert sich, und der wird durch den Betrag entfernt. Beide tragen gleich bei.</div>
+    </div>
+
+    <div class="quiz-q">
+      <div class="quiz-txt">Warum gilt die Exponent-Multiplikations-Formel NICHT für y = x₁ + x₂?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,'u2',1,false)">Weil Addition keinen Fehler erzeugt.</button>
+        <button class="opt" onclick="ans(this,'u2',1,true)">Weil bei Summen die absoluten Fehler addiert werden, nicht die relativen — und der relative Fehler des Ergebnisses kann viel größer werden als die Einzelfehler.</button>
+        <button class="opt" onclick="ans(this,'u2',1,false)">Weil die Formel nur für ganze Exponenten gilt.</button>
+        <button class="opt" onclick="ans(this,'u2',1,false)">Weil Summen keine partiellen Ableitungen haben.</button>
+      </div>
+      <div class="quiz-fb" id="fb-u2-1">Bei y = x₁ + x₂ gilt: Δy = Δx₁ + Δx₂ (absoluter Fehler). Der relative Fehler Δy/y = (Δx₁ + Δx₂)/(x₁ + x₂) kann riesig werden wenn x₁ ≈ −x₂ (Auslöschung). Beispiel: x₁ = 1000, x₂ = −999, beide ±1: y = 1 ± 2 → relativer Fehler 200%! Die Exponent-Formel ist nur für Produkte/Quotienten.</div>
+    </div>
+
+    <div class="quiz-q">
+      <div class="quiz-txt">Du misst drei Größen für y = x₁ · x₂ · x₃ alle mit dem gleichen relativen Fehler ε. Welche Aussage ist richtig?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,'u2',2,false)">Δy/y = ε — die Fehler gleichen sich aus.</button>
+        <button class="opt" onclick="ans(this,'u2',2,false)">Δy/y = ε³ — die Fehler multiplizieren sich.</button>
+        <button class="opt" onclick="ans(this,'u2',2,true)">Δy/y = 3ε — jede Größe trägt mit Exponent 1 bei, also addieren sich drei gleiche Beiträge.</button>
+        <button class="opt" onclick="ans(this,'u2',2,false)">Δy/y = √3·ε — Gauß'sche Fortpflanzung für gleiche Fehler.</button>
+      </div>
+      <div class="quiz-fb" id="fb-u2-2">Alle drei Exponenten sind 1. Δy/y = |1|·ε + |1|·ε + |1|·ε = 3ε. Das gilt für jedes Produkt: n Faktoren mit je ε Fehler → n·ε Gesamtfehler (maximaler Fall). Daraus folgt eine wichtige Faustregel: Weniger Faktoren in einer Formel → weniger Fehlerquellen → genaueres Ergebnis.</div>
+    </div>
+
+    <div class="score-row">
+      <span class="score-n" id="score-u2">0 / 3</span>
+      <span class="score-lbl">korrekt</span>
+      <button class="reset-btn" onclick="resetQ('u2')">Neu</button>
+    </div>
+  </div>
+
+  <div class="branch" id="branch-2">
+    <div class="branch-lbl">Abschluss — optional</div>
+    <div style="font-family:var(--serif);font-size:18px;color:var(--text);margin-bottom:.5rem">Wie weiter?</div>
+    <div class="branch-cards">
+      <button class="b-card" onclick="openB('b-extremwerte')" id="bc-extremwerte">
+        <div class="b-icon">⛰️</div>
+        <div class="b-name">Extremwerte</div>
+        <div class="b-desc">Wo ist der optimale Punkt? — Hesse-Kriterium, Sattelpunkte, Gebirgslandschaft.</div>
+      </button>
+      <button class="b-card" onclick="openB('b2-finish')">
+        <div class="b-icon">✓</div>
+        <div class="b-name" style="color:var(--text-3)">Abschließen</div>
+        <div class="b-desc">Pfad abschließen und NOXIA-Schlüssel freischalten.</div>
+      </button>
+    </div>
+  </div>
+</div><!-- /unit-2 -->
+
+<div class="completion" id="completion">
+  <div class="comp-title">Lernpfad abgeschlossen</div>
+  <div class="comp-sub">Jede Messung hat einen Fehler — aber nicht jeder Fehler wirkt gleich stark. Der Exponent entscheidet. Folgendes wurde in NOXIA freigeschaltet:</div>
+  <div class="comp-keys">
+    <span class="pkey">SENSOR:PRECISION</span>
+    <span class="pkey">ANALYSIS:ERROR</span>
+  </div>
+  <div class="comp-depth" id="comp-depth">Lerntiefe: —</div>
+</div>
+
+<div class="horizon" id="horizon">
+  <div class="horizon-txt">Der nächste Horizont: Wo liegt das Optimum? Wenn eine Größe von mehreren Variablen abhängt, gibt es oft einen Punkt wo sie maximal oder minimal wird — das ist der Einstieg in Extremwertrechnung mehrerer Variablen.</div>
+</div>
+
+</div></main>
+
+<script>
+// ═══ DEPTH ═══
+let depthRaw=0;
+const depthPoints={u1_quiz:15,u2_quiz:18,density_interact:4,builder_interact:4,b_betraege:8,finish:5};
+const depthGiven={};
+function awardDepth(k){if(depthGiven[k])return;depthGiven[k]=true;depthRaw+=depthPoints[k]||0;renderDepth();}
+function renderDepth(){
+  const d=Math.round(100*(1-1/(1+depthRaw/26)));
+  document.getElementById('dfill').style.width=d+'%';
+  document.getElementById('dval').textContent=d;
+  const labels=[[10,'Beginn'],[22,'Einstieg'],[38,'Orientierung'],[52,'Grundlagen'],[65,'Mechanismus'],[76,'Theorie'],[87,'Forschungsnähe'],[100,'Forschungsrand']];
+  for(const [t,l] of [...labels].reverse()){if(d>=t){document.getElementById('dnote').textContent='— '+l;break;}}
+}
+
+// ═══ DENSITY EXPERIMENT ═══
+function updateDensity(){
+  awardDepth('density_interact');
+  const m=+document.getElementById('m-slider').value;
+  const dm=+document.getElementById('dm-slider').value;
+  const r=+document.getElementById('r-slider').value;
+  const dr=+document.getElementById('dr-slider').value;
+
+  document.getElementById('m-val').textContent=m+' g';
+  document.getElementById('dm-val').textContent=dm.toFixed(1)+' g';
+  document.getElementById('r-val').textContent=r.toFixed(1)+' cm';
+  document.getElementById('dr-val').textContent=dr.toFixed(2)+' cm';
+
+  const errM=(dm/m)*100;
+  const errR=3*(dr/r)*100;
+  const total=errM+errR;
+  const maxContrib=Math.max(errM,errR);
+
+  document.getElementById('err-result').textContent=total.toFixed(1)+' %';
+  document.getElementById('bar-m').style.width=(errM/total*100)+'%';
+  document.getElementById('bar-r').style.width=(errR/total*100)+'%';
+  document.getElementById('val-m').textContent=errM.toFixed(2)+' %';
+  document.getElementById('val-r').textContent=errR.toFixed(2)+' %';
+
+  const note = errR > errM*2
+    ? 'Der Radius dominiert deutlich — bessere r-Messung wirkt am stärksten.'
+    : errM > errR*2
+    ? 'Die Masse dominiert — bessere m-Messung wirkt am stärksten.'
+    : 'Beide tragen ähnlich bei — beide Messungen gleichmäßig verbessern.';
+  document.getElementById('density-note').textContent=note;
+}
+
+// ═══ BUILDER ═══
+function updateBuilder(){
+  awardDepth('builder_interact');
+  const rows=[
+    {rel:document.querySelector('#row-1 input[type=range]'),exp:document.getElementById('exp1'),relLbl:document.getElementById('rel1'),contrib:document.getElementById('contrib1')},
+    {rel:document.querySelector('#row-2 input[type=range]'),exp:document.getElementById('exp2'),relLbl:document.getElementById('rel2'),contrib:document.getElementById('contrib2')},
+    {rel:document.querySelector('#row-3 input[type=range]'),exp:document.getElementById('exp3'),relLbl:document.getElementById('rel3'),contrib:document.getElementById('contrib3')},
+  ];
+  const contribs=[];
+  let formulaParts=[];
+  rows.forEach((row,i)=>{
+    const relVal=+row.rel.value;
+    const expVal=+row.exp.value||0;
+    const contrib=Math.abs(expVal)*relVal;
+    contribs.push(contrib);
+    row.relLbl.textContent=relVal.toFixed(1)+' %';
+    row.contrib.textContent=contrib.toFixed(1)+' %';
+    formulaParts.push('|'+expVal+'|·'+relVal.toFixed(1));
+  });
+  const total=contribs.reduce((a,b)=>a+b,0);
+  document.getElementById('builder-formula').textContent='Δy/y = '+formulaParts.join(' + ')+' = '+total.toFixed(1)+' %';
+  document.getElementById('builder-result').textContent=total.toFixed(1)+' %';
+
+  // Bars
+  const barsEl=document.getElementById('builder-bars');
+  barsEl.innerHTML='';
+  const colors=['#C9A84C','#5B8FB9','#7AAD7A'];
+  contribs.forEach((c,i)=>{
+    const pct=total>0?(c/total*100):0;
+    barsEl.innerHTML+=`<div class="error-bar-row">
+      <div class="error-bar-lbl">x${i+1}</div>
+      <div class="error-bar-track"><div class="error-bar-fill" style="background:${colors[i]};width:${pct}%"></div></div>
+      <div class="error-bar-val">${c.toFixed(1)} %</div>
+    </div>`;
+  });
+
+  const maxI=contribs.indexOf(Math.max(...contribs));
+  const insight=total>0
+    ?`x${maxI+1} dominiert mit ${contribs[maxI].toFixed(1)}% — hier lohnt sich eine Verbesserung der Messung am meisten.`
+    :'Alle Fehler sind null — perfekte Messung.';
+  document.getElementById('builder-insight').textContent=insight;
+}
+
+// ═══ QUIZ ═══
+const QS={u1:{answers:[null,null,null],score:0,done:false},u2:{answers:[null,null,null],score:0,done:false}};
+function ans(btn,uid,qi,correct){
+  const q=QS[uid];if(q.answers[qi]!==null)return;
+  q.answers[qi]=correct;if(correct)q.score++;
+  btn.classList.add(correct?'correct':'wrong');
+  btn.closest('.quiz-q').querySelectorAll('.opt').forEach(o=>{
+    o.classList.add('locked');
+    if(!correct&&(o.getAttribute('onclick')||'').includes(',true)'))o.classList.add('correct');
+  });
+  const fb=document.getElementById('fb-'+uid+'-'+qi);
+  if(fb)fb.classList.add('open');
+  const answered=q.answers.filter(a=>a!==null).length;
+  document.getElementById('score-'+uid).textContent=q.score+' / '+answered;
+  if(answered===3&&q.score===3&&!q.done){
+    q.done=true;
+    if(uid==='u1'){awardDepth('u1_quiz');unlockU2();}
+    if(uid==='u2'){awardDepth('u2_quiz');showBranch2();}
+  }
+}
+function resetQ(uid){
+  const q=QS[uid];q.answers=[null,null,null];q.score=0;q.done=false;
+  const unit=document.getElementById('unit-'+uid.replace('u',''));
+  if(unit){unit.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong','locked'));unit.querySelectorAll('.quiz-fb').forEach(f=>f.classList.remove('open'));}
+  document.getElementById('score-'+uid).textContent='0 / 3';
+}
+
+// ═══ NAV ═══
+function skipTo(id){
+  const el=document.getElementById(id);if(!el)return;
+  el.closest('.unit').querySelectorAll('.skippable').forEach(s=>s.classList.add('hidden'));
+  setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),50);
+}
+function hintToggle(btn){
+  const body=btn.nextElementSibling;const open=body.classList.contains('open');
+  body.classList.toggle('open',!open);btn.textContent=open?'Hinweis':'Schließen';
+}
+
+// ═══ UNLOCK ═══
+function unlockU2(){
+  const card=document.getElementById('preview-1');
+  card.classList.add('unlocked','just-unlocked');
+  setTimeout(()=>card.classList.remove('just-unlocked'),800);
+  document.getElementById('prev-ey-1').textContent='Jetzt zugänglich';
+  const u2=document.getElementById('unit-2');
+  u2.style.opacity='1';u2.style.pointerEvents='auto';u2.removeAttribute('aria-disabled');
+  setTimeout(()=>u2.scrollIntoView({behavior:'smooth',block:'start'}),700);
+}
+function showBranch2(){
+  document.getElementById('branch-2').classList.add('visible');
+  setTimeout(()=>document.getElementById('branch-2').scrollIntoView({behavior:'smooth',block:'start'}),500);
+}
+function openB(id){
+  if(id==='b-betraege'){
+    awardDepth('b_betraege');
+    document.getElementById('b-betraege').classList.add('open');
+    document.getElementById('bc-betraege').classList.add('active');
+    setTimeout(()=>document.getElementById('b-betraege').scrollIntoView({behavior:'smooth',block:'start'}),100);
+    return;
+  }
+  if(id==='b-extremwerte'){
+    alert('Nächster Pfad: Extremwerte mehrerer Variablen — in Entwicklung.');return;
+  }
+  if(id==='b2-finish'){awardDepth('finish');showCompletion();}
+}
+function showCompletion(){
+  const d=document.getElementById('dval').textContent;
+  const note=document.getElementById('dnote').textContent.replace('— ','');
+  document.getElementById('comp-depth').textContent='Lerntiefe: '+d+' — '+note;
+  document.getElementById('completion').classList.add('visible');
+  document.getElementById('horizon').classList.add('visible');
+  setTimeout(()=>document.getElementById('completion').scrollIntoView({behavior:'smooth',block:'start'}),300);
+}
+
+// ═══ INIT ═══
+window.addEventListener('load',()=>{updateDensity();updateBuilder();renderDepth();});
+</script>
+</body>
+</html>
