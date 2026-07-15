@@ -28,13 +28,29 @@ export type LearningPathRegistryIssue = {
   occurrences: number;
 };
 
+function normalizeModuleId(id: string): string {
+  return id
+    .replace(/^LRN:SSF:/, 'SSF-')
+    .replace(/^SSF:/, 'SSF-')
+    .toUpperCase();
+}
+
 function buildRegistry(source: LearningPath[]) {
   const byId = new Map<string, LearningPath>();
+  const byModuleId = new Map<string, LearningPath>();
   const counts = new Map<string, number>();
 
   for (const path of source) {
     counts.set(path.id, (counts.get(path.id) ?? 0) + 1);
-    if (!byId.has(path.id)) byId.set(path.id, path);
+
+    if (!byId.has(path.id)) {
+      byId.set(path.id, path);
+
+      for (const moduleId of [path.sourceModuleId, path.kxfModuleId]) {
+        const normalized = normalizeModuleId(moduleId);
+        if (!byModuleId.has(normalized)) byModuleId.set(normalized, path);
+      }
+    }
   }
 
   const issues: LearningPathRegistryIssue[] = [...counts.entries()]
@@ -44,6 +60,7 @@ function buildRegistry(source: LearningPath[]) {
   return {
     paths: [...byId.values()],
     byId,
+    byModuleId,
     issues,
   };
 }
@@ -55,6 +72,10 @@ export const learningPathRegistryIssues = registry.issues;
 
 export function getRegisteredLearningPathById(id: string): LearningPath | null {
   return registry.byId.get(id) ?? null;
+}
+
+export function getRegisteredLearningPathForModule(moduleId: string): LearningPath | null {
+  return registry.byModuleId.get(normalizeModuleId(moduleId)) ?? null;
 }
 
 export function getLearningPathStatus(status: LearningPathLifecycleStatus) {
