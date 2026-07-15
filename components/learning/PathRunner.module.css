@@ -85,21 +85,23 @@
 .unitIndex {
   font-family: var(--font-mono);
   font-size: 10px;
-  color: var(--muted);
-  letter-spacing: 0.1em;
+  color: var(--gold-2, #E09400);
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   margin-bottom: 10px;
+  font-weight: 600;
 }
 
 .unitQuestion {
   font-family: var(--font-serif);
-  font-size: clamp(20px, 3.5vw, 27px);
+  font-size: clamp(21px, 3.5vw, 28px);
   font-weight: normal;
   color: var(--ink);
-  line-height: 1.25;
-  letter-spacing: -0.01em;
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--border);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  padding-bottom: 22px;
+  border-bottom: 2px solid var(--border);
+  margin-bottom: 4px;
 }
 
 /* ── Unit locked state ── */
@@ -389,4 +391,33 @@
   border: 1px solid #DFC87A;
   padding: 3px 10px;
   border-radius: 4px;
+}
+
+/* ── Takeaway ── */
+.takeaway {
+  margin-top: 20px;
+  padding: 16px 20px;
+  background: var(--gold-bg, #FFF8E7);
+  border: 1px solid #DFC87A;
+  border-left: 3px solid var(--gold, #F4A300);
+  border-radius: 0 8px 8px 0;
+}
+
+.takeawayLabel {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  color: var(--gold-2, #E09400);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.takeawayText {
+  font-family: var(--font-serif);
+  font-size: 15.5px;
+  color: var(--ink);
+  line-height: 1.65;
+  margin: 0;
 }
