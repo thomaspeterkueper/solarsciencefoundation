@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SSF · Wann hört eine unendliche Summe auf zu wachsen?</title>
+<style>
+:root {
+  --bg:#F9F8F5;--surface:#F0EFE9;--surface2:#E6E4DC;
+  --border:#D8D6CE;--soft:#E8E6DE;
+  --text:#1A1916;--text-2:#4A4840;--text-3:#8A8880;
+  --navy:#1C2B3A;--navy-2:#2C3F52;
+  --gold:#C9A84C;--gold-bg:#F5F0E0;--gold-b:#DFC87A;
+  --ok-bg:#EEF3EE;--ok-b:#7AAD7A;--ok-t:#2A5C2A;
+  --no-bg:#F5EEEE;--no-b:#C49090;--no-t:#6B2222;
+  --r:4px;
+  --serif:Georgia,'Palatino Linotype',serif;
+  --sans:system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'SFMono-Regular','Cascadia Code','Fira Code',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.site-header{border-bottom:1px solid var(--border);padding:1rem 0;position:sticky;top:0;background:var(--bg);z-index:60}
+.h-inner{max-width:740px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;gap:.875rem}
+.signet{width:24px;height:24px;flex-shrink:0}
+.site-name{font-family:var(--mono);font-size:11px;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase}
+.h-space{flex:1}
+.mod-id{font-family:var(--mono);font-size:10px;color:var(--text-3)}
+.depth-wrap{background:var(--bg);border-bottom:1px solid var(--soft);padding:.5rem 0;position:sticky;top:57px;z-index:50}
+.depth-inner{max-width:740px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;gap:.875rem}
+.depth-lbl{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.depth-track{flex:1;height:5px;background:var(--surface2);border-radius:3px;overflow:hidden}
+.depth-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--gold),var(--navy));width:0%;transition:width 1.4s cubic-bezier(.22,1,.36,1)}
+.depth-val{font-family:var(--mono);font-size:11px;color:var(--text-2);min-width:2.5ch;text-align:right}
+.depth-note{font-family:var(--mono);font-size:9.5px;color:var(--text-3);white-space:nowrap}
+@media(max-width:480px){.depth-note{display:none}}
+.wrap{max-width:740px;margin:0 auto;padding:0 1.5rem}
+main{padding:0 0 8rem}
+.intro{padding:3rem 0 0;margin-bottom:3.5rem}
+.eyebrow{font-family:var(--mono);font-size:10.5px;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem}
+.path-title{font-family:var(--serif);font-size:clamp(24px,4vw,34px);font-weight:normal;color:var(--text);line-height:1.2;letter-spacing:-.015em;margin-bottom:1rem}
+.path-desc{font-size:16px;color:var(--text-2);line-height:1.7;max-width:54ch}
+.unit{margin-bottom:1.5rem;scroll-margin-top:115px}
+.unit-hdr{padding:2.5rem 0 0;margin-bottom:2rem;border-top:1px solid var(--border)}
+.unit-idx{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.875rem}
+.unit-q{font-family:var(--serif);font-size:clamp(19px,3vw,26px);font-weight:normal;color:var(--text);line-height:1.25;letter-spacing:-.01em;margin-bottom:1.5rem}
+.sec-lbl{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:1.25rem;display:flex;align-items:center;gap:.75rem}
+.sec-lbl::after{content:'';flex:1;height:1px;background:var(--soft)}
+.section{margin-bottom:2.75rem}
+.hr{border:none;border-top:1px solid var(--soft);margin:2.5rem 0}
+.prose{font-family:var(--serif);font-size:17px;line-height:1.82;color:var(--text)}
+.prose p{margin-bottom:1.2rem}
+.prose p:last-child{margin-bottom:0}
+.tip{border-bottom:1.5px dashed var(--gold);cursor:help;position:relative}
+.tip-pop{display:none;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;font-family:var(--sans);font-size:13px;line-height:1.5;padding:.75rem 1rem;border-radius:6px;width:260px;z-index:200;pointer-events:none;box-shadow:0 4px 20px rgba(0,0,0,.28)}
+.tip-pop::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:var(--navy)}
+.tip-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#E8D9A8;margin-bottom:.2rem}
+.tip:hover .tip-pop,.tip:focus .tip-pop{display:block}
+.obs{background:var(--surface);border-left:3px solid var(--gold);border-radius:0 var(--r) var(--r) 0;padding:1.25rem 1.5rem;margin:1.75rem 0}
+.obs-ey{font-family:var(--mono);font-size:10px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem}
+.obs-txt{font-family:var(--serif);font-size:16.5px;color:var(--text-2);line-height:1.72;font-style:italic}
+.skip-bar{display:flex;align-items:center;gap:.75rem;margin-bottom:2rem;padding:.625rem 1rem;background:var(--surface);border-radius:var(--r);border:1px solid var(--soft)}
+.skip-bar span{font-size:13px;color:var(--text-3);flex:1}
+.skip-btn{font-size:12.5px;color:var(--text-3);background:transparent;border:1px solid var(--border);border-radius:var(--r);padding:4px 12px;cursor:pointer;font-family:var(--sans)}
+.skip-btn:hover{color:var(--text-2);border-color:var(--text-3)}
+.skippable.hidden{display:none}
+.info{background:var(--surface);border-radius:var(--r);padding:1.125rem 1.375rem;margin:1.5rem 0;border-left:3px solid var(--navy)}
+.info-lbl{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.09em;text-transform:uppercase;margin-bottom:.5rem}
+.info-txt{font-size:15px;color:var(--text);line-height:1.7}
+.formula-block{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.125rem 1.5rem;margin:1.5rem 0;text-align:center}
+.formula{font-family:var(--mono);font-size:18px;color:var(--navy);display:block;margin-bottom:.5rem}
+.formula-cap{font-size:13px;color:var(--text-3);line-height:1.55}
+.exp-card{border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:1.75rem 0}
+.exp-header{background:var(--surface);padding:1rem 1.375rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.875rem}
+.exp-icon{font-size:20px;flex-shrink:0}
+.exp-tag{font-family:var(--mono);font-size:9.5px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.2rem}
+.exp-name{font-family:var(--serif);font-size:16px;color:var(--text)}
+.exp-do{background:#F5F4EE;border-left:3px solid var(--gold);padding:1rem 1.25rem;border-bottom:1px solid var(--soft)}
+.exp-do-lbl{font-family:var(--mono);font-size:9.5px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.375rem}
+.exp-do-txt{font-size:14.5px;color:var(--text-2);line-height:1.65}
+.exp-body{padding:1.375rem}
+.exp-row{display:flex;gap:1.25rem;align-items:flex-start;flex-wrap:wrap}
+.exp-controls{flex:0 0 220px;min-width:200px}
+.exp-visual{flex:1;min-width:220px}
+.slider-group{margin-bottom:1rem}
+.slider-lbl{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.375rem}
+.slider-name{font-family:var(--mono);font-size:10.5px;color:var(--text-3);letter-spacing:.07em;text-transform:uppercase}
+.slider-val{font-family:var(--mono);font-size:13px;color:var(--navy)}
+input[type=range]{width:100%;-webkit-appearance:none;height:5px;background:var(--surface2);border-radius:3px;outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--navy);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--navy);border:none;cursor:pointer}
+.play-btn{display:flex;align-items:center;gap:.5rem;padding:9px 18px;background:var(--navy);color:#fff;border:none;border-radius:var(--r);cursor:pointer;font-family:var(--sans);font-size:14px;margin-top:.75rem;transition:background .15s;width:100%;justify-content:center}
+.play-btn:hover{background:var(--navy-2)}
+.play-btn.playing{background:var(--gold);color:var(--navy)}
+.wave-canvas{width:100%;border-radius:var(--r);background:#0a1628;display:block}
+.stat-row{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:.75rem}
+.stat-box{background:var(--surface);border-radius:var(--r);padding:.625rem .875rem;border:1px solid var(--soft)}
+.stat-lbl{font-family:var(--mono);font-size:9.5px;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.25rem}
+.stat-val{font-family:var(--mono);font-size:15px;color:var(--navy)}
+.aufgabe{border:1px solid var(--border);border-radius:var(--r);padding:1.125rem 1.375rem;margin-bottom:.875rem}
+.aufg-nr{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5rem}
+.aufg-txt{font-size:15px;color:var(--text);line-height:1.65}
+.hint-btn{margin-top:.75rem;padding:3px 11px;font-size:12px;border:1px solid var(--border);border-radius:var(--r);background:transparent;color:var(--text-3);cursor:pointer;font-family:var(--sans)}
+.hint-body{display:none;font-size:13.5px;color:var(--text-2);line-height:1.65;margin-top:.75rem;padding-top:.75rem;border-top:1px solid var(--soft)}
+.hint-body.open{display:block}
+.quiz-q{margin-bottom:1.75rem}
+.quiz-txt{font-family:var(--serif);font-size:16px;color:var(--text);line-height:1.55;margin-bottom:.75rem}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opt{padding:10px 14px;border:1px solid var(--border);border-radius:var(--r);font-size:14px;color:var(--text);background:var(--surface);text-align:left;cursor:pointer;line-height:1.45;transition:border-color .12s,background .12s;font-family:var(--sans)}
+.opt:hover:not(.locked){border-color:var(--navy-2);background:var(--surface2)}
+.opt.correct{border-color:var(--ok-b);background:var(--ok-bg);color:var(--ok-t)}
+.opt.wrong{border-color:var(--no-b);background:var(--no-bg);color:var(--no-t)}
+.opt.locked{cursor:default}
+.quiz-fb{display:none;font-size:13.5px;color:var(--text-2);line-height:1.65;margin-top:.75rem;padding:.75rem 1rem;background:var(--surface);border-radius:var(--r);border:1px solid var(--soft)}
+.quiz-fb.open{display:block}
+.score-row{display:flex;align-items:center;gap:.875rem;flex-wrap:wrap;padding-top:1.375rem;border-top:1px solid var(--border);margin-top:.5rem}
+.score-n{font-family:var(--serif);font-size:26px;color:var(--text);letter-spacing:-.02em}
+.score-lbl{font-size:13px;color:var(--text-3)}
+.reset-btn{margin-left:auto;padding:5px 13px;font-size:12px;border:1px solid var(--border);border-radius:var(--r);background:transparent;color:var(--text-3);cursor:pointer;font-family:var(--sans)}
+.branch{margin:2.5rem 0;padding:1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;display:none}
+.branch.visible{display:block}
+.branch-lbl{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:.75rem}
+.branch-lbl::after{content:'';flex:1;height:1px;background:var(--soft)}
+.branch-cards{display:grid;grid-template-columns:1fr 1fr;gap:.875rem;margin-top:.875rem}
+@media(max-width:460px){.branch-cards{grid-template-columns:1fr}}
+.b-card{border:1px solid var(--border);border-radius:var(--r);padding:1rem 1.125rem;cursor:pointer;background:var(--bg);transition:border-color .15s;text-align:left;font-family:var(--sans)}
+.b-card:hover{border-color:var(--navy-2)}
+.b-card.active{border-color:var(--gold);box-shadow:0 0 0 2px rgba(201,168,76,.2)}
+.b-icon{font-size:20px;margin-bottom:.5rem}
+.b-name{font-family:var(--mono);font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--navy);margin-bottom:.375rem}
+.b-desc{font-size:13px;color:var(--text-3);line-height:1.5}
+.b-panel{display:none;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:1.25rem 0}
+.b-panel.open{display:block}
+.b-panel-hdr{padding:1rem 1.375rem;background:var(--gold-bg);border-bottom:1px solid var(--gold-b);display:flex;align-items:center;gap:.75rem}
+.b-panel-tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;padding:2px 7px;border-radius:3px;background:#E8D9A8;color:var(--navy)}
+.b-panel-title{font-family:var(--serif);font-size:16px;color:var(--text)}
+.b-panel-body{padding:1.375rem;background:var(--bg)}
+.preview-card{margin:2.5rem 0;border-radius:6px;border:1px solid var(--border);overflow:hidden;position:relative;transition:border-color .4s}
+.preview-card.unlocked{border-color:var(--gold-b)}
+.prev-hdr{padding:1.25rem 1.5rem;background:var(--surface);display:flex;align-items:flex-start;gap:1rem;border-bottom:1px solid var(--border);transition:background .4s}
+.preview-card.unlocked .prev-hdr{background:var(--gold-bg);border-bottom-color:var(--gold-b)}
+.prev-icon{width:36px;height:36px;border-radius:50%;background:var(--surface2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:17px}
+.prev-meta{flex:1}
+.prev-ey{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.375rem;transition:color .4s}
+.preview-card.unlocked .prev-ey{color:var(--gold)}
+.prev-title{font-family:var(--serif);font-size:17px;color:var(--text);line-height:1.3;transition:filter .4s}
+.preview-card:not(.unlocked) .prev-title{filter:blur(2.5px);user-select:none}
+.prev-body{padding:1.125rem 1.5rem;position:relative}
+.prev-teaser{font-size:14px;color:var(--text-2);line-height:1.65;transition:filter .4s}
+.preview-card:not(.unlocked) .prev-teaser{filter:blur(3px);color:#AAA;user-select:none}
+.prev-keys{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.875rem;transition:filter .4s}
+.preview-card:not(.unlocked) .prev-keys{filter:blur(3px);pointer-events:none}
+.pkey{font-family:var(--mono);font-size:11px;color:var(--navy);background:var(--gold-bg);border:1px solid var(--gold-b);padding:3px 9px;border-radius:var(--r)}
+.lock-ov{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;background:rgba(249,248,245,.55);backdrop-filter:blur(1px);transition:opacity .4s;pointer-events:none}
+.preview-card.unlocked .lock-ov{opacity:0}
+.lock-ico{font-size:22px}
+.lock-txt{font-family:var(--mono);font-size:11px;color:var(--text-3);letter-spacing:.07em;text-transform:uppercase}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(201,168,76,.5)}70%{box-shadow:0 0 0 12px rgba(201,168,76,0)}100%{box-shadow:0 0 0 0 rgba(201,168,76,0)}}
+.just-unlocked{animation:pulse .7s ease-out}
+.completion{display:none;background:var(--gold-bg);border:1px solid var(--gold-b);border-radius:8px;padding:2.25rem 1.5rem;text-align:center;margin:3rem 0}
+.completion.visible{display:block}
+.comp-title{font-family:var(--serif);font-size:22px;color:var(--navy);margin-bottom:.5rem}
+.comp-sub{font-size:14px;color:var(--text-2);line-height:1.65;margin-bottom:1.25rem;max-width:48ch;margin-left:auto;margin-right:auto}
+.comp-keys{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.25rem}
+.comp-depth{font-family:var(--mono);font-size:11px;color:var(--text-3)}
+.horizon{display:none;margin:1.5rem 0 6rem;padding:1.25rem 1.5rem;border-top:1px solid var(--soft)}
+.horizon.visible{display:block}
+.horizon-txt{font-family:var(--serif);font-size:15.5px;color:var(--text-3);line-height:1.8;font-style:italic;max-width:52ch;margin-bottom:1.25rem}
+/* Fourier specific */
+.wave-select{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.wave-btn{padding:6px 14px;font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface);color:var(--text-3);cursor:pointer;transition:border-color .12s,color .12s,background .12s}
+.wave-btn:hover{border-color:var(--navy);color:var(--navy)}
+.wave-btn.active{border-color:var(--gold);background:var(--gold-bg);color:var(--navy)}
+/* Series viz */
+.series-bar-wrap{margin-top:.75rem;display:flex;flex-direction:column;gap:3px;max-height:160px;overflow:hidden}
+.series-bar-row{display:flex;align-items:center;gap:.5rem}
+.series-bar-track{flex:1;height:10px;background:var(--surface2);border-radius:3px;overflow:hidden}
+.series-bar-fill{height:100%;border-radius:3px;background:var(--gold);transition:width .4s}
+.series-bar-lbl{font-family:var(--mono);font-size:9px;color:var(--text-3);min-width:40px;text-align:right}
+@media(max-width:580px){.prose{font-size:16px}.path-title{font-size:22px}.unit-q{font-size:18px}.exp-row{flex-direction:column}.exp-controls{flex:none;width:100%}}
+:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="h-inner">
+    <svg class="signet" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+      <circle cx="13" cy="13" r="12" stroke="#1C2B3A" stroke-width="1.1" fill="none"/>
+      <circle cx="13" cy="13" r="3.5" fill="#C9A84C"/>
+      <ellipse cx="13" cy="13" rx="10" ry="4" stroke="#1C2B3A" stroke-width=".7" fill="none" transform="rotate(-25 13 13)"/>
+      <ellipse cx="13" cy="13" rx="10" ry="4" stroke="#1C2B3A" stroke-width=".7" fill="none" transform="rotate(25 13 13)"/>
+    </svg>
+    <span class="site-name">Solar Science Foundation</span>
+    <div class="h-space"></div>
+    <span class="mod-id">LRN:SSF:MAT-1102</span>
+  </div>
+</header>
+
+<div class="depth-wrap">
+  <div class="depth-inner">
+    <span class="depth-lbl">Tiefe</span>
+    <div class="depth-track"><div class="depth-fill" id="dfill"></div></div>
+    <span class="depth-val" id="dval">0</span>
+    <span class="depth-note" id="dnote">— Beginn</span>
+  </div>
+</div>
+
+<main><div class="wrap">
+
+<div class="intro">
+  <div class="eyebrow">Lernpfad · Unendlichkeit & Klang</div>
+  <h1 class="path-title">Wann hört eine unendliche Summe auf zu wachsen?</h1>
+  <p class="path-desc">Zwei Einheiten: Erst das Paradoxon der unendlichen Summe die endlich ist — dann das erstaunlichste Ergebnis der Mathematik: Jeder Klang, jedes Signal ist eine Summe aus reinen Schwingungen.</p>
+</div>
+
+<!-- ═══════════════ EINHEIT 1: GEOMETRISCHE REIHE ═══════════════ -->
+<div class="unit" id="unit-1">
+  <div class="unit-hdr">
+    <div class="unit-idx">Einheit 1 von 2</div>
+    <h2 class="unit-q">Wenn du immer die Hälfte der verbleibenden Strecke gehst — kommst du je an?</h2>
+  </div>
+
+  <div class="skip-bar">
+    <span>Beispiele und Aufgaben sind optional.</span>
+    <button class="skip-btn" onclick="skipTo('quiz-1')">Direkt zum Quiz →</button>
+  </div>
+
+  <div class="section skippable" id="bsp-1">
+    <div class="sec-lbl">Beobachtung</div>
+
+    <div class="obs">
+      <div class="obs-ey">Paradoxon — Zenon von Elea, ~450 v. Chr.</div>
+      <div class="obs-txt">Um von A nach B zu kommen, musst du zuerst die Hälfte der Strecke zurücklegen. Dann wieder die Hälfte des Restes. Dann wieder die Hälfte. Unendlich viele Schritte — kannst du überhaupt ankommen? Zenon sagte: nein. Er hatte Unrecht. Aber warum?</div>
+    </div>
+
+    <div class="prose">
+      <p>Zenon dachte: unendlich viele Schritte = unendlich lange Zeit. Aber das stimmt nicht, wenn die Schritte schnell genug kleiner werden. Wenn jeder Schritt halb so lang ist wie der vorherige, dann ist die Summe aller Schritte endlich — nämlich genau die gesamte Strecke.</p>
+      <p>Das ist das Wesen der <span class="tip">geometrischen Reihe<span class="tip-pop"><span class="tip-lbl">Geometrische Reihe</span>∑ qⁿ (n=0 bis ∞). Jedes Glied ist q-mal das vorige. Für |q| < 1 schrumpfen die Glieder — und die unendliche Summe konvergiert zu 1/(1−q). Für |q| ≥ 1 wachsen sie oder bleiben gleich: Divergenz.</span></span>: 1/2 + 1/4 + 1/8 + … = 1. Unendlich viele Summanden, endliches Ergebnis. Das klingt wie ein Trick, ist aber Mathematik.</p>
+    </div>
+
+    <div class="formula-block">
+      <span class="formula">∑ qⁿ = 1/(1−q) &nbsp;&nbsp; für |q| &lt; 1</span>
+      <div class="formula-cap">Der einzige Schalter ist q. |q| < 1 → konvergent mit Wert 1/(1−q). |q| ≥ 1 → divergent.</div>
+    </div>
+
+    <!-- EXPERIMENT 1: Geometrische Reihe -->
+    <div class="exp-card">
+      <div class="exp-header">
+        <div class="exp-icon">∑</div>
+        <div>
+          <div class="exp-tag">Experiment 1</div>
+          <div class="exp-name">Geometrische Reihe — Partialsummen live</div>
+        </div>
+      </div>
+      <div class="exp-do">
+        <div class="exp-do-lbl">Selbst erkunden</div>
+        <div class="exp-do-txt">Schiebe q zwischen −0.99 und 0.99. Beobachte wie die Balken immer kürzer werden und die Partialsumme sich dem Grenzwert annähert. Was passiert wenn q negativ ist? Die Summe pendelt sich ein — von beiden Seiten.</div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-row">
+          <div class="exp-controls">
+            <div class="slider-group">
+              <div class="slider-lbl">
+                <span class="slider-name">Quotient q</span>
+                <span class="slider-val" id="q-val">0.50</span>
+              </div>
+              <input type="range" id="q-slider" min="-99" max="99" value="50" oninput="updateSeries(this.value/100)">
+            </div>
+            <div class="stat-row">
+              <div class="stat-box">
+                <div class="stat-lbl">Grenzwert</div>
+                <div class="stat-val" id="s-limit">2.000</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-lbl">Partialsumme S₁₅</div>
+                <div class="stat-val" id="s-partial">1.999</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-lbl">Glied 15</div>
+                <div class="stat-val" id="s-term15">≈ 0</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-lbl">Status</div>
+                <div class="stat-val" id="s-status" style="font-size:13px">konvergent</div>
+              </div>
+            </div>
+            <div id="series-note" style="margin-top:.75rem;font-size:12.5px;color:var(--text-3);line-height:1.5">
+              q = 0.5: Jedes Glied ist halb so groß. Summe → 2.
+            </div>
+          </div>
+          <div class="exp-visual">
+            <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.07em;text-transform:uppercase;margin-bottom:.5rem">Glieder der Reihe (n=0..14)</div>
+            <canvas id="series-canvas" style="width:100%;height:180px;border-radius:var(--r);background:var(--surface);border:1px solid var(--soft);display:block"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p>Der Schlüssel ist |q| < 1. Das bedeutet: jedes Glied ist kleiner als das vorherige — die Reihe schrumpft. Und wenn etwas schnell genug schrumpft, kann man es unendlich oft addieren und trotzdem bei einer endlichen Zahl landen.</p>
+      <p>Das ist keine Magie. Es ist eine Konsequenz davon, was "konvergieren" bedeutet: Die Partialsummen S_N kommen einem festen Wert immer näher — und zwar so nah, dass der Unterschied kleiner wird als jede noch so kleine Zahl die man sich vorstellt.</p>
+    </div>
+
+    <!-- Branch: Konvergenzkriterien -->
+    <div class="branch visible" id="branch-kriterien" style="display:block">
+      <div class="branch-lbl">Seitenast — optional</div>
+      <div style="font-family:var(--serif);font-size:17px;color:var(--text);margin-bottom:.5rem">Was wenn die Reihe kein q hat?</div>
+      <div style="font-size:14px;color:var(--text-2);line-height:1.65;margin-bottom:1.25rem">Nicht jede Reihe hat die einfache q-Struktur. Wie entscheidet man dann ob sie konvergiert?</div>
+      <div class="branch-cards">
+        <button class="b-card" onclick="openB('b-kriterien')" id="bc-kriterien">
+          <div class="b-icon">🔬</div>
+          <div class="b-name">Konvergenzkriterien</div>
+          <div class="b-desc">Quotientenkriterium, Wurzelkriterium, Leibniz — wann nimmt man welches?</div>
+        </button>
+        <button class="b-card" onclick="document.getElementById('branch-kriterien').style.display='none'">
+          <div class="b-icon">→</div>
+          <div class="b-name" style="color:var(--text-3)">Weiter</div>
+          <div class="b-desc">Direkt zu Aufgaben und Quiz.</div>
+        </button>
+      </div>
+    </div>
+
+    <div class="b-panel" id="b-kriterien">
+      <div class="b-panel-hdr">
+        <span class="b-panel-tag">Seitenast · Kriterien</span>
+        <span class="b-panel-title">Quotient, Wurzel, Leibniz — wann welches?</span>
+      </div>
+      <div class="b-panel-body">
+        <div class="prose">
+          <p><strong>Quotientenkriterium:</strong> q = lim |u_{n+1}/u_n|. Bei Brüchen mit Potenzen oder Fakultäten — beim Teilen kürzt sich fast alles. q < 1 → konvergent.</p>
+          <p><strong>Wurzelkriterium:</strong> q = lim ⁿ√|u_n|. Wenn der ganze Term in einer n-ten Potenz steckt: (…)ⁿ. Die n-te Wurzel hebt die n-te Potenz auf, es bleibt der innere Ausdruck. q < 1 → konvergent.</p>
+          <p><strong>Leibniz-Kriterium:</strong> Für alternierende Reihen (−1)ⁿ · aₙ. Wenn die Beträge aₙ monoton fallen und gegen 0 gehen → konvergent. Das Vorzeichen wechseln rettet Reihen die sonst divergieren würden (z.B. ∑ (−1)ⁿ/n konvergiert, ∑ 1/n divergiert).</p>
+        </div>
+        <div class="info" style="margin-top:1.25rem">
+          <div class="info-lbl">Entscheidungsbaum</div>
+          <div class="info-txt">Steht alles hoch n → Wurzel. Gibt es Fakultäten oder Produkte von Potenzen → Quotient. Wechselt das Vorzeichen → Leibniz. Beide (Quotient und Wurzel) liefern denselben q — nimm das mit weniger Arbeit.</div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="hr">
+
+    <div class="section skippable" id="aufg-1">
+      <div class="sec-lbl">Aufgaben</div>
+      <div class="aufgabe">
+        <div class="aufg-nr">Aufgabe 1</div>
+        <div class="aufg-txt">Berechne den Wert der geometrischen Reihe ∑ (2/3)ⁿ (n=0 bis ∞). Warum konvergiert sie?</div>
+        <button class="hint-btn" onclick="hintToggle(this)">Hinweis</button>
+        <div class="hint-body">|q| = 2/3 < 1 → konvergent. Summe = 1/(1−2/3) = 1/(1/3) = 3. Anschaulich: Jeder Schritt ist 2/3 des vorigen — sie schrumpfen, und die Summe läuft nicht davon.</div>
+      </div>
+      <div class="aufgabe">
+        <div class="aufg-nr">Aufgabe 2</div>
+        <div class="aufg-txt">Was passiert mit ∑ (3/2)ⁿ? Begründe ohne Rechnung.</div>
+        <button class="hint-btn" onclick="hintToggle(this)">Hinweis</button>
+        <div class="hint-body">|q| = 3/2 > 1. Jedes Glied ist größer als das vorherige — die Summanden gehen nicht einmal gegen 0 (notwendige Bedingung für Konvergenz). Divergent, Summe → ∞.</div>
+      </div>
+      <div class="aufgabe">
+        <div class="aufg-nr">Aufgabe 3</div>
+        <div class="aufg-txt">Untersuche ∑ n²/2ⁿ mit dem Quotientenkriterium. Konvergiert die Reihe?</div>
+        <button class="hint-btn" onclick="hintToggle(this)">Hinweis</button>
+        <div class="hint-body">q = lim |(n+1)²/2^{n+1}| · |2ⁿ/n²| = lim (1/2)·((n+1)/n)² = (1/2)·1 = 1/2 < 1. Konvergent. Das 2ⁿ im Nenner wächst schneller als n² — der Exponentialterm dominiert immer über Polynome.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="hr">
+
+  <div class="section" id="quiz-1">
+    <div class="sec-lbl">Quiz · Einheit 1</div>
+
+    <div class="quiz-q">
+      <div class="quiz-txt">Was ist die Summe von 1 + 1/2 + 1/4 + 1/8 + … (unendlich viele Glieder)?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,'u1',0,false)">Unendlich — es gibt unendlich viele Glieder.</button>
+        <button class="opt" onclick="ans(this,'u1',0,false)">Sie lässt sich nicht berechnen.</button>
+        <button class="opt" onclick="ans(this,'u1',0,true)">2 — geometrische Reihe mit q=1/2: Summe = 1/(1−1/2) = 2.</button>
+        <button class="opt" onclick="ans(this,'u1',0,false)">1 — weil man nie über 1 hinauskommt.</button>
+      </div>
+      <div class="quiz-fb" id="fb-u1-0">q = 1/2, |q| < 1 → konvergent. Summe = 1/(1−1/2) = 2. Zenon hatte Unrecht: Auch unendlich viele Schritte können in endlicher Zeit abgeschlossen werden, wenn die Schritte schnell genug kleiner werden.</div>
+    </div>
+
+    <div class="quiz-q">
+      <div class="quiz-txt">Warum divergiert ∑ (−1)ⁿ/√n nicht, obwohl ∑ 1/√n divergiert?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,'u1',1,false)">Weil negative Glieder die Reihe kleiner machen.</button>
+        <button class="opt" onclick="ans(this,'u1',1,true)">Das Leibniz-Kriterium: der Vorzeichenwechsel "rettet" die Konvergenz. Die Beträge 1/√n fallen monoton und gehen gegen 0 — das reicht für Konvergenz der alternierenden Reihe.</button>
+        <button class="opt" onclick="ans(this,'u1',1,false)">Weil √n schnell genug wächst.</button>
+        <button class="opt" onclick="ans(this,'u1',1,false)">Sie divergiert auch — der Vorzeichenwechsel ändert nichts.</button>
+      </div>
+      <div class="quiz-fb" id="fb-u1-1">∑ 1/√n ist eine p-Reihe mit p = 1/2 < 1 → divergent. Aber ∑ (−1)ⁿ/√n ist eine alternierende Reihe mit fallenden Beträgen die → 0 gehen. Leibniz: konvergent (aber nur bedingt, nicht absolut). Der Vorzeichenwechsel erzeugt eine pendelnd sich annähernde Partialsumme.</div>
+    </div>
+
+    <div class="quiz-q">
+      <div class="quiz-txt">Welches Kriterium eignet sich am besten für ∑ (n/(2n+1))ⁿ?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,'u1',2,false)">Quotientenkriterium — wegen der n im Nenner.</button>
+        <button class="opt" onclick="ans(this,'u1',2,true)">Wurzelkriterium — der gesamte Ausdruck steht in einer n-ten Potenz. Die n-te Wurzel hebt sie auf: q = lim n/(2n+1) = 1/2 < 1.</button>
+        <button class="opt" onclick="ans(this,'u1',2,false)">Leibniz — wegen der alternierenden Vorzeichen.</button>
+        <button class="opt" onclick="ans(this,'u1',2,false)">Geometrische Reihe — direkt ablesbar.</button>
+      </div>
+      <div class="quiz-fb" id="fb-u1-2">Steht alles unter einer n-ten Wurzel (der ganze Summand ist (…)ⁿ) → Wurzelkriterium. ⁿ√(n/(2n+1))ⁿ = n/(2n+1) → 1/2 für n→∞. Da 1/2 < 1: konvergent. Das Quotientenkriterium würde auch funktionieren, ist hier aber unhandlicher.</div>
+    </div>
+
+    <div class="score-row">
+      <span class="score-n" id="score-u1">0 / 3</span>
+      <span class="score-lbl">korrekt</span>
+      <button class="reset-btn" onclick="resetQ('u1')">Neu</button>
+    </div>
+  </div>
+
+  <div class="preview-card" id="preview-1">
+    <div class="prev-hdr">
+      <div class="prev-icon">🎵</div>
+      <div class="prev-meta">
+        <div class="prev-ey" id="prev-ey-1">Einheit 2 — noch gesperrt</div>
+        <div class="prev-title">Jeder Klang ist eine unendliche Summe — und du kannst sie hören</div>
+      </div>
+    </div>
+    <div class="prev-body">
+      <div class="prev-teaser">Fourier hat 1822 bewiesen: Jede periodische Funktion — jedes Signal, jeder Klang, jedes Bild — lässt sich als Summe von Sinusschwingungen schreiben. Ein eckiger Sägezahn ist eine unendliche Summe aus glatten Kurven. Du kannst hören wie er entsteht.</div>
+      <div class="prev-keys">
+        <span class="pkey">SIGNAL:FOURIER</span>
+        <span class="pkey">SENSOR:WAVE</span>
+      </div>
+      <div class="lock-ov" id="lock-1">
+        <div class="lock-ico">🔒</div>
+        <div class="lock-txt">Quiz abschließen</div>
+      </div>
+    </div>
+  </div>
+</div><!-- /unit-1 -->
+
+
+<!-- ═══════════════ EINHEIT 2: FOURIER-SYNTHESIZER ═══════════════ -->
+<div class="unit" id="unit-2" style="opacity:.3;pointer-events:none;transition:opacity .6s" aria-disabled="true">
+  <div class="unit-hdr">
+    <div class="unit-idx">Einheit 2 von 2</div>
+    <h2 class="unit-q">Wie baut man aus runden Wellen eine eckige?</h2>
+  </div>
+
+  <div class="skip-bar">
+    <span>Aufgaben sind optional.</span>
+    <button class="skip-btn" onclick="skipTo('quiz-2')">Direkt zum Quiz →</button>
+  </div>
+
+  <div class="section skippable" id="bsp-2">
+    <div class="sec-lbl">Beobachtung</div>
+    <div class="obs">
+      <div class="obs-ey">Beobachtung: Synthesizer & Klang</div>
+      <div class="obs-txt">Ein Synthesizer klingt anders als eine Geige, obwohl beide denselben Ton spielen. Weil ein Synthesizer beliebige Wellen erzeugen kann — er addiert Sinusschwingungen mit verschiedenen Frequenzen und Amplituden. Das ist Fourier-Synthese: komplexe Klänge aus einfachen Bausteinen zusammensetzen.</div>
+    </div>
+
+    <div class="prose">
+      <p>Jean-Baptiste Joseph Fourier bewies 1822 das Folgende: Jede periodische Funktion lässt sich als Summe von Sinus- und Kosinusschwingungen schreiben. Das gilt für Klang, für elektrische Signale, für Lichtwellen, für Bilder — für alles Periodische.</p>
+      <p>Der <span class="tip">Sägezahn<span class="tip-pop"><span class="tip-lbl">Sägezahn-Fourierreihe</span>f(x) = 2·∑ (−1)^{n+1}/n · sin(nx) für n=1,2,3,…. Der Sägezahn ist eine ungerade Funktion — deshalb nur Sinusterme. Mit mehr Obertönen wird die Annäherung schärfer, aber die Sprungstelle bleibt ein ewiges Überschwingen (Gibbs-Phänomen).</span></span> zum Beispiel: f(x) = x auf [−π, π], periodisch fortgesetzt. Seine Fourierreihe ist: 2(sin x − sin(2x)/2 + sin(3x)/3 − …). Jeder Sinusterm ist eine glatte, runde Schwingung. Die Summe wird zu einem eckigen Sägezahn.</p>
+    </div>
+
+    <!-- EXPERIMENT 2: Fourier-Synthesizer -->
+    <div class="exp-card">
+      <div class="exp-header">
+        <div class="exp-icon">🎹</div>
+        <div>
+          <div class="exp-tag">Experiment 2 — Herzstück</div>
+          <div class="exp-name">Fourier-Synthesizer</div>
+        </div>
+      </div>
+      <div class="exp-do">
+        <div class="exp-do-lbl">Selbst erkunden</div>
+        <div class="exp-do-txt">Wähle eine Wellenform und erhöhe schrittweise die Anzahl der Obertöne. Höre wie das Signal mit jedem Oberton "schärfer" wird. Bei 1 Oberton: reiner Sinus. Bei 20: fast perfekter Sägezahn.</div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-row">
+          <div class="exp-controls">
+            <div style="margin-bottom:1rem">
+              <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5rem">Wellenform</div>
+              <div class="wave-select">
+                <button class="wave-btn active" id="btn-saw" onclick="setWave('saw')">Sägezahn</button>
+                <button class="wave-btn" id="btn-square" onclick="setWave('square')">Rechteck</button>
+                <button class="wave-btn" id="btn-tri" onclick="setWave('triangle')">Dreieck</button>
+              </div>
+            </div>
+            <div class="slider-group">
+              <div class="slider-lbl">
+                <span class="slider-name">Obertöne N</span>
+                <span class="slider-val" id="fourier-n-val">1</span>
+              </div>
+              <input type="range" id="fourier-n" min="1" max="20" value="1" oninput="updateFourier()">
+            </div>
+            <div class="slider-group">
+              <div class="slider-lbl">
+                <span class="slider-name">Grundfrequenz</span>
+                <span class="slider-val" id="fourier-freq-val">220 Hz</span>
+              </div>
+              <input type="range" id="fourier-freq" min="1" max="6" value="3" oninput="updateFourier()">
+            </div>
+            <button class="play-btn" id="fourier-btn" onclick="toggleFourier()">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><polygon points="3,2 12,7 3,12"/></svg>
+              Klang abspielen
+            </button>
+            <div id="fourier-note" style="margin-top:.75rem;font-size:12px;color:var(--text-3);line-height:1.5">
+              N=1: Nur Grundton — reiner Sinuston.
+            </div>
+          </div>
+          <div class="exp-visual">
+            <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.07em;text-transform:uppercase;margin-bottom:.375rem">Fourier-Synthese</div>
+            <canvas id="fourier-sum-canvas" class="wave-canvas" height="120"></canvas>
+            <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.07em;text-transform:uppercase;margin-top:.625rem;margin-bottom:.375rem">Einzelne Obertöne</div>
+            <canvas id="fourier-components-canvas" class="wave-canvas" height="80"></canvas>
+            <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.07em;text-transform:uppercase;margin-top:.625rem;margin-bottom:.375rem">Amplitudenspektrum</div>
+            <canvas id="fourier-spectrum-canvas" class="wave-canvas" height="70"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p>Was du hörst und siehst: Mit N=1 ist es ein reiner Sinuston — glatt, rund, fast langweilig. Mit N=3 beginnt etwas Charakteristisches. Mit N=10 klingt der Sägezahn schon sehr nach Sägezahn. Mit N=20 ist die Näherung fast perfekt — nur an den Sprungstellen bleibt ein kleines Überschwingen, das nie ganz verschwindet. Das ist das <span class="tip">Gibbs-Phänomen<span class="tip-pop"><span class="tip-lbl">Gibbs-Phänomen</span>An Sprungstellen einer Funktion schwingt die Fourierreihe immer um ca. 9% der Sprungamplitude über — egal wie viele Terme man nimmt. Das ist kein Fehler der Rechnung, sondern eine fundamentale Eigenschaft von Fourierreihen an Unstetigkeitsstellen.</span></span>.</p>
+      <p>Das Prinzip dahinter ist mächtiger als es aussieht. Jedes Audiosignal ist eine Fourierreihe. Jedes JPEG-Bild auch — Bildkompression funktioniert indem man die unwichtigen Fourier-Koeffizienten weglässt. MRT-Scanner messen Fourier-Koeffizienten des Körpers und rekonstruieren daraus ein Bild.</p>
+    </div>
+
+    <!-- Branch: Taylor-Reihe -->
+    <div class="branch visible" id="branch-taylor" style="display:block">
+      <div class="branch-lbl">Seitenast — optional</div>
+      <div style="font-family:var(--serif);font-size:17px;color:var(--text);margin-bottom:.5rem">Taylor-Reihe: Die andere Art Funktionen zu approximieren</div>
+      <div class="branch-cards">
+        <button class="b-card" onclick="openB('b-taylor')" id="bc-taylor">
+          <div class="b-icon">📐</div>
+          <div class="b-name">Taylor-Approximation</div>
+          <div class="b-desc">Wie gut approximiert ein Polynom eine Funktion? Polynomgrad-Slider für sin(x), e^x und 1/(1−x).</div>
+        </button>
+        <button class="b-card" onclick="document.getElementById('branch-taylor').style.display='none'">
+          <div class="b-icon">→</div>
+          <div class="b-name" style="color:var(--text-3)">Weiter</div>
+          <div class="b-desc">Direkt zum Quiz.</div>
+        </button>
+      </div>
+    </div>
+
+    <div class="b-panel" id="b-taylor">
+      <div class="b-panel-hdr">
+        <span class="b-panel-tag">Seitenast · Taylor</span>
+        <span class="b-panel-title">Taylor-Reihe — Funktionen als Polynome</span>
+      </div>
+      <div class="b-panel-body">
+        <div class="prose">
+          <p>Fourier approximiert mit Sinusschwingungen. Taylor approximiert mit Polynomen. Beide Ideen: eine komplizierte Funktion durch einfachere Bausteine ausdrücken.</p>
+          <p>sin(x) = x − x³/6 + x⁵/120 − … Für kleine x ist sin(x) ≈ x eine gute Näherung. Das ist die Taylor-Reihe erster Ordnung. Mit mehr Termen wird die Näherung besser — aber anders als bei Fourier nicht überall, sondern immer besser in der Nähe des Entwicklungspunkts.</p>
+          <p>Entscheidend: Die Koeffizienten kommen aus den Ableitungen: f(0), f'(0), f''(0), … Jeder Ableitungswert gibt einen Term in der Reihe. Deshalb heißt f(n)(0)/n! der n-te Taylor-Koeffizient.</p>
+        </div>
+        <div style="margin-top:1.25rem">
+          <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5rem">Taylor-Approximation von sin(x) — Polynomgrad</div>
+          <div class="slider-group">
+            <div class="slider-lbl">
+              <span class="slider-name">Grad n</span>
+              <span class="slider-val" id="taylor-n-val">1</span>
+            </div>
+            <input type="range" id="taylor-n" min="1" max="11" value="1" step="2" oninput="updateTaylor()">
+          </div>
+          <canvas id="taylor-canvas" style="width:100%;height:160px;border-radius:var(--r);background:#0a1628;border:1px solid var(--border);display:block"></canvas>
+          <div id="taylor-formula" style="margin-top:.625rem;font-family:var(--mono);font-size:12px;color:var(--text-2);line-height:1.5">sin(x) ≈ x</div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="hr">
+
+    <div class="section skippable" id="aufg-2">
+      <div class="sec-lbl">Aufgaben</div>
+      <div class="aufgabe">
+        <div class="aufg-nr">Aufgabe 1</div>
+        <div class="aufg-txt">Die Fourierreihe des Sägezahns ist f(x) = 2·∑ (−1)^{n+1}/n · sin(nx). Berechne den ersten und zweiten Fourierkoeffizienten. Was sagt das Vorzeichen aus?</div>
+        <button class="hint-btn" onclick="hintToggle(this)">Hinweis</button>
+        <div class="hint-body">n=1: b₁ = 2·(−1)²/1 = 2. n=2: b₂ = 2·(−1)³/2 = −1. Das Vorzeichen (−1)^{n+1} alterniert: +, −, +, −, … Die Sinusterme wechseln ab zwischen Zuzählen und Abzählen — das ist der Mechanismus hinter der Pendelannäherung an den Sägezahn.</div>
+      </div>
+      <div class="aufgabe">
+        <div class="aufg-nr">Aufgabe 2</div>
+        <div class="aufg-txt">Warum hat die Fourierreihe des Sägezahns nur Sinusterme und keine Kosinusterme?</div>
+        <button class="hint-btn" onclick="hintToggle(this)">Hinweis</button>
+        <div class="hint-body">Der Sägezahn f(x) = x ist eine ungerade Funktion: f(−x) = −f(x). Für ungerade Funktionen sind alle Kosinus-Koeffizienten aₙ = 0, weil cos(−x) = cos(x) (gerade). Der Sinus ist ungerade wie f — also tragen nur Sinusterme bei. Diese Symmetrie spart bei der Berechnung die halbe Arbeit.</div>
+      </div>
+    </div>
+
+    <hr class="hr">
+
+    <div class="section" id="quiz-2">
+      <div class="sec-lbl">Quiz · Einheit 2</div>
+
+      <div class="quiz-q">
+        <div class="quiz-txt">Was sagt der Satz von Fourier aus?</div>
+        <div class="opts">
+          <button class="opt" onclick="ans(this,'u2',0,false)">Jede Funktion lässt sich als Polynom schreiben.</button>
+          <button class="opt" onclick="ans(this,'u2',0,true)">Jede periodische Funktion lässt sich als Summe von Sinus- und Kosinusschwingungen schreiben — mit ganzzahligen Vielfachen der Grundfrequenz.</button>
+          <button class="opt" onclick="ans(this,'u2',0,false)">Alle Schwingungen haben dieselbe Frequenz.</button>
+          <button class="opt" onclick="ans(this,'u2',0,false)">Nur Rechteck- und Sägezahnwellen haben Fourierreihen.</button>
+        </div>
+        <div class="quiz-fb" id="fb-u2-0">Fourier 1822: Jede periodische Funktion (auch eckige, unsymmetrische, mit Sprüngen) lässt sich als ∑ (aₙ cos(nx) + bₙ sin(nx)) schreiben. Die Frequenzen sind Vielfache der Grundfrequenz — man nennt das harmonische Obertöne. Das ist der Grund warum ein Sägezahn "scharf" klingt: er enthält viele Obertöne.</div>
+      </div>
+
+      <div class="quiz-q">
+        <div class="quiz-txt">Warum klingt ein Sägezahn mit N=1 Obertönen wie ein Sinus?</div>
+        <div class="opts">
+          <button class="opt" onclick="ans(this,'u2',1,false)">Weil der erste Oberton der lauteste ist.</button>
+          <button class="opt" onclick="ans(this,'u2',1,true)">N=1 bedeutet: nur der erste Term der Fourierreihe. Der erste Term ist immer ein reiner Sinuston (Grundton). Mit N=1 ist die Näherung ein reiner Sinuston — noch kein Oberton wurde hinzugefügt.</button>
+          <button class="opt" onclick="ans(this,'u2',1,false)">Weil die eckigen Kanten bei niedrigen Frequenzen verschwinden.</button>
+          <button class="opt" onclick="ans(this,'u2',1,false)">Weil Sägezahn und Sinus dieselbe Grundfrequenz haben.</button>
+        </div>
+        <div class="quiz-fb" id="fb-u2-1">Die Fourierreihe des Sägezahns: 2(sin x − sin(2x)/2 + sin(3x)/3 − …). N=1: nur sin(x) → reiner Sinuston. N=2: sin(x) − sin(2x)/2 → beginnt "säge"-ähnlich zu klingen. Jeder Oberton schärft die Eckigkeit. Die "Eckigkeit" entsteht durch das Zusammenspiel vieler Obertöne.</div>
+      </div>
+
+      <div class="quiz-q">
+        <div class="quiz-txt">Was ist das Gibbs-Phänomen?</div>
+        <div class="opts">
+          <button class="opt" onclick="ans(this,'u2',2,false)">Ein Fehler in der Fourier-Berechnung der mit mehr Termen verschwindet.</button>
+          <button class="opt" onclick="ans(this,'u2',2,false)">Das Rauschen das bei digitalen Signalen auftritt.</button>
+          <button class="opt" onclick="ans(this,'u2',2,true)">An Sprungstellen überschwingt die Fourierreihe immer um ca. 9% — egal wie viele Terme man nimmt. Es ist kein Fehler, sondern eine fundamentale Eigenschaft.</button>
+          <button class="opt" onclick="ans(this,'u2',2,false)">Die Tatsache dass Fourierreihen nur für stetige Funktionen funktionieren.</button>
+        </div>
+        <div class="quiz-fb" id="fb-u2-2">Das Gibbs-Phänomen: An Sprungstellen (wie beim Sägezahn) überschwingt die N-te Partialsumme immer um etwa 8,9% der Sprungamplitude — das Überschwingen verschiebt sich mit mehr Termen immer näher an die Sprungstelle, wird aber nicht kleiner. Sichtbar im Synthesizer: Der erste "Hügel" vor der Sprungstelle bleibt.</div>
+      </div>
+
+      <div class="score-row">
+        <span class="score-n" id="score-u2">0 / 3</span>
+        <span class="score-lbl">korrekt</span>
+        <button class="reset-btn" onclick="resetQ('u2')">Neu</button>
+      </div>
+    </div>
+
+    <div class="branch" id="branch-2">
+      <div class="branch-lbl">Weiter</div>
+      <div class="branch-cards">
+        <button class="b-card" onclick="openB('b-diffgeo')">
+          <div class="b-icon">🌀</div>
+          <div class="b-name">Differentialgeometrie</div>
+          <div class="b-desc">Wie beschreibt man Kurven die sich drehen — Bogenlänge, Krümmung, Polarkurven?</div>
+        </button>
+        <button class="b-card" onclick="openB('b2-finish')">
+          <div class="b-icon">✓</div>
+          <div class="b-name" style="color:var(--text-3)">Abschließen</div>
+          <div class="b-desc">Pfad abschließen und NOXIA-Schlüssel freischalten.</div>
+        </button>
+      </div>
+    </div>
+  </div><!-- /unit-2 -->
+
+  <div class="completion" id="completion">
+    <div class="comp-title">Lernpfad abgeschlossen</div>
+    <div class="comp-sub">Von Zenons Paradoxon zur Fourier-Synthese: Unendliche Summen die endlich sind, und jeder Klang als Summe von Sinuswellen. Folgendes wurde in NOXIA freigeschaltet:</div>
+    <div class="comp-keys">
+      <span class="pkey">SIGNAL:FOURIER</span>
+      <span class="pkey">SENSOR:WAVE</span>
+    </div>
+    <div class="comp-depth" id="comp-depth">Lerntiefe: —</div>
+  </div>
+  <div class="horizon" id="horizon">
+    <div class="horizon-txt">Der nächste Horizont: Wie beschreibt man eine Kurve die sich im Raum dreht? Bogenlänge, Krümmung, Spiralen — Differentialgeometrie beginnt dort wo Koordinaten nicht mehr ausreichen.</div>
+  </div>
+
+</div></main>
+
+<script>
+// ═══ DEPTH ═══
+let depthRaw=0;
+const depthPoints={u1_quiz:15,u2_quiz:18,series_interact:4,fourier_interact:5,fourier_play:6,b_kriterien:7,b_taylor:8,finish:5};
+const depthGiven={};
+function awardDepth(k){if(depthGiven[k])return;depthGiven[k]=true;depthRaw+=depthPoints[k]||0;renderDepth();}
+function renderDepth(){
+  const d=Math.round(100*(1-1/(1+depthRaw/26)));
+  document.getElementById('dfill').style.width=d+'%';
+  document.getElementById('dval').textContent=d;
+  const labels=[[10,'Beginn'],[22,'Einstieg'],[38,'Orientierung'],[52,'Grundlagen'],[65,'Mechanismus'],[76,'Theorie'],[87,'Forschungsnähe'],[100,'Forschungsrand']];
+  for(const [t,l] of [...labels].reverse()){if(d>=t){document.getElementById('dnote').textContent='— '+l;break;}}
+}
+
+// ═══ SERIES EXPERIMENT ═══
+function updateSeries(q){
+  awardDepth('series_interact');
+  document.getElementById('q-val').textContent=q.toFixed(2);
+  const converges=Math.abs(q)<1;
+  const limit=converges?1/(1-q):Infinity;
+  let partial=0;
+  let term15=Math.pow(q,14);
+  for(let n=0;n<15;n++) partial+=Math.pow(q,n);
+
+  document.getElementById('s-limit').textContent=converges?limit.toFixed(4):'∞';
+  document.getElementById('s-partial').textContent=partial.toFixed(4);
+  document.getElementById('s-term15').textContent=Math.abs(term15)<0.001?'≈ 0':term15.toFixed(4);
+  document.getElementById('s-status').textContent=converges?'konvergent':'divergent';
+  document.getElementById('s-status').style.color=converges?'var(--ok-t)':'var(--no-t)';
+
+  let note='';
+  if(!converges) note='|q| ≥ 1 → divergent. Die Glieder werden nicht kleiner.';
+  else if(q<0) note='Negatives q → alternierende Reihe. Partialsummen pendeln um den Grenzwert.';
+  else if(q>0.9) note='q nahe 1 → sehr langsame Konvergenz. Viele Terme nötig.';
+  else note=`q = ${q.toFixed(2)}: Grenzwert = 1/(1−${q.toFixed(2)}) = ${limit.toFixed(3)}.`;
+  document.getElementById('series-note').textContent=note;
+
+  // Draw
+  const canvas=document.getElementById('series-canvas');
+  const dpr=window.devicePixelRatio||1;
+  canvas.width=canvas.offsetWidth*dpr;
+  canvas.height=180*dpr;
+  const ctx=canvas.getContext('2d');
+  ctx.scale(dpr,dpr);
+  const W=canvas.offsetWidth,H=180;
+  ctx.fillStyle='#F0EFE9';ctx.fillRect(0,0,W,H);
+
+  const N=15;
+  const terms=Array.from({length:N},(_,n)=>Math.pow(q,n));
+  const maxAbs=Math.max(...terms.map(Math.abs),0.01);
+  const barW=(W-20)/N;
+  const midY=H/2;
+
+  // Zero line
+  ctx.strokeStyle='#D8D6CE';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(10,midY);ctx.lineTo(W-10,midY);ctx.stroke();
+
+  // Bars
+  terms.forEach((t,i)=>{
+    const h=Math.abs(t)/maxAbs*(H/2-10);
+    const x=10+i*barW;
+    const isPos=t>=0;
+    ctx.fillStyle=isPos?'rgba(201,168,76,0.8)':'rgba(91,143,185,0.8)';
+    ctx.fillRect(x+1,isPos?midY-h:midY,barW-2,h);
+  });
+
+  // Partial sum line
+  if(converges){
+    ctx.strokeStyle='#1C2B3A';ctx.lineWidth=1.5;ctx.setLineDash([4,3]);
+    const ly=midY-(limit/maxAbs)*(H/2-10);
+    ctx.beginPath();ctx.moveTo(10,Math.max(5,Math.min(H-5,ly)));ctx.lineTo(W-10,Math.max(5,Math.min(H-5,ly)));ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle='#1C2B3A';ctx.font='9px monospace';ctx.textAlign='right';
+    ctx.fillText('Grenzwert '+limit.toFixed(2),W-12,Math.max(14,Math.min(H-4,ly-3)));
+  }
+
+  // Labels
+  ctx.fillStyle='#8A8880';ctx.font='9px monospace';ctx.textAlign='center';
+  [0,4,9,14].forEach(i=>ctx.fillText('n='+i,10+i*barW+barW/2,H-3));
+}
+
+// ═══ FOURIER ═══
+let fourierAudioCtx=null,fourierOscs=[],fourierGains=[],fourierMaster=null,fourierPlaying=false;
+let currentWave='saw';
+const freqMap=[55,110,165,220,330,440];
+
+function setWave(w){
+  currentWave=w;
+  ['saw','square','triangle'].forEach(id=>{
+    document.getElementById('btn-'+id).classList.toggle('active',id===w);
+  });
+  updateFourier();
+  if(fourierPlaying) restartFourier();
+}
+
+function getFourierTerms(wave,N){
+  const terms=[];
+  for(let n=1;n<=N;n++){
+    let amp=0,phase=0;
+    if(wave==='saw'){
+      // f(x) = 2∑(-1)^(n+1)/n * sin(nx)
+      amp=2*Math.pow(-1,n+1)/n; phase=0;
+    } else if(wave==='square'){
+      // f(x) = 4/π ∑ 1/(2k-1) * sin((2k-1)x), only odd harmonics
+      if(n%2===1){amp=4/(Math.PI*n);phase=0;}
+    } else { // triangle
+      // f(x) = 8/π² ∑ (-1)^((n-1)/2) / n² * sin(nx), only odd
+      if(n%2===1){const k=(n-1)/2; amp=8/(Math.PI*Math.PI*n*n)*Math.pow(-1,k);phase=0;}
+    }
+    if(amp!==0) terms.push({n,amp,phase});
+  }
+  return terms;
+}
+
+function updateFourier(){
+  awardDepth('fourier_interact');
+  const N=+document.getElementById('fourier-n').value;
+  const freqIdx=+document.getElementById('fourier-freq').value-1;
+  const f0=freqMap[freqIdx]||220;
+  document.getElementById('fourier-n-val').textContent=N;
+  document.getElementById('fourier-freq-val').textContent=f0+' Hz';
+
+  const terms=getFourierTerms(currentWave,N);
+  const notes={1:'N=1: Nur Grundton — reiner Sinuston.',2:'N=2: Erste Oberschwingung hinzu — leichte Eckigkeit.',3:'N=3: Erkennbar '+currentWave+'.',5:'N=5: Charakteristischer Klang.',10:'N=10: Sehr nah am Original.',20:'N=20: Fast perfekt — Gibbs-Phänomen an Sprüngen sichtbar.'};
+  const noteKey=Object.keys(notes).reverse().find(k=>N>=+k)||'1';
+  document.getElementById('fourier-note').textContent=notes[noteKey];
+
+  drawFourierSum(terms,N);
+  drawFourierComponents(terms,N);
+  drawFourierSpectrum(terms,N);
+
+  if(fourierPlaying) restartFourier();
+}
+
+function drawFourierSum(terms,N){
+  const canvas=document.getElementById('fourier-sum-canvas');
+  const dpr=window.devicePixelRatio||1;
+  canvas.width=canvas.offsetWidth*dpr;canvas.height=120*dpr;
+  const ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);
+  const W=canvas.offsetWidth,H=120;
+  ctx.fillStyle='#0a1628';ctx.fillRect(0,0,W,H);
+  // Grid
+  ctx.strokeStyle='rgba(255,255,255,.06)';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(0,H/2);ctx.lineTo(W,H/2);ctx.stroke();
+
+  // Target waveform (grey)
+  ctx.beginPath();ctx.strokeStyle='rgba(255,255,255,.15)';ctx.lineWidth=1;
+  for(let px=0;px<W;px++){
+    const x=px/W*4*Math.PI-2*Math.PI;
+    let y=0;
+    if(currentWave==='saw') y=x/Math.PI; // normalize
+    else if(currentWave==='square') y=x>0?1:-1;
+    else y=1-2*Math.abs(x)/Math.PI; // triangle rough
+    const py=H/2-y*(H/2-8);
+    px===0?ctx.moveTo(px,py):ctx.lineTo(px,py);
+  }
+  ctx.stroke();
+
+  // Fourier sum
+  ctx.beginPath();ctx.strokeStyle='#C9A84C';ctx.lineWidth=2;
+  ctx.shadowColor='#C9A84C';ctx.shadowBlur=4;
+  for(let px=0;px<W;px++){
+    const t=px/W*2*Math.PI;
+    let y=terms.reduce((s,{n,amp})=>s+amp*Math.sin(n*t+0),0);
+    const maxAmp=currentWave==='saw'?2:currentWave==='square'?4/Math.PI:8/(Math.PI*Math.PI);
+    y=y/maxAmp;
+    const py=H/2-y*(H/2-8);
+    px===0?ctx.moveTo(px,py):ctx.lineTo(px,py);
+  }
+  ctx.stroke();ctx.shadowBlur=0;
+
+  ctx.fillStyle='rgba(255,255,255,.4)';ctx.font='9px monospace';ctx.textAlign='left';
+  ctx.fillText(N+' Oberton'+(N!==1?'e':''),6,H-6);
+}
+
+function drawFourierComponents(terms,N){
+  const canvas=document.getElementById('fourier-components-canvas');
+  const dpr=window.devicePixelRatio||1;
+  canvas.width=canvas.offsetWidth*dpr;canvas.height=80*dpr;
+  const ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);
+  const W=canvas.offsetWidth,H=80;
+  ctx.fillStyle='#0a1628';ctx.fillRect(0,0,W,H);
+
+  const colors=['#C9A84C','#5B8FB9','#7AAD7A','#E87070','#9B89D4','#70C4C4'];
+  const show=terms.slice(0,6);
+  show.forEach(({n,amp},i)=>{
+    ctx.beginPath();
+    ctx.strokeStyle=colors[i%colors.length];
+    ctx.lineWidth=1.2;ctx.globalAlpha=0.7;
+    for(let px=0;px<W;px++){
+      const t=px/W*2*Math.PI;
+      const y=amp*Math.sin(n*t);
+      const maxAmp=2;
+      const py=H/2-(y/maxAmp)*(H/2-4);
+      px===0?ctx.moveTo(px,py):ctx.lineTo(px,py);
+    }
+    ctx.stroke();ctx.globalAlpha=1;
+  });
+}
+
+function drawFourierSpectrum(terms,N){
+  const canvas=document.getElementById('fourier-spectrum-canvas');
+  const dpr=window.devicePixelRatio||1;
+  canvas.width=canvas.offsetWidth*dpr;canvas.height=70*dpr;
+  const ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);
+  const W=canvas.offsetWidth,H=70;
+  ctx.fillStyle='#0a1628';ctx.fillRect(0,0,W,H);
+
+  const maxAmp=Math.max(...terms.map(t=>Math.abs(t.amp)),0.01);
+  const barW=Math.max(4,(W-10)/Math.min(N,20));
+
+  terms.slice(0,20).forEach(({n,amp},i)=>{
+    const h=Math.abs(amp)/maxAmp*(H-10);
+    const x=5+i*barW;
+    ctx.fillStyle='rgba(201,168,76,0.8)';
+    ctx.fillRect(x,H-h-5,barW-2,h);
+    if(barW>14){
+      ctx.fillStyle='rgba(255,255,255,.4)';ctx.font='8px monospace';ctx.textAlign='center';
+      ctx.fillText(n,x+barW/2,H-2);
+    }
+  });
+  ctx.fillStyle='rgba(255,255,255,.3)';ctx.font='9px monospace';ctx.textAlign='left';
+  ctx.fillText('Oberton n →',5,12);
+}
+
+// Audio
+function toggleFourier(){
+  if(fourierPlaying){stopFourier();}else{startFourier();}
+}
+function getAudioCtx(){
+  if(!fourierAudioCtx) fourierAudioCtx=new(window.AudioContext||window.webkitAudioContext)();
+  if(fourierAudioCtx.state==='suspended') fourierAudioCtx.resume();
+  return fourierAudioCtx;
+}
+function startFourier(){
+  awardDepth('fourier_play');
+  const ctx=getAudioCtx();
+  const N=+document.getElementById('fourier-n').value;
+  const freqIdx=+document.getElementById('fourier-freq').value-1;
+  const f0=freqMap[freqIdx]||220;
+  const terms=getFourierTerms(currentWave,N);
+
+  fourierMaster=ctx.createGain();fourierMaster.gain.setValueAtTime(0,ctx.currentTime);
+  fourierMaster.gain.setTargetAtTime(0.2,ctx.currentTime,0.05);
+  fourierMaster.connect(ctx.destination);
+
+  fourierOscs=[];fourierGains=[];
+  terms.forEach(({n,amp})=>{
+    const osc=ctx.createOscillator();
+    const g=ctx.createGain();
+    osc.type='sine';osc.frequency.value=f0*n;
+    g.gain.value=Math.abs(amp)/2;
+    osc.connect(g);g.connect(fourierMaster);
+    osc.start();
+    fourierOscs.push(osc);fourierGains.push(g);
+  });
+  fourierPlaying=true;
+  const btn=document.getElementById('fourier-btn');
+  btn.classList.add('playing');
+  btn.innerHTML='<svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><rect x="3" y="2" width="3" height="10"/><rect x="8" y="2" width="3" height="10"/></svg> Stopp';
+}
+function stopFourier(){
+  if(fourierMaster){fourierMaster.gain.setTargetAtTime(0,fourierAudioCtx.currentTime,0.05);}
+  setTimeout(()=>{fourierOscs.forEach(o=>{try{o.stop();}catch(e){}});fourierOscs=[];fourierGains=[];},200);
+  fourierPlaying=false;
+  const btn=document.getElementById('fourier-btn');
+  btn.classList.remove('playing');
+  btn.innerHTML='<svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><polygon points="3,2 12,7 3,12"/></svg> Klang abspielen';
+}
+function restartFourier(){stopFourier();setTimeout(startFourier,250);}
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&fourierPlaying)stopFourier();});
+
+// Taylor
+const taylorFormulas={1:'sin(x) ≈ x',3:'sin(x) ≈ x − x³/6',5:'sin(x) ≈ x − x³/6 + x⁵/120',7:'sin(x) ≈ x − x³/6 + x⁵/120 − x⁷/5040',9:'sin(x) ≈ x − x³/6 + x⁵/120 − x⁷/5040 + x⁹/362880',11:'sin(x) ≈ … + x¹¹/39916800'};
+function sinTaylor(x,n){
+  let s=0;
+  for(let k=0;k<=(n-1)/2;k++){
+    let fac=1;for(let i=1;i<=2*k+1;i++)fac*=i;
+    s+=Math.pow(-1,k)*Math.pow(x,2*k+1)/fac;
+  }
+  return s;
+}
+function updateTaylor(){
+  awardDepth('b_taylor');
+  const n=+document.getElementById('taylor-n').value;
+  document.getElementById('taylor-n-val').textContent=n;
+  document.getElementById('taylor-formula').textContent=taylorFormulas[n]||'sin(x) ≈ …';
+  const canvas=document.getElementById('taylor-canvas');
+  const dpr=window.devicePixelRatio||1;
+  canvas.width=canvas.offsetWidth*dpr;canvas.height=160*dpr;
+  const ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);
+  const W=canvas.offsetWidth,H=160;
+  ctx.fillStyle='#0a1628';ctx.fillRect(0,0,W,H);
+  const xMin=-4,xMax=4,yMin=-1.5,yMax=1.5;
+  function toX(x){return(x-xMin)/(xMax-xMin)*W;}
+  function toY(y){return H-(y-yMin)/(yMax-yMin)*H;}
+  // Grid
+  ctx.strokeStyle='rgba(255,255,255,.06)';ctx.lineWidth=1;
+  [-1,0,1].forEach(y=>{ctx.beginPath();ctx.moveTo(0,toY(y));ctx.lineTo(W,toY(y));ctx.stroke();});
+  ctx.beginPath();ctx.moveTo(toX(0),0);ctx.lineTo(toX(0),H);ctx.stroke();
+  // sin(x) — true
+  ctx.beginPath();ctx.strokeStyle='rgba(255,255,255,.3)';ctx.lineWidth=1.5;
+  for(let px=0;px<W;px++){const x=xMin+px/(W-1)*(xMax-xMin);const y=Math.sin(x);const py=toY(y);px===0?ctx.moveTo(px,py):ctx.lineTo(px,py);}
+  ctx.stroke();
+  // Taylor approx
+  ctx.beginPath();ctx.strokeStyle='#C9A84C';ctx.lineWidth=2;ctx.shadowColor='#C9A84C';ctx.shadowBlur=3;
+  for(let px=0;px<W;px++){const x=xMin+px/(W-1)*(xMax-xMin);const y=sinTaylor(x,n);const py=toY(Math.max(yMin,Math.min(yMax,y)));px===0?ctx.moveTo(px,py):ctx.lineTo(px,py);}
+  ctx.stroke();ctx.shadowBlur=0;
+  // Legend
+  ctx.fillStyle='rgba(255,255,255,.3)';ctx.font='9px monospace';ctx.textAlign='left';ctx.fillText('— sin(x)',6,14);
+  ctx.fillStyle='#C9A84C';ctx.fillText('— T'+n+'(x)',6,26);
+}
+
+// ═══ QUIZ ═══
+const QS={u1:{answers:[null,null,null],score:0,done:false},u2:{answers:[null,null,null],score:0,done:false}};
+function ans(btn,uid,qi,correct){
+  const q=QS[uid];if(q.answers[qi]!==null)return;
+  q.answers[qi]=correct;if(correct)q.score++;
+  btn.classList.add(correct?'correct':'wrong');
+  btn.closest('.quiz-q').querySelectorAll('.opt').forEach(o=>{
+    o.classList.add('locked');
+    if(!correct&&(o.getAttribute('onclick')||'').includes(',true)'))o.classList.add('correct');
+  });
+  const fb=document.getElementById('fb-'+uid+'-'+qi);if(fb)fb.classList.add('open');
+  const answered=q.answers.filter(a=>a!==null).length;
+  document.getElementById('score-'+uid).textContent=q.score+' / '+answered;
+  if(answered===3&&q.score===3&&!q.done){
+    q.done=true;
+    if(uid==='u1'){awardDepth('u1_quiz');unlockU2();}
+    if(uid==='u2'){awardDepth('u2_quiz');showBranch2();}
+  }
+}
+function resetQ(uid){
+  const q=QS[uid];q.answers=[null,null,null];q.score=0;q.done=false;
+  const unit=document.getElementById('unit-'+uid.replace('u',''));
+  if(unit){unit.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong','locked'));unit.querySelectorAll('.quiz-fb').forEach(f=>f.classList.remove('open'));}
+  document.getElementById('score-'+uid).textContent='0 / 3';
+}
+function skipTo(id){
+  const el=document.getElementById(id);if(!el)return;
+  el.closest('.unit').querySelectorAll('.skippable').forEach(s=>s.classList.add('hidden'));
+  setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),50);
+}
+function hintToggle(btn){
+  const body=btn.nextElementSibling;const open=body.classList.contains('open');
+  body.classList.toggle('open',!open);btn.textContent=open?'Hinweis':'Schließen';
+}
+function unlockU2(){
+  const card=document.getElementById('preview-1');
+  card.classList.add('unlocked','just-unlocked');
+  setTimeout(()=>card.classList.remove('just-unlocked'),800);
+  document.getElementById('prev-ey-1').textContent='Jetzt zugänglich';
+  const u2=document.getElementById('unit-2');
+  u2.style.opacity='1';u2.style.pointerEvents='auto';u2.removeAttribute('aria-disabled');
+  setTimeout(()=>u2.scrollIntoView({behavior:'smooth',block:'start'}),700);
+}
+function showBranch2(){
+  document.getElementById('branch-2').classList.add('visible');
+  setTimeout(()=>document.getElementById('branch-2').scrollIntoView({behavior:'smooth',block:'start'}),500);
+}
+function openB(id){
+  if(id==='b-kriterien'){
+    awardDepth('b_kriterien');
+    document.getElementById('b-kriterien').classList.add('open');
+    document.getElementById('bc-kriterien').classList.add('active');
+    setTimeout(()=>document.getElementById('b-kriterien').scrollIntoView({behavior:'smooth',block:'start'}),100);
+    return;
+  }
+  if(id==='b-taylor'){
+    document.getElementById('b-taylor').classList.add('open');
+    document.getElementById('bc-taylor').classList.add('active');
+    setTimeout(()=>{document.getElementById('b-taylor').scrollIntoView({behavior:'smooth',block:'start'});updateTaylor();},100);
+    return;
+  }
+  if(id==='b-diffgeo'){alert('Nächster Pfad: Differentialgeometrie — in Entwicklung.');return;}
+  if(id==='b2-finish'){awardDepth('finish');showCompletion();}
+}
+function showCompletion(){
+  const d=document.getElementById('dval').textContent;
+  const note=document.getElementById('dnote').textContent.replace('— ','');
+  document.getElementById('comp-depth').textContent='Lerntiefe: '+d+' — '+note;
+  document.getElementById('completion').classList.add('visible');
+  document.getElementById('horizon').classList.add('visible');
+  setTimeout(()=>document.getElementById('completion').scrollIntoView({behavior:'smooth',block:'start'}),300);
+}
+window.addEventListener('load',()=>{
+  updateSeries(0.5);
+  updateFourier();
+  renderDepth();
+  window.addEventListener('resize',()=>{
+    clearTimeout(window._rt);
+    window._rt=setTimeout(()=>{
+      updateSeries(+document.getElementById('q-slider').value/100);
+      updateFourier();
+      if(document.getElementById('b-taylor').classList.contains('open'))updateTaylor();
+    },100);
+  });
+});
+</script>
+</body>
+</html>
