@@ -3,9 +3,9 @@
  * Path:      lib/learningPaths.ts
  * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/learningPaths.ts
  * Name:      Learning Paths registry
- * Version:   0.7.0
+ * Version:   0.8.0
  * Created:   2026-07-03
- * Modified:  2026-07-05 12:00 CEST
+ * Modified:  2026-07-15 CEST
  * Depends:   —
  */
 
@@ -361,6 +361,202 @@ export const learningPaths: LearningPath[] = [
             summary: 'Drei Fragen: Warum laengerer Weg beim Untergang, welche Wellenlaenge bleibt uebrig, was hat die Mondfinsternis damit zu tun.',
             depthPoints: 18
           }
+        ]
+      }
+    ]
+  }
+,
+  {
+    id: 'PATH:SSF:PHY-SKY-0001',
+    title: 'Warum ist der Himmel blau',
+    subtitle: 'Von Rayleigh-Streuung zu Sonnenuntergaengen und Mondfinsternissen — dasselbe Prinzip, zwei Perspektiven.',
+    status: 'prototype',
+    sourceModuleId: 'SSF-PHY-1103',
+    kxfModuleId: 'LRN:SSF:PHY-1103',
+    domainsNeeded: ['KNOW:PHYS-WAVE', 'KNOW:PHYS-OPTICS', 'KNOW:ASTRO-ATMO'],
+    suppliedBy: {
+      knowledgeGraph: ['Prerequisite link to PATH:SSF:PHY-WAVE-SPECTRUM-0001', 'Unlock mapping'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: ['Rayleigh-Experiment (lambda^-4 live)', 'Atmosphaeren-Weglaengen-Slider', 'Seitenast Mie-Streuung']
+    },
+    unlocks: ['SENSOR:ATMOSPHERE', 'NAV:ORBITAL'],
+    units: [
+      {
+        id: 'UNIT:HIMMEL-BLAU',
+        title: 'Warum blau?',
+        entryQuestion: 'Warum ist der Himmel blau — obwohl das Sonnenlicht weiss ist?',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:UNTERGANG-ROT' },
+        sections: [
+          { id: 'OBS:HIMMEL', kind: 'observation', title: 'Beobachtung: Der blaue Himmel', summary: 'Schau in den Himmel — blau. Die Sonne: weisslich. Dasselbe Licht, zwei Farben. Warum?', depthPoints: 4 },
+          { id: 'EXP:RAYLEIGH', kind: 'experiment', title: 'Experiment: Rayleigh-Streuung', summary: 'Wellenlaengen-Slider: Streuungsintensitaet steigt mit lambda^-4. Balkendiagramm live.', interactive: true, depthPoints: 8 },
+          { id: 'BRANCH:NICHT-VIOLETT', kind: 'branch', title: 'Seitenast: Warum nicht violett?', summary: 'Drei Gruende: Sonnenspektrum, Augenempfindlichkeit, Ozonabsorption.', optional: true, depthPoints: 10 },
+          { id: 'QUIZ:HIMMEL-BLAU', kind: 'quiz', title: 'Quiz Rayleigh', summary: 'Warum blau, was ist lambda^-4, warum nicht violett.', depthPoints: 15 }
+        ]
+      },
+      {
+        id: 'UNIT:UNTERGANG-ROT',
+        title: 'Warum rot beim Untergang?',
+        entryQuestion: 'Warum ist die Sonne beim Untergang rot — obwohl sie mittags weiss ist?',
+        sections: [
+          { id: 'OBS:UNTERGANG', kind: 'observation', title: 'Beobachtung: Sonnenuntergang', summary: 'Dieselbe Sonne, verschiedene Farben — der Weg durch die Atmosphaere entscheidet.', depthPoints: 4 },
+          { id: 'EXP:WEGLAENGE', kind: 'experiment', title: 'Experiment: Sonnenwinkel und Farbe', summary: 'Winkel-Slider 2-90 Grad: Wegstrecke und Sonnenfarbe live auf Canvas.', interactive: true, depthPoints: 8 },
+          { id: 'BRANCH:MIE', kind: 'branch', title: 'Seitenast: Mie-Streuung', summary: 'Groessere Partikel (Staub, Asche) streuen anders — Vulkanasche und spektakulaere Untergang.', optional: true, depthPoints: 8 },
+          { id: 'QUIZ:UNTERGANG-ROT', kind: 'quiz', title: 'Quiz Weglaenge', summary: 'Warum laengerer Weg, welche Wellenlaenge bleibt, Mondfinsternis.', depthPoints: 18 }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'PATH:SSF:MAT-ERROR-0001',
+    title: 'Wie genau wissen wir was wir messen',
+    subtitle: 'Fehlerfortpflanzung: Warum der Exponent entscheidet — und wie man den Engpass einer Messung findet.',
+    status: 'prototype',
+    sourceModuleId: 'SSF-MAT-1101',
+    kxfModuleId: 'LRN:SSF:MAT-1101',
+    domainsNeeded: ['KNOW:MAT-CALCULUS', 'KNOW:MAT-ANALYSIS', 'KNOW:PHYS-MEASURE'],
+    suppliedBy: {
+      knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: ['Kugeldichte-Experiment mit Fehler-Balken live', 'Allgemeiner Fehler-Builder (3 Variablen)', 'Seitenast: Gauss vs. lineare Addition']
+    },
+    unlocks: ['SENSOR:PRECISION', 'ANALYSIS:ERROR'],
+    units: [
+      {
+        id: 'UNIT:FEHLER-FORTPFLANZUNG',
+        title: 'Fehler pflanzen sich fort',
+        entryQuestion: 'Wenn jede Messung ungenau ist — wie ungenau ist dann das Ergebnis?',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:FEHLER-BUILDER' },
+        sections: [
+          { id: 'OBS:BACKFEHLER', kind: 'observation', title: 'Beobachtung: Backrezept', summary: 'Waage +-5g, Ofen +-10 Grad — addieren sich diese Fehler einfach?', depthPoints: 3 },
+          { id: 'EXP:KUGELDICHTE', kind: 'experiment', title: 'Experiment: Kugeldichte', summary: 'Slider fuer m, Deltam, r, Deltar — Fehler-Balken zeigen m- und r-Beitrag live. Exponent 3 macht den Unterschied.', interactive: true, depthPoints: 6 },
+          { id: 'BRANCH:BETRAEGE', kind: 'branch', title: 'Seitenast: Warum Betraege?', summary: 'Linearer vs. Gaussscher Fehler — pessimistisch vs. statistisch.', optional: true, depthPoints: 8 },
+          { id: 'QUIZ:FEHLER-1', kind: 'quiz', title: 'Quiz Fehlerfortpflanzung', summary: 'Exponent multipliziert, warum Betraege, welche Groesse verbessern.', depthPoints: 15 }
+        ]
+      },
+      {
+        id: 'UNIT:FEHLER-BUILDER',
+        title: 'Engpass finden',
+        entryQuestion: 'Wie findet man den Engpass in jeder Messung?',
+        sections: [
+          { id: 'EXP:BUILDER', kind: 'experiment', title: 'Experiment: Allgemeiner Fehler-Builder', summary: 'Bis zu 3 Groessen, Exponent und relativer Fehler einstellbar — Gesamt-Fehler und dominante Quelle live.', interactive: true, depthPoints: 6 },
+          { id: 'QUIZ:FEHLER-2', kind: 'quiz', title: 'Quiz Fehler-Builder', summary: 'Formel einsetzen, Ausloesche bei Differenzen, n Faktoren mit gleichem Fehler.', depthPoints: 18 }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'PATH:SSF:EL-DIODE-0001',
+    title: 'Warum darf man eine Diode nicht einfach anschliessen',
+    subtitle: 'Kennlinie, Schleusenspannung, Lastgerade — warum der Arbeitspunkt alles entscheidet.',
+    status: 'prototype',
+    sourceModuleId: 'SSF-EL-1101',
+    kxfModuleId: 'LRN:SSF:EL-1101',
+    domainsNeeded: ['KNOW:EL-BASICS', 'KNOW:EL-SEMICONDUCTOR'],
+    suppliedBy: {
+      knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: ['Kennlinie-Canvas live (Us, rD Slider)', 'Arbeitspunkt + Lastgerade Canvas', 'Parallelwiderstand-Experiment']
+    },
+    unlocks: ['CIRCUIT:DIODE', 'SENSOR:CURRENT'],
+    units: [
+      {
+        id: 'UNIT:KENNLINIE',
+        title: 'Kennlinie & Schleusenspannung',
+        entryQuestion: 'Was passiert wenn man eine Diode direkt an eine Batterie haengt?',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:ARBEITSPUNKT' },
+        sections: [
+          { id: 'OBS:DIODE-ALLTAG', kind: 'observation', title: 'Beobachtung: Dioden im Alltag', summary: 'Fernbedienung, Ladegeraet, LED — ueberall Dioden. Direktes Anschliessen zerstoert sie.', depthPoints: 3 },
+          { id: 'EXP:KENNLINIE', kind: 'experiment', title: 'Experiment: Diodenkennlinie', summary: 'Us und rD als Slider — Kennlinie zeichnet sich live. Dioden-Typ-Erkennung (Ge, Si, Schottky, LED).', interactive: true, depthPoints: 6 },
+          { id: 'QUIZ:KENNLINIE', kind: 'quiz', title: 'Quiz Kennlinie', summary: 'Warum kein Direktanschluss, was ist Us, was bedeutet 1/rD.', depthPoints: 15 }
+        ]
+      },
+      {
+        id: 'UNIT:ARBEITSPUNKT',
+        title: 'Arbeitspunkt & Lastgerade',
+        entryQuestion: 'Wo arbeitet die Diode wirklich — und was aendert ein Parallelwiderstand?',
+        sections: [
+          { id: 'EXP:ARBEITSPUNKT', kind: 'experiment', title: 'Experiment: Lastgerade & Arbeitspunkt', summary: 'Uq, Rv, Rp Slider — Lastgerade und Kennlinie, AP als goldener Punkt live. Alle Stroeme berechnet.', interactive: true, depthPoints: 7 },
+          { id: 'BRANCH:MODELL', kind: 'branch', title: 'Seitenast: Warum bleibt UD bei US?', summary: 'Konsistenzpruefung des Schleusenmodells — wann es bricht.', optional: true, depthPoints: 8 },
+          { id: 'QUIZ:ARBEITSPUNKT', kind: 'quiz', title: 'Quiz Arbeitspunkt', summary: 'Was ist AP, was aendert Rp, wie berechnet man Lastgerade.', depthPoints: 18 }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'PATH:SSF:MAT-SERIES-0001',
+    title: 'Wann hoert eine unendliche Summe auf zu wachsen',
+    subtitle: 'Von Zenons Paradoxon zur Fourier-Synthese: Konvergenz, Reihen und der Klang der Mathematik.',
+    status: 'prototype',
+    sourceModuleId: 'SSF-MAT-1102',
+    kxfModuleId: 'LRN:SSF:MAT-1102',
+    domainsNeeded: ['KNOW:MAT-ANALYSIS', 'KNOW:MAT-SERIES', 'KNOW:PHYS-WAVE'],
+    suppliedBy: {
+      knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: ['Geometrische Reihe: q-Slider Partialsummen live', 'Fourier-Synthesizer (Saegezahn/Rechteck/Dreieck, N=1..20, Web Audio)', 'Seitenast Taylor-Approximation sin(x)']
+    },
+    unlocks: ['SIGNAL:FOURIER', 'SENSOR:WAVE'],
+    units: [
+      {
+        id: 'UNIT:GEOM-REIHE',
+        title: 'Geometrische Reihe',
+        entryQuestion: 'Wenn du immer die Haelfte der verbleibenden Strecke gehst — kommst du je an?',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:FOURIER' },
+        sections: [
+          { id: 'OBS:ZENON', kind: 'observation', title: 'Zenons Paradoxon', summary: 'Unendlich viele Schritte — trotzdem endlich. Warum Zenon Unrecht hatte.', depthPoints: 4 },
+          { id: 'EXP:REIHE', kind: 'experiment', title: 'Experiment: Geometrische Reihe', summary: 'q-Slider -0.99..0.99: Balken schrumpfen live, Grenzwert 1/(1-q) als Linie.', interactive: true, depthPoints: 6 },
+          { id: 'BRANCH:KRITERIEN', kind: 'branch', title: 'Seitenast: Konvergenzkriterien', summary: 'Quotient, Wurzel, Leibniz — Entscheidungsbaum.', optional: true, depthPoints: 7 },
+          { id: 'QUIZ:REIHE', kind: 'quiz', title: 'Quiz Reihen', summary: 'Summe 1+1/2+..., Leibniz-Kriterium, Wurzelkriterium.', depthPoints: 15 }
+        ]
+      },
+      {
+        id: 'UNIT:FOURIER',
+        title: 'Fourier-Synthesizer',
+        entryQuestion: 'Wie baut man aus runden Wellen eine eckige?',
+        sections: [
+          { id: 'OBS:SYNTHESIZER', kind: 'observation', title: 'Beobachtung: Synthesizer & Klang', summary: 'Jeder Klang ist eine Fourier-Reihe. Ein Synthesizer addiert Sinuswellen.', depthPoints: 3 },
+          { id: 'EXP:FOURIER', kind: 'experiment', title: 'Experiment: Fourier-Synthesizer', summary: 'Saegezahn/Rechteck/Dreieck, N=1..20 Obertoene, Web Audio, 3 Canvas-Ansichten.', interactive: true, depthPoints: 8 },
+          { id: 'BRANCH:TAYLOR', kind: 'branch', title: 'Seitenast: Taylor-Approximation', summary: 'sin(x) als Polynom — Polynomgrad-Slider, Approximation live auf dunklem Canvas.', optional: true, depthPoints: 8 },
+          { id: 'QUIZ:FOURIER', kind: 'quiz', title: 'Quiz Fourier', summary: 'Satz von Fourier, N=1 klingt wie Sinus, Gibbs-Phaenomen.', depthPoints: 18 }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'PATH:SSF:MAT-DIFFGEO-0001',
+    title: 'Wie beschreibt man eine Kurve die sich dreht',
+    subtitle: 'Polarkurven, Bogenlange und Kruemmung — von Schneckenhaeusen zu Schmiegekreisen.',
+    status: 'prototype',
+    sourceModuleId: 'SSF-MAT-1103',
+    kxfModuleId: 'LRN:SSF:MAT-1103',
+    domainsNeeded: ['KNOW:MAT-CALCULUS', 'KNOW:MAT-GEOMETRY', 'KNOW:MAT-ANALYSIS'],
+    suppliedBy: {
+      knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: ['Polarkurven-Plotter (4 Kurven, phi-Slider, Animation)', 'Schmiegekreis live (3 Parameterkurven)', 'Seitenast: Koordinatenwahl']
+    },
+    unlocks: ['NAV:CURVATURE', 'SENSOR:GEODESIC'],
+    units: [
+      {
+        id: 'UNIT:POLARKURVEN',
+        title: 'Polarkurven',
+        entryQuestion: 'Warum haben Schnecken und Sonnenblumen dieselbe Spirale?',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:BOGENLANGE' },
+        sections: [
+          { id: 'OBS:NATUR-SPIRALE', kind: 'observation', title: 'Beobachtung: Spiralen in der Natur', summary: 'Schneckenhaus, Sonnenblume, Weisskohlwirbel — alle folgen Polarkurven.', depthPoints: 4 },
+          { id: 'EXP:POLARKURVEN', kind: 'experiment', title: 'Experiment: Polarkurven-Plotter', summary: 'Kardioide, Spirale, Rose(3), Lemniskate — phi-Slider zeichnet Kurve schrittweise. Animation-Button.', interactive: true, depthPoints: 6 },
+          { id: 'BRANCH:COORDS', kind: 'branch', title: 'Seitenast: Koordinatenwahl', summary: 'Wann Polar, wann kartesisch? Umrechnung r=6cos(phi) zu Kreis.', optional: true, depthPoints: 7 },
+          { id: 'QUIZ:POLAR', kind: 'quiz', title: 'Quiz Polarkurven', summary: 'Spirale geometrisch, Flaechenformel, warum Polar einfacher.', depthPoints: 15 }
+        ]
+      },
+      {
+        id: 'UNIT:BOGENLANGE',
+        title: 'Bogenlange & Kruemmung',
+        entryQuestion: 'Wie misst man eine Kurve — und wie stark biegt sie sich?',
+        sections: [
+          { id: 'OBS:SCHIENE', kind: 'observation', title: 'Beobachtung: Eisenbahnkurven', summary: 'Kruemmungsradius darf nicht zu klein sein — Ingenieure brauchen kappa an jedem Punkt.', depthPoints: 3 },
+          { id: 'EXP:SCHMIEGEKREIS', kind: 'experiment', title: 'Experiment: Schmiegekreis live', summary: 'Parabel, Evolvente, Spirale — Punkt-Slider, Schmiegekreis als blauer Kreis live.', interactive: true, depthPoints: 7 },
+          { id: 'QUIZ:KRUEMMUNG', kind: 'quiz', title: 'Quiz Kruemmung', summary: 'Grosser rK bedeutet, Trick bei Evolvente, warum Polar fuer Spirale.', depthPoints: 18 }
         ]
       }
     ]
