@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import styles from './RayleighExperiment.module.css';
 
 function wavelengthToRgb(wavelength: number): string {
   let r = 0;
@@ -28,9 +29,7 @@ function wavelengthToRgb(wavelength: number): string {
 
   const factor = wavelength < 420
     ? 0.35 + 0.65 * (wavelength - 380) / 40
-    : wavelength > 700
-      ? 0.35 + 0.65 * (780 - wavelength) / 80
-      : 1;
+    : 1;
 
   const channel = (value: number) => Math.round(255 * Math.pow(value * factor, 0.8));
   return `rgb(${channel(r)}, ${channel(g)}, ${channel(b)})`;
@@ -47,18 +46,18 @@ export default function RayleighExperiment() {
   const width = Math.min(100, (relativeScattering / 11.6) * 100);
 
   return (
-    <div className="native-experiment" aria-label="Interaktives Experiment zur Rayleigh-Streuung">
-      <div className="native-experiment-header">
-        <span className="native-experiment-label">Interaktives Experiment</span>
+    <div className={styles.nativeExperiment} aria-label="Interaktives Experiment zur Rayleigh-Streuung">
+      <div className={styles.header}>
+        <span className={styles.label}>Interaktives Experiment</span>
         <strong>Rayleigh-Streuung</strong>
       </div>
 
-      <p className="native-experiment-copy">
+      <p className={styles.copy}>
         Verändere die Wellenlänge. Die Streuung wächst mit <code>1 / λ⁴</code>:
         kurzwelliges Licht wird wesentlich stärker in alle Richtungen verteilt.
       </p>
 
-      <label className="native-slider-label" htmlFor="rayleigh-wavelength">
+      <label className={styles.sliderLabel} htmlFor="rayleigh-wavelength">
         <span>Wellenlänge</span>
         <strong>{wavelength} nm</strong>
       </label>
@@ -72,14 +71,14 @@ export default function RayleighExperiment() {
         onChange={(event) => setWavelength(Number(event.target.value))}
       />
 
-      <div className="rayleigh-visual">
-        <div className="rayleigh-light" style={{ background: color }} />
-        <div className="rayleigh-meter">
+      <div className={styles.visual}>
+        <div className={styles.light} style={{ background: color, color }} />
+        <div className={styles.meter}>
           <span style={{ width: `${width}%`, background: color }} />
         </div>
       </div>
 
-      <div className="native-experiment-stats">
+      <div className={styles.stats}>
         <div>
           <span>Relative Streuung</span>
           <strong>{relativeScattering.toFixed(2)} × Rot bei 700 nm</strong>
