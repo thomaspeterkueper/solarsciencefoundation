@@ -35,6 +35,12 @@ const HORIZON_PATHS = [
     dependsOn: 'PATH:SSF:MAT-VEC-0001',
     note: 'Öffnet sich nach dem Vektor-Pfad',
   },
+  {
+    title: 'Wie entsteht der Entladekreis — und was hat ein Kondensator mit dem Erodier-Funken zu tun?',
+    tag: 'Elektrotechnik · Kondensatoren',
+    dependsOn: 'PATH:SSF:ENG-EDM-0001',
+    note: 'Verbindet Fertigungstechnik mit Elektrotechnik',
+  },
 ];
 
 // Observation images associated with each active path
@@ -66,6 +72,10 @@ const PATH_IMAGES: Record<string, { src: string; alt: string }> = {
   'PATH:SSF:MAT-VEC-0001': {
     src: '/images/observations/kaffeetasse-tku.jpg',
     alt: 'Kaffeetasse — Kräfte und Hebelarm im Alltag',
+  },
+  'PATH:SSF:ENG-EDM-0001': {
+    src: '/images/observations/cd-spektrum-tku.jpg',
+    alt: 'CD — Präzision und Licht, wie Erodieren und Spektren',
   },
 };
 
