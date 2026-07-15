@@ -13,21 +13,21 @@ export const metadata: Metadata = {
 const HORIZON_PATHS = [
   {
     title: 'Wie alt ist ein Stern — und wie kann man das wissen?',
-    tag: 'Astronomie · Zeit',
-    dependsOn: 'PATH:SSF:PHY-WAVE-SPECTRUM-0001',
-    note: 'Baut auf Absorptionslinien und Lichtlaufzeit auf',
-  },
-  {
-    title: 'Warum klingen manche Akkorde schön — und andere nicht?',
-    tag: 'Klang · Mathematik',
-    dependsOn: 'PATH:SSF:PHY-WAVE-SPECTRUM-0001',
-    note: 'Baut auf Obertönen und Frequenzverhältnissen auf',
-  },
-  {
-    title: 'Warum ist Wasser flüssig — obwohl H₂ und O₂ beide Gase sind?',
-    tag: 'Chemie · Bindungen',
+    tag: 'Astronomie · Spektren',
     dependsOn: 'PATH:SSF:PHY-SKY-0001',
-    note: 'Öffnet sich nach dem Atmosphären-Pfad',
+    note: 'Baut auf Absorptionslinien und Atmosphärenphysik auf',
+  },
+  {
+    title: 'Wie verstärkt man ein Signal ohne es zu verzerren?',
+    tag: 'Elektronik · Verstärker',
+    dependsOn: 'PATH:SSF:EL-DIODE-0001',
+    note: 'Öffnet sich nach dem Dioden-Pfad',
+  },
+  {
+    title: 'Wo liegt das Optimum — wenn alles von mehreren Dingen abhängt?',
+    tag: 'Mathematik · Optimierung',
+    dependsOn: 'PATH:SSF:MAT-DIFFGEO-0001',
+    note: 'Extremwerte mehrerer Variablen — Hesse-Kriterium',
   },
 ];
 
@@ -38,8 +38,24 @@ const PATH_IMAGES: Record<string, { src: string; alt: string }> = {
     alt: 'Kaffeetasse mit Löffel — Einstieg in Klang und Schwingungen',
   },
   'PATH:SSF:PHY-SKY-0001': {
-    src: '/images/observations/rolladen-tku.jpg',  // placeholder until sky photo arrives
+    src: '/images/observations/rolladen-tku.jpg',
     alt: 'Lichtspektren durch Rolladen — Einstieg in Licht und Streuung',
+  },
+  'PATH:SSF:MAT-ERROR-0001': {
+    src: '/images/observations/wasserglas-tku.jpg',
+    alt: 'Wasserglas — Messung und Ungenauigkeit im Alltag',
+  },
+  'PATH:SSF:EL-DIODE-0001': {
+    src: '/images/observations/cd-spektrum-tku.jpg',
+    alt: 'CD im Sonnenlicht — Licht und Elektronik',
+  },
+  'PATH:SSF:MAT-SERIES-0001': {
+    src: '/images/observations/rolladen-tku.jpg',
+    alt: 'Lichtstreifen — Wellen und Reihen',
+  },
+  'PATH:SSF:MAT-DIFFGEO-0001': {
+    src: '/images/observations/cd-spektrum-tku.jpg',
+    alt: 'CD-Spirale — Polarkurven und Geometrie',
   },
 };
 
