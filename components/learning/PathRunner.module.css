@@ -1,0 +1,392 @@
+/* PathRunner.module.css — SSF in-shell learning path renderer */
+
+/* ── Depth bar ── */
+.depthBar {
+  position: sticky;
+  top: 57px;
+  z-index: 40;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 -1.5rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.depthLabel {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.depthTrack {
+  flex: 1;
+  height: 5px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.depthFill {
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--navy));
+  transition: width 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.depthVal {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink);
+  min-width: 2ch;
+  text-align: right;
+}
+
+.depthNote {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .depthNote { display: none; }
+}
+
+/* ── Runner wrapper ── */
+.runner {
+  margin-top: 0;
+}
+
+.units {
+  display: grid;
+  gap: 0;
+  margin-top: 48px;
+}
+
+/* ── Unit ── */
+.unit {
+  padding-top: 40px;
+  padding-bottom: 16px;
+  border-top: 1px solid var(--border);
+  scroll-margin-top: 120px;
+}
+
+.unitHeader {
+  margin-bottom: 28px;
+}
+
+.unitIndex {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.unitQuestion {
+  font-family: var(--font-serif);
+  font-size: clamp(20px, 3.5vw, 27px);
+  font-weight: normal;
+  color: var(--ink);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── Unit locked state ── */
+.unitLocked {
+  padding: 40px 0;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  opacity: 0.5;
+}
+
+.lockIcon {
+  font-size: 22px;
+}
+
+.lockText {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+
+/* ── Sections ── */
+.sections {
+  display: grid;
+  gap: 14px;
+}
+
+/* ── Section card ── */
+.sectionCard {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 20px;
+  background: var(--panel);
+}
+
+.sectionCard.observation {
+  border-left: 3px solid var(--gold);
+  border-radius: 0 10px 10px 0;
+  background: var(--soft);
+}
+
+.sectionCard.quiz {
+  background: var(--panel);
+}
+
+.sectionMeta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.kindBadge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.interactiveBadge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--navy);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.skipBtn {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2px 8px;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+}
+
+.skipBtn:hover {
+  color: var(--ink);
+  border-color: var(--muted);
+}
+
+.sectionTitle {
+  display: block;
+  font-size: 15px;
+  color: var(--ink);
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+
+.sectionSummary {
+  font-size: 14.5px;
+  color: var(--muted);
+  line-height: 1.65;
+  margin: 0;
+}
+
+.observationText {
+  font-family: var(--font-serif);
+  font-size: 16.5px;
+  color: var(--ink);
+  line-height: 1.72;
+  font-style: italic;
+  margin: 0;
+}
+
+/* ── Experiment ── */
+.experimentWrap {
+  margin-top: 16px;
+}
+
+.experimentPlaceholder {
+  margin-top: 16px;
+  padding: 18px;
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  background: var(--soft);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.placeholderText {
+  font-size: 14px;
+  color: var(--muted);
+  margin: 0;
+}
+
+.protoLink {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--navy);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 5px 12px;
+}
+
+.protoLink:hover {
+  background: var(--soft);
+}
+
+/* ── Branch ── */
+.branch {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 20px;
+  background: var(--soft);
+}
+
+.branchHeader {
+  margin-bottom: 12px;
+}
+
+.branchBtn {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--navy);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.branchBtn:hover {
+  border-color: var(--gold);
+}
+
+.branchContent {
+  font-size: 14.5px;
+  color: var(--muted);
+  line-height: 1.65;
+  margin-top: 12px;
+}
+
+/* ── Quiz ── */
+.quizSection {
+  margin-top: 8px;
+}
+
+.quizQuestion {
+  font-family: var(--font-serif);
+  font-size: 15.5px;
+  color: var(--ink);
+  line-height: 1.55;
+  margin-bottom: 12px;
+}
+
+.quizOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.quizOption {
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 14px;
+  color: var(--ink);
+  background: var(--soft);
+  text-align: left;
+  cursor: pointer;
+  line-height: 1.45;
+  transition: border-color 0.12s, background 0.12s;
+  font-family: var(--font-sans);
+}
+
+.quizOption:hover:not(.locked) {
+  border-color: var(--navy);
+  background: var(--bg);
+}
+
+.quizOption.correct {
+  border-color: #7AAD7A;
+  background: #EEF3EE;
+  color: #2A5C2A;
+}
+
+.quizOption.wrong {
+  border-color: #C49090;
+  background: #F5EEEE;
+  color: #6B2222;
+}
+
+.quizOption.locked {
+  cursor: default;
+}
+
+.quizFeedback {
+  margin-top: 10px;
+  font-size: 13.5px;
+  color: var(--muted);
+  padding: 10px 14px;
+  background: var(--soft);
+  border-radius: 6px;
+  border: 1px solid var(--border);
+}
+
+/* ── Completion ── */
+.completion {
+  margin: 48px 0;
+  padding: 28px 24px;
+  background: var(--gold-bg);
+  border: 1px solid #DFC87A;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.compTitle {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  color: var(--navy);
+  font-weight: normal;
+  margin-bottom: 6px;
+}
+
+.compSub {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.compKeys {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.compKey {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--navy);
+  background: var(--gold-bg);
+  border: 1px solid #DFC87A;
+  padding: 3px 10px;
+  border-radius: 4px;
+}
