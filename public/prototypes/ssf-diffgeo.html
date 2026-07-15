@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SSF · Wie beschreibt man eine Kurve die sich dreht?</title>
+<style>
+:root {
+  --bg:#F9F8F5;--surface:#F0EFE9;--surface2:#E6E4DC;
+  --border:#D8D6CE;--soft:#E8E6DE;
+  --text:#1A1916;--text-2:#4A4840;--text-3:#8A8880;
+  --navy:#1C2B3A;--navy-2:#2C3F52;
+  --gold:#C9A84C;--gold-bg:#F5F0E0;--gold-b:#DFC87A;
+  --ok-bg:#EEF3EE;--ok-b:#7AAD7A;--ok-t:#2A5C2A;
+  --no-bg:#F5EEEE;--no-b:#C49090;--no-t:#6B2222;
+  --r:4px;
+  --serif:Georgia,'Palatino Linotype',serif;
+  --sans:system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'SFMono-Regular','Cascadia Code','Fira Code',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.site-header{border-bottom:1px solid var(--border);padding:1rem 0;position:sticky;top:0;background:var(--bg);z-index:60}
+.h-inner{max-width:740px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;gap:.875rem}
+.signet{width:24px;height:24px;flex-shrink:0}
+.site-name{font-family:var(--mono);font-size:11px;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase}
+.h-space{flex:1}
+.mod-id{font-family:var(--mono);font-size:10px;color:var(--text-3)}
+.depth-wrap{background:var(--bg);border-bottom:1px solid var(--soft);padding:.5rem 0;position:sticky;top:57px;z-index:50}
+.depth-inner{max-width:740px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;gap:.875rem}
+.depth-lbl{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.depth-track{flex:1;height:5px;background:var(--surface2);border-radius:3px;overflow:hidden}
+.depth-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--gold),var(--navy));width:0%;transition:width 1.4s cubic-bezier(.22,1,.36,1)}
+.depth-val{font-family:var(--mono);font-size:11px;color:var(--text-2);min-width:2.5ch;text-align:right}
+.depth-note{font-family:var(--mono);font-size:9.5px;color:var(--text-3);white-space:nowrap}
+@media(max-width:480px){.depth-note{display:none}}
+.wrap{max-width:740px;margin:0 auto;padding:0 1.5rem}
+main{padding:0 0 8rem}
+.intro{padding:3rem 0 0;margin-bottom:3.5rem}
+.eyebrow{font-family:var(--mono);font-size:10.5px;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem}
+.path-title{font-family:var(--serif);font-size:clamp(24px,4vw,34px);font-weight:normal;color:var(--text);line-height:1.2;letter-spacing:-.015em;margin-bottom:1rem}
+.path-desc{font-size:16px;color:var(--text-2);line-height:1.7;max-width:54ch}
+.unit{margin-bottom:1.5rem;scroll-margin-top:115px}
+.unit-hdr{padding:2.5rem 0 0;margin-bottom:2rem;border-top:1px solid var(--border)}
+.unit-idx{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.875rem}
+.unit-q{font-family:var(--serif);font-size:clamp(19px,3vw,26px);font-weight:normal;color:var(--text);line-height:1.25;letter-spacing:-.01em;margin-bottom:1.5rem}
+.sec-lbl{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:1.25rem;display:flex;align-items:center;gap:.75rem}
+.sec-lbl::after{content:'';flex:1;height:1px;background:var(--soft)}
+.section{margin-bottom:2.75rem}
+.hr{border:none;border-top:1px solid var(--soft);margin:2.5rem 0}
+.prose{font-family:var(--serif);font-size:17px;line-height:1.82;color:var(--text)}
+.prose p{margin-bottom:1.2rem}
+.prose p:last-child{margin-bottom:0}
+.tip{border-bottom:1.5px dashed var(--gold);cursor:help;position:relative}
+.tip-pop{display:none;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;font-family:var(--sans);font-size:13px;line-height:1.5;padding:.75rem 1rem;border-radius:6px;width:260px;z-index:200;pointer-events:none;box-shadow:0 4px 20px rgba(0,0,0,.28)}
+.tip-pop::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:var(--navy)}
+.tip-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#E8D9A8;margin-bottom:.2rem}
+.tip:hover .tip-pop,.tip:focus .tip-pop{display:block}
+.obs{background:var(--surface);border-left:3px solid var(--gold);border-radius:0 var(--r) var(--r) 0;padding:1.25rem 1.5rem;margin:1.75rem 0}
+.obs-ey{font-family:var(--mono);font-size:10px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem}
+.obs-txt{font-family:var(--serif);font-size:16.5px;color:var(--text-2);line-height:1.72;font-style:italic}
+.skip-bar{display:flex;align-items:center;gap:.75rem;margin-bottom:2rem;padding:.625rem 1rem;background:var(--surface);border-radius:var(--r);border:1px solid var(--soft)}
+.skip-bar span{font-size:13px;color:var(--text-3);flex:1}
+.skip-btn{font-size:12.5px;color:var(--text-3);background:transparent;border:1px solid var(--border);border-radius:var(--r);padding:4px 12px;cursor:pointer;font-family:var(--sans)}
+.skip-btn:hover{color:var(--text-2);border-color:var(--text-3)}
+.skippable.hidden{display:none}
+.info{background:var(--surface);border-radius:var(--r);padding:1.125rem 1.375rem;margin:1.5rem 0;border-left:3px solid var(--navy)}
+.info-lbl{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.09em;text-transform:uppercase;margin-bottom:.5rem}
+.info-txt{font-size:15px;color:var(--text);line-height:1.7}
+.formula-block{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.125rem 1.5rem;margin:1.5rem 0}
+.formula{font-family:var(--mono);font-size:15px;color:var(--navy);display:block;margin-bottom:.375rem;line-height:1.6}
+.formula-cap{font-size:13px;color:var(--text-3);line-height:1.55}
+.exp-card{border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:1.75rem 0}
+.exp-header{background:var(--surface);padding:1rem 1.375rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.875rem}
+.exp-icon{font-size:20px;flex-shrink:0}
+.exp-tag{font-family:var(--mono);font-size:9.5px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.2rem}
+.exp-name{font-family:var(--serif);font-size:16px;color:var(--text)}
+.exp-do{background:#F5F4EE;border-left:3px solid var(--gold);padding:1rem 1.25rem;border-bottom:1px solid var(--soft)}
+.exp-do-lbl{font-family:var(--mono);font-size:9.5px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.375rem}
+.exp-do-txt{font-size:14.5px;color:var(--text-2);line-height:1.65}
+.exp-body{padding:1.375rem}
+.exp-row{display:flex;gap:1.25rem;align-items:flex-start;flex-wrap:wrap}
+.exp-controls{flex:0 0 220px;min-width:200px}
+.exp-visual{flex:1;min-width:220px}
+.slider-group{margin-bottom:1rem}
+.slider-lbl{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.375rem}
+.slider-name{font-family:var(--mono);font-size:10.5px;color:var(--text-3);letter-spacing:.07em;text-transform:uppercase}
+.slider-val{font-family:var(--mono);font-size:13px;color:var(--navy)}
+input[type=range]{width:100%;-webkit-appearance:none;height:5px;background:var(--surface2);border-radius:3px;outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--navy);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--navy);border:none;cursor:pointer}
+.polar-canvas{display:block;width:100%;border-radius:var(--r);background:#0a1628}
+.curve-select{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.curve-btn{padding:6px 12px;font-family:var(--mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface);color:var(--text-3);cursor:pointer;transition:border-color .12s,color .12s}
+.curve-btn:hover{border-color:var(--navy);color:var(--navy)}
+.curve-btn.active{border-color:var(--gold);background:var(--gold-bg);color:var(--navy)}
+.stat-row{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:.75rem}
+.stat-box{background:var(--surface);border-radius:var(--r);padding:.625rem .875rem;border:1px solid var(--soft)}
+.stat-lbl{font-family:var(--mono);font-size:9.5px;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.25rem}
+.stat-val{font-family:var(--mono);font-size:14px;color:var(--navy)}
+.aufgabe{border:1px solid var(--border);border-radius:var(--r);padding:1.125rem 1.375rem;margin-bottom:.875rem}
+.aufg-nr{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5rem}
+.aufg-txt{font-size:15px;color:var(--text);line-height:1.65}
+.hint-btn{margin-top:.75rem;padding:3px 11px;font-size:12px;border:1px solid var(--border);border-radius:var(--r);background:transparent;color:var(--text-3);cursor:pointer;font-family:var(--sans)}
+.hint-body{display:none;font-size:13.5px;color:var(--text-2);line-height:1.65;margin-top:.75rem;padding-top:.75rem;border-top:1px solid var(--soft)}
+.hint-body.open{display:block}
+.quiz-q{margin-bottom:1.75rem}
+.quiz-txt{font-family:var(--serif);font-size:16px;color:var(--text);line-height:1.55;margin-bottom:.75rem}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opt{padding:10px 14px;border:1px solid var(--border);border-radius:var(--r);font-size:14px;color:var(--text);background:var(--surface);text-align:left;cursor:pointer;line-height:1.45;transition:border-color .12s,background .12s;font-family:var(--sans)}
+.opt:hover:not(.locked){border-color:var(--navy-2);background:var(--surface2)}
+.opt.correct{border-color:var(--ok-b);background:var(--ok-bg);color:var(--ok-t)}
+.opt.wrong{border-color:var(--no-b);background:var(--no-bg);color:var(--no-t)}
+.opt.locked{cursor:default}
+.quiz-fb{display:none;font-size:13.5px;color:var(--text-2);line-height:1.65;margin-top:.75rem;padding:.75rem 1rem;background:var(--surface);border-radius:var(--r);border:1px solid var(--soft)}
+.quiz-fb.open{display:block}
+.score-row{display:flex;align-items:center;gap:.875rem;flex-wrap:wrap;padding-top:1.375rem;border-top:1px solid var(--border);margin-top:.5rem}
+.score-n{font-family:var(--serif);font-size:26px;color:var(--text);letter-spacing:-.02em}
+.score-lbl{font-size:13px;color:var(--text-3)}
+.reset-btn{margin-left:auto;padding:5px 13px;font-size:12px;border:1px solid var(--border);border-radius:var(--r);background:transparent;color:var(--text-3);cursor:pointer;font-family:var(--sans)}
+.branch{margin:2.5rem 0;padding:1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;display:none}
+.branch.visible{display:block}
+.branch-lbl{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:.75rem}
+.branch-lbl::after{content:'';flex:1;height:1px;background:var(--soft)}
+.branch-cards{display:grid;grid-template-columns:1fr 1fr;gap:.875rem;margin-top:.875rem}
+@media(max-width:460px){.branch-cards{grid-template-columns:1fr}}
+.b-card{border:1px solid var(--border);border-radius:var(--r);padding:1rem 1.125rem;cursor:pointer;background:var(--bg);transition:border-color .15s;text-align:left;font-family:var(--sans)}
+.b-card:hover{border-color:var(--navy-2)}
+.b-card.active{border-color:var(--gold);box-shadow:0 0 0 2px rgba(201,168,76,.2)}
+.b-icon{font-size:20px;margin-bottom:.5rem}
+.b-name{font-family:var(--mono);font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--navy);margin-bottom:.375rem}
+.b-desc{font-size:13px;color:var(--text-3);line-height:1.5}
+.b-panel{display:none;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:1.25rem 0}
+.b-panel.open{display:block}
+.b-panel-hdr{padding:1rem 1.375rem;background:var(--gold-bg);border-bottom:1px solid var(--gold-b);display:flex;align-items:center;gap:.75rem}
+.b-panel-tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;padding:2px 7px;border-radius:3px;background:#E8D9A8;color:var(--navy)}
+.b-panel-title{font-family:var(--serif);font-size:16px;color:var(--text)}
+.b-panel-body{padding:1.375rem;background:var(--bg)}
+.preview-card{margin:2.5rem 0;border-radius:6px;border:1px solid var(--border);overflow:hidden;position:relative;transition:border-color .4s}
+.preview-card.unlocked{border-color:var(--gold-b)}
+.prev-hdr{padding:1.25rem 1.5rem;background:var(--surface);display:flex;align-items:flex-start;gap:1rem;border-bottom:1px solid var(--border);transition:background .4s}
+.preview-card.unlocked .prev-hdr{background:var(--gold-bg);border-bottom-color:var(--gold-b)}
+.prev-icon{width:36px;height:36px;border-radius:50%;background:var(--surface2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:17px}
+.prev-meta{flex:1}
+.prev-ey{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.375rem;transition:color .4s}
+.preview-card.unlocked .prev-ey{color:var(--gold)}
+.prev-title{font-family:var(--serif);font-size:17px;color:var(--text);line-height:1.3;transition:filter .4s}
+.preview-card:not(.unlocked) .prev-title{filter:blur(2.5px);user-select:none}
+.prev-body{padding:1.125rem 1.5rem;position:relative}
+.prev-teaser{font-size:14px;color:var(--text-2);line-height:1.65;transition:filter .4s}
+.preview-card:not(.unlocked) .prev-teaser{filter:blur(3px);color:#AAA;user-select:none}
+.prev-keys{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.875rem;transition:filter .4s}
+.preview-card:not(.unlocked) .prev-keys{filter:blur(3px);pointer-events:none}
+.pkey{font-family:var(--mono);font-size:11px;color:var(--navy);background:var(--gold-bg);border:1px solid var(--gold-b);padding:3px 9px;border-radius:var(--r)}
+.lock-ov{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;background:rgba(249,248,245,.55);backdrop-filter:blur(1px);transition:opacity .4s;pointer-events:none}
+.preview-card.unlocked .lock-ov{opacity:0}
+.lock-ico{font-size:22px}
+.lock-txt{font-family:var(--mono);font-size:11px;color:var(--text-3);letter-spacing:.07em;text-transform:uppercase}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(201,168,76,.5)}70%{box-shadow:0 0 0 12px rgba(201,168,76,0)}100%{box-shadow:0 0 0 0 rgba(201,168,76,0)}}
+.just-unlocked{animation:pulse .7s ease-out}
+.completion{display:none;background:var(--gold-bg);border:1px solid var(--gold-b);border-radius:8px;padding:2.25rem 1.5rem;text-align:center;margin:3rem 0}
+.completion.visible{display:block}
+.comp-title{font-family:var(--serif);font-size:22px;color:var(--navy);margin-bottom:.5rem}
+.comp-sub{font-size:14px;color:var(--text-2);line-height:1.65;margin-bottom:1.25rem;max-width:48ch;margin-left:auto;margin-right:auto}
+.comp-keys{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.25rem}
+.comp-depth{font-family:var(--mono);font-size:11px;color:var(--text-3)}
+.horizon{display:none;margin:1.5rem 0 6rem;padding:1.25rem 1.5rem;border-top:1px solid var(--soft)}
+.horizon.visible{display:block}
+.horizon-txt{font-family:var(--serif);font-size:15.5px;color:var(--text-3);line-height:1.8;font-style:italic;max-width:52ch;margin-bottom:1.25rem}
+@media(max-width:580px){.prose{font-size:16px}.path-title{font-size:22px}.unit-q{font-size:18px}.exp-row{flex-direction:column}.exp-controls{flex:none;width:100%}}
+:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="h-inner">
+    <svg class="signet" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+      <circle cx="13" cy="13" r="12" stroke="#1C2B3A" stroke-width="1.1" fill="none"/>
+      <circle cx="13" cy="13" r="3.5" fill="#C9A84C"/>
+      <ellipse cx="13" cy="13" rx="10" ry="4" stroke="#1C2B3A" stroke-width=".7" fill="none" transform="rotate(-25 13 13)"/>
+      <ellipse cx="13" cy="13" rx="10" ry="4" stroke="#1C2B3A" stroke-width=".7" fill="none" transform="rotate(25 13 13)"/>
+    </svg>
+    <span class="site-name">Solar Science Foundation</span>
+    <div class="h-space"></div>
+    <span class="mod-id">LRN:SSF:MAT-1103</span>
+  </div>
+</header>
+
+<div class="depth-wrap">
+  <div class="depth-inner">
+    <span class="depth-lbl">Tiefe</span>
+    <div class="depth-track"><div class="depth-fill" id="dfill"></div></div>
+    <span class="depth-val" id="dval">0</span>
+    <span class="depth-note" id="dnote">— Beginn</span>
+  </div>
+</div>
+
+<main><div class="wrap">
+
+<div class="intro">
+  <div class="eyebrow">Lernpfad · Kurven & Geometrie</div>
+  <h1 class="path-title">Wie beschreibt man eine Kurve die sich dreht?</h1>
+  <p class="path-desc">Manche Kurven lassen sich nicht mit y = f(x) beschreiben — Spiralen, Herzformen, Rosen. Zwei Einheiten: Polarkurven die sich zeichnen lassen — und wie man Länge und Krümmung misst.</p>
+</div>
+
+<!-- ═══════════════ EINHEIT 1: POLARKURVEN ═══════════════ -->
+<div class="unit" id="unit-1">
+  <div class="unit-hdr">
+    <div class="unit-idx">Einheit 1 von 2</div>
+    <h2 class="unit-q">Warum haben Schnecken und Sonnenblumen dieselbe Spirale?</h2>
+  </div>
+
+  <div class="skip-bar">
+    <span>Beispiele und Aufgaben sind optional.</span>
+    <button class="skip-btn" onclick="skipTo('quiz-1')">Direkt zum Quiz →</button>
+  </div>
+
+  <div class="section skippable" id="bsp-1">
+    <div class="sec-lbl">Beobachtung</div>
+
+    <div class="obs">
+      <div class="obs-ey">Alltagsbeobachtung — Natur</div>
+      <div class="obs-txt">Die Spirale eines Schneckenhauses, die Anordnung der Kerne in einer Sonnenblume, der Wirbel im Weißkohl — alle folgen mathematischen Kurven die sich nicht mit y = f(x) beschreiben lassen. Ein anderes Koordinatensystem löst das Problem sofort: statt (x, y) verwendet man Abstand vom Ursprung (r) und Winkel (φ).</div>
+    </div>
+
+    <div class="prose">
+      <p>Polarkoordinaten beschreiben einen Punkt nicht durch "wie weit rechts" und "wie weit oben", sondern durch "wie weit vom Ursprung" (Radius r) und "in welche Richtung" (Winkel φ). Umrechnung: x = r·cos φ, y = r·sin φ.</p>
+      <p>Eine Kurve in Polarkoordinaten ist eine Formel r(φ) — der Radius als Funktion des Winkels. Wenn man den Winkel φ von 0 bis 2π durchlaufen lässt und für jeden Winkel den Radius berechnet, entsteht die Kurve.</p>
+      <p>Die <span class="tip">Kardioide<span class="tip-pop"><span class="tip-lbl">Kardioide (Herzkurve)</span>r(φ) = 1 + cos φ. Sie entsteht wenn man einen Kreis auf einem gleich großen Kreis abrollen lässt und einen Punkt auf dem rollenden Kreis verfolgt. Die Form ähnelt einem Herz — daher der Name (griech. kardia = Herz).</span></span> r = 1 + cos φ ist die bekannteste: eine Herzform. Die <span class="tip">archimedische Spirale<span class="tip-pop"><span class="tip-lbl">Archimedische Spirale</span>r(φ) = φ. Der Radius wächst proportional zum Winkel — die Abstände zwischen den Windungen sind konstant. Genau so liegen die Kerne in einer Sonnenblume angeordnet (in Fibonacci-Approximation).</span></span> r = φ hat konstante Windungsabstände — genau wie das Schneckenhaus.</p>
+    </div>
+
+    <div class="formula-block">
+      <span class="formula">x = r·cos φ &nbsp;&nbsp; y = r·sin φ &nbsp;&nbsp; r = √(x²+y²)</span>
+      <span class="formula" style="margin-top:.5rem">Fläche: A = ½∫r² dφ &nbsp;&nbsp; Bogenlänge: s = ∫√(r²+ṙ²) dφ</span>
+      <div class="formula-cap">Polar → Kartesisch (oben) · Flächenformel und Bogenlänge (unten)</div>
+    </div>
+
+    <!-- EXPERIMENT 1: Polarkurven-Plotter -->
+    <div class="exp-card">
+      <div class="exp-header">
+        <div class="exp-icon">🌀</div>
+        <div>
+          <div class="exp-tag">Experiment 1</div>
+          <div class="exp-name">Polarkurven-Plotter</div>
+        </div>
+      </div>
+      <div class="exp-do">
+        <div class="exp-do-lbl">Selbst erkunden</div>
+        <div class="exp-do-txt">Wähle eine Kurve und ziehe den φ-Slider. Die Kurve zeichnet sich Schritt für Schritt auf. Beobachte wie der Radius r mit dem Winkel wächst oder schwingt.</div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-row">
+          <div class="exp-controls">
+            <div style="margin-bottom:1rem">
+              <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5rem">Kurve</div>
+              <div class="curve-select">
+                <button class="curve-btn active" id="btn-cardioid" onclick="setCurve('cardioid')">Kardioide</button>
+                <button class="curve-btn" id="btn-spiral" onclick="setCurve('spiral')">Spirale</button>
+                <button class="curve-btn" id="btn-rose3" onclick="setCurve('rose3')">Rose(3)</button>
+                <button class="curve-btn" id="btn-lemniscate" onclick="setCurve('lemniscate')">Lemniskate</button>
+              </div>
+            </div>
+            <div class="slider-group">
+              <div class="slider-lbl">
+                <span class="slider-name">Winkel φ</span>
+                <span class="slider-val" id="phi-val">0°</span>
+              </div>
+              <input type="range" id="phi-slider" min="0" max="628" value="0" oninput="updatePolar(this.value/100)">
+            </div>
+            <button style="padding:8px 16px;background:var(--navy);color:#fff;border:none;border-radius:var(--r);cursor:pointer;font-family:var(--sans);font-size:13.5px;width:100%;margin-top:.25rem" onclick="animatePolar()">Kurve animieren ▶</button>
+            <div class="stat-row" style="margin-top:.875rem">
+              <div class="stat-box">
+                <div class="stat-lbl">r(φ)</div>
+                <div class="stat-val" id="polar-r">1.000</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-lbl">Formel</div>
+                <div class="stat-val" id="polar-formula" style="font-size:12px">1+cos φ</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-lbl">Fläche (ges.)</div>
+                <div class="stat-val" id="polar-area">3π/2</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-lbl">Typ</div>
+                <div class="stat-val" id="polar-type" style="font-size:12px">Kardioide</div>
+              </div>
+            </div>
+            <div id="polar-note" style="margin-top:.75rem;font-size:12px;color:var(--text-3);line-height:1.5">
+              Die Kardioide r = 1+cos φ — eine Herzform in Polarkoordinaten.
+            </div>
+          </div>
+          <div class="exp-visual">
+            <canvas id="polar-canvas" class="polar-canvas" height="300"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p>Polarkurven können Formen erzeugen die in kartesischen Koordinaten extrem kompliziert wären. Die Kurve r = cos(3φ) ist eine dreiblättrige Rose — in kartesischen Koordinaten braucht man dafür einen Ausdruck der kaum lesbar ist. In Polar: eine Zeile.</p>
+      <p>Das Gleiche gilt für Flächen und Längen: Die Flächenformel A = ½∫r² dφ ist in Polar elegant — man summiert dünne Tortenstücke. In kartesisch wäre dieselbe Fläche ein kompliziertes Integral mit variablen Grenzen.</p>
+    </div>
+
+    <!-- Branch: Koordinatensysteme -->
+    <div class="branch visible" id="branch-coords" style="display:block">
+      <div class="branch-lbl">Seitenast — optional</div>
+      <div style="font-family:var(--serif);font-size:17px;color:var(--text);margin-bottom:.5rem">Wann Polar, wann Kartesisch?</div>
+      <div class="branch-cards">
+        <button class="b-card" onclick="openB('b-coords')" id="bc-coords">
+          <div class="b-icon">🧭</div>
+          <div class="b-name">Koordinatenwahl</div>
+          <div class="b-desc">Wann welches System? Umrechnung, Sektorfläche, Bogenlänge im Vergleich.</div>
+        </button>
+        <button class="b-card" onclick="document.getElementById('branch-coords').style.display='none'">
+          <div class="b-icon">→</div>
+          <div class="b-name" style="color:var(--text-3)">Weiter</div>
+          <div class="b-desc">Direkt zu Aufgaben und Quiz.</div>
+        </button>
+      </div>
+    </div>
+
+    <div class="b-panel" id="b-coords">
+      <div class="b-panel-hdr">
+        <span class="b-panel-tag">Seitenast</span>
+        <span class="b-panel-title">Koordinatenwahl — Polar vs. Kartesisch</span>
+      </div>
+      <div class="b-panel-body">
+        <div class="prose">
+          <p><strong>Polar besser wenn:</strong> Kreisförmige oder rotationssymmetrische Bereiche. Integranden der Form x² + y² → wird einfach r². Kreisbögen und Sektoren als Integrationsgrenzen.</p>
+          <p><strong>Kartesisch besser wenn:</strong> Rechteckige Gebiete. Funktionen der Form y = f(x). Horizontale oder vertikale Grenzen.</p>
+          <p><strong>Umrechnung Polar → kartesisch:</strong> r = 6·cos φ. Multipliziere mit r: r² = 6r·cos φ. Ersetze: x² + y² = 6x. Quadratische Ergänzung: (x−3)² + y² = 9. Das ist ein Kreis mit Mittelpunkt (3,0) und Radius 3.</p>
+          <p>Diese Technik — mit r multiplizieren, dann r² = x²+y² und r·cos φ = x einsetzen — löst fast jede "Polarkurve zu kartesisch"-Aufgabe.</p>
+        </div>
+        <div class="info" style="margin-top:1.25rem">
+          <div class="info-lbl">Faustregel</div>
+          <div class="info-txt">Siehst du r², sin²+cos² oder Kreissektoren im Integrationsbereich → Polar. Siehst du Rechtecke und y=f(x)-Grenzen → Kartesisch. Im Zweifel: zeichne den Bereich skizzenhaft auf und schau welches System "natürlich" aussieht.</div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="hr">
+
+    <div class="section skippable" id="aufg-1">
+      <div class="sec-lbl">Aufgaben</div>
+      <div class="aufgabe">
+        <div class="aufg-nr">Aufgabe 1</div>
+        <div class="aufg-txt">Zeige dass r(φ) = 6·cos φ in kartesischen Koordinaten ein Kreis ist. Gib Mittelpunkt und Radius an.</div>
+        <button class="hint-btn" onclick="hintToggle(this)">Hinweis</button>
+        <div class="hint-body">Mit r multiplizieren: r² = 6r·cos φ. Einsetzen: x²+y² = 6x. Quadratische Ergänzung: x²−6x+9+y² = 9 → (x−3)²+y² = 9. Mittelpunkt (3,0), Radius 3. Die Polarkurve r = 6cos φ ist ein Kreis der den Ursprung enthält und seinen Mittelpunkt auf der x-Achse hat.</div>
+      </div>
+      <div class="aufgabe">
+        <div class="aufg-nr">Aufgabe 2</div>
+        <div class="aufg-txt">Berechne die von der Kardioide r = 1 + cos φ eingeschlossene Fläche. Hinweis: cos²φ = ½(1 + cos 2φ).</div>
+        <button class="hint-btn" onclick="hintToggle(this)">Hinweis</button>
+        <div class="hint-body">A = ½∫₀²π (1+cos φ)² dφ = ½∫(1 + 2cos φ + cos²φ) dφ. Die drei Integrale: ∫1 dφ = 2π, ∫2cos φ dφ = 0 (voller Umlauf), ∫cos²φ dφ = π (Halbwinkelformel). A = ½(2π + 0 + π) = 3π/2 ≈ 4,71.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="hr">
+
+  <div class="section" id="quiz-1">
+    <div class="sec-lbl">Quiz · Einheit 1</div>
+
+    <div class="quiz-q">
+      <div class="quiz-txt">Was beschreibt r(φ) = φ (archimedische Spirale) geometrisch?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,'u1',0,false)">Ein Kreis dessen Radius konstant φ ist.</button>
+        <button class="opt" onclick="ans(this,'u1',0,true)">Eine Spirale bei der der Radius proportional zum Winkel wächst — die Windungsabstände sind konstant.</button>
+        <button class="opt" onclick="ans(this,'u1',0,false)">Eine Rose mit φ Blättern.</button>
+        <button class="opt" onclick="ans(this,'u1',0,false)">Eine Kurve die sich bei φ = π schließt.</button>
+      </div>
+      <div class="quiz-fb" id="fb-u1-0">r = φ: Bei φ = 2π ist r = 2π ≈ 6,28; bei φ = 4π ist r = 4π ≈ 12,57. Der Radius wächst linear mit dem Winkel — jede Windung hat denselben Abstand zur vorherigen. Das ist der Grund warum Schneckenhäuser und Sonnenblumenkerne diese gleichmäßige Verteilung zeigen.</div>
+    </div>
+
+    <div class="quiz-q">
+      <div class="quiz-txt">Wie lautet die Flächenformel für einen Bereich in Polarkoordinaten (von φ₁ bis φ₂)?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,'u1',1,false)">A = ∫r dφ</button>
+        <button class="opt" onclick="ans(this,'u1',1,true)">A = ½∫r² dφ</button>
+        <button class="opt" onclick="ans(this,'u1',1,false)">A = ∫r² dφ</button>
+        <button class="opt" onclick="ans(this,'u1',1,false)">A = ½∫r dφ</button>
+      </div>
+      <div class="quiz-fb" id="fb-u1-1">A = ½∫r² dφ. Herleitung: Jedes dünne Tortenstück hat Radius r und Öffnungswinkel dφ. Fläche des Tortenstücks ≈ ½r²·dφ (Kreissektor-Formel). Integration über alle Winkel ergibt die Gesamtfläche. Der Faktor ½ ist entscheidend — oft vergessen und Hauptfehlerquelle.</div>
+    </div>
+
+    <div class="quiz-q">
+      <div class="quiz-txt">Warum ist r = 6cos φ in Polar einfacher zu schreiben als in kartesischen Koordinaten?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,'u1',2,false)">Weil Polar immer einfacher ist.</button>
+        <button class="opt" onclick="ans(this,'u1',2,true)">Weil die Kurve einen Kreis beschreibt der den Ursprung enthält — und Kreise mit Ursprung auf dem Rand lassen sich in Polar mit einer einzigen Gleichung schreiben, in kartesisch braucht man quadratische Ergänzung.</button>
+        <button class="opt" onclick="ans(this,'u1',2,false)">Weil Cosinus in Polarkoordinaten automatisch vereinfacht wird.</button>
+        <button class="opt" onclick="ans(this,'u1',2,false)">Weil r = 6cos φ nur für Kreise gilt.</button>
+      </div>
+      <div class="quiz-fb" id="fb-u1-2">r = 6cos φ → (x−3)² + y² = 9. Die Polarkurve ist eine Zeile; die kartesische Form ist schon komplizierter. Das ist das Prinzip adaptierter Koordinaten: Wähle das System das zur Symmetrie der Kurve passt. Kreise um den Ursprung → Polar. Parabolisch? → eventuell Parabolkoordinaten.</div>
+    </div>
+
+    <div class="score-row">
+      <span class="score-n" id="score-u1">0 / 3</span>
+      <span class="score-lbl">korrekt</span>
+      <button class="reset-btn" onclick="resetQ('u1')">Neu</button>
+    </div>
+  </div>
+
+  <div class="preview-card" id="preview-1">
+    <div class="prev-hdr">
+      <div class="prev-icon">📏</div>
+      <div class="prev-meta">
+        <div class="prev-ey" id="prev-ey-1">Einheit 2 — noch gesperrt</div>
+        <div class="prev-title">Wie misst man die Länge einer Kurve — und wie stark sie sich krümmt?</div>
+      </div>
+    </div>
+    <div class="prev-body">
+      <div class="prev-teaser">Ein Faden der eine Kurve entlangläuft — wie lang ist er? Und wie stark biegt sich die Kurve an jedem Punkt? Der Schmiegekreis zeigt es: Je enger der Kreis der passt, desto stärker die Krümmung.</div>
+      <div class="prev-keys">
+        <span class="pkey">NAV:CURVATURE</span>
+        <span class="pkey">SENSOR:GEODESIC</span>
+      </div>
+      <div class="lock-ov" id="lock-1">
+        <div class="lock-ico">🔒</div>
+        <div class="lock-txt">Quiz abschließen</div>
+      </div>
+    </div>
+  </div>
+</div><!-- /unit-1 -->
+
+
+<!-- ═══════════════ EINHEIT 2: BOGENLÄNGE & KRÜMMUNG ═══════════════ -->
+<div class="unit" id="unit-2" style="opacity:.3;pointer-events:none;transition:opacity .6s" aria-disabled="true">
+  <div class="unit-hdr">
+    <div class="unit-idx">Einheit 2 von 2</div>
+    <h2 class="unit-q">Wie misst man eine Kurve — und wie stark biegt sie sich?</h2>
+  </div>
+
+  <div class="skip-bar">
+    <span>Aufgaben sind optional.</span>
+    <button class="skip-btn" onclick="skipTo('quiz-2')">Direkt zum Quiz →</button>
+  </div>
+
+  <div class="section skippable" id="bsp-2">
+    <div class="sec-lbl">Erklärung</div>
+    <div class="obs">
+      <div class="obs-ey">Alltagsbeobachtung — Straße & Schiene</div>
+      <div class="obs-txt">Eisenbahnkurven haben einen Krümmungsradius der nirgends zu klein sein darf — sonst entgleist der Zug. Autobahnkurven auch. Ingenieure brauchen eine Zahl die an jedem Punkt einer Kurve angibt wie stark sie sich biegt. Das ist die Krümmung κ — und ihr Kehrwert ist der Krümmungsradius r_K.</div>
+    </div>
+
+    <div class="prose">
+      <p>Bogenlänge: Wie lang ist eine Kurve wirklich? Man stellt sich vor, man legt lauter winzige gerade Streckenstücke an die Kurve — ds = √(ẋ² + ẏ²)·dt bei einer Parameterkurve. Die Bogenlänge ist das Integral aller dieser Stücke.</p>
+      <p>Krümmung: κ misst wie schnell sich die Richtung der Kurve ändert. Bei einer Geraden: κ = 0. Bei einem Kreis mit Radius R: κ = 1/R überall gleich. Bei einer Kurve variiert κ von Punkt zu Punkt. Der <span class="tip">Schmiegekreis<span class="tip-pop"><span class="tip-lbl">Schmiegekreis (Kreis der besten Annäherung)</span>Für jeden Punkt auf einer Kurve gibt es genau einen Kreis der dieselbe Steigung und dieselbe Krümmung hat wie die Kurve — den Schmiegekreis. Sein Radius ist der Krümmungsradius r_K = 1/κ. Kleiner Schmiegekreis = starke Krümmung; großer Schmiegekreis = sanfte Kurve.</span></span> ist der Kreis der sich an einem Punkt am besten anschmiegt.</p>
+    </div>
+
+    <div class="formula-block">
+      <span class="formula">s = ∫√(ẋ²+ẏ²) dt &nbsp; (Parameter)</span>
+      <span class="formula" style="margin-top:.25rem">κ = |ẋÿ − ẏẍ| / (ẋ²+ẏ²)^{3/2} &nbsp;&nbsp; r_K = 1/κ</span>
+      <span class="formula" style="margin-top:.25rem">Polar: κ = |r²+2ṙ²−rr̈| / (r²+ṙ²)^{3/2}</span>
+      <div class="formula-cap">Punkt über Variable = Ableitung nach Parameter t bzw. Winkel φ</div>
+    </div>
+
+    <!-- EXPERIMENT 2: Schmiegekreis & Krümmung -->
+    <div class="exp-card">
+      <div class="exp-header">
+        <div class="exp-icon">⭕</div>
+        <div>
+          <div class="exp-tag">Experiment 2</div>
+          <div class="exp-name">Schmiegekreis & Krümmung live</div>
+        </div>
+      </div>
+      <div class="exp-do">
+        <div class="exp-do-lbl">Selbst erkunden</div>
+        <div class="exp-do-txt">Bewege den Punkt auf der Kurve. Der Schmiegekreis ändert sich — an stark gebogenen Stellen wird er klein, an fast geraden Stellen riesig. Vergleiche Parabel und Kreis.</div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-row">
+          <div class="exp-controls">
+            <div style="margin-bottom:1rem">
+              <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5rem">Kurve</div>
+              <div class="curve-select">
+                <button class="curve-btn active" id="btn-parabola" onclick="setCurvature('parabola')">Parabel y=x²</button>
+                <button class="curve-btn" id="btn-evolvente" onclick="setCurvature('evolvente')">Evolvente</button>
+                <button class="curve-btn" id="btn-spiral-k" onclick="setCurvature('spiral')">Spirale</button>
+              </div>
+            </div>
+            <div class="slider-group">
+              <div class="slider-lbl">
+                <span class="slider-name">Punkt t</span>
+                <span class="slider-val" id="curv-t-val">0.0</span>
+              </div>
+              <input type="range" id="curv-t" min="-200" max="200" value="0" oninput="updateCurvature(this.value/100)">
+            </div>
+            <div class="stat-row">
+              <div class="stat-box">
+                <div class="stat-lbl">Krümmung κ</div>
+                <div class="stat-val" id="curv-kappa">2.000</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-lbl">Radius r_K</div>
+                <div class="stat-val" id="curv-rk">0.500</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-lbl">x(t)</div>
+                <div class="stat-val" id="curv-x">0.000</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-lbl">y(t)</div>
+                <div class="stat-val" id="curv-y">0.000</div>
+              </div>
+            </div>
+            <div id="curv-note" style="margin-top:.75rem;font-size:12px;color:var(--text-3);line-height:1.5">
+              Im Scheitel der Parabel (t=0) ist die Krümmung maximal — r_K = 0.5.
+            </div>
+          </div>
+          <div class="exp-visual">
+            <canvas id="curv-canvas" class="polar-canvas" height="300"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p>Das Erstaunliche: Eine Bogenlänge ist im Allgemeinen nicht elementar integrierbar. Bei der Kreisevolvente passiert etwas Schönes — das Integral unter der Wurzel kollabiert zu t², also √(ẋ² + ẏ²) = t, und man integriert einfach t von 0 bis 2π: s = 2π².</p>
+      <p>Bei der archimedischen Spirale r = φ ist das Integral ∫√(φ²+1) dφ — nicht elementar. In der Klausur steht dann der Hinweis mit der Stammfunktion dabei. Man muss sie nicht herleiten, nur einsetzen. Diese Art von "Integral mit Hinweis" ist eine Standardaufgabe.</p>
+    </div>
+
+    <hr class="hr">
+
+    <div class="section skippable" id="aufg-2">
+      <div class="sec-lbl">Aufgaben</div>
+      <div class="aufgabe">
+        <div class="aufg-nr">Aufgabe 1</div>
+        <div class="aufg-txt">Bestimme Krümmung κ und Krümmungsradius r_K der Parabel y = x² an den Stellen x = 0 und x = 1.</div>
+        <button class="hint-btn" onclick="hintToggle(this)">Hinweis</button>
+        <div class="hint-body">y' = 2x, y'' = 2. κ = |y''|/(1+y'²)^{3/2} = 2/(1+4x²)^{3/2}. Bei x=0: κ = 2/(1)^{3/2} = 2, r_K = 0.5. Bei x=1: κ = 2/(5)^{3/2} = 2/11.18 ≈ 0.179, r_K ≈ 5.59. Im Scheitel ist die Krümmung am stärksten — die Parabel biegt sich dort am meisten.</div>
+      </div>
+      <div class="aufgabe">
+        <div class="aufg-nr">Aufgabe 2</div>
+        <div class="aufg-txt">Berechne die Bogenlänge der Kreisevolvente x(t) = cos t + t·sin t, y(t) = sin t − t·cos t von t=0 bis t=2π.</div>
+        <button class="hint-btn" onclick="hintToggle(this)">Hinweis</button>
+        <div class="hint-body">ẋ = t·cos t, ẏ = t·sin t. ẋ²+ẏ² = t²(cos²t+sin²t) = t². Also √(ẋ²+ẏ²) = t (für t≥0). s = ∫₀²π t dt = [t²/2]₀²π = (2π)²/2 = 2π² ≈ 19.74. Das Vereinfachen unter der Wurzel zu t ist der elegante Schritt — ohne das wäre das Integral nicht lösbar.</div>
+      </div>
+    </div>
+
+    <hr class="hr">
+
+    <div class="section" id="quiz-2">
+      <div class="sec-lbl">Quiz · Einheit 2</div>
+
+      <div class="quiz-q">
+        <div class="quiz-txt">Was sagt ein großer Krümmungsradius r_K über eine Kurve aus?</div>
+        <div class="opts">
+          <button class="opt" onclick="ans(this,'u2',0,false)">Die Kurve ist sehr lang.</button>
+          <button class="opt" onclick="ans(this,'u2',0,false)">Die Kurve ist stark gebogen — kleiner Schmiegekreis.</button>
+          <button class="opt" onclick="ans(this,'u2',0,true)">Die Kurve ist an dieser Stelle fast gerade — großer Schmiegekreis, sanfte Biegung.</button>
+          <button class="opt" onclick="ans(this,'u2',0,false)">Der Radius der Kurve selbst ist groß.</button>
+        </div>
+        <div class="quiz-fb" id="fb-u2-0">r_K = 1/κ. Große Krümmung κ → kleiner r_K → enger Schmiegekreis → starke Biegung. Kleine Krümmung → großer r_K → weiter Schmiegekreis → fast gerade. Eine Gerade hat κ = 0 → r_K = ∞. Ein Kreis mit Radius R hat κ = 1/R überall konstant.</div>
+      </div>
+
+      <div class="quiz-q">
+        <div class="quiz-txt">Was ist der Trick bei der Bogenlänge der Kreisevolvente?</div>
+        <div class="opts">
+          <button class="opt" onclick="ans(this,'u2',1,false)">Man berechnet die Länge geometrisch ohne Integral.</button>
+          <button class="opt" onclick="ans(this,'u2',1,false)">Man nutzt die bekannte Formel für Kreisbogenlängen.</button>
+          <button class="opt" onclick="ans(this,'u2',1,true)">Unter der Wurzel vereinfacht sich ẋ²+ẏ² zu t² — also ist √(ẋ²+ẏ²) = t, und man integriert einfach t.</button>
+          <button class="opt" onclick="ans(this,'u2',1,false)">Die Evolvente hat dieselbe Länge wie ihr Grundkreis.</button>
+        </div>
+        <div class="quiz-fb" id="fb-u2-1">Das Vereinfachen unter der Wurzel ist der entscheidende Schritt bei fast jeder Bogenlänge. ẋ = t·cos t, ẏ = t·sin t → ẋ²+ẏ² = t²(cos²t+sin²t) = t². Pythagoras-Identität "rettet" das Integral. Ohne das: unlösbar. Mit dem Trick: triviales Integral ∫t dt.</div>
+      </div>
+
+      <div class="quiz-q">
+        <div class="quiz-txt">Warum sind Polarkoordianten für die Bogenlänge der Spirale r = φ natürlich?</div>
+        <div class="opts">
+          <button class="opt" onclick="ans(this,'u2',2,false)">Weil Spiralen nur in Polar definiert sind.</button>
+          <button class="opt" onclick="ans(this,'u2',2,true)">Weil r = φ in Polar eine einfache Formel ist — in kartesisch wäre die Parametrisierung der Spirale aufwendig. Die Bogenlängenformel s = ∫√(r²+ṙ²) dφ ergibt direkt ∫√(φ²+1) dφ.</button>
+          <button class="opt" onclick="ans(this,'u2',2,false)">Weil das Integral in kartesisch divergiert.</button>
+          <button class="opt" onclick="ans(this,'u2',2,false)">Weil sin²+cos² in Polar nicht gilt.</button>
+        </div>
+        <div class="quiz-fb" id="fb-u2-2">r = φ, ṙ = 1. Einsetzen: s = ∫₀²π √(φ²+1²) dφ. Dieses Integral ist nicht elementar — die Klausur gibt die Stammfunktion als Hinweis. Das ist bei Bogenlängen häufig: Man setzt sauber ein und wertet die Grenzen aus. Die elegante Seite ist nicht das Integral, sondern das Einsetzen in die richtige Formel.</div>
+      </div>
+
+      <div class="score-row">
+        <span class="score-n" id="score-u2">0 / 3</span>
+        <span class="score-lbl">korrekt</span>
+        <button class="reset-btn" onclick="resetQ('u2')">Neu</button>
+      </div>
+    </div>
+
+    <div class="branch" id="branch-2">
+      <div class="branch-lbl">Weiter</div>
+      <div class="branch-cards">
+        <button class="b-card" onclick="openB('b-finish')">
+          <div class="b-icon">✓</div>
+          <div class="b-name" style="color:var(--text-3)">Abschließen</div>
+          <div class="b-desc">Pfad abschließen und NOXIA-Schlüssel freischalten.</div>
+        </button>
+      </div>
+    </div>
+  </div><!-- /unit-2 -->
+
+  <div class="completion" id="completion">
+    <div class="comp-title">Lernpfad abgeschlossen</div>
+    <div class="comp-sub">Von Schneckenhausformen zu Schmiegekreisen — Polarkurven, Bogenlänge und Krümmung. Folgendes wurde in NOXIA freigeschaltet:</div>
+    <div class="comp-keys">
+      <span class="pkey">NAV:CURVATURE</span>
+      <span class="pkey">SENSOR:GEODESIC</span>
+    </div>
+    <div class="comp-depth" id="comp-depth">Lerntiefe: —</div>
+  </div>
+  <div class="horizon" id="horizon">
+    <div class="horizon-txt">Der nächste Horizont: Wie optimiert man etwas das von mehreren Variablen abhängt? Extremwerte mehrerer Variablen — Gebirge, Sattelpunkte, das Hesse-Kriterium.</div>
+  </div>
+
+</div></main>
+
+<script>
+// ═══ DEPTH ═══
+let depthRaw=0;
+const depthPoints={u1_quiz:15,u2_quiz:18,polar_interact:4,polar_anim:5,curv_interact:5,b_coords:7,finish:5};
+const depthGiven={};
+function awardDepth(k){if(depthGiven[k])return;depthGiven[k]=true;depthRaw+=depthPoints[k]||0;renderDepth();}
+function renderDepth(){
+  const d=Math.round(100*(1-1/(1+depthRaw/26)));
+  document.getElementById('dfill').style.width=d+'%';
+  document.getElementById('dval').textContent=d;
+  const labels=[[10,'Beginn'],[22,'Einstieg'],[38,'Orientierung'],[52,'Grundlagen'],[65,'Mechanismus'],[76,'Theorie'],[87,'Forschungsnähe'],[100,'Forschungsrand']];
+  for(const [t,l] of [...labels].reverse()){if(d>=t){document.getElementById('dnote').textContent='— '+l;break;}}
+}
+
+// ═══ POLAR CURVES ═══
+let currentCurve='cardioid';
+let polarAnimId=null;
+
+const curves={
+  cardioid:{
+    r:phi=>1+Math.cos(phi),
+    formula:'1 + cos φ',
+    type:'Kardioide',
+    area:'3π/2 ≈ 4.71',
+    phiMax:2*Math.PI,
+    note:'r = 1+cos φ — eine Herzform. Entsteht wenn ein Kreis auf einem gleich großen abrollt.',
+    scale:80
+  },
+  spiral:{
+    r:phi=>phi,
+    formula:'φ',
+    type:'Archimedische Spirale',
+    area:'4π³/3 ≈ 41.3',
+    phiMax:4*Math.PI,
+    note:'r = φ — konstante Windungsabstände, wie im Schneckenhaus.',
+    scale:20
+  },
+  rose3:{
+    r:phi=>Math.cos(3*phi),
+    formula:'cos(3φ)',
+    type:'Dreiblättrige Rose',
+    area:'π/4 ≈ 0.785',
+    phiMax:Math.PI,
+    note:'r = cos(3φ) — drei Blätter, in kartesisch kaum darstellbar.',
+    scale:100
+  },
+  lemniscate:{
+    r:phi=>{const r2=Math.cos(2*phi);return r2>=0?Math.sqrt(r2):0;},
+    formula:'√(cos 2φ)',
+    type:'Lemniskate',
+    area:'1',
+    phiMax:2*Math.PI,
+    note:'r = √(cos 2φ) — Achtform, ähnelt ∞. Existiert nur für cos(2φ) ≥ 0.',
+    scale:100
+  }
+};
+
+function setCurve(name){
+  currentCurve=name;
+  Object.keys(curves).forEach(k=>{
+    const btn=document.getElementById('btn-'+k);
+    if(btn) btn.classList.toggle('active',k===name);
+  });
+  // Reset phi slider
+  document.getElementById('phi-slider').value=0;
+  updatePolar(0);
+}
+
+function updatePolar(phi){
+  awardDepth('polar_interact');
+  const c=curves[currentCurve];
+  const r=c.r(phi);
+  document.getElementById('phi-val').textContent=Math.round(phi*180/Math.PI)+'°';
+  document.getElementById('polar-r').textContent=isNaN(r)?'0.000':r.toFixed(3);
+  document.getElementById('polar-formula').textContent=c.formula;
+  document.getElementById('polar-area').textContent=c.area;
+  document.getElementById('polar-type').textContent=c.type;
+  document.getElementById('polar-note').textContent=c.note;
+  drawPolar(phi);
+}
+
+function drawPolar(currentPhi){
+  const canvas=document.getElementById('polar-canvas');
+  const dpr=window.devicePixelRatio||1;
+  canvas.width=canvas.offsetWidth*dpr;
+  canvas.height=300*dpr;
+  const ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);
+  const W=canvas.offsetWidth,H=300;
+  const cx=W/2,cy=H/2;
+
+  ctx.fillStyle='#0a1628';ctx.fillRect(0,0,W,H);
+
+  const c=curves[currentCurve];
+  const scale=c.scale;
+  const phiMax=c.phiMax;
+
+  // Grid circles
+  ctx.strokeStyle='rgba(255,255,255,.06)';ctx.lineWidth=1;
+  [1,2,3].forEach(r=>{
+    ctx.beginPath();ctx.arc(cx,cy,r*scale,0,Math.PI*2);ctx.stroke();
+  });
+  // Grid lines
+  for(let a=0;a<Math.PI*2;a+=Math.PI/4){
+    ctx.beginPath();ctx.moveTo(cx,cy);
+    ctx.lineTo(cx+Math.cos(a)*3*scale,cy+Math.sin(a)*3*scale);ctx.stroke();
+  }
+
+  // Draw curve up to currentPhi
+  ctx.beginPath();ctx.strokeStyle='#C9A84C';ctx.lineWidth=2;
+  ctx.shadowColor='#C9A84C';ctx.shadowBlur=4;
+  const steps=600;
+  let first=true;
+  for(let i=0;i<=steps;i++){
+    const phi=currentPhi*i/steps;
+    if(phi>phiMax)break;
+    const r=c.r(phi);
+    if(isNaN(r)||r<0){first=true;continue;}
+    const x=cx+r*Math.cos(phi)*scale;
+    const y=cy-r*Math.sin(phi)*scale;
+    if(first){ctx.moveTo(x,y);first=false;}else ctx.lineTo(x,y);
+  }
+  ctx.stroke();ctx.shadowBlur=0;
+
+  // Current point
+  const rCurrent=c.r(currentPhi);
+  if(!isNaN(rCurrent)&&rCurrent>=0){
+    const px=cx+rCurrent*Math.cos(currentPhi)*scale;
+    const py=cy-rCurrent*Math.sin(currentPhi)*scale;
+    // Radius line
+    ctx.beginPath();ctx.strokeStyle='rgba(201,168,76,.4)';ctx.lineWidth=1;ctx.setLineDash([3,3]);
+    ctx.moveTo(cx,cy);ctx.lineTo(px,py);ctx.stroke();ctx.setLineDash([]);
+    // Point
+    ctx.beginPath();ctx.arc(px,py,5,0,Math.PI*2);
+    ctx.fillStyle='#C9A84C';ctx.fill();
+  }
+
+  // Labels
+  ctx.fillStyle='rgba(255,255,255,.35)';ctx.font='9px monospace';ctx.textAlign='center';
+  ctx.fillText('φ = '+Math.round(currentPhi*180/Math.PI)+'°',cx,cy+H/2-10);
+}
+
+let animRunning=false;
+function animatePolar(){
+  if(animRunning){animRunning=false;return;}
+  animRunning=true;
+  awardDepth('polar_anim');
+  const c=curves[currentCurve];
+  const steps=200;
+  let i=0;
+  function step(){
+    if(!animRunning){return;}
+    const phi=c.phiMax*i/steps;
+    document.getElementById('phi-slider').value=Math.round(phi*100);
+    updatePolar(phi);
+    i++;
+    if(i<=steps){requestAnimationFrame(step);}else{animRunning=false;}
+  }
+  step();
+}
+
+// ═══ CURVATURE ═══
+let currentCurveCurve='parabola';
+const curvatureCurves={
+  parabola:{
+    x:t=>t, y:t=>t*t,
+    dx:t=>1, dy:t=>2*t,
+    ddx:t=>0, ddy:t=>2,
+    label:'Parabel: x(t)=t, y(t)=t²',
+    tMin:-2, tMax:2, scale:60
+  },
+  evolvente:{
+    x:t=>Math.cos(t)+t*Math.sin(t),
+    y:t=>Math.sin(t)-t*Math.cos(t),
+    dx:t=>t*Math.cos(t), dy:t=>t*Math.sin(t),
+    ddx:t=>Math.cos(t)-t*Math.sin(t), ddy:t=>Math.sin(t)+t*Math.cos(t),
+    label:'Kreisevolvente',
+    tMin:0, tMax:2*Math.PI, scale:35
+  },
+  spiral:{
+    x:t=>t*Math.cos(t), y:t=>t*Math.sin(t),
+    dx:t=>Math.cos(t)-t*Math.sin(t), dy:t=>Math.sin(t)+t*Math.cos(t),
+    ddx:t=>-2*Math.sin(t)-t*Math.cos(t), ddy:t=>2*Math.cos(t)-t*Math.sin(t),
+    label:'Spirale: r=t',
+    tMin:0, tMax:3*Math.PI, scale:20
+  }
+};
+
+function setCurvature(name){
+  currentCurveCurve=name;
+  ['parabola','evolvente','spiral'].forEach(k=>{
+    const btn=document.getElementById('btn-'+k);
+    if(btn)btn.classList.toggle('active',k===name);
+  });
+  const c=curvatureCurves[name];
+  const mid=(c.tMin+c.tMax)/2;
+  document.getElementById('curv-t').min=Math.round(c.tMin*100);
+  document.getElementById('curv-t').max=Math.round(c.tMax*100);
+  document.getElementById('curv-t').value=Math.round(mid*100);
+  updateCurvature(mid);
+}
+
+function updateCurvature(t){
+  awardDepth('curv_interact');
+  const c=curvatureCurves[currentCurveCurve];
+  const dx=c.dx(t),dy=c.dy(t),ddx=c.ddx(t),ddy=c.ddy(t);
+  const x=c.x(t),y=c.y(t);
+  const num=Math.abs(dx*ddy-dy*ddx);
+  const den=Math.pow(dx*dx+dy*dy,1.5);
+  const kappa=den>0.0001?num/den:Infinity;
+  const rk=kappa>0.0001?1/kappa:Infinity;
+
+  document.getElementById('curv-t-val').textContent=t.toFixed(2);
+  document.getElementById('curv-x').textContent=x.toFixed(3);
+  document.getElementById('curv-y').textContent=y.toFixed(3);
+  document.getElementById('curv-kappa').textContent=isFinite(kappa)?kappa.toFixed(4):'∞';
+  document.getElementById('curv-rk').textContent=isFinite(rk)?rk.toFixed(3):'∞';
+
+  const notes={
+    parabola: t===0?'Im Scheitel t=0: maximale Krümmung, kleinster Schmiegekreis.'
+      :'Außerhalb des Scheitels: Parabel wird flacher, r_K wächst.',
+    evolvente:'Kreisevolvente: Schmiegekreis wandert mit dem Parameter.',
+    spiral: t<0.5?'Nahe dem Ursprung: starke Krümmung (enge Spirale).'
+      :'Weiter außen: Spirale wird fast gerade, r_K wächst.'
+  };
+  document.getElementById('curv-note').textContent=notes[currentCurveCurve]||'';
+
+  drawCurvature(t,x,y,kappa,rk);
+}
+
+function drawCurvature(t,px,py,kappa,rk){
+  const canvas=document.getElementById('curv-canvas');
+  const dpr=window.devicePixelRatio||1;
+  canvas.width=canvas.offsetWidth*dpr;canvas.height=300*dpr;
+  const ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);
+  const W=canvas.offsetWidth,H=300;
+  const c=curvatureCurves[currentCurveCurve];
+  const scale=c.scale;
+  const cx=W/2,cy=H/2;
+
+  ctx.fillStyle='#0a1628';ctx.fillRect(0,0,W,H);
+
+  // Axes
+  ctx.strokeStyle='rgba(255,255,255,.08)';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(0,cy);ctx.lineTo(W,cy);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(cx,0);ctx.lineTo(cx,H);ctx.stroke();
+
+  // Draw curve
+  ctx.beginPath();ctx.strokeStyle='rgba(255,255,255,.4)';ctx.lineWidth=1.5;
+  const steps=300;
+  let first=true;
+  for(let i=0;i<=steps;i++){
+    const ti=c.tMin+i/steps*(c.tMax-c.tMin);
+    const x=cx+c.x(ti)*scale;
+    const y=cy-c.y(ti)*scale;
+    if(Math.abs(x)>W*2||Math.abs(y)>H*2){first=true;continue;}
+    if(first){ctx.moveTo(x,y);first=false;}else ctx.lineTo(x,y);
+  }
+  ctx.stroke();
+
+  // Schmiegekreis
+  const spx=cx+px*scale,spy=cy-py*scale;
+  if(isFinite(rk)&&rk<200){
+    const dx=c.dx(t),dy=c.dy(t);
+    const speed=Math.sqrt(dx*dx+dy*dy);
+    if(speed>0.001){
+      // Normal vector (pointing to center of curvature)
+      const nx=-dy/speed,ny=dx/speed;
+      const cross=c.dx(t)*c.ddy(t)-c.dy(t)*c.ddx(t);
+      const sign=cross>=0?1:-1;
+      const ccx=spx+sign*nx*rk*scale;
+      const ccy=spy+sign*ny*rk*scale;
+      ctx.beginPath();ctx.arc(ccx,ccy,rk*scale,0,Math.PI*2);
+      ctx.strokeStyle='rgba(91,143,185,0.6)';ctx.lineWidth=1.5;ctx.stroke();
+      // Center
+      ctx.beginPath();ctx.arc(ccx,ccy,3,0,Math.PI*2);
+      ctx.fillStyle='#5B8FB9';ctx.fill();
+    }
+  }
+
+  // Current point
+  ctx.beginPath();ctx.arc(spx,spy,6,0,Math.PI*2);
+  ctx.fillStyle='#C9A84C';ctx.shadowColor='#C9A84C';ctx.shadowBlur=8;ctx.fill();ctx.shadowBlur=0;
+
+  // Labels
+  ctx.fillStyle='rgba(255,255,255,.35)';ctx.font='9px monospace';ctx.textAlign='left';
+  ctx.fillText(c.label,6,14);
+  if(isFinite(rk)&&rk<200){
+    ctx.fillStyle='rgba(91,143,185,.7)';
+    ctx.fillText('Schmiegekreis r_K='+rk.toFixed(2),6,H-8);
+  }
+}
+
+// ═══ QUIZ ═══
+const QS={u1:{answers:[null,null,null],score:0,done:false},u2:{answers:[null,null,null],score:0,done:false}};
+function ans(btn,uid,qi,correct){
+  const q=QS[uid];if(q.answers[qi]!==null)return;
+  q.answers[qi]=correct;if(correct)q.score++;
+  btn.classList.add(correct?'correct':'wrong');
+  btn.closest('.quiz-q').querySelectorAll('.opt').forEach(o=>{
+    o.classList.add('locked');
+    if(!correct&&(o.getAttribute('onclick')||'').includes(',true)'))o.classList.add('correct');
+  });
+  const fb=document.getElementById('fb-'+uid+'-'+qi);if(fb)fb.classList.add('open');
+  const answered=q.answers.filter(a=>a!==null).length;
+  document.getElementById('score-'+uid).textContent=q.score+' / '+answered;
+  if(answered===3&&q.score===3&&!q.done){
+    q.done=true;
+    if(uid==='u1'){awardDepth('u1_quiz');unlockU2();}
+    if(uid==='u2'){awardDepth('u2_quiz');showBranch2();}
+  }
+}
+function resetQ(uid){
+  const q=QS[uid];q.answers=[null,null,null];q.score=0;q.done=false;
+  const unit=document.getElementById('unit-'+uid.replace('u',''));
+  if(unit){unit.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong','locked'));unit.querySelectorAll('.quiz-fb').forEach(f=>f.classList.remove('open'));}
+  document.getElementById('score-'+uid).textContent='0 / 3';
+}
+function skipTo(id){
+  const el=document.getElementById(id);if(!el)return;
+  el.closest('.unit').querySelectorAll('.skippable').forEach(s=>s.classList.add('hidden'));
+  setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),50);
+}
+function hintToggle(btn){
+  const body=btn.nextElementSibling;const open=body.classList.contains('open');
+  body.classList.toggle('open',!open);btn.textContent=open?'Hinweis':'Schließen';
+}
+function unlockU2(){
+  const card=document.getElementById('preview-1');
+  card.classList.add('unlocked','just-unlocked');
+  setTimeout(()=>card.classList.remove('just-unlocked'),800);
+  document.getElementById('prev-ey-1').textContent='Jetzt zugänglich';
+  const u2=document.getElementById('unit-2');
+  u2.style.opacity='1';u2.style.pointerEvents='auto';u2.removeAttribute('aria-disabled');
+  setTimeout(()=>u2.scrollIntoView({behavior:'smooth',block:'start'}),700);
+}
+function showBranch2(){
+  document.getElementById('branch-2').classList.add('visible');
+  setTimeout(()=>document.getElementById('branch-2').scrollIntoView({behavior:'smooth',block:'start'}),500);
+}
+function openB(id){
+  if(id==='b-coords'){
+    awardDepth('b_coords');
+    document.getElementById('b-coords').classList.add('open');
+    document.getElementById('bc-coords').classList.add('active');
+    setTimeout(()=>document.getElementById('b-coords').scrollIntoView({behavior:'smooth',block:'start'}),100);
+    return;
+  }
+  if(id==='b-finish'){awardDepth('finish');showCompletion();}
+}
+function showCompletion(){
+  const d=document.getElementById('dval').textContent;
+  const note=document.getElementById('dnote').textContent.replace('— ','');
+  document.getElementById('comp-depth').textContent='Lerntiefe: '+d+' — '+note;
+  document.getElementById('completion').classList.add('visible');
+  document.getElementById('horizon').classList.add('visible');
+  setTimeout(()=>document.getElementById('completion').scrollIntoView({behavior:'smooth',block:'start'}),300);
+}
+window.addEventListener('load',()=>{
+  updatePolar(0);
+  updateCurvature(0);
+  renderDepth();
+  window.addEventListener('resize',()=>{
+    clearTimeout(window._rt);
+    window._rt=setTimeout(()=>{
+      updatePolar(+document.getElementById('phi-slider').value/100);
+      updateCurvature(+document.getElementById('curv-t').value/100);
+    },100);
+  });
+});
+</script>
+</body>
+</html>
