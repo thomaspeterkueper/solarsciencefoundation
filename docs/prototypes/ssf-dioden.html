@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SSF · Warum darf man eine Diode nicht einfach anschließen?</title>
+<style>
+:root {
+  --bg:#F9F8F5; --surface:#F0EFE9; --surface2:#E6E4DC;
+  --border:#D8D6CE; --soft:#E8E6DE;
+  --text:#1A1916; --text-2:#4A4840; --text-3:#8A8880;
+  --navy:#1C2B3A; --navy-2:#2C3F52;
+  --gold:#C9A84C; --gold-bg:#F5F0E0; --gold-b:#DFC87A;
+  --ok-bg:#EEF3EE; --ok-b:#7AAD7A; --ok-t:#2A5C2A;
+  --no-bg:#F5EEEE; --no-b:#C49090; --no-t:#6B2222;
+  --warn-bg:#FFF8E7; --warn-b:#E6C84A; --warn-t:#7A5C00;
+  --r:4px;
+  --serif:Georgia,'Palatino Linotype',serif;
+  --sans:system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'SFMono-Regular','Cascadia Code','Fira Code',monospace;
+  /* Circuit colors */
+  --wire:#1C2B3A; --component:#2C3F52; --current:#C9A84C; --danger:#DC143C;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+
+.site-header{border-bottom:1px solid var(--border);padding:1rem 0;position:sticky;top:0;background:var(--bg);z-index:60}
+.h-inner{max-width:740px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;gap:.875rem}
+.signet{width:24px;height:24px;flex-shrink:0}
+.site-name{font-family:var(--mono);font-size:11px;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase}
+.h-space{flex:1}
+.mod-id{font-family:var(--mono);font-size:10px;color:var(--text-3)}
+
+.depth-wrap{background:var(--bg);border-bottom:1px solid var(--soft);padding:.5rem 0;position:sticky;top:57px;z-index:50}
+.depth-inner{max-width:740px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;gap:.875rem}
+.depth-lbl{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.depth-track{flex:1;height:5px;background:var(--surface2);border-radius:3px;overflow:hidden}
+.depth-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--gold),var(--navy));width:0%;transition:width 1.4s cubic-bezier(.22,1,.36,1)}
+.depth-val{font-family:var(--mono);font-size:11px;color:var(--text-2);min-width:2.5ch;text-align:right}
+.depth-note{font-family:var(--mono);font-size:9.5px;color:var(--text-3);white-space:nowrap}
+@media(max-width:480px){.depth-note{display:none}}
+
+.wrap{max-width:740px;margin:0 auto;padding:0 1.5rem}
+main{padding:0 0 8rem}
+
+.intro{padding:3rem 0 0;margin-bottom:3.5rem}
+.eyebrow{font-family:var(--mono);font-size:10.5px;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem}
+.path-title{font-family:var(--serif);font-size:clamp(24px,4vw,34px);font-weight:normal;color:var(--text);line-height:1.2;letter-spacing:-.015em;margin-bottom:1rem}
+.path-desc{font-size:16px;color:var(--text-2);line-height:1.7;max-width:54ch}
+
+.unit{margin-bottom:1.5rem;scroll-margin-top:115px}
+.unit-hdr{padding:2.5rem 0 0;margin-bottom:2rem;border-top:1px solid var(--border)}
+.unit-idx{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.875rem}
+.unit-q{font-family:var(--serif);font-size:clamp(19px,3vw,26px);font-weight:normal;color:var(--text);line-height:1.25;letter-spacing:-.01em;margin-bottom:1.5rem}
+.sec-lbl{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:1.25rem;display:flex;align-items:center;gap:.75rem}
+.sec-lbl::after{content:'';flex:1;height:1px;background:var(--soft)}
+.section{margin-bottom:2.75rem}
+.hr{border:none;border-top:1px solid var(--soft);margin:2.5rem 0}
+
+.prose{font-family:var(--serif);font-size:17px;line-height:1.82;color:var(--text)}
+.prose p{margin-bottom:1.2rem}
+.prose p:last-child{margin-bottom:0}
+
+.tip{border-bottom:1.5px dashed var(--gold);cursor:help;position:relative}
+.tip-pop{display:none;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;font-family:var(--sans);font-size:13px;line-height:1.5;padding:.75rem 1rem;border-radius:6px;width:260px;z-index:200;pointer-events:none;box-shadow:0 4px 20px rgba(0,0,0,.28)}
+.tip-pop::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:var(--navy)}
+.tip-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#E8D9A8;margin-bottom:.2rem}
+.tip:hover .tip-pop,.tip:focus .tip-pop{display:block}
+
+.obs{background:var(--surface);border-left:3px solid var(--gold);border-radius:0 var(--r) var(--r) 0;padding:1.25rem 1.5rem;margin:1.75rem 0}
+.obs-ey{font-family:var(--mono);font-size:10px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem}
+.obs-txt{font-family:var(--serif);font-size:16.5px;color:var(--text-2);line-height:1.72;font-style:italic}
+
+.warn{background:var(--warn-bg);border-left:3px solid var(--warn-b);border-radius:0 var(--r) var(--r) 0;padding:1rem 1.375rem;margin:1.5rem 0}
+.warn-lbl{font-family:var(--mono);font-size:10px;color:var(--warn-t);letter-spacing:.09em;text-transform:uppercase;margin-bottom:.375rem}
+.warn-txt{font-size:14.5px;color:var(--text-2);line-height:1.65}
+
+.skip-bar{display:flex;align-items:center;gap:.75rem;margin-bottom:2rem;padding:.625rem 1rem;background:var(--surface);border-radius:var(--r);border:1px solid var(--soft)}
+.skip-bar span{font-size:13px;color:var(--text-3);flex:1}
+.skip-btn{font-size:12.5px;color:var(--text-3);background:transparent;border:1px solid var(--border);border-radius:var(--r);padding:4px 12px;cursor:pointer;font-family:var(--sans)}
+.skip-btn:hover{color:var(--text-2);border-color:var(--text-3)}
+.skippable.hidden{display:none}
+
+.info{background:var(--surface);border-radius:var(--r);padding:1.125rem 1.375rem;margin:1.5rem 0;border-left:3px solid var(--navy)}
+.info-lbl{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.09em;text-transform:uppercase;margin-bottom:.5rem}
+.info-txt{font-size:15px;color:var(--text);line-height:1.7}
+
+.exp-card{border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:1.75rem 0}
+.exp-header{background:var(--surface);padding:1rem 1.375rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.875rem}
+.exp-icon{font-size:20px;flex-shrink:0}
+.exp-tag{font-family:var(--mono);font-size:9.5px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.2rem}
+.exp-name{font-family:var(--serif);font-size:16px;color:var(--text)}
+.exp-do{background:#F5F4EE;border-left:3px solid var(--gold);padding:1rem 1.25rem;border-bottom:1px solid var(--soft)}
+.exp-do-lbl{font-family:var(--mono);font-size:9.5px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.375rem}
+.exp-do-txt{font-size:14.5px;color:var(--text-2);line-height:1.65}
+.exp-body{padding:1.375rem}
+.exp-row{display:flex;gap:1.25rem;align-items:flex-start;flex-wrap:wrap}
+.exp-controls{flex:0 0 230px;min-width:200px}
+.exp-visual{flex:1;min-width:200px}
+.slider-group{margin-bottom:1rem}
+.slider-lbl{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.375rem}
+.slider-name{font-family:var(--mono);font-size:10.5px;color:var(--text-3);letter-spacing:.07em;text-transform:uppercase}
+.slider-val{font-family:var(--mono);font-size:13px;color:var(--navy)}
+input[type=range]{width:100%;-webkit-appearance:none;height:5px;background:var(--surface2);border-radius:3px;outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--navy);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--navy);border:none;cursor:pointer}
+
+/* Circuit display */
+.circuit-display{background:#0a1628;border-radius:var(--r);padding:1rem;min-height:140px;position:relative;overflow:hidden}
+.circ-canvas{display:block;width:100%;border-radius:var(--r);background:#0a1628}
+
+/* Results grid */
+.results-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:.75rem}
+.result-box{background:var(--surface);border-radius:var(--r);padding:.625rem .875rem;border:1px solid var(--soft)}
+.result-box.danger{background:var(--no-bg);border-color:var(--no-b)}
+.result-box.ok{background:var(--ok-bg);border-color:var(--ok-b)}
+.result-lbl{font-family:var(--mono);font-size:9.5px;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.25rem}
+.result-val{font-family:var(--mono);font-size:16px;color:var(--navy)}
+.result-val.danger{color:var(--no-t)}
+.result-val.ok{color:var(--ok-t)}
+
+/* Kennlinie canvas */
+.kennlinie-wrap{position:relative;margin-top:.75rem}
+
+.aufgabe{border:1px solid var(--border);border-radius:var(--r);padding:1.125rem 1.375rem;margin-bottom:.875rem}
+.aufg-nr{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5rem}
+.aufg-txt{font-size:15px;color:var(--text);line-height:1.65}
+.hint-btn{margin-top:.75rem;padding:3px 11px;font-size:12px;border:1px solid var(--border);border-radius:var(--r);background:transparent;color:var(--text-3);cursor:pointer;font-family:var(--sans)}
+.hint-body{display:none;font-size:13.5px;color:var(--text-2);line-height:1.65;margin-top:.75rem;padding-top:.75rem;border-top:1px solid var(--soft)}
+.hint-body.open{display:block}
+
+.quiz-q{margin-bottom:1.75rem}
+.quiz-txt{font-family:var(--serif);font-size:16px;color:var(--text);line-height:1.55;margin-bottom:.75rem}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opt{padding:10px 14px;border:1px solid var(--border);border-radius:var(--r);font-size:14px;color:var(--text);background:var(--surface);text-align:left;cursor:pointer;line-height:1.45;transition:border-color .12s,background .12s;font-family:var(--sans)}
+.opt:hover:not(.locked){border-color:var(--navy-2);background:var(--surface2)}
+.opt.correct{border-color:var(--ok-b);background:var(--ok-bg);color:var(--ok-t)}
+.opt.wrong{border-color:var(--no-b);background:var(--no-bg);color:var(--no-t)}
+.opt.locked{cursor:default}
+.quiz-fb{display:none;font-size:13.5px;color:var(--text-2);line-height:1.65;margin-top:.75rem;padding:.75rem 1rem;background:var(--surface);border-radius:var(--r);border:1px solid var(--soft)}
+.quiz-fb.open{display:block}
+.score-row{display:flex;align-items:center;gap:.875rem;flex-wrap:wrap;padding-top:1.375rem;border-top:1px solid var(--border);margin-top:.5rem}
+.score-n{font-family:var(--serif);font-size:26px;color:var(--text);letter-spacing:-.02em}
+.score-lbl{font-size:13px;color:var(--text-3)}
+.reset-btn{margin-left:auto;padding:5px 13px;font-size:12px;border:1px solid var(--border);border-radius:var(--r);background:transparent;color:var(--text-3);cursor:pointer;font-family:var(--sans)}
+
+.branch{margin:2.5rem 0;padding:1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;display:none}
+.branch.visible{display:block}
+.branch-lbl{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:.75rem}
+.branch-lbl::after{content:'';flex:1;height:1px;background:var(--soft)}
+.branch-cards{display:grid;grid-template-columns:1fr 1fr;gap:.875rem;margin-top:.875rem}
+@media(max-width:460px){.branch-cards{grid-template-columns:1fr}}
+.b-card{border:1px solid var(--border);border-radius:var(--r);padding:1rem 1.125rem;cursor:pointer;background:var(--bg);transition:border-color .15s;text-align:left;font-family:var(--sans)}
+.b-card:hover{border-color:var(--navy-2)}
+.b-card.active{border-color:var(--gold);box-shadow:0 0 0 2px rgba(201,168,76,.2)}
+.b-icon{font-size:20px;margin-bottom:.5rem}
+.b-name{font-family:var(--mono);font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--navy);margin-bottom:.375rem}
+.b-desc{font-size:13px;color:var(--text-3);line-height:1.5}
+.b-panel{display:none;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:1.25rem 0}
+.b-panel.open{display:block}
+.b-panel-hdr{padding:1rem 1.375rem;background:var(--gold-bg);border-bottom:1px solid var(--gold-b);display:flex;align-items:center;gap:.75rem}
+.b-panel-tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;padding:2px 7px;border-radius:3px;background:#E8D9A8;color:var(--navy)}
+.b-panel-title{font-family:var(--serif);font-size:16px;color:var(--text)}
+.b-panel-body{padding:1.375rem;background:var(--bg)}
+
+.preview-card{margin:2.5rem 0;border-radius:6px;border:1px solid var(--border);overflow:hidden;position:relative;transition:border-color .4s}
+.preview-card.unlocked{border-color:var(--gold-b)}
+.prev-hdr{padding:1.25rem 1.5rem;background:var(--surface);display:flex;align-items:flex-start;gap:1rem;border-bottom:1px solid var(--border);transition:background .4s}
+.preview-card.unlocked .prev-hdr{background:var(--gold-bg);border-bottom-color:var(--gold-b)}
+.prev-icon{width:36px;height:36px;border-radius:50%;background:var(--surface2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:17px}
+.prev-meta{flex:1}
+.prev-ey{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.375rem;transition:color .4s}
+.preview-card.unlocked .prev-ey{color:var(--gold)}
+.prev-title{font-family:var(--serif);font-size:17px;color:var(--text);line-height:1.3;transition:filter .4s}
+.preview-card:not(.unlocked) .prev-title{filter:blur(2.5px);user-select:none}
+.prev-body{padding:1.125rem 1.5rem;position:relative}
+.prev-teaser{font-size:14px;color:var(--text-2);line-height:1.65;transition:filter .4s}
+.preview-card:not(.unlocked) .prev-teaser{filter:blur(3px);color:#AAA;user-select:none}
+.prev-keys{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.875rem;transition:filter .4s}
+.preview-card:not(.unlocked) .prev-keys{filter:blur(3px);pointer-events:none}
+.pkey{font-family:var(--mono);font-size:11px;color:var(--navy);background:var(--gold-bg);border:1px solid var(--gold-b);padding:3px 9px;border-radius:var(--r)}
+.lock-ov{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;background:rgba(249,248,245,.55);backdrop-filter:blur(1px);transition:opacity .4s;pointer-events:none}
+.preview-card.unlocked .lock-ov{opacity:0}
+.lock-ico{font-size:22px}
+.lock-txt{font-family:var(--mono);font-size:11px;color:var(--text-3);letter-spacing:.07em;text-transform:uppercase}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(201,168,76,.5)}70%{box-shadow:0 0 0 12px rgba(201,168,76,0)}100%{box-shadow:0 0 0 0 rgba(201,168,76,0)}}
+.just-unlocked{animation:pulse .7s ease-out}
+
+.completion{display:none;background:var(--gold-bg);border:1px solid var(--gold-b);border-radius:8px;padding:2.25rem 1.5rem;text-align:center;margin:3rem 0}
+.completion.visible{display:block}
+.comp-title{font-family:var(--serif);font-size:22px;color:var(--navy);margin-bottom:.5rem}
+.comp-sub{font-size:14px;color:var(--text-2);line-height:1.65;margin-bottom:1.25rem;max-width:48ch;margin-left:auto;margin-right:auto}
+.comp-keys{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.25rem}
+.comp-depth{font-family:var(--mono);font-size:11px;color:var(--text-3)}
+.horizon{display:none;margin:1.5rem 0 6rem;padding:1.25rem 1.5rem;border-top:1px solid var(--soft)}
+.horizon.visible{display:block}
+.horizon-txt{font-family:var(--serif);font-size:15.5px;color:var(--text-3);line-height:1.8;font-style:italic;max-width:52ch;margin-bottom:1.25rem}
+
+@media(max-width:580px){.prose{font-size:16px}.path-title{font-size:22px}.unit-q{font-size:18px}.exp-row{flex-direction:column}.exp-controls{flex:none;width:100%}.results-grid{grid-template-columns:1fr}}
+:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="h-inner">
+    <svg class="signet" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+      <circle cx="13" cy="13" r="12" stroke="#1C2B3A" stroke-width="1.1" fill="none"/>
+      <circle cx="13" cy="13" r="3.5" fill="#C9A84C"/>
+      <ellipse cx="13" cy="13" rx="10" ry="4" stroke="#1C2B3A" stroke-width=".7" fill="none" transform="rotate(-25 13 13)"/>
+      <ellipse cx="13" cy="13" rx="10" ry="4" stroke="#1C2B3A" stroke-width=".7" fill="none" transform="rotate(25 13 13)"/>
+    </svg>
+    <span class="site-name">Solar Science Foundation</span>
+    <div class="h-space"></div>
+    <span class="mod-id">LRN:SSF:EL-1101</span>
+  </div>
+</header>
+
+<div class="depth-wrap">
+  <div class="depth-inner">
+    <span class="depth-lbl">Tiefe</span>
+    <div class="depth-track"><div class="depth-fill" id="dfill"></div></div>
+    <span class="depth-val" id="dval">0</span>
+    <span class="depth-note" id="dnote">— Beginn</span>
+  </div>
+</div>
+
+<main><div class="wrap">
+
+<div class="intro">
+  <div class="eyebrow">Lernpfad · Elektronik</div>
+  <h1 class="path-title">Warum darf man eine Diode nicht einfach anschließen?</h1>
+  <p class="path-desc">Eine Diode lässt Strom nur in eine Richtung durch — das klingt einfach. Aber was passiert wenn man sie falsch anschließt? Zwei Einheiten: die Diodenkennlinie, und warum der Arbeitspunkt entscheidet was wirklich passiert.</p>
+</div>
+
+<!-- ═══════════════════════════════
+     EINHEIT 1: KENNLINIE & SCHLEUSENSPANNUNG
+═══════════════════════════════ -->
+<div class="unit" id="unit-1">
+  <div class="unit-hdr">
+    <div class="unit-idx">Einheit 1 von 2</div>
+    <h2 class="unit-q">Was passiert, wenn man eine Diode direkt an eine Batterie hängt?</h2>
+  </div>
+
+  <div class="skip-bar">
+    <span>Beispiele und Aufgaben sind optional.</span>
+    <button class="skip-btn" onclick="skipTo('quiz-1')">Direkt zum Quiz →</button>
+  </div>
+
+  <div class="section skippable" id="bsp-1">
+    <div class="sec-lbl">Beobachtung</div>
+
+    <div class="obs">
+      <div class="obs-ey">Alltagsbeobachtung</div>
+      <div class="obs-txt">In fast jedem elektronischen Gerät — Fernbedienung, Ladegerät, LED-Lampe — stecken Dioden. Sie sind winzig, kosten Cent, und schützen vor falscher Polung oder regeln den Stromfluss. Aber direktes Anschließen an eine Spannungsquelle ohne weiteres Bauteil kann sie sofort zerstören. Warum?</div>
+    </div>
+
+    <div class="prose">
+      <p>Eine Diode ist ein <span class="tip">Halbleiterbauteil<span class="tip-pop"><span class="tip-lbl">Halbleiter</span>Materialien (meist Silizium) deren elektrische Leitfähigkeit zwischen Leitern und Isolatoren liegt und gezielt durch Dotierung eingestellt werden kann. Eine Diode besteht aus einer p-dotierten und einer n-dotierten Schicht — an der Grenzfläche entsteht die charakteristische Einwegwirkung.</span></span> das Strom bevorzugt in eine Richtung durchlässt. In Sperrrichtung (Kathode an Plus) fließt nahezu kein Strom. In Durchlassrichtung fließt Strom — aber erst ab einer bestimmten Spannung: der Schleusenspannung U_S.</p>
+      <p>Für Silizium-Dioden liegt U_S ≈ 0,7 V. Darunter: gesperrt. Darüber: die Diode leitet — und zwar mit sehr geringem Widerstand. Das ist das Problem: Wenn man 5 V direkt anlegt, begrenzt nichts den Strom außer dem winzigen Bahnwiderstand r_D der Diode. Der Strom wird riesig — und zerstört die Diode.</p>
+    </div>
+
+    <div class="warn">
+      <div class="warn-lbl">⚠ Wichtig</div>
+      <div class="warn-txt">Eine Diode wird nie ohne strombegrenzendes Element (Vorwiderstand) direkt an eine Spannungsquelle angeschlossen. Der Strom ohne Vorwiderstand: I ≈ (U_q − U_S) / r_D. Bei r_D = 20 Ω und U_q = 5 V wären das 215 mA — weit über dem zulässigen Dauerstrom.</div>
+    </div>
+
+    <!-- EXPERIMENT 1: Kennlinie interaktiv -->
+    <div class="exp-card">
+      <div class="exp-header">
+        <div class="exp-icon">📈</div>
+        <div>
+          <div class="exp-tag">Experiment 1</div>
+          <div class="exp-name">Diodenkennlinie — live</div>
+        </div>
+      </div>
+      <div class="exp-do">
+        <div class="exp-do-lbl">Selbst beobachten</div>
+        <div class="exp-do-txt">Nimm eine LED und eine Batterie. Halte kurz (!) den Pluspol der Batterie an die Anode der LED — sie leuchtet. Drehe die Batterie um — sie leuchtet nicht. Das ist die Einwegwirkung sichtbar. Jetzt stell dir vor, du legst direkt 5 V an ohne Widerstand — die LED würde sofort durchbrennen.</div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-row">
+          <div class="exp-controls">
+            <div class="slider-group">
+              <div class="slider-lbl">
+                <span class="slider-name">Schleusenspannung U_S</span>
+                <span class="slider-val" id="us-val">0.7 V</span>
+              </div>
+              <input type="range" id="us-slider" min="0.3" max="1.2" value="0.7" step="0.05" oninput="updateKennlinie()">
+            </div>
+            <div class="slider-group">
+              <div class="slider-lbl">
+                <span class="slider-name">Bahnwiderstand r_D</span>
+                <span class="slider-val" id="rd-val">20 Ω</span>
+              </div>
+              <input type="range" id="rd-slider" min="5" max="100" value="20" oninput="updateKennlinie()">
+            </div>
+            <div style="margin-top:1rem;background:var(--surface);border-radius:var(--r);padding:.875rem">
+              <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5rem">Dioden-Typ</div>
+              <div id="diode-type" style="font-family:var(--serif);font-size:16px;color:var(--navy);margin-bottom:.25rem">Silizium</div>
+              <div id="diode-note" style="font-size:12.5px;color:var(--text-3);line-height:1.5">Standard-Silizium-Diode (1N4148 o.ä.)</div>
+            </div>
+          </div>
+          <div class="exp-visual">
+            <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5rem">Kennlinie I_D(U_D)</div>
+            <canvas id="kennlinie-canvas" style="width:100%;border-radius:var(--r);background:#F9F8F5;border:1px solid var(--border);display:block" height="200"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="hr">
+
+    <div class="section skippable" id="aufg-1">
+      <div class="sec-lbl">Aufgaben</div>
+      <div class="aufgabe">
+        <div class="aufg-nr">Aufgabe 1</div>
+        <div class="aufg-txt">Eine ideale Spannungsquelle U_q = 5 V wird direkt an eine Diode (U_S = 0,7 V, r_D = 20 Ω) angeschlossen. Berechne den Diodenstrom I_D. Warum ist das problematisch?</div>
+        <button class="hint-btn" onclick="hintToggle(this)">Hinweis</button>
+        <div class="hint-body">I_D = (U_q − U_S) / r_D = (5 − 0,7) / 20 = 4,3/20 = 215 mA. Eine typische 1N4148-Diode ist für maximal 200 mA ausgelegt — dieser Strom liegt genau an der Grenze, bei einer idealen Quelle sogar darüber. Ohne Strombegrenzung kommt es zur thermischen Zerstörung.</div>
+      </div>
+      <div class="aufgabe">
+        <div class="aufg-nr">Aufgabe 2</div>
+        <div class="aufg-txt">Was ist der Unterschied zwischen der idealen Diode und dem Schleusenspannungsmodell? Wann benutzt man welches Modell?</div>
+        <button class="hint-btn" onclick="hintToggle(this)">Hinweis</button>
+        <div class="hint-body">Ideale Diode: Kurzschluss für U_D ≥ 0, Leerlauf für U_D < 0. Kein U_S, kein r_D. Nützlich für schnelle Überschlagsrechnungen und wenn U_q ≫ U_S. Schleusenmodell: U_D = U_S + r_D · I_D im Durchlass. Realistischer, nötig wenn U_q in der Größenordnung von U_S liegt (z.B. bei Batterieschaltungen mit 1,5 V).</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="hr">
+
+  <div class="section" id="quiz-1">
+    <div class="sec-lbl">Quiz · Einheit 1</div>
+
+    <div class="quiz-q">
+      <div class="quiz-txt">Warum darf eine Diode nicht ohne Vorwiderstand direkt an eine Spannungsquelle angeschlossen werden?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,'u1',0,false)">Weil die Diode sonst in Sperrrichtung betrieben wird.</button>
+        <button class="opt" onclick="ans(this,'u1',0,false)">Weil die Schleusenspannung zu hoch wird.</button>
+        <button class="opt" onclick="ans(this,'u1',0,true)">Im Durchlass verhält sich die Diode nahezu wie ein Kurzschluss. Ohne Strombegrenzung wird der Strom nur durch den kleinen Bahnwiderstand r_D begrenzt — der resultierende Strom zerstört die Diode.</button>
+        <button class="opt" onclick="ans(this,'u1',0,false)">Weil sonst kein Strom fließt — die Diode braucht den Widerstand zum Arbeiten.</button>
+      </div>
+      <div class="quiz-fb" id="fb-u1-0">I ≈ (U_q − U_S)/r_D. Bei U_q = 5 V, U_S = 0,7 V, r_D = 20 Ω ergibt das 215 mA — mehr als viele Dioden dauerhaft vertragen. Der Vorwiderstand R_V übernimmt die Strombegrenzung: I = (U_q − U_S)/R_V (für r_D ≪ R_V).</div>
+    </div>
+
+    <div class="quiz-q">
+      <div class="quiz-txt">Was beschreibt die Schleusenspannung U_S einer Diode?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,'u1',1,false)">Die maximale Spannung die die Diode verträgt.</button>
+        <button class="opt" onclick="ans(this,'u1',1,true)">Die Mindestspannung in Durchlassrichtung ab der die Diode merklich leitet — darunter fließt (nahezu) kein Strom.</button>
+        <button class="opt" onclick="ans(this,'u1',1,false)">Die Spannung bei der die Diode in Sperrrichtung leitend wird (Zener-Effekt).</button>
+        <button class="opt" onclick="ans(this,'u1',1,false)">Die Spannung die über dem Vorwiderstand abfällt.</button>
+      </div>
+      <div class="quiz-fb" id="fb-u1-1">Für Silizium-Dioden: U_S ≈ 0,7 V. Darunter: Diode gesperrt. Darüber: Diode leitet — und die Spannung über der Diode bleibt näherungsweise konstant bei U_S (das ist das Schleusenmodell). Deshalb kann man im Durchlass U_D ≈ U_S setzen und daraus I_D berechnen.</div>
+    </div>
+
+    <div class="quiz-q">
+      <div class="quiz-txt">Was gibt die Steigung 1/r_D in der Diodenkennlinie an?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,'u1',2,false)">Den Sperrstrom in Rückwärtsrichtung.</button>
+        <button class="opt" onclick="ans(this,'u1',2,false)">Den Strom bei Schleusenspannung.</button>
+        <button class="opt" onclick="ans(this,'u1',2,true)">Wie stark der Strom steigt wenn die Spannung über U_S hinaus weiter zunimmt — kleines r_D bedeutet steile Kennlinie (viel Strom pro Volt).</button>
+        <button class="opt" onclick="ans(this,'u1',2,false)">Die Kapazität der Diode im Sperrbereich.</button>
+      </div>
+      <div class="quiz-fb" id="fb-u1-2">r_D = dU/dI ist der differentielle Widerstand — die Ableitung der Kennlinie. Kleines r_D (z.B. 5 Ω) → steile Kennlinie → Diode verhält sich fast wie eine ideale Spannungsquelle mit U_S. Großes r_D (z.B. 100 Ω) → flachere Kennlinie → mehr Spannungsabfall bei höherem Strom.</div>
+    </div>
+
+    <div class="score-row">
+      <span class="score-n" id="score-u1">0 / 3</span>
+      <span class="score-lbl">korrekt</span>
+      <button class="reset-btn" onclick="resetQ('u1')">Neu</button>
+    </div>
+  </div>
+
+  <div class="preview-card" id="preview-1">
+    <div class="prev-hdr">
+      <div class="prev-icon">⚡</div>
+      <div class="prev-meta">
+        <div class="prev-ey" id="prev-ey-1">Einheit 2 — noch gesperrt</div>
+        <div class="prev-title">Arbeitspunkt und Lastgerade — wo trifft die Schaltung die Diode?</div>
+      </div>
+    </div>
+    <div class="prev-body">
+      <div class="prev-teaser">Die Kennlinie zeigt was die Diode kann. Die Lastgerade zeigt was die Schaltung verlangt. Der Arbeitspunkt ist der Schnittpunkt — und dort arbeitet die Diode wirklich. Wenn man einen Parallelwiderstand dazuschaltet, wandert der Arbeitspunkt. Das sieht man live.</div>
+      <div class="prev-keys">
+        <span class="pkey">CIRCUIT:DIODE</span>
+        <span class="pkey">SENSOR:CURRENT</span>
+      </div>
+      <div class="lock-ov" id="lock-1">
+        <div class="lock-ico">🔒</div>
+        <div class="lock-txt">Quiz abschließen</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /unit-1 -->
+
+<!-- ═══════════════════════════════
+     EINHEIT 2: ARBEITSPUNKT & LASTGERADE
+═══════════════════════════════ -->
+<div class="unit" id="unit-2" style="opacity:.3;pointer-events:none;transition:opacity .6s" aria-disabled="true">
+  <div class="unit-hdr">
+    <div class="unit-idx">Einheit 2 von 2</div>
+    <h2 class="unit-q">Wo arbeitet die Diode wirklich — und was ändert ein Parallelwiderstand?</h2>
+  </div>
+
+  <div class="skip-bar">
+    <span>Aufgaben sind optional.</span>
+    <button class="skip-btn" onclick="skipTo('quiz-2')">Direkt zum Quiz →</button>
+  </div>
+
+  <div class="section skippable" id="bsp-2">
+    <div class="sec-lbl">Erklärung</div>
+    <div class="prose">
+      <p>Die Diodenkennlinie zeigt was die Diode erlaubt. Die Schaltung stellt aber eine eigene Bedingung — die <span class="tip">Lastgerade<span class="tip-pop"><span class="tip-lbl">Lastgerade</span>Die Lastgerade beschreibt alle I-U-Kombinationen die eine Schaltung liefern kann: I_D = (U_q − U_D)/R_V. Sie verläuft von (U_D = 0; I_D = U_q/R_V) bis (U_D = U_q; I_D = 0). Der Schnittpunkt mit der Diodenkennlinie ist der Arbeitspunkt — dort erfüllt die Diode genau das, was die Schaltung verlangt.</span></span>. Der Schnittpunkt von Kennlinie und Lastgerade ist der Arbeitspunkt — er sagt: bei dieser Spannung und diesem Strom läuft die Schaltung.</p>
+      <p>Wenn man einen Widerstand parallel zur Diode schaltet, ändert sich der Strom durch die Diode — aber die Diodenspannung bleibt bei U_S, solange die Diode leitet. Der Parallelwiderstand übernimmt einen Teil des Stroms.</p>
+    </div>
+
+    <!-- EXPERIMENT 2: Arbeitspunkt & Lastgerade -->
+    <div class="exp-card">
+      <div class="exp-header">
+        <div class="exp-icon">⚡</div>
+        <div>
+          <div class="exp-tag">Experiment 2</div>
+          <div class="exp-name">Lastgerade & Arbeitspunkt</div>
+        </div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-row">
+          <div class="exp-controls">
+            <div class="slider-group">
+              <div class="slider-lbl">
+                <span class="slider-name">Quellspannung U_q</span>
+                <span class="slider-val" id="uq-val">5.0 V</span>
+              </div>
+              <input type="range" id="uq-slider" min="1" max="12" value="5" step="0.5" oninput="updateArbeitspunkt()">
+            </div>
+            <div class="slider-group">
+              <div class="slider-lbl">
+                <span class="slider-name">Vorwiderstand R_V</span>
+                <span class="slider-val" id="rv-val">430 Ω</span>
+              </div>
+              <input type="range" id="rv-slider" min="50" max="2000" value="430" step="10" oninput="updateArbeitspunkt()">
+            </div>
+            <div class="slider-group">
+              <div class="slider-lbl">
+                <span class="slider-name">Parallelwiderstand R_P</span>
+                <span class="slider-val" id="rp-val">aus</span>
+              </div>
+              <input type="range" id="rp-slider" min="0" max="500" value="0" step="10" oninput="updateArbeitspunkt()">
+              <div style="font-size:11px;color:var(--text-3);margin-top:.25rem">0 = Schalter offen</div>
+            </div>
+          </div>
+          <div class="exp-visual">
+            <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5rem">Kennlinie + Lastgerade + Arbeitspunkt</div>
+            <canvas id="arbeitspunkt-canvas" style="width:100%;border-radius:var(--r);background:#F9F8F5;border:1px solid var(--border);display:block" height="220"></canvas>
+            <div class="results-grid" style="margin-top:.625rem">
+              <div class="result-box" id="box-id">
+                <div class="result-lbl">I_D (Diode)</div>
+                <div class="result-val" id="res-id">10.0 mA</div>
+              </div>
+              <div class="result-box" id="box-ud">
+                <div class="result-lbl">U_D</div>
+                <div class="result-val" id="res-ud">0.7 V</div>
+              </div>
+              <div class="result-box" id="box-irv">
+                <div class="result-lbl">I_RV (gesamt)</div>
+                <div class="result-val" id="res-irv">10.0 mA</div>
+              </div>
+              <div class="result-box" id="box-irp">
+                <div class="result-lbl">I_RP (Parallel)</div>
+                <div class="result-val" id="res-irp">— (offen)</div>
+              </div>
+            </div>
+            <div id="ap-note" style="margin-top:.625rem;font-size:12.5px;color:var(--text-3);line-height:1.5"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Branch: Modell-Vertiefung -->
+    <div class="branch visible" id="branch-model" style="display:block">
+      <div class="branch-lbl">Seitenast — optional</div>
+      <div style="font-family:var(--serif);font-size:17px;color:var(--text);margin-bottom:.5rem">Warum bleibt U_D bei U_S, auch mit Parallelwiderstand?</div>
+      <div class="branch-cards">
+        <button class="b-card" onclick="openB('b-model')" id="bc-model">
+          <div class="b-icon">🔬</div>
+          <div class="b-name">Modell-Erklärung</div>
+          <div class="b-desc">Die Annahme U_D = U_S im Durchlass — wann sie gilt und wann sie bricht.</div>
+        </button>
+        <button class="b-card" onclick="document.getElementById('branch-model').style.display='none'">
+          <div class="b-icon">→</div>
+          <div class="b-name" style="color:var(--text-3)">Weiter</div>
+          <div class="b-desc">Direkt zu Aufgaben und Quiz.</div>
+        </button>
+      </div>
+    </div>
+
+    <div class="b-panel" id="b-model">
+      <div class="b-panel-hdr">
+        <span class="b-panel-tag">Seitenast · Modell</span>
+        <span class="b-panel-title">Warum U_D ≈ U_S im Durchlass?</span>
+      </div>
+      <div class="b-panel-body">
+        <div class="prose">
+          <p>Die Diodenkennlinie ist im Durchlass sehr steil (kleines r_D). Das bedeutet: Selbst wenn der Strom stark variiert, ändert sich U_D nur wenig. Das ist wie eine Spannungsquelle — sie hält ihre Spannung, egal wie viel Strom entnommen wird.</p>
+          <p>Im Schleusenmodell vereinfacht man das: U_D = U_S = const für alle Ströme im Durchlass. Das stimmt nicht exakt, ist aber für die meisten Berechnungen gut genug — der Fehler ist typischerweise kleiner als die Toleranz der Bauteile selbst.</p>
+          <p>Wenn man R_P parallel schaltet: Der Strom I_RV (durch R_V) teilt sich am Knoten auf: I_RV = I_D + I_RP. Da U_D ≈ U_S fest ist, ist I_RP = U_S/R_P ebenfalls fest. Der Diodenstrom sinkt auf I_D = I_RV − I_RP. Solange I_D > 0 bleibt, leitet die Diode — die Annahme ist konsistent.</p>
+        </div>
+        <div class="info" style="margin-top:1.25rem">
+          <div class="info-lbl">Wann bricht das Modell?</div>
+          <div class="info-txt">Wenn R_P sehr klein wird (wenige Ohm), kann I_RP > I_RV werden — das würde I_D negativ ergeben, was physikalisch unmöglich ist. In diesem Fall sperrt die Diode, und man muss die Schaltung neu berechnen. Das Schleusenmodell muss immer auf Konsistenz geprüft werden.</div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="hr">
+
+    <div class="section skippable" id="aufg-2">
+      <div class="sec-lbl">Aufgaben</div>
+      <div class="aufgabe">
+        <div class="aufg-nr">Aufgabe 1</div>
+        <div class="aufg-txt">Schaltung: U_q = 5 V, R_V = 430 Ω, U_S = 0,7 V. Berechne I_D, U_D und U_RV.</div>
+        <button class="hint-btn" onclick="hintToggle(this)">Hinweis</button>
+        <div class="hint-body">Im Durchlass gilt U_D = U_S = 0,7 V. Maschengleichung: U_q = I_D · R_V + U_D → I_D = (5 − 0,7)/430 = 4,3/430 = 10 mA. U_RV = I_D · R_V = 10 mA · 430 Ω = 4,3 V. Kontrolle: 4,3 + 0,7 = 5 V ✓</div>
+      </div>
+      <div class="aufgabe">
+        <div class="aufg-nr">Aufgabe 2</div>
+        <div class="aufg-txt">Zur Schaltung aus Aufgabe 1 wird R_P = 100 Ω parallel zur Diode geschaltet. Bestimme I_RV, I_RP und I_D. Bleibt die Diode leitend?</div>
+        <button class="hint-btn" onclick="hintToggle(this)">Hinweis</button>
+        <div class="hint-body">U_D = 0,7 V (Annahme: Diode leitet). I_RP = 0,7/100 = 7 mA. I_RV = (5 − 0,7)/430 = 10 mA. Knotenregel: I_D = I_RV − I_RP = 10 − 7 = 3 mA > 0. Diode leitet → Annahme konsistent ✓. Der Parallelwiderstand entlastet die Diode von 10 mA auf 3 mA, die Knotenspannung bleibt aber bei 0,7 V.</div>
+      </div>
+    </div>
+
+    <hr class="hr">
+
+    <div class="section" id="quiz-2">
+      <div class="sec-lbl">Quiz · Einheit 2</div>
+
+      <div class="quiz-q">
+        <div class="quiz-txt">Was ist der Arbeitspunkt einer Diodenschaltung?</div>
+        <div class="opts">
+          <button class="opt" onclick="ans(this,'u2',0,false)">Der Punkt bei dem die Diode gerade zu sperren beginnt.</button>
+          <button class="opt" onclick="ans(this,'u2',0,true)">Der Schnittpunkt von Diodenkennlinie und Lastgerade — dort erfüllt die Diode genau die Bedingung der Schaltung.</button>
+          <button class="opt" onclick="ans(this,'u2',0,false)">Der maximale Betriebsstrom der Diode.</button>
+          <button class="opt" onclick="ans(this,'u2',0,false)">Die Schleusenspannung U_S.</button>
+        </div>
+        <div class="quiz-fb" id="fb-u2-0">Kennlinie: Was die Diode erlaubt (I_D als Funktion von U_D). Lastgerade: Was die Schaltung verlangt (I_D = (U_q − U_D)/R_V). Der Schnittpunkt: wo beides gleichzeitig gilt. Das ist der einzige stabile Betriebspunkt der Schaltung.</div>
+      </div>
+
+      <div class="quiz-q">
+        <div class="quiz-txt">Ein Parallelwiderstand R_P wird zur Diode in Durchlassrichtung geschaltet. Was ändert sich?</div>
+        <div class="opts">
+          <button class="opt" onclick="ans(this,'u2',1,false)">Die Diodenspannung U_D steigt auf U_q.</button>
+          <button class="opt" onclick="ans(this,'u2',1,false)">Der Gesamtstrom I_RV sinkt, weil R_P den Strom blockiert.</button>
+          <button class="opt" onclick="ans(this,'u2',1,true)">U_D bleibt bei U_S — aber I_RV steigt leicht, I_D sinkt weil R_P einen Teil des Stroms übernimmt.</button>
+          <button class="opt" onclick="ans(this,'u2',1,false)">Die Diode sperrt, weil der Parallelwiderstand den Strom kurzschließt.</button>
+        </div>
+        <div class="quiz-fb" id="fb-u2-1">U_D = U_S = 0,7 V bleibt konstant (Diode klemmt die Spannung). I_RP = U_S/R_P ist fest. I_RV = (U_q − U_S)/R_V ebenfalls unverändert. I_D = I_RV − I_RP sinkt. Der Parallelwiderstand entlastet die Diode elektrisch — aber U_D ändert sich nicht.</div>
+      </div>
+
+      <div class="quiz-q">
+        <div class="quiz-txt">Wie berechnet man die Lastgerade für eine Schaltung mit U_q und R_V?</div>
+        <div class="opts">
+          <button class="opt" onclick="ans(this,'u2',2,false)">I_D = U_q / R_V für alle U_D.</button>
+          <button class="opt" onclick="ans(this,'u2',2,true)">I_D = (U_q − U_D) / R_V — eine Gerade von (U_D=0, I_D=U_q/R_V) bis (U_D=U_q, I_D=0).</button>
+          <button class="opt" onclick="ans(this,'u2',2,false)">I_D = U_D / R_V.</button>
+          <button class="opt" onclick="ans(this,'u2',2,false)">I_D = (U_S − U_D) / R_V.</button>
+        </div>
+        <div class="quiz-fb" id="fb-u2-2">Maschengleichung: U_q = U_D + I_D · R_V → I_D = (U_q − U_D)/R_V. Das ist eine Gerade mit Steigung −1/R_V. Endpunkte: Bei U_D = 0 (Kurzschluss) ist I_D = U_q/R_V. Bei I_D = 0 (Leerlauf) ist U_D = U_q. Schnittpunkt mit der Kennlinie → Arbeitspunkt.</div>
+      </div>
+
+      <div class="score-row">
+        <span class="score-n" id="score-u2">0 / 3</span>
+        <span class="score-lbl">korrekt</span>
+        <button class="reset-btn" onclick="resetQ('u2')">Neu</button>
+      </div>
+    </div>
+
+    <div class="branch" id="branch-2">
+      <div class="branch-lbl">Weiter</div>
+      <div style="font-family:var(--serif);font-size:18px;color:var(--text);margin-bottom:.5rem">Wie weiter?</div>
+      <div class="branch-cards">
+        <button class="b-card" onclick="openB('b-opv')">
+          <div class="b-icon">📡</div>
+          <div class="b-name">Operationsverstärker</div>
+          <div class="b-desc">Wie verstärkt man ein Signal präzise — und was bedeutet Superposition bei AC und DC gleichzeitig?</div>
+        </button>
+        <button class="b-card" onclick="openB('b2-finish')">
+          <div class="b-icon">✓</div>
+          <div class="b-name" style="color:var(--text-3)">Abschließen</div>
+          <div class="b-desc">Pfad abschließen und NOXIA-Schlüssel freischalten.</div>
+        </button>
+      </div>
+    </div>
+
+  </div><!-- /unit-2 -->
+
+  <div class="completion" id="completion">
+    <div class="comp-title">Lernpfad abgeschlossen</div>
+    <div class="comp-sub">Diode, Schleusenspannung, Lastgerade, Arbeitspunkt — die Grundbausteine jeder Schaltungsanalyse. Folgendes wurde in NOXIA freigeschaltet:</div>
+    <div class="comp-keys">
+      <span class="pkey">CIRCUIT:DIODE</span>
+      <span class="pkey">SENSOR:CURRENT</span>
+    </div>
+    <div class="comp-depth" id="comp-depth">Lerntiefe: —</div>
+  </div>
+
+  <div class="horizon" id="horizon">
+    <div class="horizon-txt">Der nächste Horizont: Operationsverstärker — wie kann eine Schaltung ein Signal um den Faktor 100 verstärken, ohne es zu verzerren? Und was passiert wenn gleichzeitig AC und DC anliegen?</div>
+  </div>
+
+</div><!-- /main wrap -->
+</main>
+
+<script>
+// ═══ DEPTH ═══
+let depthRaw=0;
+const depthPoints={u1_quiz:15,u2_quiz:18,kennlinie_interact:4,ap_interact:5,b_model:8,finish:5};
+const depthGiven={};
+function awardDepth(k){if(depthGiven[k])return;depthGiven[k]=true;depthRaw+=depthPoints[k]||0;renderDepth();}
+function renderDepth(){
+  const d=Math.round(100*(1-1/(1+depthRaw/26)));
+  document.getElementById('dfill').style.width=d+'%';
+  document.getElementById('dval').textContent=d;
+  const labels=[[10,'Beginn'],[22,'Einstieg'],[38,'Orientierung'],[52,'Grundlagen'],[65,'Mechanismus'],[76,'Theorie'],[87,'Forschungsnähe'],[100,'Forschungsrand']];
+  for(const [t,l] of [...labels].reverse()){if(d>=t){document.getElementById('dnote').textContent='— '+l;break;}}
+}
+
+// ═══ KENNLINIE ═══
+function updateKennlinie(){
+  awardDepth('kennlinie_interact');
+  const US=+document.getElementById('us-slider').value;
+  const rD=+document.getElementById('rd-slider').value;
+  document.getElementById('us-val').textContent=US.toFixed(2)+' V';
+  document.getElementById('rd-val').textContent=rD+' Ω';
+
+  // Diode type note
+  let dtype,dnote;
+  if(US<0.4){dtype='Germanium';dnote='Germanium-Diode (AA118 o.ä.) — niedrige US, schnell';}
+  else if(US<0.75){dtype='Silizium';dnote='Standard-Silizium-Diode (1N4148) — Standardfall';}
+  else if(US<0.9){dtype='Schottky';dnote='Schottky-Diode — höhere US, aber schnell schaltend';}
+  else{dtype='LED';dnote='LED (rot/grün) — hohe US, Licht bei Durchlass';}
+  document.getElementById('diode-type').textContent=dtype;
+  document.getElementById('diode-note').textContent=dnote;
+
+  drawKennlinie(US,rD);
+}
+
+function drawKennlinie(US,rD){
+  const canvas=document.getElementById('kennlinie-canvas');
+  const dpr=window.devicePixelRatio||1;
+  canvas.width=canvas.offsetWidth*dpr;
+  canvas.height=200*dpr;
+  const ctx=canvas.getContext('2d');
+  ctx.scale(dpr,dpr);
+  const W=canvas.offsetWidth,H=200;
+  const PAD={t:20,r:20,b:30,l:48};
+  const PW=W-PAD.l-PAD.r,PH=H-PAD.t-PAD.b;
+
+  // Ranges
+  const maxUD=1.5,maxID=20; // mA
+
+  function toX(ud){return PAD.l+ud/maxUD*PW;}
+  function toY(id){return PAD.t+PH-(id/maxID*PH);}
+
+  // Grid
+  ctx.strokeStyle='#E8E6DE';ctx.lineWidth=1;
+  for(let u=0;u<=1.5;u+=0.5){ctx.beginPath();ctx.moveTo(toX(u),PAD.t);ctx.lineTo(toX(u),PAD.t+PH);ctx.stroke();}
+  for(let i=0;i<=20;i+=5){ctx.beginPath();ctx.moveTo(PAD.l,toY(i));ctx.lineTo(PAD.l+PW,toY(i));ctx.stroke();}
+
+  // Axes
+  ctx.strokeStyle='#8A8880';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(PAD.l,PAD.t);ctx.lineTo(PAD.l,PAD.t+PH);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(PAD.l,PAD.t+PH);ctx.lineTo(PAD.l+PW,PAD.t+PH);ctx.stroke();
+
+  // Labels
+  ctx.fillStyle='#8A8880';ctx.font='9px monospace';ctx.textAlign='right';
+  for(let i=0;i<=20;i+=5){ctx.fillText(i,PAD.l-4,toY(i)+3);}
+  ctx.textAlign='center';
+  for(let u=0;u<=1.5;u+=0.5){ctx.fillText(u.toFixed(1),toX(u),PAD.t+PH+14);}
+  ctx.fillText('U_D / V',PAD.l+PW/2,H-4);
+  ctx.save();ctx.translate(10,PAD.t+PH/2);ctx.rotate(-Math.PI/2);ctx.fillText('I_D / mA',0,0);ctx.restore();
+
+  // Ideal diode (grey dashed)
+  ctx.strokeStyle='#C0BEBA';ctx.lineWidth=1.5;ctx.setLineDash([4,3]);
+  ctx.beginPath();ctx.moveTo(PAD.l,PAD.t+PH);ctx.lineTo(toX(0),PAD.t+PH);ctx.moveTo(toX(0),PAD.t+PH);ctx.lineTo(toX(0),PAD.t);ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Schleusenmodell
+  ctx.strokeStyle='#1C2B3A';ctx.lineWidth=2.5;
+  ctx.beginPath();
+  // Sperrbereich
+  ctx.moveTo(PAD.l,PAD.t+PH);ctx.lineTo(toX(US),PAD.t+PH);
+  // Durchlass
+  const maxI_at_maxU=(maxUD-US)/rD*1000;
+  const clipI=Math.min(maxI_at_maxU,maxID);
+  const clipU=US+clipI/1000*rD;
+  ctx.lineTo(toX(clipU),toY(clipI));
+  ctx.stroke();
+
+  // US marker
+  ctx.strokeStyle='#C9A84C';ctx.lineWidth=1;ctx.setLineDash([3,3]);
+  ctx.beginPath();ctx.moveTo(toX(US),PAD.t+PH);ctx.lineTo(toX(US),toY(0.5));ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle='#C9A84C';ctx.font='10px monospace';ctx.textAlign='left';
+  ctx.fillText('U_S='+US.toFixed(2)+'V',toX(US)+3,PAD.t+PH-6);
+
+  // Legend
+  ctx.fillStyle='#C0BEBA';ctx.font='9px monospace';ctx.textAlign='left';
+  ctx.fillText('— — ideal',PAD.l+4,PAD.t+14);
+  ctx.fillStyle='#1C2B3A';
+  ctx.fillText('——  Schleusenmodell',PAD.l+4,PAD.t+26);
+}
+
+// ═══ ARBEITSPUNKT ═══
+function updateArbeitspunkt(){
+  awardDepth('ap_interact');
+  const Uq=+document.getElementById('uq-slider').value;
+  const Rv=+document.getElementById('rv-slider').value;
+  const Rp_raw=+document.getElementById('rp-slider').value;
+  const Rp=Rp_raw>0?Rp_raw:null;
+  const US=0.7;
+
+  document.getElementById('uq-val').textContent=Uq.toFixed(1)+' V';
+  document.getElementById('rv-val').textContent=Rv+' Ω';
+  document.getElementById('rp-val').textContent=Rp?Rp+' Ω':'aus';
+
+  // Calculate
+  const ID_mA=(Uq-US)/Rv*1000;
+  const IRV_mA=ID_mA;
+  const IRP_mA=Rp?US/Rp*1000:0;
+  const ID_actual_mA=Rp?IRV_mA-IRP_mA:ID_mA;
+  const diodeActive=ID_actual_mA>0;
+
+  document.getElementById('res-id').textContent=diodeActive?ID_actual_mA.toFixed(1)+' mA':'gesperrt!';
+  document.getElementById('res-ud').textContent=diodeActive?'0.70 V':Uq.toFixed(2)+' V';
+  document.getElementById('res-irv').textContent=IRV_mA.toFixed(1)+' mA';
+  document.getElementById('res-irp').textContent=Rp?IRP_mA.toFixed(1)+' mA':'— (offen)';
+
+  const box_id=document.getElementById('box-id');
+  const box_ud=document.getElementById('box-ud');
+  box_id.className='result-box '+(diodeActive?'ok':'danger');
+  document.getElementById('res-id').className='result-val '+(diodeActive?'ok':'danger');
+  box_ud.className='result-box '+(diodeActive?'ok':'');
+
+  let note='';
+  if(!diodeActive) note='⚠ Diode sperrt — R_P zu niedrig. Modell muss neu berechnet werden.';
+  else if(Rp&&IRP_mA>ID_mA*0.8) note='Parallelwiderstand übernimmt den Großteil des Stroms. Diode ist stark entlastet.';
+  else if(Rp) note='Diode leitet. Parallelwiderstand übernimmt '+IRP_mA.toFixed(1)+' mA, Diode führt '+ID_actual_mA.toFixed(1)+' mA.';
+  else note='Diode leitet mit I_D = '+ID_mA.toFixed(1)+' mA. Arbeitspunkt bei (0.7 V / '+ID_mA.toFixed(1)+' mA).';
+  document.getElementById('ap-note').textContent=note;
+
+  drawArbeitspunkt(Uq,Rv,Rp,US,ID_actual_mA,diodeActive);
+}
+
+function drawArbeitspunkt(Uq,Rv,Rp,US,ID_ap,diodeActive){
+  const canvas=document.getElementById('arbeitspunkt-canvas');
+  const dpr=window.devicePixelRatio||1;
+  canvas.width=canvas.offsetWidth*dpr;
+  canvas.height=220*dpr;
+  const ctx=canvas.getContext('2d');
+  ctx.scale(dpr,dpr);
+  const W=canvas.offsetWidth,H=220;
+  const PAD={t:20,r:20,b:32,l:52};
+  const PW=W-PAD.l-PAD.r,PH=H-PAD.t-PAD.b;
+
+  const maxUD=Math.max(Uq*1.05,1.5);
+  const maxID=Math.max(Uq/Rv*1000*1.2,25);
+
+  function toX(ud){return PAD.l+ud/maxUD*PW;}
+  function toY(id){return PAD.t+PH-(id/maxID*PH);}
+
+  // Grid
+  ctx.strokeStyle='#E8E6DE';ctx.lineWidth=1;
+  const udStep=maxUD>5?2:0.5;
+  for(let u=0;u<=maxUD;u+=udStep){ctx.beginPath();ctx.moveTo(toX(u),PAD.t);ctx.lineTo(toX(u),PAD.t+PH);ctx.stroke();}
+  const idStep=maxID>40?10:5;
+  for(let i=0;i<=maxID;i+=idStep){ctx.beginPath();ctx.moveTo(PAD.l,toY(i));ctx.lineTo(PAD.l+PW,toY(i));ctx.stroke();}
+
+  // Axes
+  ctx.strokeStyle='#8A8880';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(PAD.l,PAD.t);ctx.lineTo(PAD.l,PAD.t+PH);ctx.lineTo(PAD.l+PW,PAD.t+PH);ctx.stroke();
+
+  ctx.fillStyle='#8A8880';ctx.font='9px monospace';ctx.textAlign='right';
+  for(let i=0;i<=maxID;i+=idStep){ctx.fillText(i,PAD.l-4,toY(i)+3);}
+  ctx.textAlign='center';
+  for(let u=0;u<=maxUD;u+=udStep){ctx.fillText(u.toFixed(udStep<1?1:0),toX(u),PAD.t+PH+14);}
+  ctx.fillText('U_D / V',PAD.l+PW/2,H-4);
+  ctx.save();ctx.translate(12,PAD.t+PH/2);ctx.rotate(-Math.PI/2);ctx.fillText('I_D / mA',0,0);ctx.restore();
+
+  // Diodenkennlinie
+  const rD=20;
+  ctx.strokeStyle='#1C2B3A';ctx.lineWidth=2;
+  ctx.beginPath();ctx.moveTo(PAD.l,PAD.t+PH);ctx.lineTo(toX(US),PAD.t+PH);
+  const maxI_diode=(maxUD-US)/rD*1000;
+  ctx.lineTo(toX(US+Math.min(maxI_diode,maxID)/1000*rD),toY(Math.min(maxI_diode,maxID)));
+  ctx.stroke();
+
+  // Lastgerade
+  const I_kurzschluss=Uq/Rv*1000;
+  ctx.strokeStyle='#5B8FB9';ctx.lineWidth=2;ctx.setLineDash([5,3]);
+  ctx.beginPath();ctx.moveTo(toX(0),toY(Math.min(I_kurzschluss,maxID)));ctx.lineTo(toX(Uq),toY(0));ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle='#5B8FB9';ctx.font='9px monospace';ctx.textAlign='left';
+  ctx.fillText('Lastgerade',toX(Uq*0.4),toY(I_kurzschluss*0.4)-6);
+
+  // Arbeitspunkt
+  if(diodeActive){
+    const apX=toX(US);const apY=toY(ID_ap);
+    ctx.beginPath();ctx.arc(apX,apY,6,0,Math.PI*2);
+    ctx.fillStyle='#C9A84C';ctx.fill();
+    ctx.strokeStyle='#1C2B3A';ctx.lineWidth=1.5;ctx.stroke();
+    // Dashed lines to axes
+    ctx.strokeStyle='rgba(201,168,76,.5)';ctx.lineWidth=1;ctx.setLineDash([3,3]);
+    ctx.beginPath();ctx.moveTo(apX,apY);ctx.lineTo(apX,PAD.t+PH);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(apX,apY);ctx.lineTo(PAD.l,apY);ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle='#C9A84C';ctx.font='9px monospace';ctx.textAlign='left';
+    ctx.fillText('AP ('+US+'V / '+ID_ap.toFixed(1)+'mA)',apX+8,apY-4);
+  }
+}
+
+// ═══ QUIZ ═══
+const QS={u1:{answers:[null,null,null],score:0,done:false},u2:{answers:[null,null,null],score:0,done:false}};
+function ans(btn,uid,qi,correct){
+  const q=QS[uid];if(q.answers[qi]!==null)return;
+  q.answers[qi]=correct;if(correct)q.score++;
+  btn.classList.add(correct?'correct':'wrong');
+  btn.closest('.quiz-q').querySelectorAll('.opt').forEach(o=>{
+    o.classList.add('locked');
+    if(!correct&&(o.getAttribute('onclick')||'').includes(',true)'))o.classList.add('correct');
+  });
+  const fb=document.getElementById('fb-'+uid+'-'+qi);
+  if(fb)fb.classList.add('open');
+  const answered=q.answers.filter(a=>a!==null).length;
+  document.getElementById('score-'+uid).textContent=q.score+' / '+answered;
+  if(answered===3&&q.score===3&&!q.done){
+    q.done=true;
+    if(uid==='u1'){awardDepth('u1_quiz');unlockU2();}
+    if(uid==='u2'){awardDepth('u2_quiz');showBranch2();}
+  }
+}
+function resetQ(uid){
+  const q=QS[uid];q.answers=[null,null,null];q.score=0;q.done=false;
+  const unit=document.getElementById('unit-'+uid.replace('u',''));
+  if(unit){unit.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong','locked'));unit.querySelectorAll('.quiz-fb').forEach(f=>f.classList.remove('open'));}
+  document.getElementById('score-'+uid).textContent='0 / 3';
+}
+
+// ═══ NAV ═══
+function skipTo(id){
+  const el=document.getElementById(id);if(!el)return;
+  el.closest('.unit').querySelectorAll('.skippable').forEach(s=>s.classList.add('hidden'));
+  setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),50);
+}
+function hintToggle(btn){
+  const body=btn.nextElementSibling;const open=body.classList.contains('open');
+  body.classList.toggle('open',!open);btn.textContent=open?'Hinweis':'Schließen';
+}
+
+// ═══ UNLOCK ═══
+function unlockU2(){
+  const card=document.getElementById('preview-1');
+  card.classList.add('unlocked','just-unlocked');
+  setTimeout(()=>card.classList.remove('just-unlocked'),800);
+  document.getElementById('prev-ey-1').textContent='Jetzt zugänglich';
+  const u2=document.getElementById('unit-2');
+  u2.style.opacity='1';u2.style.pointerEvents='auto';u2.removeAttribute('aria-disabled');
+  setTimeout(()=>u2.scrollIntoView({behavior:'smooth',block:'start'}),700);
+}
+function showBranch2(){
+  document.getElementById('branch-2').classList.add('visible');
+  setTimeout(()=>document.getElementById('branch-2').scrollIntoView({behavior:'smooth',block:'start'}),500);
+}
+function openB(id){
+  if(id==='b-model'){
+    awardDepth('b_model');
+    document.getElementById('b-model').classList.add('open');
+    document.getElementById('bc-model').classList.add('active');
+    setTimeout(()=>document.getElementById('b-model').scrollIntoView({behavior:'smooth',block:'start'}),100);
+    return;
+  }
+  if(id==='b-opv'){alert('Nächster Pfad: Operationsverstärker — in Entwicklung.');return;}
+  if(id==='b2-finish'){awardDepth('finish');showCompletion();}
+}
+function showCompletion(){
+  const d=document.getElementById('dval').textContent;
+  const note=document.getElementById('dnote').textContent.replace('— ','');
+  document.getElementById('comp-depth').textContent='Lerntiefe: '+d+' — '+note;
+  document.getElementById('completion').classList.add('visible');
+  document.getElementById('horizon').classList.add('visible');
+  setTimeout(()=>document.getElementById('completion').scrollIntoView({behavior:'smooth',block:'start'}),300);
+}
+
+// ═══ INIT ═══
+window.addEventListener('load',()=>{
+  updateKennlinie();
+  updateArbeitspunkt();
+  renderDepth();
+  window.addEventListener('resize',()=>{
+    clearTimeout(window._rt);
+    window._rt=setTimeout(()=>{updateKennlinie();updateArbeitspunkt();},100);
+  });
+});
+</script>
+</body>
+</html>
