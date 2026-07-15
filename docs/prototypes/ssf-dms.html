@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SSF · Warum kann Stahl brechen?</title>
+<style>
+:root {
+  --bg:#F9F8F5;--surface:#F0EFE9;--surface2:#E6E4DC;
+  --border:#D8D6CE;--soft:#E8E6DE;
+  --text:#1A1916;--text-2:#4A4840;--text-3:#8A8880;
+  --navy:#1C2B3A;--navy-2:#2C3F52;
+  --gold:#C9A84C;--gold-bg:#F5F0E0;--gold-b:#DFC87A;
+  --ok-bg:#EEF3EE;--ok-b:#7AAD7A;--ok-t:#2A5C2A;
+  --no-bg:#F5EEEE;--no-b:#C49090;--no-t:#6B2222;
+  --r:4px;
+  --serif:Georgia,'Palatino Linotype',serif;
+  --sans:system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'SFMono-Regular','Cascadia Code','Fira Code',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.site-header{border-bottom:1px solid var(--border);padding:1rem 0;position:sticky;top:0;background:var(--bg);z-index:60}
+.h-inner{max-width:740px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;gap:.875rem}
+.signet{width:24px;height:24px;flex-shrink:0}
+.site-name{font-family:var(--mono);font-size:11px;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase}
+.h-space{flex:1}
+.mod-id{font-family:var(--mono);font-size:10px;color:var(--text-3)}
+.depth-wrap{background:var(--bg);border-bottom:1px solid var(--soft);padding:.5rem 0;position:sticky;top:57px;z-index:50}
+.depth-inner{max-width:740px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;gap:.875rem}
+.depth-lbl{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.depth-track{flex:1;height:5px;background:var(--surface2);border-radius:3px;overflow:hidden}
+.depth-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--gold),var(--navy));width:0%;transition:width 1.4s cubic-bezier(.22,1,.36,1)}
+.depth-val{font-family:var(--mono);font-size:11px;color:var(--text-2);min-width:2.5ch;text-align:right}
+.depth-note{font-family:var(--mono);font-size:9.5px;color:var(--text-3);white-space:nowrap}
+@media(max-width:480px){.depth-note{display:none}}
+.wrap{max-width:740px;margin:0 auto;padding:0 1.5rem}
+main{padding:0 0 8rem}
+.intro{padding:3rem 0 0;margin-bottom:3.5rem}
+.eyebrow{font-family:var(--mono);font-size:10.5px;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem}
+.path-title{font-family:var(--serif);font-size:clamp(24px,4vw,34px);font-weight:normal;color:var(--text);line-height:1.2;letter-spacing:-.015em;margin-bottom:1rem}
+.path-desc{font-size:16px;color:var(--text-2);line-height:1.7;max-width:54ch}
+
+/* Kapitel */
+.kapitel{margin-bottom:1.5rem;scroll-margin-top:115px}
+.kapitel-hdr{padding:2.5rem 0 0;margin-bottom:2rem;border-top:1px solid var(--border)}
+.kapitel-nr{font-family:var(--mono);font-size:10px;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;font-weight:600;margin-bottom:.875rem}
+.kapitel-frage{font-family:var(--serif);font-size:clamp(20px,3vw,27px);font-weight:normal;color:var(--text);line-height:1.2;letter-spacing:-.015em;margin-bottom:0;padding-bottom:22px;border-bottom:2px solid var(--border)}
+.hr{border:none;border-top:1px solid var(--soft);margin:2.5rem 0}
+.sec-lbl{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:1.25rem;display:flex;align-items:center;gap:.75rem}
+.sec-lbl::after{content:'';flex:1;height:1px;background:var(--soft)}
+.section{margin-bottom:2.5rem}
+
+/* Takeaway */
+.takeaway{background:var(--gold-bg);border:1px solid var(--gold-b);border-left:3px solid var(--gold);border-radius:0 var(--r) var(--r) 0;padding:1rem 1.375rem;margin-top:1.5rem;display:none}
+.takeaway.visible{display:block}
+.takeaway-lbl{font-family:var(--mono);font-size:9.5px;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;font-weight:600;margin-bottom:.5rem}
+.takeaway-txt{font-family:var(--serif);font-size:15.5px;color:var(--text);line-height:1.65}
+
+/* Prose */
+.prose{font-family:var(--serif);font-size:17px;line-height:1.82;color:var(--text)}
+.prose p{margin-bottom:1.2rem}
+.prose p:last-child{margin-bottom:0}
+.tip{border-bottom:1.5px dashed var(--gold);cursor:help;position:relative}
+.tip-pop{display:none;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;font-family:var(--sans);font-size:13px;line-height:1.5;padding:.75rem 1rem;border-radius:6px;width:260px;z-index:200;pointer-events:none;box-shadow:0 4px 20px rgba(0,0,0,.28)}
+.tip-pop::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:var(--navy)}
+.tip-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#E8D9A8;margin-bottom:.2rem}
+.tip:hover .tip-pop{display:block}
+
+/* Obs */
+.obs{background:var(--surface);border-left:3px solid var(--gold);border-radius:0 var(--r) var(--r) 0;padding:1.25rem 1.5rem;margin:1.75rem 0}
+.obs-ey{font-family:var(--mono);font-size:10px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem}
+.obs-txt{font-family:var(--serif);font-size:16.5px;color:var(--text-2);line-height:1.72;font-style:italic}
+
+/* Formula */
+.formula-block{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.125rem 1.5rem;margin:1.5rem 0}
+.formula{font-family:var(--mono);font-size:16px;color:var(--navy);display:block;margin-bottom:.375rem;line-height:1.8}
+.formula-cap{font-size:13px;color:var(--text-3);line-height:1.55}
+
+/* Experiment */
+.exp-card{border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:1.75rem 0}
+.exp-header{background:var(--surface);padding:1rem 1.375rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.875rem}
+.exp-icon{font-size:20px;flex-shrink:0}
+.exp-tag{font-family:var(--mono);font-size:9.5px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.2rem}
+.exp-name{font-family:var(--serif);font-size:16px;color:var(--text)}
+.exp-body{padding:1.375rem}
+.exp-row{display:flex;gap:1.25rem;align-items:flex-start;flex-wrap:wrap}
+.exp-controls{flex:0 0 220px;min-width:200px}
+.exp-visual{flex:1;min-width:220px}
+.slider-group{margin-bottom:1rem}
+.slider-lbl{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.375rem}
+.slider-name{font-family:var(--mono);font-size:10.5px;color:var(--text-3);letter-spacing:.07em;text-transform:uppercase}
+.slider-val{font-family:var(--mono);font-size:13px;color:var(--navy)}
+input[type=range]{width:100%;-webkit-appearance:none;height:5px;background:var(--surface2);border-radius:3px;outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--navy);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--navy);border:none;cursor:pointer}
+.stat-row{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:.75rem}
+.stat-box{background:var(--surface);border-radius:var(--r);padding:.625rem .875rem;border:1px solid var(--soft)}
+.stat-lbl{font-family:var(--mono);font-size:9.5px;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.25rem}
+.stat-val{font-family:var(--mono);font-size:15px;color:var(--navy)}
+.stat-val.highlight{color:var(--ok-t);font-size:18px}
+.stat-val.danger{color:#DC143C}
+.result-display{background:var(--navy);border-radius:var(--r);padding:1rem 1.25rem;color:#fff;margin-top:.75rem;text-align:center}
+.result-big{font-family:var(--mono);font-size:28px;color:#fff;letter-spacing:-.02em}
+.result-lbl{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.5);letter-spacing:.08em;text-transform:uppercase;margin-top:.25rem}
+.result-formula{font-family:var(--mono);font-size:12px;color:#E8D9A8;margin-bottom:.625rem}
+
+/* Stress-strain canvas */
+.eng-canvas{display:block;width:100%;border-radius:var(--r);background:#F9F8F5;border:1px solid var(--border)}
+
+/* Material buttons */
+.mat-select{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.mat-btn{padding:5px 12px;font-family:var(--mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface);color:var(--text-3);cursor:pointer;transition:border-color .12s,color .12s}
+.mat-btn:hover{border-color:var(--navy);color:var(--navy)}
+.mat-btn.active{border-color:var(--gold);background:var(--gold-bg);color:var(--navy)}
+
+/* Skip bar */
+.skip-bar{display:flex;align-items:center;gap:.75rem;margin-bottom:2rem;padding:.625rem 1rem;background:var(--surface);border-radius:var(--r);border:1px solid var(--soft)}
+.skip-bar span{font-size:13px;color:var(--text-3);flex:1}
+.skip-btn{font-size:12.5px;color:var(--text-3);background:transparent;border:1px solid var(--border);border-radius:var(--r);padding:4px 12px;cursor:pointer;font-family:var(--sans)}
+.skip-btn:hover{color:var(--text-2);border-color:var(--text-3)}
+.skippable.hidden{display:none}
+
+/* Info */
+.info{background:var(--surface);border-radius:var(--r);padding:1.125rem 1.375rem;margin:1.5rem 0;border-left:3px solid var(--navy)}
+.info-lbl{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.09em;text-transform:uppercase;margin-bottom:.5rem}
+.info-txt{font-size:15px;color:var(--text);line-height:1.7}
+
+/* Aufgaben */
+.aufgabe{border:1px solid var(--border);border-radius:var(--r);padding:1.125rem 1.375rem;margin-bottom:.875rem}
+.aufg-nr{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5rem}
+.aufg-txt{font-size:15px;color:var(--text);line-height:1.65}
+.hint-btn{margin-top:.75rem;padding:3px 11px;font-size:12px;border:1px solid var(--border);border-radius:var(--r);background:transparent;color:var(--text-3);cursor:pointer;font-family:var(--sans)}
+.hint-body{display:none;font-size:13.5px;color:var(--text-2);line-height:1.65;margin-top:.75rem;padding-top:.75rem;border-top:1px solid var(--soft)}
+.hint-body.open{display:block}
+
+/* Quiz */
+.quiz-q{margin-bottom:1.75rem}
+.quiz-txt{font-family:var(--serif);font-size:16px;color:var(--text);line-height:1.55;margin-bottom:.75rem}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opt{padding:10px 14px;border:1px solid var(--border);border-radius:var(--r);font-size:14px;color:var(--text);background:var(--surface);text-align:left;cursor:pointer;line-height:1.45;transition:border-color .12s,background .12s;font-family:var(--sans)}
+.opt:hover:not(.locked){border-color:var(--navy-2);background:var(--surface2)}
+.opt.correct{border-color:var(--ok-b);background:var(--ok-bg);color:var(--ok-t)}
+.opt.wrong{border-color:var(--no-b);background:var(--no-bg);color:var(--no-t)}
+.opt.locked{cursor:default}
+.quiz-fb{display:none;font-size:13.5px;color:var(--text-2);line-height:1.65;margin-top:.75rem;padding:.75rem 1rem;background:var(--surface);border-radius:var(--r);border:1px solid var(--soft)}
+.quiz-fb.open{display:block}
+.score-row{display:flex;align-items:center;gap:.875rem;flex-wrap:wrap;padding-top:1.375rem;border-top:1px solid var(--border);margin-top:.5rem}
+.score-n{font-family:var(--serif);font-size:26px;color:var(--text)}
+.score-lbl{font-size:13px;color:var(--text-3)}
+.reset-btn{margin-left:auto;padding:5px 13px;font-size:12px;border:1px solid var(--border);border-radius:var(--r);background:transparent;color:var(--text-3);cursor:pointer;font-family:var(--sans)}
+
+/* Preview lock */
+.preview-card{margin:2.5rem 0;border-radius:6px;border:1px solid var(--border);overflow:hidden;position:relative;transition:border-color .4s}
+.preview-card.unlocked{border-color:var(--gold-b)}
+.prev-hdr{padding:1.25rem 1.5rem;background:var(--surface);display:flex;align-items:flex-start;gap:1rem;border-bottom:1px solid var(--border);transition:background .4s}
+.preview-card.unlocked .prev-hdr{background:var(--gold-bg);border-bottom-color:var(--gold-b)}
+.prev-icon{width:36px;height:36px;border-radius:50%;background:var(--surface2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:17px}
+.prev-meta{flex:1}
+.prev-ey{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.375rem;transition:color .4s}
+.preview-card.unlocked .prev-ey{color:var(--gold)}
+.prev-title{font-family:var(--serif);font-size:17px;color:var(--text);line-height:1.3;transition:filter .4s}
+.preview-card:not(.unlocked) .prev-title{filter:blur(2.5px);user-select:none}
+.prev-body{padding:1.125rem 1.5rem;position:relative}
+.prev-teaser{font-size:14px;color:var(--text-2);line-height:1.65;transition:filter .4s}
+.preview-card:not(.unlocked) .prev-teaser{filter:blur(3px);color:#AAA;user-select:none}
+.lock-ov{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;background:rgba(249,248,245,.55);backdrop-filter:blur(1px);transition:opacity .4s;pointer-events:none}
+.preview-card.unlocked .lock-ov{opacity:0}
+.lock-ico{font-size:22px}
+.lock-txt{font-family:var(--mono);font-size:11px;color:var(--text-3);letter-spacing:.07em;text-transform:uppercase}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(201,168,76,.5)}70%{box-shadow:0 0 0 12px rgba(201,168,76,0)}100%{box-shadow:0 0 0 0 rgba(201,168,76,0)}}
+.just-unlocked{animation:pulse .7s ease-out}
+
+/* Completion */
+.completion{display:none;background:var(--gold-bg);border:1px solid var(--gold-b);border-radius:8px;padding:2.25rem 1.5rem;text-align:center;margin:3rem 0}
+.completion.visible{display:block}
+.comp-title{font-family:var(--serif);font-size:22px;color:var(--navy);margin-bottom:.5rem}
+.comp-sub{font-size:14px;color:var(--text-2);line-height:1.65;margin-bottom:1.25rem;max-width:48ch;margin-left:auto;margin-right:auto}
+.comp-keys{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.25rem}
+.pkey{font-family:var(--mono);font-size:11px;color:var(--navy);background:var(--gold-bg);border:1px solid var(--gold-b);padding:3px 9px;border-radius:var(--r)}
+.comp-depth{font-family:var(--mono);font-size:11px;color:var(--text-3)}
+
+/* Kapitel nav */
+.kapitel-nav{position:fixed;left:0;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:4px;padding:8px;z-index:40}
+.kn-dot{width:8px;height:8px;border-radius:50%;background:var(--border);cursor:pointer;transition:background .2s,transform .2s;border:none;padding:0}
+.kn-dot.active{background:var(--gold);transform:scale(1.4)}
+.kn-dot.done{background:var(--ok-b)}
+@media(max-width:860px){.kapitel-nav{display:none}}
+
+@media(max-width:580px){.prose{font-size:16px}.path-title{font-size:22px}.kapitel-frage{font-size:19px}.exp-row{flex-direction:column}.exp-controls{flex:none;width:100%}}
+:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="h-inner">
+    <svg class="signet" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+      <circle cx="13" cy="13" r="12" stroke="#1C2B3A" stroke-width="1.1" fill="none"/>
+      <circle cx="13" cy="13" r="3.5" fill="#C9A84C"/>
+      <ellipse cx="13" cy="13" rx="10" ry="4" stroke="#1C2B3A" stroke-width=".7" fill="none" transform="rotate(-25 13 13)"/>
+      <ellipse cx="13" cy="13" rx="10" ry="4" stroke="#1C2B3A" stroke-width=".7" fill="none" transform="rotate(25 13 13)"/>
+    </svg>
+    <span class="site-name">Solar Science Foundation</span>
+    <div class="h-space"></div>
+    <span class="mod-id">LRN:SSF:ENG-1102</span>
+  </div>
+</header>
+
+<div class="depth-wrap">
+  <div class="depth-inner">
+    <span class="depth-lbl">Tiefe</span>
+    <div class="depth-track"><div class="depth-fill" id="dfill"></div></div>
+    <span class="depth-val" id="dval">0</span>
+    <span class="depth-note" id="dnote">— Beginn</span>
+  </div>
+</div>
+
+<!-- Kapitel dots nav -->
+<nav class="kapitel-nav" aria-label="Kapitel-Navigation">
+  <button class="kn-dot active" id="kn-1" onclick="scrollToKapitel(1)" title="Kapitel 1"></button>
+  <button class="kn-dot" id="kn-2" onclick="scrollToKapitel(2)" title="Kapitel 2"></button>
+  <button class="kn-dot" id="kn-3" onclick="scrollToKapitel(3)" title="Kapitel 3"></button>
+  <button class="kn-dot" id="kn-4" onclick="scrollToKapitel(4)" title="Kapitel 4"></button>
+  <button class="kn-dot" id="kn-5" onclick="scrollToKapitel(5)" title="Kapitel 5"></button>
+  <button class="kn-dot" id="kn-6" onclick="scrollToKapitel(6)" title="Kapitel 6"></button>
+  <button class="kn-dot" id="kn-7" onclick="scrollToKapitel(7)" title="Kapitel 7"></button>
+  <button class="kn-dot" id="kn-8" onclick="scrollToKapitel(8)" title="Kapitel 8"></button>
+</nav>
+
+<main><div class="wrap">
+
+<div class="intro">
+  <div class="eyebrow">Lernpfad · Werkstofftechnik & Messtechnik</div>
+  <h1 class="path-title">Warum kann Stahl brechen?</h1>
+  <p class="path-desc">8 Kapitel — von der Wärmedehnung zur Wheatstone-Brücke. Spannung, Dehnung, Querkontraktion und wie ein Dehnungsmessstreifen aus einer Widerstandsänderung mechanische Spannung sichtbar macht.</p>
+</div>
+
+
+<!-- ═══ KAPITEL 1: WÄRMEDEHNUNG ═══ -->
+<div class="kapitel" id="k1">
+  <div class="kapitel-hdr">
+    <div class="kapitel-nr">Kapitel 1 von 8</div>
+    <h2 class="kapitel-frage">Warum legt man zwischen Schienensegmenten Lücken — und warum nur im Sommer?</h2>
+  </div>
+
+  <div class="skip-bar">
+    <span>Beobachtung und Aufgaben sind optional.</span>
+    <button class="skip-btn" onclick="skipTo('quiz-1')">Direkt zum Quiz →</button>
+  </div>
+
+  <div class="section skippable">
+    <div class="sec-lbl">Beobachtung</div>
+    <div class="obs">
+      <div class="obs-ey">Alltag: Eisenbahnschienen</div>
+      <div class="obs-txt">Eisenbahnschienen haben Dehnungsfugen. Im Sommer schrumpfen die Lücken fast auf null — im Winter klaffen sie offen. Dasselbe Metall, andere Temperatur, andere Länge. Früher hörte man das Klack-Klack der Räder über die Fugen. Heute werden Langschienen verschweißt — aber dann braucht man eine exakte Einspanntemperatur.</div>
+    </div>
+
+    <div class="prose">
+      <p>Jedes Material dehnt sich bei Erwärmung aus. Der <span class="tip">Wärmeausdehnungskoeffizient<span class="tip-pop"><span class="tip-lbl">Thermischer Ausdehnungskoeffizient α</span>Gibt an wie viel ein Material pro Kelvin Temperaturerhöhung und pro Meter Länge wächst. Einheit: 1/K oder 1/°C. Stahl: 12×10⁻⁶/K. Aluminium: 23×10⁻⁶/K. Invar (Ni-Stahl-Legierung): 1,2×10⁻⁶/K — fast temperaturstabil.</span></span> α gibt an um wie viel Länge pro Grad und pro Meter sich das Material ändert.</p>
+    </div>
+
+    <div class="formula-block">
+      <span class="formula">ΔL = α · L₀ · ΔT</span>
+      <div class="formula-cap">α = Wärmeausdehnungskoeffizient [1/K] · L₀ = Ausgangslänge [m] · ΔT = Temperaturänderung [K]</div>
+    </div>
+
+    <div class="exp-card">
+      <div class="exp-header">
+        <div class="exp-icon">🌡️</div>
+        <div>
+          <div class="exp-tag">Experiment 1</div>
+          <div class="exp-name">Thermische Dehnung — ΔL live</div>
+        </div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-row">
+          <div class="exp-controls">
+            <div style="margin-bottom:.75rem">
+              <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5rem">Material</div>
+              <div class="mat-select">
+                <button class="mat-btn active" id="mat-stahl" onclick="setMat('stahl')">Stahl</button>
+                <button class="mat-btn" id="mat-alu" onclick="setMat('alu')">Alu</button>
+                <button class="mat-btn" id="mat-beton" onclick="setMat('beton')">Beton</button>
+                <button class="mat-btn" id="mat-invar" onclick="setMat('invar')">Invar</button>
+              </div>
+            </div>
+            <div class="slider-group">
+              <div class="slider-lbl"><span class="slider-name">Länge L₀</span><span class="slider-val" id="th-l0">10.0 m</span></div>
+              <input type="range" id="th-l0-sl" min="1" max="100" value="10" oninput="updateThermal()">
+            </div>
+            <div class="slider-group">
+              <div class="slider-lbl"><span class="slider-name">ΔT</span><span class="slider-val" id="th-dt">+30 K</span></div>
+              <input type="range" id="th-dt-sl" min="-50" max="100" value="30" oninput="updateThermal()">
+            </div>
+            <div class="stat-row">
+              <div class="stat-box"><div class="stat-lbl">α</div><div class="stat-val" id="th-alpha">12 × 10⁻⁶/K</div></div>
+              <div class="stat-box"><div class="stat-lbl">ΔL</div><div class="stat-val highlight" id="th-dl">3.6 mm</div></div>
+            </div>
+            <div id="th-note" style="margin-top:.75rem;font-size:12px;color:var(--text-3);line-height:1.5">
+              Stahl, 10 m, +30 K → 3,6 mm Ausdehnung.
+            </div>
+          </div>
+          <div class="exp-visual">
+            <canvas id="thermal-canvas" class="eng-canvas" height="160"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="hr">
+  <div class="section" id="quiz-1">
+    <div class="sec-lbl">Quiz · Kapitel 1</div>
+    <div class="quiz-q">
+      <div class="quiz-txt">Eine Stahlschiene ist L₀ = 25 m lang. α_Stahl = 12×10⁻⁶/K. Wie groß ist ΔL bei ΔT = 40 K?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,'k1',0,false)">4,8 mm</button>
+        <button class="opt" onclick="ans(this,'k1',0,false)">12 mm</button>
+        <button class="opt" onclick="ans(this,'k1',0,true)">12 mm — ΔL = 12×10⁻⁶ · 25 · 40 = 0,012 m</button>
+        <button class="opt" onclick="ans(this,'k1',0,false)">0,48 mm</button>
+      </div>
+      <div class="quiz-fb" id="fb-k1-0">ΔL = α · L₀ · ΔT = 12×10⁻⁶ · 25 · 40 = 12×10⁻³ m = 12 mm. Bei einer 25 m Schiene und 40 K Temperaturunterschied dehnt Stahl sich um 12 mm aus — das ist die Mindestbreite der Dehnungsfuge.</div>
+    </div>
+    <div class="quiz-q">
+      <div class="quiz-txt">Warum hat Invar (α ≈ 1,2×10⁻⁶/K) seinen Namen — und wo wird es eingesetzt?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,'k1',1,false)">Weil es invariant gegenüber Korrosion ist.</button>
+        <button class="opt" onclick="ans(this,'k1',1,true)">Weil seine Länge fast invariant gegenüber Temperatur ist — 10× weniger Ausdehnung als Stahl. Einsatz: Präzisionsinstrumente, Maßstäbe, Uhrenfedern.</button>
+        <button class="opt" onclick="ans(this,'k1',1,false)">Weil es unsichtbar (invisible) ist.</button>
+        <button class="opt" onclick="ans(this,'k1',1,false)">Weil sein Erfinder Invar hieß.</button>
+      </div>
+      <div class="quiz-fb" id="fb-k1-1">Invar = invariant. Die Nickel-Eisen-Legierung (36% Ni) hat bei Raumtemperatur einen fast verschwindenden Ausdehnungskoeffizienten. Erfunden 1896 von Charles Édouard Guillaume (Nobelpreis 1920). Verwendet überall wo Längenänderung durch Temperatur vermieden werden muss: Geodäsie, Optik, Messtechnik.</div>
+    </div>
+    <div class="quiz-q">
+      <div class="quiz-txt">Stahl (α=12) und Beton (α=10×10⁻⁶/K) werden in Stahlbeton kombiniert. Warum funktioniert das?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,'k1',2,false)">Weil Beton die Ausdehnung von Stahl verhindert.</button>
+        <button class="opt" onclick="ans(this,'k1',2,false)">Weil Stahl sich nicht ausdehnt wenn er in Beton eingebettet ist.</button>
+        <button class="opt" onclick="ans(this,'k1',2,true)">Weil beide fast denselben Ausdehnungskoeffizienten haben — sie dehnen sich gemeinsam aus, ohne interne Spannungen zu erzeugen die zum Reißen führen würden.</button>
+        <button class="opt" onclick="ans(this,'k1',2,false)">Weil der Beton viel dicker ist als der Stahl.</button>
+      </div>
+      <div class="quiz-fb" id="fb-k1-2">Stahl (12×10⁻⁶) und Beton (10×10⁻⁶) liegen so nah beieinander, dass ihre Differenzausdehnung minimal ist. Wäre der Unterschied groß, würde die Verbundkonstruktion bei Temperaturschwankungen interne Zwangsspannungen aufbauen und schließlich reißen. Das ist der entscheidende Kompatibilitätsgrund für Stahlbeton.</div>
+    </div>
+    <div class="score-row">
+      <span class="score-n" id="score-k1">0 / 3</span>
+      <span class="score-lbl">korrekt</span>
+      <button class="reset-btn" onclick="resetQ('k1')">Neu</button>
+    </div>
+  </div>
+
+  <div class="takeaway" id="takeaway-1">
+    <div class="takeaway-lbl">Erkenntnis</div>
+    <div class="takeaway-txt">Jedes Material dehnt sich bei Wärme aus — der Ausdehnungskoeffizient sagt wie stark. Stahl wächst pro Grad und Meter um 12 Mikrometer. Das klingt klein — über eine Brücke summiert es sich zu Zentimetern.</div>
+  </div>
+
+  <div class="preview-card" id="prev-2">
+    <div class="prev-hdr">
+      <div class="prev-icon">💪</div>
+      <div class="prev-meta">
+        <div class="prev-ey" id="prev-ey-2">Kapitel 2 — noch gesperrt</div>
+        <div class="prev-title">Was ist Spannung — und warum reißt ein dünner Draht unter einer Last die einen dicken Stab kaum belastet?</div>
+      </div>
+    </div>
+    <div class="prev-body">
+      <div class="prev-teaser">Spannung ist nicht Kraft — Spannung ist Kraft pro Fläche. σ = F/A. Ein dünner Draht hat weniger Fläche — deshalb ist die Spannung bei gleicher Kraft viel höher.</div>
+      <div class="lock-ov" id="lock-2"><div class="lock-ico">🔒</div><div class="lock-txt">Quiz abschließen</div></div>
+    </div>
+  </div>
+</div><!-- /k1 -->
+
+
+<!-- ═══ KAPITEL 2: SPANNUNG ═══ -->
+<div class="kapitel" id="k2" style="opacity:.3;pointer-events:none;transition:opacity .6s">
+  <div class="kapitel-hdr">
+    <div class="kapitel-nr">Kapitel 2 von 8</div>
+    <h2 class="kapitel-frage">Wenn zwei Kräfte an einem Stab ziehen — was passiert im Inneren des Materials?</h2>
+  </div>
+
+  <div class="section skippable">
+    <div class="sec-lbl">Beobachtung</div>
+    <div class="obs">
+      <div class="obs-ey">Draht vs. Stab</div>
+      <div class="obs-txt">Ein dünner Draht und ein dicker Stab aus demselben Stahl. Daran hängt dieselbe Last — der Draht reißt, der Stab bleibt unbeschadet. Die Kraft ist gleich — der Unterschied liegt im Querschnitt. Was im Material wirkt, ist nicht die Kraft selbst, sondern Kraft pro Fläche.</div>
+    </div>
+
+    <div class="formula-block">
+      <span class="formula">σ = F / A &nbsp;&nbsp; [N/mm² = MPa]</span>
+      <div class="formula-cap">σ = Normalspannung · F = Kraft [N] · A = Querschnittsfläche [mm²]<br>Zugspannung σ > 0 · Druckspannung σ &lt; 0</div>
+    </div>
+
+    <div class="exp-card">
+      <div class="exp-header">
+        <div class="exp-icon">📏</div>
+        <div>
+          <div class="exp-tag">Experiment 2</div>
+          <div class="exp-name">Normalspannung σ = F/A</div>
+        </div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-row">
+          <div class="exp-controls">
+            <div class="slider-group">
+              <div class="slider-lbl"><span class="slider-name">Kraft F</span><span class="slider-val" id="sp-f-val">10 kN</span></div>
+              <input type="range" id="sp-f" min="1" max="100" value="10" oninput="updateSpannung()">
+            </div>
+            <div class="slider-group">
+              <div class="slider-lbl"><span class="slider-name">Durchmesser d</span><span class="slider-val" id="sp-d-val">10 mm</span></div>
+              <input type="range" id="sp-d" min="2" max="50" value="10" oninput="updateSpannung()">
+            </div>
+            <div class="stat-row">
+              <div class="stat-box"><div class="stat-lbl">Fläche A</div><div class="stat-val" id="sp-a">78.5 mm²</div></div>
+              <div class="stat-box"><div class="stat-lbl">σ</div><div class="stat-val highlight" id="sp-sigma">127 MPa</div></div>
+              <div class="stat-box" style="grid-column:span 2"><div class="stat-lbl">Bewertung</div><div class="stat-val" id="sp-bewert">Stahl: sicher (R_e = 235 MPa)</div></div>
+            </div>
+          </div>
+          <div class="exp-visual">
+            <canvas id="spannung-canvas" class="eng-canvas" height="200"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="hr">
+  <div class="section" id="quiz-2">
+    <div class="sec-lbl">Quiz · Kapitel 2</div>
+    <div class="quiz-q">
+      <div class="quiz-txt">F = 50 kN wirkt auf einen Stab mit d = 20 mm. Wie groß ist σ?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,'k2',0,false)">2,5 MPa</button>
+        <button class="opt" onclick="ans(this,'k2',0,false)">100 MPa</button>
+        <button class="opt" onclick="ans(this,'k2',0,true)">≈ 159 MPa — A = π/4·20² = 314 mm², σ = 50000/314 ≈ 159 N/mm²</button>
+        <button class="opt" onclick="ans(this,'k2',0,false)">2500 MPa</button>
+      </div>
+      <div class="quiz-fb" id="fb-k2-0">A = π/4 · d² = π/4 · 400 = 314,2 mm². σ = F/A = 50.000 N / 314,2 mm² = 159 N/mm² = 159 MPa. Für Baustahl S235 mit Streckgrenze R_e = 235 MPa ist das noch sicher — aber schon 67% ausgelastet.</div>
+    </div>
+    <div class="quiz-q">
+      <div class="quiz-txt">Einheit N/mm² = MPa. Wie viele MPa entsprechen 1 N/mm²?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,'k2',1,false)">1000 MPa</button>
+        <button class="opt" onclick="ans(this,'k2',1,true)">1 MPa — 1 N/mm² = 1 N / (10⁻³ m)² = 10⁶ N/m² = 1 MPa exakt.</button>
+        <button class="opt" onclick="ans(this,'k2',1,false)">0,001 MPa</button>
+        <button class="opt" onclick="ans(this,'k2',1,false)">100 MPa</button>
+      </div>
+      <div class="quiz-fb" id="fb-k2-1">1 N/mm² = 1 N / (1×10⁻³ m)² = 1 N / 10⁻⁶ m² = 10⁶ N/m² = 1 MPa. Die Umrechnung ist exakt 1:1 — deshalb werden N/mm² und MPa im Maschinenbau synonym verwendet. In der Praxis wird häufig N/mm² geschrieben weil es anschaulicher ist.</div>
+    </div>
+    <div class="quiz-q">
+      <div class="quiz-txt">Warum ist σ = F/A und nicht σ = F?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,'k2',2,false)">Weil man die Fläche immer von der Kraft subtrahieren muss.</button>
+        <button class="opt" onclick="ans(this,'k2',2,true)">Weil die Materialbeanspruchung von der Kraftverteilung abhängt — dieselbe Kraft auf weniger Fläche bedeutet mehr Beanspruchung pro Flächeneinheit. Spannung beschreibt den Zustand im Material, nicht die äußere Last.</button>
+        <button class="opt" onclick="ans(this,'k2',2,false)">Weil Kräfte immer durch die Fläche geteilt werden müssen damit die Einheit stimmt.</button>
+        <button class="opt" onclick="ans(this,'k2',2,false)">Weil Kraft und Spannung dieselbe Größe sind.</button>
+      </div>
+      <div class="quiz-fb" id="fb-k2-2">Spannung ist eine intensive Größe — sie beschreibt den Zustand an einem Punkt im Material, unabhängig von der Bauteilgröße. Ein großes und ein kleines Bauteil können dieselbe Spannung haben (wenn F und A proportional skalieren) oder verschiedene. Erst σ erlaubt den Vergleich mit Materialkennwerten wie Streckgrenze R_e.</div>
+    </div>
+    <div class="score-row">
+      <span class="score-n" id="score-k2">0 / 3</span>
+      <span class="score-lbl">korrekt</span>
+      <button class="reset-btn" onclick="resetQ('k2')">Neu</button>
+    </div>
+  </div>
+
+  <div class="takeaway" id="takeaway-2">
+    <div class="takeaway-lbl">Erkenntnis</div>
+    <div class="takeaway-txt">Spannung ist Kraft pro Fläche — nicht die Kraft selbst. Derselbe Zug auf einen dünnen Draht reißt ihn; auf einen dicken Stab kaum spürbar. σ = F/A beschreibt was im Inneren des Materials wirklich passiert.</div>
+  </div>
+
+  <div class="preview-card" id="prev-3">
+    <div class="prev-hdr">
+      <div class="prev-icon">📐</div>
+      <div class="prev-meta">
+        <div class="prev-ey" id="prev-ey-3">Kapitel 3 — noch gesperrt</div>
+        <div class="prev-title">Was ist Dehnung — und warum ist sie dimensionslos?</div>
+      </div>
+    </div>
+    <div class="prev-body">
+      <div class="prev-teaser">Dehnung ε = ΔL/L₀ ist ein Verhältnis — deswegen hat sie keine Einheit. Und das Hooksche Gesetz σ = E·ε verbindet Spannung und Dehnung über den E-Modul.</div>
+      <div class="lock-ov" id="lock-3"><div class="lock-ico">🔒</div><div class="lock-txt">Quiz abschließen</div></div>
+    </div>
+  </div>
+</div><!-- /k2 -->
+
+
+<!-- ═══ KAPITEL 3–8: LOCKED PREVIEWS ═══ -->
+<div class="kapitel" id="k3" style="opacity:.3;pointer-events:none;transition:opacity .6s">
+  <div class="kapitel-hdr">
+    <div class="kapitel-nr">Kapitel 3 von 8</div>
+    <h2 class="kapitel-frage">Wenn ein Stab unter Spannung steht — wie sehr verändert er seine Länge?</h2>
+  </div>
+  <div class="section" id="quiz-3">
+    <div class="sec-lbl">Quiz · Kapitel 3</div>
+    <div class="quiz-q">
+      <div class="quiz-txt">E_Stahl = 210 000 MPa, σ = 210 MPa. Wie groß ist ε?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,'k3',0,false)">210 %</button>
+        <button class="opt" onclick="ans(this,'k3',0,true)">ε = σ/E = 210/210000 = 0,001 = 1000 μm/m (1 Promille)</button>
+        <button class="opt" onclick="ans(this,'k3',0,false)">0,001 %</button>
+        <button class="opt" onclick="ans(this,'k3',0,false)">44 100 000</button>
+      </div>
+      <div class="quiz-fb" id="fb-k3-0">ε = σ/E = 210 MPa / 210.000 MPa = 0,001. Das entspricht 1000 μm/m — ein Meter Stahl wird um 1 mm länger. Das klingt wenig, ist aber für einen DMS gut messbar. Dehnungen werden oft in μm/m oder μstrain angegeben: 1 μstrain = 10⁻⁶.</div>
+    </div>
+    <div class="quiz-q">
+      <div class="quiz-txt">Warum gilt Hooke nur bis zur Streckgrenze?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,'k3',1,false)">Weil die Formel für größere Zahlen mathematisch nicht gilt.</button>
+        <button class="opt" onclick="ans(this,'k3',1,true)">Weil das Material ab der Streckgrenze plastisch verformt — die Dehnung bleibt nach Entlastung bestehen. Der lineare Zusammenhang zwischen σ und ε gilt nur im elastischen Bereich.</button>
+        <button class="opt" onclick="ans(this,'k3',1,false)">Weil Hooke nur für Federn gilt.</button>
+        <button class="opt" onclick="ans(this,'k3',1,false)">Weil oberhalb der Streckgrenze ε = 0 wird.</button>
+      </div>
+      <div class="quiz-fb" id="fb-k3-1">Unterhalb der Streckgrenze: elastisch — das Material kehrt in seine ursprüngliche Form zurück. Oberhalb: plastisch — bleibenده Verformung. Im σ-ε-Diagramm ist der elastische Bereich die gerade Linie mit Steigung E. Danach krümmt sich die Kurve bis zum Bruch. DMS-Messungen sind nur im elastischen Bereich sinnvoll.</div>
+    </div>
+    <div class="quiz-q">
+      <div class="quiz-txt">Stahl hat E = 210 GPa, Aluminium E = 70 GPa. Bei gleicher Spannung — welches Material dehnt sich mehr?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,'k3',2,false)">Stahl — weil es schwerer ist.</button>
+        <button class="opt" onclick="ans(this,'k3',2,true)">Aluminium — ε = σ/E. Kleineres E → größere Dehnung bei gleicher Spannung. Alu dehnt sich 3× mehr als Stahl.</button>
+        <button class="opt" onclick="ans(this,'k3',2,false)">Beide gleich — Dehnung hängt nicht vom Material ab.</button>
+        <button class="opt" onclick="ans(this,'k3',2,false)">Stahl — weil seine Streckgrenze höher ist.</button>
+      </div>
+      <div class="quiz-fb" id="fb-k3-2">ε = σ/E. E_Alu = 70 GPa, E_Stahl = 210 GPa. Bei gleicher Spannung σ: ε_Alu = σ/70, ε_Stahl = σ/210 — Aluminium dehnt sich genau 3× mehr. Das ist der Grund warum Alu-Strukturen bei gleicher Last spürbar mehr federn als Stahl.</div>
+    </div>
+    <div class="score-row">
+      <span class="score-n" id="score-k3">0 / 3</span>
+      <span class="score-lbl">korrekt</span>
+      <button class="reset-btn" onclick="resetQ('k3')">Neu</button>
+    </div>
+  </div>
+  <div class="takeaway" id="takeaway-3">
+    <div class="takeaway-lbl">Erkenntnis</div>
+    <div class="takeaway-txt">Dehnung ist dimensionslos — ein Verhältnis. ε = 0,001 bedeutet: ein Meter wird um einen Millimeter länger. Kleine Zahlen, große Konsequenzen. Der E-Modul verbindet σ und ε linear — bis zur Streckgrenze.</div>
+  </div>
+  <div class="preview-card" id="prev-4">
+    <div class="prev-hdr"><div class="prev-icon">⬛</div><div class="prev-meta">
+      <div class="prev-ey" id="prev-ey-4">Kapitel 4 — noch gesperrt</div>
+      <div class="prev-title">Warum wird ein gedehnter Stab gleichzeitig dünner?</div>
+    </div></div>
+    <div class="prev-body"><div class="prev-teaser">Querkontraktion: ε_quer = −ν · ε_längs. Die Poisson-Zahl ν beschreibt das Verhältnis — für Stahl etwa 0,3.</div>
+    <div class="lock-ov" id="lock-4"><div class="lock-ico">🔒</div><div class="lock-txt">Quiz abschließen</div></div></div>
+  </div>
+</div><!-- /k3 -->
+
+<!-- Kapitel 4–8: compact locked previews shown as horizon -->
+<div style="margin-top:3rem;padding-top:2rem;border-top:1px solid var(--soft)">
+  <p style="font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.5rem">Nächste Kapitel — werden durch Quiz-Gates freigeschaltet</p>
+  <div style="display:grid;gap:10px">
+    <div id="prev-k4" style="padding:1rem 1.25rem;border:1.5px dashed var(--border);border-radius:8px;opacity:.5">
+      <span style="font-family:var(--mono);font-size:10px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase">Kapitel 4</span>
+      <p style="font-family:var(--serif);font-size:16px;color:var(--text);margin-top:.375rem">Warum werden Materialien dünner? — Querkontraktion und Poisson-Zahl</p>
+    </div>
+    <div id="prev-k5" style="padding:1rem 1.25rem;border:1.5px dashed var(--border);border-radius:8px;opacity:.5">
+      <span style="font-family:var(--mono);font-size:10px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase">Kapitel 5</span>
+      <p style="font-family:var(--serif);font-size:16px;color:var(--text);margin-top:.375rem">Wie misst ein DMS? — Widerstandsänderung und k-Faktor</p>
+    </div>
+    <div id="prev-k6" style="padding:1rem 1.25rem;border:1.5px dashed var(--border);border-radius:8px;opacity:.5">
+      <span style="font-family:var(--mono);font-size:10px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase">Kapitel 6</span>
+      <p style="font-family:var(--serif);font-size:16px;color:var(--text);margin-top:.375rem">Die Wheatstone-Brücke — warum nicht einfach den Widerstand messen?</p>
+    </div>
+    <div id="prev-k7" style="padding:1rem 1.25rem;border:1.5px dashed var(--border);border-radius:8px;opacity:.5">
+      <span style="font-family:var(--mono);font-size:10px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase">Kapitel 7</span>
+      <p style="font-family:var(--serif);font-size:16px;color:var(--text);margin-top:.375rem">Die DMS-Rosette — wenn Spannung in mehrere Richtungen wirkt</p>
+    </div>
+    <div id="prev-k8" style="padding:1rem 1.25rem;border:1.5px dashed var(--border);border-radius:8px;opacity:.5">
+      <span style="font-family:var(--mono);font-size:10px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase">Kapitel 8</span>
+      <p style="font-family:var(--serif);font-size:16px;color:var(--text);margin-top:.375rem">Vom Messwert zur Spannung — die vollständige Messkette</p>
+    </div>
+  </div>
+</div>
+
+<div class="completion" id="completion">
+  <div class="comp-title">Lernpfad abgeschlossen</div>
+  <div class="comp-sub">Von der Wärmedehnung zur vollständigen Messkette — du hast verstanden wie ein DMS mechanische Spannung in ein elektrisches Signal wandelt.</div>
+  <div class="comp-keys">
+    <span class="pkey">SENSOR:STRAIN</span>
+    <span class="pkey">SENSOR:STRESS</span>
+    <span class="pkey">CIRCUIT:WHEATSTONE</span>
+  </div>
+  <div class="comp-depth" id="comp-depth">Lerntiefe: —</div>
+</div>
+
+</div></main>
+
+<script>
+// ═══ DEPTH ═══
+let depthRaw=0;
+const depthGiven={};
+function awardDepth(k,pts){if(depthGiven[k])return;depthGiven[k]=true;depthRaw+=pts;renderDepth();}
+function renderDepth(){
+  const d=Math.round(100*(1-1/(1+depthRaw/26)));
+  document.getElementById('dfill').style.width=d+'%';
+  document.getElementById('dval').textContent=d;
+  const labels=[[10,'Beginn'],[22,'Einstieg'],[38,'Orientierung'],[52,'Grundlagen'],[65,'Mechanismus'],[76,'Theorie'],[87,'Forschungsnähe'],[100,'Forschungsrand']];
+  for(const [t,l] of [...labels].reverse()){if(d>=t){document.getElementById('dnote').textContent='— '+l;break;}}
+}
+
+// ═══ MATERIALS ═══
+const MATS={
+  stahl:{alpha:12,name:'Stahl',color:'#5B8FB9'},
+  alu:{alpha:23,name:'Aluminium',color:'#C9A84C'},
+  beton:{alpha:10,name:'Beton',color:'#8A8880'},
+  invar:{alpha:1.2,name:'Invar',color:'#7AAD7A'},
+};
+let currentMat='stahl';
+
+function setMat(m){
+  currentMat=m;
+  Object.keys(MATS).forEach(k=>{
+    const btn=document.getElementById('mat-'+k);
+    if(btn) btn.classList.toggle('active',k===m);
+  });
+  updateThermal();
+}
+
+// ═══ EXPERIMENT 1: THERMAL ═══
+function updateThermal(){
+  awardDepth('thermal',4);
+  const L0=+document.getElementById('th-l0-sl').value;
+  const dT=+document.getElementById('th-dt-sl').value;
+  const mat=MATS[currentMat];
+  const dL=mat.alpha*1e-6*L0*dT;
+  const dL_mm=(dL*1000).toFixed(2);
+  document.getElementById('th-l0').textContent=L0.toFixed(1)+' m';
+  document.getElementById('th-dt').textContent=(dT>=0?'+':'')+dT+' K';
+  document.getElementById('th-alpha').textContent=mat.alpha+' × 10⁻⁶/K';
+  document.getElementById('th-dl').textContent=(Math.abs(+dL_mm)<1?dL_mm+' mm':(Math.abs(dL*1000)>=10?(dL*1000).toFixed(1)+' mm':dL_mm+' mm'));
+  document.getElementById('th-dl').textContent=Math.abs(dL*1000)<1
+    ?(dL*1000000).toFixed(1)+' μm'
+    :(dL*1000).toFixed(2)+' mm';
+  document.getElementById('th-note').textContent=
+    `${mat.name}, ${L0} m, ${dT>=0?'+':''}${dT} K → ΔL = ${mat.alpha}×10⁻⁶ × ${L0} × ${dT} = ${(dL*1000).toFixed(2)} mm`;
+  drawThermal(L0,dL,mat.color,dT);
+}
+
+function drawThermal(L0,dL,color,dT){
+  const canvas=document.getElementById('thermal-canvas');
+  const dpr=window.devicePixelRatio||1;
+  canvas.width=canvas.offsetWidth*dpr;canvas.height=160*dpr;
+  const ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);
+  const W=canvas.offsetWidth,H=160;
+  ctx.fillStyle='#F9F8F5';ctx.fillRect(0,0,W,H);
+  const pad=24,barH=28,cy=H/2;
+  const maxLen=W-pad*2;
+  const origW=maxLen*0.7;
+  const scale=origW/L0;
+  const newW=Math.max(4,origW+dL*scale*50);
+  // Original bar
+  ctx.fillStyle='rgba(91,143,185,.25)';
+  ctx.fillRect(pad,cy-barH/2,origW,barH);
+  ctx.strokeStyle='rgba(91,143,185,.5)';ctx.lineWidth=1;ctx.setLineDash([4,4]);
+  ctx.strokeRect(pad,cy-barH/2,origW,barH);ctx.setLineDash([]);
+  // New bar
+  ctx.fillStyle=color+'44';
+  ctx.fillRect(pad,cy-barH/2,newW,barH);
+  ctx.strokeStyle=color;ctx.lineWidth=2;
+  ctx.strokeRect(pad,cy-barH/2,newW,barH);
+  // Delta arrow
+  if(Math.abs(dL)>0.0001){
+    const x1=pad+origW,x2=pad+newW;
+    ctx.strokeStyle=dT>=0?'#DC143C':'#1a7a4a';ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.moveTo(x1,cy-barH/2-12);ctx.lineTo(x2,cy-barH/2-12);ctx.stroke();
+    ctx.fillStyle=dT>=0?'#DC143C':'#1a7a4a';ctx.font='9px monospace';ctx.textAlign='center';
+    ctx.fillText('ΔL',(x1+x2)/2,cy-barH/2-16);
+  }
+  // Labels
+  ctx.fillStyle='#8A8880';ctx.font='9px monospace';ctx.textAlign='left';
+  ctx.fillText('L₀ = '+L0.toFixed(0)+'m',pad,cy+barH/2+14);
+  ctx.fillStyle=color;ctx.textAlign='right';
+  ctx.fillText('L₀+ΔL',pad+newW,H-6);
+}
+
+// ═══ EXPERIMENT 2: SPANNUNG ═══
+function updateSpannung(){
+  awardDepth('spannung',5);
+  const F=+document.getElementById('sp-f').value*1000; // N
+  const d=+document.getElementById('sp-d').value; // mm
+  const A=Math.PI/4*d*d;
+  const sigma=F/A;
+  document.getElementById('sp-f-val').textContent=(F/1000).toFixed(0)+' kN';
+  document.getElementById('sp-d-val').textContent=d+' mm';
+  document.getElementById('sp-a').textContent=A.toFixed(1)+' mm²';
+  document.getElementById('sp-sigma').textContent=sigma.toFixed(0)+' MPa';
+  const sigmaEl=document.getElementById('sp-sigma');
+  sigmaEl.className='stat-val '+(sigma>235?'danger':'highlight');
+  const bewert=sigma<100?'Stahl: gut (σ < 100 MPa)':sigma<235?`Stahl: sicher (R_e = 235 MPa)`:sigma<355?'S355: knapp sicher':sigma<500?'Hochfest nötig (R_e > 500 MPa)':'Überlastet! Bruch möglich';
+  document.getElementById('sp-bewert').textContent=bewert;
+  drawSpannung(d,sigma);
+}
+
+function drawSpannung(d,sigma){
+  const canvas=document.getElementById('spannung-canvas');
+  const dpr=window.devicePixelRatio||1;
+  canvas.width=canvas.offsetWidth*dpr;canvas.height=200*dpr;
+  const ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);
+  const W=canvas.offsetWidth,H=200;
+  ctx.fillStyle='#F9F8F5';ctx.fillRect(0,0,W,H);
+  const cx=W/2,stabH=120;
+  const maxD=48,minD=6;
+  const dScale=Math.min(maxD,Math.max(minD,d*2.5));
+  // Force arrows top/bottom
+  const arrowLen=30;
+  const danger=sigma>235;
+  const arrowColor=danger?'#DC143C':'#1a7a4a';
+  // Down arrow (top)
+  ctx.strokeStyle=arrowColor;ctx.fillStyle=arrowColor;ctx.lineWidth=2;
+  ctx.beginPath();ctx.moveTo(cx,20);ctx.lineTo(cx,20+arrowLen);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(cx,20+arrowLen);ctx.lineTo(cx-6,20+arrowLen-10);ctx.lineTo(cx+6,20+arrowLen-10);ctx.closePath();ctx.fill();
+  // Up arrow (bottom)
+  ctx.beginPath();ctx.moveTo(cx,H-20);ctx.lineTo(cx,H-20-arrowLen);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(cx,H-20-arrowLen);ctx.lineTo(cx-6,H-20-arrowLen+10);ctx.lineTo(cx+6,H-20-arrowLen+10);ctx.closePath();ctx.fill();
+  // Stab
+  const stabY=(H-stabH)/2;
+  const grad=ctx.createLinearGradient(cx-dScale,0,cx+dScale,0);
+  grad.addColorStop(0,'#D0D0D0');grad.addColorStop(0.3,'#F0F0F0');grad.addColorStop(0.7,'#F0F0F0');grad.addColorStop(1,'#D0D0D0');
+  ctx.fillStyle=grad;
+  ctx.fillRect(cx-dScale/2,stabY,dScale,stabH);
+  ctx.strokeStyle='#999';ctx.lineWidth=1;
+  ctx.strokeRect(cx-dScale/2,stabY,dScale,stabH);
+  // Stress color overlay
+  const stressAlpha=Math.min(0.6,sigma/500);
+  ctx.fillStyle=danger?`rgba(220,20,60,${stressAlpha})`:`rgba(26,122,74,${stressAlpha*0.5})`;
+  ctx.fillRect(cx-dScale/2,stabY,dScale,stabH);
+  // sigma label
+  ctx.fillStyle=danger?'#DC143C':'#1a7a4a';ctx.font='bold 12px monospace';ctx.textAlign='center';
+  ctx.fillText('σ = '+sigma.toFixed(0)+' MPa',cx,H/2+4);
+  // F label
+  ctx.fillStyle=arrowColor;ctx.font='10px monospace';
+  ctx.fillText('F',cx+10,26);ctx.fillText('F',cx+10,H-18);
+}
+
+// ═══ QUIZ ═══
+const QS={};
+['k1','k2','k3'].forEach(id=>QS[id]={answers:[null,null,null],score:0,done:false});
+const UNLOCK_CHAIN={k1:'k2',k2:'k3',k3:'k4'};
+const KAPITEL_COUNT=8;
+
+function ans(btn,kid,qi,correct){
+  const q=QS[kid];if(!q||q.answers[qi]!==null)return;
+  q.answers[qi]=correct;if(correct)q.score++;
+  btn.classList.add(correct?'correct':'wrong');
+  btn.closest('.quiz-q').querySelectorAll('.opt').forEach(o=>{
+    o.classList.add('locked');
+    if(!correct&&(o.getAttribute('onclick')||'').includes(',true)'))o.classList.add('correct');
+  });
+  const fb=document.getElementById('fb-'+kid+'-'+qi);if(fb)fb.classList.add('open');
+  const answered=q.answers.filter(a=>a!==null).length;
+  document.getElementById('score-'+kid).textContent=q.score+' / '+answered;
+  if(answered===3&&q.score===3&&!q.done){
+    q.done=true;
+    awardDepth(kid+'_quiz',12);
+    showTakeaway(kid);
+    const nr=+kid.replace('k','');
+    updateKapitelDot(nr,'done');
+    setTimeout(()=>unlockNext(kid),800);
+  }
+}
+
+function resetQ(kid){
+  const q=QS[kid];if(!q)return;
+  q.answers=[null,null,null];q.score=0;q.done=false;
+  const kEl=document.getElementById(kid);
+  if(kEl){kEl.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong','locked'));kEl.querySelectorAll('.quiz-fb').forEach(f=>f.classList.remove('open'));}
+  document.getElementById('score-'+kid).textContent='0 / 3';
+}
+
+function showTakeaway(kid){
+  const tw=document.getElementById('takeaway-'+kid.replace('k',''));
+  if(tw){tw.classList.add('visible');setTimeout(()=>tw.scrollIntoView({behavior:'smooth',block:'nearest'}),200);}
+}
+
+function unlockNext(kid){
+  const nr=+kid.replace('k','');
+  const nextNr=nr+1;
+  const nextEl=document.getElementById('k'+nextNr);
+  const prevCard=document.getElementById('prev-'+nextNr);
+  if(prevCard){
+    prevCard.classList.add('unlocked','just-unlocked');
+    setTimeout(()=>prevCard.classList.remove('just-unlocked'),800);
+    const ey=document.getElementById('prev-ey-'+nextNr);
+    if(ey) ey.textContent='Jetzt zugänglich';
+  }
+  if(nextEl){
+    nextEl.style.opacity='1';nextEl.style.pointerEvents='auto';
+    setTimeout(()=>nextEl.scrollIntoView({behavior:'smooth',block:'start'}),600);
+  }
+  // Update horizon previews
+  const horizonEl=document.getElementById('prev-k'+nextNr);
+  if(horizonEl) horizonEl.style.opacity='1';
+  updateKapitelDot(nextNr,'active');
+}
+
+// ═══ KAPITEL DOT NAV ═══
+function updateKapitelDot(nr,state){
+  const dot=document.getElementById('kn-'+nr);
+  if(!dot)return;
+  dot.classList.remove('active','done');
+  dot.classList.add(state);
+}
+function scrollToKapitel(nr){
+  const el=document.getElementById('k'+nr);
+  if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ═══ SKIP ═══
+function skipTo(id){
+  const el=document.getElementById(id);if(!el)return;
+  const unit=el.closest('.kapitel');
+  if(unit) unit.querySelectorAll('.skippable').forEach(s=>s.classList.add('hidden'));
+  setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),50);
+}
+
+function hintToggle(btn){
+  const body=btn.nextElementSibling;const open=body.classList.contains('open');
+  body.classList.toggle('open',!open);btn.textContent=open?'Hinweis':'Schließen';
+}
+
+// ═══ INIT ═══
+window.addEventListener('load',()=>{
+  updateThermal();
+  updateSpannung();
+  renderDepth();
+  window.addEventListener('resize',()=>{
+    clearTimeout(window._rt);
+    window._rt=setTimeout(()=>{updateThermal();updateSpannung();},100);
+  });
+  // Dot nav: highlight on scroll
+  const kapitelEls=[...Array(8)].map((_,i)=>document.getElementById('k'+(i+1)));
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const nr=+e.target.id.replace('k','');
+        document.querySelectorAll('.kn-dot').forEach(d=>d.classList.remove('active'));
+        const dot=document.getElementById('kn-'+nr);
+        if(dot&&!dot.classList.contains('done')) dot.classList.add('active');
+      }
+    });
+  },{threshold:0.3});
+  kapitelEls.forEach(el=>{if(el)obs.observe(el);});
+});
+</script>
+</body>
+</html>
