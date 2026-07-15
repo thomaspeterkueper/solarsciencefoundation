@@ -281,6 +281,7 @@ export const learningPaths: LearningPath[] = [
         id: 'UNIT:HIMMEL-BLAU',
         title: 'Warum blau?',
         entryQuestion: 'Warum ist der Himmel blau — obwohl das Sonnenlicht weiss ist?',
+        takeaway: 'Blaues Licht wird von Luftmolekülen ~6× stärker gestreut als rotes — deshalb kommt es von überall, und der Himmel erscheint blau.',
         gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:UNTERGANG-ROT' },
         sections: [
           {
@@ -391,6 +392,7 @@ export const learningPaths: LearningPath[] = [
         id: 'UNIT:HIMMEL-BLAU',
         title: 'Warum blau?',
         entryQuestion: 'Warum ist der Himmel blau — obwohl das Sonnenlicht weiss ist?',
+        takeaway: 'Blaues Licht wird von Luftmolekülen ~6× stärker gestreut als rotes — deshalb kommt es von überall, und der Himmel erscheint blau.',
         gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:UNTERGANG-ROT' },
         sections: [
           { id: 'OBS:HIMMEL', kind: 'observation', title: 'Beobachtung: Der blaue Himmel', summary: 'Schau in den Himmel — blau. Die Sonne: weisslich. Dasselbe Licht, zwei Farben. Warum?', depthPoints: 4 },
@@ -403,6 +405,7 @@ export const learningPaths: LearningPath[] = [
         id: 'UNIT:UNTERGANG-ROT',
         title: 'Warum rot beim Untergang?',
         entryQuestion: 'Warum ist die Sonne beim Untergang rot — obwohl sie mittags weiss ist?',
+        takeaway: 'Derselbe Mechanismus, längerer Weg — das Blau ist weggefiltert, was bleibt ist Rot. Der blaue Himmel und der rote Untergang sind zwei Seiten derselben Münze.',
         sections: [
           { id: 'OBS:UNTERGANG', kind: 'observation', title: 'Beobachtung: Sonnenuntergang', summary: 'Dieselbe Sonne, verschiedene Farben — der Weg durch die Atmosphaere entscheidet.', depthPoints: 4 },
           { id: 'EXP:WEGLAENGE', kind: 'experiment', title: 'Experiment: Sonnenwinkel und Farbe', summary: 'Winkel-Slider 2-90 Grad: Wegstrecke und Sonnenfarbe live auf Canvas.', interactive: true, depthPoints: 8 },
