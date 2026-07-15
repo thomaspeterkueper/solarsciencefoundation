@@ -3,9 +3,9 @@
  * Path:      lib/learningPaths.ts
  * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/learningPaths.ts
  * Name:      Learning Paths registry
- * Version:   0.9.0
+ * Version:   0.9.1
  * Created:   2026-07-03
- * Modified:  2026-07-15 18:00 CEST
+ * Modified:  2026-07-15 20:00 CEST
  * Depends:   —
  */
 
@@ -609,6 +609,58 @@ export const learningPaths: LearningPath[] = [
           { id: 'EXP:DREHMOMENT', kind: 'experiment', title: 'Experiment: Drehmoment M=r×F', summary: 'Hebelarm r, Kraft F, Winkel alpha als Slider — Drehmoment und Effizienz-Balken live.', interactive: true, depthPoints: 6 },
           { id: 'BRANCH:KREUZPROD', kind: 'branch', title: 'Seitenast: Kreuzprodukt berechnen', summary: 'Determinante 3x3, Sarrus-Regel, Antikommutativitaet a×b = -b×a.', optional: true, depthPoints: 8 },
           { id: 'QUIZ:VEC-3', kind: 'quiz', title: 'Quiz Drehmoment', summary: 'Warum kein Moment an Angel, maximales Moment bei 90 Grad, parallele Vektoren.', depthPoints: 18 }
+        ]
+      }
+    ]
+  }
+,
+  {
+    id: 'PATH:SSF:ENG-EDM-0001',
+    title: 'Wie schneidet man Stahl der haerter ist als jedes Werkzeug',
+    subtitle: 'Erodieren: Funken schneiden was Fraesen nicht kann — Draht, Bohr- und Senkerodieren.',
+    status: 'prototype',
+    sourceModuleId: 'SSF-ENG-1101',
+    kxfModuleId: 'LRN:SSF:ENG-1101',
+    domainsNeeded: ['KNOW:ENG-MANUFACTURING', 'KNOW:PHYS-PLASMA', 'KNOW:EL-BASICS'],
+    suppliedBy: {
+      knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: ['Funkenentladung: U/I/t_on Slider → Pulsenergie, Krater-Canvas, Schrupp/Schlicht-Vergleich', 'Draht-Schnitt-Simulator: Kontur + Konuswinkel + Fortschritt live', 'Aspektverhaeltnis-Rechner: d/t Slider → Verfahren + Machbarkeit + Vergleich Menschenhaar']
+    },
+    unlocks: ['TOOL:WIRE-EDM', 'TOOL:SINK-EDM', 'PRECISION:MIKRON'],
+    units: [
+      {
+        id: 'UNIT:EDM-GRUNDPRINZIP',
+        title: 'Grundprinzip & Funkenentladung',
+        entryQuestion: 'Wie kann ein duenner Messingdraht polykristallinen Diamant schneiden — ohne ihn zu beruehren?',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:DRAHTERODIEREN' },
+        sections: [
+          { id: 'OBS:PARADOXON', kind: 'observation', title: 'Das Paradoxon', summary: 'Diamant haerter als jedes Werkzeug — und trotzdem formbar. Das Werkzeug beruehrt das Material nicht.', depthPoints: 4 },
+          { id: 'EXP:FUNKE', kind: 'experiment', title: 'Experiment: Funkenentladung', summary: 'U/I/t_on Slider → Pulsenergie W, Krater-Canvas mit Plasma, Schrupp/Schlicht-Vergleichsbalken.', interactive: true, depthPoints: 6 },
+          { id: 'QUIZ:EDM-1', kind: 'quiz', title: 'Quiz Grundprinzip', summary: 'Womit Abtrag, was bestimmt Ra, welche Materialeigenschaft noetig.', depthPoints: 13 }
+        ]
+      },
+      {
+        id: 'UNIT:DRAHTERODIEREN',
+        title: 'Drahterodieren',
+        entryQuestion: 'Warum kann man mit Drahterodieren keine Sacklocher machen?',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:BOHR-SENK' },
+        sections: [
+          { id: 'OBS:BANDSAEGE', kind: 'observation', title: 'Prinzip Drahterodieren', summary: 'Wie eine Bandsaege — aber beruehrungslos, mikrometergenau, durch gehaerteten Stahl.', depthPoints: 3 },
+          { id: 'EXP:DRAHT', kind: 'experiment', title: 'Experiment: Draht-Schnitt-Simulator', summary: 'Kontur (Quadrat/Zahnform/Freiform), Drahtdurchmesser, Konuswinkel, Fortschritt — Draufsicht + Querschnitt live.', interactive: true, depthPoints: 6 },
+          { id: 'BRANCH:WIRE-DETAIL', kind: 'branch', title: 'Seitenast: Toleranzen und Anwendungen', summary: '+/-0,001 mm Toleranz, Drahtmaterialien, Uhrenindustrie, Turbinenschaufeln.', optional: true, depthPoints: 7 },
+          { id: 'QUIZ:EDM-2', kind: 'quiz', title: 'Quiz Drahterodieren', summary: 'Warum kein Sackloch, was ermoeglicht Konusschnitt, warum duenne Stege moeglich.', depthPoints: 15 }
+        ]
+      },
+      {
+        id: 'UNIT:BOHR-SENK',
+        title: 'Bohr- und Senkerodieren',
+        entryQuestion: 'Wie bohrt man ein Loch das 1000x tiefer als breit ist?',
+        sections: [
+          { id: 'OBS:WELTREKORD', kind: 'observation', title: 'Weltrekord Aspektverhaeltnis', summary: 'Durchmesser 0,003 mm, Tiefe 3 mm — 20x duenner als ein Menschenhaar, 3 mm tief.', depthPoints: 4 },
+          { id: 'EXP:ASPEKT', kind: 'experiment', title: 'Experiment: Aspektverhaeltnis', summary: 'Durchmesser- und Tiefe-Slider → Verfahrensempfehlung (konv./Tiefbohren/Bohrerodieren/Weltrekord), Querschnitt-Canvas.', interactive: true, depthPoints: 5 },
+          { id: 'BRANCH:SINK-DETAIL', kind: 'branch', title: 'Seitenast: Elektroden und Dielektrikum', summary: 'Kupfer vs. Graphit, Oel vs. Wasser, Elektrodenverschleiss Schrupp/Schlicht.', optional: true, depthPoints: 7 },
+          { id: 'QUIZ:EDM-3', kind: 'quiz', title: 'Quiz Bohr- und Senkerodieren', summary: 'Warum Dielektrikum durch Elektrode, Hauptvorteil Senkerodieren, Schrupp/Schlicht-Elektroden.', depthPoints: 18 }
         ]
       }
     ]
