@@ -29,6 +29,12 @@ const HORIZON_PATHS = [
     dependsOn: 'PATH:SSF:MAT-DIFFGEO-0001',
     note: 'Extremwerte mehrerer Variablen — Hesse-Kriterium',
   },
+  {
+    title: 'Wie transformiert man viele Vektoren gleichzeitig?',
+    tag: 'Mathematik · Matrizen',
+    dependsOn: 'PATH:SSF:MAT-VEC-0001',
+    note: 'Öffnet sich nach dem Vektor-Pfad',
+  },
 ];
 
 // Observation images associated with each active path
@@ -56,6 +62,10 @@ const PATH_IMAGES: Record<string, { src: string; alt: string }> = {
   'PATH:SSF:MAT-DIFFGEO-0001': {
     src: '/images/observations/cd-spektrum-tku.jpg',
     alt: 'CD-Spirale — Polarkurven und Geometrie',
+  },
+  'PATH:SSF:MAT-VEC-0001': {
+    src: '/images/observations/kaffeetasse-tku.jpg',
+    alt: 'Kaffeetasse — Kräfte und Hebelarm im Alltag',
   },
 };
 
