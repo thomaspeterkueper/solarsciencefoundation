@@ -3,7 +3,7 @@
  * Path:      lib/learningPaths.ts
  * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/learningPaths.ts
  * Name:      Learning Paths registry
- * Version:   0.9.1
+ * Version:   0.9.2
  * Created:   2026-07-03
  * Modified:  2026-07-15 20:00 CEST
  * Depends:   —
@@ -661,6 +661,45 @@ export const learningPaths: LearningPath[] = [
           { id: 'EXP:ASPEKT', kind: 'experiment', title: 'Experiment: Aspektverhaeltnis', summary: 'Durchmesser- und Tiefe-Slider → Verfahrensempfehlung (konv./Tiefbohren/Bohrerodieren/Weltrekord), Querschnitt-Canvas.', interactive: true, depthPoints: 5 },
           { id: 'BRANCH:SINK-DETAIL', kind: 'branch', title: 'Seitenast: Elektroden und Dielektrikum', summary: 'Kupfer vs. Graphit, Oel vs. Wasser, Elektrodenverschleiss Schrupp/Schlicht.', optional: true, depthPoints: 7 },
           { id: 'QUIZ:EDM-3', kind: 'quiz', title: 'Quiz Bohr- und Senkerodieren', summary: 'Warum Dielektrikum durch Elektrode, Hauptvorteil Senkerodieren, Schrupp/Schlicht-Elektroden.', depthPoints: 18 }
+        ]
+      }
+    ]
+  }
+,
+  {
+    id: 'PATH:SSF:MAT-LGS-0001',
+    title: 'Wie loest man zwei Bedingungen gleichzeitig',
+    subtitle: 'Lineare Gleichungssysteme — grafisch als Schnittpunkt, systematisch mit Gauss-Elimination.',
+    status: 'prototype',
+    sourceModuleId: 'SSF-MAT-1105',
+    kxfModuleId: 'LRN:SSF:MAT-1105',
+    domainsNeeded: ['KNOW:MAT-LINEAR-ALGEBRA','KNOW:MAT-ANALYSIS'],
+    suppliedBy: {
+      knowledgeGraph: ['Prerequisite links','Unlock mapping'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: ['Grafischer LGS-Solver: 6 Koeffizienten-Slider, zwei Geraden live, Schnittpunkt animiert','Gauss-Elimination: 4-Schritt-Walkthrough mit Zeilenoperationen','Seitenast Cramer-Regel fuer 2x2']
+    },
+    unlocks: ['MATH:LGS','ANALYSIS:MATRIX'],
+    units: [
+      {
+        id: 'UNIT:LGS-GRAFISCH',
+        title: 'Grafisch & geometrisch',
+        entryQuestion: 'Zwei Rohre fuellen ein Becken — wie lange braucht jedes allein?',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:GAUSS' },
+        sections: [
+          { id: 'OBS:ROHRE', kind: 'observation', title: 'Beobachtung: Rohrproblem', summary: 'Eine Unbekannte reicht nicht — zwei Bedingungen brauchen zwei Gleichungen.', depthPoints: 3 },
+          { id: 'EXP:LGS-GRAFISCH', kind: 'experiment', title: 'Experiment: Zwei Geraden', summary: '6 Slider fuer a1,b1,c1,a2,b2,c2 — Schnittpunkt live, Status eindeutig/parallel/identisch, Determinante.', interactive: true, depthPoints: 5 },
+          { id: 'QUIZ:LGS-1', kind: 'quiz', title: 'Quiz: Grafische Loesung', summary: 'Geometrische Bedeutung, Determinante, konkretes 2x2 LGS.', depthPoints: 12 }
+        ]
+      },
+      {
+        id: 'UNIT:GAUSS',
+        title: 'Gauss-Elimination',
+        entryQuestion: 'Wie loest man drei Gleichungen mit drei Unbekannten — ohne zu raten?',
+        sections: [
+          { id: 'EXP:GAUSS', kind: 'experiment', title: 'Experiment: Gauss-Elimination animiert', summary: '4-Schritt-Walkthrough: Ausgangsmatrix → Pivot Sp.1 → Pivot Sp.2 → Rueckwaertseinsetzen.', interactive: true, depthPoints: 6 },
+          { id: 'BRANCH:CRAMER', kind: 'branch', title: 'Seitenast: Cramer-Regel', summary: 'x = det(Ax)/det(A), y = det(Ay)/det(A) — elegant fuer 2x2.', optional: true, depthPoints: 7 },
+          { id: 'QUIZ:LGS-2', kind: 'quiz', title: 'Quiz: Gauss', summary: 'Ziel der Gauss-Elimination, erlaubte Operationen, unendlich viele Loesungen.', depthPoints: 15 }
         ]
       }
     ]
