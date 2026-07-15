@@ -34,7 +34,7 @@ export default function ModuleRunner({ learningModule }: { learningModule: Learn
     } catch {}
   }, []);
 
-  const allAnswered = learningModule.exercises.every((ex) => ex.id in answers);
+  const allAnswered = learningModule.exercises.every((exercise) => exercise.id in answers);
 
   async function submit() {
     setSubmitting(true);
@@ -51,7 +51,7 @@ export default function ModuleRunner({ learningModule }: { learningModule: Learn
       const headers: Record<string, string> = { 'Content-Type': 'application/json' };
       if (token) headers.Authorization = `Bearer ${token}`;
 
-      const res = await fetch('/api/progress/complete', {
+      const response = await fetch('/api/progress/complete', {
         method: 'POST',
         headers,
         body: JSON.stringify({
@@ -59,11 +59,11 @@ export default function ModuleRunner({ learningModule }: { learningModule: Learn
           moduleId: learningModule.id,
           answers: Object.entries(answers).map(([exerciseId, selectedOption]) => ({
             exerciseId,
-            selectedOption
-          }))
-        })
+            selectedOption,
+          })),
+        }),
       });
-      setResult((await res.json()) as CompleteResponse);
+      setResult((await response.json()) as CompleteResponse);
     } catch {
       setError('Verbindung fehlgeschlagen. Bitte erneut versuchen.');
     } finally {
@@ -74,65 +74,71 @@ export default function ModuleRunner({ learningModule }: { learningModule: Learn
   if (learningModule.exercises.length === 0) return null;
 
   return (
-    <div style={{ marginTop: 40 }}>
-      {learningModule.exercises.map((ex, i) => (
-        <div key={ex.id} style={{ marginBottom: 28 }}>
-          <p style={{ fontFamily: 'var(--font-serif)', fontSize: 19, lineHeight: 1.55, margin: '0 0 12px', color: 'var(--navy)' }}>
-            {ex.question}
-          </p>
-          {ex.options.map((option, idx) => (
-            <button
-              key={idx}
-              type="button"
-              className={answers[ex.id] === idx ? 'option selected' : 'option'}
-              onClick={() => setAnswers((prev) => ({ ...prev, [ex.id]: idx }))}
-            >
-              {option}
-            </button>
-          ))}
-        </div>
-      ))}
+    <div className="quiz-runner">
+      <div className="quiz-runner__progress">
+        <span>{Object.keys(answers).length} von {learningModule.exercises.length} beantwortet</span>
+        <div><i style={{ width: `${(Object.keys(answers).length / learningModule.exercises.length) * 100}%` }} /></div>
+      </div>
+
+      <div className="quiz-runner__questions">
+        {learningModule.exercises.map((exercise, questionIndex) => (
+          <fieldset key={exercise.id} className="quiz-runner__question">
+            <legend>
+              <span>Frage {questionIndex + 1}</span>
+              {exercise.question}
+            </legend>
+            <div className="quiz-runner__options">
+              {exercise.options.map((option, optionIndex) => {
+                const selected = answers[exercise.id] === optionIndex;
+                return (
+                  <button
+                    key={option}
+                    type="button"
+                    className={selected ? 'quiz-runner__option is-selected' : 'quiz-runner__option'}
+                    onClick={() => {
+                      setAnswers((previous) => ({ ...previous, [exercise.id]: optionIndex }));
+                      setResult(null);
+                    }}
+                  >
+                    <span className="quiz-runner__marker">{String.fromCharCode(65 + optionIndex)}</span>
+                    <span>{option}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </fieldset>
+        ))}
+      </div>
 
       {!result && (
-        <button
-          className="btn"
-          onClick={submit}
-          disabled={!allAnswered || submitting}
-          style={{ marginTop: 8 }}
-        >
+        <button className="btn" onClick={submit} disabled={!allAnswered || submitting} type="button">
           {submitting ? 'Wird geprüft …' : 'Antworten prüfen →'}
         </button>
       )}
 
-      {error && (
-        <p style={{ color: '#a32d2d', marginTop: 14, fontSize: 15 }}>{error}</p>
-      )}
+      {error && <p className="quiz-runner__error">{error}</p>}
 
       {result?.status === 'completed' && (
-        <div className="result ok" style={{ marginTop: 24 }}>
-          <p style={{ margin: '0 0 6px', fontFamily: 'var(--font-serif)', fontSize: 18 }}>
-            Richtig. Du hast das verstanden.
-          </p>
+        <div className="quiz-runner__feedback is-success">
+          <span>Verstanden</span>
+          <strong>Richtig. Du kannst Dehnungsmessung und DMS-Rosette einordnen.</strong>
           {result.unlocks && result.unlocks.length > 0 && (
-            <p style={{ margin: '8px 0 0', fontSize: 14, color: 'var(--steel)' }}>
-              In NOχ¹Δ freigeschaltet: <span className="unlock">{result.unlocks[0].id}</span>
-            </p>
+            <p>In NOχ¹Δ freigeschaltet: <code>{result.unlocks[0].id}</code></p>
           )}
         </div>
       )}
 
       {result?.status === 'incomplete' && (
-        <div className="result" style={{ marginTop: 24 }}>
-          <p style={{ margin: 0, fontFamily: 'var(--font-serif)', fontSize: 18 }}>
-            Noch nicht ganz — schau dir die Fragen nochmal an.
-          </p>
+        <div className="quiz-runner__feedback">
+          <span>Noch offen</span>
+          <strong>Mindestens eine Antwort stimmt noch nicht.</strong>
+          <p>Gehe zum Lernmodul zurück oder prüfe besonders die Kopplung von Längs- und Querdehnung.</p>
           <button
             className="btn secondary"
-            style={{ marginTop: 14 }}
             onClick={() => { setAnswers({}); setResult(null); }}
             type="button"
           >
-            Nochmal versuchen
+            Antworten zurücksetzen
           </button>
         </div>
       )}
