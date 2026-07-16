@@ -18,26 +18,46 @@ import styles from './PathRunner.module.css';
 
 // ── Experiment registry ──────────────────────────────────
 // Add new experiment components here as they are ported.
-import RayleighExperiment      from './RayleighExperiment';
-import LGSExperiment           from './LGSExperiment';
-import SunsetExperiment        from './SunsetExperiment';
-import VectorExperiment        from './VectorExperiment';
-import DensityErrorExperiment  from './DensityErrorExperiment';
-import FourierExperiment       from './FourierExperiment';
+import RayleighExperiment          from './RayleighExperiment';
+import LGSExperiment               from './LGSExperiment';
+import SunsetExperiment            from './SunsetExperiment';
+import VectorExperiment            from './VectorExperiment';
+import DensityErrorExperiment      from './DensityErrorExperiment';
+import FourierExperiment           from './FourierExperiment';
+import ThermalExpansionExperiment  from './ThermalExpansionExperiment';
+import StressExperiment            from './StressExperiment';
+import HookeExperiment             from './HookeExperiment';
+import PoissonExperiment           from './PoissonExperiment';
+import WheatstoneExperiment        from './WheatstoneExperiment';
+import DiodeExperiment             from './DiodeExperiment';
+import SeriesExperiment            from './SeriesExperiment';
+import TorqueExperiment            from './TorqueExperiment';
+import ScalarExperiment            from './ScalarExperiment';
 
 const EXPERIMENT_MAP: Record<string, React.ComponentType> = {
   // PHY-SKY
-  'EXP:RAYLEIGH':         RayleighExperiment,
-  'EXP:ATMOSPHAERE-PFAD': SunsetExperiment,
-  'EXP:WEGLAENGE':        SunsetExperiment,
+  'EXP:RAYLEIGH':           RayleighExperiment,
+  'EXP:ATMOSPHAERE-PFAD':   SunsetExperiment,
+  'EXP:WEGLAENGE':          SunsetExperiment,
   // MAT-LGS
-  'EXP:LGS-GRAFISCH':     LGSExperiment,
+  'EXP:LGS-GRAFISCH':       LGSExperiment,
   // MAT-VEC
-  'EXP:VEC-RECHNER':      VectorExperiment,
+  'EXP:VEC-RECHNER':        VectorExperiment,
+  'EXP:SKALAR':             ScalarExperiment,
+  'EXP:DREHMOMENT':         TorqueExperiment,
   // MAT-ERROR
-  'EXP:KUGELDICHTE':      DensityErrorExperiment,
+  'EXP:KUGELDICHTE':        DensityErrorExperiment,
   // MAT-SERIES
-  'EXP:FOURIER':          FourierExperiment,
+  'EXP:FOURIER':            FourierExperiment,
+  'EXP:REIHE':              SeriesExperiment,
+  // ENG-DMS
+  'EXP:DEHNUNG-WAERME':     ThermalExpansionExperiment,
+  'EXP:SPANNUNG':           StressExperiment,
+  'EXP:HOOKE':              HookeExperiment,
+  'EXP:QUERKONTRAKTION':    PoissonExperiment,
+  'EXP:BRUECKE':            WheatstoneExperiment,
+  // EL-DIODE
+  'EXP:KENNLINIE':          DiodeExperiment,
 };
 
 // ── Depth bar ────────────────────────────────────────────
