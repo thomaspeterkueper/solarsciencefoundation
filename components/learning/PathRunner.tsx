@@ -33,6 +33,8 @@ import DiodeExperiment             from './DiodeExperiment';
 import SeriesExperiment            from './SeriesExperiment';
 import TorqueExperiment            from './TorqueExperiment';
 import ScalarExperiment            from './ScalarExperiment';
+import AbsorptionExperiment        from './AbsorptionExperiment';
+import CoolingExperiment           from './CoolingExperiment';
 
 const EXPERIMENT_MAP: Record<string, React.ComponentType> = {
   // PHY-SKY
@@ -58,6 +60,10 @@ const EXPERIMENT_MAP: Record<string, React.ComponentType> = {
   'EXP:BRUECKE':            WheatstoneExperiment,
   // EL-DIODE
   'EXP:KENNLINIE':          DiodeExperiment,
+  // PHY-WAVE-SPECTRUM
+  'EXP:ABSORPTIONSLINIEN':  AbsorptionExperiment,
+  'EXP:KAFFEETASSE':        CoolingExperiment,
+  'EXP:WELLENMISCHER':      FourierExperiment,   // reuse Fourier for wave mixing
 };
 
 // ── Depth bar ────────────────────────────────────────────
