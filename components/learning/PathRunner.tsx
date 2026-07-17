@@ -60,6 +60,10 @@ import MaterialMatrixExperiment   from './MaterialMatrixExperiment';
 import SpinExperiment             from './SpinExperiment';
 import ElectromagnetExperiment    from './ElectromagnetExperiment';
 import MagneticFieldExperiment    from './MagneticFieldExperiment';
+import DustGrainExperiment        from './DustGrainExperiment';
+import EarlyEarthExperiment       from './EarlyEarthExperiment';
+import MillerUreyExperiment       from './MillerUreyExperiment';
+import OriginOfLifeTimeline       from './OriginOfLifeTimeline';
 
 const EXPERIMENT_MAP: Record<string, React.ComponentType> = {
   // PHY-SKY
@@ -136,6 +140,11 @@ const EXPERIMENT_MAP: Record<string, React.ComponentType> = {
   'EXP:POLARITAET':            SpinExperiment,
   'EXP:DRAHT':                 ElectromagnetExperiment,
   'EXP:LICHTSPEKTRUM':         MagneticFieldExperiment,
+  // ASTROBIOLOGIE-CLUSTER
+  'EXP:DAMPFDRUCK-TEMP':       DustGrainExperiment,
+  'EXP:KLIMA-EFFEKT':          EarlyEarthExperiment,
+  'EXP:VERBRENNUNG-CHEMIE':    MillerUreyExperiment,
+  'EXP:OSMOSE':                OriginOfLifeTimeline,
 };
 
 // ── Depth bar ────────────────────────────────────────────
