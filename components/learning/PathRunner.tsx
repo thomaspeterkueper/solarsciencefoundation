@@ -4,7 +4,7 @@
  * KUEPER · Solar Science Foundation (SSF)
  * Path:     components/learning/PathRunner.tsx
  * Name:     PathRunner — renders a LearningPath inline within the SSF shell
- * Version:  0.3.0
+ * Version:  1.0.0
  * Created:  2026-07-15
  *
  * Renders all units and sections of a LearningPath as SSF-styled content.
@@ -164,6 +164,54 @@ const EXPERIMENT_MAP: Record<string, React.ComponentType> = {
   'EXP:BATTERIE-MANAGEMENT':   ElectrolyzerExperiment,
   'EXP:SCHNELLLADEN-SIMULATION': MaterialsDashboardExperiment,
   'EXP:BESCHLEUNIGUNG-VERGLEICH': MaterialsDashboardExperiment,
+  // ── Reuse-Mappings für fehlende EXP-IDs ─────────────────────────
+  // Diode / Elektronik
+  'EXP:ARBEITSPUNKT':           DiodeExperiment,        // Lastgerade = Kennlinie
+  // EDM / Fertigung
+  'EXP:ASPEKT':                 PiezoMaterialExperiment, // Material-Vergleich
+  'EXP:AUSWERTUNG':             DensityErrorExperiment,  // Fehlerauswertung
+  // Auto
+  'EXP:BREMSVIBRATION':         BrakeEnergyExperiment,   // Bremsenergie/Reibung
+  'EXP:GEWICHT-TRAKTION':       BrakeEnergyExperiment,   // Masse/Kraft
+  'EXP:HAFTUNG-REIBUNG':        BrakeEnergyExperiment,   // Reibungskoeffizient
+  'EXP:KRAFT-DREHZAHL':         FourStrokeExperiment,    // Motor-Kennlinie
+  'EXP:KUEHLKREISLAUF':         CoolingExperiment,       // Kühlkreislauf = Abkühlung
+  'EXP:MOTOR-KUEHLKREISLAUF':   CoolingExperiment,       // Motorwärme
+  'EXP:MOTOR-VERSCHLEISS':      PiezoMaterialExperiment, // Materialverschleiß
+  'EXP:VERSCHLEISS-SIMULATION': PiezoMaterialExperiment, // Verschleiß
+  // Chemie / Reinigung
+  'EXP:CHLORGAS':               CombustionExperiment,    // Gefahrenreaktion
+  'EXP:DENATURIERUNG':          CollagenExperiment,      // Protein-Denaturierung
+  'EXP:FLECK-BEHANDLUNG':       CollagenExperiment,      // Fleck-Behandlung
+  'EXP:MAYONNAISE-SIMULATION':  EmulsionExperiment,      // Emulsion = Mayo
+  'EXP:OBERFLSPANNUNG':         CapillaryExperiment,     // Oberflächenspannung
+  'EXP:OELEIGENSCHAFTEN':       CombustionExperiment,    // Öleigenschaften
+  'EXP:POLAR-SORTIERER':        MicelleExperiment,       // Polar/unpolar sortieren
+  'EXP:POROESITAET':            DustGrainExperiment,     // Porosität = Oberfläche
+  'EXP:QUELLUNG':               PipeFreezingExperiment,  // Quellung = Ausdehnung
+  'EXP:WISCHER-TECHNIK':        EvaporationExperiment,   // Verdunstung + Technik
+  'EXP:ZELLTURGOR':             DewPointExperiment,      // Osmose/Druck in Zelle
+  // Physik / Wasser
+  'EXP:DRUCK-BLASEN':           PhaseDiagramExperiment,  // Druck → Blasen
+  'EXP:OBERFLAECHE-VOLUMEN':    WaterHeatCapacityExperiment, // OV-Verhältnis
+  'EXP:SCHNELLKOCHTOPF':        PhaseDiagramExperiment,  // Druck → Siedepunkt
+  'EXP:SIEDEPUNKT':             PhaseDiagramExperiment,  // Siedepunkt
+  'EXP:SIEDEPUNKT-HOEHE':       PhaseDiagramExperiment,  // Höhe → Siedepunkt
+  'EXP:VERDUNSTUNG':            EvaporationExperiment,   // Verdunstungsrate
+  'EXP:WAERMETRANSPORT':        WaterHeatCapacityExperiment, // Wärmetransport
+  // Mathematik
+  'EXP:BUILDER':                DensityErrorExperiment,  // Fehler-Builder
+  'EXP:GAUSS':                  LGSExperiment,           // Gauss = LGS-Lösung
+  'EXP:HBRUECKEN':              WheatstoneExperiment,    // H-Brücken = Wheatstone
+  'EXP:POLARKURVEN':            SeriesExperiment,        // Polarkurven ≈ Reihen
+  'EXP:SCHMIEGEKREIS':          SeriesExperiment,        // Schmiegekreis
+  // DMS / Ingenieur
+  'EXP:ROSETTE':                HookeExperiment,         // σ-ε-Diagramm
+  // Pumpe / Hydraulik
+  'EXP:PUMPENKENNLINIE':        PumpExperiment,          // Pumpen-Kennlinie
+  // Elektromotor / Antrieb
+  'EXP:ZENTRIFUGAL-SIMULATION': TorqueExperiment,        // Zentrifugalkraft ≈ Drehmoment
+  'EXP:SCHALLDAEMPFUNG':        FourierExperiment,       // Schall = Wellen
 };
 
 // ── Depth bar ────────────────────────────────────────────
