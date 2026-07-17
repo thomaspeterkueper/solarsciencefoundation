@@ -12,48 +12,38 @@ function drawDiff(canvas: HTMLCanvasElement, curve: number, locked: boolean, tic
   const ctx = canvas.getContext('2d')!; ctx.scale(dpr, dpr);
   const W = canvas.offsetWidth, H = 190;
   ctx.fillStyle = '#0a1628'; ctx.fillRect(0,0,W,H);
-
   const roadY = H * 0.62;
-  // Road
   ctx.fillStyle = '#2A2A2A'; ctx.fillRect(0, roadY-20, W, 50);
-  ctx.strokeStyle = '#555'; ctx.lineWidth = 1; ctx.setLineDash([12,8]);
+  ctx.strokeStyle = '#666'; ctx.lineWidth = 1; ctx.setLineDash([10,7]);
   ctx.beginPath(); ctx.moveTo(0,roadY); ctx.lineTo(W,roadY); ctx.stroke();
   ctx.setLineDash([]);
-
-  // Car
   const cx = W/2, cy = roadY-28;
   ctx.fillStyle = '#5B8FB9'; ctx.fillRect(cx-44, cy-14, 88, 26);
   ctx.fillStyle = '#4A7A9B'; ctx.fillRect(cx-30, cy-28, 60, 16);
-
-  // Differential
-  const outerRpm = curve === 0 ? 60 : 60 * (1 + Math.abs(curve)/80);
-  const innerRpm = curve === 0 ? 60 : locked ? outerRpm : 60 * (1 - Math.abs(curve)/80);
-  const slipping = locked && curve !== 0 && Math.abs(innerRpm - outerRpm) > 8;
-
-  const diffColor = slipping ? '#DC143C' : curve === 0 ? '#7AAD7A' : '#C9A84C';
+  const outerRpm = curve===0 ? 60 : 60*(1+Math.abs(curve)/80);
+  const innerRpm = curve===0 ? 60 : locked ? outerRpm : 60*(1-Math.abs(curve)/80);
+  const slipping = locked && curve!==0;
+  const diffColor = slipping ? '#DC143C' : curve===0 ? '#7AAD7A' : '#C9A84C';
   ctx.beginPath(); ctx.arc(cx, cy+8, 9, 0, Math.PI*2);
   ctx.fillStyle = diffColor+'44'; ctx.fill();
   ctx.strokeStyle = diffColor; ctx.lineWidth = 2; ctx.stroke();
-  ctx.fillStyle = diffColor; ctx.font = 'bold 9px monospace'; ctx.textAlign = 'center';
-  ctx.fillText(locked ? '⚡' : 'Δ', cx, cy+12);
-
-  // Wheels
+  ctx.fillStyle = diffColor; ctx.font = 'bold 10px monospace'; ctx.textAlign = 'center';
+  ctx.fillText(locked ? '!' : 'D', cx, cy+13);
   const track = 42;
-  ([[-track,'L',innerRpm],[track,'R',outerRpm]] as [number,string,number][]).forEach(([dx,side,rpm]) => {
-    const wx = cx+dx, wy = roadY+6;
-    const isSlip = slipping && dx < 0;
+  [[-track,'L',innerRpm],[track,'R',outerRpm]].forEach(([dx,side,rpm]) => {
+    const wx = cx+(dx as number), wy = roadY+6;
+    const isSlip = slipping && (dx as number) < 0;
     ctx.beginPath(); ctx.arc(wx, wy, 14, 0, Math.PI*2);
-    ctx.fillStyle = isSlip ? '#DC143C33' : '#333'; ctx.fill();
+    ctx.fillStyle = isSlip ? '#DC143C22' : '#333'; ctx.fill();
     ctx.strokeStyle = isSlip ? '#DC143C' : '#888'; ctx.lineWidth = 2; ctx.stroke();
-    const ang = tick * rpm * 0.002;
+    const ang = tick * (rpm as number) * 0.002;
     ctx.strokeStyle = isSlip ? '#DC143C' : '#C9A84C'; ctx.lineWidth = 2;
     ctx.beginPath(); ctx.moveTo(wx,wy); ctx.lineTo(wx+Math.cos(ang)*11, wy+Math.sin(ang)*11); ctx.stroke();
     ctx.fillStyle = isSlip ? '#DC143C' : 'rgba(255,255,255,.55)';
     ctx.font = '8px monospace'; ctx.textAlign = 'center';
-    ctx.fillText(Math.round(rpm)+' rpm', wx, wy+24);
-    ctx.fillStyle = 'rgba(255,255,255,.3)';
-    ctx.fillText(side, wx, wy+33);
-    if (isSlip) { ctx.fillStyle='#DC143C'; ctx.fillText('SLIP',wx,wy+42); }
+    ctx.fillText(Math.round(rpm as number)+' rpm', wx, wy+24);
+    ctx.fillStyle = 'rgba(255,255,255,.3)'; ctx.fillText(side as string, wx, wy+34);
+    if (isSlip) { ctx.fillStyle='#DC143C'; ctx.fillText('SLIP',wx,wy+44); }
   });
 }
 
@@ -70,13 +60,15 @@ export default function DifferentialExperiment() {
   }, []);
   useEffect(() => { if (canvasRef.current) drawDiff(canvasRef.current, curve, locked, tick); }, [curve,locked,tick]);
   useEffect(() => {
-    const obs = new ResizeObserver(() => { if (canvasRef.current) drawDiff(canvasRef.current, curve, locked, tick); });
+    const obs = new ResizeObserver(() => {
+      if (canvasRef.current) drawDiff(canvasRef.current, curve, locked, tick);
+    });
     if (canvasRef.current) obs.observe(canvasRef.current);
     return () => obs.disconnect();
   }, [curve,locked,tick]);
 
-  const outerRpm = curve===0 ? 60 : 60*(1+Math.abs(curve)/80);
-  const innerRpm = curve===0 ? 60 : locked ? outerRpm : 60*(1-Math.abs(curve)/80);
+  const outerRpm = curve===0 ? 60 : Math.round(60*(1+Math.abs(curve)/80));
+  const innerRpm = curve===0 ? 60 : locked ? outerRpm : Math.round(60*(1-Math.abs(curve)/80));
   const slip = locked && curve!==0;
 
   return (
@@ -92,16 +84,20 @@ export default function DifferentialExperiment() {
         border:'1.5px solid '+(locked?'#DC143C':'var(--border)'),
         background:locked?'#DC143C22':'var(--soft)', color:locked?'#DC143C':'var(--muted)',
         fontFamily:'var(--font-mono)', fontSize:11, cursor:'pointer',
-      }}>{locked?'🔒 Differential gesperrt (starr)':'✓ Differential offen (normal)'}</button>
-      <canvas ref={canvasRef} style={{display:'block',width:'100%',height:190,borderRadius:6,border:`2px solid ${slip?'#DC143C':'var(--border)'}`,marginTop:10,background:'#0a1628'}} />
+      }}>{locked?'Differential gesperrt (starr)':'Differential offen (normal)'}</button>
+      <canvas ref={canvasRef} style={{
+        display:'block',width:'100%',height:190,borderRadius:6,
+        border:'2px solid '+(slip?'#DC143C':'var(--border)'),marginTop:10,background:'#0a1628'
+      }} />
       <div className={styles.stats} style={{marginTop:10}}>
-        <div><span>Innenrad</span><strong style={{color:slip?'#DC143C':'var(--ok-t)'}}>{Math.round(innerRpm)} rpm</strong></div>
-        <div><span>Außenrad</span><strong>{Math.round(outerRpm)} rpm</strong></div>
+        <div><span>Innenrad</span><strong style={{color:slip?'#DC143C':'var(--ok-t)'}}>{innerRpm} rpm</strong></div>
+        <div><span>Außenrad</span><strong>{outerRpm} rpm</strong></div>
         <div style={{gridColumn:'span 2'}}>
           <span>Ergebnis</span>
           <strong style={{fontSize:12,color:slip?'#DC143C':'var(--ok-t)'}}>
-            {slip?'⚠ Innenrad schleift — Reifenverschleiß, Untersteuern':
-             curve===0?'Geradeaus: beide Räder identisch':'✓ Differential gleicht Drehzahl aus'}
+            {slip?'Innenrad schleift — kein Differential = Reifenverschleiss, Untersteuern':
+             curve===0?'Geradeaus: beide Raeder identisch schnell':
+             'Differential gleicht Drehzahlunterschied in Kurve aus'}
           </strong>
         </div>
       </div>
