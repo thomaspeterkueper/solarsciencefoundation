@@ -3,8 +3,8 @@ import { fetchLearningModules } from '../../lib/learning-modules';
 import { LearnMap } from '../../components/LearnMap';
 
 export const metadata: Metadata = {
-  title: 'Entdecken · Solar Science Foundation',
-  description: 'Folge deiner Neugier durch Physik, Chemie, Mathematik, Geschichte, Sprache und mehr.'
+  title: 'Wissensnetz · Solar Science Foundation',
+  description: 'Was hast du heute schon gefragt? Entdecke das Netz aus Fragen, Experimenten und Verbindungen — ohne Disziplinlabels, ohne Noten.',
 };
 
 export default async function LearnPage() {
