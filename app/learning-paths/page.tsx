@@ -51,6 +51,11 @@ const CLUSTERS: Record<string, {
       'PATH:SSF:PHY-PUMPE-WASSER-0001',
     ],
   },
+  energie: {
+    label: 'Energie & neue Materialien', icon: '⚡', color: '#C9A84C',
+    horizon: 'Als nächstes: Wie funktioniert ein Solarpanel? — Photoelektrischer Effekt und Halbleiter',
+    ids: ['PATH:SSF:PHY-PIEZO-0001'],
+  },
   physik: {
     label: 'Physik & Natur', icon: '🌤', color: '#5B8FB9',
     horizon: 'Als nächstes: Wie entsteht ein Regenbogen? — Brechung, Dispersion und Totalreflexion',
