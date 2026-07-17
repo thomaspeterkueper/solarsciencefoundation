@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
-import Image from 'next/image';
 import PathRunner from '../../../components/learning/PathRunner';
+import MaillardJourney from '../../../components/learning/MaillardJourney';
 import {
   getLearningPathStatus,
   getRegisteredLearningPathById,
@@ -17,17 +17,15 @@ export default async function LearningPathDetailPage({ params }: PageProps) {
   if (!path) notFound();
 
   const lifecycle = getLearningPathStatus(path.status);
+  const isMaillard = path.id === 'PATH:SSF:CHE-KUECHE-MAILLARD-0001';
 
   return (
     <div className="container reading" style={{ paddingTop: 40, paddingBottom: 96 }}>
-
-      {/* Path header */}
       <p className="kicker" style={{ marginBottom: 8 }}>{path.title}</p>
       <p style={{ color: 'var(--muted)', maxWidth: '60ch', fontSize: 17, lineHeight: 1.7, marginBottom: 16 }}>
         {path.subtitle}
       </p>
 
-      {/* Status badge */}
       <div style={{
         display: 'inline-flex', alignItems: 'center', gap: 8,
         padding: '6px 12px',
@@ -45,7 +43,6 @@ export default async function LearningPathDetailPage({ params }: PageProps) {
         <span style={{ color: 'var(--muted)', fontSize: 12 }}>— {lifecycle.description}</span>
       </div>
 
-      {/* NOXIA unlocks */}
       {path.unlocks.length > 0 && (
         <div style={{
           display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap',
@@ -69,9 +66,7 @@ export default async function LearningPathDetailPage({ params }: PageProps) {
         </div>
       )}
 
-      {/* PathRunner — full interactive learning path */}
-      <PathRunner path={path} />
-
+      {isMaillard ? <MaillardJourney path={path} /> : <PathRunner path={path} />}
     </div>
   );
 }
