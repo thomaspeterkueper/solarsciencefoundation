@@ -3,7 +3,7 @@
  * Path:      lib/learningPaths.ts
  * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/learningPaths.ts
  * Name:      Learning Paths registry
- * Version:   0.9.6
+ * Version:   0.9.7
  * Created:   2026-07-03
  * Modified:  2026-07-15 21:00 CEST
  * Depends:   —
@@ -1954,6 +1954,549 @@ export const learningPaths: LearningPath[] = [
             title: 'Quiz: Karamell in der Praxis',
             summary: 'Warum nicht ruehren, Restwaerme-Effekt, welche Temperatur fuer welchen Zweck.',
             depthPoints: 12,
+          },
+        ],
+      },
+    ],
+  }
+,
+  // ═══════════════════════════════════════════════════
+  // WASSER-CLUSTER — 7 Lernpfade
+  // ═══════════════════════════════════════════════════
+
+  {
+    id: 'PATH:SSF:PHY-WASSER-MOLEKUEL-0001',
+    title: 'Warum ist Wasser eigentlich so seltsam',
+    subtitle: 'Das Dipol-Molekuel, Wasserstoffbruecken und warum Wasser fast alle anderen Fluessigkeiten in seinen Eigenschaften uebertrifft.',
+    status: 'prototype',
+    sourceModuleId: 'SSF-PHY-3001',
+    kxfModuleId: 'LRN:SSF:PHY-3001',
+    domainsNeeded: ['KNOW:CHE-MOLECULAR', 'KNOW:PHY-POLARITY', 'KNOW:CHE-HYDROGEN-BOND'],
+    suppliedBy: {
+      knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Wasser-Molekuel 3D: Bindungswinkel 104.5 Grad, Dipol-Pfeile animiert',
+        'Wasserstoffbruecken: Netzwerk-Animation, Anzahl-Slider',
+        'Vergleich: Wasser vs. H2S vs. CH4 — Siedepunkt-Anomalie'
+      ]
+    },
+    unlocks: ['CHEM:WATER-MOLECULE', 'CHEM:HYDROGEN-BOND', 'CHEM:DIPOLE'],
+    units: [
+      {
+        id: 'UNIT:WASSER-DIPOL',
+        title: 'Das schiefe Molekuel',
+        entryQuestion: 'Warum hat Wasser einen so viel hoeheren Siedepunkt als andere kleine Molekuele — obwohl es so leicht ist?',
+        takeaway: 'Das Wasser-Molekuel ist schief — der Bindungswinkel betraegt 104,5 Grad. Dadurch ist es ein Dipol: eine Seite negativ, eine positiv. Diese Asymmetrie macht Wasser zu etwas Besonderem.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:WASSER-HBRUECKEN' },
+        sections: [
+          {
+            id: 'OBS:WASSER-ANOMALIE',
+            kind: 'observation',
+            title: 'Beobachtung: Wasser tut was es nicht sollte',
+            summary: 'Methan (CH4) siedet bei -161 Grad, Schwefelwasserstoff (H2S) bei -60 Grad. Nach diesem Muster muesste Wasser bei etwa -80 Grad sieden. Stattdessen: +100 Grad. Wasser bricht alle Regeln. Warum?',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:WASSER-MOLEKUEL',
+            kind: 'experiment',
+            title: 'Experiment: Das Wasser-Molekuel',
+            summary: 'Molekuel-Canvas: H2O mit Bindungswinkel-Slider (90-120 Grad). Bei 104.5 Grad: maximales Dipolmoment sichtbar. Vergleich mit linearem CO2 (kein Dipol) und gewinkeltem H2O (Dipol). Ladungsverteilung als Farbgradient.',
+            interactive: true,
+            depthPoints: 7,
+          },
+          {
+            id: 'QUIZ:WASSER-MOL-1',
+            kind: 'quiz',
+            title: 'Quiz: Dipolmolekuel',
+            summary: 'Warum ist Wasser ein Dipol, was bedeutet Bindungswinkel, warum siedet Wasser so hoch.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:WASSER-HBRUECKEN',
+        title: 'Das Netzwerk der Wasserstoffbruecken',
+        entryQuestion: 'Warum ist fluessiges Wasser so schwer zu verdampfen — obwohl jedes einzelne Molekuel so leicht ist?',
+        takeaway: 'Jedes Wassermolekuel bildet im Schnitt 3,4 Wasserstoffbruecken zu seinen Nachbarn. Diese Bruecken sind schwach genug um zu brechen — aber stark genug um Wasser fluessig zu halten bis 100 Grad.',
+        sections: [
+          {
+            id: 'EXP:HBRUECKEN',
+            kind: 'experiment',
+            title: 'Experiment: Wasserstoffbruecken-Netzwerk',
+            summary: 'Canvas: 20 Wasser-Molekuele als Netzwerk. Temperatur-Slider: bei niedrig — dichtes Netzwerk, viele Bruecken (blau). Bei hoch — Bruecken brechen, Molekuele entweichen (rot). Energie-Balken zeigt wie viel Energie zum Brechen noetig ist.',
+            interactive: true,
+            depthPoints: 8,
+          },
+          {
+            id: 'QUIZ:WASSER-MOL-2',
+            kind: 'quiz',
+            title: 'Quiz: Wasserstoffbruecken',
+            summary: 'Was ist eine Wasserstoffbruecke, warum braucht Verdampfen so viel Energie, Vergleich mit anderen Molekuelen.',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'PATH:SSF:PHY-WASSER-AGGREGAT-0001',
+    title: 'Warum hat Wasser genau drei Formen — und wie wechselt es zwischen ihnen',
+    subtitle: 'Schmelzen, Sieden, Sublimieren: Phasenuebergaenge, latente Waerme und das Phasendiagramm des Wassers.',
+    status: 'prototype',
+    sourceModuleId: 'SSF-PHY-3002',
+    kxfModuleId: 'LRN:SSF:PHY-3002',
+    domainsNeeded: ['KNOW:PHY-PHASE-TRANSITION', 'KNOW:PHY-LATENT-HEAT', 'KNOW:PHY-PRESSURE'],
+    suppliedBy: {
+      knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Phasendiagramm Wasser: Druck-Temperatur-Canvas, Phasengrenzen live',
+        'Erwaermungskurve: Temperatur vs. Zeit mit Plateaus bei 0 und 100 Grad',
+        'Latente-Waerme-Visualisierung: Energie geht rein aber Temperatur steigt nicht'
+      ]
+    },
+    unlocks: ['PHY:PHASE-DIAGRAM', 'PHY:LATENT-HEAT', 'PHY:TRIPLE-POINT'],
+    units: [
+      {
+        id: 'UNIT:AGGREGAT-KURVE',
+        title: 'Die merkwuerdige Erwaermungskurve',
+        entryQuestion: 'Warum steigt die Temperatur von Eiswasser nicht sofort wenn man es erwaermt — obwohl Energie hineinfliesst?',
+        takeaway: 'Beim Schmelzen und Sieden wird Energie nicht zur Temperaturerhohung genutzt — sie bricht Bindungen. Diese latente Waerme ist unsichtbar aber real: Eis bei 0 Grad braucht 334 J/g nur zum Schmelzen.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:AGGREGAT-PHASEN' },
+        sections: [
+          {
+            id: 'OBS:EISWASSER-PLATEAU',
+            kind: 'observation',
+            title: 'Beobachtung: Das Eiswasser-Experiment',
+            summary: 'Eis in einem Topf erwaermen. Thermometer eingetaucht — die Temperatur steigt kaum, obwohl der Herd laeuft. Erst wenn alles Eis geschmolzen ist, geht es weiter. Energie fliesst rein — aber die Temperatur bewegt sich nicht. Wo geht die Energie hin?',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:ERWAERMUNGSKURVE',
+            kind: 'experiment',
+            title: 'Experiment: Erwaermungskurve mit Plateaus',
+            summary: 'Zeit-Slider von 0-20 Minuten: Temperaturkurve zeichnet sich live. Zwei Plateaus sichtbar: bei 0 Grad (Schmelzen) und 100 Grad (Sieden). Energie-Balken laeuft durch — Temperatur-Balken stoppt. Latente Waerme als Zahl sichtbar.',
+            interactive: true,
+            depthPoints: 8,
+          },
+          {
+            id: 'QUIZ:AGGREGAT-1',
+            kind: 'quiz',
+            title: 'Quiz: Latente Waerme',
+            summary: 'Was ist latente Waerme, warum Plateau bei 0 Grad, wieviel Energie braucht 1 kg Eis zum Schmelzen.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:AGGREGAT-PHASEN',
+        title: 'Das Phasendiagramm',
+        entryQuestion: 'Kann Eis direkt zu Dampf werden — ohne fluessig zu werden?',
+        takeaway: 'Ja — Sublimation. Bei niedrigem Druck (wie im Gefrierschrank oder auf dem Everest) kann Wasser direkt von fest zu gasfoermig wechseln. Das Phasendiagramm zeigt welcher Zustand bei welchem Druck und welcher Temperatur stabil ist.',
+        sections: [
+          {
+            id: 'EXP:PHASENDIAGRAMM',
+            kind: 'experiment',
+            title: 'Experiment: Phasendiagramm Wasser',
+            summary: 'Druck-Temperatur-Canvas: drei Phasenbereiche (Eis, Wasser, Dampf) farbig. Slider fuer Druck (0.001-200 bar) und Temperatur (-50 bis 200 Grad). Punkt bewegt sich durch Diagramm — aktueller Aggregatzustand live. Tripelpunkt und kritischer Punkt markiert.',
+            interactive: true,
+            depthPoints: 9,
+          },
+          {
+            id: 'QUIZ:AGGREGAT-2',
+            kind: 'quiz',
+            title: 'Quiz: Phasenuebergaenge',
+            summary: 'Was ist Sublimation, Tripelpunkt erklaeren, warum Gefrierschrank-Eis sublimiert.',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'PATH:SSF:PHY-WASSER-ANOMALIE-0001',
+    title: 'Warum platzen Wasserleitungen im Winter von innen',
+    subtitle: 'Die Dichteanomalie des Wassers: warum Eis auf Wasser schwimmt — und was das fuer das Leben auf der Erde bedeutet.',
+    status: 'prototype',
+    sourceModuleId: 'SSF-PHY-3003',
+    kxfModuleId: 'LRN:SSF:PHY-3003',
+    domainsNeeded: ['KNOW:PHY-DENSITY', 'KNOW:PHY-EXPANSION', 'KNOW:CHE-ICE-STRUCTURE'],
+    suppliedBy: {
+      knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Dichte-Temperatur-Kurve: Maximum bei 4 Grad sichtbar, interaktiver Punkt',
+        'Eis-Kristallstruktur: hexagonales Gitter vs. fluessiges Wasser animiert',
+        'Rohr-Spreng-Simulation: Volumenausdehnung beim Gefrieren live'
+      ]
+    },
+    unlocks: ['PHY:DENSITY-ANOMALY', 'PHY:ICE-STRUCTURE', 'KNOW:LIFE-ON-EARTH'],
+    units: [
+      {
+        id: 'UNIT:ANOMALIE-DICHTE',
+        title: 'Das Maximum bei 4 Grad',
+        entryQuestion: 'Warum sinkt ein Stein im Wasser — aber Eis schwimmt oben?',
+        takeaway: 'Wasser ist bei 4 Grad am dichtesten — nicht bei 0 Grad. Eis hat eine offene Kristallstruktur und ist leichter als fluessiges Wasser. Deshalb schwimmt es. Das rettet das Leben in Seen im Winter.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:ANOMALIE-ROHR' },
+        sections: [
+          {
+            id: 'OBS:EIS-SCHWIMMT',
+            kind: 'observation',
+            title: 'Beobachtung: Eiswuerfel im Glas',
+            summary: 'Eiswuerfel ins Wasser — sie schwimmen. Steine sinken. Fast alles sinkt wenn es fest wird. Wasser macht das Gegenteil: Eis ist leichter als fluessiges Wasser. Das ist physikalisch aussergewoehnlich.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:DICHTE-KURVE',
+            kind: 'experiment',
+            title: 'Experiment: Dichte-Temperatur-Kurve',
+            summary: 'Canvas: Dichte von Wasser auf Y-Achse, Temperatur -10 bis 30 Grad auf X-Achse. Kurve mit Maximum bei 4 Grad. Temperatur-Slider: Punkt bewegt sich auf Kurve. Bei 0 Grad: Sprung auf Eis-Dichte (0.917 g/cm3). Seetiefe-Visualisierung: wie Schichten sich im Winter ordnen.',
+            interactive: true,
+            depthPoints: 8,
+          },
+          {
+            id: 'QUIZ:ANOMALIE-1',
+            kind: 'quiz',
+            title: 'Quiz: Dichteanomalie',
+            summary: 'Warum ist Eis leichter als Wasser, bei welcher Temperatur ist Wasser am dichtesten, warum gefrieren Seen von oben.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:ANOMALIE-ROHR',
+        title: 'Warum platzen Rohre',
+        entryQuestion: 'Wasser dehnt sich beim Gefrieren um 9% aus — was bedeutet das fuer ein geschlossenes Rohr?',
+        takeaway: 'Wasser dehnt sich beim Gefrieren aus. In einem geschlossenen Rohr entsteht Druck von bis zu 2500 bar — genug um Stahl zu sprengen. Praeventiv: Rohre entleeren oder isolieren.',
+        sections: [
+          {
+            id: 'OBS:ROHR-WINTER',
+            kind: 'observation',
+            title: 'Beobachtung: Geborstene Wasserleitung',
+            summary: 'Nach einem Kälteeinbruch: Wasserleitung geplatzt, obwohl das Rohr aus solidem Kupfer war. Nicht der Frost hat das Rohr zerstoert — sondern das Wasser darin beim Gefrieren.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:ROHR-SPRENGUNG',
+            kind: 'experiment',
+            title: 'Experiment: Volumenausdehnung und Druck',
+            summary: 'Rohr-Querschnitt Canvas. Temperatur-Slider: 10 bis -10 Grad. Wasser-Volumen waechst beim Uebergang 0 Grad um 9%. Druck-Anzeige steigt: bei geschlossenem Rohr bis 2500 bar. Rohr-Material-Slider: Kupfer bricht fruehzeitig, Stahl spaeter, Kunststoff gibt nach.',
+            interactive: true,
+            depthPoints: 8,
+          },
+          {
+            id: 'QUIZ:ANOMALIE-2',
+            kind: 'quiz',
+            title: 'Quiz: Gefrieren und Druck',
+            summary: 'Wie viel Prozent dehnt Wasser aus, warum platzt Rohr und nicht Eis, wie verhindert man Rohrbruch.',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'PATH:SSF:PHY-WASSER-OBERFLAECHE-0001',
+    title: 'Warum kann eine Bueroklamme auf Wasser schwimmen',
+    subtitle: 'Oberflaechenspannung, Kohaesion und Kapillarkraft — warum Wasser an sich selbst klebt.',
+    status: 'prototype',
+    sourceModuleId: 'SSF-PHY-3004',
+    kxfModuleId: 'LRN:SSF:PHY-3004',
+    domainsNeeded: ['KNOW:PHY-SURFACE-TENSION', 'KNOW:PHY-COHESION', 'KNOW:PHY-CAPILLARY'],
+    suppliedBy: {
+      knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Oberflaechenspannungs-Canvas: Molekuelkraefte an Oberflaeche vs. Inneres',
+        'Kontaktwinkel-Simulator: Wasser auf verschiedenen Oberflaechen (hydrophil/hydrophob)',
+        'Kapillar-Experiment: Roehren-Durchmesser-Slider — Steighoehe live'
+      ]
+    },
+    unlocks: ['PHY:SURFACE-TENSION', 'PHY:CAPILLARY-ACTION', 'PHY:CONTACT-ANGLE'],
+    units: [
+      {
+        id: 'UNIT:OBERF-SPANNUNG',
+        title: 'Die Haut des Wassers',
+        entryQuestion: 'Warum kann eine Stecknadelspitze auf Wasser schwimmen — obwohl Stahl viel dichter ist?',
+        takeaway: 'Wassermolekuele an der Oberflaeche haben keine Nachbarn nach oben — sie werden staerker nach unten und zur Seite gezogen. Das erzeugt eine Spannung in der Oberflaeche: eine Art elastische Haut.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:OBERF-KAPILLAR' },
+        sections: [
+          {
+            id: 'OBS:BUEROKLAMME',
+            kind: 'observation',
+            title: 'Beobachtung: Bueroklamme auf Wasser',
+            summary: 'Vorsichtig eine Bueroklamme auf Wasser legen — sie schwimmt. Nicht weil sie leicht ist (Stahl ist 8x dichter als Wasser), sondern weil die Wasseroberflaeche sie traegt wie eine Haut. Wasserlaeufer-Insekten nutzen dasselbe Prinzip.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:OBERFLSPANNUNG',
+            kind: 'experiment',
+            title: 'Experiment: Oberflaechenspannung',
+            summary: 'Canvas: Querschnitt durch Wasseroberflaeche. Innere Molekuele: Kraefte von allen Seiten (ausgeglichen). Oberflaechen-Molekuele: Kraefte nur nach unten und zur Seite. Temperatur-Slider: je waermer, desto schwaecher die Spannung. Tensid-Slider: Spuelimittel zerstoert die Spannung sofort.',
+            interactive: true,
+            depthPoints: 8,
+          },
+          {
+            id: 'QUIZ:OBERF-1',
+            kind: 'quiz',
+            title: 'Quiz: Oberflaechenspannung',
+            summary: 'Warum haben Oberflaechen-Molekuele mehr Energie, warum zerstoert Spuelmittel die Spannung, warum Insekten auf Wasser laufen koennen.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:OBERF-KAPILLAR',
+        title: 'Wasser steigt aufwaerts',
+        entryQuestion: 'Wie kommt Wasser vom Boden bis in die Blaetter eines 30 Meter hohen Baumes?',
+        takeaway: 'Kapillarkraft: Wasser klebt an engen Roehren und zieht sich selbst nach oben. Je enger die Roehre, desto hoeher steigt es. Baeume nutzen Millionen haarfeiner Roehren — das Holz ist ihr Transportsystem.',
+        sections: [
+          {
+            id: 'EXP:KAPILLAR',
+            kind: 'experiment',
+            title: 'Experiment: Kapillarsteigung',
+            summary: 'Mehrere Glasroehren verschiedener Durchmesser (0.1 bis 5 mm) im Wasserbehaelter. Hoehe des Wasseranstiegs live: h = 2γcosθ / (ρgr). Durchmesser-Slider: enger = hoeher. Fluessigkeits-Slider: Quecksilber sinkt (hydrophob), Wasser steigt (hydrophil).',
+            interactive: true,
+            depthPoints: 8,
+          },
+          {
+            id: 'QUIZ:OBERF-2',
+            kind: 'quiz',
+            title: 'Quiz: Kapillarkraft',
+            summary: 'Warum steigt Wasser in engen Roehren, warum sinkt Quecksilber statt zu steigen, wie hoch kann Kapillarsteigung gehen.',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'PATH:SSF:PHY-WASSER-DAMPF-0001',
+    title: 'Warum trocknet Waesche auch im Winter draussen',
+    subtitle: 'Verdunstung, Sublimation, Dampfdruck und relative Luftfeuchtigkeit — Wasser wechselt den Aggregatzustand auch ohne zu kochen.',
+    status: 'prototype',
+    sourceModuleId: 'SSF-PHY-3005',
+    kxfModuleId: 'LRN:SSF:PHY-3005',
+    domainsNeeded: ['KNOW:PHY-EVAPORATION', 'KNOW:PHY-VAPOR-PRESSURE', 'KNOW:PHY-HUMIDITY'],
+    suppliedBy: {
+      knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Dampfdruck-Kurve: Temperatur-Slider → Saettigungsdampfdruck live',
+        'Relative-Feuchte-Canvas: Taupunkt, wann kondensiert Wasser an Scheibe',
+        'Verdunstungs-Simulator: Wind, Temperatur, Feuchte → Trockenzeit Waesche'
+      ]
+    },
+    unlocks: ['PHY:VAPOR-PRESSURE', 'PHY:DEW-POINT', 'PHY:SUBLIMATION'],
+    units: [
+      {
+        id: 'UNIT:DAMPF-VERDUNSTUNG',
+        title: 'Wasser verdampft ohne zu kochen',
+        entryQuestion: 'Warum wird eine Pfuetze trocken — obwohl es nie 100 Grad warm wird?',
+        takeaway: 'Nicht alle Wassermolekuele brauchen dieselbe Energie. Einige an der Oberflaeche haben genug kinetische Energie um zu entweichen — auch bei 20 Grad. Das ist Verdunstung: keine Temperaturgrenze, nur Wahrscheinlichkeit.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:DAMPF-FEUCHTE' },
+        sections: [
+          {
+            id: 'OBS:PFUETZE',
+            kind: 'observation',
+            title: 'Beobachtung: Die verschwindende Pfuetze',
+            summary: 'Nach dem Regen: Pfuetze auf dem Asphalt. Keine Sonne, 15 Grad, leichter Wind. Nach zwei Stunden: weg. Das Wasser ist nicht weggeflossen — es ist in die Luft gegangen. Bei 15 Grad. Ohne zu kochen.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:VERDUNSTUNG-RATE',
+            kind: 'experiment',
+            title: 'Experiment: Was beeinflusst die Verdunstung?',
+            summary: 'Drei Slider: Temperatur (0-40 Grad), Wind (0-10 m/s), relative Feuchte (0-100%). Verdunstungsrate-Balken passt sich an. Extremfall: 40 Grad, Wind 10 m/s, Feuchte 0% — maximale Verdunstung. Waesche-Trockenzeit-Anzeige.',
+            interactive: true,
+            depthPoints: 8,
+          },
+          {
+            id: 'QUIZ:DAMPF-1',
+            kind: 'quiz',
+            title: 'Quiz: Verdunstung',
+            summary: 'Warum verdunstet Wasser unter 100 Grad, was beschleunigt Verdunstung, warum trocknet Waesche im Wind schneller.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:DAMPF-FEUCHTE',
+        title: 'Beschlagene Scheiben und Taupunkt',
+        entryQuestion: 'Warum beschlaegt die Fensterscheibe im Winter innen — und nicht aussen?',
+        takeaway: 'Luft kann nur eine begrenzte Menge Wasserdampf halten — abhaengig von der Temperatur. Kuehlt die warme Innenluft an der kalten Scheibe ab, unterschreitet sie den Taupunkt: Wasser kondensiert. Innen, weil die Scheibe innen kalt ist.',
+        sections: [
+          {
+            id: 'EXP:TAUPUNKT',
+            kind: 'experiment',
+            title: 'Experiment: Taupunkt und Kondensation',
+            summary: 'Innentemperatur-Slider (18-25 Grad) und relative Feuchte (30-90%). Scheiben-Temperatur-Slider (-10 bis +15 Grad). Live: Taupunkt berechnet. Wenn Scheibentemp < Taupunkt: Kondensation sichtbar auf Canvas. Schimmel-Risikoindikator.',
+            interactive: true,
+            depthPoints: 9,
+          },
+          {
+            id: 'QUIZ:DAMPF-2',
+            kind: 'quiz',
+            title: 'Quiz: Luftfeuchtigkeit und Taupunkt',
+            summary: 'Was ist relativer Feuchte, Taupunkt berechnen, warum Lueften im Winter gegen Schimmel hilft.',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'PATH:SSF:CHE-WASSER-LOESUNG-0001',
+    title: 'Warum loest Wasser fast alles — aber nicht Oel',
+    subtitle: 'Hydratation, Ionen-Gitter und das Prinzip Gleiches loest Gleiches — warum der Dipol entscheidet was sich loest.',
+    status: 'prototype',
+    sourceModuleId: 'SSF-CHE-3001',
+    kxfModuleId: 'LRN:SSF:CHE-3001',
+    domainsNeeded: ['KNOW:CHE-SOLUBILITY', 'KNOW:CHE-HYDRATION', 'KNOW:CHE-ION-LATTICE'],
+    suppliedBy: {
+      knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Salz-Loesungs-Animation: Na+ und Cl- werden von Wassermolekuelen umhueltt',
+        'Loeslichkeits-Slider: Temperatur vs. Loeslichkeit verschiedener Stoffe',
+        'Polar/Unpolar-Sortierer: welcher Stoff loest sich in Wasser, welcher in Oel'
+      ]
+    },
+    unlocks: ['CHEM:HYDRATION', 'CHEM:ION-DISSOLUTION', 'CHEM:SOLUBILITY'],
+    units: [
+      {
+        id: 'UNIT:LOESUNG-SALZ',
+        title: 'Wie Salz verschwindet',
+        entryQuestion: 'Warum verschwindet Kochsalz im Wasser — obwohl es ein fester Kristall war?',
+        takeaway: 'Wasser-Molekuele sind Dipole — sie umgeben Natrium- und Chlorid-Ionen und reissen sie aus dem Kristallgitter. Das Salz loest sich nicht auf — es wird Molekuel fuer Molekuel vom Wasser umhueltt und in Loesung getragen.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:LOESUNG-POLAR' },
+        sections: [
+          {
+            id: 'OBS:SALZ-WASSER',
+            kind: 'observation',
+            title: 'Beobachtung: Salz im Wasser',
+            summary: 'Ein Loeffel Salz ins Wasser — Umruehren, das Salz verschwindet. Das Wasser sieht genauso aus wie vorher. Wo ist das Salz hin? Es ist noch da — aber unsichtbar verteilt.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:HYDRATATION',
+            kind: 'experiment',
+            title: 'Experiment: Hydratation von Ionen',
+            summary: 'NaCl-Kristallgitter Canvas. Wasser-Slider: Molekuele naehern sich. Na+ wird von negativ-Ende der Wassermolekuele umgeben (Animation), Cl- vom positiv-Ende. Kristall loest sich auf. Hydratationsenergie vs. Gitterenergie als Balken.',
+            interactive: true,
+            depthPoints: 8,
+          },
+          {
+            id: 'QUIZ:LOESUNG-1',
+            kind: 'quiz',
+            title: 'Quiz: Loesungsvorgang',
+            summary: 'Was ist Hydratation, warum loest Wasser Salz aber nicht Zucker als Ion, Saetigungsgrenze erklaeren.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:LOESUNG-POLAR',
+        title: 'Gleiches loest Gleiches',
+        entryQuestion: 'Warum loest Benzin Fett — aber Wasser nicht?',
+        takeaway: 'Polare Loesungsmittel (Wasser) loesen polare und ionische Stoffe. Unpolare Loesungsmittel (Benzin, Oel) loesen unpolare Stoffe. Das Prinzip heisst Similia similibus solvuntur — Gleiches loest Gleiches.',
+        sections: [
+          {
+            id: 'EXP:POLAR-SORTIERER',
+            kind: 'experiment',
+            title: 'Experiment: Was loest sich wo?',
+            summary: 'Zwei Behaelter: Wasser und Oel. Stoffe per Klick zuordnen: Salz (Wasser), Zucker (Wasser), Fett (Oel), Farbe (je nach Typ), Alkohol (beides). Richtig: gruene Animation. Falsch: Stoff bleibt an Oberflaeche. Molekuel-Struktur als Hinweis.',
+            interactive: true,
+            depthPoints: 8,
+          },
+          {
+            id: 'QUIZ:LOESUNG-2',
+            kind: 'quiz',
+            title: 'Quiz: Loeslichkeit',
+            summary: 'Similia similibus, warum Alkohol in beidem loeslich, praktische Anwendung beim Entfernen von Flecken.',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'PATH:SSF:PHY-WASSER-WAERME-0001',
+    title: 'Warum braucht Wasser so lange zum Kochen — aber kuehlt so langsam ab',
+    subtitle: 'Spezifische Waermekapazitaet, Wasser als Waermespeicher und warum das Klima ohne Ozeane unmoeglich waere.',
+    status: 'prototype',
+    sourceModuleId: 'SSF-PHY-3006',
+    kxfModuleId: 'LRN:SSF:PHY-3006',
+    domainsNeeded: ['KNOW:PHY-HEAT-CAPACITY', 'KNOW:PHY-THERMODYNAMICS', 'KNOW:ENV-CLIMATE'],
+    suppliedBy: {
+      knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Waermekapazitaets-Vergleich: Wasser vs. Eisen vs. Luft vs. Sand — Slider',
+        'Kochzeit-Rechner: Masse, Anfangstemperatur, Herdleistung → Zeit live',
+        'Klimaeffekt-Visualisierung: Kuestenklima vs. Kontinentalklima'
+      ]
+    },
+    unlocks: ['PHY:HEAT-CAPACITY', 'PHY:THERMAL-MASS', 'ENV:OCEAN-CLIMATE'],
+    units: [
+      {
+        id: 'UNIT:WAERME-KAPAZITAET',
+        title: 'Warum Wasser so viel Energie speichert',
+        entryQuestion: 'Warum wird Sand am Strand so viel heisser als das Meer daneben — obwohl beide dieselbe Sonne abbekommen?',
+        takeaway: 'Wasser hat eine aussergewoehnlich hohe spezifische Waermekapazitaet: 4186 J/(kg·K) — 5x mehr als Sand, 10x mehr als Eisen. Es braucht viel Energie um sich zu erwaermen — und gibt sie genauso langsam wieder ab.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:WAERME-KUECHE' },
+        sections: [
+          {
+            id: 'OBS:SAND-MEER',
+            kind: 'observation',
+            title: 'Beobachtung: Sand und Meer',
+            summary: 'Mittags am Strand: der Sand brennt unter den Fuessen — das Wasser ist angenehm kuehl. Abends: der Sand ist kalt — das Wasser noch warm. Gleiche Sonne, gleiches Material? Nein.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:WAERMEKAPAZITAET',
+            kind: 'experiment',
+            title: 'Experiment: Waermekapazitaet im Vergleich',
+            summary: 'Vier Behaelter: Wasser, Sand, Eisen, Luft. Gleiche Energie-Zufuhr-Slider. Temperatur-Anzeige: Wasser steigt am langsamsten. Formel: Q = m·c·DeltaT. Material-Slider: c-Wert live. Kochzeit-Rechner fuer 1 Liter Wasser.',
+            interactive: true,
+            depthPoints: 8,
+          },
+          {
+            id: 'QUIZ:WAERME-1',
+            kind: 'quiz',
+            title: 'Quiz: Waermekapazitaet',
+            summary: 'Was ist spezifische Waermekapazitaet, Berechnung Q=mcT, warum braucht 1L Wasser ca. 7 Minuten zum Kochen.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:WAERME-KUECHE',
+        title: 'Wasser in der Kueche und im Klima',
+        entryQuestion: 'Warum sind Kuestenstaedte im Sommer kuehl und im Winter mild — verglichen mit Staedten im Landesinneren?',
+        takeaway: 'Ozeane sind gigantische Waermespeicher. Sie nehmen im Sommer Waerme auf und geben sie im Winter ab — das glaettet das Klima. Ohne die hohe Waermekapazitaet des Wassers waere das Klima auf der Erde viel extremer.',
+        sections: [
+          {
+            id: 'EXP:KLIMA-EFFEKT',
+            kind: 'experiment',
+            title: 'Experiment: Kuesten- vs. Kontinentalklima',
+            summary: 'Jahresverlauf-Canvas: zwei Kurven — Kuestenstadt und Binnenstadt. Ozean-Abstand-Slider: je weiter vom Meer, desto extremere Temperaturschwankungen. Wasser-Anteil-Slider: mehr Wasser = glaettere Kurve. Reale Beispiele: Hamburg vs. Moskau.',
+            interactive: true,
+            depthPoints: 8,
+          },
+          {
+            id: 'QUIZ:WAERME-2',
+            kind: 'quiz',
+            title: 'Quiz: Wasser als Klimaregler',
+            summary: 'Warum Kuestenstaedte mildes Klima, Berechnung Waermemenge fuer Ozean, warum Wasser ideal als Kuehlmittel.',
+            depthPoints: 15,
           },
         ],
       },
