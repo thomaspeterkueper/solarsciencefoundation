@@ -3,7 +3,7 @@
  * Path:      lib/learningPaths.ts
  * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/learningPaths.ts
  * Name:      Learning Paths registry
- * Version:   1.0.1
+ * Version:   1.0.2
  * Created:   2026-07-03
  * Modified:  2026-07-15 21:00 CEST
  * Depends:   —
@@ -4554,6 +4554,280 @@ export const learningPaths: LearningPath[] = [
             kind: 'quiz',
             title: 'Quiz: Energy Harvesting',
             summary: 'Wie viel Leistung erzeugt ein Schritt, warum ist Piezo keine Lösung für Großenergie, welche Anwendungen sind realistisch.',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  }
+,
+
+  // ═══════════════════════════════════════════════════
+  // ROHSTOFFE & ENERGIEWENDE — 3 Lernpfade
+  // Quelle: Fraunhofer ISI/IZM, DERA 2026
+  // ═══════════════════════════════════════════════════
+
+  {
+    id: 'PATH:SSF:CHE-IRIDIUM-0001',
+    title: 'Warum könnte ein Metall die Energiewende blockieren das kaum jemand kennt',
+    subtitle: 'Iridium: 6,8 Tonnen Weltförderung, 85 Tonnen Bedarf bis 2045. Wie ein seltenes Edelmetall zum Flaschenhals der Wasserstoffwirtschaft werden könnte.',
+    status: 'prototype',
+    sourceModuleId: 'SSF-CHE-6001',
+    kxfModuleId: 'LRN:SSF:CHE-6001',
+    domainsNeeded: ['KNOW:CHE-PLATINUM-GROUP', 'KNOW:CHE-CATALYSIS', 'KNOW:ENV-CRITICAL-MATERIALS'],
+    suppliedBy: {
+      knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Periodensystem-Spotlight: Iridium im Kontext der Platingruppe',
+        'Fördermengen-Vergleich: Iridium 6.8t vs. Gold 3000t/Jahr animiert',
+        'Bedarfs-Projektor: Elektrolyseur-Ausbau 2.5 GW → 4350 GW, Iridiumbedarf live',
+        'Rohstoff-Karte: 70% aus Südafrika, Beiprodukt des Platinbergbaus'
+      ]
+    },
+    unlocks: ['CHEM:PLATINUM-GROUP', 'CHEM:IRIDIUM', 'ENV:CRITICAL-MATERIALS'],
+    units: [
+      {
+        id: 'UNIT:IRIDIUM-WAS',
+        title: 'Das unbekannteste Metall der Welt',
+        entryQuestion: 'Was ist Iridium — und warum haben die meisten Menschen noch nie davon gehört?',
+        takeaway: 'Iridium ist eines der seltensten Elemente der Erde. Nur 6,8 Tonnen werden weltweit pro Jahr gefördert — zum Vergleich: Gold 3000 Tonnen. Es fällt ausschließlich als Beiprodukt des Platinabbaus an. Ein eigenständiger Iridium-Bergbau existiert nicht — das Angebot kann kaum erhöht werden.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:IRIDIUM-WARUM' },
+        sections: [
+          {
+            id: 'OBS:IRIDIUM-ALLTAG',
+            kind: 'observation',
+            title: 'Beobachtung: Ein Metall das überall fehlt',
+            summary: 'Lithium kennt jeder — es steckt in Smartphone-Akkus. Kupfer, Stahl, Aluminium: Alltagsmetalle. Aber Iridium? Das Metall mit der höchsten Dichte und dem höchsten Schmelzpunkt aller Elemente nach Osmium ist so selten, dass die gesamte Jahresproduktion der Welt in einen einzigen PKW-Kofferraum passen würde.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:OXIDATION',
+            kind: 'experiment',
+            title: 'Experiment: Iridium im Periodensystem',
+            summary: 'Periodensystem-Canvas: Platingruppenmetalle hervorgehoben (Pt, Pd, Rh, Ru, Os, Ir). Klick auf Iridium: Dichte 22.56 g/cm³, Schmelzpunkt 2446°C, Jahresproduktion 6.8t. Vergleichsbalken: Au 3000t, Ag 25000t, Cu 22 Mio.t. Logarithmische Skala zeigt den Unterschied.',
+            interactive: true,
+            depthPoints: 7,
+          },
+          {
+            id: 'QUIZ:IRIDIUM-1',
+            kind: 'quiz',
+            title: 'Quiz: Iridium',
+            summary: 'Warum gibt es kein eigenständiges Iridiumbergwerk, was ist die Platingruppe, warum ist die Förderung kaum steigerbar.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:IRIDIUM-WARUM',
+        title: 'Warum braucht Wasserstoff Iridium?',
+        entryQuestion: 'Warum ist Iridium unersetzbar für die Elektrolyse — und was macht diese Bedingung so schwierig?',
+        takeaway: 'In PEM-Elektrolyseuren herrscht an der Anode eine extrem saure, korrosive Umgebung. Nur Iridiumoxid übersteht diese Bedingungen dauerhaft bei ausreichender Katalyseleistung. Rutheniumoxid wäre günstiger — korrodiert aber zu schnell. Kein anderes bekanntes Material erfüllt bisher beide Anforderungen gleichzeitig.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:IRIDIUM-RECHNUNG' },
+        sections: [
+          {
+            id: 'OBS:ELEKTROLYSEUR',
+            kind: 'observation',
+            title: 'Beobachtung: Wasser zerlegen mit Strom',
+            summary: 'Ein PEM-Elektrolyseur spaltet Wasser (H₂O) mit Strom in Wasserstoff (H₂) und Sauerstoff (O₂). Das klingt einfach. Aber an der Anode — wo der Sauerstoff entsteht — herrschen extreme Bedingungen: stark sauer, oxidierend, hohe Temperaturen. Die meisten Materialien versagen dort innerhalb von Stunden.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:KATALYSATOR',
+            kind: 'experiment',
+            title: 'Experiment: Katalysator-Überleben',
+            summary: 'Vier Materialien an Anode: Iridiumoxid (IrO₂), Rutheniumoxid (RuO₂), Platin (Pt), Kohlenstoff. pH-Slider (0-14), Temperatur-Slider (20-80°C), Zeit-Slider (0-1000h). Korrosionsrate live: RuO₂ zerfällt nach 100h, Pt passiviert, Kohlenstoff sofort weg. IrO₂: stabil.',
+            interactive: true,
+            depthPoints: 8,
+          },
+          {
+            id: 'QUIZ:IRIDIUM-2',
+            kind: 'quiz',
+            title: 'Quiz: PEM-Elektrolyse',
+            summary: 'Warum ist die Anode das Problem, was macht IrO₂ besonders, warum reicht Platin nicht.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:IRIDIUM-RECHNUNG',
+        title: 'Die Fraunhofer-Rechnung',
+        entryQuestion: 'Wie viel Iridium braucht die Wasserstoffwende — und was bedeutet das für die Welt?',
+        takeaway: '2023: Iridiumbedarf durch Elektrolyse = 0,05 Tonnen. 2045 im Nachhaltigkeitsszenario: 85 Tonnen — das 12,5-Fache der heutigen Weltproduktion. Der Preis stieg bereits von 826 $/Unze (2013) auf 4682 $/Unze (2023) — fast das Sechsfache, noch bevor der Hochlauf begann.',
+        sections: [
+          {
+            id: 'EXP:WIRKUNGSGRAD',
+            kind: 'experiment',
+            title: 'Experiment: Bedarfsprojektion 2023-2045',
+            summary: 'Zeitstrahl 2023-2045. Elektrolyseur-Kapazitäts-Slider: 2.5 GW → 4350 GW. Iridium-Bedarf-Kurve steigt live: 0.12 g/kW × Kapazität = Jahresbedarf. Vergleichslinie: Weltproduktion 6.8t/Jahr (konstant, da Beiprodukt). Kreuzungspunkt: wann überschreitet Bedarf Angebot? Drei Szenarien umschaltbar.',
+            interactive: true,
+            depthPoints: 9,
+          },
+          {
+            id: 'QUIZ:IRIDIUM-3',
+            kind: 'quiz',
+            title: 'Quiz: Rohstoffengpass',
+            summary: 'Iridium-Bedarf 2045 in Tonnen berechnen, warum Preis schon jetzt steigt, was Recycling und Substitution leisten können.',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'PATH:SSF:PHY-ELEKTROLYSE-0001',
+    title: 'Wie zerlegt ein Elektrolyseur Wasser in Wasserstoff und Sauerstoff',
+    subtitle: 'PEM-Elektrolyse: Elektrochemie, Membranen und warum grüner Wasserstoff mehr ist als Strom ins Wasser halten.',
+    status: 'prototype',
+    sourceModuleId: 'SSF-PHY-5001',
+    kxfModuleId: 'LRN:SSF:PHY-5001',
+    domainsNeeded: ['KNOW:CHE-ELECTROCHEMISTRY', 'KNOW:PHY-ELECTRICITY', 'KNOW:CHE-PROTON-EXCHANGE'],
+    suppliedBy: {
+      knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Elektrolyse-Animation: H₂O → H₂ + O₂, Ionentransport durch Membran',
+        'Wirkungsgrad-Slider: Strom → Wasserstoff-Energie, Verluste sichtbar',
+        'PEM vs. alkalisch vs. Hochtemperatur: Vergleich interaktiv'
+      ]
+    },
+    unlocks: ['CHEM:ELECTROLYSIS', 'PHY:PEM', 'ENV:GREEN-HYDROGEN'],
+    units: [
+      {
+        id: 'UNIT:ELEKTROLYSE-PRINZIP',
+        title: 'Wasser mit Strom zerlegen',
+        entryQuestion: 'Wie kann man aus Wasser und Strom einen Brennstoff herstellen?',
+        takeaway: 'Elektrolyse ist das Umkehrprinzip der Brennstoffzelle. Strom treibt eine chemische Reaktion: An der Kathode entstehen H₂-Moleküle, an der Anode O₂. Nötig sind mindestens 1,23 Volt. In der Praxis braucht man 1,8-2,0 V wegen Überspannungen. Wirkungsgrad: 60-80%.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:ELEKTROLYSE-PEM' },
+        sections: [
+          {
+            id: 'OBS:WASSER-STROM',
+            kind: 'observation',
+            title: 'Beobachtung: Blasen am Draht',
+            summary: 'Zwei Drähte in Salzwasser, Batterie angeschlossen. Am Minuspol (Kathode): Wasserstoffblasen. Am Pluspol (Anode): Sauerstoffblasen. Doppelt so viele Wasserstoffblasen wie Sauerstoff — weil H₂O aus 2 Wasserstoff- und 1 Sauerstoffatom besteht.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:BATTERIE-LADEN-ENTLADEN',
+            kind: 'experiment',
+            title: 'Experiment: Elektrolyse live',
+            summary: 'Elektrolysezelle-Canvas: Kathode links (H₂-Blasen), Anode rechts (O₂-Blasen). Spannung-Slider 0-3V: unter 1.23V passiert nichts, dann Blasenproduktion. Stromstärke-Slider: mehr Strom = mehr Gas. Wirkungsgrad-Anzeige: verlustfreie Theorie vs. Realität.',
+            interactive: true,
+            depthPoints: 8,
+          },
+          {
+            id: 'QUIZ:ELEKTROLYSE-1',
+            kind: 'quiz',
+            title: 'Quiz: Elektrolyse-Prinzip',
+            summary: 'Warum doppelt so viele H₂-Blasen, Mindesstspannung 1.23V berechnen, was passiert bei zu wenig Spannung.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:ELEKTROLYSE-PEM',
+        title: 'Die PEM-Membran — Herzstück des modernen Elektrolyseurs',
+        entryQuestion: 'Warum braucht ein moderner Elektrolyseur eine spezielle Membran — und was macht sie so besonders?',
+        takeaway: 'Die Protonen-Austauschmembran (PEM) lässt nur Protonen (H⁺) durch, keine anderen Ionen, kein Gas. Das ermöglicht hochreinen Wasserstoff, kompakten Aufbau und schnelles An- und Abfahren. Nachteil: Die saure Umgebung erfordert Iridium an der Anode — das macht PEM-Elektrolyse teuer und rohstoffkritisch.',
+        sections: [
+          {
+            id: 'OBS:MEMBRAN-FILTER',
+            kind: 'observation',
+            title: 'Beobachtung: Die selektive Membran',
+            summary: 'Eine Membran die nur bestimmte Teilchen durchlässt — das kennt man von Osmose. In PEM-Elektrolyseuren ist die Membran nur für Protonen durchlässig. Elektronen müssen außen herum über den Stromkreis. Das trennt Wasserstoff und Sauerstoff sauber.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:OSMOSE',
+            kind: 'experiment',
+            title: 'Experiment: PEM-Elektrolyseur Querschnitt',
+            summary: 'Schematischer Querschnitt: Anode (IrO₂, O₂ entsteht) | Membran (nur H⁺ durch) | Kathode (Pt, H₂ entsteht). Animation: H₂O an Anode gespalten, O₂ bleibt, H⁺ wandert durch Membran, nimmt Elektron auf → H₂. Temperatur- und Druckslider: Einfluss auf Effizienz.',
+            interactive: true,
+            depthPoints: 9,
+          },
+          {
+            id: 'QUIZ:ELEKTROLYSE-2',
+            kind: 'quiz',
+            title: 'Quiz: PEM-Elektrolyse',
+            summary: 'Was macht die Membran, warum ist IrO₂ an der Anode nötig, Vor- und Nachteile PEM vs. alkalisch.',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'PATH:SSF:ENV-ROHSTOFFE-ENERGIEWENDE-0001',
+    title: 'Warum braucht die Energiewende so viele seltene Materialien',
+    subtitle: 'Lithium, Iridium, Kupfer, Dysprosium: Welche Rohstoffe die Energiewende braucht — und wo sie knapp werden könnten.',
+    status: 'prototype',
+    sourceModuleId: 'SSF-ENV-6001',
+    kxfModuleId: 'LRN:SSF:ENV-6001',
+    domainsNeeded: ['KNOW:ENV-CRITICAL-MATERIALS', 'KNOW:ENV-ENERGY-TRANSITION', 'KNOW:CHE-ELEMENTS'],
+    suppliedBy: {
+      knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Rohstoff-Dashboard: 12 kritische Metalle, Bedarf 2045 vs. Förderung 2023',
+        'Technologie-Rohstoff-Matrix: welches Gerät braucht was',
+        'Knappheits-Ampel: Risikobewertung interaktiv',
+        'Recycling-Potenzial-Slider: wie viel kann Kreislaufwirtschaft lösen'
+      ]
+    },
+    unlocks: ['ENV:CRITICAL-MATERIALS', 'ENV:CIRCULAR-ECONOMY', 'KNOW:ENERGY-TRANSITION'],
+    units: [
+      {
+        id: 'UNIT:ROHSTOFFE-TECHNOLOGIE',
+        title: 'Was steckt in einer Windkraftanlage?',
+        entryQuestion: 'Eine Windkraftanlage erzeugt sauberen Strom — aber was steckt in ihr drin?',
+        takeaway: 'Eine 3-MW-Windkraftanlage enthält etwa 335 Tonnen Stahl, 4,7 Tonnen Kupfer, 2 Tonnen Dysprosium (für den Permanentmagneten), 0,67 Tonnen Neodym und Spuren von Terbium. Ohne diese Seltenen Erden dreht der Generator nicht effizient. "Sauber" bezieht sich auf den Betrieb — nicht auf die Herstellung.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:ROHSTOFFE-KNAPPHEIT' },
+        sections: [
+          {
+            id: 'OBS:WINDRAD-INHALT',
+            kind: 'observation',
+            title: 'Beobachtung: Das Material einer Windkraftanlage',
+            summary: 'Eine Windkraftanlage sieht aus wie Stahl und Plastik. Aber im Generator stecken Permanentmagnete aus Neodym-Eisen-Bor — mit Dysprosium und Terbium als Hochtemperatur-Stabilisatoren. Ohne diese seltenen Erden würde der Magnet bei Betriebstemperatur entmagnetisieren.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:MATERIAL-MATRIX',
+            kind: 'experiment',
+            title: 'Experiment: Technologie-Rohstoff-Matrix',
+            summary: 'Interaktive Matrix: Zeilen = Rohstoffe (Li, Cu, Nd, Dy, Ir, Pt, Graphit, Sc...), Spalten = Technologien (E-Auto, Windrad, Solarpanel, Elektrolyseur, Rechenzentrum, Wärmepumpe). Klick auf Zelle: wie viel kg pro MW oder pro Stück. Gesamt-Farbe: rot = kritisch, gelb = aufmerksam, grün = unkritisch.',
+            interactive: true,
+            depthPoints: 8,
+          },
+          {
+            id: 'QUIZ:ROHSTOFFE-1',
+            kind: 'quiz',
+            title: 'Quiz: Rohstoffe in Technologien',
+            summary: 'Welches Metall in welcher Technologie, warum Seltene Erden in Windrädern, was macht Dysprosium in einem Magneten.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:ROHSTOFFE-KNAPPHEIT',
+        title: 'Wann wird es knapp?',
+        entryQuestion: 'Welche Rohstoffe könnten die Energiewende bremsen — und welche werden gar kein Problem?',
+        takeaway: 'Laut Fraunhofer-Studie 2026: Bei 12 von 14 untersuchten Metallen könnte der Bedarf 2045 die heutige Weltproduktion überschreiten. Kritischstes Metall: Iridium (12,5-facher Bedarf). Lithium: 4,7-fach. Aber Kupfer und Titan bleiben unkritisch. Die Lösung: Recycling, Substitution, Effizienzsteigerung.',
+        sections: [
+          {
+            id: 'EXP:WIRKUNGSGRAD',
+            kind: 'experiment',
+            title: 'Experiment: Fraunhofer-Dashboard 2045',
+            summary: 'Dashboard: 12 Metalle als Balken. X-Achse: Bedarf 2045 / Förderung 2023 (Faktor). Iridium: 12.5×. Lithium: 4.7×. Scandium: 2.6×. Dysprosium: 2.2×. Kupfer: 0.64×. Drei Szenarien umschaltbar (Nachhaltig / Mittel / Wachstum). Klick auf Metall: Haupttreiber-Technologie.',
+            interactive: true,
+            depthPoints: 9,
+          },
+          {
+            id: 'QUIZ:ROHSTOFFE-2',
+            kind: 'quiz',
+            title: 'Quiz: Kritische Rohstoffe',
+            summary: 'Fraunhofer-Zahlen lesen, warum Iridium kritischer als Lithium, was Recycling leisten kann und was nicht.',
             depthPoints: 15,
           },
         ],
