@@ -35,6 +35,9 @@ import TorqueExperiment            from './TorqueExperiment';
 import ScalarExperiment            from './ScalarExperiment';
 import AbsorptionExperiment        from './AbsorptionExperiment';
 import CoolingExperiment           from './CoolingExperiment';
+import KaramellTempExperiment      from './KaramellTempExperiment';
+import ZuckerartenExperiment       from './ZuckerartenExperiment';
+import KaramellSimulatorExperiment from './KaramellSimulatorExperiment';
 
 const EXPERIMENT_MAP: Record<string, React.ComponentType> = {
   // PHY-SKY
@@ -63,7 +66,11 @@ const EXPERIMENT_MAP: Record<string, React.ComponentType> = {
   // PHY-WAVE-SPECTRUM
   'EXP:ABSORPTIONSLINIEN':  AbsorptionExperiment,
   'EXP:KAFFEETASSE':        CoolingExperiment,
-  'EXP:WELLENMISCHER':      FourierExperiment,   // reuse Fourier for wave mixing
+  'EXP:WELLENMISCHER':      FourierExperiment,
+  // CHE-KUECHE-KARAMELL
+  'EXP:KARAMELL-TEMP':        KaramellTempExperiment,
+  'EXP:ZUCKERARTEN':          ZuckerartenExperiment,
+  'EXP:KARAMELL-SIMULATION':  KaramellSimulatorExperiment,
 };
 
 // ── Depth bar ────────────────────────────────────────────
