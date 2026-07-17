@@ -67,6 +67,9 @@ import OriginOfLifeTimeline       from './OriginOfLifeTimeline';
 import PiezoExperiment           from './PiezoExperiment';
 import PiezoMaterialExperiment   from './PiezoMaterialExperiment';
 import EnergyHarvestingExperiment from './EnergyHarvestingExperiment';
+import CriticalMaterialsExperiment from './CriticalMaterialsExperiment';
+import ElectrolyzerExperiment      from './ElectrolyzerExperiment';
+import MaterialsDashboardExperiment from './MaterialsDashboardExperiment';
 
 const EXPERIMENT_MAP: Record<string, React.ComponentType> = {
   // PHY-SKY
@@ -154,6 +157,13 @@ const EXPERIMENT_MAP: Record<string, React.ComponentType> = {
   'EXP:HAERTE':                PiezoMaterialExperiment,
   'EXP:MOHS':                  PiezoMaterialExperiment,
   'EXP:WIRKUNGSGRAD':          EnergyHarvestingExperiment,
+  // ROHSTOFFE & ENERGIEWENDE
+  'EXP:OXIDATION':             CriticalMaterialsExperiment,
+  'EXP:NEUTRALISATION':        CriticalMaterialsExperiment,
+  'EXP:BATTERIE-ALTERUNG':     ElectrolyzerExperiment,
+  'EXP:BATTERIE-MANAGEMENT':   ElectrolyzerExperiment,
+  'EXP:SCHNELLLADEN-SIMULATION': MaterialsDashboardExperiment,
+  'EXP:BESCHLEUNIGUNG-VERGLEICH': MaterialsDashboardExperiment,
 };
 
 // ── Depth bar ────────────────────────────────────────────
