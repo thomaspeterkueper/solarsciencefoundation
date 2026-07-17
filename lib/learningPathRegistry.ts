@@ -1,4 +1,5 @@
 import { learningPaths, type LearningPath } from './learningPaths';
+import { maillardLearningPath } from './learningPaths/maillard';
 
 export type LearningPathLifecycleStatus = 'prototype' | 'active';
 
@@ -65,7 +66,7 @@ function buildRegistry(source: LearningPath[]) {
   };
 }
 
-const registry = buildRegistry(learningPaths);
+const registry = buildRegistry([...learningPaths, maillardLearningPath]);
 
 export const registeredLearningPaths = registry.paths;
 export const learningPathRegistryIssues = registry.issues;
