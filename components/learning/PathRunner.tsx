@@ -38,6 +38,11 @@ import CoolingExperiment           from './CoolingExperiment';
 import KaramellTempExperiment      from './KaramellTempExperiment';
 import ZuckerartenExperiment       from './ZuckerartenExperiment';
 import KaramellSimulatorExperiment from './KaramellSimulatorExperiment';
+import WaterMoleculeExperiment     from './WaterMoleculeExperiment';
+import HeatingCurveExperiment      from './HeatingCurveExperiment';
+import DensityAnomalyExperiment    from './DensityAnomalyExperiment';
+import DewPointExperiment          from './DewPointExperiment';
+import WaterHeatCapacityExperiment from './WaterHeatCapacityExperiment';
 
 const EXPERIMENT_MAP: Record<string, React.ComponentType> = {
   // PHY-SKY
@@ -71,6 +76,12 @@ const EXPERIMENT_MAP: Record<string, React.ComponentType> = {
   'EXP:KARAMELL-TEMP':        KaramellTempExperiment,
   'EXP:ZUCKERARTEN':          ZuckerartenExperiment,
   'EXP:KARAMELL-SIMULATION':  KaramellSimulatorExperiment,
+  // WASSER-CLUSTER
+  'EXP:WASSER-MOLEKUEL':    WaterMoleculeExperiment,
+  'EXP:ERWAERMUNGSKURVE':   HeatingCurveExperiment,
+  'EXP:DICHTE-KURVE':       DensityAnomalyExperiment,
+  'EXP:TAUPUNKT':           DewPointExperiment,
+  'EXP:WAERMEKAPAZITAET':   WaterHeatCapacityExperiment,
 };
 
 // ── Depth bar ────────────────────────────────────────────
