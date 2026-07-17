@@ -43,6 +43,11 @@ import HeatingCurveExperiment      from './HeatingCurveExperiment';
 import DensityAnomalyExperiment    from './DensityAnomalyExperiment';
 import DewPointExperiment          from './DewPointExperiment';
 import WaterHeatCapacityExperiment from './WaterHeatCapacityExperiment';
+import PhaseDiagramExperiment      from './PhaseDiagramExperiment';
+import EvaporationExperiment       from './EvaporationExperiment';
+import CapillaryExperiment         from './CapillaryExperiment';
+import HydrationExperiment         from './HydrationExperiment';
+import PipeFreezingExperiment      from './PipeFreezingExperiment';
 
 const EXPERIMENT_MAP: Record<string, React.ComponentType> = {
   // PHY-SKY
@@ -82,6 +87,12 @@ const EXPERIMENT_MAP: Record<string, React.ComponentType> = {
   'EXP:DICHTE-KURVE':       DensityAnomalyExperiment,
   'EXP:TAUPUNKT':           DewPointExperiment,
   'EXP:WAERMEKAPAZITAET':   WaterHeatCapacityExperiment,
+  // WASSER-CLUSTER: additional
+  'EXP:PHASENDIAGRAMM':     PhaseDiagramExperiment,
+  'EXP:VERDUNSTUNG-RATE':   EvaporationExperiment,
+  'EXP:KAPILLAR':           CapillaryExperiment,
+  'EXP:HYDRATATION':        HydrationExperiment,
+  'EXP:ROHR-SPRENGUNG':     PipeFreezingExperiment,
 };
 
 // ── Depth bar ────────────────────────────────────────────
