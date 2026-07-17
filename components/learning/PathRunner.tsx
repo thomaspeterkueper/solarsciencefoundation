@@ -48,6 +48,14 @@ import EvaporationExperiment       from './EvaporationExperiment';
 import CapillaryExperiment         from './CapillaryExperiment';
 import HydrationExperiment         from './HydrationExperiment';
 import PipeFreezingExperiment      from './PipeFreezingExperiment';
+import FourStrokeExperiment       from './FourStrokeExperiment';
+import BrakeEnergyExperiment      from './BrakeEnergyExperiment';
+import CombustionExperiment       from './CombustionExperiment';
+import EmulsionExperiment         from './EmulsionExperiment';
+import CollagenExperiment         from './CollagenExperiment';
+import MicelleExperiment          from './MicelleExperiment';
+import BatteryExperiment          from './BatteryExperiment';
+import PumpExperiment             from './PumpExperiment';
 
 const EXPERIMENT_MAP: Record<string, React.ComponentType> = {
   // PHY-SKY
@@ -93,6 +101,32 @@ const EXPERIMENT_MAP: Record<string, React.ComponentType> = {
   'EXP:KAPILLAR':           CapillaryExperiment,
   'EXP:HYDRATATION':        HydrationExperiment,
   'EXP:ROHR-SPRENGUNG':     PipeFreezingExperiment,
+  // AUTO-CLUSTER
+  'EXP:VIERTAKT':              FourStrokeExperiment,
+  'EXP:KOLBEN-KURBEL':         FourStrokeExperiment,
+  'EXP:KOLBEN-DRUCK':          FourStrokeExperiment,
+  'EXP:BREMSENERGIE':          BrakeEnergyExperiment,
+  'EXP:REIBUNG-WAERME':        BrakeEnergyExperiment,
+  'EXP:VERBRENNUNG-CHEMIE':    CombustionExperiment,
+  'EXP:VERBRENNUNG-TEMP':      CombustionExperiment,
+  'EXP:KATALYSATOR':           CombustionExperiment,
+  'EXP:BATTERIE-LADEN-ENTLADEN': BatteryExperiment,
+  'EXP:BATTERIE-WAERMEENTWICKLUNG': BatteryExperiment,
+  'EXP:BATTERIE-INNENWIDERSTAND':   BatteryExperiment,
+  // KUECHE / REINIGUNG
+  'EXP:EMULSION-TRENNUNG':     EmulsionExperiment,
+  'EXP:EMULGATOR-WIRKUNG':     EmulsionExperiment,
+  'EXP:OEL-WASSER':            EmulsionExperiment,
+  'EXP:LECITHIN':              EmulsionExperiment,
+  'EXP:KOLLAGEN-TEMP':         CollagenExperiment,
+  'EXP:GELATINE-BILDUNG':      CollagenExperiment,
+  'EXP:FLEISCH-SIMULATION':    CollagenExperiment,
+  'EXP:MIZELLE':               MicelleExperiment,
+  'EXP:TENSID-MOLEKUEL':       MicelleExperiment,
+  // PUMPE
+  'EXP:KOLBENPUMPE-SIMULATION': PumpExperiment,
+  'EXP:UNTERDRUCK-SAUGEN':     PumpExperiment,
+  'EXP:SAUGHOEHE':             PumpExperiment,
 };
 
 // ── Depth bar ────────────────────────────────────────────
