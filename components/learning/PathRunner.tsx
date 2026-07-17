@@ -70,6 +70,7 @@ import EnergyHarvestingExperiment from './EnergyHarvestingExperiment';
 import CriticalMaterialsExperiment from './CriticalMaterialsExperiment';
 import ElectrolyzerExperiment      from './ElectrolyzerExperiment';
 import MaterialsDashboardExperiment from './MaterialsDashboardExperiment';
+import DifferentialExperiment      from './DifferentialExperiment';
 
 const EXPERIMENT_MAP: Record<string, React.ComponentType> = {
   // PHY-SKY
