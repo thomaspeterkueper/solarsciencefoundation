@@ -3,7 +3,7 @@
  * Path:      lib/learningPaths.ts
  * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/learningPaths.ts
  * Name:      Learning Paths registry
- * Version:   0.9.9
+ * Version:   1.0.0
  * Created:   2026-07-03
  * Modified:  2026-07-15 21:00 CEST
  * Depends:   —
@@ -4064,6 +4064,349 @@ export const learningPaths: LearningPath[] = [
             kind: 'quiz',
             title: 'Quiz: Magnetische Pole',
             summary: 'Warum gibt es keinen isolierten Nordpol, Unterschied elektrische vs. magnetische Ladung, was ist ein magnetischer Monopol.',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  }
+,
+
+  // ═══════════════════════════════════════════════════
+  // ASTROBIOLOGIE-CLUSTER — 3 Lernpfade
+  // Quelle: Erythrulose-Fund in G+0.693-0.027, Nature Astronomy 2026
+  // ═══════════════════════════════════════════════════
+
+  {
+    id: 'PATH:SSF:CHE-ZUCKER-MOLEKUEL-0001',
+    title: 'Was ist Zucker eigentlich — und warum braucht Leben ihn',
+    subtitle: 'Von Haushaltszucker zu DNA-Bausteinen: Monosaccharide, Ribose und warum Zucker weit mehr ist als Süße.',
+    status: 'prototype',
+    sourceModuleId: 'SSF-CHE-5001',
+    kxfModuleId: 'LRN:SSF:CHE-5001',
+    domainsNeeded: ['KNOW:CHE-ORGANIC', 'KNOW:CHE-CARBOHYDRATES', 'KNOW:BIO-MOLECULES'],
+    suppliedBy: {
+      knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Molekuel-Baukasten: C, H, O zu Monosaccharid zusammensetzen',
+        'Zucker-Vergleich: Glucose vs. Ribose vs. Erythrulose — Strukturen live',
+        'DNA-Baustein-Animation: Ribose als Rückgrat der RNA'
+      ]
+    },
+    unlocks: ['CHEM:MONOSACCHARIDE', 'CHEM:RIBOSE', 'BIO:DNA-BACKBONE'],
+    units: [
+      {
+        id: 'UNIT:ZUCKER-WAS',
+        title: 'Mehr als Süße',
+        entryQuestion: 'Warum heißt Zucker Zucker — und was hat er mit unserer DNA zu tun?',
+        takeaway: 'Zucker sind Moleküle aus Kohlenstoff, Wasserstoff und Sauerstoff. Glucose liefert Zellen Energie. Ribose bildet das Rückgrat der RNA. Ohne Zucker kein genetisches Material — kein Leben wie wir es kennen.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:ZUCKER-TYPEN' },
+        sections: [
+          {
+            id: 'OBS:ZUCKER-ALLTAG',
+            kind: 'observation',
+            title: 'Beobachtung: Zucker überall',
+            summary: 'Haushaltszucker im Kaffee. Glucose in Trauben. Ribose in jeder lebenden Zelle. Erythrulose in Himbeeren — und jetzt im Weltall. Das sind alles "Zucker", aber sie sind sehr verschieden. Was haben sie gemeinsam?',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:ZUCKERARTEN',
+            kind: 'experiment',
+            title: 'Experiment: Zucker-Moleküle vergleichen',
+            summary: 'Strukturformel-Viewer: Glucose (C6), Ribose (C5), Erythrulose (C4), Glycolaldehyd (C2). Slider wechselt zwischen Strukturen — Kohlenstoffkette, OH-Gruppen, Ringform sichtbar. Funktion der jeweiligen Zuckerart eingeblendet.',
+            interactive: true,
+            depthPoints: 7,
+          },
+          {
+            id: 'QUIZ:ZUCKER-1',
+            kind: 'quiz',
+            title: 'Quiz: Zucker-Moleküle',
+            summary: 'Was ist ein Monosaccharid, warum ist Ribose für DNA wichtig, was unterscheidet Glucose von Saccharose.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:ZUCKER-TYPEN',
+        title: 'Die vier Bausteine des Lebens',
+        entryQuestion: 'Woraus besteht ein Lebewesen — auf molekularer Ebene?',
+        takeaway: 'Alle bekannten Lebewesen bestehen aus vier großen Molekülklassen: Proteine (Bauen und Steuern), DNA/RNA mit Zuckerbausteinen (Informationsspeicher), Fette (Membranen), und Zucker (Energie und Struktur). Kein Leben ohne alle vier.',
+        sections: [
+          {
+            id: 'EXP:POLAR-SORTIERER',
+            kind: 'experiment',
+            title: 'Experiment: Bausteine des Lebens',
+            summary: 'Interaktive Zelle: vier Molekülklassen als farbige Bereiche. Klick auf Bereich zeigt Funktion, Beispiel, und ob der Baustein im Weltall gefunden wurde. Meteoriten-Treffer-Animation: was kam von außen, was entstand auf der Erde.',
+            interactive: true,
+            depthPoints: 8,
+          },
+          {
+            id: 'QUIZ:ZUCKER-2',
+            kind: 'quiz',
+            title: 'Quiz: Bausteine des Lebens',
+            summary: 'Welcher Baustein ist wofür zuständig, warum braucht RNA Ribose, was wäre ohne Zucker nicht möglich.',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'PATH:SSF:CHE-ZUCKER-WELTALL-0001',
+    title: 'Wie entsteht Zucker im Weltall — und warum wurde er gerade erst gefunden',
+    subtitle: 'Erythrulose in der Gaswolke G+0.693-0.027: interstellare Chemie auf Staubteilchen bei fast absolutem Nullpunkt.',
+    status: 'prototype',
+    sourceModuleId: 'SSF-CHE-5002',
+    kxfModuleId: 'LRN:SSF:CHE-5002',
+    domainsNeeded: ['KNOW:CHE-ASTROCHEMISTRY', 'KNOW:PHY-SPECTROSCOPY', 'KNOW:PHY-INTERSTELLAR'],
+    suppliedBy: {
+      knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Staubkorn-Reaktor: Moleküle lagern sich auf Staubkorn ab — Reaktion bei -263 Grad',
+        'Radioteleskop-Fingerabdruck: Spektrallinie-Vergleich Labor vs. Weltraum',
+        'Gaswolken-Karte: G+0.693-0.027 im Milchstraßenzentrum verortet'
+      ]
+    },
+    unlocks: ['SENSOR:SPECTRAL', 'CHEM:ASTROCHEMISTRY', 'KNOW:INTERSTELLAR-MEDIUM'],
+    units: [
+      {
+        id: 'UNIT:WELTALL-CHEMIE',
+        title: 'Chemie zwischen den Sternen',
+        entryQuestion: 'Wie kann im leeren Weltraum — bei fast absolutem Nullpunkt — ein Zuckermolekül entstehen?',
+        takeaway: 'Der Weltraum ist nicht leer. Interstellare Gaswolken enthalten Staub, auf dessen Oberfläche sich Moleküle anlagern. UV-Strahlung liefert Energie für Reaktionen. Bei -263°C, fast am absoluten Nullpunkt, entstehen auf diesen Staubteilchen komplexe organische Moleküle — darunter Zucker.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:WELTALL-NACHWEIS' },
+        sections: [
+          {
+            id: 'OBS:WELTALL-LEER',
+            kind: 'observation',
+            title: 'Beobachtung: Der Weltraum ist nicht leer',
+            summary: 'Zwischen den Sternen liegt scheinbar nichts. Aber interstellare Molekülwolken wie G+0.693-0.027 enthalten Gas und Staub — und darauf: organische Moleküle. 2026 fanden Forscher dort Erythrulose. Wie kann das sein?',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:DAMPFDRUCK-TEMP',
+            kind: 'experiment',
+            title: 'Experiment: Staubkorn als chemischer Reaktor',
+            summary: 'Staubkorn-Canvas: Moleküle (CO, H2O, NH3) lagern sich auf gefrorenem Staubteilchen ab. UV-Slider: Strahlung trifft Oberfläche — einfache Moleküle reagieren zu komplexeren. Temperatur bei -263°C sichtbar. Erythrulose entsteht aus zwei C2-Vorgängern.',
+            interactive: true,
+            depthPoints: 8,
+          },
+          {
+            id: 'QUIZ:WELTALL-1',
+            kind: 'quiz',
+            title: 'Quiz: Interstellare Chemie',
+            summary: 'Warum ist der Weltraum nicht leer, wie entsteht Chemie ohne Lösungsmittel, warum braucht es Staubteilchen.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:WELTALL-NACHWEIS',
+        title: 'Wie man Zucker im Weltall findet',
+        entryQuestion: 'Wie kann man aus 26.000 Lichtjahren Entfernung erkennen, dass dort Zucker schwebt?',
+        takeaway: 'Jedes Molekül sendet und absorbiert elektromagnetische Strahlung bei charakteristischen Frequenzen — wie ein Fingerabdruck. Radioteleskope messen diese Signale aus dem Weltall. Stimmt das Muster mit Labormessungen von Erythrulose überein, ist der Nachweis erbracht.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:WELTALL-BEDEUTUNG' },
+        sections: [
+          {
+            id: 'OBS:SPEKTRUM-FINGERABDRUCK',
+            kind: 'observation',
+            title: 'Beobachtung: Der Fingerabdruck eines Moleküls',
+            summary: 'Jedes Element und jedes Molekül emittiert Licht bei ganz bestimmten Frequenzen — wie ein Barcode. Natrium macht Flammen gelb. Neon macht Röhren orange-rot. Dasselbe Prinzip nutzen Radioteleskope um Moleküle in Gaswolken zu identifizieren.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:ABSORPTIONSLINIEN',
+            kind: 'experiment',
+            title: 'Experiment: Spektrallinien als Molekül-Fingerabdruck',
+            summary: 'Spektrum-Canvas: Radiofrequenz-Spektrum von G+0.693-0.027 oben, Labormessung Erythrulose unten. Slider verschiebt Frequenzbereich — Übereinstimmung der Linien leuchtet auf. Signal-zu-Rausch-Slider: ab welcher Qualität gilt der Nachweis als gesichert?',
+            interactive: true,
+            depthPoints: 9,
+          },
+          {
+            id: 'QUIZ:WELTALL-2',
+            kind: 'quiz',
+            title: 'Quiz: Spektroskopie',
+            summary: 'Warum hat jedes Molekül einen eigenen Spektral-Fingerabdruck, wie funktioniert ein Radioteleskop, was bedeutet Signal-zu-Rausch.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:WELTALL-BEDEUTUNG',
+        title: 'Warum dieser Fund die Wissenschaft aufgeregt hat',
+        entryQuestion: 'Was bedeutet es für unser Verständnis des Lebens, dass Zucker im interstellaren Raum existiert?',
+        takeaway: 'Bisher dachte man: Zucker kam über Meteoriten auf die frühe Erde. Der Fund in einer interstellaren Gaswolke zeigt: Zucker entsteht bereits vor der Entstehung von Planetensystemen — im Rohmaterial aus dem Sterne und Planeten entstehen. Leben könnte überall im Universum chemisch vorprogrammiert sein.',
+        sections: [
+          {
+            id: 'EXP:OSMOSE',
+            kind: 'experiment',
+            title: 'Experiment: Vom Staubkorn zur Erde',
+            summary: 'Zeitstrahl 13,8 Mrd. Jahre: Big Bang → erste Moleküle → Gaswolken → Sternenentstehung → Planetensystem → Meteoriten → frühe Erde → erstes Leben. Erythrulose-Fund markiert Schritt 3. Klick auf jeden Schritt: was war schon da, was fehlte noch.',
+            interactive: true,
+            depthPoints: 10,
+          },
+          {
+            id: 'QUIZ:WELTALL-3',
+            kind: 'quiz',
+            title: 'Quiz: Bedeutung des Funds',
+            summary: 'Warum ist der Fund außerhalb von Meteoriten besonders, was bedeutet Panspermie, warum ist Erythrulose kein lebensnotwendiger Zucker aber trotzdem wichtig.',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'PATH:SSF:BIO-LEBEN-URSPRUNG-0001',
+    title: 'Wie entstand das erste Leben auf der Erde',
+    subtitle: 'Von Molekülwolken bis zur ersten Zelle: chemische Evolution, Panspermie und die offene Frage nach dem Beginn.',
+    status: 'prototype',
+    sourceModuleId: 'SSF-BIO-5001',
+    kxfModuleId: 'LRN:SSF:BIO-5001',
+    domainsNeeded: ['KNOW:BIO-ORIGIN-OF-LIFE', 'KNOW:CHE-PREBIOTIC', 'KNOW:PHY-EARLY-EARTH'],
+    suppliedBy: {
+      knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Frühe-Erde-Simulator: Atmosphäre, Temperatur, UV-Strahlung einstellbar',
+        'Miller-Urey-Experiment: Animation — Blitz + Ursuppe = Aminosäuren',
+        'RNA-Welt: Wie RNA sich selbst kopieren kann — Animation',
+        'Meteoriten-Lieferant: welche Moleküle kamen von außen'
+      ]
+    },
+    unlocks: ['BIO:ORIGIN-OF-LIFE', 'CHEM:PREBIOTIC-CHEMISTRY', 'MISSION:LAB-ALPHA'],
+    units: [
+      {
+        id: 'UNIT:LEBEN-FRUEHE-ERDE',
+        title: 'Die frühe Erde — eine Welt ohne Leben',
+        entryQuestion: 'Wie sah die Erde vor 4 Milliarden Jahren aus — und was fehlte noch, damit Leben entstehen konnte?',
+        takeaway: 'Die frühe Erde hatte keine freien Sauerstoff, eine dichte CO2-Atmosphäre, kein Ozon, intensive UV-Strahlung und heiße Ozeane. Kein Leben wie wir es kennen hätte überlebt — aber genau diese rauen Bedingungen waren die Voraussetzung für chemische Evolution.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:LEBEN-BAUSTEINE' },
+        sections: [
+          {
+            id: 'OBS:ERDE-HEUTE-DAMALS',
+            kind: 'observation',
+            title: 'Beobachtung: Zwei Erden',
+            summary: 'Heute: Erde hat 21% Sauerstoff, Ozonschicht, flüssiges Wasser, gemäßigte Temperaturen. Vor 4 Milliarden Jahren: fast kein Sauerstoff, kein Ozon, intensive Strahlung, Meteoritenbeschuss. Und trotzdem: irgendwann entstand Leben. Wie?',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:KLIMA-EFFEKT',
+            kind: 'experiment',
+            title: 'Experiment: Frühe Erde einstellen',
+            summary: 'Atmosphären-Konfigurator: CO2, N2, H2O, CH4 Slider. Temperatur (50-300°C), UV-Intensität, Meteoritenbeschuss-Rate. Canvas zeigt Ozean, Atmosphäre, Vulkane. Lebensfreundlichkeits-Balken: wo liegt die Zone in der Chemie möglich, aber nicht zu aggressiv?',
+            interactive: true,
+            depthPoints: 8,
+          },
+          {
+            id: 'QUIZ:LEBEN-1',
+            kind: 'quiz',
+            title: 'Quiz: Frühe Erde',
+            summary: 'Warum kein Sauerstoff auf früher Erde, was ist Ursuppe, warum war UV-Strahlung gleichzeitig Problem und Energiequelle.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:LEBEN-BAUSTEINE',
+        title: 'Woher kamen die Bausteine des Lebens?',
+        entryQuestion: 'Entstanden die Moleküle des Lebens auf der Erde — oder kamen sie aus dem All?',
+        takeaway: 'Beides. 1953 zeigte das Miller-Urey-Experiment: Aminosäuren entstehen spontan wenn man Blitz, Wasser und einfache Gase zusammenbringt. Meteoriten lieferten zusätzlich fertige organische Moleküle — darunter Zucker. Der Erythrulose-Fund 2026 zeigt: diese Bausteine sind im Universum weit verbreitet.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:LEBEN-RNA' },
+        sections: [
+          {
+            id: 'OBS:MILLER-UREY',
+            kind: 'observation',
+            title: 'Beobachtung: Der Ursuppen-Versuch',
+            summary: '1953, Chicago: Stanley Miller füllt einen Kolben mit Wasser, Methan, Ammoniak und Wasserstoff. Er lässt elektrische Entladungen hindurchzucken — Blitze. Nach einer Woche: im Kolben sind Aminosäuren entstanden. Die Bausteine des Lebens, aus nichts als einfachen Gasen und Energie.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:VERBRENNUNG-CHEMIE',
+            kind: 'experiment',
+            title: 'Experiment: Miller-Urey nachbauen',
+            summary: 'Kolben-Simulation: Gas-Zusammensetzung wählen (CH4, NH3, H2O, H2). Blitz-Energie-Slider. Nach Reaktion: welche organischen Moleküle entstehen? Aminosäuren-Ausbeute als Balken. Vergleich: mit vs. ohne Sauerstoff (mit O2: keine Aminosäuren — O2 würde sie zerstören).',
+            interactive: true,
+            depthPoints: 9,
+          },
+          {
+            id: 'EXP:HYDRATATION',
+            kind: 'experiment',
+            title: 'Experiment: Meteoriten als Lieferdienst',
+            summary: 'Meteoriten-Inventar: welche Moleküle wurden auf Meteoriten gefunden? Aminosäuren (>70 Typen), Zucker (Ribose, Glucose, Erythrulose), Nukleobasen. Zeitstrahl: wann trafen Meteoriten die frühe Erde besonders häufig (Late Heavy Bombardment ~3.9 Mrd. Jahre).',
+            interactive: true,
+            depthPoints: 7,
+          },
+          {
+            id: 'QUIZ:LEBEN-2',
+            kind: 'quiz',
+            title: 'Quiz: Ursprung der Bausteine',
+            summary: 'Was bewies Miller-Urey, was ist Panspermie, warum ist der Erythrulose-Fund 2026 bedeutsam.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:LEBEN-RNA',
+        title: 'Die RNA-Welt — das Huhn-Ei-Problem des Lebens',
+        entryQuestion: 'Was war zuerst da — die DNA die Proteine baut, oder die Proteine die DNA bauen?',
+        takeaway: 'Weder noch. RNA kann beides: Information speichern wie DNA und chemische Reaktionen katalysieren wie Proteine. Die RNA-Welt-Hypothese: Vor DNA und Proteinen gab es RNA-Moleküle die sich selbst kopierten. Das löst das Huhn-Ei-Problem — und RNA braucht Ribose, einen Zucker.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:LEBEN-ZELLE' },
+        sections: [
+          {
+            id: 'OBS:HUHN-EI',
+            kind: 'observation',
+            title: 'Beobachtung: Das molekulare Huhn-Ei-Problem',
+            summary: 'DNA enthält die Bauanleitung für Proteine. Proteine bauen DNA. Was war zuerst? Ohne DNA keine Proteine. Ohne Proteine keine DNA. Dieses Paradoxon blockierte jahrzehntelang das Verständnis des Lebensursprungs.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:OSMOSE',
+            kind: 'experiment',
+            title: 'Experiment: RNA als Alleskönner',
+            summary: 'RNA-Animations-Canvas: RNA-Strang faltet sich zur 3D-Struktur. Zwei Funktionen sichtbar: als Speicher (Sequenz wird abgelesen) und als Enzym (Ribozym katalysiert eigene Verdopplung). Ribose-Hervorhebung: Zuckermolekül als Rückgrat. Warum Ribose und nicht Glucose?',
+            interactive: true,
+            depthPoints: 9,
+          },
+          {
+            id: 'QUIZ:LEBEN-3',
+            kind: 'quiz',
+            title: 'Quiz: RNA-Welt',
+            summary: 'Was kann RNA was DNA nicht kann, warum löst RNA das Huhn-Ei-Problem, welche Rolle spielt Ribose.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:LEBEN-ZELLE',
+        title: 'Der Sprung zur ersten Zelle',
+        entryQuestion: 'Wie wird aus einem Haufen Moleküle eine Zelle — die sich teilt und Energie erzeugt?',
+        takeaway: 'Fettsäuren bilden spontan Blasen (Vesikel) — primitive Membranen. RNA-Moleküle können sich darin einschließen. Wenn die Blase wächst und sich teilt, verteilen sich die RNA-Kopien. Das ist noch kein Leben — aber es ist der Schritt davor. Die Grenze ist fließend.',
+        sections: [
+          {
+            id: 'OBS:ERSTE-ZELLE',
+            kind: 'observation',
+            title: 'Beobachtung: Was ist eine Zelle?',
+            summary: 'Eine Zelle ist eine Membran die innen von außen trennt, mit Molekülen die Energie umwandeln und sich selbst kopieren können. Klingt einfach. Ist es nicht. Wie kam dieser Schritt zustande — von Molekülen zu einem selbst erhaltenden System?',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:EMULSION-TRENNUNG',
+            kind: 'experiment',
+            title: 'Experiment: Vesikel und primitive Membranen',
+            summary: 'Fettsäuren in Wasser: spontane Vesikel-Bildung animiert. pH-Slider: bei pH 7-8 stabile Blasen, darunter und darüber kollabieren sie. RNA-Einschluss-Animation: Moleküle gelangen durch Poren ins Innere. Teilungs-Simulation: Blase wächst, teilt sich — RNA-Kopien verteilt.',
+            interactive: true,
+            depthPoints: 10,
+          },
+          {
+            id: 'QUIZ:LEBEN-4',
+            kind: 'quiz',
+            title: 'Quiz: Erste Zelle',
+            summary: 'Wie bilden sich Vesikel, warum sind Membranen lebensnotwendig, was fehlt einem Vesikel noch zum echten Leben.',
             depthPoints: 15,
           },
         ],
