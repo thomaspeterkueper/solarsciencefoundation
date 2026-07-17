@@ -3,7 +3,7 @@
  * Path:      lib/learningPaths.ts
  * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/learningPaths.ts
  * Name:      Learning Paths registry
- * Version:   0.9.5
+ * Version:   0.9.6
  * Created:   2026-07-03
  * Modified:  2026-07-15 21:00 CEST
  * Depends:   —
@@ -1840,6 +1840,120 @@ export const learningPaths: LearningPath[] = [
             title: 'Quiz: Waermetransport',
             summary: 'Drei Transportwege benennen, warum Vakuum alle blockiert, warum Umruehren schneller kuehlt.',
             depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  }
+,
+  {
+    id: 'PATH:SSF:CHE-KUECHE-KARAMELL-0001',
+    title: 'Warum karamellisiert Zucker erst bei 160 Grad',
+    subtitle: 'Von suessem Zucker zu goldenem Karamell: thermische Zersetzung, Molekuelstruktur und die Kunst des perfekten Timings.',
+    status: 'prototype',
+    sourceModuleId: 'SSF-CHE-1005',
+    kxfModuleId: 'LRN:SSF:CHE-1005',
+    domainsNeeded: ['KNOW:CHE-ORGANIC', 'KNOW:CHE-THERMAL', 'KNOW:PHY-THERMODYNAMICS'],
+    suppliedBy: {
+      knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Temperatur-Slider 100-200 Grad: Zustandsaenderung live (weiss → fluessig → gold → braun → verbrannt)',
+        'Zuckerarten-Vergleich: Fruchtzucker 110, Traubenzucker 150, Haushalts 160, Malz 180 Grad',
+        'Karamell-Simulator: Temperatur + Zeit → Farbe + Aroma + Warnung'
+      ]
+    },
+    unlocks: ['TOOL:CARAMELIZATION', 'SENSE:SWEET', 'CHEM:THERMAL-DECOMP'],
+    units: [
+      {
+        id: 'UNIT:KUECHE-KARAMELL-K1',
+        title: 'Von weiss zu goldbraun',
+        entryQuestion: 'Warum wird Zucker im Topf braun — und riecht dann so gut?',
+        takeaway: 'Zucker beginnt bei etwa 160°C zu schmelzen und zerfaellt in kleinere Molekuele. Diese reagieren zu hunderten neuen Aromastoffen — Karamell. Unter 160°C passiert nichts.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:KUECHE-KARAMELL-K2' },
+        sections: [
+          {
+            id: 'OBS:ZUCKER-SCHMELZEN',
+            kind: 'observation',
+            title: 'Beobachtung: Zucker im Topf',
+            summary: 'Du erhitzt Zucker in einem Topf. Erst passiert lange nichts. Irgendwann wird er fluessig, dann braun — und ploetzlich riecht es wunderbar nach Karamell. Was ist mit dem Zucker passiert und warum hat es so lange gedauert?',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:KARAMELL-TEMP',
+            kind: 'experiment',
+            title: 'Experiment: Die Temperatur-Schwelle',
+            summary: 'Temperatur-Slider 100-200 Grad: unter 160 Grad passiert nichts, bei 160 schmilzt Zucker, bei 170 erste Braeunug, bei 180 volles Aroma, ueber 190 verbrennt es.',
+            interactive: true,
+            depthPoints: 8,
+          },
+          {
+            id: 'QUIZ:KARAMELL-K1',
+            kind: 'quiz',
+            title: 'Quiz: Karamellisierung',
+            summary: 'Warum 160 Grad die Schwelle ist, was passiert mit dem Molekuel, warum Aroma entsteht.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:KUECHE-KARAMELL-K2',
+        title: 'Warum verschiedener Zucker anders karamellisiert',
+        entryQuestion: 'Warum karamellisiert Honig schneller als Haushaltszucker — und Puderzucker anders als Wuerfelzucker?',
+        takeaway: 'Fruchtzucker (Honig) karamellisiert bei 110°C, Traubenzucker bei 150°C, Haushaltszucker bei 160°C. Die Molekuelstruktur bestimmt wie leicht ein Zucker sich zersetzt.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:KUECHE-KARAMELL-K3' },
+        sections: [
+          {
+            id: 'OBS:VERSCHIEDENE-ZUCKER',
+            kind: 'observation',
+            title: 'Beobachtung: Honig und Haushaltszucker',
+            summary: 'Honig wird im Topf schnell braun — Haushaltszucker braucht laenger. Beide sind suess, beide sind Zucker — aber sie verhalten sich unterschiedlich.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:ZUCKERARTEN',
+            kind: 'experiment',
+            title: 'Experiment: Verschiedene Zucker-Typen',
+            summary: 'Zuckerart-Auswahl: Fruchtzucker (110°C), Traubenzucker (150°C), Haushaltszucker (160°C), Malzzucker (180°C). Molekuelstruktur und Karamellisierungstemperatur live verglichen.',
+            interactive: true,
+            depthPoints: 8,
+          },
+          {
+            id: 'QUIZ:KARAMELL-K2',
+            kind: 'quiz',
+            title: 'Quiz: Zuckerarten',
+            summary: 'Welcher Zucker bei welcher Temperatur, warum Honig schneller, was bestimmt die Schwelle.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:KUECHE-KARAMELL-K3',
+        title: 'Karamell in der Kueche',
+        entryQuestion: 'Wie macht man perfektes Karamell — und warum sind die letzten Sekunden entscheidend?',
+        takeaway: 'Zwischen perfektem Karamell und verbranntem Zucker liegen Sekunden. Der Topf speichert Waerme — von der Herdplatte nehmen bevor es perfekt aussieht.',
+        sections: [
+          {
+            id: 'OBS:KARAMELL-PERFEKT',
+            kind: 'observation',
+            title: 'Beobachtung: Die perfekte Farbe',
+            summary: 'Goldbraun und gut riechend — fertig. Zu frueh: blass und aromatlos. Zu spaet: verbrannt und bitter. Der Unterschied sind oft nur Sekunden.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:KARAMELL-SIMULATION',
+            kind: 'experiment',
+            title: 'Experiment: Karamell-Simulator',
+            summary: 'Temperatur-Slider und Zeit-Slider: Farbe des Zuckers von weiss zu gold zu braun zu schwarz. Aroma-Skala und Warnung bei Verbrennung. Restwaerme-Effekt sichtbar nach Herd-aus.',
+            interactive: true,
+            depthPoints: 10,
+          },
+          {
+            id: 'QUIZ:KARAMELL-K3',
+            kind: 'quiz',
+            title: 'Quiz: Karamell in der Praxis',
+            summary: 'Warum nicht ruehren, Restwaerme-Effekt, welche Temperatur fuer welchen Zweck.',
+            depthPoints: 12,
           },
         ],
       },
