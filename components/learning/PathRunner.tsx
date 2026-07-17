@@ -56,6 +56,10 @@ import CollagenExperiment         from './CollagenExperiment';
 import MicelleExperiment          from './MicelleExperiment';
 import BatteryExperiment          from './BatteryExperiment';
 import PumpExperiment             from './PumpExperiment';
+import MaterialMatrixExperiment   from './MaterialMatrixExperiment';
+import SpinExperiment             from './SpinExperiment';
+import ElectromagnetExperiment    from './ElectromagnetExperiment';
+import MagneticFieldExperiment    from './MagneticFieldExperiment';
 
 const EXPERIMENT_MAP: Record<string, React.ComponentType> = {
   // PHY-SKY
@@ -127,6 +131,11 @@ const EXPERIMENT_MAP: Record<string, React.ComponentType> = {
   'EXP:KOLBENPUMPE-SIMULATION': PumpExperiment,
   'EXP:UNTERDRUCK-SAUGEN':     PumpExperiment,
   'EXP:SAUGHOEHE':             PumpExperiment,
+  // PHY-MAGNETISMUS
+  'EXP:MATERIAL-MATRIX':       MaterialMatrixExperiment,
+  'EXP:POLARITAET':            SpinExperiment,
+  'EXP:DRAHT':                 ElectromagnetExperiment,
+  'EXP:LICHTSPEKTRUM':         MagneticFieldExperiment,
 };
 
 // ── Depth bar ────────────────────────────────────────────
