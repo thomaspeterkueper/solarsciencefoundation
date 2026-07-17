@@ -1,0 +1,272 @@
+.journey {
+  margin-top: 28px;
+}
+
+.chapterNav {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.chapterButton {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 9px;
+  align-items: center;
+  min-height: 62px;
+  padding: 11px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--panel);
+  color: var(--muted);
+  text-align: left;
+  cursor: pointer;
+}
+
+.chapterButton:disabled {
+  opacity: .48;
+  cursor: not-allowed;
+}
+
+.chapterButton > span {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--soft);
+  color: var(--navy);
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.chapterButton b {
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.chapterButton.active {
+  border-color: var(--gold-2);
+  box-shadow: 0 8px 24px rgba(20, 39, 64, .08);
+  color: var(--navy);
+}
+
+.chapterButton.done > span {
+  background: var(--success);
+  color: white;
+}
+
+.chapter {
+  display: grid;
+  gap: 22px;
+}
+
+.chapterLabel,
+.kind {
+  color: var(--gold-2);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.chapter > h2 {
+  max-width: 22ch;
+  margin: 0;
+  color: var(--navy);
+  font-family: var(--font-serif);
+  font-size: clamp(30px, 5vw, 48px);
+  line-height: 1.12;
+  font-weight: 600;
+}
+
+.scenes {
+  display: grid;
+  gap: 18px;
+}
+
+.scene {
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--panel);
+}
+
+.scene.observation {
+  border-left: 4px solid var(--gold-2);
+  background: linear-gradient(135deg, #fffdf8, #fff);
+}
+
+.scene.transfer {
+  border-color: #8ab195;
+  background: #f3f8f4;
+}
+
+.scene h3,
+.quiz h3 {
+  margin: 7px 0 10px;
+  color: var(--navy);
+  font-family: var(--font-serif);
+  font-size: 24px;
+}
+
+.scene p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.72;
+}
+
+.experiment {
+  margin-top: 20px;
+}
+
+.quiz {
+  padding: 26px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: #f7f6f2;
+}
+
+.questions {
+  display: grid;
+  gap: 22px;
+  margin: 24px 0;
+}
+
+.question {
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--border);
+}
+
+.question:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.question > p {
+  margin: 0 0 12px;
+  color: var(--ink);
+  font-weight: 650;
+}
+
+.question small {
+  display: block;
+  margin-top: 10px;
+  color: #8c3a2d;
+  line-height: 1.55;
+}
+
+.options {
+  display: grid;
+  gap: 8px;
+}
+
+.options button {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  gap: 10px;
+  align-items: center;
+  padding: 11px 13px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--panel);
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+}
+
+.options button > span {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--soft);
+  color: var(--navy);
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.options button.selected {
+  border-color: var(--navy);
+  box-shadow: 0 0 0 1px var(--navy);
+}
+
+.options button.correct {
+  border-color: #6f9d78;
+  background: #eef6ef;
+}
+
+.options button.wrong {
+  border-color: #bd7c72;
+  background: #f9eeee;
+}
+
+.primary,
+.secondary {
+  border-radius: 8px;
+  padding: 11px 18px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.primary {
+  border: 0;
+  background: var(--navy);
+  color: white;
+}
+
+.primary:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+.secondary {
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--navy);
+}
+
+.takeaway {
+  padding: 20px;
+  border-left: 4px solid var(--gold-2);
+  border-radius: 8px;
+  background: var(--gold-bg);
+}
+
+.takeaway > span {
+  color: var(--gold-2);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.takeaway p {
+  margin: 8px 0 16px;
+  color: var(--navy);
+  font-family: var(--font-serif);
+  font-size: 19px;
+  line-height: 1.55;
+}
+
+.completed {
+  color: var(--success);
+  font-weight: 700;
+}
+
+@media (max-width: 760px) {
+  .chapterNav {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .scene,
+  .quiz {
+    padding: 18px;
+  }
+}
