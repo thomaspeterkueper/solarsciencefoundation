@@ -3,7 +3,7 @@
  * Path:      lib/learningPaths.ts
  * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/learningPaths.ts
  * Name:      Learning Paths registry
- * Version:   0.9.8
+ * Version:   0.9.9
  * Created:   2026-07-03
  * Modified:  2026-07-15 21:00 CEST
  * Depends:   —
@@ -3923,6 +3923,153 @@ export const learningPaths: LearningPath[] = [
     },
   ],
 },
+,
+
+  {
+    id: 'PATH:SSF:PHY-MAGNETISMUS-0001',
+    title: 'Warum zieht ein Magnet Eisen an — aber keine Holzschraube',
+    subtitle: 'Vom Kühlschrankmagnet zum Elektronenspin: Warum manche Stoffe magnetisch sind und andere nicht — und was Magnetismus mit Strom zu tun hat.',
+    status: 'prototype',
+    sourceModuleId: 'SSF-PHY-4001',
+    kxfModuleId: 'LRN:SSF:PHY-4001',
+    domainsNeeded: ['KNOW:PHY-ELECTROMAGNETISM', 'KNOW:PHY-SPIN', 'KNOW:MAT-CRYSTAL'],
+    suppliedBy: {
+      knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Spin-Visualisierung: Elektronen rotieren — Richtungs-Slider zeigt Netto-Magnetfeld',
+        'Elektromagnet: Strom-Slider — Magnetfeld entsteht und verschwindet live',
+        'Magnetfeld-Canvas: Feldlinien um Stabmagnet, Nord/Südpol interaktiv',
+        'Material-Vergleich: Eisen vs. Holz vs. Kupfer — warum unterschiedlich',
+      ]
+    },
+    unlocks: ['SENSOR:MAGNETIC', 'TOOL:ELECTROMAGNET', 'CHEM:ELECTRON-SPIN'],
+    units: [
+      {
+        id: 'UNIT:MAGNETISMUS-ALLTAG',
+        title: 'Warum zieht ein Magnet an?',
+        entryQuestion: 'Warum zieht ein Magnet Eisennägel an — aber keine Holzschrauben?',
+        takeaway: 'Magnetismus entsteht durch rotierende Elektronen. In Eisen richten sich diese Rotationen gleichgerichtet aus — das erzeugt ein messbares Magnetfeld. In Holz rotieren alle Elektronen durcheinander und heben sich gegenseitig auf.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:MAGNETISMUS-SPIN' },
+        sections: [
+          {
+            id: 'OBS:MAGNET-ALLTAG',
+            kind: 'observation',
+            title: 'Beobachtung: Der Kühlschrankmagnet',
+            summary: 'Ein Kühlschrankmagnet haftet an der Stahltür — aber nicht an der Holztür daneben. Beide Oberflächen sind glatt. Was macht den Unterschied? Und warum zieht ein Magnet immer einen Nordpol und einen Südpol gleichzeitig an?',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:MATERIAL-MATRIX',
+            kind: 'experiment',
+            title: 'Experiment: Welche Stoffe reagieren auf Magnete?',
+            summary: 'Material-Auswahl: Eisen (stark), Nickel (mittel), Kupfer (nicht), Aluminium (nicht), Holz (nicht), Wasser (fast nicht). Slider zeigt Anziehungskraft. Erklärung: Elektronenstruktur des Materials bestimmt die Reaktion.',
+            interactive: true,
+            depthPoints: 6,
+          },
+          {
+            id: 'QUIZ:MAGNETISMUS-1',
+            kind: 'quiz',
+            title: 'Quiz: Magnetische Stoffe',
+            summary: 'Warum reagiert Eisen auf Magnete, warum Kupfer nicht, was haben Eisen und Nickel gemeinsam.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:MAGNETISMUS-SPIN',
+        title: 'Das Geheimnis des Elektronenspins',
+        entryQuestion: 'Warum drehen sich Elektronen — und was hat das mit Magnetismus zu tun?',
+        takeaway: 'Elektronen rotieren immer um die eigene Achse — das nennt man Spin. Diese Rotation erzeugt ein winziges Magnetfeld. In den meisten Stoffen heben sich die Spins gegenseitig auf. In Eisen nicht: dort richten sich Millionen Spins gleichgerichtet aus — das Ergebnis ist ein messbarer Magnet.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:MAGNETISMUS-STROM' },
+        sections: [
+          {
+            id: 'OBS:SPIN-KONZEPT',
+            kind: 'observation',
+            title: 'Beobachtung: Elektrizität ohne Strom',
+            summary: 'Ein Permanentmagnet erzeugt ein Magnetfeld — ohne Strom, ohne Batterie, ohne Bewegung. Wie ist das möglich? Irgendwo muss doch eine Bewegung sein, wenn Magnetismus durch Bewegung entsteht.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:POLARITAET',
+            kind: 'experiment',
+            title: 'Experiment: Elektronenspins und Netto-Magnetfeld',
+            summary: 'Canvas: 16 Elektronen als rotierende Pfeile. Ausrichtungs-Slider: von "alle durcheinander" (kein Magnetfeld, Netto = 0) bis "alle gleichgerichtet" (starkes Magnetfeld). Temperatur-Slider: Wärme zerstört die Ausrichtung — Curie-Temperatur sichtbar.',
+            interactive: true,
+            depthPoints: 8,
+          },
+          {
+            id: 'QUIZ:MAGNETISMUS-2',
+            kind: 'quiz',
+            title: 'Quiz: Elektronenspin',
+            summary: 'Was ist Spin, warum heben sich Spins auf, was passiert beim Erhitzen eines Magneten.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:MAGNETISMUS-STROM',
+        title: 'Magnetismus und Strom — Zwillinge',
+        entryQuestion: 'Warum entsteht ein Magnetfeld wenn Strom durch einen Draht fließt — und warum hört es auf wenn der Strom stoppt?',
+        takeaway: 'Elektronen im Kabel bewegen sich gerichtet — das erzeugt ein Magnetfeld. Wickelt man den Draht zur Spule, addieren sich die Felder: Elektromagnet. Schaltet man den Strom ab, stoppt die Bewegung — das Feld verschwindet. Permanentmagnet und Elektromagnet funktionieren nach demselben Grundprinzip: bewegte Elektronen.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:MAGNETISMUS-POLE' },
+        sections: [
+          {
+            id: 'OBS:ELEKTROMAGNET',
+            kind: 'observation',
+            title: 'Beobachtung: Der schaltbare Magnet',
+            summary: 'Ein Schrottplatzkran hebt Autos mit einem Elektromagneten auf — und lässt sie fallen wenn der Strom abgeschaltet wird. Das ist kein Trick: Strom ein = Magnet an. Strom aus = Magnet weg. Wie macht der Strom das?',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:DRAHT',
+            kind: 'experiment',
+            title: 'Experiment: Strom erzeugt Magnetfeld',
+            summary: 'Gerader Draht auf Canvas. Strom-Slider (0–10 A): Magnetfeldlinien erscheinen kreisförmig um den Draht, Stärke wächst mit Strom. Spulen-Slider: mehr Wicklungen = stärkeres Feld. Material-Kern: Luft vs. Eisen — Eisen verstärkt das Feld dramatisch.',
+            interactive: true,
+            depthPoints: 8,
+          },
+          {
+            id: 'QUIZ:MAGNETISMUS-3',
+            kind: 'quiz',
+            title: 'Quiz: Elektromagnetismus',
+            summary: 'Warum erzeugt Strom ein Magnetfeld, warum verschwindet es beim Abschalten, warum verstärkt Eisen im Kern das Feld.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:MAGNETISMUS-POLE',
+        title: 'Nord und Süd — warum immer beide?',
+        entryQuestion: 'Kann man einen Magneten in zwei Hälften teilen — und dann nur den Nordpol behalten?',
+        takeaway: 'Nein. Teilt man einen Magneten, entstehen zwei neue Magnete — jeder mit eigenem Nord- und Südpol. Das ist ein fundamentaler Unterschied zur Elektrizität: Elektrische Ladungen können getrennt werden, magnetische Pole nicht. Es gibt (soweit bekannt) kein magnetisches Monopol.',
+        sections: [
+          {
+            id: 'OBS:MAGNET-TEILEN',
+            kind: 'observation',
+            title: 'Beobachtung: Der unzerstörbare Doppelpol',
+            summary: 'Ein Stabmagnet: Nordpol oben, Südpol unten. Man sägt ihn in der Mitte durch. Ergebnis: zwei Magnete — jeder mit Nordpol und Südpol. Nochmal sägen: wieder zwei. Und immer so weiter. Es gibt kein Magnetstück ohne beide Pole.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:LICHTSPEKTRUM',
+            kind: 'experiment',
+            title: 'Experiment: Magnetfeld-Visualisierung',
+            summary: 'Stabmagnet auf Canvas. Feldlinien-Animation: von Nordpol zu Südpol außen, von Südpol zu Nordpol innen. Zweiten Magneten platzieren: gleiche Pole stoßen ab (Feldlinien biegen sich weg), ungleiche ziehen an. Trenn-Slider: Magnet teilen — sofort zwei Magnete.',
+            interactive: true,
+            depthPoints: 8,
+          },
+          {
+            id: 'QUIZ:MAGNETISMUS-4',
+            kind: 'quiz',
+            title: 'Quiz: Magnetische Pole',
+            summary: 'Warum gibt es keinen isolierten Nordpol, Unterschied elektrische vs. magnetische Ladung, was ist ein magnetischer Monopol.',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  }
 ];
 
 export function getLearningPathById(id: string) {
