@@ -64,6 +64,15 @@ const CLUSTERS: Record<string, {
       'PATH:SSF:MAT-SERIES-0001','PATH:SSF:MAT-DIFFGEO-0001',
     ],
   },
+  astrobiologie: {
+    label: 'Astrobiologie & Ursprung', icon: '🔭', color: '#B464FF',
+    horizon: 'Als nächstes: Wie sucht James Webb nach Leben? — Biosignaturen und Exoplaneten-Atmosphären',
+    ids: [
+      'PATH:SSF:CHE-ZUCKER-MOLEKUEL-0001',
+      'PATH:SSF:CHE-ZUCKER-WELTALL-0001',
+      'PATH:SSF:BIO-LEBEN-URSPRUNG-0001',
+    ],
+  },
   ingenieur: {
     label: 'Ingenieurwesen', icon: '⚙️', color: '#8B6914',
     horizon: 'Als nächstes: Wie entsteht der Entladekreis beim Erodieren? — Kondensatoren und RC-Glieder',
