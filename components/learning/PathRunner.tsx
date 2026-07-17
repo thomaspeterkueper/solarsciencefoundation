@@ -213,6 +213,10 @@ const EXPERIMENT_MAP: Record<string, React.ComponentType> = {
   // Elektromotor / Antrieb
   'EXP:ZENTRIFUGAL-SIMULATION': TorqueExperiment,        // Zentrifugalkraft ≈ Drehmoment
   'EXP:SCHALLDAEMPFUNG':        FourierExperiment,       // Schall = Wellen
+  // AUTO-DIFFERENTIAL
+  'EXP:DIFFERENTIAL-MECHANIK':   DifferentialExperiment,
+  'EXP:DIFFERENTIAL-SIMULATION': DifferentialExperiment,
+  'EXP:DIFFERENTIAL-VERGLEICH':  DifferentialExperiment,
 };
 
 // ── Depth bar ────────────────────────────────────────────
