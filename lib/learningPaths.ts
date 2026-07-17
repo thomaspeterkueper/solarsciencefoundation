@@ -3,7 +3,7 @@
  * Path:      lib/learningPaths.ts
  * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/learningPaths.ts
  * Name:      Learning Paths registry
- * Version:   0.9.4
+ * Version:   0.9.5
  * Created:   2026-07-03
  * Modified:  2026-07-15 21:00 CEST
  * Depends:   —
@@ -952,6 +952,898 @@ export const learningPaths: LearningPath[] = [
         ]
       }
     ]
+  }
+,
+  // ═══════════════════════════════════════════════════
+  // REINIGUNG & MATERIALIEN — 10 Lernpfade
+  // ═══════════════════════════════════════════════════
+
+  {
+    id: 'PATH:SSF:CHE-REINIGUNG-TENSIDE-0001',
+    title: 'Warum loest Spuelmittel Fett — aber Wasser allein nicht',
+    subtitle: 'Tenside, Mizellen und die Grenze zwischen Wasser und Oel — warum ein Molekuel mit zwei Seiten alles veraendert.',
+    status: 'prototype',
+    sourceModuleId: 'SSF-CHE-2001',
+    kxfModuleId: 'LRN:SSF:CHE-2001',
+    domainsNeeded: ['KNOW:CHE-SURFACTANTS', 'KNOW:CHE-POLARITY', 'KNOW:PHY-SURFACES'],
+    suppliedBy: {
+      knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Molekuel-Visualisierung: hydrophiler Kopf / hydrophober Schwanz animiert',
+        'Mizellen-Slider: Konzentration → Mizellen-Bildung live',
+        'Grenzflaechenspannung: Wasser mit/ohne Tensid — Tropfenform Canvas'
+      ]
+    },
+    unlocks: ['CHEM:SURFACTANT', 'CHEM:MICELLE', 'SENSE:POLARITY'],
+    units: [
+      {
+        id: 'UNIT:TENSIDE-PROBLEM',
+        title: 'Das Fett-Problem',
+        entryQuestion: 'Warum perlt Wasser von fettigem Geschirr ab — statt es sauber zu waschen?',
+        takeaway: 'Wasser und Fett mischen sich nicht weil Wasser polar ist und Fett unpolar — sie sprechen verschiedene chemische Sprachen.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:TENSIDE-LOESUNG' },
+        sections: [
+          {
+            id: 'OBS:FETT-WASSER',
+            kind: 'observation',
+            title: 'Beobachtung: Wasser auf fettigem Teller',
+            summary: 'Du spuelst einen fettigen Teller unter fliessendem Wasser — das Wasser laeuft ab, das Fett bleibt. Wasser und Fett wollen einfach nicht zusammen. Warum verweigern sie die Zusammenarbeit?',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:POLARITAET',
+            kind: 'experiment',
+            title: 'Experiment: Polar und unpolar',
+            summary: 'Zwei Molekuel-Typen: polar (Wasser, dreht sich im Feld) und unpolar (Oel, gleichgueltig). Slider zeigt wie sich gleiche Ladungen abstossen und ungleiche anziehen — Grundlage der Nicht-Mischbarkeit.',
+            interactive: true,
+            depthPoints: 6,
+          },
+          {
+            id: 'QUIZ:TENSIDE-1',
+            kind: 'quiz',
+            title: 'Quiz: Polaritaet',
+            summary: 'Warum mischen sich Wasser und Oel nicht, was bedeutet polar, welche Alltagsstoffe sind unpolar.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:TENSIDE-LOESUNG',
+        title: 'Die Tensid-Loesung',
+        entryQuestion: 'Wie schafft ein einziges Molekuel es, Wasser und Fett zu verbinden?',
+        takeaway: 'Ein Tensid-Molekuel hat zwei Enden: einen wasserliebendem Kopf und einen fettliebenden Schwanz. Es stellt sich zwischen beide — und macht die Verbindung moeglich.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:TENSIDE-MIZELLE' },
+        sections: [
+          {
+            id: 'EXP:TENSID-MOLEKUEL',
+            kind: 'experiment',
+            title: 'Experiment: Das Tensid-Molekuel',
+            summary: 'Animiertes Tensid: hydrophiler Kopf dreht sich zum Wasser, hydrophober Schwanz zum Fett. Slider: Konzentration — ab kritischer Mizellenkonzentration bilden sich Mizellen automatisch.',
+            interactive: true,
+            depthPoints: 7,
+          },
+          {
+            id: 'QUIZ:TENSIDE-2',
+            kind: 'quiz',
+            title: 'Quiz: Tenside',
+            summary: 'Was ist ein Tensid, warum zwei Enden, was passiert unterhalb der CMC.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:TENSIDE-MIZELLE',
+        title: 'Die Mizelle',
+        entryQuestion: 'Wie wird Fett vom Teller ins Wasser transportiert — ohne dass beide sich wirklich mischen?',
+        takeaway: 'Tenside umhuellen Fetttroepfchen zu Mizellen: Fett innen, Wasserkoepfe aussen. So kann Fett im Wasser schwimmen — und wird weggespuelt.',
+        sections: [
+          {
+            id: 'EXP:MIZELLE',
+            kind: 'experiment',
+            title: 'Experiment: Mizellen-Bildung',
+            summary: 'Canvas: Fetttroepfchen wird von Tensid-Molekuelen umgeben. Slider: wie viele Tenside braucht man fuer eine stabile Mizelle? Groesse der Mizelle variiert mit Fettmenge.',
+            interactive: true,
+            depthPoints: 7,
+          },
+          {
+            id: 'QUIZ:TENSIDE-3',
+            kind: 'quiz',
+            title: 'Quiz: Mizellen',
+            summary: 'Aufbau einer Mizelle, warum Fett jetzt wassermischbar, warum mehr Spuelmittel nicht immer besser.',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'PATH:SSF:CHE-REINIGUNG-KALK-0001',
+    title: 'Warum greift Essig Kalk an — aber nicht Fett',
+    subtitle: 'Saeuren und Basen im Haushalt: Kalkstein, Neutralisation und warum pH-Wert ueber Wirksamkeit entscheidet.',
+    status: 'prototype',
+    sourceModuleId: 'SSF-CHE-2002',
+    kxfModuleId: 'LRN:SSF:CHE-2002',
+    domainsNeeded: ['KNOW:CHE-ACID-BASE', 'KNOW:CHE-CARBONATE', 'KNOW:PHY-PH'],
+    suppliedBy: {
+      knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'pH-Skala Slider: Farbe der Indikatorloesung live',
+        'Reaktions-Animation: Essig + Kalk → CO2-Blasen',
+        'Haushaltsmittel-Sortierer: sauer / basisch / neutral'
+      ]
+    },
+    unlocks: ['CHEM:ACID-BASE', 'CHEM:PH-SCALE', 'TOOL:DESCALER'],
+    units: [
+      {
+        id: 'UNIT:KALK-WAS',
+        title: 'Was ist Kalk?',
+        entryQuestion: 'Warum entsteht in Wasserkocher und Dusche ein weisser Belag — und warum nur in manchen Regionen?',
+        takeaway: 'Kalk ist Calciumcarbonat (CaCO3) — geloest im Wasser als Ionen, ausgefaellt als harter weisser Belag wenn Wasser verdunstet oder erwaermt wird.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:KALK-ESSIG' },
+        sections: [
+          {
+            id: 'OBS:KALKBELAG',
+            kind: 'observation',
+            title: 'Beobachtung: Weisser Belag',
+            summary: 'Im Wasserkocher bildet sich ein weisser krustiger Belag. In manchen Staedten mehr, in anderen kaum. Das Wasser sieht gleich aus — aber es ist nicht gleich.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:HAERTE',
+            kind: 'experiment',
+            title: 'Experiment: Wasserhaerte',
+            summary: 'Karte Deutschland: Haerte nach Region. Slider: Ca2+-Konzentration → wann faellt Kalk aus? Temperatur-Einfluss: 100 Grad beschleunigt Ausfaellung sichtbar.',
+            interactive: true,
+            depthPoints: 6,
+          },
+          {
+            id: 'QUIZ:KALK-1',
+            kind: 'quiz',
+            title: 'Quiz: Kalk und Wasserhaerte',
+            summary: 'Was ist Kalk chemisch, warum mehr Belag bei hartem Wasser, warum hilft Erwaermen die Ausfaellung.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:KALK-ESSIG',
+        title: 'Essig gegen Kalk',
+        entryQuestion: 'Warum loest Essig Kalk auf — und was passiert dabei genau?',
+        takeaway: 'Essigsaeure reagiert mit Calciumcarbonat zu Calciumacetat, Wasser und CO2. Die Blaeschen sind kein Trick — das ist die Reaktion.',
+        sections: [
+          {
+            id: 'OBS:ESSIG-BLAESCHEN',
+            kind: 'observation',
+            title: 'Beobachtung: Blaeschen beim Entkalken',
+            summary: 'Du gibst Essig auf Kalk — sofort entstehen Blaeschen. Das ist kein Schaum vom Essig. Da passiert eine chemische Reaktion. Was genau?',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:NEUTRALISATION',
+            kind: 'experiment',
+            title: 'Experiment: Saeure trifft Karbonat',
+            summary: 'pH-Slider: von sauer zu basisch. Animation zeigt H+-Ionen die CO3-Ionen angreifen — CO2-Blasen entstehen, Kalk loest sich auf. Konzentrations-Slider: mehr Saeure = schnellere Aufloesung.',
+            interactive: true,
+            depthPoints: 7,
+          },
+          {
+            id: 'QUIZ:KALK-2',
+            kind: 'quiz',
+            title: 'Quiz: Entkalken',
+            summary: 'Reaktionsgleichung vereinfacht, warum Fett nicht reagiert, warum zu viel Saeure Oberflaechen angreift.',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'PATH:SSF:CHE-REINIGUNG-CHLOR-0001',
+    title: 'Warum bleicht Chlor — und warum darf man es nicht mit Essig mischen',
+    subtitle: 'Oxidation, Desinfektion und ein gefaehrlicher Fehler: was Chlor im Molekuel anrichtet und wann es gefaehrlich wird.',
+    status: 'prototype',
+    sourceModuleId: 'SSF-CHE-2003',
+    kxfModuleId: 'LRN:SSF:CHE-2003',
+    domainsNeeded: ['KNOW:CHE-OXIDATION', 'KNOW:CHE-REDOX', 'KNOW:CHE-SAFETY'],
+    suppliedBy: {
+      knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Oxidations-Animation: Farbstoffmolekuel wird durch Cl angegriffen, Farbe verschwindet',
+        'Reaktions-Warnung: Chlor + Saeure → Chlorgas Visualisierung',
+        'Desinfektion-Slider: Konzentration vs. Wirksamkeit vs. Sicherheit'
+      ]
+    },
+    unlocks: ['CHEM:OXIDATION', 'CHEM:DISINFECTION', 'SAFETY:CHEMICAL-MIXING'],
+    units: [
+      {
+        id: 'UNIT:CHLOR-BLEICH',
+        title: 'Warum verschwindet Farbe?',
+        entryQuestion: 'Warum wird ein Rotweinfleck auf weissem Stoff mit Bleichmittel unsichtbar — aber der Stoff bleibt weiss?',
+        takeaway: 'Chlor zerstoert die Doppelbindungen in Farbstoff-Molekuelen — die Molekuele koennen kein Licht mehr absorbieren und werden farblos. Der Stoff bleibt, die Farbe ist weg.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:CHLOR-GEFAHR' },
+        sections: [
+          {
+            id: 'OBS:BLEICH',
+            kind: 'observation',
+            title: 'Beobachtung: Fleck verschwindet',
+            summary: 'Bleichmittel auf einem Farbfleck — nach Minuten ist die Farbe weg. Aber was ist passiert? Die Farbe ist nicht weggespuelt worden. Sie ist verschwunden.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:OXIDATION',
+            kind: 'experiment',
+            title: 'Experiment: Oxidation eines Farbstoffs',
+            summary: 'Animation: Farbstoffmolekuel mit Doppelbindungen (Chromophore). Chlor-Slider: je mehr Cl, desto mehr Bindungen werden angegriffen. Farbe verblasst live auf Canvas.',
+            interactive: true,
+            depthPoints: 7,
+          },
+          {
+            id: 'QUIZ:CHLOR-1',
+            kind: 'quiz',
+            title: 'Quiz: Bleichen',
+            summary: 'Was ist Oxidation, warum verschwinden Farben, warum bleicht Chlor aber nicht Wasser.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:CHLOR-GEFAHR',
+        title: 'Der gefaehrliche Fehler',
+        entryQuestion: 'Was passiert wenn man Chlorreiniger und Essig im selben Eimer mischt?',
+        takeaway: 'Chlor + Saeure = Chlorgas. Das ist kein Geruch — das ist ein Atemgift. Niemals Chlorreiniger mit saeuren Mitteln mischen.',
+        sections: [
+          {
+            id: 'OBS:MISCHUNG',
+            kind: 'observation',
+            title: 'Beobachtung: Der Fehler im Alltag',
+            summary: 'Viele Menschen mischen Reinigungsmittel um "staerker" zu putzen. Chlorreiniger und Essigreiniger im selben Eimer — das riecht beissend und macht Augen und Atemwege brennen. Das ist kein Zufall.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:CHLORGAS',
+            kind: 'experiment',
+            title: 'Experiment: Chlorgas-Reaktion',
+            summary: 'Visualisierung (keine echte Reaktion): pH-Slider zeigt wie bei pH < 4 Hypochlorit zu Chlorgas wird. Konzentrations-Balken zeigt Gefaehrdung. Warnung prominent im Interface.',
+            interactive: true,
+            depthPoints: 7,
+          },
+          {
+            id: 'QUIZ:CHLOR-2',
+            kind: 'quiz',
+            title: 'Quiz: Chemische Sicherheit',
+            summary: 'Welche Kombinationen sind gefaehrlich, warum Chlorgas entsteht, was tun bei Exposition.',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'PATH:SSF:PHY-REINIGUNG-OBERFLAECHEN-0001',
+    title: 'Warum funktioniert derselbe Schwamm auf Glas anders als auf Stein',
+    subtitle: 'Haerte, Poroesitaet und Oberflaechenstruktur: warum jedes Material anders auf Reinigung reagiert.',
+    status: 'prototype',
+    sourceModuleId: 'SSF-PHY-2001',
+    kxfModuleId: 'LRN:SSF:PHY-2001',
+    domainsNeeded: ['KNOW:PHY-SURFACES', 'KNOW:MAT-HARDNESS', 'KNOW:MAT-POROSITY'],
+    suppliedBy: {
+      knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Mohs-Haerte Vergleich: interaktive Skala mit Alltagsmaterialien',
+        'Mikro-Oberflaechenstruktur: Glas vs. Naturstein vs. Fliese unter Lupe animiert',
+        'Kratzer-Simulator: welches Werkzeug schadet welchem Material'
+      ]
+    },
+    unlocks: ['TOOL:SURFACE-ANALYSIS', 'MAT:HARDNESS-SCALE'],
+    units: [
+      {
+        id: 'UNIT:OBERFLAECHE-HAERTE',
+        title: 'Haerte und Kratzer',
+        entryQuestion: 'Warum hinterlaesst ein Stahlschwamm auf Edelstahl Kratzer — aber auf Beton nicht?',
+        takeaway: 'Haerteres Material kratzt weicheres. Die Mohs-Skala ordnet Materialien nach Haerte — wer oben steht, kratzt alle darunter.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:OBERFLAECHE-POREN' },
+        sections: [
+          {
+            id: 'OBS:KRATZER',
+            kind: 'observation',
+            title: 'Beobachtung: Kratzer auf dem falschen Material',
+            summary: 'Stahlschwamm auf dem Cerankochfeld — sofort Kratzer. Derselbe Schwamm auf der Betongarage — kein Problem. Nicht die Kraft macht den Unterschied, sondern das Material.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:MOHS',
+            kind: 'experiment',
+            title: 'Experiment: Mohs-Haerte-Skala',
+            summary: 'Interaktive Skala 1-10: Fingernagel (2.5), Muenze (3.5), Glas (5.5), Stahl (6.5), Quarz (7), Korund (9), Diamant (10). Zwei Materialien waehlen — wer kratzt wen? Ergebnis live.',
+            interactive: true,
+            depthPoints: 7,
+          },
+          {
+            id: 'QUIZ:OBERFLAECHE-1',
+            kind: 'quiz',
+            title: 'Quiz: Haerte und Mohs-Skala',
+            summary: 'Mohs-Prinzip, welches Material kratzt welches, warum Diamant alles kratzt.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:OBERFLAECHE-POREN',
+        title: 'Poroesitaet und Schmutz',
+        entryQuestion: 'Warum ist Naturstein nach dem Putzen oft dunkler als vorher?',
+        takeaway: 'Poroese Materialien wie Marmor oder Sandstein saugen Reinigungsmittel und Wasser auf — Schmutz wandert tiefer statt weggespuelt zu werden. Versiegeln hilft mehr als schrubben.',
+        sections: [
+          {
+            id: 'OBS:STEIN-DUNKEL',
+            kind: 'observation',
+            title: 'Beobachtung: Nasser Stein wird dunkler',
+            summary: 'Naturstein im Bad — nach dem Putzen wirkt er dunkler und fleckiger als vorher. Kein Dreck mehr drauf, aber irgendwie schlechter. Was ist passiert?',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:POROESITAET',
+            kind: 'experiment',
+            title: 'Experiment: Poroesitaet unter der Lupe',
+            summary: 'Querschnitt-Canvas: Glas (glatt, kaum Poren), Fliese (glasiert, dicht), Marmor (mittel), Sandstein (sehr poroes). Fluessigkeits-Slider zeigt wie tief Wasser eindringt je nach Material.',
+            interactive: true,
+            depthPoints: 7,
+          },
+          {
+            id: 'QUIZ:OBERFLAECHE-2',
+            kind: 'quiz',
+            title: 'Quiz: Poroesitaet',
+            summary: 'Warum Stein dunkler wird, was Impraegnierung bewirkt, welche Materialien empfindlich auf saure Reiniger reagieren.',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'PATH:SSF:CHE-REINIGUNG-FENSTER-0001',
+    title: 'Warum hinterlaesst Fensterputzen Streifen — und wie vermeidet man sie',
+    subtitle: 'Oberflaechenspannung, Verdunstung und warum der perfekte Wischer-Winkel existiert.',
+    status: 'prototype',
+    sourceModuleId: 'SSF-CHE-2004',
+    kxfModuleId: 'LRN:SSF:CHE-2004',
+    domainsNeeded: ['KNOW:PHY-SURFACE-TENSION', 'KNOW:CHE-EVAPORATION', 'KNOW:PHY-OPTICS'],
+    suppliedBy: {
+      knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Verdunstungs-Slider: Temperatur und Luftfeuchtigkeit → Streifenbildung live',
+        'Oberflaechenspannungs-Canvas: Tropfen auf Glas, Kontaktwinkel',
+        'Wischer-Winkel-Simulator: optimaler Winkel fuer streifenfreies Ergebnis'
+      ]
+    },
+    unlocks: ['TOOL:STREAK-FREE', 'PHY:SURFACE-TENSION'],
+    units: [
+      {
+        id: 'UNIT:FENSTER-STREIFEN',
+        title: 'Warum Streifen entstehen',
+        entryQuestion: 'Warum hinterlaesst Zeitungspapier weniger Streifen als ein Tuch — obwohl Papier rauer ist?',
+        takeaway: 'Streifen entstehen wenn Wasser zu schnell verdunstet und geloeste Stoffe zurueckbleiben. Zeitungspapier nimmt Fluessigkeit schneller auf — die Oberflaechespannung bricht zusammen bevor Streifen entstehen koennen.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:FENSTER-LOESUNG' },
+        sections: [
+          {
+            id: 'OBS:FENSTER-ZEITUNG',
+            kind: 'observation',
+            title: 'Beobachtung: Der Zeitung-Trick',
+            summary: 'Grosseltern putzten Fenster mit feuchter Zeitung — und sie waren streifenfrei. Modernes Mikrofasertuch, teurer Glasreiniger — und trotzdem Streifen. Irgendwas stimmt hier nicht.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:VERDUNSTUNG',
+            kind: 'experiment',
+            title: 'Experiment: Verdunstung und Rueckstaende',
+            summary: 'Canvas: Wasserfilm auf Glas. Temperatur-Slider und Luftfeuchtigkeits-Slider — je heisser und trockener, desto schneller verdunstet Wasser und hinterlaesst Minerale als weissen Schleier.',
+            interactive: true,
+            depthPoints: 7,
+          },
+          {
+            id: 'QUIZ:FENSTER-1',
+            kind: 'quiz',
+            title: 'Quiz: Streifenbildung',
+            summary: 'Warum entstehen Streifen, was loest sich im Wasser, warum ist weniger Reinigungsmittel oft besser.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:FENSTER-LOESUNG',
+        title: 'Die Technik des streifenfreien Putzen',
+        entryQuestion: 'Warum putzen Profis Fenster bei bewoelktem Himmel — niemals in der Sonne?',
+        takeaway: 'Direkte Sonne erwaermt das Glas und beschleunigt Verdunstung — Streifen entstehen bevor man fertig ist. Bewoelkt, kuehler Schatten: Wasser verdunstet langsam genug zum gleichmaessigen Abziehen.',
+        sections: [
+          {
+            id: 'EXP:WISCHER-TECHNIK',
+            kind: 'experiment',
+            title: 'Experiment: Wischer-Winkel und Geschwindigkeit',
+            summary: 'Wischer-Simulator: Winkel 30-90 Grad, Geschwindigkeit Slider. Optimaler Bereich markiert. Zu steil: Wasser schiesst seitlich. Zu flach: Streifen bleiben. Canvas zeigt Wasserfilm-Verteilung.',
+            interactive: true,
+            depthPoints: 7,
+          },
+          {
+            id: 'QUIZ:FENSTER-2',
+            kind: 'quiz',
+            title: 'Quiz: Putztechnik',
+            summary: 'Warum nicht in der Sonne, optimaler Wischer-Winkel, warum destilliertes Wasser keine Streifen macht.',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'PATH:SSF:CHE-REINIGUNG-ROTWEIN-0001',
+    title: 'Warum macht heisses Wasser einen Rotweinfleck schlimmer',
+    subtitle: 'Proteindenaturierung, Loeslichkeit und warum der erste Reflex beim Fleck oft der falsche ist.',
+    status: 'prototype',
+    sourceModuleId: 'SSF-CHE-2005',
+    kxfModuleId: 'LRN:SSF:CHE-2005',
+    domainsNeeded: ['KNOW:CHE-PROTEINS', 'KNOW:CHE-SOLUBILITY', 'KNOW:PHY-TEMPERATURE'],
+    suppliedBy: {
+      knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Temperatur-Slider: Protein-Struktur faltet sich auf Canvas — Denaturierung sichtbar',
+        'Loeslichkeits-Kurven: welcher Stoff loest sich bei welcher Temperatur besser',
+        'Fleck-Behandlungs-Simulator: kalt/warm/Salz/Soda — Ergebnis live'
+      ]
+    },
+    unlocks: ['CHEM:PROTEIN-DENATURATION', 'TOOL:STAIN-REMOVAL'],
+    units: [
+      {
+        id: 'UNIT:ROTWEIN-FEHLER',
+        title: 'Der heisse Fehler',
+        entryQuestion: 'Warum wird ein Rotweinfleck auf weissem Hemd mit heissem Wasser dauerhaft — mit kaltem Wasser aber entfernbar?',
+        takeaway: 'Rotwein enthaelt Anthocyane und Proteine. Heisses Wasser denaturiert die Proteine — sie vernetzen sich mit der Textilfaser und der Fleck wird permanent. Kalt spuelen zuerst.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:ROTWEIN-LOESUNG' },
+        sections: [
+          {
+            id: 'OBS:ROTWEIN-SCHOCK',
+            kind: 'observation',
+            title: 'Beobachtung: Der Fleck der bleibt',
+            summary: 'Rotwein auf weissem Hemd — Panik. Jemand sagt: heisses Wasser drueber. Das Ergebnis: der Fleck ist jetzt grau-braun und geht nicht mehr raus. Was ist passiert?',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:DENATURIERUNG',
+            kind: 'experiment',
+            title: 'Experiment: Protein-Denaturierung',
+            summary: 'Canvas: Protein-Knauel in Textil. Temperatur-Slider 20-100 Grad. Ab 60 Grad: Protein entfaltet sich, vernetzt mit Faser — Verbindung wird sichtbar staerker. Analogie: wie ein Ei das fest wird.',
+            interactive: true,
+            depthPoints: 7,
+          },
+          {
+            id: 'QUIZ:ROTWEIN-1',
+            kind: 'quiz',
+            title: 'Quiz: Denaturierung',
+            summary: 'Was ist Denaturierung, warum kalt zuerst, warum Ei nicht mehr fluessig wird.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:ROTWEIN-LOESUNG',
+        title: 'Was wirklich hilft',
+        entryQuestion: 'Warum hilft Salz auf einem frischen Rotweinfleck — und Soda auf einem alten?',
+        takeaway: 'Salz wirkt osmotisch: es zieht Fluessigkeit aus der Faser bevor sie eintrocknet. Soda (basisch) loest bereits getrocknete Farbstoffe durch chemische Reaktion. Verschiedene Probleme brauchen verschiedene Loesungen.',
+        sections: [
+          {
+            id: 'EXP:FLECK-BEHANDLUNG',
+            kind: 'experiment',
+            title: 'Experiment: Fleck-Behandlungs-Vergleich',
+            summary: 'Vier Methoden: Salz (frisch), kaltes Wasser (frisch), Soda-Paste (getrocknet), Enzymwaschmittel (eingetrocknet). Slider: Zeit seit Fleck. Ergebnis-Balken zeigt Effizienz je nach Timing.',
+            interactive: true,
+            depthPoints: 7,
+          },
+          {
+            id: 'QUIZ:ROTWEIN-2',
+            kind: 'quiz',
+            title: 'Quiz: Fleckentfernung',
+            summary: 'Warum Salz osmotisch wirkt, warum Enzyme in Waschmitteln helfen, warum heisses Waschen nach kalter Vorbehandlung ok ist.',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'PATH:SSF:PHY-REINIGUNG-FLIESEN-HOLZ-0001',
+    title: 'Warum vertraegt Holz kein stehendes Wasser — aber Fliesen schon',
+    subtitle: 'Zellulose, Quellung und warum das Material entscheidet welches Reinigungsmittel sicher ist.',
+    status: 'prototype',
+    sourceModuleId: 'SSF-PHY-2002',
+    kxfModuleId: 'LRN:SSF:PHY-2002',
+    domainsNeeded: ['KNOW:MAT-WOOD', 'KNOW:MAT-CERAMICS', 'KNOW:CHE-WATER-ABSORPTION'],
+    suppliedBy: {
+      knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Quellungs-Animation: Holzfaser nimmt Wasser auf, dehnt sich, reisst',
+        'Material-Vergleich: Wasser-Aufnahme Holz vs. Fliese vs. Vinyl vs. Laminat',
+        'Reinigungsmittel-Kompatibilitaets-Matrix interaktiv'
+      ]
+    },
+    unlocks: ['MAT:WOOD-CARE', 'MAT:TILE-CARE', 'TOOL:FLOOR-CLEANING'],
+    units: [
+      {
+        id: 'UNIT:HOLZ-WASSER',
+        title: 'Holz und Wasser',
+        entryQuestion: 'Warum quillt Holzparkett auf wenn Wasser steht — aber ein nasses Tuch schnell drueberwischen kein Problem ist?',
+        takeaway: 'Holz ist eine lebende Zellstruktur aus Zellulose — sie nimmt Wasser auf und gibt es ab. Kurz feucht: kein Problem. Stehend nass: die Fasern quellen, verformen sich, reissen.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:MATERIAL-VERGLEICH' },
+        sections: [
+          {
+            id: 'OBS:PARKETT-SCHADEN',
+            kind: 'observation',
+            title: 'Beobachtung: Aufgequollenes Parkett',
+            summary: 'Nach einem Wasserschaden: Parkettdielen stehen wie Zelte in der Luft. Dabei ist das Parkett versiegelt. Trotzdem quillt es. Was ist in das Holz eingedrungen?',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:QUELLUNG',
+            kind: 'experiment',
+            title: 'Experiment: Holzquellung',
+            summary: 'Canvas: Querschnitt einer Holzfaser. Wasser-Slider: 0-100% Feuchte. Fasern dehnen sich sichtbar, Zellstruktur weitet sich. Bei 100%: Risse entstehen. Vergleich: frisches Holz vs. versiegeltes Holz.',
+            interactive: true,
+            depthPoints: 7,
+          },
+          {
+            id: 'QUIZ:HOLZ-1',
+            kind: 'quiz',
+            title: 'Quiz: Holz und Feuchtigkeit',
+            summary: 'Warum quillt Holz, was ist Zellulose, warum schadet stehend Wasser mehr als Spritzwasser.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:MATERIAL-VERGLEICH',
+        title: 'Jedes Material braucht seine Pflege',
+        entryQuestion: 'Warum darf man Marmor nicht mit Essigwasser wischen — obwohl das bei Fliesen funktioniert?',
+        takeaway: 'Marmor ist Calciumcarbonat — Saeure loest ihn auf. Keramikfliesen sind glasiert und saeureresistent. Gleiches Werkzeug, verschiedene Materialien: voellig verschiedene Reaktion.',
+        sections: [
+          {
+            id: 'EXP:MATERIAL-MATRIX',
+            kind: 'experiment',
+            title: 'Experiment: Reinigungsmittel-Kompatibilitaet',
+            summary: 'Interaktive Matrix: Material (Holz, Marmor, Keramik, Vinyl, Laminat) x Reinigungsmittel (Essig, Chlor, pH-neutral, Seife). Ampel-System: gruen/gelb/rot. Klick zeigt Erklaerung.',
+            interactive: true,
+            depthPoints: 8,
+          },
+          {
+            id: 'QUIZ:MATERIAL-2',
+            kind: 'quiz',
+            title: 'Quiz: Material und Reinigung',
+            summary: 'Warum Essig Marmor schadet, was glasierte Fliesen schuetzt, warum Laminat wie Holz behandelt wird.',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'PATH:SSF:CHE-REINIGUNG-EMULSION-0001',
+    title: 'Warum trennt sich Salatdressing — und wie haelt Mayonnaise zusammen',
+    subtitle: 'Emulsionen, Emulgatoren und warum Eigelb das Geheimnis der Kuechenchemie ist.',
+    status: 'prototype',
+    sourceModuleId: 'SSF-CHE-2006',
+    kxfModuleId: 'LRN:SSF:CHE-2006',
+    domainsNeeded: ['KNOW:CHE-EMULSION', 'KNOW:CHE-LECITHIN', 'KNOW:PHY-COLLOIDS'],
+    suppliedBy: {
+      knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Emulsions-Canvas: Oel-Tropfen in Wasser, ohne/mit Emulgator animiert',
+        'Lecithin-Molekuel: wie Tensid aber fuer Oel-in-Wasser-Systeme',
+        'Mayonnaise-Simulator: Eigelb-Menge vs. Stabilitaet'
+      ]
+    },
+    unlocks: ['CHEM:EMULSION', 'CHEM:LECITHIN', 'TOOL:KITCHEN-CHEMISTRY'],
+    units: [
+      {
+        id: 'UNIT:EMULSION-TRENNUNG',
+        title: 'Warum sich Oel und Wasser trennen',
+        entryQuestion: 'Warum muss man Salatdressing vor jedem Gebrauch schuetteln — und warum trennt es sich trotzdem wieder?',
+        takeaway: 'Oel und Wasser trennen sich weil das System so weniger Energie hat — Grenzflaeche minimiert sich. Schuetteln erzeugt kuenstlich viele kleine Tropfen, aber ohne Emulgator kehrt das System zurueck.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:EMULSION-STABIL' },
+        sections: [
+          {
+            id: 'OBS:DRESSING-TRENNUNG',
+            kind: 'observation',
+            title: 'Beobachtung: Das Dressing trennt sich',
+            summary: 'Essig und Oel im Glaeser — schuetteln, kurz vermischt, dann wieder getrennt. Unten Essig, oben Oel. Immer. Warum kehren sie immer zurueck?',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:OEL-WASSER',
+            kind: 'experiment',
+            title: 'Experiment: Oel-Wasser-Grenzflaeche',
+            summary: 'Canvas: Oel-Tropfen in Wasser. Energie-Balken zeigt: grosse Tropfen = weniger Grenzflaeche = weniger Energie = stabiler. Schuetteln-Button: viele kleine Tropfen entstehen, aber Energie ist hoeher — nicht stabil.',
+            interactive: true,
+            depthPoints: 7,
+          },
+          {
+            id: 'QUIZ:EMULSION-1',
+            kind: 'quiz',
+            title: 'Quiz: Emulsionen',
+            summary: 'Warum trennt sich Oel und Wasser, was ist eine Emulsion, warum schuetteln nur temporaer hilft.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:EMULSION-STABIL',
+        title: 'Das Geheimnis der Mayonnaise',
+        entryQuestion: 'Warum bleibt Mayonnaise wochenlang stabil — obwohl sie fast nur aus Oel und Wasser besteht?',
+        takeaway: 'Lecithin im Eigelb ist ein Emulgator: ein Molekuel mit wasserliebender und oelliebender Seite — wie Tenside beim Spuelen. Es stabilisiert jeden Oel-Tropfen dauerhaft.',
+        sections: [
+          {
+            id: 'OBS:MAYO-STABIL',
+            kind: 'observation',
+            title: 'Beobachtung: Mayonnaise fault nicht aus',
+            summary: 'Mayonnaise ist fast zu 80% Oel — und trotzdem cremig, stabil, monatelang haltbar. Salatdressing trennt sich nach Sekunden. Der Unterschied: ein Eigelb.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:LECITHIN',
+            kind: 'experiment',
+            title: 'Experiment: Lecithin als Emulgator',
+            summary: 'Lecithin-Molekuel animiert: Phosphat-Kopf (wasserliebend) und Fettsaeure-Schwanz (oelliebend). Slider: Lecithin-Konzentration → Tropfen-Stabilisierung live. Ab kritischer Konzentration: stabile Emulsion.',
+            interactive: true,
+            depthPoints: 7,
+          },
+          {
+            id: 'QUIZ:EMULSION-2',
+            kind: 'quiz',
+            title: 'Quiz: Emulgatoren',
+            summary: 'Was ist Lecithin, warum stabilisiert es Emulsionen, was haben Mayonnaise und Spuelmittel gemeinsam.',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'PATH:SSF:CHE-REINIGUNG-OSMOSE-0001',
+    title: 'Warum wird Gurke in Salzlake weich — und Kartoffel in Salzwasser hart',
+    subtitle: 'Osmose, Zellturgor und warum Wasser immer in Richtung der hoeheren Konzentration wandert.',
+    status: 'prototype',
+    sourceModuleId: 'SSF-CHE-2007',
+    kxfModuleId: 'LRN:SSF:CHE-2007',
+    domainsNeeded: ['KNOW:CHE-OSMOSIS', 'KNOW:BIO-CELL-MEMBRANE', 'KNOW:PHY-DIFFUSION'],
+    suppliedBy: {
+      knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Osmose-Animation: Wassermolekuele wandern durch semipermeable Membran',
+        'Konzentrations-Slider: Salz innen vs. aussen → Wasserfluss-Richtung',
+        'Zell-Turgor-Visualisierung: prall vs. welk vs. plasmolyse'
+      ]
+    },
+    unlocks: ['CHEM:OSMOSIS', 'BIO:CELL-MEMBRANE', 'TOOL:FOOD-PRESERVATION'],
+    units: [
+      {
+        id: 'UNIT:OSMOSE-PRINZIP',
+        title: 'Wasser wandert bergauf',
+        entryQuestion: 'Warum zieht eine trockene Rosine in Wasser wieder auf — obwohl niemand Wasser hineingepresst hat?',
+        takeaway: 'Wasser wandert von niedrigerer zu hoeherer Konzentration geloester Stoffe — durch die Zellmembran hindurch. Das ist Osmose: kein Druck, nur Konzentrationsgefaelle.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:OSMOSE-KUECHE' },
+        sections: [
+          {
+            id: 'OBS:ROSINE',
+            kind: 'observation',
+            title: 'Beobachtung: Die quellende Rosine',
+            summary: 'Rosine in Wasser legen — nach Stunden ist sie prall und gross. Wasser ist in sie hineingegangen. Aber die Rosine war nicht offen. Wie kommt das Wasser durch die Haut?',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:OSMOSE',
+            kind: 'experiment',
+            title: 'Experiment: Osmose durch die Membran',
+            summary: 'Canvas: semipermeable Membran, links Salzwasser (hoch konzentriert), rechts reines Wasser. Wassermolekuele wandern von rechts nach links — Pfeile zeigen Nettofluss. Konzentrationsslider: Gleichgewicht einstellen.',
+            interactive: true,
+            depthPoints: 7,
+          },
+          {
+            id: 'QUIZ:OSMOSE-1',
+            kind: 'quiz',
+            title: 'Quiz: Osmose',
+            summary: 'Richtung des Wasserflusses, was ist semipermeable Membran, warum quillt Rosine in Wasser aber schrumpft in Salzlake.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:OSMOSE-KUECHE',
+        title: 'Osmose in der Kueche',
+        entryQuestion: 'Warum macht man Gurkensalat mit Salz — und warum wird die Gurke dann waeSSrig?',
+        takeaway: 'Salz aussen, Wasser innen: Osmose zieht Wasser aus der Gurkenzelle. Die Gurke wird weich und gibt Fluessigkeit ab. Derselbe Effekt macht eingelegte Gemuese haltbar — Bakterien verlieren ihr Zellwasser.',
+        sections: [
+          {
+            id: 'EXP:ZELLTURGOR',
+            kind: 'experiment',
+            title: 'Experiment: Zellturgor',
+            summary: 'Pflanzenzelle Canvas: Vakuole gefuellt mit Zellsaft. Aussen-Salzkonzentration Slider. Hoch: Wasser stroemt raus, Zelle schrumpft (Plasmolyse). Niedrig: Wasser stroemt rein, Zelle prall (Turgor). Gurken-Analogie.',
+            interactive: true,
+            depthPoints: 7,
+          },
+          {
+            id: 'QUIZ:OSMOSE-2',
+            kind: 'quiz',
+            title: 'Quiz: Osmose in der Kueche',
+            summary: 'Warum Gurkensalat waessrig wird, wie Einlegen Gemuese haltbar macht, warum zu viel Salz Gemuese zerstoert.',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'PATH:SSF:PHY-REINIGUNG-SIEDEPUNKT-0001',
+    title: 'Warum kocht Wasser in den Bergen bei weniger als 100 Grad',
+    subtitle: 'Luftdruck, Siedepunkt und warum Hochgebirgskochen laenger dauert — obwohl das Wasser heisser klingt.',
+    status: 'prototype',
+    sourceModuleId: 'SSF-PHY-2003',
+    kxfModuleId: 'LRN:SSF:PHY-2003',
+    domainsNeeded: ['KNOW:PHY-PRESSURE', 'KNOW:PHY-PHASE-TRANSITION', 'KNOW:PHY-THERMODYNAMICS'],
+    suppliedBy: {
+      knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Hoehen-Siedepunkt-Slider: Hoehe → Luftdruck → Siedetemperatur live',
+        'Phasendiagramm Wasser: Druck-Temperatur-Canvas mit Siedekurve',
+        'Kochzeit-Rechner: Nudeln in den Alpen vs. Meeresspiegel'
+      ]
+    },
+    unlocks: ['PHY:PHASE-DIAGRAM', 'PHY:BOILING-POINT', 'TOOL:ALTITUDE-COOKING'],
+    units: [
+      {
+        id: 'UNIT:SIEDEPUNKT-DRUCK',
+        title: 'Druck und Siedepunkt',
+        entryQuestion: 'Warum sprudelt Wasser im Gebirge bei 90 Grad — obwohl es zu Hause erst bei 100 Grad kocht?',
+        takeaway: 'Wasser siedet wenn sein Dampfdruck den Umgebungsdruck uebersteigt. Weniger Luftdruck im Gebirge = niedrigere Temperatur noetig. Kochen bei 90 Grad, aber langsamer garen.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:SIEDEPUNKT-KUECHE' },
+        sections: [
+          {
+            id: 'OBS:BERG-KOCHEN',
+            kind: 'observation',
+            title: 'Beobachtung: Nudeln im Hochgebirge',
+            summary: 'Berghuette auf 2500 m — Wasser kocht schnell, aber die Nudeln sind nach normaler Zeit noch hart. Das Wasser hat gekocht, also muss es heiss genug gewesen sein. War es das?',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:SIEDEPUNKT',
+            kind: 'experiment',
+            title: 'Experiment: Hoehe und Siedetemperatur',
+            summary: 'Hoehen-Slider 0-8848 m (Meeresspiegel bis Everest): Luftdruck faellt, Siedetemperatur faellt. Live: Hamburg 100 Grad, Zugspitze 95 Grad, Everest 70 Grad. Canvas zeigt Luftdruckbalken.',
+            interactive: true,
+            depthPoints: 7,
+          },
+          {
+            id: 'QUIZ:SIEDEPUNKT-1',
+            kind: 'quiz',
+            title: 'Quiz: Siedepunkt',
+            summary: 'Warum kocht Wasser im Gebirge kuelter, was ist Dampfdruck, warum Schnellkochtopf das Gegenteil bewirkt.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:SIEDEPUNKT-KUECHE',
+        title: 'Kochen unter Druck',
+        entryQuestion: 'Warum gart ein Schnellkochtopf Lebensmittel doppelt so schnell — obwohl er nicht heisser klingt?',
+        takeaway: 'Schnellkochtopf erhoeht den Druck — Siedepunkt steigt auf 120 Grad. Hoeherer Druck = hoehere Gartemperatur = schnellere chemische Reaktionen. Das Gegenteil des Gebirgs-Problems.',
+        sections: [
+          {
+            id: 'EXP:SCHNELLKOCHTOPF',
+            kind: 'experiment',
+            title: 'Experiment: Druck und Garzeit',
+            summary: 'Druck-Slider 0.5-3 bar: Siedetemperatur von 80 bis 133 Grad. Garzeit-Balken: Kartoffeln normal 25 min, Schnellkochtopf 8 min. Phasendiagramm-Ausschnitt zeigt Siedekurve.',
+            interactive: true,
+            depthPoints: 7,
+          },
+          {
+            id: 'QUIZ:SIEDEPUNKT-2',
+            kind: 'quiz',
+            title: 'Quiz: Druck und Kochen',
+            summary: 'Schnellkochtopf-Prinzip, warum Dampf heisser als 100 Grad sein kann, Vakuum-Destillation als Extremfall.',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'PATH:SSF:PHY-REINIGUNG-WAERME-0001',
+    title: 'Warum kuehlst Kaffee in einer breiten Tasse schneller ab als in einer schmalen',
+    subtitle: 'Waermeabgabe, Oberflaeche und warum Form Physik ist — nicht nur Aesthetik.',
+    status: 'prototype',
+    sourceModuleId: 'SSF-PHY-2004',
+    kxfModuleId: 'LRN:SSF:PHY-2004',
+    domainsNeeded: ['KNOW:PHY-HEAT-TRANSFER', 'KNOW:PHY-RADIATION', 'KNOW:PHY-CONVECTION'],
+    suppliedBy: {
+      knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Tassen-Form-Slider: Durchmesser vs. Hoehe → Oberflaeche → Abkuehlrate live',
+        'Newton-Kurve: Temperaturverlauf verschiedener Tassenformen animiert',
+        'Waermetransfer-Visualisierung: Strahlung / Konvektion / Leitung anteile'
+      ]
+    },
+    unlocks: ['PHY:HEAT-TRANSFER', 'PHY:SURFACE-AREA', 'TOOL:THERMAL-DESIGN'],
+    units: [
+      {
+        id: 'UNIT:WAERME-OBERFLAECHE',
+        title: 'Oberflaeche und Abkuehlung',
+        entryQuestion: 'Warum kuehlst Suppe auf einem flachen Teller schneller ab als in einer tiefen Schuessel?',
+        takeaway: 'Waerme wird ueber die Oberflaeche abgegeben. Groessere Oberflaeche = mehr Kontakt mit kuehler Luft = schnellere Abkuehlung. Flacher Teller: mehr Oberflaeche pro Volumen.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:WAERME-TRANSPORT' },
+        sections: [
+          {
+            id: 'OBS:TELLER-SCHUESSEL',
+            kind: 'observation',
+            title: 'Beobachtung: Suppe auf Teller vs. Schuessel',
+            summary: 'Dieselbe Suppe, gleiches Volumen: flacher Teller kuehlst in 5 Minuten auf Trinktemperatur, tiefe Schuessel braucht 12 Minuten. Der Unterschied ist nur die Form.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:OBERFLAECHE-VOLUMEN',
+            kind: 'experiment',
+            title: 'Experiment: Oberflaeche-zu-Volumen-Verhaeltnis',
+            summary: 'Tassen-Konfigurator: Durchmesser und Hoehe Slider. Canvas zeigt Tasse mit Oberflaeche-Markierung. Abkuehlrate-Balken passt sich an. Gleiche Fuellmenge, verschiedene Formen: Ergebnis live.',
+            interactive: true,
+            depthPoints: 7,
+          },
+          {
+            id: 'QUIZ:WAERME-1',
+            kind: 'quiz',
+            title: 'Quiz: Waermeabgabe',
+            summary: 'Warum Form die Abkuehlung beeinflusst, Oberflaeche-Volumen-Verhaeltnis berechnen, warum Thermo-Becher doppelwandig ist.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:WAERME-TRANSPORT',
+        title: 'Wie Waerme entkommt',
+        entryQuestion: 'Warum haelt ein Porzellan-Becher Kaffee laenger warm als ein Metall-Becher?',
+        takeaway: 'Drei Wege der Waermeabgabe: Strahlung, Konvektion, Leitung. Metall leitet gut (Leitung an Haende, schnell kalt). Porzellan isoliert (schlechter Leiter). Doppelwand-Vakuum blockiert alle drei.',
+        sections: [
+          {
+            id: 'EXP:WAERMETRANSPORT',
+            kind: 'experiment',
+            title: 'Experiment: Drei Waermetransportwege',
+            summary: 'Canvas: Kaffeetasse mit drei animierten Transportwegen. Strahlung (rote Pfeile nach aussen), Konvektion (Luftstroemung um Tasse), Leitung (Waerme durch Tassenwand in Hand). Material-Slider: Metall, Porzellan, Glas, Vakuum — Anteile aendern sich.',
+            interactive: true,
+            depthPoints: 7,
+          },
+          {
+            id: 'QUIZ:WAERME-2',
+            kind: 'quiz',
+            title: 'Quiz: Waermetransport',
+            summary: 'Drei Transportwege benennen, warum Vakuum alle blockiert, warum Umruehren schneller kuehlt.',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
   }
 ];
 
