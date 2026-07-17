@@ -64,6 +64,9 @@ import DustGrainExperiment        from './DustGrainExperiment';
 import EarlyEarthExperiment       from './EarlyEarthExperiment';
 import MillerUreyExperiment       from './MillerUreyExperiment';
 import OriginOfLifeTimeline       from './OriginOfLifeTimeline';
+import PiezoExperiment           from './PiezoExperiment';
+import PiezoMaterialExperiment   from './PiezoMaterialExperiment';
+import EnergyHarvestingExperiment from './EnergyHarvestingExperiment';
 
 const EXPERIMENT_MAP: Record<string, React.ComponentType> = {
   // PHY-SKY
@@ -145,6 +148,12 @@ const EXPERIMENT_MAP: Record<string, React.ComponentType> = {
   'EXP:KLIMA-EFFEKT':          EarlyEarthExperiment,
   'EXP:VERBRENNUNG-CHEMIE':    MillerUreyExperiment,
   'EXP:OSMOSE':                OriginOfLifeTimeline,
+  // PHY-PIEZO
+  'EXP:FUNKE':                 PiezoExperiment,
+  'EXP:DMS-WIDERSTAND':        PiezoExperiment,
+  'EXP:HAERTE':                PiezoMaterialExperiment,
+  'EXP:MOHS':                  PiezoMaterialExperiment,
+  'EXP:WIRKUNGSGRAD':          EnergyHarvestingExperiment,
 };
 
 // ── Depth bar ────────────────────────────────────────────
