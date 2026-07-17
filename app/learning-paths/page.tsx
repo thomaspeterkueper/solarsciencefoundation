@@ -69,7 +69,11 @@ const CLUSTERS: Record<string, {
   physik: {
     label: 'Physik & Natur', icon: '🌤', color: '#5B8FB9',
     horizon: 'Als nächstes: Wie entsteht ein Regenbogen? — Brechung, Dispersion und Totalreflexion',
-    ids: ['PATH:SSF:PHY-SKY-0001','PATH:SSF:PHY-WAVE-SPECTRUM-0001'],
+    ids: [
+      'PATH:SSF:PHY-SKY-0001',
+      'PATH:SSF:PHY-WAVE-SPECTRUM-0001',
+      'PATH:SSF:PHY-MAGNETISMUS-0001',
+    ],
   },
   mathematik: {
     label: 'Mathematik', icon: '📐', color: '#DC143C',
