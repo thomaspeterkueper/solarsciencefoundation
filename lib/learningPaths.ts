@@ -3,7 +3,7 @@
  * Path:      lib/learningPaths.ts
  * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/learningPaths.ts
  * Name:      Learning Paths registry
- * Version:   1.0.0
+ * Version:   1.0.1
  * Created:   2026-07-03
  * Modified:  2026-07-15 21:00 CEST
  * Depends:   —
@@ -4407,6 +4407,153 @@ export const learningPaths: LearningPath[] = [
             kind: 'quiz',
             title: 'Quiz: Erste Zelle',
             summary: 'Wie bilden sich Vesikel, warum sind Membranen lebensnotwendig, was fehlt einem Vesikel noch zum echten Leben.',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  }
+,
+
+  {
+    id: 'PATH:SSF:PHY-PIEZO-0001',
+    title: 'Warum leuchtet ein Fahrradhelm wenn man ihn drückt',
+    subtitle: 'Piezoelektrischer Effekt: Wie mechanischer Druck direkt zu elektrischem Strom wird — und warum Straßen bald Energie erzeugen könnten.',
+    status: 'prototype',
+    sourceModuleId: 'SSF-PHY-4002',
+    kxfModuleId: 'LRN:SSF:PHY-4002',
+    domainsNeeded: ['KNOW:PHY-PIEZOELECTRIC', 'KNOW:MAT-CRYSTAL', 'KNOW:PHY-ELECTROSTATICS'],
+    suppliedBy: {
+      knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Kristallgitter-Canvas: Druck verformt Atome — Ladungstrennung sichtbar',
+        'Druck-Strom-Slider: Kraft auf Material → Spannung live',
+        'Anwendungs-Simulator: Schritt → Energie → LED leuchtet',
+        'Material-Vergleich: Quarz vs. Perowskit vs. bleifreie Keramik'
+      ]
+    },
+    unlocks: ['SENSOR:PIEZO', 'TOOL:ENERGY-HARVESTING', 'PHY:DIPOLE-MOMENT'],
+    units: [
+      {
+        id: 'UNIT:PIEZO-BEOBACHTUNG',
+        title: 'Strom aus Druck',
+        entryQuestion: 'Warum erzeugt ein Gasanzünder einen Funken ohne Batterie — nur durch einen Knopfdruck?',
+        takeaway: 'Bestimmte Kristalle erzeugen elektrische Spannung wenn man sie verformt. Das nennt man Piezoelektrischer Effekt. Im Gasanzünder drückt ein Stift auf einen Quarzkristall — der Funke entsteht ohne Batterie, direkt aus dem Druck.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:PIEZO-MECHANISMUS' },
+        sections: [
+          {
+            id: 'OBS:FEUERZEUG',
+            kind: 'observation',
+            title: 'Beobachtung: Der Funken ohne Batterie',
+            summary: 'Ein piezoelektrisches Gasanzünder — kein Akku, keine Batterie. Nur ein Knopfdruck. Trotzdem entsteht ein elektrischer Funken der das Gas entzündet. Auch Ultraschallsensoren in Einparkhilfen, Mikrofone in Smartphones und Lautsprecher nutzen denselben Effekt. Was passiert im Inneren?',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:FUNKE',
+            kind: 'experiment',
+            title: 'Experiment: Druck erzeugt Spannung',
+            summary: 'Kraft-Slider (0-100 N) auf Quarzkristall. Canvas zeigt Kristallgitter — bei Druck verformen sich die Atome, positive und negative Ladungen trennen sich. Spannung-Anzeige steigt live. Entlastung: Spannung kehrt sich um. Frequenz-Slider: schnelles Drücken = Wechselspannung.',
+            interactive: true,
+            depthPoints: 7,
+          },
+          {
+            id: 'QUIZ:PIEZO-1',
+            kind: 'quiz',
+            title: 'Quiz: Piezoelektrischer Effekt',
+            summary: 'Was ist der piezoelektrische Effekt, warum braucht ein Gasanzünder keine Batterie, was passiert beim Loslassen.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:PIEZO-MECHANISMUS',
+        title: 'Wie Druck Ladungen trennt',
+        entryQuestion: 'Warum funktioniert der Effekt nur bei bestimmten Materialien — und nicht bei Stahl oder Holz?',
+        takeaway: 'Piezoelektrische Materialien haben eine Kristallstruktur ohne Symmetrieachse. Wenn Druck diese Symmetrie leicht bricht, verschieben sich die Ladungsschwerpunkte — ein elektrisches Dipolmoment entsteht. Bei symmetrischen Kristallen heben sich alle Verschiebungen auf — kein Effekt.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:PIEZO-MATERIALIEN' },
+        sections: [
+          {
+            id: 'OBS:SYMMETRIE',
+            kind: 'observation',
+            title: 'Beobachtung: Warum nur manche Materialien?',
+            summary: 'Quarz reagiert piezoelektrisch. Silizium nicht — obwohl es chemisch ähnlich ist. Keramiken können es, wenn sie richtig hergestellt werden. Metalle nie. Der Unterschied liegt in der Kristallstruktur — genauer: ob die Struktur eine Symmetrieachse hat oder nicht.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:DMS-WIDERSTAND',
+            kind: 'experiment',
+            title: 'Experiment: Symmetrie und Dipolmoment',
+            summary: 'Zwei Kristalle nebeneinander: NaCl (symmetrisch, kein Piezo) und Quarz (asymmetrisch, Piezo). Druck-Slider: bei NaCl — alle Ladungsverschiebungen heben sich auf, Netto = 0. Bei Quarz — Verschiebung in eine Richtung, Dipolmoment entsteht. Vergleichsbalken live.',
+            interactive: true,
+            depthPoints: 8,
+          },
+          {
+            id: 'QUIZ:PIEZO-2',
+            kind: 'quiz',
+            title: 'Quiz: Kristallsymmetrie',
+            summary: 'Was ist ein Dipolmoment, warum kein Piezo bei symmetrischen Kristallen, Unterschied Quarz vs. NaCl.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:PIEZO-MATERIALIEN',
+        title: 'Neue Materialien — ohne giftiges Blei',
+        entryQuestion: 'Warum enthalten viele Piezo-Materialien Blei — und was macht das neue RPI-Material besonders?',
+        takeaway: 'PZT (Blei-Zirkonat-Titanat) ist das leistungsfähigste bekannte Piezo-Material — aber hochgiftig. Das neue Chalkogenid-Perowskit-Material vom RPI ist bleifrei, nur 0,3 mm dünn und kann aus weit verbreiteten Elementen hergestellt werden. Ein entscheidender Schritt für nachhaltige Piezo-Technologie.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:PIEZO-ANWENDUNG' },
+        sections: [
+          {
+            id: 'OBS:BLEI-PROBLEM',
+            kind: 'observation',
+            title: 'Beobachtung: Das Blei-Problem',
+            summary: 'Die meisten leistungsstarken Piezo-Materialien enthalten Blei — ein Schwermetall das in der EU zunehmend verboten wird. Smartphones, Ultraschall-Geräte, Sensoren: überall steckt giftiges PZT drin. Das RPI-Team hat 2024 ein bleifreies Material entwickelt das ähnlich stark reagiert.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:HAERTE',
+            kind: 'experiment',
+            title: 'Experiment: Material-Vergleich',
+            summary: 'Vier Materialien: Quarz (natürlich, schwach), PZT (stark, giftig), PVDF-Polymer (flexibel, schwach), Chalkogenid-Perowskit RPI (stark, bleifrei). Druck-Slider: Ausgangsspannung pro Material vergleichen. Umwelt-Score als zweite Achse. Optimum: rechts oben (stark + sauber).',
+            interactive: true,
+            depthPoints: 8,
+          },
+          {
+            id: 'QUIZ:PIEZO-3',
+            kind: 'quiz',
+            title: 'Quiz: Piezo-Materialien',
+            summary: 'Warum ist PZT so verbreitet trotz Toxizität, was ist ein Perowskit, warum ist bleifreies Material ein Fortschritt.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:PIEZO-ANWENDUNG',
+        title: 'Energie aus dem Alltag ernten',
+        entryQuestion: 'Wie viel Strom kann ein Schritt auf einer Piezo-Straße wirklich erzeugen — und reicht das für etwas Nützliches?',
+        takeaway: 'Ein Schritt erzeugt je nach Material und Fläche 1-5 mW Leistung — genug für eine LED oder einen Sensor. Für eine Straßenlaterne bräuchte man Tausende Schritte. Piezo-Harvesting ist keine Lösung für das Energieproblem — aber ideal für autonome Kleinsensoren, Sicherheitsbeleuchtung und Wearables.',
+        sections: [
+          {
+            id: 'OBS:SCHUH-LEUCHTET',
+            kind: 'observation',
+            title: 'Beobachtung: Der leuchtende Schuh',
+            summary: 'RPI-Forscher ließen Probanden auf dem neuen Material gehen, klatschen und laufen. Das Material erzeugte genug Strom um LEDs mit der Aufschrift "RPI" zum Leuchten zu bringen. Kein Kabel, keine Batterie — nur Bewegung. Was bedeutet das für die Zukunft?',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:WIRKUNGSGRAD',
+            kind: 'experiment',
+            title: 'Experiment: Energie-Ernter',
+            summary: 'Anwendungs-Simulator: Schritt-Frequenz (Schritte/min), Material-Fläche (cm²), Kraft (N). Ausgabe: Leistung in mW. Verbraucher-Auswahl: LED (0.1W), Temperatursensor (1mW), GPS-Tracker (50mW), Straßenlaterne (60W). Wie viele Schritte/min brauche ich für was? Realismus-Check live.',
+            interactive: true,
+            depthPoints: 9,
+          },
+          {
+            id: 'QUIZ:PIEZO-4',
+            kind: 'quiz',
+            title: 'Quiz: Energy Harvesting',
+            summary: 'Wie viel Leistung erzeugt ein Schritt, warum ist Piezo keine Lösung für Großenergie, welche Anwendungen sind realistisch.',
             depthPoints: 15,
           },
         ],
