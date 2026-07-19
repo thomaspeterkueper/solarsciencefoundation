@@ -6,6 +6,7 @@ type: feature
 priority: high
 created: 2026-07-19
 blocking: [NOXIA-BETA]
+status: done
 ---
 
 # SSF-0008 — NOXIA uid-Parameter: Abschluss dem richtigen Spieler zuordnen
