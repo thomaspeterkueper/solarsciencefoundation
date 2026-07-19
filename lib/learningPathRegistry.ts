@@ -29,6 +29,35 @@ export type LearningPathRegistryIssue = {
   occurrences: number;
 };
 
+// ── Alias-Map: alte Modul-IDs → Lernpfad-ID ────────────────────────────────
+// Wenn ein KXF- oder Legacy-Modul keinen direkten sourceModuleId-Match hat,
+// wird hier auf den thematisch nächsten Lernpfad weitergeleitet.
+const MODULE_ALIAS_MAP: Record<string, string> = {
+  // Legacy modules.ts IDs (SSF-MAT-0001..0005, SSF-MAT-1001..1002, SSF-PHY-1101)
+  'SSF-MAT-0001': 'PATH:SSF:MAT-VEC-0001',
+  'SSF-MAT-0002': 'PATH:SSF:MAT-VEC-0001',
+  'SSF-MAT-0003': 'PATH:SSF:MAT-LGS-0001',
+  'SSF-MAT-0004': 'PATH:SSF:MAT-LGS-0001',
+  'SSF-MAT-0005': 'PATH:SSF:MAT-SERIES-0001',
+  'SSF-MAT-1001': 'PATH:SSF:MAT-VEC-0001',
+  'SSF-MAT-1002': 'PATH:SSF:MAT-VEC-0001',
+  'SSF-PHY-1101': 'PATH:SSF:PHY-WAVE-SPECTRUM-0001',
+  // KG Learning-YAML IDs
+  'SSF-AST-1101': 'PATH:SSF:PHY-SKY-0001',
+  'SSF-AST-1201': 'PATH:SSF:PHY-SKY-0001',
+  'SSF-AST-2101': 'PATH:SSF:PHY-SKY-0001',
+  'SSF-BIO-1101': 'PATH:SSF:BIO-LEBEN-URSPRUNG-0001',
+  'SSF-BIO-1201': 'PATH:SSF:BIO-LEBEN-URSPRUNG-0001',
+  'SSF-CHE-1101': 'PATH:SSF:PHY-WASSER-MOLEKUEL-0001',
+  'SSF-CHE-1301': 'PATH:SSF:CHE-IRIDIUM-0001',
+  'SSF-MAT-1201': 'PATH:SSF:MAT-ERROR-0001',
+  'SSF-PHY-1201': 'PATH:SSF:PHY-AUTO-MOTOR-0001',
+  'SSF-PHY-1301': 'PATH:SSF:PHY-ELEKTROLYSE-0001',
+  'SSF-PHY-1302': 'PATH:SSF:PHY-ELEKTROMOTOR-BASICS-0001',
+  'SSF-TEC-1101': 'PATH:SSF:ENG-DMS-0001',
+  'SSF-TEC-1201': 'PATH:SSF:ENG-EDM-0001',
+};
+
 function normalizeModuleId(id: string): string {
   return id
     .replace(/^LRN:SSF:/, 'SSF-')
@@ -51,6 +80,15 @@ function buildRegistry(source: LearningPath[]) {
         const normalized = normalizeModuleId(moduleId);
         if (!byModuleId.has(normalized)) byModuleId.set(normalized, path);
       }
+    }
+  }
+
+  // Register aliases: old/KG module IDs → nearest learning path
+  for (const [aliasId, targetPathId] of Object.entries(MODULE_ALIAS_MAP)) {
+    const normalized = normalizeModuleId(aliasId);
+    if (!byModuleId.has(normalized)) {
+      const target = byId.get(targetPathId);
+      if (target) byModuleId.set(normalized, target);
     }
   }
 
