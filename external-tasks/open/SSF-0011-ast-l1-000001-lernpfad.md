@@ -48,3 +48,8 @@ D) Weil Raumschiffe nur vorwärts fliegen können
 - KXF-Modul: `AST-L1-000001` in `exports/kxf-learning-modules-0.1.json`
 - NOXIA Unlock-Key: `UNL:NOX:NAV:ORBITAL`
 - Analog zu: SSF-0009 (ECO-L0-000001) als Referenz-Implementierung
+
+
+## Erledigt 2026-07-19
+
+PATH:SSF:AST-SONNENSYSTEM-0001 implementiert. Hohmann-Transfer Δv korrekt. Schaltet UNL:NOX:NAV:ORBITAL frei.
