@@ -8,6 +8,7 @@ import ModuleExperience from '../../../components/ModuleExperience';
 
 type PageProps = {
   params: Promise<{ id: string }>;
+  searchParams?: { uid?: string; ref?: string };
 };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -18,20 +19,33 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return { title: `${question} · Solar Science Foundation` };
 }
 
-export default async function ModulePage({ params }: PageProps) {
+export default async function ModulePage({ params, searchParams }: PageProps) {
   const { id } = await params;
   const mod = await getKxfLearningModuleById(id);
 
   // If module not found in KXF/legacy, try alias lookup by raw route ID
   if (!mod) {
     const pathByAlias = getRegisteredLearningPathForModule(id);
-    if (pathByAlias) redirect(`/learning-paths/${encodeURIComponent(pathByAlias.id)}`);
+    if (pathByAlias) {
+      // Preserve NOXIA uid and ref params through redirect
+      const qs = new URLSearchParams();
+      if (searchParams?.uid) qs.set('uid', searchParams.uid);
+      if (searchParams?.ref) qs.set('ref', searchParams.ref);
+      const q = qs.toString();
+      redirect(`/learning-paths/${encodeURIComponent(pathByAlias.id)}${q ? '?' + q : ''}`);
+    }
     // Unknown module — redirect to learning paths overview
     redirect('/learning-paths');
   }
 
   const path = getRegisteredLearningPathForModule(mod.id);
-  if (path) redirect(`/learning-paths/${encodeURIComponent(path.id)}`);
+  if (path) {
+    const qs = new URLSearchParams();
+    if (searchParams?.uid) qs.set('uid', searchParams.uid);
+    if (searchParams?.ref) qs.set('ref', searchParams.ref);
+    const q = qs.toString();
+    redirect(`/learning-paths/${encodeURIComponent(path.id)}${q ? '?' + q : ''}`);
+  }
 
   const lesson = getModuleLesson(mod);
   const headline = mod.summary && !mod.summary.startsWith('A learning module') ? mod.summary : mod.title;
