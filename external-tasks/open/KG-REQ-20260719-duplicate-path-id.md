@@ -4,7 +4,7 @@ ID: REQ:L3:PENDING
 Requester: SYS:KUEPER:knowledge-graph
 Recipient: SYS:KUEPER:ssf
 Request Type: correction
-Status: open
+Status: done
 Created: 2026-07-19
 
 ## Anlass
@@ -44,3 +44,9 @@ nicht wissen, welche Fassung kanonisch werden soll.
 
 Nicht blockierend für den laufenden Betrieb, aber blockierend für die vollständige
 KG-Registrierung dieses Pfads im Rahmen von `KG-REQ-20260718-003`.
+
+
+## Erledigt
+
+Block 1 (weniger entwickelt) entfernt in learningPaths.ts v1.0.3.
+PATH:SSF:PHY-SKY-0001 existiert jetzt exakt einmal.
