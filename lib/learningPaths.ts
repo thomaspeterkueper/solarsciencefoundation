@@ -3,7 +3,7 @@
  * Path:      lib/learningPaths.ts
  * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/learningPaths.ts
  * Name:      Learning Paths registry
- * Version:   1.0.7
+ * Version:   1.0.8
  * Created:   2026-07-03
  * Modified:  2026-07-15 21:00 CEST
  * Depends:   —
@@ -2974,167 +2974,119 @@ export const learningPaths: LearningPath[] = [
   ],
 },
   {
-  id: 'PATH:SSF:PHY-AUTO-BATTERIE-0001',
-  title: 'Warum wird eine Batterie beim Laden warm — und kalt beim Entladen',
-  subtitle: 'Von chemischer Energie zu elektrischem Strom: Entdecke wie eine Batterie Energie speichert und wieder abgibt.',
-  status: 'prototype',
-  sourceModuleId: 'SSF-PHY-2006',
-  kxfModuleId: 'LRN:SSF:PHY-2006',
-  domainsNeeded: ['KD:PHY-ELECTRICITY', 'KD:CHE-ELECTROCHEMISTRY', 'KD:PHY-THERMODYNAMICS'],
-  suppliedBy: {
-    knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
-    kueperCom: [],
-    overtimeArchive: [],
-    ssf: [
-      'Lade-Simulation: Ionen-Wanderung live',
-      'Temperatur-Slider: Wärmeentwicklung beim Laden',
-      'Entlade-Simulation: Energieabgabe und Kälte',
-      'Ladezustand-Slider: Kapazität und Spannung'
-    ]
-  },
-  unlocks: ['TOOL:BATTERY', 'SENSE:ENERGY'],
-  units: [
-    {
-      id: 'UNIT:AUTO-BATTERIE-K1',
-      title: 'Die unsichtbare Energie',
-      entryQuestion: 'Warum kann eine Batterie Strom liefern — und warum ist sie irgendwann leer?',
-      takeaway: 'Eine Batterie speichert Energie in chemischer Form. Beim Entladen wandern Ionen von einem Pol zum anderen — dabei fließt Strom, der die Energie als elektrische Arbeit abgibt. Wenn alle Ionen gewandert sind, ist die Batterie leer. Beim Laden wird der Prozess umgekehrt.',
-      gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:AUTO-BATTERIE-K2' },
-      sections: [
-        {
-          id: 'OBS:BATTERIE-LEER',
-          kind: 'observation',
-          title: 'Beobachtung: Die leere Batterie',
-          summary: 'Du startest das Auto, der Anlasser dreht — aber dann passiert nichts mehr. Die Batterie ist leer. Aber sie war gestern noch voll. Wo ist die Energie hin? Und was bedeutet "leer" eigentlich auf chemischer Ebene?',
-          depthPoints: 4,
-        },
-        {
-          id: 'EXP:BATTERIE-LADEN-ENTLADEN',
-          kind: 'experiment',
-          title: 'Experiment: Ladung und Entladung',
-          summary: 'Ladezustand-Slider zeigt die chemischen Vorgänge: Beim Entladen wandern Lithium-Ionen von der Anode zur Kathode (Strom fließt). Beim Laden wandern sie zurück (Energie wird gespeichert). Zeigt Spannung, Strom und Kapazität in Echtzeit.',
-          interactive: true,
-          depthPoints: 10,
-        },
-        {
-          id: 'QUIZ:BATTERIE-K1',
-          kind: 'quiz',
-          title: 'Quiz: Batterie-Grundlagen',
-          summary: '3 Fragen zu chemischer Energie, Ionenwanderung und Ladezyklen.',
-          depthPoints: 12,
-        },
-      ],
+    id: 'PATH:SSF:PHY-AUTO-BATTERIE-0001',
+    title: 'Warum wird eine Batterie beim Laden warm — und kalt beim Entladen',
+    subtitle: 'Reibungswärme trifft Entropie: zwei Kräfte die gegeneinander wirken — und warum langsames Entladen wirklich kühlt.',
+    status: 'prototype',
+    sourceModuleId: 'SSF-PHY-2006',
+    kxfModuleId: 'LRN:SSF:PHY-2006',
+    domainsNeeded: ['KNOW:PHY-THERMODYNAMICS', 'KNOW:CHE-ELECTROCHEMISTRY', 'KNOW:PHY-ELECTRICITY'],
+    suppliedBy: {
+      knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Temperatur-Experiment: Laden vs. Entladen, C-Rate-Slider, realistisches Thermometer',
+        'Pop-up-Begriffe: C-Rate = Ladegeschwindigkeit, SOC = Füllstand, Innenwiderstand = Reibung',
+        'Zwei-Quellen-Darstellung: Reibungswärme (immer heizt) vs. Entropie (kühlt beim Entladen)',
+        'Überraschungs-Moment: 0,5C Entladen → Zelle kühlt auf 23°C (sichtbar, erklärbar)',
+      ]
     },
-    {
-      id: 'UNIT:AUTO-BATTERIE-K2',
-      title: 'Warum wird die Batterie warm?',
-      entryQuestion: 'Warum wird ein Handy-Akku beim Laden warm — und ein Elektroauto-Batteriepark sogar richtig heiß?',
-      takeaway: 'Beim Laden fließt Strom durch den Innenwiderstand der Batterie — das erzeugt Wärme (wie bei einem Heizdraht). Außerdem sind die chemischen Reaktionen beim Laden nicht 100% effizient — ein Teil der Energie wird immer zu Wärme. Schnellladen = mehr Wärme = mehr Verlust.',
-      gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:AUTO-BATTERIE-K3' },
-      sections: [
-        {
-          id: 'OBS:BATTERIE-WAERME',
-          kind: 'observation',
-          title: 'Beobachtung: Das warme Ladegerät',
-          summary: 'Das Handy wird warm wenn es lädt. Das Ladegerät wird warm. Das Elektroauto muss die Batterie kühlen beim Schnellladen. Wo kommt diese Wärme her — und warum wird sie nicht mit der Energie mitgenommen?',
-          depthPoints: 4,
-        },
-        {
-          id: 'EXP:BATTERIE-WAERMEENTWICKLUNG',
-          kind: 'experiment',
-          title: 'Experiment: Wärme beim Laden',
-          summary: 'Ladeleistungs-Slider (10W bis 250kW) zeigt die Wärmeentwicklung: bei 10W kaum spürbar, bei 50W handwarm, bei 150kW (Schnellladen E-Auto) muss aktiv gekühlt werden. Zeigt den Wirkungsgrad: 95% bei langsamen Laden, 85% bei schnellem Laden.',
-          interactive: true,
-          depthPoints: 8,
-        },
-        {
-          id: 'EXP:BATTERIE-INNENWIDERSTAND',
-          kind: 'experiment',
-          title: 'Experiment: Innenwiderstand und Wärme',
-          summary: 'Innenwiderstands-Slider zeigt: ein neuer Akku hat niedrigen Innenwiderstand (wenig Wärme), ein alter Akku hat hohen Innenwiderstand (viel Wärme). Zeigt die Wärmeentwicklung nach der Formel P = I² × R.',
-          interactive: true,
-          depthPoints: 8,
-        },
-        {
-          id: 'QUIZ:BATTERIE-K2',
-          kind: 'quiz',
-          title: 'Quiz: Wärme in der Batterie',
-          summary: '3 Fragen zu Innenwiderstand, Wirkungsgrad und Wärmeentwicklung.',
-          depthPoints: 12,
-        },
-      ],
-    },
-    {
-      id: 'UNIT:AUTO-BATTERIE-K3',
-      title: 'Warum verliert eine Batterie mit der Zeit an Kapazität?',
-      entryQuestion: 'Warum hält die Batterie im E-Auto nach 5 Jahren weniger Kilometer — und das Handy weniger Stunden?',
-      takeaway: 'Jeder Ladezyklus verändert die Batteriechemie minimal. Nebenreaktionen bilden Ablagerungen auf den Elektroden (SEI-Schicht), der Innenwiderstand steigt, die Zellen altern. Nach 500-1000 vollen Zyklen sind etwa 20-30% Kapazität verloren. Temperatur und Ladegeschwindigkeit beeinflussen die Alterung stark.',
-      gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:AUTO-BATTERIE-K4' },
-      sections: [
-        {
-          id: 'OBS:BATTERIE-ALTERUNG',
-          kind: 'observation',
-          title: 'Beobachtung: Der alternde Akku',
-          summary: 'Dein 5 Jahre altes Handy hält nur noch halb so lange wie neu. Das E-Auto von 2019 schafft 100 km weniger Reichweite. Die Batterie hat einfach an Kapazität verloren. Aber warum altert eine Batterie — und kann man das verhindern?',
-          depthPoints: 4,
-        },
-        {
-          id: 'EXP:BATTERIE-ALTERUNG',
-          kind: 'experiment',
-          title: 'Experiment: Alterung simulieren',
-          summary: 'Ladezyklen-Slider (0-2000) zeigt die Kapazität: nach 200 Zyklen 95%, nach 500 Zyklen 85%, nach 1000 Zyklen 75%, nach 2000 Zyklen 60%. Temperatur-Slider zeigt wie Hitze die Alterung beschleunigt: bei 25°C ideal, bei 45°C doppelte Alterung.',
-          interactive: true,
-          depthPoints: 10,
-        },
-        {
-          id: 'QUIZ:BATTERIE-K3',
-          kind: 'quiz',
-          title: 'Quiz: Batterie-Alterung',
-          summary: '3 Fragen zu Kapazitätsverlust, Zyklen und Alterungsfaktoren.',
-          depthPoints: 12,
-        },
-      ],
-    },
-    {
-      id: 'UNIT:AUTO-BATTERIE-K4',
-      title: 'Wie lädt man richtig — und was ist "schnell" eigentlich?',
-      entryQuestion: 'Warum laden E-Autos nicht in 5 Minuten voll — und was begrenzt die Ladegeschwindigkeit?',
-      takeaway: 'Die Ladegeschwindigkeit wird begrenzt durch: 1) den maximalen Strom den die Zellen vertragen (sonst überhitzen), 2) die Ladeinfrastruktur (Leistung der Ladesäule), 3) das Batteriemanagementsystem (schützt die Batterie). Schnelladen von 10-80% geht meist in 20-30 Minuten — die letzten 20% dauern doppelt so lang weil der Strom reduziert wird um die Batterie zu schonen.',
-      sections: [
-        {
-          id: 'OBS:SCHNELLLADEN',
-          kind: 'observation',
-          title: 'Beobachtung: Die Ladekurve',
-          summary: 'Am Schnelllader zeigt der Bildschirm: die ersten 30 Minuten laden von 10% auf 80% — die nächsten 30 Minuten nur von 80% auf 100%. Warum wird das Laden langsamer obwohl der Stecker noch drin ist?',
-          depthPoints: 4,
-        },
-        {
-          id: 'EXP:SCHNELLLADEN-SIMULATION',
-          kind: 'experiment',
-          title: 'Experiment: Ladekurven vergleichen',
-          summary: 'Vergleich von 50kW, 150kW und 350kW Ladesäulen. Zeigt die Ladekurven: bei 350kW von 10-80% in 18 Minuten, die letzten 20% in 15 Minuten (insgesamt 33 Minuten). Zeigt die Temperatur und erklärt das Batteriemanagement.',
-          interactive: true,
-          depthPoints: 10,
-        },
-        {
-          id: 'EXP:BATTERIE-MANAGEMENT',
-          kind: 'experiment',
-          title: 'Experiment: Das BMS regelt',
-          summary: 'BMS-Slider zeigt: bei niedrigem Ladezustand wird mit vollem Strom geladen, ab 80% wird reduziert um die Zellen zu schonen. Zeigt die Zellspannungen und Temperaturen in Echtzeit.',
-          interactive: true,
-          depthPoints: 8,
-        },
-        {
-          id: 'QUIZ:BATTERIE-K4',
-          kind: 'quiz',
-          title: 'Quiz: Laden und Management',
-          summary: '3 Fragen zu Ladekurven, Batteriemanagement und optimalem Laden.',
-          depthPoints: 12,
-        },
-      ],
-    },
-  ],
-},
+    unlocks: ['SENSE:THERMAL', 'TOOL:BATTERY', 'PHY:ENTROPY-BASICS'],
+    units: [
+      {
+        id: 'UNIT:BATTERIE-WARM-KALT',
+        title: 'Warm oder kalt — was passiert gerade?',
+        entryQuestion: 'Warum fühlt sich eine Batterie beim Laden warm an — aber beim langsamen Entladen manchmal kühl?',
+        takeaway: 'Zwei Effekte wirken gleichzeitig: Reibungswärme (Elektronen stoßen auf Widerstand — immer Wärme) und Entropie (Ionen ordnen sich um — gibt beim Laden Wärme ab, nimmt beim Entladen Wärme auf). Bei langsamer Entladung gewinnt die Entropie — die Zelle kühlt wirklich ab.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:BATTERIE-MECHANISMUS' },
+        sections: [
+          {
+            id: 'OBS:BATTERIE-HAND',
+            kind: 'observation',
+            title: 'Leg die Hand auf eine ladende Batterie',
+            summary: 'Dein Handy wird beim Laden warm — das spürt jeder. Aber hier ist die Überraschung: Eine Batterie die langsam Strom abgibt, kühlt sich dabei leicht ab. Nicht wegen schlechter Isolierung — sondern wegen der Chemie im Inneren. Zwei Kräfte arbeiten gegeneinander.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:BATTERIE-LADEN-ENTLADEN',
+            kind: 'experiment',
+            title: 'Experiment: Temperatur beim Laden und Entladen',
+            summary: 'Schalte zwischen Laden und Entladen. Stelle die Ladegeschwindigkeit ein. Beobachte das Thermometer: Bei 0,5C Entladen sinkt die Temperatur unter Umgebung. Bei 2C Laden steigt sie auf 42°C. Klicke auf die unterstrichenen Begriffe für Erklärungen.',
+            interactive: true,
+            depthPoints: 8,
+          },
+          {
+            id: 'QUIZ:BATTERIE-1',
+            kind: 'quiz',
+            title: 'Denkanstoß: Was überrascht dich?',
+            summary: 'Welcher Effekt kühlt eine Batterie beim Entladen? Was passiert bei sehr schnellem Entladen mit der Temperatur? Wann überwiegt die Reibungswärme?',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:BATTERIE-MECHANISMUS',
+        title: 'Die zwei Wärmequellen',
+        entryQuestion: 'Was genau erzeugt Wärme in einer Batterie — und was erzeugt Kälte?',
+        takeaway: 'Quelle 1: Reibungswärme (I² × R) — Elektronen stoßen auf Widerstand, immer Wärme, mehr bei höherem Strom. Quelle 2: Entropiewärme (T × ΔS) — Ionen ordnen sich beim Laden und geben Wärme ab; beim Entladen lösen sie sich und nehmen Wärme aus der Umgebung auf. Die Summe bestimmt ob die Zelle heizt oder kühlt.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:BATTERIE-AUTO' },
+        sections: [
+          {
+            id: 'OBS:BATTERIE-REIBUNG',
+            kind: 'observation',
+            title: 'Reibung im Inneren der Batterie',
+            summary: 'Stell dir vor du rennst durch einen vollgefüllten Raum — das kostet Energie, die als Wärme entsteht. Genauso: Elektronen fließen durch das Innere der Batterie und stoßen auf Widerstand. Je mehr Strom, desto mehr Reibung, desto mehr Wärme. Das passiert immer — beim Laden und beim Entladen.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:IMPEDANZ',
+            kind: 'experiment',
+            title: 'Experiment: Reibung vs. Entropie',
+            summary: 'Das Experiment zeigt beide Wärmequellen separat als Balken: Reibung (immer positiv, wächst mit Strom²) und Entropie (positiv beim Laden, negativ beim Entladen). Stelle 0,5C Entladen ein: Entropie kühlt mehr als Reibung heizt — Netto-Kühlung sichtbar.',
+            interactive: true,
+            depthPoints: 8,
+          },
+          {
+            id: 'QUIZ:BATTERIE-2',
+            kind: 'quiz',
+            title: 'Quiz: Reibung und Entropie',
+            summary: 'Welche Formel beschreibt Reibungswärme, warum kühlt Entropie beim Entladen, wann überwiegt welcher Effekt.',
+            depthPoints: 15,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:BATTERIE-AUTO',
+        title: 'Warum E-Autos im Winter weniger Reichweite haben',
+        entryQuestion: 'Was hat die Batterie-Thermodynamik mit der Winterreichweite eines Elektroautos zu tun?',
+        takeaway: 'Kälte erhöht den Innenwiderstand — mehr Reibungswärme, aber auch mehr Spannungsabfall. Gleichzeitig läuft die chemische Reaktion langsamer. Das BMS (Batterie-Management-System) begrenzt Lade- und Entladestrom um Schäden zu vermeiden. Ergebnis: weniger Leistung, weniger Reichweite, längere Ladezeit.',
+        sections: [
+          {
+            id: 'OBS:BATTERIE-WINTER',
+            kind: 'observation',
+            title: 'Das E-Auto im Winter',
+            summary: 'Viele E-Auto-Fahrer kennen das: Im Winter zeigt das Navi 280 km Reichweite, aber nach 200 km ist die Batterie leer. Kein Defekt. Die Physik der Batterie ändert sich bei Kälte — und das Thermomanagement des Autos kämpft dagegen an.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:BATTERIE-ALTERUNG',
+            kind: 'experiment',
+            title: 'Experiment: Temperatur und Leistung',
+            summary: 'Temperatur-Slider von -20°C bis +40°C. Zeigt: verfügbare Kapazität (%), maximaler Lade-/Entladestrom (C-Rate), und Innenwiderstand (mΩ). Bei -20°C: nur noch 65% Kapazität nutzbar, Strom auf 0.3C begrenzt. Bei +25°C: volle Leistung.',
+            interactive: true,
+            depthPoints: 9,
+          },
+          {
+            id: 'QUIZ:BATTERIE-3',
+            kind: 'quiz',
+            title: 'Quiz: Winter und Batterie',
+            summary: 'Warum sinkt die Reichweite im Winter, was macht das BMS bei Kälte, warum hilft Vorheizen der Batterie.',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  }
   {
   id: 'PATH:SSF:PHY-PUMPE-WASSER-0001',
   title: 'Wie funktioniert eine Pumpe — und wie fördert sie Wasser',
