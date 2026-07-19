@@ -64,3 +64,14 @@ Nicht blockierend für laufenden Betrieb. Blockiert die vollständige Umsetzung 
 `KG-REQ-20260718-002`/`003` — 27/36 verbleibende Module sind registriert, 7 (Auto)
 warten auf diese Korrektur, 2 weitere (Küche-Duplikate) wurden aus inhaltlichen Gründen
 bewusst nicht übernommen (siehe KG-Commit 996492d).
+
+
+## Erledigt 2026-07-19
+
+kxfModuleId-Kollisionen behoben in learningPaths.ts v1.0.9:
+- PHY-2001 → PHY-3001 (Auto-Motor)
+- PHY-2002 → PHY-3002 (Auto-Bremse)
+- PHY-2003 → PHY-3003 (Auto-Beschleunigung)
+- PHY-2004 → PHY-3004 (Auto-Kolben)
+- CHE-2001 → CHE-3001 (Auto-Verbrennung)
+PHY-2005 und PHY-2006 waren bereits eindeutig.
