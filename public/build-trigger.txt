@@ -1,1 +1,1 @@
-build trigger 2026-07-19T18:30 — syntax fixes v1.0.7
+build trigger 2026-07-19T18:45 — DetailPanel TS fix
