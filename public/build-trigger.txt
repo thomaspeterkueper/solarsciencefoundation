@@ -1,1 +1,1 @@
-build 2026-07-19T19:00 — battery physics fix
+build 2026-07-19T20:00 — NOXIA uid + orbital + spectral paths
