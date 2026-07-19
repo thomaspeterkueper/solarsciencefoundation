@@ -48,3 +48,8 @@ D) Weil der Mars keine Atmosphäre hat
 - KXF-Modul: `PHY-L1-000007` in `exports/kxf-learning-modules-0.1.json`
 - NOXIA Unlock-Key: `UNL:NOX:PHY:SUBLIMATION`
 - Analog zu: SSF-0009 (ECO-L0-000001) als Referenz-Implementierung
+
+
+## Erledigt 2026-07-19
+
+PATH:SSF:PHY-WASSER-SUBLIM-0001 implementiert. Dampfdruck Eis -10°C=2.6 mbar, Titan-Methan-Analogie.
