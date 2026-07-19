@@ -3,7 +3,7 @@
  * Path:      lib/learningPaths.ts
  * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/learningPaths.ts
  * Name:      Learning Paths registry
- * Version:   1.0.5
+ * Version:   1.0.6
  * Created:   2026-07-03
  * Modified:  2026-07-15 21:00 CEST
  * Depends:   —
@@ -250,7 +250,6 @@ export const learningPaths: LearningPath[] = [
     ]
   }
 ,
-,
   {
     id: 'PATH:SSF:PHY-SKY-0001',
     title: 'Warum ist der Himmel blau',
@@ -447,8 +446,7 @@ export const learningPaths: LearningPath[] = [
         ]
       }
     ]
-  }
-,
+  },
   {
     id: 'PATH:SSF:MAT-VEC-0001',
     title: 'Warum greift man eine Tuer am Rand an',
@@ -499,8 +497,7 @@ export const learningPaths: LearningPath[] = [
         ]
       }
     ]
-  }
-,
+  },
   {
     id: 'PATH:SSF:ENG-EDM-0001',
     title: 'Wie schneidet man Stahl der haerter ist als jedes Werkzeug',
@@ -551,8 +548,7 @@ export const learningPaths: LearningPath[] = [
         ]
       }
     ]
-  }
-,
+  },
   {
     id: 'PATH:SSF:MAT-LGS-0001',
     title: 'Wie loest man zwei Bedingungen gleichzeitig',
@@ -590,8 +586,7 @@ export const learningPaths: LearningPath[] = [
         ]
       }
     ]
-  }
-,
+  },
   {
     id: 'PATH:SSF:ENG-DMS-0001',
     title: 'Warum kann Stahl brechen',
@@ -830,8 +825,7 @@ export const learningPaths: LearningPath[] = [
         ]
       }
     ]
-  }
-,
+  },
   // ═══════════════════════════════════════════════════
   // REINIGUNG & MATERIALIEN — 10 Lernpfade
   // ═══════════════════════════════════════════════════
@@ -1722,8 +1716,7 @@ export const learningPaths: LearningPath[] = [
         ],
       },
     ],
-  }
-,
+  },
   {
     id: 'PATH:SSF:CHE-KUECHE-KARAMELL-0001',
     title: 'Warum karamellisiert Zucker erst bei 160 Grad',
@@ -1836,8 +1829,7 @@ export const learningPaths: LearningPath[] = [
         ],
       },
     ],
-  }
-,
+  },
   // ═══════════════════════════════════════════════════
   // WASSER-CLUSTER — 7 Lernpfade
   // ═══════════════════════════════════════════════════
@@ -2379,8 +2371,7 @@ export const learningPaths: LearningPath[] = [
         ],
       },
     ],
-  }
-,
+  },
   {
   id: 'PATH:SSF:PHY-AUTO-BESCHLEUNIGUNG-0001',
   title: 'Warum beschleunigt ein Auto — und was hält es am Boden',
@@ -3932,8 +3923,7 @@ export const learningPaths: LearningPath[] = [
         ],
       },
     ],
-  }
-,
+  },
 
   // ═══════════════════════════════════════════════════
   // ASTROBIOLOGIE-CLUSTER — 3 Lernpfade
@@ -4275,8 +4265,7 @@ export const learningPaths: LearningPath[] = [
         ],
       },
     ],
-  }
-,
+  },
 
   {
     id: 'PATH:SSF:PHY-PIEZO-0001',
@@ -4422,8 +4411,7 @@ export const learningPaths: LearningPath[] = [
         ],
       },
     ],
-  }
-,
+  },
 
   // ═══════════════════════════════════════════════════
   // ROHSTOFFE & ENERGIEWENDE — 3 Lernpfade
@@ -4696,8 +4684,7 @@ export const learningPaths: LearningPath[] = [
         ],
       },
     ],
-  }
-,
+  },
 
   // ═══════════════════════════════════════════════════
   // WIRTSCHAFT — 2 Lernpfade (ECO-L0, KG-kanonisch)
