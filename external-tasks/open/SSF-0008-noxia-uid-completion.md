@@ -64,3 +64,11 @@ Link: `https://noxiagame.vercel.app/dashboard`
 
 - NOXIA Beta-Start
 - `UNL:NOX:bank-credit` Gate (erster echter Unlock für Spieler)
+
+
+## Erledigt 2026-07-19
+
+- `app/modules/[id]/page.tsx`: uid/ref params durch Redirects weitergeleitet
+- `app/learning-paths/[id]/page.tsx`: NOXIA-Banner + Zurück-Link wenn ref=noxia
+- `PathRunner.tsx` v1.1.4: noxiaUid Prop, saveNoxiaCompletion()
+- `app/api/noxia/completion/route.ts`: POST (Abschluss speichern) + GET (Sync-Abfrage)
