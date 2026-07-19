@@ -4,7 +4,7 @@
  * KUEPER · Solar Science Foundation (SSF)
  * Path:     components/learning/PathRunner.tsx
  * Name:     PathRunner — renders a LearningPath inline within the SSF shell
- * Version:  1.1.4
+ * Version:  1.1.5
  * Created:  2026-07-15
  *
  * Renders all units and sections of a LearningPath as SSF-styled content.
@@ -70,7 +70,7 @@ import PiezoMaterialExperiment   from './PiezoMaterialExperiment';
 import EnergyHarvestingExperiment from './EnergyHarvestingExperiment';
 import CriticalMaterialsExperiment from './CriticalMaterialsExperiment';
 import ElectrolyzerExperiment      from './ElectrolyzerExperiment';
-import BatteryExperiment           from './BatteryExperiment';
+
 import MaterialsDashboardExperiment from './MaterialsDashboardExperiment';
 import DifferentialExperiment      from './DifferentialExperiment';
 
