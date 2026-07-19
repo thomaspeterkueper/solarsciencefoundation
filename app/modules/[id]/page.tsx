@@ -22,7 +22,13 @@ export default async function ModulePage({ params }: PageProps) {
   const { id } = await params;
   const mod = await getKxfLearningModuleById(id);
 
-  if (!mod) notFound();
+  // If module not found in KXF/legacy, try alias lookup by raw route ID
+  if (!mod) {
+    const pathByAlias = getRegisteredLearningPathForModule(id);
+    if (pathByAlias) redirect(`/learning-paths/${encodeURIComponent(pathByAlias.id)}`);
+    // Unknown module — redirect to learning paths overview
+    redirect('/learning-paths');
+  }
 
   const path = getRegisteredLearningPathForModule(mod.id);
   if (path) redirect(`/learning-paths/${encodeURIComponent(path.id)}`);
