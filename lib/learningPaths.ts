@@ -3,7 +3,7 @@
  * Path:      lib/learningPaths.ts
  * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/learningPaths.ts
  * Name:      Learning Paths registry
- * Version:   1.0.6
+ * Version:   1.0.7
  * Created:   2026-07-03
  * Modified:  2026-07-15 21:00 CEST
  * Depends:   —
@@ -248,8 +248,7 @@ export const learningPaths: LearningPath[] = [
         ]
       }
     ]
-  }
-,
+  },
   {
     id: 'PATH:SSF:PHY-SKY-0001',
     title: 'Warum ist der Himmel blau',
