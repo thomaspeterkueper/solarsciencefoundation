@@ -5,7 +5,7 @@ target: SYS:KUEPER:ssf
 priority: high
 type: implementation
 created: 2026-07-19
-status: open
+status: done
 affects: [SSF, NOXIA]
 source_context: SSF-NOXIA-REQ-20260719-ECO-L0
 canonical_modules: [ECO-L0-000001, ECO-L0-000002]
@@ -105,3 +105,9 @@ Keine Vorlesungs- oder Disziplinlabels in der Lernenden-Ansicht.
 ## Priorität
 
 **High** — KG ist abgeschlossen; dies ist jetzt der nächste Blocker in der Kette KG → SSF → NOXIA.
+
+
+## Erledigt
+
+PATH:SSF:ECO-KREDIT-0001 und PATH:SSF:ECO-ZINS-0001
+in learningPaths.ts v1.0.4 implementiert.
