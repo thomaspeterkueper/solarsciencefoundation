@@ -71,3 +71,8 @@ Nach Abschluss: `UNL:NOX:bank-credit` → NOXIA Bank-Kredit-Tab freigeschaltet
 - KB-REQUEST-0003 (in diesem Repo) — ECO-Modul-Spezifikation
 - `CON:ECO:L0:kredit` im KG
 - `PATH:SSF:ECO-FOUNDATIONS-0001` — Lernpfad-ID für diesen Pfad
+
+
+## Erledigt 2026-07-19
+
+PATH:SSF:ECO-KREDIT-NOXIA-0001 implementiert. Schaltet UNL:NOX:bank-credit frei.
