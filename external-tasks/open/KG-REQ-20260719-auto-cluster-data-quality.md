@@ -1,3 +1,7 @@
+---
+status: done
+---
+
 # KG-REQ-20260719-auto-cluster-data-quality — Auto-Cluster systematisch fehlerhaft
 
 ID: REQ:L3:PENDING
