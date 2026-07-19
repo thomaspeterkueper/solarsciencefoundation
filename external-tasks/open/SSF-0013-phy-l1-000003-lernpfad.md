@@ -9,6 +9,7 @@ created: 2026-07-19
 module: PHY-L1-000003
 unlock: UNL:NOX:CHEM:WATER-MOLECULE
 blocking: NOXIA-BETA-EXTENDED
+status: done
 ---
 
 # SSF-0013 — Lernpfad: Warum ist Wasser eigentlich so seltsam?
