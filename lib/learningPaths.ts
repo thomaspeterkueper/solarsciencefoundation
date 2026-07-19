@@ -3,7 +3,7 @@
  * Path:      lib/learningPaths.ts
  * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/learningPaths.ts
  * Name:      Learning Paths registry
- * Version:   1.0.4
+ * Version:   1.0.5
  * Created:   2026-07-03
  * Modified:  2026-07-15 21:00 CEST
  * Depends:   —
@@ -2503,7 +2503,6 @@ export const learningPaths: LearningPath[] = [
     },
   ],
 },
-,
   {
   id: 'PATH:SSF:PHY-KUECHE-SIEDEPUNKT-0001',
   title: 'Warum kocht Wasser in den Bergen früher',
@@ -2626,7 +2625,6 @@ export const learningPaths: LearningPath[] = [
     },
   ],
 },
-,
   {
   id: 'PATH:SSF:PHY-AUTO-MOTOR-0001',
   title: 'Warum wird ein Motor heiß — und wie bleibt er kühl',
@@ -2749,7 +2747,6 @@ export const learningPaths: LearningPath[] = [
     },
   ],
 },
-,
   {
   id: 'PATH:SSF:PHY-KUECHE-EMULSION-0001',
   title: 'Warum trennt sich Salatdressing',
@@ -2864,7 +2861,6 @@ export const learningPaths: LearningPath[] = [
     },
   ],
 },
-,
   {
   id: 'PATH:SSF:PHY-AUTO-KOLBEN-0001',
   title: 'Wie funktioniert ein Kolben — und warum bewegt er sich auf und ab',
@@ -2987,11 +2983,6 @@ export const learningPaths: LearningPath[] = [
     },
   ],
 },
-,
-  {
-  id: 'PATH:SSF:PHY-ELEKTROMOTOR-BASICS-0001',
-  title: 'Wie dreht sich ein Elektromotor – und was steckt dahinter',
-,
   {
   id: 'PATH:SSF:PHY-AUTO-BATTERIE-0001',
   title: 'Warum wird eine Batterie beim Laden warm — und kalt beim Entladen',
@@ -3154,7 +3145,6 @@ export const learningPaths: LearningPath[] = [
     },
   ],
 },
-,
   {
   id: 'PATH:SSF:PHY-PUMPE-WASSER-0001',
   title: 'Wie funktioniert eine Pumpe — und wie fördert sie Wasser',
@@ -3333,7 +3323,6 @@ export const learningPaths: LearningPath[] = [
     },
   ],
 },
-,
   {
   id: 'PATH:SSF:PHY-AUTO-BREMSE-0001',
   title: 'Warum quietschen Bremsen — und warum werden sie heiß',
@@ -3456,7 +3445,6 @@ export const learningPaths: LearningPath[] = [
     },
   ],
 },
-,
   {
   id: 'PATH:SSF:CHE-AUTO-VERBRENNUNG-0001',
   title: 'Warum ist der Auspuff heiß — und was kommt da eigentlich raus',
@@ -3571,7 +3559,6 @@ export const learningPaths: LearningPath[] = [
     },
   ],
 },
-,
   {
   id: 'PATH:SSF:PHY-AUTO-DIFFERENTIAL-0001',
   title: 'Wie funktioniert ein Differential — und warum braucht man es',
@@ -3686,7 +3673,6 @@ export const learningPaths: LearningPath[] = [
     },
   ],
 },
-,
   {
   id: 'PATH:SSF:CHE-KUECHE-KOLLAGEN-0001',
   title: 'Warum wird Gulasch zart — wenn man es lange kocht',
@@ -3801,7 +3787,6 @@ export const learningPaths: LearningPath[] = [
     },
   ],
 },
-,
 
   {
     id: 'PATH:SSF:PHY-MAGNETISMUS-0001',
