@@ -23,7 +23,7 @@ export function GraphView({ modules, onSelect }: { modules: KxfLearningModule[];
               type="button"
             >
               <span style={{ color: subject.color }}>{module.meta.subject}</span>
-              <strong>{module.meta.title}</strong>
+              <strong>{((module.title as any)?.de ?? (module.title as any)?.en ?? module.meta.title)}</strong>
               {module.dependencies.requires.some((required) => byId.has(required)) && <small>hat Voraussetzungen</small>}
             </button>
           );
