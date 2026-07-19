@@ -74,7 +74,7 @@ export const learningPaths: LearningPath[] = [
     status: 'prototype',
     sourceModuleId: 'SSF-PHY-1101',
     kxfModuleId: 'LRN:SSF:PHY-1101',
-    domainsNeeded: ['KNOW:PHYS-WAVE', 'KNOW:PHYS-ACOUSTICS', 'KNOW:ASTRO-SPEC', 'KNOW:LANG-SCI'],
+    domainsNeeded: ['KD:PHYS-WAVE', 'KD:PHYS-ACOUSTICS', 'KD:ASTRO-SPEC', 'KD:LANG-SCI'],
     suppliedBy: {
       knowledgeGraph: [
         'Knowledge Domain IDs and level scale',
@@ -258,7 +258,7 @@ export const learningPaths: LearningPath[] = [
     status: 'prototype',
     sourceModuleId: 'SSF-PHY-1103',
     kxfModuleId: 'LRN:SSF:PHY-1103',
-    domainsNeeded: ['KNOW:PHYS-WAVE', 'KNOW:PHYS-OPTICS', 'KNOW:ASTRO-ATMO'],
+    domainsNeeded: ['KD:PHYS-WAVE', 'KD:PHYS-OPTICS', 'KD:ASTRO-ATMO'],
     suppliedBy: {
       knowledgeGraph: [
         'Knowledge Domain IDs',
@@ -380,7 +380,7 @@ export const learningPaths: LearningPath[] = [
     status: 'prototype',
     sourceModuleId: 'SSF-PHY-1103',
     kxfModuleId: 'LRN:SSF:PHY-1103',
-    domainsNeeded: ['KNOW:PHYS-WAVE', 'KNOW:PHYS-OPTICS', 'KNOW:ASTRO-ATMO'],
+    domainsNeeded: ['KD:PHYS-WAVE', 'KD:PHYS-OPTICS', 'KD:ASTRO-ATMO'],
     suppliedBy: {
       knowledgeGraph: ['Prerequisite link to PATH:SSF:PHY-WAVE-SPECTRUM-0001', 'Unlock mapping'],
       kueperCom: [], overtimeArchive: [],
@@ -422,7 +422,7 @@ export const learningPaths: LearningPath[] = [
     status: 'prototype',
     sourceModuleId: 'SSF-MAT-1101',
     kxfModuleId: 'LRN:SSF:MAT-1101',
-    domainsNeeded: ['KNOW:MAT-CALCULUS', 'KNOW:MAT-ANALYSIS', 'KNOW:PHYS-MEASURE'],
+    domainsNeeded: ['KD:MAT-CALCULUS', 'KD:MAT-ANALYSIS', 'KD:PHYS-MEASURE'],
     suppliedBy: {
       knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
       kueperCom: [], overtimeArchive: [],
@@ -460,7 +460,7 @@ export const learningPaths: LearningPath[] = [
     status: 'prototype',
     sourceModuleId: 'SSF-EL-1101',
     kxfModuleId: 'LRN:SSF:EL-1101',
-    domainsNeeded: ['KNOW:EL-BASICS', 'KNOW:EL-SEMICONDUCTOR'],
+    domainsNeeded: ['KD:EL-BASICS', 'KD:EL-SEMICONDUCTOR'],
     suppliedBy: {
       knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
       kueperCom: [], overtimeArchive: [],
@@ -498,7 +498,7 @@ export const learningPaths: LearningPath[] = [
     status: 'prototype',
     sourceModuleId: 'SSF-MAT-1102',
     kxfModuleId: 'LRN:SSF:MAT-1102',
-    domainsNeeded: ['KNOW:MAT-ANALYSIS', 'KNOW:MAT-SERIES', 'KNOW:PHYS-WAVE'],
+    domainsNeeded: ['KD:MAT-ANALYSIS', 'KD:MAT-SERIES', 'KD:PHYS-WAVE'],
     suppliedBy: {
       knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
       kueperCom: [], overtimeArchive: [],
@@ -538,7 +538,7 @@ export const learningPaths: LearningPath[] = [
     status: 'prototype',
     sourceModuleId: 'SSF-MAT-1103',
     kxfModuleId: 'LRN:SSF:MAT-1103',
-    domainsNeeded: ['KNOW:MAT-CALCULUS', 'KNOW:MAT-GEOMETRY', 'KNOW:MAT-ANALYSIS'],
+    domainsNeeded: ['KD:MAT-CALCULUS', 'KD:MAT-GEOMETRY', 'KD:MAT-ANALYSIS'],
     suppliedBy: {
       knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
       kueperCom: [], overtimeArchive: [],
@@ -578,7 +578,7 @@ export const learningPaths: LearningPath[] = [
     status: 'prototype',
     sourceModuleId: 'SSF-MAT-1104',
     kxfModuleId: 'LRN:SSF:MAT-1104',
-    domainsNeeded: ['KNOW:MAT-VECTORS', 'KNOW:PHYS-MECH', 'KNOW:ENG-STATICS'],
+    domainsNeeded: ['KD:MAT-VECTORS', 'KD:PHYS-MECH', 'KD:ENG-STATICS'],
     suppliedBy: {
       knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
       kueperCom: [], overtimeArchive: [],
@@ -630,7 +630,7 @@ export const learningPaths: LearningPath[] = [
     status: 'prototype',
     sourceModuleId: 'SSF-ENG-1101',
     kxfModuleId: 'LRN:SSF:ENG-1101',
-    domainsNeeded: ['KNOW:ENG-MANUFACTURING', 'KNOW:PHYS-PLASMA', 'KNOW:EL-BASICS'],
+    domainsNeeded: ['KD:ENG-MANUFACTURING', 'KD:PHYS-PLASMA', 'KD:EL-BASICS'],
     suppliedBy: {
       knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
       kueperCom: [], overtimeArchive: [],
@@ -682,7 +682,7 @@ export const learningPaths: LearningPath[] = [
     status: 'prototype',
     sourceModuleId: 'SSF-MAT-1105',
     kxfModuleId: 'LRN:SSF:MAT-1105',
-    domainsNeeded: ['KNOW:MAT-LINEAR-ALGEBRA','KNOW:MAT-ANALYSIS'],
+    domainsNeeded: ['KD:MAT-LINEAR-ALGEBRA','KD:MAT-ANALYSIS'],
     suppliedBy: {
       knowledgeGraph: ['Prerequisite links','Unlock mapping'],
       kueperCom: [], overtimeArchive: [],
@@ -721,7 +721,7 @@ export const learningPaths: LearningPath[] = [
     status: 'prototype',
     sourceModuleId: 'SSF-ENG-1102',
     kxfModuleId: 'LRN:SSF:ENG-1102',
-    domainsNeeded: ['KNOW:ENG-MATERIALS', 'KNOW:PHYS-MECHANICS', 'KNOW:EL-BASICS'],
+    domainsNeeded: ['KD:ENG-MATERIALS', 'KD:PHYS-MECHANICS', 'KD:EL-BASICS'],
     suppliedBy: {
       knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
       kueperCom: [], overtimeArchive: [],
@@ -965,7 +965,7 @@ export const learningPaths: LearningPath[] = [
     status: 'prototype',
     sourceModuleId: 'SSF-CHE-2001',
     kxfModuleId: 'LRN:SSF:CHE-2001',
-    domainsNeeded: ['KNOW:CHE-SURFACTANTS', 'KNOW:CHE-POLARITY', 'KNOW:PHY-SURFACES'],
+    domainsNeeded: ['KD:CHE-SURFACTANTS', 'KD:CHE-POLARITY', 'KD:PHY-SURFACES'],
     suppliedBy: {
       knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
       kueperCom: [], overtimeArchive: [],
@@ -1065,7 +1065,7 @@ export const learningPaths: LearningPath[] = [
     status: 'prototype',
     sourceModuleId: 'SSF-CHE-2002',
     kxfModuleId: 'LRN:SSF:CHE-2002',
-    domainsNeeded: ['KNOW:CHE-ACID-BASE', 'KNOW:CHE-CARBONATE', 'KNOW:PHY-PH'],
+    domainsNeeded: ['KD:CHE-ACID-BASE', 'KD:CHE-CARBONATE', 'KD:PHY-PH'],
     suppliedBy: {
       knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
       kueperCom: [], overtimeArchive: [],
@@ -1148,7 +1148,7 @@ export const learningPaths: LearningPath[] = [
     status: 'prototype',
     sourceModuleId: 'SSF-CHE-2003',
     kxfModuleId: 'LRN:SSF:CHE-2003',
-    domainsNeeded: ['KNOW:CHE-OXIDATION', 'KNOW:CHE-REDOX', 'KNOW:CHE-SAFETY'],
+    domainsNeeded: ['KD:CHE-OXIDATION', 'KD:CHE-REDOX', 'KD:CHE-SAFETY'],
     suppliedBy: {
       knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
       kueperCom: [], overtimeArchive: [],
@@ -1231,7 +1231,7 @@ export const learningPaths: LearningPath[] = [
     status: 'prototype',
     sourceModuleId: 'SSF-PHY-2001',
     kxfModuleId: 'LRN:SSF:PHY-2001',
-    domainsNeeded: ['KNOW:PHY-SURFACES', 'KNOW:MAT-HARDNESS', 'KNOW:MAT-POROSITY'],
+    domainsNeeded: ['KD:PHY-SURFACES', 'KD:MAT-HARDNESS', 'KD:MAT-POROSITY'],
     suppliedBy: {
       knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
       kueperCom: [], overtimeArchive: [],
@@ -1314,7 +1314,7 @@ export const learningPaths: LearningPath[] = [
     status: 'prototype',
     sourceModuleId: 'SSF-CHE-2004',
     kxfModuleId: 'LRN:SSF:CHE-2004',
-    domainsNeeded: ['KNOW:PHY-SURFACE-TENSION', 'KNOW:CHE-EVAPORATION', 'KNOW:PHY-OPTICS'],
+    domainsNeeded: ['KD:PHY-SURFACE-TENSION', 'KD:CHE-EVAPORATION', 'KD:PHY-OPTICS'],
     suppliedBy: {
       knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
       kueperCom: [], overtimeArchive: [],
@@ -1390,7 +1390,7 @@ export const learningPaths: LearningPath[] = [
     status: 'prototype',
     sourceModuleId: 'SSF-CHE-2005',
     kxfModuleId: 'LRN:SSF:CHE-2005',
-    domainsNeeded: ['KNOW:CHE-PROTEINS', 'KNOW:CHE-SOLUBILITY', 'KNOW:PHY-TEMPERATURE'],
+    domainsNeeded: ['KD:CHE-PROTEINS', 'KD:CHE-SOLUBILITY', 'KD:PHY-TEMPERATURE'],
     suppliedBy: {
       knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
       kueperCom: [], overtimeArchive: [],
@@ -1466,7 +1466,7 @@ export const learningPaths: LearningPath[] = [
     status: 'prototype',
     sourceModuleId: 'SSF-PHY-2002',
     kxfModuleId: 'LRN:SSF:PHY-2002',
-    domainsNeeded: ['KNOW:MAT-WOOD', 'KNOW:MAT-CERAMICS', 'KNOW:CHE-WATER-ABSORPTION'],
+    domainsNeeded: ['KD:MAT-WOOD', 'KD:MAT-CERAMICS', 'KD:CHE-WATER-ABSORPTION'],
     suppliedBy: {
       knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
       kueperCom: [], overtimeArchive: [],
@@ -1542,7 +1542,7 @@ export const learningPaths: LearningPath[] = [
     status: 'prototype',
     sourceModuleId: 'SSF-CHE-2006',
     kxfModuleId: 'LRN:SSF:CHE-2006',
-    domainsNeeded: ['KNOW:CHE-EMULSION', 'KNOW:CHE-LECITHIN', 'KNOW:PHY-COLLOIDS'],
+    domainsNeeded: ['KD:CHE-EMULSION', 'KD:CHE-LECITHIN', 'KD:PHY-COLLOIDS'],
     suppliedBy: {
       knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
       kueperCom: [], overtimeArchive: [],
@@ -1625,7 +1625,7 @@ export const learningPaths: LearningPath[] = [
     status: 'prototype',
     sourceModuleId: 'SSF-CHE-2007',
     kxfModuleId: 'LRN:SSF:CHE-2007',
-    domainsNeeded: ['KNOW:CHE-OSMOSIS', 'KNOW:BIO-CELL-MEMBRANE', 'KNOW:PHY-DIFFUSION'],
+    domainsNeeded: ['KD:CHE-OSMOSIS', 'KD:BIO-CELL-MEMBRANE', 'KD:PHY-DIFFUSION'],
     suppliedBy: {
       knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
       kueperCom: [], overtimeArchive: [],
@@ -1701,7 +1701,7 @@ export const learningPaths: LearningPath[] = [
     status: 'prototype',
     sourceModuleId: 'SSF-PHY-2003',
     kxfModuleId: 'LRN:SSF:PHY-2003',
-    domainsNeeded: ['KNOW:PHY-PRESSURE', 'KNOW:PHY-PHASE-TRANSITION', 'KNOW:PHY-THERMODYNAMICS'],
+    domainsNeeded: ['KD:PHY-PRESSURE', 'KD:PHY-PHASE-TRANSITION', 'KD:PHY-THERMODYNAMICS'],
     suppliedBy: {
       knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
       kueperCom: [], overtimeArchive: [],
@@ -1777,7 +1777,7 @@ export const learningPaths: LearningPath[] = [
     status: 'prototype',
     sourceModuleId: 'SSF-PHY-2004',
     kxfModuleId: 'LRN:SSF:PHY-2004',
-    domainsNeeded: ['KNOW:PHY-HEAT-TRANSFER', 'KNOW:PHY-RADIATION', 'KNOW:PHY-CONVECTION'],
+    domainsNeeded: ['KD:PHY-HEAT-TRANSFER', 'KD:PHY-RADIATION', 'KD:PHY-CONVECTION'],
     suppliedBy: {
       knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
       kueperCom: [], overtimeArchive: [],
@@ -1853,7 +1853,7 @@ export const learningPaths: LearningPath[] = [
     status: 'prototype',
     sourceModuleId: 'SSF-CHE-1005',
     kxfModuleId: 'LRN:SSF:CHE-1005',
-    domainsNeeded: ['KNOW:CHE-ORGANIC', 'KNOW:CHE-THERMAL', 'KNOW:PHY-THERMODYNAMICS'],
+    domainsNeeded: ['KD:CHE-ORGANIC', 'KD:CHE-THERMAL', 'KD:PHY-THERMODYNAMICS'],
     suppliedBy: {
       knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
       kueperCom: [], overtimeArchive: [],
@@ -1971,7 +1971,7 @@ export const learningPaths: LearningPath[] = [
     status: 'prototype',
     sourceModuleId: 'SSF-PHY-3001',
     kxfModuleId: 'LRN:SSF:PHY-3001',
-    domainsNeeded: ['KNOW:CHE-MOLECULAR', 'KNOW:PHY-POLARITY', 'KNOW:CHE-HYDROGEN-BOND'],
+    domainsNeeded: ['KD:CHE-MOLECULAR', 'KD:PHY-POLARITY', 'KD:CHE-HYDROGEN-BOND'],
     suppliedBy: {
       knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
       kueperCom: [], overtimeArchive: [],
@@ -2047,7 +2047,7 @@ export const learningPaths: LearningPath[] = [
     status: 'prototype',
     sourceModuleId: 'SSF-PHY-3002',
     kxfModuleId: 'LRN:SSF:PHY-3002',
-    domainsNeeded: ['KNOW:PHY-PHASE-TRANSITION', 'KNOW:PHY-LATENT-HEAT', 'KNOW:PHY-PRESSURE'],
+    domainsNeeded: ['KD:PHY-PHASE-TRANSITION', 'KD:PHY-LATENT-HEAT', 'KD:PHY-PRESSURE'],
     suppliedBy: {
       knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
       kueperCom: [], overtimeArchive: [],
@@ -2123,7 +2123,7 @@ export const learningPaths: LearningPath[] = [
     status: 'prototype',
     sourceModuleId: 'SSF-PHY-3003',
     kxfModuleId: 'LRN:SSF:PHY-3003',
-    domainsNeeded: ['KNOW:PHY-DENSITY', 'KNOW:PHY-EXPANSION', 'KNOW:CHE-ICE-STRUCTURE'],
+    domainsNeeded: ['KD:PHY-DENSITY', 'KD:PHY-EXPANSION', 'KD:CHE-ICE-STRUCTURE'],
     suppliedBy: {
       knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
       kueperCom: [], overtimeArchive: [],
@@ -2133,7 +2133,7 @@ export const learningPaths: LearningPath[] = [
         'Rohr-Spreng-Simulation: Volumenausdehnung beim Gefrieren live'
       ]
     },
-    unlocks: ['PHY:DENSITY-ANOMALY', 'PHY:ICE-STRUCTURE', 'KNOW:LIFE-ON-EARTH'],
+    unlocks: ['PHY:DENSITY-ANOMALY', 'PHY:ICE-STRUCTURE', 'KD:LIFE-ON-EARTH'],
     units: [
       {
         id: 'UNIT:ANOMALIE-DICHTE',
@@ -2206,7 +2206,7 @@ export const learningPaths: LearningPath[] = [
     status: 'prototype',
     sourceModuleId: 'SSF-PHY-3004',
     kxfModuleId: 'LRN:SSF:PHY-3004',
-    domainsNeeded: ['KNOW:PHY-SURFACE-TENSION', 'KNOW:PHY-COHESION', 'KNOW:PHY-CAPILLARY'],
+    domainsNeeded: ['KD:PHY-SURFACE-TENSION', 'KD:PHY-COHESION', 'KD:PHY-CAPILLARY'],
     suppliedBy: {
       knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
       kueperCom: [], overtimeArchive: [],
@@ -2282,7 +2282,7 @@ export const learningPaths: LearningPath[] = [
     status: 'prototype',
     sourceModuleId: 'SSF-PHY-3005',
     kxfModuleId: 'LRN:SSF:PHY-3005',
-    domainsNeeded: ['KNOW:PHY-EVAPORATION', 'KNOW:PHY-VAPOR-PRESSURE', 'KNOW:PHY-HUMIDITY'],
+    domainsNeeded: ['KD:PHY-EVAPORATION', 'KD:PHY-VAPOR-PRESSURE', 'KD:PHY-HUMIDITY'],
     suppliedBy: {
       knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
       kueperCom: [], overtimeArchive: [],
@@ -2358,7 +2358,7 @@ export const learningPaths: LearningPath[] = [
     status: 'prototype',
     sourceModuleId: 'SSF-CHE-3001',
     kxfModuleId: 'LRN:SSF:CHE-3001',
-    domainsNeeded: ['KNOW:CHE-SOLUBILITY', 'KNOW:CHE-HYDRATION', 'KNOW:CHE-ION-LATTICE'],
+    domainsNeeded: ['KD:CHE-SOLUBILITY', 'KD:CHE-HYDRATION', 'KD:CHE-ION-LATTICE'],
     suppliedBy: {
       knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
       kueperCom: [], overtimeArchive: [],
@@ -2434,7 +2434,7 @@ export const learningPaths: LearningPath[] = [
     status: 'prototype',
     sourceModuleId: 'SSF-PHY-3006',
     kxfModuleId: 'LRN:SSF:PHY-3006',
-    domainsNeeded: ['KNOW:PHY-HEAT-CAPACITY', 'KNOW:PHY-THERMODYNAMICS', 'KNOW:ENV-CLIMATE'],
+    domainsNeeded: ['KD:PHY-HEAT-CAPACITY', 'KD:PHY-THERMODYNAMICS', 'KD:ENV-CLIMATE'],
     suppliedBy: {
       knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
       kueperCom: [], overtimeArchive: [],
@@ -2510,7 +2510,7 @@ export const learningPaths: LearningPath[] = [
   status: 'prototype',
   sourceModuleId: 'SSF-PHY-2003',
   kxfModuleId: 'LRN:SSF:PHY-2003',
-  domainsNeeded: ['KNOW:PHY-MECHANICS', 'KNOW:PHY-FRICTION', 'KNOW:PHY-FORCES'],
+  domainsNeeded: ['KD:PHY-MECHANICS', 'KD:PHY-FRICTION', 'KD:PHY-FORCES'],
   suppliedBy: {
     knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
     kueperCom: [],
@@ -2633,7 +2633,7 @@ export const learningPaths: LearningPath[] = [
   status: 'prototype',
   sourceModuleId: 'SSF-PHY-1002',
   kxfModuleId: 'LRN:SSF:PHY-1002',
-  domainsNeeded: ['KNOW:PHY-THERMODYNAMICS', 'KNOW:PHY-FLUIDS'],
+  domainsNeeded: ['KD:PHY-THERMODYNAMICS', 'KD:PHY-FLUIDS'],
   suppliedBy: {
     knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
     kueperCom: [],
@@ -2756,7 +2756,7 @@ export const learningPaths: LearningPath[] = [
   status: 'prototype',
   sourceModuleId: 'SSF-PHY-2001',
   kxfModuleId: 'LRN:SSF:PHY-2001',
-  domainsNeeded: ['KNOW:PHY-THERMODYNAMICS', 'KNOW:PHY-MECHANICS', 'KNOW:CHE-COMBUSTION'],
+  domainsNeeded: ['KD:PHY-THERMODYNAMICS', 'KD:PHY-MECHANICS', 'KD:CHE-COMBUSTION'],
   suppliedBy: {
     knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
     kueperCom: [],
@@ -2879,7 +2879,7 @@ export const learningPaths: LearningPath[] = [
   status: 'prototype',
   sourceModuleId: 'SSF-PHY-1004',
   kxfModuleId: 'LRN:SSF:PHY-1004',
-  domainsNeeded: ['KNOW:PHY-INTERFACES', 'KNOW:CHE-SURFACE'],
+  domainsNeeded: ['KD:PHY-INTERFACES', 'KD:CHE-SURFACE'],
   suppliedBy: {
     knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
     kueperCom: [],
@@ -2994,7 +2994,7 @@ export const learningPaths: LearningPath[] = [
   status: 'prototype',
   sourceModuleId: 'SSF-PHY-2004',
   kxfModuleId: 'LRN:SSF:PHY-2004',
-  domainsNeeded: ['KNOW:PHY-MECHANICS', 'KNOW:PHY-FORCES', 'KNOW:PHY-THERMODYNAMICS'],
+  domainsNeeded: ['KD:PHY-MECHANICS', 'KD:PHY-FORCES', 'KD:PHY-THERMODYNAMICS'],
   suppliedBy: {
     knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
     kueperCom: [],
@@ -3121,7 +3121,7 @@ export const learningPaths: LearningPath[] = [
   status: 'prototype',
   sourceModuleId: 'SSF-PHY-2006',
   kxfModuleId: 'LRN:SSF:PHY-2006',
-  domainsNeeded: ['KNOW:PHY-ELECTRICITY', 'KNOW:CHE-ELECTROCHEMISTRY', 'KNOW:PHY-THERMODYNAMICS'],
+  domainsNeeded: ['KD:PHY-ELECTRICITY', 'KD:CHE-ELECTROCHEMISTRY', 'KD:PHY-THERMODYNAMICS'],
   suppliedBy: {
     knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
     kueperCom: [],
@@ -3284,7 +3284,7 @@ export const learningPaths: LearningPath[] = [
   status: 'prototype',
   sourceModuleId: 'SSF-PHY-3001',
   kxfModuleId: 'LRN:SSF:PHY-3001',
-  domainsNeeded: ['KNOW:PHY-FLUIDS', 'KNOW:PHY-MECHANICS', 'KNOW:PHY-PRESSURE'],
+  domainsNeeded: ['KD:PHY-FLUIDS', 'KD:PHY-MECHANICS', 'KD:PHY-PRESSURE'],
   suppliedBy: {
     knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
     kueperCom: [],
@@ -3463,7 +3463,7 @@ export const learningPaths: LearningPath[] = [
   status: 'prototype',
   sourceModuleId: 'SSF-PHY-2002',
   kxfModuleId: 'LRN:SSF:PHY-2002',
-  domainsNeeded: ['KNOW:PHY-MECHANICS', 'KNOW:PHY-THERMODYNAMICS', 'KNOW:PHY-FRICTION'],
+  domainsNeeded: ['KD:PHY-MECHANICS', 'KD:PHY-THERMODYNAMICS', 'KD:PHY-FRICTION'],
   suppliedBy: {
     knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
     kueperCom: [],
@@ -3586,7 +3586,7 @@ export const learningPaths: LearningPath[] = [
   status: 'prototype',
   sourceModuleId: 'SSF-CHE-2001',
   kxfModuleId: 'LRN:SSF:CHE-2001',
-  domainsNeeded: ['KNOW:CHE-COMBUSTION', 'KNOW:CHE-REACTIONS', 'KNOW:CHE-GASES'],
+  domainsNeeded: ['KD:CHE-COMBUSTION', 'KD:CHE-REACTIONS', 'KD:CHE-GASES'],
   suppliedBy: {
     knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
     kueperCom: [],
@@ -3701,7 +3701,7 @@ export const learningPaths: LearningPath[] = [
   status: 'prototype',
   sourceModuleId: 'SSF-PHY-2005',
   kxfModuleId: 'LRN:SSF:PHY-2005',
-  domainsNeeded: ['KNOW:PHY-MECHANICS', 'KNOW:PHY-FORCES', 'KNOW:PHY-ROTATION'],
+  domainsNeeded: ['KD:PHY-MECHANICS', 'KD:PHY-FORCES', 'KD:PHY-ROTATION'],
   suppliedBy: {
     knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
     kueperCom: [],
@@ -3816,7 +3816,7 @@ export const learningPaths: LearningPath[] = [
   status: 'prototype',
   sourceModuleId: 'SSF-CHE-1003',
   kxfModuleId: 'LRN:SSF:CHE-1003',
-  domainsNeeded: ['KNOW:CHE-BIOCHEMISTRY', 'KNOW:CHE-PROTEINS', 'KNOW:PHY-THERMODYNAMICS'],
+  domainsNeeded: ['KD:CHE-BIOCHEMISTRY', 'KD:CHE-PROTEINS', 'KD:PHY-THERMODYNAMICS'],
   suppliedBy: {
     knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
     kueperCom: [],
@@ -3932,7 +3932,7 @@ export const learningPaths: LearningPath[] = [
     status: 'prototype',
     sourceModuleId: 'SSF-PHY-4001',
     kxfModuleId: 'LRN:SSF:PHY-4001',
-    domainsNeeded: ['KNOW:PHY-ELECTROMAGNETISM', 'KNOW:PHY-SPIN', 'KNOW:MAT-CRYSTAL'],
+    domainsNeeded: ['KD:PHY-ELECTROMAGNETISM', 'KD:PHY-SPIN', 'KD:MAT-CRYSTAL'],
     suppliedBy: {
       knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
       kueperCom: [], overtimeArchive: [],
@@ -4084,7 +4084,7 @@ export const learningPaths: LearningPath[] = [
     status: 'prototype',
     sourceModuleId: 'SSF-CHE-5001',
     kxfModuleId: 'LRN:SSF:CHE-5001',
-    domainsNeeded: ['KNOW:CHE-ORGANIC', 'KNOW:CHE-CARBOHYDRATES', 'KNOW:BIO-MOLECULES'],
+    domainsNeeded: ['KD:CHE-ORGANIC', 'KD:CHE-CARBOHYDRATES', 'KD:BIO-MOLECULES'],
     suppliedBy: {
       knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
       kueperCom: [], overtimeArchive: [],
@@ -4160,7 +4160,7 @@ export const learningPaths: LearningPath[] = [
     status: 'prototype',
     sourceModuleId: 'SSF-CHE-5002',
     kxfModuleId: 'LRN:SSF:CHE-5002',
-    domainsNeeded: ['KNOW:CHE-ASTROCHEMISTRY', 'KNOW:PHY-SPECTROSCOPY', 'KNOW:PHY-INTERSTELLAR'],
+    domainsNeeded: ['KD:CHE-ASTROCHEMISTRY', 'KD:PHY-SPECTROSCOPY', 'KD:PHY-INTERSTELLAR'],
     suppliedBy: {
       knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
       kueperCom: [], overtimeArchive: [],
@@ -4170,7 +4170,7 @@ export const learningPaths: LearningPath[] = [
         'Gaswolken-Karte: G+0.693-0.027 im Milchstraßenzentrum verortet'
       ]
     },
-    unlocks: ['SENSOR:SPECTRAL', 'CHEM:ASTROCHEMISTRY', 'KNOW:INTERSTELLAR-MEDIUM'],
+    unlocks: ['SENSOR:SPECTRAL', 'CHEM:ASTROCHEMISTRY', 'KD:INTERSTELLAR-MEDIUM'],
     units: [
       {
         id: 'UNIT:WELTALL-CHEMIE',
@@ -4267,7 +4267,7 @@ export const learningPaths: LearningPath[] = [
     status: 'prototype',
     sourceModuleId: 'SSF-BIO-5001',
     kxfModuleId: 'LRN:SSF:BIO-5001',
-    domainsNeeded: ['KNOW:BIO-ORIGIN-OF-LIFE', 'KNOW:CHE-PREBIOTIC', 'KNOW:PHY-EARLY-EARTH'],
+    domainsNeeded: ['KD:BIO-ORIGIN-OF-LIFE', 'KD:CHE-PREBIOTIC', 'KD:PHY-EARLY-EARTH'],
     suppliedBy: {
       knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
       kueperCom: [], overtimeArchive: [],
@@ -4422,7 +4422,7 @@ export const learningPaths: LearningPath[] = [
     status: 'prototype',
     sourceModuleId: 'SSF-PHY-4002',
     kxfModuleId: 'LRN:SSF:PHY-4002',
-    domainsNeeded: ['KNOW:PHY-PIEZOELECTRIC', 'KNOW:MAT-CRYSTAL', 'KNOW:PHY-ELECTROSTATICS'],
+    domainsNeeded: ['KD:PHY-PIEZOELECTRIC', 'KD:MAT-CRYSTAL', 'KD:PHY-ELECTROSTATICS'],
     suppliedBy: {
       knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
       kueperCom: [], overtimeArchive: [],
@@ -4574,7 +4574,7 @@ export const learningPaths: LearningPath[] = [
     status: 'prototype',
     sourceModuleId: 'SSF-CHE-6001',
     kxfModuleId: 'LRN:SSF:CHE-6001',
-    domainsNeeded: ['KNOW:CHE-PLATINUM-GROUP', 'KNOW:CHE-CATALYSIS', 'KNOW:ENV-CRITICAL-MATERIALS'],
+    domainsNeeded: ['KD:CHE-PLATINUM-GROUP', 'KD:CHE-CATALYSIS', 'KD:ENV-CRITICAL-MATERIALS'],
     suppliedBy: {
       knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
       kueperCom: [], overtimeArchive: [],
@@ -4682,7 +4682,7 @@ export const learningPaths: LearningPath[] = [
     status: 'prototype',
     sourceModuleId: 'SSF-PHY-5001',
     kxfModuleId: 'LRN:SSF:PHY-5001',
-    domainsNeeded: ['KNOW:CHE-ELECTROCHEMISTRY', 'KNOW:PHY-ELECTRICITY', 'KNOW:CHE-PROTON-EXCHANGE'],
+    domainsNeeded: ['KD:CHE-ELECTROCHEMISTRY', 'KD:PHY-ELECTRICITY', 'KD:CHE-PROTON-EXCHANGE'],
     suppliedBy: {
       knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
       kueperCom: [], overtimeArchive: [],
@@ -4765,7 +4765,7 @@ export const learningPaths: LearningPath[] = [
     status: 'prototype',
     sourceModuleId: 'SSF-ENV-6001',
     kxfModuleId: 'LRN:SSF:ENV-6001',
-    domainsNeeded: ['KNOW:ENV-CRITICAL-MATERIALS', 'KNOW:ENV-ENERGY-TRANSITION', 'KNOW:CHE-ELEMENTS'],
+    domainsNeeded: ['KD:ENV-CRITICAL-MATERIALS', 'KD:ENV-ENERGY-TRANSITION', 'KD:CHE-ELEMENTS'],
     suppliedBy: {
       knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
       kueperCom: [], overtimeArchive: [],
@@ -4776,7 +4776,7 @@ export const learningPaths: LearningPath[] = [
         'Recycling-Potenzial-Slider: wie viel kann Kreislaufwirtschaft lösen'
       ]
     },
-    unlocks: ['ENV:CRITICAL-MATERIALS', 'ENV:CIRCULAR-ECONOMY', 'KNOW:ENERGY-TRANSITION'],
+    unlocks: ['ENV:CRITICAL-MATERIALS', 'ENV:CIRCULAR-ECONOMY', 'KD:ENERGY-TRANSITION'],
     units: [
       {
         id: 'UNIT:ROHSTOFFE-TECHNOLOGIE',
