@@ -3,7 +3,7 @@
  * Path:      lib/learningPaths.ts
  * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/learningPaths.ts
  * Name:      Learning Paths registry
- * Version:   1.0.3
+ * Version:   1.0.4
  * Created:   2026-07-03
  * Modified:  2026-07-15 21:00 CEST
  * Depends:   —
@@ -4706,6 +4706,172 @@ export const learningPaths: LearningPath[] = [
             kind: 'quiz',
             title: 'Quiz: Kritische Rohstoffe',
             summary: 'Fraunhofer-Zahlen lesen, warum Iridium kritischer als Lithium, was Recycling leisten kann und was nicht.',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  }
+,
+
+  // ═══════════════════════════════════════════════════
+  // WIRTSCHAFT — 2 Lernpfade (ECO-L0, KG-kanonisch)
+  // KG-Modul-IDs: ECO-L0-000001, ECO-L0-000002
+  // Request: KG-SSF-REQ-20260719-ECO-L0
+  // ═══════════════════════════════════════════════════
+
+  {
+    id: 'PATH:SSF:ECO-KREDIT-0001',
+    title: 'Was ist ein Kredit — und warum gibt jemand heute etwas das erst spaeter zurueckkommt',
+    subtitle: 'Kreditgeber, Kreditnehmer, Laufzeit und Tilgung: wie geliehenes Geld funktioniert und was es wirklich kostet.',
+    status: 'prototype',
+    sourceModuleId: 'ECO-L0-000001',
+    kxfModuleId: 'LRN:SSF:ECO-L0-000001',
+    domainsNeeded: ['KNOW:ECO-FINANCE', 'KNOW:MAT-ARITHMETIC'],
+    suppliedBy: {
+      knowledgeGraph: ['ECO-L0-000001 canonical module', 'Prerequisite: MAT-L0-000001'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Kredit-Simulator: Betrag, Laufzeit, Zinssatz → Monatsrate und Gesamtkosten live',
+        'Tilgungsplan-Visualisierung: wie viel geht jeden Monat an Zinsen vs. Tilgung',
+        'Vergleich: Kreditbetrag vs. tatsaechliche Rueckzahlung'
+      ]
+    },
+    unlocks: ['ECO:CREDIT-BASICS', 'ECO:LOAN-MECHANICS', 'NOXIA:BANK-CREDIT-TAB'],
+    units: [
+      {
+        id: 'UNIT:KREDIT-WAS',
+        title: 'Was ist ein Kredit?',
+        entryQuestion: 'Warum gibt jemand heute Geld her — obwohl er es erst spaeter zurueckbekommt?',
+        takeaway: 'Ein Kredit ist eine Kapitalueberlassung auf Zeit: der Kreditgeber verzichtet voruebergehend auf sein Geld und bekommt es spaeter mit Zinsen zurueck. Der Kreditnehmer kann heute mehr ausgeben als er hat — zahlt dafuer aber mehr zurueck als er bekommen hat.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:KREDIT-KOSTEN' },
+        sections: [
+          {
+            id: 'OBS:KREDIT-ALLTAG',
+            kind: 'observation',
+            title: 'Beobachtung: Das neue Fahrrad',
+            summary: 'Ein Freund kauft ein 800-Euro-Fahrrad — obwohl er nur 200 Euro gespart hat. Er zahlt 50 Euro pro Monat, 18 Monate lang. Am Ende hat er 900 Euro gezahlt. Was war das? Kein Geschenk, kein Rabatt — ein Kredit.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:GAUSS',
+            kind: 'experiment',
+            title: 'Experiment: Kredit-Grundstruktur',
+            summary: 'Drei Schieberegler: Kreditbetrag (100-10.000 EUR), Laufzeit (1-60 Monate), Zinssatz (0-15%). Ausgabe: Monatsrate, Gesamtrueckzahlung, Zinsanteil in Euro und Prozent. Balken zeigt Verhraeltnis Tilgung zu Zinsen.',
+            interactive: true,
+            depthPoints: 7,
+          },
+          {
+            id: 'QUIZ:KREDIT-1',
+            kind: 'quiz',
+            title: 'Quiz: Kreditgrundlagen',
+            summary: 'Was ist der Unterschied Kredit vs. Geschenk vs. Einkommen, wer ist Kreditgeber und wer Kreditnehmer, warum zahlt man mehr zurueck als man bekommen hat.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:KREDIT-KOSTEN',
+        title: 'Was ein Kredit wirklich kostet',
+        entryQuestion: 'Warum zahlt man am Ende mehr zurueck als man geliehen hat — und wie viel mehr?',
+        takeaway: 'Die Differenz zwischen Rueckzahlung und Kreditbetrag sind die Zinskosten. Je laenger die Laufzeit und je hoeher der Zinssatz, desto teurer wird der Kredit. Ein langer Kredit mit niedrigem Zinssatz kann teurer sein als ein kurzer mit hohem.',
+        sections: [
+          {
+            id: 'EXP:ARBEITSPUNKT',
+            kind: 'experiment',
+            title: 'Experiment: Tilgungsplan visualisiert',
+            summary: 'Monat-fuer-Monat-Balken: roter Anteil = Zinsen, gruener Anteil = Tilgung. Am Anfang: viel Zinsen, wenig Tilgung. Am Ende umgekehrt. Laufzeit-Slider zeigt wie sich das Verhaeltnis verschiebt. Gesamtkosten-Vergleich fuer verschiedene Szenarien.',
+            interactive: true,
+            depthPoints: 8,
+          },
+          {
+            id: 'QUIZ:KREDIT-2',
+            kind: 'quiz',
+            title: 'Quiz: Kreditkosten',
+            summary: 'Gesamtkosten berechnen, warum laengere Laufzeit mehr Zinsen bedeutet, Unterschied Sollzins vs. Effektivzins.',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'PATH:SSF:ECO-ZINS-0001',
+    title: 'Warum waechst ein Betrag schneller wenn auch die Zinsen verzinst werden',
+    subtitle: 'Einfacher Zins und Zinseszins: lineares versus exponentielles Wachstum — und warum der Unterschied bei langen Zeitraeumen dramatisch wird.',
+    status: 'prototype',
+    sourceModuleId: 'ECO-L0-000002',
+    kxfModuleId: 'LRN:SSF:ECO-L0-000002',
+    domainsNeeded: ['KNOW:ECO-FINANCE', 'KNOW:MAT-EXPONENTIAL'],
+    suppliedBy: {
+      knowledgeGraph: ['ECO-L0-000002 canonical module', 'Prerequisite: ECO-L0-000001'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Zinseszins-Simulator: Startkapital, Zinssatz, Jahre → Endkapital live',
+        'Vergleichsgraph: linear (einfacher Zins) vs. exponentiell (Zinseszins)',
+        'Verdopplungszeit: Faustregel Regel-70 interaktiv erklaert'
+      ]
+    },
+    unlocks: ['ECO:COMPOUND-INTEREST', 'MATH:EXPONENTIAL-GROWTH', 'NOXIA:INVESTMENT-MECHANICS'],
+    units: [
+      {
+        id: 'UNIT:ZINS-EINFACH',
+        title: 'Einfacher Zins',
+        entryQuestion: 'Wenn 1000 Euro 5% Zinsen pro Jahr bringen — wie viel hat man nach 10 Jahren?',
+        takeaway: 'Einfacher Zins: jedes Jahr dieselbe absolute Summe. 1000 Euro × 5% = 50 Euro pro Jahr. Nach 10 Jahren: 1500 Euro. Das Wachstum ist linear — eine Gerade.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:ZINS-ESZINS' },
+        sections: [
+          {
+            id: 'OBS:SPARBUCH-ALT',
+            kind: 'observation',
+            title: 'Beobachtung: Das alte Sparbuch',
+            summary: 'Grossmutter hat 1000 Euro auf ein Sparbuch gelegt, 3% Zinsen pro Jahr, Zinsen werden ausgezahlt. Nach 20 Jahren: 1600 Euro. Klingt gut. Aber war es gut? Das haengt davon ab was mit den ausgezahlten Zinsen passiert ist.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:REIHE',
+            kind: 'experiment',
+            title: 'Experiment: Einfacher Zins',
+            summary: 'Startkapital-Slider, Zinssatz-Slider, Jahre-Slider. Balkengrafik: jedes Jahr gleich hoher Zuwachs. Formel: K_n = K_0 × (1 + n × p/100). Ergebnis als Tabelle und Linie.',
+            interactive: true,
+            depthPoints: 7,
+          },
+          {
+            id: 'QUIZ:ZINS-1',
+            kind: 'quiz',
+            title: 'Quiz: Einfacher Zins',
+            summary: 'Zinsbetrag berechnen, Unterschied Zinssatz vs. Zinsbetrag, warum lineares Wachstum.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:ZINS-ESZINS',
+        title: 'Zinseszins — der Unterschied der alles veraendert',
+        entryQuestion: 'Was passiert wenn die Zinsen nicht ausgezahlt werden — sondern selbst wieder verzinst werden?',
+        takeaway: 'Zinseszins: die Zinsen werden dem Kapital hinzugefuegt und selbst verzinst. Das Wachstum ist exponentiell — am Anfang kaum sichtbar, spaeter dramatisch. Nach 30 Jahren bei 7% Zins: 1000 Euro werden zu 7612 Euro statt 3100 Euro.',
+        sections: [
+          {
+            id: 'OBS:EINSTEIN-ZITAT',
+            kind: 'observation',
+            title: 'Beobachtung: Der Unterschied nach 30 Jahren',
+            summary: 'Zwei Sparer starten mit 1000 Euro, 5% Zinsen, 30 Jahre. Sparer A: Zinsen werden ausgezahlt (einfacher Zins). Sparer B: Zinsen bleiben angelegt (Zinseszins). Ergebnis: A hat 2500 Euro, B hat 4322 Euro. Fast doppelt so viel — durch denselben Zinssatz.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:KARAMELL-TEMP',
+            kind: 'experiment',
+            title: 'Experiment: Zinseszins-Simulator',
+            summary: 'Startkapital, Zinssatz (1-15%), Jahre (1-50). Zwei Kurven: linear (einfacher Zins) und exponentiell (Zinseszins). Bei kurzem Zeitraum kaum Unterschied. Bei 30-50 Jahren: dramatische Schere. Verdopplungszeit live angezeigt (Regel 70: Jahre = 70 / Zinssatz).',
+            interactive: true,
+            depthPoints: 9,
+          },
+          {
+            id: 'QUIZ:ZINS-2',
+            kind: 'quiz',
+            title: 'Quiz: Zinseszins',
+            summary: 'Zinseszins-Formel anwenden, Verdopplungszeit berechnen, warum Zeit der wichtigste Faktor ist.',
             depthPoints: 15,
           },
         ],
