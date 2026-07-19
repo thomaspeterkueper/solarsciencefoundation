@@ -1,1 +1,1 @@
-build trigger 2026-07-19T18:45 — DetailPanel TS fix
+build 2026-07-19T19:00 — battery physics fix
