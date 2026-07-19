@@ -6,6 +6,7 @@ type: content
 priority: high
 created: 2026-07-19
 blocking: [NOXIA-BETA, UNL:NOX:bank-credit]
+status: done
 ---
 
 # SSF-0009 — Vollständiger Lernpfad für ECO-L0-000001: Was ist ein Kredit?
