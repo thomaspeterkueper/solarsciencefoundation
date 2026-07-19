@@ -18,6 +18,12 @@ const CLUSTERS: Record<string, {
       'PATH:SSF:PHY-WASSER-ANOMALIE-0001','PATH:SSF:PHY-WASSER-OBERFLAECHE-0001',
       'PATH:SSF:PHY-WASSER-DAMPF-0001','PATH:SSF:CHE-WASSER-LOESUNG-0001',
       'PATH:SSF:PHY-WASSER-WAERME-0001',
+      'PATH:SSF:PHY-WASSER-DIPOL-0001',
+      'PATH:SSF:PHY-WASSER-PHASEN-0001',
+      'PATH:SSF:PHY-WASSER-EIS-0001',
+      'PATH:SSF:PHY-WASSER-OBERFL-0001',
+      'PATH:SSF:PHY-WASSER-SUBLIM-0001',
+      'PATH:SSF:PHY-WASSER-WAERME-0001',
     ],
   },
   haushalt: {
@@ -69,6 +75,14 @@ const CLUSTERS: Record<string, {
       'PATH:SSF:PHY-SKY-0001',
       'PATH:SSF:PHY-WAVE-SPECTRUM-0001',
       'PATH:SSF:PHY-MAGNETISMUS-0001',
+      'PATH:SSF:PHY-SPEKTRALANALYSE-0001',
+    ],
+  },
+  astronomie: {
+    label: 'Astronomie & Navigation', icon: '🚀', color: '#4488BB',
+    horizon: 'Als nächstes: Wie nutzt man Gravitationsschlingen zum Beschleunigen? — Swing-by-Manöver',
+    ids: [
+      'PATH:SSF:AST-SONNENSYSTEM-0001',
     ],
   },
   mathematik: {
@@ -94,6 +108,8 @@ const CLUSTERS: Record<string, {
     ids: [
       'PATH:SSF:ECO-KREDIT-0001',
       'PATH:SSF:ECO-ZINS-0001',
+      'PATH:SSF:ECO-KREDIT-NOXIA-0001',
+      'PATH:SSF:ECO-ZINSESZINS-NOXIA-0001',
     ],
   },
   ingenieur: {
