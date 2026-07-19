@@ -9,6 +9,7 @@ created: 2026-07-19
 module: PHY-L1-000005
 unlock: UNL:NOX:PHY:DENSITY-ANOMALY
 blocking: NOXIA-BETA-EXTENDED
+status: done
 ---
 
 # SSF-0015 — Lernpfad: Warum platzen Wasserleitungen im Winter von innen?
