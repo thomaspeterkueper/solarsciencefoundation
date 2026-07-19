@@ -92,6 +92,14 @@ const CLUSTERS: Record<string, {
       'PATH:SSF:BIO-LEBEN-URSPRUNG-0001',
     ],
   },
+  wirtschaft: {
+    label: 'Wirtschaft & Finanzen', icon: '📈', color: '#7AAD7A',
+    horizon: 'Als nächstes: Wie funktioniert Inflation? — Kaufkraft, Geldmenge und Preise',
+    ids: [
+      'PATH:SSF:ECO-KREDIT-0001',
+      'PATH:SSF:ECO-ZINS-0001',
+    ],
+  },
   ingenieur: {
     label: 'Ingenieurwesen', icon: '⚙️', color: '#8B6914',
     horizon: 'Als nächstes: Wie entsteht der Entladekreis beim Erodieren? — Kondensatoren und RC-Glieder',
