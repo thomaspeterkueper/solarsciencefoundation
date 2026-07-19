@@ -8,10 +8,14 @@ import {
 
 type PageProps = {
   params: Promise<{ id: string }>;
+  searchParams?: Promise<{ uid?: string; ref?: string }>;
 };
 
-export default async function LearningPathDetailPage({ params }: PageProps) {
+export default async function LearningPathDetailPage({ params, searchParams }: PageProps) {
   const { id } = await params;
+  const sp = searchParams ? await searchParams : {};
+  const noxiaUid = sp?.uid ?? null;
+  const fromNoxia = sp?.ref === 'noxia';
   const path = getRegisteredLearningPathById(decodeURIComponent(id));
 
   if (!path) notFound();
@@ -21,6 +25,30 @@ export default async function LearningPathDetailPage({ params }: PageProps) {
 
   return (
     <div className="container reading" style={{ paddingTop: 40, paddingBottom: 96 }}>
+      {/* NOXIA context banner */}
+      {fromNoxia && (
+        <div style={{
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          gap: 12, marginBottom: 24, padding: '10px 16px',
+          background: '#0A1628', borderRadius: 8,
+          border: '1px solid rgba(201,168,76,0.3)',
+          flexWrap: 'wrap',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <span style={{ fontSize: 16 }}>🎮</span>
+            <span style={{
+              fontFamily: 'var(--font-mono)', fontSize: 11, color: 'rgba(255,255,255,0.7)',
+              letterSpacing: '.06em',
+            }}>
+              Abschluss dieser Lernreise schaltet Fähigkeiten in NOXIA frei
+            </span>
+          </div>
+          <a href="https://noxiagame.vercel.app/dashboard" style={{
+            fontFamily: 'var(--font-mono)', fontSize: 11, color: '#C9A84C',
+            letterSpacing: '.06em', textDecoration: 'none', whiteSpace: 'nowrap',
+          }}>← Zurück zu NOXIA</a>
+        </div>
+      )}
       {/* Page header: title as small eyebrow, subtitle as the headline */}
       <p style={{
         fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.12em',
