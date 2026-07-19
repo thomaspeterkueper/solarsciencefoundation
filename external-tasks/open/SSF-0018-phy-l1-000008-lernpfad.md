@@ -48,3 +48,8 @@ D) Weil Dampf die Energie ableitet
 - KXF-Modul: `PHY-L1-000008` in `exports/kxf-learning-modules-0.1.json`
 - NOXIA Unlock-Key: `UNL:NOX:PHY:HEAT-CAPACITY`
 - Analog zu: SSF-0009 (ECO-L0-000001) als Referenz-Implementierung
+
+
+## Erledigt 2026-07-19
+
+PATH:SSF:PHY-WASSER-WAERME-0001 (NEU: PHY-L1-000008) implementiert. c=4182 J/kgK, latente Waerme 2260 kJ/kg.
