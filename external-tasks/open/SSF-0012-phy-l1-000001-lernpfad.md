@@ -9,6 +9,7 @@ created: 2026-07-19
 module: PHY-L1-000001
 unlock: UNL:NOX:SENSOR:SPECTRAL
 blocking: NOXIA-BETA
+status: done
 ---
 
 # SSF-0012 — Lernpfad: Was die Welt aus sich macht — Spektralanalyse
