@@ -3,7 +3,7 @@
  * Path:      lib/learningPaths.ts
  * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/learningPaths.ts
  * Name:      Learning Paths registry
- * Version:   1.0.9
+ * Version:   1.1.0
  * Created:   2026-07-03
  * Modified:  2026-07-15 21:00 CEST
  * Depends:   —
@@ -4795,6 +4795,181 @@ export const learningPaths: LearningPath[] = [
             kind: 'quiz',
             title: 'Quiz: Zinseszins',
             summary: 'Zinseszins-Formel anwenden, Verdopplungszeit berechnen, warum Zeit der wichtigste Faktor ist.',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  }
+,
+
+  // ═══════════════════════════════════════════════════
+  // NOXIA-BETA TIER-1 LERNPFADE
+  // Direkt von NOXIA angefordert — schalten Beta-Gates frei
+  // SSF-0009 / SSF-0011 / SSF-0012
+  // ═══════════════════════════════════════════════════
+
+  {
+    id: 'PATH:SSF:AST-SONNENSYSTEM-0001',
+    title: 'Warum fliegen Raumschiffe Kurven — und nicht den direkten Weg',
+    subtitle: 'Hohmann-Transfer, Gravitationsschlingen und warum Energie im All teurer ist als Zeit.',
+    status: 'prototype',
+    sourceModuleId: 'AST-L1-000001',
+    kxfModuleId: 'LRN:SSF:AST-L1-000001',
+    domainsNeeded: ['KNOW:PHY-ORBITAL-MECHANICS', 'KNOW:PHY-GRAVITY', 'KNOW:AST-SOLAR-SYSTEM'],
+    suppliedBy: {
+      knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Sonnensystem-Canvas: Planeten auf Umlaufbahnen, Transferbogen animiert',
+        'Delta-v-Slider: Energie für Transferbahn, Reisezeit live',
+        'Transferfenster-Rechner: wann starten für minimale Energie',
+        'Vergleich direkter Weg vs. Hohmann: Energiedifferenz sichtbar',
+      ]
+    },
+    unlocks: ['NAV:ORBITAL', 'UNL:NOX:NAV:ORBITAL', 'AST:HOHMANN-TRANSFER'],
+    units: [
+      {
+        id: 'UNIT:ORBITAL-WARUM-KURVEN',
+        title: 'Warum keine geraden Wege im All?',
+        entryQuestion: 'Warum fliegen Raumschiffe nicht einfach direkt von Planet zu Planet — sondern große Bögen?',
+        takeaway: 'Im Weltall gibt es keinen Widerstand — aber es gibt Gravitation. Ein Raumschiff das "geradeaus" fliegt würde durch Gravitationsfelder abgelenkt. Effizienter ist es, Umlaufbahnen zu nutzen: Man beschleunigt einmal, die Schwerkraft erledigt den Rest. Der Hohmann-Transfer ist die energieminimale Verbindung zwischen zwei kreisförmigen Umlaufbahnen.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:ORBITAL-HOHMANN' },
+        sections: [
+          {
+            id: 'OBS:ORBITAL-ERDE-MARS',
+            kind: 'observation',
+            title: 'Erde zu Mars — 6 Monate, aber warum?',
+            summary: 'Eine Reise von der Erde zum Mars dauert im günstigsten Fall 6-9 Monate. Die Entfernung beträgt dann rund 78 Millionen Kilometer. Aber ein Auto das mit 120 km/h fährt würde über 74 Jahre brauchen — und das wäre der direkte Weg. Raumschiffe fahren nicht direkt. Warum?',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:ORBITAL-DEMO',
+            kind: 'experiment',
+            title: 'Experiment: Sonnensystem und Transferbahnen',
+            summary: 'Klicke auf Erde und Mars um eine Transferbahn zu berechnen. Slider: Startgeschwindigkeit (Δv). Anzeige: benötigte Energie, Reisezeit, Ankunftsfenster. Direkter Weg vs. Hohmann-Bogen Vergleich. Realistisch: Hohmann-Transfer Erde→Mars benötigt Δv ≈ 2.9 km/s, Reisezeit ≈ 259 Tage.',
+            interactive: true,
+            depthPoints: 8,
+          },
+          {
+            id: 'QUIZ:ORBITAL-1',
+            kind: 'quiz',
+            title: 'Quiz: Transferbahnen',
+            summary: 'Warum brauchen Raumschiffe nicht den direkten Weg? Was ist ein Transferfenster? Warum ist Hohmann energieoptimal?',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:ORBITAL-HOHMANN',
+        title: 'Der Hohmann-Transfer — elegante Physik',
+        entryQuestion: 'Was ist der energieminimale Weg zwischen zwei Umlaufbahnen — und was hat das mit Ellipsen zu tun?',
+        takeaway: 'Der Hohmann-Transfer nutzt eine halbelliptische Bahn: Aphelion berührt die Zielbahn, Perihelion die Startbahn. Zwei Triebwerksmanöver genügen. Die benötigte Geschwindigkeitsänderung (Δv) ist minimal. Formel: Δv₁ = √(μ/r₁) · (√(2r₂/(r₁+r₂)) - 1), wobei μ = GM. Für Erde→Mars: Δv₁ ≈ 2.94 km/s.',
+        sections: [
+          {
+            id: 'OBS:ELLIPSE-KEPLER',
+            kind: 'observation',
+            title: 'Keplers Erkenntnis: Planeten fliegen Ellipsen',
+            summary: 'Johannes Kepler erkannte 1609: Planeten bewegen sich nicht in Kreisen, sondern in Ellipsen — die Sonne steht in einem Brennpunkt. Das ist kein Zufall, sondern folgt direkt aus dem Gravitationsgesetz. Eine Transferbahn ist auch eine Ellipse — nur eben eine die zwei verschiedene Planetenbahnen verbindet.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:SOLAR-SYSTEM',
+            kind: 'experiment',
+            title: 'Experiment: Δv und Reisezeit',
+            summary: 'Interaktiver Hohmann-Rechner: Startorbit (AU), Zielorbit (AU). Ausgabe: Δv₁ (m/s), Δv₂ (m/s), Gesamtenergie (MJ/kg), Reisezeit (Tage). Voreingestellt: Erde (1 AU) → Mars (1.524 AU) → 259 Tage, Δv_ges ≈ 5.6 km/s. Vergleich mit Jupiter: 996 Tage, Δv_ges ≈ 9.2 km/s.',
+            interactive: true,
+            depthPoints: 9,
+          },
+          {
+            id: 'QUIZ:ORBITAL-2',
+            kind: 'quiz',
+            title: 'Quiz: Hohmann-Transfer',
+            summary: 'Zwei Δv-Manöver beim Hohmann-Transfer benennen, Reisezeit Erde→Mars schätzen, warum längere Reise manchmal weniger Energie braucht.',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'PATH:SSF:PHY-SPEKTRALANALYSE-0001',
+    title: 'Wie liest man aus dem Licht was ein Stern enthält',
+    subtitle: 'Spektrallinien als Fingerabdruck: Warum Natrium gelb leuchtet, Helium nicht auf der Erde entdeckt wurde — und wie NOXIA-Scanner Ressourcen erkennen.',
+    status: 'prototype',
+    sourceModuleId: 'PHY-L1-000001',
+    kxfModuleId: 'LRN:SSF:PHY-L1-000001',
+    domainsNeeded: ['KNOW:PHY-SPECTROSCOPY', 'KNOW:PHY-QUANTUM', 'KNOW:AST-STELLAR'],
+    suppliedBy: {
+      knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Spektrum-Canvas: Absorptionslinien live, Element-Fingerabdrücke vergleichen',
+        'Fraunhofer-Linien: Sonnenspektrum mit identifizierten Elementen',
+        'NOXIA-Scanner-Modus: Kachel-Spektrum → Ressource identifizieren',
+        'Doppler-Erweiterung: Rotverschiebung als Geschwindigkeitsindikator',
+      ]
+    },
+    unlocks: ['SENSOR:SPECTRAL', 'UNL:NOX:SENSOR:SPECTRAL', 'PHY:QUANTUM-LEVELS'],
+    units: [
+      {
+        id: 'UNIT:SPEKTRAL-FINGERABDRUCK',
+        title: 'Jedes Element hat einen Fingerabdruck aus Licht',
+        entryQuestion: 'Warum leuchten Straßenlaternen gelb — und wie nutzt man dasselbe Prinzip um Sterne zu analysieren?',
+        takeaway: 'Atome können Energie nur in diskreten Paketen aufnehmen und abgeben (Quantenmechanik). Jedes Element hat eine einzigartige Energiestufenstruktur — daher einzigartige Wellenlängen. Natrium emittiert bei 589 nm (gelb). Diese Linien im Spektrum sind so eindeutig wie Fingerabdrücke. Gustav Kirchhoff und Robert Bunsen entdeckten das 1859.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:SPEKTRAL-STERNE' },
+        sections: [
+          {
+            id: 'OBS:SPEKTRAL-LAMPE',
+            kind: 'observation',
+            title: 'Warum leuchten Natriumlampen gelb?',
+            summary: 'Straßenlaternen leuchten oft orange-gelb. Das ist keine Designentscheidung — es ist Physik. Natriumatome können nur Licht bei 589 nm emittieren. Diese Wellenlänge erscheint unserem Auge gelb. Kein anderes Element hat diese exakte Farbe. Das macht Spektrallinien so nützlich.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:ABSORPTIONSLINIEN',
+            kind: 'experiment',
+            title: 'Experiment: Spektrallinien identifizieren',
+            summary: 'Spektrum-Canvas mit Regenbogenband. Klick auf Elemente (H, He, Na, Fe, Ca, Mg): charakteristische Linien erscheinen als schwarze Striche. Sonnen-Fraunhofer-Spektrum laden: welche Elemente erkennst du? Nachweis: Helium wurde 1868 zuerst in der Sonne entdeckt — erst 27 Jahre später auf der Erde.',
+            interactive: true,
+            depthPoints: 8,
+          },
+          {
+            id: 'QUIZ:SPEKTRAL-1',
+            kind: 'quiz',
+            title: 'Quiz: Spektrallinien',
+            summary: 'Warum hat jedes Element eigene Spektrallinien, wie entdeckte man Helium in der Sonne, was bedeutet Absorptionsspektrum vs. Emissionsspektrum.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:SPEKTRAL-STERNE',
+        title: 'Wie Astronomen Sterne analysieren',
+        entryQuestion: 'Wie kann man aus dem Licht eines Sterns ablesen woraus er besteht — ohne je dort hinzufliegen?',
+        takeaway: 'Sternenlicht passiert die äußere Atmosphäre des Sterns. Bestimmte Wellenlängen werden dort absorbiert — jedes Element hinterlässt seinen Fingerabdruck. Teleskope zerlegen das Licht in Spektren. Fraunhofer zählte 1814 über 570 dunkle Linien im Sonnenspektrum. Heute kennen wir die meisten: Ca, Fe, Mg, H, Na, Ti.',
+        sections: [
+          {
+            id: 'OBS:SPEKTRAL-FRAUNHOFER',
+            kind: 'observation',
+            title: 'Fraunhofers dunkle Linien',
+            summary: 'Joseph von Fraunhofer entdeckte 1814 in München dunkle Linien im Sonnenspektrum. Er konnte sie nicht erklären, aber er kartographierte sie. Heute wissen wir: Kalzium erzeugt die auffälligen H und K Linien bei 393 und 396 nm. Diese Linien sieht man in fast jedem Stern — Kalzium ist im Universum häufig.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:LICHTSPEKTRUM',
+            kind: 'experiment',
+            title: 'Experiment: Stern-Spektrum analysieren',
+            summary: 'Drei Sterntypen wählen (Sonnenähnlich G2, heißer Stern A0, kühler Riese K5). Spektren werden angezeigt. Welche Linien dominieren wo? A-Stern: starke Wasserstofflinien (Balmer-Serie). G-Stern: Kalzium, Eisen. K-Stern: Molekülbanden (TiO). Temperatur-Farb-Relation: heiß = blau, kühl = rot.',
+            interactive: true,
+            depthPoints: 9,
+          },
+          {
+            id: 'QUIZ:SPEKTRAL-2',
+            kind: 'quiz',
+            title: 'Quiz: Stern-Spektroskopie',
+            summary: 'Wie liest man Sternzusammensetzung aus Spektrum, warum dominieren Wasserstofflinien in heißen Sternen, was verrät Rotverschiebung.',
             depthPoints: 15,
           },
         ],
