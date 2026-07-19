@@ -4,7 +4,7 @@
  * KUEPER · Solar Science Foundation (SSF)
  * Path:     components/learning/PathRunner.tsx
  * Name:     PathRunner — renders a LearningPath inline within the SSF shell
- * Version:  1.0.0
+ * Version:  1.1.0
  * Created:  2026-07-15
  *
  * Renders all units and sections of a LearningPath as SSF-styled content.
@@ -355,26 +355,18 @@ function SectionCard({
       className={[
         styles.sectionCard,
         section.kind === 'observation' ? styles.observation : '',
+        section.kind === 'experiment' ? styles.experimentCard : '',
         section.kind === 'quiz' ? styles.quiz : '',
       ].join(' ')}
       onMouseEnter={awardOnce}
     >
-      <div className={styles.sectionMeta}>
-        <span className={styles.kindBadge}>{kindLabel[section.kind] ?? section.kind}</span>
-        {section.optional && (
-          <button className={styles.skipBtn} onClick={() => setSkipped(true)}>überspringen</button>
-        )}
-        {section.interactive && (
-          <span className={styles.interactiveBadge}>interaktiv</span>
-        )}
-      </div>
-
+      {/* Title first — large and readable */}
       <strong className={styles.sectionTitle}>{section.title}</strong>
 
+      {/* Teaser / summary immediately below title */}
       {section.kind === 'observation' && (
         <p className={styles.observationText}>{section.summary}</p>
       )}
-
       {section.kind !== 'observation' && section.kind !== 'quiz' && section.kind !== 'experiment' && (
         <p className={styles.sectionSummary}>{section.summary}</p>
       )}
@@ -407,6 +399,17 @@ function SectionCard({
       {section.kind === 'quiz' && (
         <QuizSection section={section} onComplete={onQuizComplete} onDepth={onDepth} />
       )}
+
+      {/* Kind badge + skip — subtle, below content */}
+      <div className={styles.sectionMeta}>
+        <span className={styles.kindBadge}>{kindLabel[section.kind] ?? section.kind}</span>
+        {section.optional && (
+          <button className={styles.skipBtn} onClick={() => setSkipped(true)}>überspringen</button>
+        )}
+        {section.interactive && !ExperimentComponent && (
+          <span className={styles.interactiveBadge}>interaktiv</span>
+        )}
+      </div>
     </div>
   );
 }
@@ -430,7 +433,7 @@ function UnitBlock({
   if (!unlocked) {
     return (
       <div className={styles.unitLocked}>
-        <div className={styles.lockIcon}>🔒</div>
+        <span className={styles.lockIcon}>🔒</span>
         <p className={styles.lockText}>
           Schließe Kapitel {index} ab um weiterzugehen.
         </p>
@@ -446,12 +449,15 @@ function UnitBlock({
 
   return (
     <section className={styles.unit}>
+      {/* Unit header: chapter label + big question on top */}
       <div className={styles.unitHeader}>
         <p className={styles.unitIndex}>Kapitel {index + 1}</p>
         {unit.entryQuestion && (
           <h2 className={styles.unitQuestion}>{unit.entryQuestion}</h2>
         )}
       </div>
+
+      {/* Sections */}
       <div className={styles.sections}>
         {unit.sections.map((section) => (
           <SectionCard
@@ -466,7 +472,7 @@ function UnitBlock({
       {/* Takeaway — shown after quiz completes */}
       {quizDone && unit.takeaway && (
         <div className={styles.takeaway}>
-          <span className={styles.takeawayLabel}>Erkenntnis</span>
+          <span className={styles.takeawayLabel}>✓ Erkenntnis</span>
           <p className={styles.takeawayText}>{unit.takeaway}</p>
         </div>
       )}
