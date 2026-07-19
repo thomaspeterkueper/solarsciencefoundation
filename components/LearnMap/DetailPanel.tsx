@@ -30,7 +30,7 @@ export function DetailPanel({ module, onClose }: { module: KxfLearningModule | n
       <aside className="learn-detail-panel" onClick={(event) => event.stopPropagation()}>
         <button className="learn-detail-close" onClick={onClose} type="button">Schließen</button>
         <p className="learn-eyebrow">{module.id}</p>
-        <h2>{((module.title as any)?.de ?? (module.title as any)?.en ?? module.meta.title)}</h2>
+        <h2>{module.meta.title}</h2>
         <span className="learn-node-subject" style={{ color: subject.color, background: subject.bg }}>{subject.name}</span>
         <p className="learn-detail-question">{module.meta.entry_question}</p>
 
