@@ -45,3 +45,8 @@ A) 1.200 Cr  B) 1.210 Cr ← richtig  C) 1.100 Cr  D) 1.020 Cr
 - KXF-Modul: `ECO-L0-000002` in `exports/kxf-learning-modules-0.1.json`
 - NOXIA Unlock-Key: `UNL:NOX:bank-compound`
 - Analog zu: SSF-0009 (ECO-L0-000001) als Referenz-Implementierung
+
+
+## Erledigt 2026-07-19
+
+PATH:SSF:ECO-ZINSESZINS-NOXIA-0001 implementiert. Regel-70, exponentielle Kurve. Schaltet UNL:NOX:bank-compound frei.
