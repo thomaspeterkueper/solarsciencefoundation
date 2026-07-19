@@ -33,7 +33,7 @@ export type KxfLearningModule = {
   canonicalId?: string;
   system?: string;
   name?: string;
-  title?: string;
+  title?: string | { de?: string; en?: string };
   teaches?: string[];
   requires?: string[];
   unlocks?: string[];
@@ -271,7 +271,9 @@ export function normaliseKxfModules(kxf: KxfExport, legacyKxf?: KxfExport): Lear
     const ssfId = toSsfModuleId(module.id);
     const fallback = fallbackModuleFor(ssfId);
     const durationMinutes = moduleDuration(module, fallback);
-    const title = fallback?.title ?? module.meta?.title ?? module.title ?? module.name ?? ssfId;
+    const titleObj = typeof module.title === 'object' ? module.title : undefined;
+    const titleStr = typeof module.title === 'string' ? module.title : undefined;
+    const title = fallback?.title ?? module.meta?.title ?? titleObj?.de ?? titleObj?.en ?? titleStr ?? module.name ?? ssfId;
     const summary = fallback?.summary ?? moduleEntryQuestion(module) ?? module.meta?.i18n?.en?.summary ?? '';
 
     merged.set(ssfId, {

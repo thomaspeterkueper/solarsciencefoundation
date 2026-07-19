@@ -1,6 +1,6 @@
 'use client';
 /**
- * MillerUreyExperiment — EXP:VERBRENNUNG-CHEMIE (astrobiologie context)
+ * MillerUreyExperiment — EXP:MILLER-UREY (astrobiologie context)
  * Miller-Urey simulation: gas mix + lightning → amino acids
  */
 import { useState } from 'react';

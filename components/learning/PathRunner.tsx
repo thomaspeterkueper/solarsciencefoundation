@@ -151,7 +151,7 @@ const EXPERIMENT_MAP: Record<string, React.ComponentType> = {
   // ASTROBIOLOGIE-CLUSTER
   'EXP:DAMPFDRUCK-TEMP':       DustGrainExperiment,
   'EXP:KLIMA-EFFEKT':          EarlyEarthExperiment,
-  'EXP:VERBRENNUNG-CHEMIE':    MillerUreyExperiment,
+  'EXP:MILLER-UREY':           MillerUreyExperiment,
   'EXP:OSMOSE':                OriginOfLifeTimeline,
   // PHY-PIEZO
   'EXP:FUNKE':                 PiezoExperiment,

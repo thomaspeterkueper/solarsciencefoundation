@@ -38,7 +38,7 @@ function draw(canvas: HTMLCanvasElement, r: number, h: number, liquid: 'water' |
 
   // Multiple tubes
   const tubes = [0.1, 0.5, 1, 2, 5]; // mm radius
-  const spacing = gW => gW / (tubes.length + 1);
+  const spacing = (gW: number) => gW / (tubes.length + 1);
   const sp = (W * 0.8) / (tubes.length + 1);
 
   tubes.forEach((tr, i) => {

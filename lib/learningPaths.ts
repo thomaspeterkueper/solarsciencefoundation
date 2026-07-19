@@ -4178,7 +4178,7 @@ export const learningPaths: LearningPath[] = [
             depthPoints: 4,
           },
           {
-            id: 'EXP:VERBRENNUNG-CHEMIE',
+            id: 'EXP:MILLER-UREY',
             kind: 'experiment',
             title: 'Experiment: Miller-Urey nachbauen',
             summary: 'Kolben-Simulation: Gas-Zusammensetzung wählen (CH4, NH3, H2O, H2). Blitz-Energie-Slider. Nach Reaktion: welche organischen Moleküle entstehen? Aminosäuren-Ausbeute als Balken. Vergleich: mit vs. ohne Sauerstoff (mit O2: keine Aminosäuren — O2 würde sie zerstören).',
