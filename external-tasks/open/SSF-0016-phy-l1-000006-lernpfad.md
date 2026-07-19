@@ -9,6 +9,7 @@ created: 2026-07-19
 module: PHY-L1-000006
 unlock: UNL:NOX:PHY:SURFACE-TENSION
 blocking: NOXIA-BETA-EXTENDED
+status: done
 ---
 
 # SSF-0016 — Lernpfad: Warum kann eine Büroklammer auf Wasser schwimmen?
