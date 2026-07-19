@@ -9,6 +9,7 @@ created: 2026-07-19
 module: ECO-L0-000002
 unlock: UNL:NOX:bank-compound
 blocking: NOXIA-BETA
+status: done
 ---
 
 # SSF-0010 — Lernpfad: Zins und Zinseszins
