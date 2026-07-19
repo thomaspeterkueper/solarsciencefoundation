@@ -48,3 +48,8 @@ D) Weil die Farbe des Sterns seine Temperatur zeigt
 - KXF-Modul: `PHY-L1-000001` in `exports/kxf-learning-modules-0.1.json`
 - NOXIA Unlock-Key: `UNL:NOX:SENSOR:SPECTRAL`
 - Analog zu: SSF-0009 (ECO-L0-000001) als Referenz-Implementierung
+
+
+## Erledigt 2026-07-19
+
+PATH:SSF:PHY-SPEKTRALANALYSE-0001 implementiert. Fraunhofer-Linien, Helium-Entdeckung. Schaltet UNL:NOX:SENSOR:SPECTRAL frei.
