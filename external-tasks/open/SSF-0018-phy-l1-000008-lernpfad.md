@@ -9,6 +9,7 @@ created: 2026-07-19
 module: PHY-L1-000008
 unlock: UNL:NOX:PHY:HEAT-CAPACITY
 blocking: NOXIA-BETA-EXTENDED
+status: done
 ---
 
 # SSF-0018 — Lernpfad: Warum braucht Wasser so lange zum Kochen?
