@@ -3,7 +3,7 @@
  * Path:      lib/learningPaths.ts
  * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/learningPaths.ts
  * Name:      Learning Paths registry
- * Version:   1.1.2
+ * Version:   1.2.0
  * Created:   2026-07-03
  * Modified:  2026-07-15 21:00 CEST
  * Depends:   —
@@ -4970,6 +4970,634 @@ export const learningPaths: LearningPath[] = [
             kind: 'quiz',
             title: 'Quiz: Stern-Spektroskopie',
             summary: 'Wie liest man Sternzusammensetzung aus Spektrum, warum dominieren Wasserstofflinien in heißen Sternen, was verrät Rotverschiebung.',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  }
+,
+
+  // ═══════════════════════════════════════════════════════════════
+  // NOXIA-BETA-EXTENDED TIER-2: Wasser-Cluster (SSF-0013..0018)
+  // + NOXIA-BETA TIER-1: Wirtschaft (SSF-0009, SSF-0010)
+  // ═══════════════════════════════════════════════════════════════
+
+  {
+    id: 'PATH:SSF:ECO-KREDIT-NOXIA-0001',
+    title: 'Was ist ein Kredit — und warum gibt jemand heute etwas das erst spaeter zurueckkommt',
+    subtitle: 'Zins als Preis fuer Zeit: Kreditsumme, Laufzeit und Rueckzahlung — und wann ein Kredit in NOXIA wirklich lohnt.',
+    status: 'prototype',
+    sourceModuleId: 'ECO-L0-000001',
+    kxfModuleId: 'LRN:SSF:ECO-L0-000001',
+    domainsNeeded: ['KNOW:ECO-FINANCE', 'KNOW:MAT-ARITHMETIC'],
+    suppliedBy: {
+      knowledgeGraph: ['ECO-L0-000001 canonical', 'Prerequisite mapping'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Kredit-Rechner: Kreditsumme x Zinssatz x Laufzeit = Gesamtrueckzahlung live',
+        'NOXIA-ROI-Check: Mine 1500 Cr Kredit, +200 Cr/Tick, 75 Cr Zinsen/Tick = 125 Cr Gewinn',
+        'Tilgungsplan: Zinsen- vs. Tilgungsanteil Monat fuer Monat',
+      ]
+    },
+    unlocks: ['ECO:CREDIT-BASICS', 'UNL:NOX:bank-credit', 'NOXIA:BANK-CREDIT-TAB'],
+    units: [
+      {
+        id: 'UNIT:KREDIT-GRUNDPRINZIP',
+        title: 'Das Grundprinzip des Kredits',
+        entryQuestion: 'Warum gibt jemand heute Geld her — obwohl er es erst spaeter zurueckbekommt?',
+        takeaway: 'Ein Kredit ist ein zeitlicher Tausch: Glaeubigers Verzicht auf heutigen Konsum wird durch Zinsen entschaedigt. Der Schuldner kann heute mehr ausgeben als er hat — zahlt aber mehr zurueck als er bekam. Der Zins ist der Preis fuer diesen Zeitvorteil.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:KREDIT-NOXIA' },
+        sections: [
+          {
+            id: 'OBS:KREDIT-FAHRRAD',
+            kind: 'observation',
+            title: 'Das Fahrrad auf Pump',
+            summary: 'Ein Freund kauft ein 800-Euro-Fahrrad mit 200 Euro Erspartem. Er zahlt 50 Euro pro Monat — 18 Monate lang. Gesamtzahlung: 900 Euro. Er hat 100 Euro mehr bezahlt als das Fahrrad kostet. Diese 100 Euro sind die Zinskosten — der Preis dafuer dass er heute fahren kann.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:GAUSS',
+            kind: 'experiment',
+            title: 'Experiment: Kredit-Rechner',
+            summary: 'Drei Schieberegler: Kreditsumme (100-10.000), Zinssatz (1-20%), Laufzeit (1-60 Monate). Ausgabe: Monatsrate, Gesamtrueckzahlung, Zinskosten in Euro und Prozent. Tilgungsplan-Balken: rot=Zinsen, gruen=Tilgung. Bei kurzer Laufzeit: viel Tilgung, wenig Zinsen.',
+            interactive: true,
+            depthPoints: 8,
+          },
+          {
+            id: 'QUIZ:KREDIT-1',
+            kind: 'quiz',
+            title: 'Quiz: Kreditgrundlagen',
+            summary: 'Du nimmst 500 Credits Kredit zu 10% Zins. Nach einem Tick schuldest du: A) 500 Cr  B) 550 Cr  C) 510 Cr  D) 600 Cr — Richtig: B) 550 Cr. Zinsen = 500 x 0.10 = 50 Cr.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:KREDIT-NOXIA',
+        title: 'Wann lohnt ein Kredit in NOXIA?',
+        entryQuestion: 'Du kannst eine Mine fuer 1.500 Credits kaufen — hast aber nur 200. Lohnt der Kredit?',
+        takeaway: 'Kredit lohnt wenn: Gewinn aus Investition > Zinszahlung pro Zeiteinheit. Mine: +200 Cr/Tick Einnahmen, Kreditkosten 75 Cr/Tick, Gewinn 125 Cr/Tick. ROI positiv — Kredit lohnt. Aber: Bei zu hoher Verschuldung steigt Tilgungslast ueberproportional. Immer ROI vs. Zinslast rechnen.',
+        sections: [
+          {
+            id: 'EXP:ARBEITSPUNKT',
+            kind: 'experiment',
+            title: 'Experiment: ROI-Rechner fuer NOXIA',
+            summary: 'Investitions-Rechner: Baukosten (Kredit), Ertrag pro Tick, Zinssatz, Laufzeit. Ausgabe: Break-Even-Tick, Gesamtgewinn, Empfehlung (lohnt/lohnt nicht). Beispiel voreingestellt: Mine 1500 Cr, 5%/Tick, +200 Cr/Tick = Break-Even Tick 10.',
+            interactive: true,
+            depthPoints: 9,
+          },
+          {
+            id: 'QUIZ:KREDIT-2',
+            kind: 'quiz',
+            title: 'Quiz: Kredit und ROI',
+            summary: 'Mine kostet 1.500 Cr Kredit bei 5% Zinsen/Tick. Ertrag +200 Cr/Tick. Zinslast: 75 Cr/Tick. Netto-Gewinn pro Tick: A) 275 Cr  B) 125 Cr  C) 200 Cr  D) -75 Cr — Richtig: B) 125 Cr (200 - 75 = 125).',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'PATH:SSF:ECO-ZINSESZINS-NOXIA-0001',
+    title: 'Warum waechst ein Schuldenberg schneller als man denkt',
+    subtitle: 'Zinseszins: Wie 10% Zinsen nach 2 Ticks nicht 1.200 sondern 1.210 Credits ergibt — und warum das im Spiel entscheidend ist.',
+    status: 'prototype',
+    sourceModuleId: 'ECO-L0-000002',
+    kxfModuleId: 'LRN:SSF:ECO-L0-000002',
+    domainsNeeded: ['KNOW:ECO-FINANCE', 'KNOW:MAT-EXPONENTIAL'],
+    suppliedBy: {
+      knowledgeGraph: ['ECO-L0-000002 canonical'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Zinseszins-Simulator: Startbetrag x Rate x Ticks, linear vs. exponentiell',
+        'Schulden-Wachstum live: 1000 Cr bei 10%/Tick nach 5 Ticks = 1610.51 Cr',
+        'Verdopplungszeit: Regel-70 interaktiv (70 / Zinssatz = Ticks bis Verdopplung)',
+      ]
+    },
+    unlocks: ['ECO:COMPOUND-INTEREST', 'UNL:NOX:bank-compound', 'MATH:EXPONENTIAL-GROWTH'],
+    units: [
+      {
+        id: 'UNIT:ZINSESZINS-EFFEKT',
+        title: 'Der Unterschied der alles aendert',
+        entryQuestion: 'Du schuldest 1.000 Credits bei 10% Zinsen pro Tick. Nach 2 Ticks — 1.200 oder 1.210?',
+        takeaway: 'Zinseszins: Im zweiten Tick werden nicht 1.000, sondern 1.100 Cr verzinst (weil Tick 1 schon 100 Cr Zinsen addiert hat). Ergebnis: 1.100 x 1.10 = 1.210 Cr. Die 10 Cr Differenz klingt klein — aber bei 5 Ticks: 1.610 statt 1.500. Bei 10 Ticks: 2.594 statt 2.000. Exponentiales Wachstum ist nicht intuitiv.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:ZINSESZINS-REGEL70' },
+        sections: [
+          {
+            id: 'OBS:ZINSESZINS-UEBERRASCHUNG',
+            kind: 'observation',
+            title: 'Die ueberraschende Rechnung',
+            summary: '1.000 Credits, 10% Zinsen, 2 Ticks. Intuitiv: 1.000 + 100 + 100 = 1.200 Cr. Aber falsch — im zweiten Tick werden die Zinsen des ersten Ticks mitverzinst: 1.100 x 1.10 = 1.210 Cr. Diese 10 Cr Differenz ist der Zinseszins. Klingt wenig — ist aber der Unterschied zwischen linearem und exponentiellem Wachstum.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:KARAMELL-TEMP',
+            kind: 'experiment',
+            title: 'Experiment: Linear vs. Exponentiell',
+            summary: 'Startbetrag-Slider, Zinssatz-Slider (1-20%), Ticks-Slider (1-50). Zwei Kurven: blau = einfacher Zins (linear), rot = Zinseszins (exponentiell). Bei kurzer Laufzeit kaum Unterschied. Bei 20 Ticks, 10%: linear = 3.000, exponentiell = 6.727 Cr — mehr als doppelt. Verdopplungszeit angezeigt.',
+            interactive: true,
+            depthPoints: 8,
+          },
+          {
+            id: 'QUIZ:ZINS-1',
+            kind: 'quiz',
+            title: 'Quiz: Zinseszins berechnen',
+            summary: 'Du schuldest 1.000 Cr zu 10% Zins/Tick. Nach 2 Ticks schuldest du mit Zinseszins: A) 1.200 Cr  B) 1.210 Cr  C) 1.100 Cr  D) 1.020 Cr — Richtig: B) 1.210 Cr. Formel: 1000 x (1.10)^2 = 1.210.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:ZINSESZINS-REGEL70',
+        title: 'Die Regel-70 — Verdopplungszeit im Kopf',
+        entryQuestion: 'Wie lange dauert es bis eine Schuld sich verdoppelt — und wie rechnet man das schnell?',
+        takeaway: 'Verdopplungszeit (Ticks) ≈ 70 / Zinssatz (%). Bei 10% Zinsen: 70/10 = 7 Ticks. Bei 5%: 14 Ticks. Diese Faustregel gilt fuer Zinseszins und ist ueberraschend genau (exakte Formel: ln(2)/ln(1+r)). In NOXIA: Zinssatz vor Kreditaufnahme pruefen — bei 14%/Tick verdoppelt sich die Schuld in 5 Ticks.',
+        sections: [
+          {
+            id: 'EXP:REIHE',
+            kind: 'experiment',
+            title: 'Experiment: Verdopplungszeit',
+            summary: 'Zinssatz-Slider. Anzeige: Verdopplungszeit nach Regel-70 und exakter Formel ln(2)/ln(1+r). Vergleich bei verschiedenen Saetzen: 5%=14 Ticks, 10%=7 Ticks, 20%=3.8 Ticks. NOXIA-Warnung: ab 15% Zinsen verdoppelt sich Schuld in weniger als 5 Ticks — Insolvenzrisiko hoch.',
+            interactive: true,
+            depthPoints: 9,
+          },
+          {
+            id: 'QUIZ:ZINS-2',
+            kind: 'quiz',
+            title: 'Quiz: Verdopplungszeit',
+            summary: 'Bei 7% Zinsen/Tick: Wann verdoppelt sich die Schuld ungefaehr? A) Nach 3 Ticks  B) Nach 7 Ticks  C) Nach 10 Ticks  D) Nach 14 Ticks — Richtig: C) Nach 10 Ticks (70/7 = 10).',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'PATH:SSF:PHY-WASSER-DIPOL-0001',
+    title: 'Warum ist Wasser eigentlich so seltsam',
+    subtitle: 'Das Dipolmolekül und seine Folgen: Warum Wasser einen ungewöhnlich hohen Siedepunkt hat, Salze loest und Leben ermoeglicht.',
+    status: 'prototype',
+    sourceModuleId: 'PHY-L1-000003',
+    kxfModuleId: 'LRN:SSF:PHY-L1-000003',
+    domainsNeeded: ['KNOW:CHE-MOLECULAR', 'KNOW:PHY-ELECTROSTATICS', 'KNOW:CHE-HYDROGEN-BOND'],
+    suppliedBy: {
+      knowledgeGraph: ['PHY-L1-000003 canonical'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Dipolmodell: Ladungsverteilung im H2O-Molekuel animiert',
+        'Wasserstoffbruecken-Canvas: Molekuel-Netzwerk, Bindungsenergie 23 kJ/mol',
+        'Vergleich: H2S siedet bei -61C, H2O bei +100C — Wasserstoffbruecken erklaeren alles',
+      ]
+    },
+    unlocks: ['CHEM:WATER-MOLECULE', 'UNL:NOX:CHEM:WATER-MOLECULE', 'CHEM:HYDROGEN-BOND'],
+    units: [
+      {
+        id: 'UNIT:WASSER-DIPOL',
+        title: 'Warum Wasser ein Dipol ist',
+        entryQuestion: 'Wasser ist H₂O — zwei Wasserstoff, ein Sauerstoff. Warum hat es dann elektrische Eigenschaften?',
+        takeaway: 'Das Wassermolekuel ist gewoinkelt (104.5°). Sauerstoff ist elektronegativer als Wasserstoff — er zieht die gemeinsamen Elektronen staerker an. Dadurch entsteht eine ungleichmaessige Ladungsverteilung: Sauerstoff traegt eine Teilnegativladung (δ-), Wasserstoff eine Teilpositivladung (δ+). Das macht Wasser zum Dipolmolekuel.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:WASSER-BRUECKEN' },
+        sections: [
+          {
+            id: 'OBS:WASSER-STRAHL',
+            kind: 'observation',
+            title: 'Der verbogene Wasserstrahl',
+            summary: 'Haelt man einen aufgeladenen Kamm an einen duennen Wasserstrahl aus dem Wasserhahn, biegt sich der Strahl ab. Kein anderes haeusfiges Molekuel macht das so deutlich. Wasser ist ein elektrischer Dipol — es reagiert auf elektrische Felder.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:POLAR-SORTIERER',
+            kind: 'experiment',
+            title: 'Experiment: Dipolstruktur des Wassermolekuels',
+            summary: 'H2O-Molekuel in 3D: Winkel 104.5°, Ladungsverteilung als Farbe (rot=negativ, blau=positiv). Elektronegatifitaet-Vergleich: O=3.44, H=2.20 auf Pauling-Skala. Vergleich: H2S hat Winkel 92°, schwaecheren Dipol, siedet bei -61°C. H2O: staerkerer Dipol, siedet bei +100°C.',
+            interactive: true,
+            depthPoints: 8,
+          },
+          {
+            id: 'QUIZ:WASSER-1',
+            kind: 'quiz',
+            title: 'Quiz: Wassermolekuel',
+            summary: 'Warum hat Wasser einen ungewoehnlich hohen Siedepunkt fuer seine Molekuelgroesse? A) Weil Wasser schwer ist  B) Weil Wasserstoffbrueckenbindungen extra Energie zum Loesen brauchen  C) Weil Wasser transparent ist  D) Weil Sauerstoff schwer siedet — Richtig: B.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:WASSER-BRUECKEN',
+        title: 'Das unsichtbare Netzwerk — Wasserstoffbrueckenbindungen',
+        entryQuestion: 'Warum braucht Wasser viel mehr Energie zum Verdampfen als andere Fluessigkeiten aehnlicher Groesse?',
+        takeaway: 'Jedes Wassermolekuel bildet bis zu vier Wasserstoffbrueckenbindungen mit Nachbarn (23 kJ/mol pro Bruecke). Dieses Netzwerk muss beim Verdampfen aufgebrochen werden — das kostet Energie. Deshalb: Wasser siedet bei 100°C statt bei -80°C (wo es ohne Wasserstoffbruecken sieden wuerde). Dieselbe Energie macht Wasser zum perfekten Waermespeicher.',
+        sections: [
+          {
+            id: 'OBS:WASSER-SIEDEPUNKT',
+            kind: 'observation',
+            title: 'H2S siedet bei -61°C — H2O bei +100°C',
+            summary: 'Schwefelwasserstoff (H2S) ist das chemische Analogon zu Wasser — aber Schwefel hat eine geringere Elektronegativitaet. H2S-Molekuele bilden kaum Wasserstoffbruecken. Ergebnis: H2S ist bei Raumtemperatur ein Gas. H2O ist eine Fluessigkeit. Der einzige Unterschied: Wasserstoffbrueckenbindungen.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:HYDRATATION',
+            kind: 'experiment',
+            title: 'Experiment: Wasserstoffbruecken-Netzwerk',
+            summary: 'Canvas zeigt 12 Wassermolekuele. Wasserstoffbruecken als gestrichelte Linien (23 kJ/mol, Laenge ~0.18 nm). Temperatur-Slider: bei 0°C perfektes Gitter (Eis), bei 100°C Netzwerk bricht auf (Dampf). Vergleich der Bindungsenergie: H-Bruecke 23 kJ/mol vs. kovalente O-H-Bindung 460 kJ/mol.',
+            interactive: true,
+            depthPoints: 9,
+          },
+          {
+            id: 'QUIZ:WASSER-2',
+            kind: 'quiz',
+            title: 'Quiz: Wasserstoffbrueckenbindungen',
+            summary: 'Wie viele Wasserstoffbruecken kann ein Wassermolekuel maximal bilden? A) 1  B) 2  C) 4  D) 6 — Richtig: C) 4 (2 Donor-H und 2 Akzeptor-Lone-Pairs am Sauerstoff).',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'PATH:SSF:PHY-WASSER-PHASEN-0001',
+    title: 'Warum hat Wasser genau drei Formen — und was passiert auf dem Mars',
+    subtitle: 'Phasendiagramm: Wie Druck und Temperatur bestimmen ob Wasser fest, fluessig oder gasfoermig ist — und warum auf dem Mars kein fluessiges Wasser existiert.',
+    status: 'prototype',
+    sourceModuleId: 'PHY-L1-000004',
+    kxfModuleId: 'LRN:SSF:PHY-L1-000004',
+    domainsNeeded: ['KNOW:PHY-THERMODYNAMICS', 'KNOW:PHY-PHASE-TRANSITIONS', 'KNOW:AST-PLANETARY'],
+    suppliedBy: {
+      knowledgeGraph: ['PHY-L1-000004 canonical'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Phasendiagramm-Canvas: Druck/Temperatur-Achsen, drei Phasen, Tripelpunkt, kritischer Punkt',
+        'Mars-Marker: 6 mbar Atmosphaerendruck, unter Tripelpunkt → Sublimation',
+        'Interaktiver Cursor: Punkt im Diagramm verschieben, Phase live angezeigt',
+      ]
+    },
+    unlocks: ['PHY:PHASE-DIAGRAM', 'UNL:NOX:PHY:PHASE-DIAGRAM', 'PHY:TRIPLE-POINT'],
+    units: [
+      {
+        id: 'UNIT:PHASEN-GRUNDLAGEN',
+        title: 'Die drei Aggregatzustaende und ihre Grenzen',
+        entryQuestion: 'Warum schmilzt Eis bei genau 0°C — und aendert sich das unter hoeherem Druck?',
+        takeaway: 'Die Phasengrenzen von Wasser haengen von Druck UND Temperatur ab. Unter erhoehtem Druck schmilzt Eis bei niedrigerer Temperatur (negative Steigung der Fest/Fluessig-Grenze — Besonderheit von Wasser!). Der Tripelpunkt bei 0.006 bar / 0.01°C ist der einzige Punkt wo alle drei Phasen gleichzeitig stabil sind.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:PHASEN-MARS' },
+        sections: [
+          {
+            id: 'OBS:PHASEN-KOCHEN-BERG',
+            kind: 'observation',
+            title: 'Warum kocht Wasser im Gebirge fruehher?',
+            summary: 'Auf dem Everest (8849m, Luftdruck ~310 mbar) kocht Wasser bereits bei 69°C statt 100°C. Auf der Internationalen Raumstation (Fast-Vakuum) wuerde Wasser bei Zimmertemperatur sofort sieden. Druck beeinflusst den Siedepunkt direkt — Phasenuebergaenge sind keine festen Temperaturen sondern Kurven.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:SCHNELLKOCHTOPF',
+            kind: 'experiment',
+            title: 'Experiment: Phasendiagramm erkunden',
+            summary: 'Interaktives Phasendiagramm: X-Achse Temperatur (-50 bis 400°C), Y-Achse Druck (0.001 bis 200 bar, logarithmisch). Klick/Ziehen zeigt Phase am Cursor. Fixpunkte eingeblendet: Tripelpunkt (0.006 bar, 0.01°C), krit. Punkt (220.6 bar, 374°C). Mars-Marker bei 0.006 bar — genau am Tripelpunkt.',
+            interactive: true,
+            depthPoints: 9,
+          },
+          {
+            id: 'QUIZ:PHASEN-1',
+            kind: 'quiz',
+            title: 'Quiz: Phasendiagramm',
+            summary: 'Warum verdampft Wasser auf dem Mars direkt vom Eis ohne fluessig zu werden? A) Weil der Mars zu kalt ist  B) Weil der Atmosphaerendruck unter dem Tripelpunkt liegt  C) Weil Marswasser anders ist  D) Weil es kein Wasser gibt — Richtig: B (0.006 bar Tripelpunkt, Mars ~0.006 bar).',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:PHASEN-MARS',
+        title: 'Warum auf dem Mars kein fluessiges Wasser existiert',
+        entryQuestion: 'Der Mars hat Eis an den Polen — warum schmilzt es nicht einfach wenn es waermer wird?',
+        takeaway: 'Der Atmosphaerendruck auf dem Mars betraegt durchschnittlich 6.36 mbar — fast genau der Tripelpunkt des Wassers (6.11 mbar). Erwaermt sich Marseis, sublimiert es direkt zu Wasserdampf ohne den fluessigen Zustand zu durchlaufen. Fluessiges Wasser existiert auf der Marsoberflaeche nicht — ausser kurzzeitig in tiefen Kratern bei hoeherem lokalem Druck.',
+        sections: [
+          {
+            id: 'OBS:MARS-EIS',
+            kind: 'observation',
+            title: 'Das Eis am Marspol',
+            summary: 'Mars-Sonde Phoenix landete 2008 nahe dem Nordpol und fotografierte Wassereis. Als die Sonde begraben wurde, sublimierte das Eis um sie herum — es wurde nicht nass, es verschwand direkt als Dampf. Das ist kein Fehler der Sonde — das ist Physik des Phasendiagramms.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:DRUCK-BLASEN',
+            kind: 'experiment',
+            title: 'Experiment: Mars vs. Erde im Phasendiagramm',
+            summary: 'Phasendiagramm mit zwei Markern: Erde (1 bar, 20°C — fluessig) und Mars (0.006 bar, 0°C — Grenzpunkt). Erwaermungs-Animation: Erde-Marker wandert rechts (fluessig bleibend), Mars-Marker wandert rechts und springt direkt von fest zu gasfoermig (Sublimation). Titan-Marker als Bonus: -180°C, 1.5 bar — fluessiges Methan statt Wasser.',
+            interactive: true,
+            depthPoints: 9,
+          },
+          {
+            id: 'QUIZ:PHASEN-2',
+            kind: 'quiz',
+            title: 'Quiz: Mars und Phasenuebergaenge',
+            summary: 'Welcher Druck ist der Tripelpunkt des Wassers? A) 1 bar  B) 0.006 bar  C) 0.1 bar  D) 10 bar — Richtig: B) 0.006 bar (6.11 mbar). Darunter: kein fluessiges Wasser moeglich.',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'PATH:SSF:PHY-WASSER-EIS-0001',
+    title: 'Warum platzen Wasserleitungen im Winter von innen',
+    subtitle: 'Dichteanomalie des Wassers: Warum Eis leichter ist als fluessiges Wasser — und was das fuer Leben auf der Erde bedeutet.',
+    status: 'prototype',
+    sourceModuleId: 'PHY-L1-000005',
+    kxfModuleId: 'LRN:SSF:PHY-L1-000005',
+    domainsNeeded: ['KNOW:PHY-DENSITY', 'KNOW:CHE-CRYSTAL-STRUCTURE', 'KNOW:PHY-THERMODYNAMICS'],
+    suppliedBy: {
+      knowledgeGraph: ['PHY-L1-000005 canonical'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Dichte-Temperatur-Kurve: Maximum bei 4°C sichtbar (999.97 kg/m³)',
+        'Kristallgitter-Animation: Hexagonales Eis vs. fluessiges Wasser, Volumenvergleich',
+        'Leitungsrohr-Simulation: Wasser gefriert, Volumen +9%, Rohr platzt',
+      ]
+    },
+    unlocks: ['PHY:DENSITY-ANOMALY', 'UNL:NOX:PHY:DENSITY-ANOMALY', 'PHY:ICE-STRUCTURE'],
+    units: [
+      {
+        id: 'UNIT:EIS-DICHTE',
+        title: 'Die Anomalie die Leben ermoeglicht',
+        entryQuestion: 'Fast alle Stoffe werden beim Erstarren dichter — Wasser wird leichter. Warum?',
+        takeaway: 'Beim Gefrieren ordnen sich Wassermolekuele in ein hexagonales Kristallgitter — die Wasserstoffbruecken zwingen sie auf einen festen Abstand. Dieses Gitter hat groessere Abstaende zwischen den Molekuelen als fluessiges Wasser: Dichte Eis = 917 kg/m³, Wasser bei 0°C = 999.8 kg/m³. Eis ist 8.3% weniger dicht — deshalb schwimmt es.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:EIS-LEBEN' },
+        sections: [
+          {
+            id: 'OBS:EIS-SCHWIMMT',
+            kind: 'observation',
+            title: 'Eis schwimmt — eine Besonderheit',
+            summary: 'Wirf einen Eiswuerfel ins Glas: er schwimmt. Das klingt selbstverstaendlich, ist aber physikalisch aussergewoehnlich. Kupfer sinkt in geschmolzenem Kupfer. Eisen sinkt in fluessigem Eisen. Nur sehr wenige Stoffe haben diese Anomalie — Wasser ist der wichtigste.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:KAPILLAR',
+            kind: 'experiment',
+            title: 'Experiment: Dichte-Temperatur-Kurve',
+            summary: 'Dichte-Temperatur-Diagramm von -10°C bis +30°C. Maximum bei 4°C (999.97 kg/m³), dann fallend. Eis bei 0°C: 917 kg/m³. Volumenexpansion beim Gefrieren: +9%. Leitungsrohr-Simulation: Rohr gefuellt mit Wasser, Temperatur sinkt unter 0°C → Eis dehnt sich aus → Rohr platzt bei ca. 25 MPa Druck.',
+            interactive: true,
+            depthPoints: 8,
+          },
+          {
+            id: 'QUIZ:EIS-1',
+            kind: 'quiz',
+            title: 'Quiz: Dichteanomalie',
+            summary: 'Warum schwimmt Eis auf Wasser? A) Weil Eis weiss ist  B) Weil fluessiges Wasser bei 4°C dichter ist als Eis  C) Weil Eis Gas enthaelt  D) Weil Wasser Waerme abgibt — Richtig: B. Wasser max. Dichte 999.97 kg/m³ bei 4°C, Eis nur 917 kg/m³.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:EIS-LEBEN',
+        title: 'Warum diese Anomalie Leben auf der Erde ermoeglicht',
+        entryQuestion: 'Was waere anders wenn Eis schwerer waere als fluessiges Wasser — und was haette das fuer Folgen?',
+        takeaway: 'Wenn Eis sinkend waere: Seen wuerden von unten gefrieren. Das Eis koennte nicht isolieren — der See wuerde komplett durchgefrieren. Fische und Wasserpflanzen haetten keine Chance zu ueberleben. Stattdessen: Eis schwimmt oben, bildet eine Isolierschicht, darunter bleibt fluessiges Wasser bei 4°C. Die Dichteanomalie des Wassers ist eine Voraussetzung fuer Leben wie wir es kennen.',
+        sections: [
+          {
+            id: 'EXP:ROHR-GEFRIEREN',
+            kind: 'experiment',
+            title: 'Experiment: See im Winter',
+            summary: 'See-Simulation (10m tief). Aussentemperatur-Slider: -20°C bis +20°C. Animation zeigt Temperaturschichtung im See: oben 0°C (Eis), darunter 4°C (Maximum-Dichte-Schicht). Vergleichssimulation: "Was waere wenn Eis sinkend waere?" — See gefriert von unten, komplett fest nach wenigen Tagen.',
+            interactive: true,
+            depthPoints: 9,
+          },
+          {
+            id: 'QUIZ:EIS-2',
+            kind: 'quiz',
+            title: 'Quiz: Dichteanomalie und Leben',
+            summary: 'Welche Temperatur hat Wasser an seinem Dichtemaximum? A) 0°C  B) 4°C  C) 10°C  D) -4°C — Richtig: B) 4°C. Darum sinkt 4°C-Wasser auf den Seegrund — und Eis schwimmt oben.',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'PATH:SSF:PHY-WASSER-OBERFL-0001',
+    title: 'Warum kann eine Bueroclammer auf Wasser schwimmen',
+    subtitle: 'Oberflaechenspannung und Kapillaritaet: Wie Wassermolekuele an der Oberflaeche ein elastisches Netz bilden — und warum Pflanzen Wasser nach oben saugen.',
+    status: 'prototype',
+    sourceModuleId: 'PHY-L1-000006',
+    kxfModuleId: 'LRN:SSF:PHY-L1-000006',
+    domainsNeeded: ['KNOW:PHY-SURFACE-TENSION', 'KNOW:PHY-CAPILLARITY', 'KNOW:CHE-HYDROGEN-BOND'],
+    suppliedBy: {
+      knowledgeGraph: ['PHY-L1-000006 canonical'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Oberflaechenspannung-Visualisierung: Molekuele an Grenzflaeche vs. Inneres',
+        'Kapillar-Rechner: Rohrradius → Steigehoehe (h = 2γcosθ/ρgr)',
+        'Wasserlaefer-Animation: Kraft vs. Beine-Flaeche',
+      ]
+    },
+    unlocks: ['PHY:SURFACE-TENSION', 'UNL:NOX:PHY:SURFACE-TENSION', 'PHY:CAPILLARY-ACTION'],
+    units: [
+      {
+        id: 'UNIT:OBERFL-NETZ',
+        title: 'Das elastische Netz an der Wasseroberflaeche',
+        entryQuestion: 'Wie kann eine Bueroclammer aus Stahl auf Wasser schwimmen — wenn Stahl doch viel dichter als Wasser ist?',
+        takeaway: 'Molekuele im Inneren einer Fluessigkeit werden von allen Seiten gleichmaessig angezogen. Molekuele an der Oberflaeche werden nur nach unten und zur Seite gezogen — nicht nach oben. Das erzeugt eine Nettokraft nach innen: die Oberflaechenspannung. Wasser: γ = 72.8 mN/m bei 20°C — einer der hoechsten Werte aller Fluessigkeiten (dank Wasserstoffbruecken).',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:KAPILLAR' },
+        sections: [
+          {
+            id: 'OBS:WASSERLAEFER',
+            kind: 'observation',
+            title: 'Der Wasserlaefer und die Bueroclammer',
+            summary: 'Wasserlaeufer laufen auf Wasser — ihre Beine verformen die Oberflaeche wie eine Haut. Eine Bueroclammer flach auf Wasser gelegt schwimmt. Beides funktioniert wegen Oberflaechenspannung. Gibt man einen Tropfen Spuelmittel ins Wasser, sinkt die Bueroclammer sofort — Spuelmittel reduziert die Oberflaechenspannung von 72 auf ~30 mN/m.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:OBERFLSPANNUNG',
+            kind: 'experiment',
+            title: 'Experiment: Oberflaechenspannung messen',
+            summary: 'Molekuel-Canvas: Inneres (gruen, gleichmaessig angezogen) vs. Oberflaeche (rot, Nettokraft nach unten). Spuelmittel-Slider: Oberflaechenspannung von 72 mN/m auf 25 mN/m reduzieren. Bueroclammer-Simulation: bei γ > 50 mN/m schwimmt sie, darunter sinkt sie. Temperatur-Slider: heisseres Wasser = niedrigere Oberflaechenspannung.',
+            interactive: true,
+            depthPoints: 8,
+          },
+          {
+            id: 'QUIZ:OBERFL-1',
+            kind: 'quiz',
+            title: 'Quiz: Oberflaechenspannung',
+            summary: 'Warum steigt Wasser in einem duennen Roehrchen nach oben? A) Wegen Vakuum im Rohr  B) Weil Adhaesion zur Rohrwand staerker ist als Schwerkraft auf die Wassersaeule  C) Wegen Kapillarmagnetismus  D) Wegen Luftdruck — Richtig: B. Adhaesion (Wasser-Glas) > Gewicht der Wassersaeule.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:KAPILLAR',
+        title: 'Kapillaritaet — Wasser klettert aufwaerts',
+        entryQuestion: 'Wie schafft eine Eiche es Wasser 30 Meter nach oben zu transportieren — ohne Pumpe?',
+        takeaway: 'Kapillarsteighoehe: h = 2γ·cos(θ) / (ρ·g·r). Fuer Wasser in Glas (θ≈0°, γ=72.8 mN/m): in 0.1mm Rohr steigt Wasser 15 cm, in 0.01mm Rohr 1.5 m. Baeume nutzen Kapillarkraefte in Xylem-Roehren (~0.02mm) kombiniert mit Verdunstungszug (Transpiration) um Wasser bis 100m hochzupumpen.',
+        sections: [
+          {
+            id: 'EXP:KAPILLAR',
+            kind: 'experiment',
+            title: 'Experiment: Kapillarsteigehoehe',
+            summary: 'Kapillarrohr-Slider: Radius 0.001 bis 1 mm. Steigehoehe live nach Formel h = 2γcosθ/ρgr. Bei r=0.1mm: h=15cm. Bei r=0.01mm: h=1.5m. Bei r=0.001mm: h=15m. Baum-Vergleich: Xylem 0.02mm → 7.5m Kapillarsteigehoehe + Transpirationsscheisenkraft bis 100m.',
+            interactive: true,
+            depthPoints: 9,
+          },
+          {
+            id: 'QUIZ:OBERFL-2',
+            kind: 'quiz',
+            title: 'Quiz: Kapillaritaet',
+            summary: 'In welchem Rohr steigt Wasser am hoechsten? A) Weites Rohr (5mm)  B) Mittleres Rohr (1mm)  C) Enges Rohr (0.1mm)  D) Sehr enges Rohr (0.01mm) — Richtig: D. h ist proportional zu 1/r — engeres Rohr = groessere Steigehoehe.',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'PATH:SSF:PHY-WASSER-SUBLIM-0001',
+    title: 'Warum trocknet Waesche auch im Winter draussen',
+    subtitle: 'Sublimation und Verdunstung: Wie Wasser als Festkoerper direkt gasfoermig werden kann — und was das auf Titan bedeutet.',
+    status: 'prototype',
+    sourceModuleId: 'PHY-L1-000007',
+    kxfModuleId: 'LRN:SSF:PHY-L1-000007',
+    domainsNeeded: ['KNOW:PHY-PHASE-TRANSITIONS', 'KNOW:PHY-VAPOR-PRESSURE', 'KNOW:AST-PLANETARY'],
+    suppliedBy: {
+      knowledgeGraph: ['PHY-L1-000007 canonical'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Dampfdruck-Kurve: Temperatur vs. Dampfdruck fuer Eis und Wasser',
+        'Sublimations-Animation: Eis-Molekuele entkommen direkt in Gasphase',
+        'Titan-Kontext: Methan sublimiert/kondensiert bei -180°C statt Wasser',
+      ]
+    },
+    unlocks: ['PHY:SUBLIMATION', 'UNL:NOX:PHY:SUBLIMATION', 'PHY:VAPOR-PRESSURE'],
+    units: [
+      {
+        id: 'UNIT:SUBLIM-PRINZIP',
+        title: 'Eis trocknet ohne zu schmelzen',
+        entryQuestion: 'Gefrorene Waesche draussen im Winter wird trocken — obwohl Eis nie fluessig wird. Wie geht das?',
+        takeaway: 'Sublimation: Feste Molekuele koennen direkt in die Gasphase uebergehen wenn ihr Dampfdruck den Partialdruck in der Umgebungsluft uebersteigt. Eis bei -10°C hat einen Dampfdruck von 2.6 mbar. Trockene Winterluft hat oft weniger als 2.6 mbar Wasserdampf. Also: Eismolekuele entkommen direkt als Dampf — keine Schmelze noetig.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:SUBLIM-TITAN' },
+        sections: [
+          {
+            id: 'OBS:SUBLIM-WAESCHE',
+            kind: 'observation',
+            title: 'Gefrorene Waesche wird trocken',
+            summary: 'Haeng im Winter nasse Waesche raus wenn es unter 0°C ist. Sie gefriert. Aber nach ein paar Stunden ist sie trocken — obwohl sie nie aufgetaut ist. Das ist Sublimation: Eis geht direkt in Wasserdampf ueber. Gefriertrocknung von Lebensmitteln nutzt genau dasselbe Prinzip im Vakuum.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:DAMPFDRUCK-TEMP',
+            kind: 'experiment',
+            title: 'Experiment: Dampfdruck von Eis und Wasser',
+            summary: 'Dampfdruck-Diagramm: -30°C bis +30°C. Eis-Kurve (blau) und Wasser-Kurve (gruen). Luftfeuchtigkeit-Slider: relative Feuchte der Umgebung. Wenn Eisdampfdruck > Umgebungsdampfdruck → Sublimation. Typischer Wintertag: -10°C, 50% Feuchte = 1.3 mbar, Eis-Dampfdruck = 2.6 mbar → Sublimation.',
+            interactive: true,
+            depthPoints: 8,
+          },
+          {
+            id: 'QUIZ:SUBLIM-1',
+            kind: 'quiz',
+            title: 'Quiz: Sublimation',
+            summary: 'Auf dem Mars verdampft Wassereis ohne fluessig zu werden weil: A) Mars zu kalt  B) Niedriger Luftdruck verhindert fluessige Phase  C) Marswasser anders  D) Kein Wasser auf Mars — Richtig: B. Mars 6 mbar < Tripelpunkt 6.11 mbar.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:SUBLIM-TITAN',
+        title: 'Sublimation auf Titan — aber mit Methan',
+        entryQuestion: 'Auf Titan ist es -180°C. Dort sublimiert und kondensiert Methan statt Wasser — wie funktioniert das?',
+        takeaway: 'Methan (CH4) auf Titan verhaelt sich wie Wasser auf der Erde: es sublimiert aus dem Eis, kondensiert als Regen, bildet Seen. Siedepunkt Methan: -161°C. Auf Titan (-180°C) ist Methan am Boden fluessig, verdampft, steigt auf, kondensiert als Methanregen. Wasser ist auf Titan felsartig gefroren — zu kalt fuer Phasenuebergaenge.',
+        sections: [
+          {
+            id: 'EXP:VERDUNSTUNG',
+            kind: 'experiment',
+            title: 'Experiment: Wasser vs. Methan Phasenuebergaenge',
+            summary: 'Zwei Systeme nebeneinander: Erde (H2O, 1 bar) und Titan (CH4, 1.5 bar). Temperatur-Slider: Siedepunkte H2O=100°C, CH4=-161°C. Dampfdruck-Kurven beider Substanzen. Titan-Animation: Methan-Seen, Methanregen, Methanwolken — alles wie Wasser auf Erde, nur bei -180°C.',
+            interactive: true,
+            depthPoints: 9,
+          },
+          {
+            id: 'QUIZ:SUBLIM-2',
+            kind: 'quiz',
+            title: 'Quiz: Sublimation und Titan',
+            summary: 'Was sublimiert auf Titan bei -180°C? A) Wasser  B) Methan  C) Stickstoff  D) CO2 — Richtig: B) Methan. Wasser ist bei -180°C fest wie Fels. Methan hat Siedepunkt -161°C und bildet fluessige Seen auf Titan.',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'PATH:SSF:PHY-WASSER-WAERME-0001',
+    title: 'Warum braucht Wasser so lange zum Kochen',
+    subtitle: 'Spezifische Waermekapazitaet und latente Waerme: Warum Wasser so viel Energie speichert — und Ozeane das Klima der Erde regulieren.',
+    status: 'prototype',
+    sourceModuleId: 'PHY-L1-000008',
+    kxfModuleId: 'LRN:SSF:PHY-L1-000008',
+    domainsNeeded: ['KNOW:PHY-HEAT-CAPACITY', 'KNOW:PHY-LATENT-HEAT', 'KNOW:ENV-CLIMATE'],
+    suppliedBy: {
+      knowledgeGraph: ['PHY-L1-000008 canonical'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Erwaermungskurve: 1 kg Wasser von -20 bis +120°C, Plateaus bei 0°C und 100°C sichtbar',
+        'Vergleich Waermekapazitaet: Wasser 4182 J/kgK vs. Eisen 450 J/kgK vs. Luft 1005 J/kgK',
+        'Klimamodell: Ozean als Waermepuffer, Tagestemperaturschwankung Kueste vs. Inland',
+      ]
+    },
+    unlocks: ['PHY:HEAT-CAPACITY', 'UNL:NOX:PHY:HEAT-CAPACITY', 'PHY:LATENT-HEAT', 'ENV:OCEAN-CLIMATE'],
+    units: [
+      {
+        id: 'UNIT:WAERME-KAPAZITAET',
+        title: 'Wasser als Energiespeicher',
+        entryQuestion: 'Warum dauert es so lange bis ein Topf Wasser kocht — aber eine Eisenpfanne wird sofort heiss?',
+        takeaway: 'Spezifische Waermekapazitaet c gibt an wieviel Energie noetig ist um 1 kg um 1 K zu erwaermen. Wasser: c = 4182 J/(kg·K) — einer der hoechsten Werte aller bekannten Stoffe. Eisen: c = 450 J/(kg·K). Um 1 kg Wasser von 20 auf 100°C zu erwaermen braucht man 335 kJ — fast zehnmal mehr als fuer die gleiche Menge Eisen.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:LATENTE-WAERME' },
+        sections: [
+          {
+            id: 'OBS:WAERME-TOPF',
+            kind: 'observation',
+            title: 'Die Eisenpfanne und der Wasserkocher',
+            summary: 'Eine leere Eisenpfanne auf dem Herd wird in Sekunden kochend heiss. Ein Topf mit 1L Wasser braucht Minuten bis er kocht. Beide bekommen dieselbe Energie vom Herd. Aber Wasser speichert Energie viel effizienter als Eisen. Genau deshalb nutzen Heizkraftwerke Wasser als Waermetraeger.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:WAERMETRANSPORT',
+            kind: 'experiment',
+            title: 'Experiment: Spezifische Waermekapazitaet',
+            summary: 'Materialvergleich: Wasser (4182), Eis (2090), Aluminium (897), Eisen (450), Kupfer (385) J/(kg·K). Heizleistungs-Slider (W). Zeit bis 10°C Erwaermung fuer 1 kg je Material. Formel: Q = m·c·ΔT → t = Q/P. Bei 1000W: Wasser 41.8s/K, Eisen 4.5s/K — Wasser fast 10x traeger.',
+            interactive: true,
+            depthPoints: 8,
+          },
+          {
+            id: 'QUIZ:WAERME-1',
+            kind: 'quiz',
+            title: 'Quiz: Waermekapazitaet',
+            summary: 'Warum benoetigt Wasser beim Kochen ploetzlich sehr viel Energie ohne waermer zu werden? A) Weil der Topf Energie aufnimmt  B) Weil die Energie fuer den Phasenwechsel verbraucht wird  C) Weil Wasser ineffizient ist  D) Weil der Herd nachlasst — Richtig: B. Latente Verdampfungswaerme: 2260 kJ/kg — riesig.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:LATENTE-WAERME',
+        title: 'Latente Waerme — Energie ohne Temperaturanstieg',
+        entryQuestion: 'Was passiert mit der Energie die man in kochendes Wasser pumpt — wenn die Temperatur nicht mehr steigt?',
+        takeaway: 'Latente Verdampfungswaerme des Wassers: L = 2260 kJ/kg. Das ist die Energie die noetig ist um 1 kg Wasser bei 100°C von fluessig zu gasfoermig umzuwandeln — ohne Temperaturerhoehung. Beim Kondensieren wird dieselbe Energie wieder frei. Das erklaert: Wasserdampf verbruehst effizienter als kochendes Wasser (traegt mehr Energie), und Ozeane regulieren Klimaextrema.',
+        sections: [
+          {
+            id: 'EXP:ABSORPTIONSLINIEN',
+            kind: 'experiment',
+            title: 'Experiment: Erwaermungskurve mit Plateaus',
+            summary: 'Erwaermungskurve 1 kg Wasser von -20°C bis +120°C bei konstanter Heizleistung (1000W). Zeitachse zeigt: Schmelze bei 0°C (Plateau, 334 kJ/kg latente Schmelzwaerme), lineare Erwaermung 0-100°C (335 kJ gesamt), Verdampfung bei 100°C (langes Plateau, 2260 kJ/kg). Verhaeltnis: Verdampfen braucht 6.8x mehr Energie als Erwaermen.',
+            interactive: true,
+            depthPoints: 9,
+          },
+          {
+            id: 'QUIZ:WAERME-2',
+            kind: 'quiz',
+            title: 'Quiz: Latente Waerme',
+            summary: 'Wieviel Energie braucht man um 1 kg Wasser bei 100°C zu verdampfen? A) 334 kJ  B) 419 kJ  C) 2260 kJ  D) 4182 kJ — Richtig: C) 2260 kJ. Schmelzwaerme (0°C): 334 kJ/kg. Verdampfungswaerme (100°C): 2260 kJ/kg.',
             depthPoints: 15,
           },
         ],
