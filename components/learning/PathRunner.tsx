@@ -4,7 +4,7 @@
  * KUEPER · Solar Science Foundation (SSF)
  * Path:     components/learning/PathRunner.tsx
  * Name:     PathRunner — renders a LearningPath inline within the SSF shell
- * Version:  1.1.1
+ * Version:  1.1.2
  * Created:  2026-07-15
  *
  * Renders all units and sections of a LearningPath as SSF-styled content.
@@ -251,9 +251,15 @@ function QuizSection({
   const [locked, setLocked] = useState(false);
   const [correct, setCorrect] = useState<boolean | null>(null);
 
+  // Self-check quiz: learner confirms understanding before unlocking next unit.
+  // Full question/answer data comes from KG (KG-0005). Until then: structured
+  // self-assessment that requires honest reflection (not just clicking "right").
   const placeholder = {
     question: section.summary,
-    options: ['Richtig — ich verstehe das Prinzip.', 'Ich brauche noch eine Erklärung.'],
+    options: [
+      'Ja, ich kann das Prinzip in eigenen Worten erklären.',
+      'Nein, ich möchte den Abschnitt nochmal lesen.',
+    ],
     correctIdx: 0,
   };
 
@@ -289,7 +295,14 @@ function QuizSection({
         ))}
       </div>
       {locked && correct === false && (
-        <p className={styles.quizFeedback}>Schau noch einmal in die Erklärung oben.</p>
+        <p className={[styles.quizFeedback, styles.wrong].join(' ')}>
+          Kein Problem — lies den Abschnitt nochmal durch und versuche es dann erneut.
+        </p>
+      )}
+      {locked && correct === true && (
+        <p className={[styles.quizFeedback, styles.correct].join(' ')}>
+          ✓ Weiter zum nächsten Abschnitt.
+        </p>
       )}
     </div>
   );
