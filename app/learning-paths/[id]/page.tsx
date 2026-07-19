@@ -21,8 +21,26 @@ export default async function LearningPathDetailPage({ params }: PageProps) {
 
   return (
     <div className="container reading" style={{ paddingTop: 40, paddingBottom: 96 }}>
-      <p className="kicker" style={{ marginBottom: 8 }}>{path.title}</p>
-      <p style={{ color: 'var(--muted)', maxWidth: '60ch', fontSize: 17, lineHeight: 1.7, marginBottom: 16 }}>
+      {/* Page header: title as small eyebrow, subtitle as the headline */}
+      <p style={{
+        fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.12em',
+        textTransform: 'uppercase', color: 'var(--muted)', marginBottom: 10,
+      }}>
+        Lernreise
+      </p>
+      <h1 style={{
+        fontFamily: 'var(--font-serif)',
+        fontSize: 'clamp(26px, 4vw, 40px)',
+        fontWeight: 'normal',
+        color: 'var(--ink)',
+        lineHeight: 1.18,
+        letterSpacing: '-0.02em',
+        maxWidth: '22em',
+        marginBottom: 14,
+      }}>
+        {path.title}
+      </h1>
+      <p style={{ color: 'var(--muted)', maxWidth: '58ch', fontSize: 16, lineHeight: 1.75, marginBottom: 20 }}>
         {path.subtitle}
       </p>
 
