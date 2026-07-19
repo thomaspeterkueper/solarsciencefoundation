@@ -48,3 +48,8 @@ D) Weil es auf dem Mars kein Wasser gibt
 - KXF-Modul: `PHY-L1-000004` in `exports/kxf-learning-modules-0.1.json`
 - NOXIA Unlock-Key: `UNL:NOX:PHY:PHASE-DIAGRAM`
 - Analog zu: SSF-0009 (ECO-L0-000001) als Referenz-Implementierung
+
+
+## Erledigt 2026-07-19
+
+PATH:SSF:PHY-WASSER-PHASEN-0001 implementiert. Tripelpunkt 0.006 bar, Mars-Sublimation, Titan-Methan.
