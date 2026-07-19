@@ -236,3 +236,61 @@ This path does not yet exist in the KG.
 
 - `kurs_05_angebot_nachfrage` has no resolvable KG path until this is registered
 - KB-REQUEST-0004 (ID normalization) should align ECO module IDs before this path goes live
+
+
+---
+
+## Addendum 2 — 2026-07-19: ECO-L1-0003 — Was ist Grundrente?
+
+**Neue Anfrage:** Modul `ECO-L1-0003` für die Henry-George-Grundrente.
+
+### Modul-Definition
+
+```json
+{
+  "id": "ECO-L1-000003",
+  "title": "Was ist Grundrente?",
+  "domain": "Economics",
+  "difficulty": 2,
+  "durationMinutes": 5,
+  "summary": "Warum steigt der Wert eines Grundstücks — obwohl der Eigentümer nichts dafür getan hat?",
+  "teaches": [
+    "CON:ECO:L1:henry-george",
+    "CON:ECO:L1:grundrente",
+    "CON:ECO:L1:bodenwert"
+  ],
+  "requires": ["ECO-L0-000001"],
+  "unlocks": ["UNL:NOX:land-value"]
+}
+```
+
+### Lerninhalt (Vorschlag)
+
+Henry George beobachtete: Wenn eine Stadt wächst, steigen Bodenpreise —
+auch für Eigentümer die gar nichts investiert haben. Der Wert entsteht
+durch die Gemeinschaft (Infrastruktur, Nachbarn, Nachfrage), landet aber
+beim Privatbesitzer.
+
+Seine Lösung: Eine Steuer nur auf den Bodenwert (nicht auf Gebäude).
+Das macht Spekulation unrentabel und belohnt Nutzung statt Besitz.
+
+### NOXIA-Kontext
+
+In Marskolonien ist Boden besonders knapp. NOXIA berechnet `land_value`
+je Kachel täglich — Kacheln nahe dem Zentrum und bei hoher Bevölkerung
+sind mehr wert. Das Henry-George-Prinzip ist direkt spielbar.
+
+### Quiz-Vorschlag
+
+**Frage:** Warum gilt eine Grundsteuer auf Bodenwerte als besonders effizient?
+
+- A) Sie bestraft Arbeit und Investitionen
+- B) Sie trifft nur unverdientes Einkommen aus Lagevorteil ← korrekt
+- C) Sie erhöht den Bodenpreis
+- D) Sie gilt nur für Industriegebäude
+
+### Blocks
+
+- `UNL:NOX:land-value` in NOXIA (CITY-SIMULATION F2) benötigt dieses Modul
+- KG-Konzepte `CON:ECO:L1:henry-george` + `CON:ECO:L1:grundrente` angelegt
+  (kueper-knowledge-graph, 19.07.2026)
