@@ -9,6 +9,7 @@ created: 2026-07-19
 module: PHY-L1-000004
 unlock: UNL:NOX:PHY:PHASE-DIAGRAM
 blocking: NOXIA-BETA-EXTENDED
+status: done
 ---
 
 # SSF-0014 — Lernpfad: Warum hat Wasser genau drei Formen?
