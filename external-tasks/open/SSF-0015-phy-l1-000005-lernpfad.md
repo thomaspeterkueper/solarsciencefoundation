@@ -48,3 +48,8 @@ D) Weil Wasser beim Gefrieren Wärme abgibt
 - KXF-Modul: `PHY-L1-000005` in `exports/kxf-learning-modules-0.1.json`
 - NOXIA Unlock-Key: `UNL:NOX:PHY:DENSITY-ANOMALY`
 - Analog zu: SSF-0009 (ECO-L0-000001) als Referenz-Implementierung
+
+
+## Erledigt 2026-07-19
+
+PATH:SSF:PHY-WASSER-EIS-0001 implementiert. Dichte Eis 917 kg/m³, Expansion +9%, Dichte-Kurve mit Maximum bei 4°C.
