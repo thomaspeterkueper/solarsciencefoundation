@@ -22,7 +22,7 @@ function normalizeModule(raw: any): KxfLearningModule {
     created:  raw.created  ?? '',
     modified: raw.modified ?? '',
     meta: {
-      title:          meta.title          ?? '',
+      title:          (raw.title as any)?.de ?? (raw.title as any)?.en ?? meta.title ?? '',
       subject:        subject             as SubjectCode,
       type:           meta.type           ?? 'learning_path',
       status:         meta.status         ?? 'planned',
