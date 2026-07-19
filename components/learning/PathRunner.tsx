@@ -4,7 +4,7 @@
  * KUEPER · Solar Science Foundation (SSF)
  * Path:     components/learning/PathRunner.tsx
  * Name:     PathRunner — renders a LearningPath inline within the SSF shell
- * Version:  1.1.3
+ * Version:  1.1.4
  * Created:  2026-07-15
  *
  * Renders all units and sections of a LearningPath as SSF-styled content.
@@ -496,7 +496,7 @@ function UnitBlock({
 }
 
 // ── PathRunner (main export) ──────────────────────────────
-export default function PathRunner({ path }: { path: LearningPath }) {
+export default function PathRunner({ path, noxiaUid }: { path: LearningPath; noxiaUid?: string }) {
   const [depthRaw, setDepthRaw] = useState(0);
   const [unlockedCount, setUnlockedCount] = useState(1); // first unit always unlocked
 
