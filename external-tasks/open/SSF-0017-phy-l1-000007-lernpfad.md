@@ -9,6 +9,7 @@ created: 2026-07-19
 module: PHY-L1-000007
 unlock: UNL:NOX:PHY:SUBLIMATION
 blocking: NOXIA-BETA-EXTENDED
+status: done
 ---
 
 # SSF-0017 — Lernpfad: Warum trocknet Wäsche auch im Winter draußen?
