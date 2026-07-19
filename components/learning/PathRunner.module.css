@@ -417,3 +417,63 @@
   .unitQuestion { font-size: 22px; }
   .sectionTitle { font-size: 17px; }
 }
+
+/* ── Branch (optional side path) ── */
+.branch {
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+  padding: 16px 20px;
+  background: var(--soft);
+  opacity: 0.85;
+}
+
+.branchHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.branchContent {
+  font-size: 14px;
+  color: var(--text-2, #555);
+  line-height: 1.65;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+
+.branchBtn {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--navy);
+  background: transparent;
+  border: 1.5px solid var(--navy);
+  border-radius: 6px;
+  padding: 6px 14px;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  transition: background 0.12s, color 0.12s;
+}
+.branchBtn:hover {
+  background: var(--navy);
+  color: #fff;
+}
+
+/* ── Quiz option locked state ── */
+.quizOption.locked {
+  cursor: default;
+  opacity: 0.85;
+}
+
+/* ── Quiz feedback variants ── */
+.quizFeedback.correct {
+  background: #EBF7ED;
+  color: #2A5C32;
+  border: 1px solid #A8D5B0;
+}
+.quizFeedback.wrong {
+  background: #FDECEA;
+  color: #922B21;
+  border: 1px solid #F0A8A0;
+}
