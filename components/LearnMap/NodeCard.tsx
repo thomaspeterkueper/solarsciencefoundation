@@ -19,7 +19,7 @@ export function NodeCard({ module, onClick }: { module: KxfLearningModule; onCli
           <Badge className="learn-node-subject">{subject.name}</Badge>
           <span className="learn-node-status">{STATUS_LABEL[module.meta.status]}</span>
         </div>
-        <h3>{module.meta.title}</h3>
+        <h3>{((module.title as any)?.de ?? (module.title as any)?.en ?? module.meta.title)}</h3>
         <p>{module.meta.entry_question}</p>
         <div className="learn-node-meta">
           <span>{module.meta.duration_min}–{module.meta.duration_max} min</span>
