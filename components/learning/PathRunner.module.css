@@ -1,4 +1,4 @@
-/* PathRunner.module.css — SSF in-shell learning path renderer */
+/* PathRunner.module.css — SSF in-shell learning path renderer v1.1.0 */
 
 /* ── Depth bar ── */
 .depthBar {
@@ -7,13 +7,11 @@
   z-index: 40;
   background: var(--bg);
   border-bottom: 1px solid var(--border);
-  padding: 8px 0;
   display: flex;
   align-items: center;
   gap: 12px;
   margin: 0 -1.5rem;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
+  padding: 8px 1.5rem;
 }
 
 .depthLabel {
@@ -27,7 +25,7 @@
 
 .depthTrack {
   flex: 1;
-  height: 5px;
+  height: 4px;
   background: var(--border);
   border-radius: 3px;
   overflow: hidden;
@@ -60,48 +58,46 @@
 }
 
 /* ── Runner wrapper ── */
-.runner {
-  margin-top: 0;
-}
+.runner { margin-top: 0; }
 
 .units {
   display: grid;
   gap: 0;
-  margin-top: 48px;
+  margin-top: 40px;
 }
 
 /* ── Unit ── */
 .unit {
-  padding-top: 40px;
-  padding-bottom: 16px;
+  padding-top: 48px;
+  padding-bottom: 24px;
   border-top: 1px solid var(--border);
   scroll-margin-top: 120px;
 }
 
 .unitHeader {
-  margin-bottom: 28px;
+  margin-bottom: 32px;
 }
 
 .unitIndex {
   font-family: var(--font-mono);
   font-size: 10px;
   color: var(--gold-2, #E09400);
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   font-weight: 600;
 }
 
+/* The big question — most prominent element on page */
 .unitQuestion {
   font-family: var(--font-serif);
-  font-size: clamp(21px, 3.5vw, 28px);
+  font-size: clamp(24px, 4vw, 34px);
   font-weight: normal;
   color: var(--ink);
-  line-height: 1.2;
-  letter-spacing: -0.015em;
-  padding-bottom: 22px;
-  border-bottom: 2px solid var(--border);
-  margin-bottom: 4px;
+  line-height: 1.18;
+  letter-spacing: -0.018em;
+  margin: 0 0 24px;
+  max-width: 28em;
 }
 
 /* ── Unit locked state ── */
@@ -110,13 +106,11 @@
   border-top: 1px solid var(--border);
   display: flex;
   align-items: center;
-  gap: 16px;
-  opacity: 0.5;
+  gap: 14px;
+  opacity: 0.45;
 }
 
-.lockIcon {
-  font-size: 22px;
-}
+.lockIcon { font-size: 20px; }
 
 .lockText {
   font-family: var(--font-mono);
@@ -125,51 +119,97 @@
   letter-spacing: 0.05em;
 }
 
-/* ── Sections ── */
+/* ── Sections grid ── */
 .sections {
   display: grid;
-  gap: 14px;
+  gap: 16px;
 }
 
 /* ── Section card ── */
 .sectionCard {
   border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 18px 20px;
-  background: var(--panel);
+  border-radius: 12px;
+  padding: 22px 24px 16px;
+  background: var(--panel, #F5F4F0);
+  transition: border-color 0.15s;
 }
 
+.sectionCard:hover {
+  border-color: var(--gold, #F4A300);
+}
+
+/* Observation: warm left border, slightly different bg */
 .sectionCard.observation {
   border-left: 3px solid var(--gold);
-  border-radius: 0 10px 10px 0;
-  background: var(--soft);
+  border-radius: 0 12px 12px 0;
+  background: var(--soft, #F0EDE6);
+  padding-left: 22px;
+}
+
+/* Experiment card: dark header feel */
+.sectionCard.experimentCard {
+  background: var(--panel);
+  border-color: var(--border);
 }
 
 .sectionCard.quiz {
   background: var(--panel);
 }
 
+/* ── Section title — FIRST, large, readable ── */
+.sectionTitle {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: clamp(17px, 2.5vw, 20px);
+  font-weight: normal;
+  color: var(--ink);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
+}
+
+/* Observation: teaser text reads like a story */
+.observationText {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  color: var(--ink);
+  line-height: 1.75;
+  margin: 0 0 12px;
+}
+
+/* Non-observation summary: readable but secondary */
+.sectionSummary {
+  font-size: 14.5px;
+  color: var(--text-2, #555);
+  line-height: 1.7;
+  margin: 0 0 12px;
+}
+
+/* ── Kind badge + actions — LAST, subtle ── */
 .sectionMeta {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 8px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
   flex-wrap: wrap;
 }
 
 .kindBadge {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 9px;
   color: var(--muted);
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
+  opacity: 0.7;
 }
 
 .interactiveBadge {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 9px;
   color: var(--navy);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
@@ -185,44 +225,20 @@
   cursor: pointer;
   letter-spacing: 0.05em;
 }
-
 .skipBtn:hover {
   color: var(--ink);
   border-color: var(--muted);
 }
 
-.sectionTitle {
-  display: block;
-  font-size: 15px;
-  color: var(--ink);
-  margin-bottom: 6px;
-  line-height: 1.4;
-}
-
-.sectionSummary {
-  font-size: 14.5px;
-  color: var(--muted);
-  line-height: 1.65;
-  margin: 0;
-}
-
-.observationText {
-  font-family: var(--font-serif);
-  font-size: 16.5px;
-  color: var(--ink);
-  line-height: 1.72;
-  font-style: italic;
-  margin: 0;
-}
-
 /* ── Experiment ── */
 .experimentWrap {
-  margin-top: 16px;
+  margin-top: 14px;
+  margin-bottom: 4px;
 }
 
 .experimentPlaceholder {
-  margin-top: 16px;
-  padding: 18px;
+  margin-top: 14px;
+  padding: 16px;
   border: 1px dashed var(--border);
   border-radius: 8px;
   background: var(--soft);
@@ -233,191 +249,171 @@
 }
 
 .placeholderText {
-  font-size: 14px;
+  font-family: var(--font-mono);
+  font-size: 11px;
   color: var(--muted);
+  letter-spacing: 0.05em;
   margin: 0;
 }
 
 .protoLink {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 11px;
   color: var(--navy);
-  text-decoration: none;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 5px 12px;
+  letter-spacing: 0.04em;
+  text-decoration: underline;
 }
 
-.protoLink:hover {
-  background: var(--soft);
-}
-
-/* ── Branch ── */
-.branch {
-  border: 1px solid var(--border);
-  border-radius: 10px;
+/* ── Takeaway box ── */
+.takeaway {
+  margin-top: 24px;
   padding: 18px 20px;
-  background: var(--soft);
-}
-
-.branchHeader {
-  margin-bottom: 12px;
-}
-
-.branchBtn {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--navy);
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 6px 14px;
-  cursor: pointer;
-  transition: border-color 0.15s;
-}
-
-.branchBtn:hover {
-  border-color: var(--gold);
-}
-
-.branchContent {
-  font-size: 14.5px;
-  color: var(--muted);
-  line-height: 1.65;
-  margin-top: 12px;
-}
-
-/* ── Quiz ── */
-.quizSection {
-  margin-top: 8px;
-}
-
-.quizQuestion {
-  font-family: var(--font-serif);
-  font-size: 15.5px;
-  color: var(--ink);
-  line-height: 1.55;
-  margin-bottom: 12px;
-}
-
-.quizOptions {
+  background: var(--navy);
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
-.quizOption {
-  padding: 10px 14px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  font-size: 14px;
-  color: var(--ink);
-  background: var(--soft);
-  text-align: left;
-  cursor: pointer;
-  line-height: 1.45;
-  transition: border-color 0.12s, background 0.12s;
-  font-family: var(--font-sans);
+.takeawayLabel {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--gold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
 }
 
-.quizOption:hover:not(.locked) {
-  border-color: var(--navy);
-  background: var(--bg);
-}
-
-.quizOption.correct {
-  border-color: #7AAD7A;
-  background: #EEF3EE;
-  color: #2A5C2A;
-}
-
-.quizOption.wrong {
-  border-color: #C49090;
-  background: #F5EEEE;
-  color: #6B2222;
-}
-
-.quizOption.locked {
-  cursor: default;
-}
-
-.quizFeedback {
-  margin-top: 10px;
-  font-size: 13.5px;
-  color: var(--muted);
-  padding: 10px 14px;
-  background: var(--soft);
-  border-radius: 6px;
-  border: 1px solid var(--border);
+.takeawayText {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  color: rgba(255,255,255,0.88);
+  line-height: 1.65;
+  margin: 0;
 }
 
 /* ── Completion ── */
 .completion {
-  margin: 48px 0;
-  padding: 28px 24px;
-  background: var(--gold-bg);
-  border: 1px solid #DFC87A;
-  border-radius: 12px;
+  margin-top: 48px;
+  padding: 32px 28px;
+  border: 2px solid var(--gold);
+  border-radius: 14px;
   text-align: center;
 }
 
 .compTitle {
   font-family: var(--font-serif);
-  font-size: 22px;
-  color: var(--navy);
+  font-size: 24px;
+  color: var(--ink);
   font-weight: normal;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .compSub {
   font-family: var(--font-mono);
   font-size: 12px;
   color: var(--muted);
+  letter-spacing: 0.06em;
   margin-bottom: 16px;
 }
 
 .compKeys {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   justify-content: center;
-  flex-wrap: wrap;
+  margin-top: 14px;
 }
 
 .compKey {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 10px;
+  padding: 4px 10px;
+  background: var(--soft);
+  border: 1px solid var(--border);
+  border-radius: 20px;
   color: var(--navy);
-  background: var(--gold-bg);
-  border: 1px solid #DFC87A;
-  padding: 3px 10px;
-  border-radius: 4px;
+  letter-spacing: 0.06em;
 }
 
-/* ── Takeaway ── */
-.takeaway {
-  margin-top: 20px;
-  padding: 16px 20px;
-  background: var(--gold-bg, #FFF8E7);
-  border: 1px solid #DFC87A;
-  border-left: 3px solid var(--gold, #F4A300);
-  border-radius: 0 8px 8px 0;
+/* ── Quiz ── */
+.quizSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.takeawayLabel {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 9.5px;
-  color: var(--gold-2, #E09400);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  font-weight: 600;
-  margin-bottom: 6px;
-}
-
-.takeawayText {
+.quizQuestion {
   font-family: var(--font-serif);
-  font-size: 15.5px;
+  font-size: 17px;
   color: var(--ink);
-  line-height: 1.65;
-  margin: 0;
+  line-height: 1.45;
+  margin: 0 0 4px;
+}
+
+.quizOptions {
+  display: grid;
+  gap: 8px;
+}
+
+.quizOption {
+  width: 100%;
+  padding: 11px 15px;
+  border-radius: 8px;
+  border: 1.5px solid var(--border);
+  background: var(--soft);
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.4;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.12s, background 0.12s;
+  font-family: var(--font-sans);
+}
+
+.quizOption:hover:not(:disabled) {
+  border-color: var(--navy);
+  background: var(--panel);
+}
+
+.quizOption.correct {
+  border-color: #3A7D44;
+  background: #EBF7ED;
+  color: #2A5C32;
+  cursor: default;
+}
+
+.quizOption.wrong {
+  border-color: #C0392B;
+  background: #FDECEA;
+  color: #922B21;
+  cursor: default;
+}
+
+.quizFeedback {
+  font-size: 13.5px;
+  line-height: 1.55;
+  padding: 10px 14px;
+  border-radius: 7px;
+  margin-top: 4px;
+}
+
+.quizFeedback.correct {
+  background: #EBF7ED;
+  color: #2A5C32;
+  border: 1px solid #A8D5B0;
+}
+
+.quizFeedback.wrong {
+  background: #FDECEA;
+  color: #922B21;
+  border: 1px solid #F0A8A0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .sectionCard { padding: 16px 16px 12px; }
+  .sectionCard.observation { padding-left: 16px; }
+  .unitQuestion { font-size: 22px; }
+  .sectionTitle { font-size: 17px; }
 }
