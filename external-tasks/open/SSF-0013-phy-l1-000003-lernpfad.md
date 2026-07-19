@@ -48,3 +48,8 @@ D) Weil Sauerstoff schwer siedet
 - KXF-Modul: `PHY-L1-000003` in `exports/kxf-learning-modules-0.1.json`
 - NOXIA Unlock-Key: `UNL:NOX:CHEM:WATER-MOLECULE`
 - Analog zu: SSF-0009 (ECO-L0-000001) als Referenz-Implementierung
+
+
+## Erledigt 2026-07-19
+
+PATH:SSF:PHY-WASSER-DIPOL-0001 implementiert. Dipol 104.5°, Elektronegativitaet, H-Bruecken 23 kJ/mol.
