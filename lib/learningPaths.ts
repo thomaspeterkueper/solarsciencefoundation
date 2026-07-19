@@ -3,7 +3,7 @@
  * Path:      lib/learningPaths.ts
  * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/learningPaths.ts
  * Name:      Learning Paths registry
- * Version:   1.0.8
+ * Version:   1.0.9
  * Created:   2026-07-03
  * Modified:  2026-07-15 21:00 CEST
  * Depends:   —
@@ -835,7 +835,7 @@ export const learningPaths: LearningPath[] = [
     subtitle: 'Tenside, Mizellen und die Grenze zwischen Wasser und Oel — warum ein Molekuel mit zwei Seiten alles veraendert.',
     status: 'prototype',
     sourceModuleId: 'SSF-CHE-2001',
-    kxfModuleId: 'LRN:SSF:CHE-2001',
+    kxfModuleId: 'LRN:SSF:CHE-3001',
     domainsNeeded: ['KD:CHE-SURFACTANTS', 'KD:CHE-POLARITY', 'KD:PHY-SURFACES'],
     suppliedBy: {
       knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
@@ -1101,7 +1101,7 @@ export const learningPaths: LearningPath[] = [
     subtitle: 'Haerte, Poroesitaet und Oberflaechenstruktur: warum jedes Material anders auf Reinigung reagiert.',
     status: 'prototype',
     sourceModuleId: 'SSF-PHY-2001',
-    kxfModuleId: 'LRN:SSF:PHY-2001',
+    kxfModuleId: 'LRN:SSF:PHY-3001',
     domainsNeeded: ['KD:PHY-SURFACES', 'KD:MAT-HARDNESS', 'KD:MAT-POROSITY'],
     suppliedBy: {
       knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
@@ -1336,7 +1336,7 @@ export const learningPaths: LearningPath[] = [
     subtitle: 'Zellulose, Quellung und warum das Material entscheidet welches Reinigungsmittel sicher ist.',
     status: 'prototype',
     sourceModuleId: 'SSF-PHY-2002',
-    kxfModuleId: 'LRN:SSF:PHY-2002',
+    kxfModuleId: 'LRN:SSF:PHY-3002',
     domainsNeeded: ['KD:MAT-WOOD', 'KD:MAT-CERAMICS', 'KD:CHE-WATER-ABSORPTION'],
     suppliedBy: {
       knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
@@ -1571,7 +1571,7 @@ export const learningPaths: LearningPath[] = [
     subtitle: 'Luftdruck, Siedepunkt und warum Hochgebirgskochen laenger dauert — obwohl das Wasser heisser klingt.',
     status: 'prototype',
     sourceModuleId: 'SSF-PHY-2003',
-    kxfModuleId: 'LRN:SSF:PHY-2003',
+    kxfModuleId: 'LRN:SSF:PHY-3003',
     domainsNeeded: ['KD:PHY-PRESSURE', 'KD:PHY-PHASE-TRANSITION', 'KD:PHY-THERMODYNAMICS'],
     suppliedBy: {
       knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
@@ -1647,7 +1647,7 @@ export const learningPaths: LearningPath[] = [
     subtitle: 'Waermeabgabe, Oberflaeche und warum Form Physik ist — nicht nur Aesthetik.',
     status: 'prototype',
     sourceModuleId: 'SSF-PHY-2004',
-    kxfModuleId: 'LRN:SSF:PHY-2004',
+    kxfModuleId: 'LRN:SSF:PHY-3004',
     domainsNeeded: ['KD:PHY-HEAT-TRANSFER', 'KD:PHY-RADIATION', 'KD:PHY-CONVECTION'],
     suppliedBy: {
       knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
@@ -2377,7 +2377,7 @@ export const learningPaths: LearningPath[] = [
   subtitle: 'Von Kraft und Bewegung: Entdecke wie Antriebskraft und Haftung zusammenwirken.',
   status: 'prototype',
   sourceModuleId: 'SSF-PHY-2003',
-  kxfModuleId: 'LRN:SSF:PHY-2003',
+  kxfModuleId: 'LRN:SSF:PHY-3003',
   domainsNeeded: ['KD:PHY-MECHANICS', 'KD:PHY-FRICTION', 'KD:PHY-FORCES'],
   suppliedBy: {
     knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
@@ -2621,7 +2621,7 @@ export const learningPaths: LearningPath[] = [
   subtitle: 'Von der Explosion im Zylinder zum Kühlkreislauf: Entdecke wie ein Verbrennungsmotor Wärme erzeugt und wieder loswird.',
   status: 'prototype',
   sourceModuleId: 'SSF-PHY-2001',
-  kxfModuleId: 'LRN:SSF:PHY-2001',
+  kxfModuleId: 'LRN:SSF:PHY-3001',
   domainsNeeded: ['KD:PHY-THERMODYNAMICS', 'KD:PHY-MECHANICS', 'KD:CHE-COMBUSTION'],
   suppliedBy: {
     knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
@@ -2857,7 +2857,7 @@ export const learningPaths: LearningPath[] = [
   subtitle: 'Von der Explosion zur Drehbewegung: Entdecke die Mechanik des Motors.',
   status: 'prototype',
   sourceModuleId: 'SSF-PHY-2004',
-  kxfModuleId: 'LRN:SSF:PHY-2004',
+  kxfModuleId: 'LRN:SSF:PHY-3004',
   domainsNeeded: ['KD:PHY-MECHANICS', 'KD:PHY-FORCES', 'KD:PHY-THERMODYNAMICS'],
   suppliedBy: {
     knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
@@ -3271,7 +3271,7 @@ export const learningPaths: LearningPath[] = [
   subtitle: 'Von Reibung und Wärme: Entdecke wie Bremsen Energie in Wärme verwandeln.',
   status: 'prototype',
   sourceModuleId: 'SSF-PHY-2002',
-  kxfModuleId: 'LRN:SSF:PHY-2002',
+  kxfModuleId: 'LRN:SSF:PHY-3002',
   domainsNeeded: ['KD:PHY-MECHANICS', 'KD:PHY-THERMODYNAMICS', 'KD:PHY-FRICTION'],
   suppliedBy: {
     knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
@@ -3393,7 +3393,7 @@ export const learningPaths: LearningPath[] = [
   subtitle: 'Von Benzin zu CO₂: Entdecke die Chemie der Verbrennung.',
   status: 'prototype',
   sourceModuleId: 'SSF-CHE-2001',
-  kxfModuleId: 'LRN:SSF:CHE-2001',
+  kxfModuleId: 'LRN:SSF:CHE-3001',
   domainsNeeded: ['KD:CHE-COMBUSTION', 'KD:CHE-REACTIONS', 'KD:CHE-GASES'],
   suppliedBy: {
     knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
