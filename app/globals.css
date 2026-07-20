@@ -37,7 +37,15 @@ body {
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
 }
-main { min-height: 70vh; }
+main {
+  min-height: 70vh;
+  scroll-padding-top: var(--header-h, 132px);
+}
+
+/* Page-level sections that need to clear the sticky header */
+.page-top {
+  padding-top: max(var(--header-h, 132px), 56px);
+}
 a { color: var(--link); text-decoration: none; }
 a:hover { text-decoration: underline; }
 img { display: block; max-width: 100%; }
