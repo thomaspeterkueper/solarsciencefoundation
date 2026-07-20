@@ -1,1 +1,1 @@
-build 2026-07-20 spectral experiment
+build 2026-07-20 header overlap fix
