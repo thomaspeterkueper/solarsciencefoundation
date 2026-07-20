@@ -283,7 +283,7 @@ export default function LearningPathsPage() {
     <div style={{ paddingBottom: 96 }}>
 
       {/* ── Header ── */}
-      <header className="container" style={{ paddingTop: 56, paddingBottom: 40 }}>
+      <header className="container" style={{ paddingTop: 'max(var(--header-h, 132px), 56px)', paddingBottom: 40 }}>
         <p className="section-eyebrow">Entdecke die Welt</p>
         <h1 className="section-headline" style={{ maxWidth: '26ch', marginBottom: 12 }}>
           Jede Frage steckt voller Wissenschaft — aus mehr als einem Fach.
