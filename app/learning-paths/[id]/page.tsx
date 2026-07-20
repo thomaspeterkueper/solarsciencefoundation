@@ -24,7 +24,7 @@ export default async function LearningPathDetailPage({ params, searchParams }: P
   const isMaillard = path.id === 'PATH:SSF:CHE-KUECHE-MAILLARD-0001';
 
   return (
-    <div className="container reading" style={{ paddingTop: 40, paddingBottom: 96 }}>
+    <div className="container reading" style={{ paddingTop: 'max(var(--header-h, 132px), 40px)', paddingBottom: 96 }}>
       {/* NOXIA context banner */}
       {fromNoxia && (
         <div style={{
