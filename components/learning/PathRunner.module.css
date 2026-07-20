@@ -3,7 +3,7 @@
 /* ── Depth bar ── */
 .depthBar {
   position: sticky;
-  top: 57px;
+  top: var(--header-h, 132px);
   z-index: 40;
   background: var(--bg);
   border-bottom: 1px solid var(--border);
