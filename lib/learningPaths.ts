@@ -3,7 +3,7 @@
  * Path:      lib/learningPaths.ts
  * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/learningPaths.ts
  * Name:      Learning Paths registry
- * Version:   1.2.8
+ * Version:   1.2.9
  * Created:   2026-07-03
  * Modified:  2026-07-15 21:00 CEST
  * Depends:   —
@@ -1234,30 +1234,30 @@ export const learningPaths: LearningPath[] = [
         id: 'UNIT:ROTWEIN-FEHLER',
         title: 'Der heisse Fehler',
         entryQuestion: 'Warum wird ein Rotweinfleck auf weissem Hemd mit heissem Wasser dauerhaft — mit kaltem Wasser aber entfernbar?',
-        takeaway: 'Rotwein enthaelt Anthocyane und Proteine. Heisses Wasser denaturiert die Proteine — sie vernetzen sich mit der Textilfaser und der Fleck wird permanent. Kalt spuelen zuerst.',
+        takeaway: 'Rotwein enthaelt Anthocyane und Tannine. Heisses Wasser denaturiert Proteine — sie vernetzen sich mit der Textilfaser und der Fleck wird permanent. Dasselbe Prinzip macht ein Ei fest. Kalt spuelen zuerst.',
         gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:ROTWEIN-LOESUNG' },
         sections: [
           {
             id: 'OBS:ROTWEIN-SCHOCK',
             kind: 'observation',
-            title: 'Beobachtung: Der Fleck der bleibt',
-            summary: 'Rotwein auf weissem Hemd — Panik. Jemand sagt: heisses Wasser drueber. Das Ergebnis: der Fleck ist jetzt grau-braun und geht nicht mehr raus. Was ist passiert?',
-            depthPoints: 4,
+            title: 'Es ist passiert — und jetzt?',
+            summary: 'Du kennst diesen Moment: Rotwein schwappt aufs weisse Hemd. Erster Reflex — heisses Wasser drueber. Drei Minuten spaeter ist der Fleck grau-braun und geht nicht mehr raus. Jemand anderes haelt Eis dran — und wischt ihn fast vollstaendig weg. Was ist der Unterschied? Temperatur. Nur Temperatur.',
+            depthPoints: 5,
           },
           {
             id: 'EXP:DENATURIERUNG',
             kind: 'experiment',
-            title: 'Experiment: Protein-Denaturierung',
-            summary: 'Canvas: Protein-Knauel in Textil. Temperatur-Slider 20-100 Grad. Ab 60 Grad: Protein entfaltet sich, vernetzt mit Faser — Verbindung wird sichtbar staerker. Analogie: wie ein Ei das fest wird.',
+            title: 'Experiment: Unfall & Behandlung',
+            summary: 'Modus 1 "Unfall": Waehle deine Reaktion (heiss, kalt, Salz, Soda, Reiben). Canvas zeigt was mit den Proteinen im Hemd passiert — ab 40°C beginnt Vernetzung, ab 80°C permanent fixiert. Modus 2 "Behandlung": Schieberegler fuer Fleck-Alter, Effizienz-Balken zeigen was noch hilft.',
             interactive: true,
-            depthPoints: 7,
+            depthPoints: 10,
           },
           {
-            id: 'QUIZ:ROTWEIN-1',
+            id: 'QUIZ:ROTWEIN-WASWÄREWENN',
             kind: 'quiz',
-            title: 'Quiz: Denaturierung',
-            summary: 'Was ist Denaturierung, warum kalt zuerst, warum Ei nicht mehr fluessig wird.',
-            depthPoints: 12,
+            title: 'Quiz: Was wäre wenn — Rotweinfleck',
+            summary: '(1) Rotwein ohne Tannine — Fleck viel einfacher zu entfernen, aber kein Rotwein mehr. (2) Alter Fleck + heisses Wasser — macht es schlimmer (schon denaturiert, Hitze = mehr Vernetzung). (3) Warum hilft Salz nur bei frischen Flecken — Osmose entzieht Wasser, aber nur bevor Proteine vernetzt sind. (4) Transfer: Warum wird ein Ei beim Kochen fest? Dieselbe Denaturierung.',
+            depthPoints: 15,
           },
         ],
       },
