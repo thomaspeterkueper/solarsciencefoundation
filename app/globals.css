@@ -50,6 +50,10 @@ img { display: block; max-width: 100%; }
 .reading   { max-width: var(--readingw); margin: 0 auto; }
 
 /* ── Site header ── */
+:root {
+  --header-h: 132px; /* brand-grid ~82px + nav-row ~48px + 2px border */
+}
+
 .site-header {
   background: rgba(250,250,248,0.96);
   border-bottom: none;
