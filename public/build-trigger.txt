@@ -1,1 +1,1 @@
-build 2026-07-20 cors bypass header
+build 2026-07-20 v1.2.4
