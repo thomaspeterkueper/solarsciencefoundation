@@ -3,7 +3,7 @@
  * Path:      lib/learningPaths.ts
  * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/learningPaths.ts
  * Name:      Learning Paths registry
- * Version:   1.2.2
+ * Version:   1.2.3
  * Created:   2026-07-03
  * Modified:  2026-07-15 21:00 CEST
  * Depends:   —
@@ -5178,10 +5178,11 @@ export const learningPaths: LearningPath[] = [
             depthPoints: 9,
           },
           {
-            id: 'QUIZ:WASSER-WASWÄREWENN',
-            kind: 'quiz',
-            title: 'Quiz: Was wäre, wenn Wasser kein Dipol wäre?',
-            summary: 'Drei Überraschungsfragen: (1) Wasser siedet bei -80°C statt 100°C — was passiert mit den Ozeanen? → Permanent gefroren. (2) Eis wäre schwerer als Wasser — was passiert mit Seen im Winter? → Gefrieren von unten, alles stirbt. (3) Kein Dipol bei 37°C Körpertemperatur — was passiert mit deinem Blut? → Würde verdampfen.',
+            id: 'EXP:COULOMB-QUIZ',
+            kind: 'experiment',
+            title: 'Quiz: Was bedeutet 1 Coulomb wirklich?',
+            summary: 'Drei Fragen mit Alltagsvergleichen statt Exponenten: Wie viele Moleküle für 1 Coulomb? Wie viele für einen Blitz? Wie viele für dein Handy? Keine Zahl mit mehr als 6 Nullen ohne Vergleich.',
+            interactive: true,
             depthPoints: 15,
           },
         ],
