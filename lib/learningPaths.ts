@@ -3,7 +3,7 @@
  * Path:      lib/learningPaths.ts
  * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/learningPaths.ts
  * Name:      Learning Paths registry
- * Version:   1.2.5
+ * Version:   1.2.6
  * Created:   2026-07-03
  * Modified:  2026-07-15 21:00 CEST
  * Depends:   —
@@ -5142,7 +5142,14 @@ export const learningPaths: LearningPath[] = [
             interactive: true,
             depthPoints: 15,
           },
-        ],
+        ,
+          {
+            id: 'QUIZ:WASSER-DIPOL-1',
+            kind: 'quiz',
+            title: 'Quiz: Verstanden?',
+            summary: 'Quiz: Warum kocht Wasser bei 100°C statt -80°C? Was waere wenn Wasser kein Dipol waere?',
+            depthPoints: 12,
+          }],
       },
       {
         id: 'UNIT:WASSER-HBRUECKEN',
