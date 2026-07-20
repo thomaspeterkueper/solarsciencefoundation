@@ -14,16 +14,18 @@ const CLUSTERS: Record<string, {
     label: 'Wasser', icon: '💧', color: '#4488BB',
     horizon: 'Als nächstes: Wie kühlt ein Kühlschrank? — Verdampfungswärme und Kreisprozesse',
     ids: [
-      'PATH:SSF:PHY-WASSER-MOLEKUEL-0001','PATH:SSF:PHY-WASSER-AGGREGAT-0001',
-      'PATH:SSF:PHY-WASSER-ANOMALIE-0001','PATH:SSF:PHY-WASSER-OBERFLAECHE-0001',
-      'PATH:SSF:PHY-WASSER-DAMPF-0001','PATH:SSF:CHE-WASSER-LOESUNG-0001',
-      'PATH:SSF:PHY-WASSER-WAERME-0001',
       'PATH:SSF:PHY-WASSER-DIPOL-0001',
       'PATH:SSF:PHY-WASSER-PHASEN-0001',
       'PATH:SSF:PHY-WASSER-EIS-0001',
       'PATH:SSF:PHY-WASSER-OBERFL-0001',
       'PATH:SSF:PHY-WASSER-SUBLIM-0001',
       'PATH:SSF:PHY-WASSER-WAERME-0001',
+      'PATH:SSF:PHY-WASSER-MOLEKUEL-0001',
+      'PATH:SSF:PHY-WASSER-AGGREGAT-0001',
+      'PATH:SSF:PHY-WASSER-ANOMALIE-0001',
+      'PATH:SSF:PHY-WASSER-OBERFLAECHE-0001',
+      'PATH:SSF:PHY-WASSER-DAMPF-0001',
+      'PATH:SSF:CHE-WASSER-LOESUNG-0001',
     ],
   },
   haushalt: {
@@ -192,6 +194,30 @@ function PathCard({ path, color }: {
           {question}
         </h3>
 
+        {/* Domain-Tags */}
+        {path.domainsNeeded && path.domainsNeeded.length > 0 && (
+          <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap' }}>
+            {(path.domainsNeeded as string[]).slice(0, 3).map((d: string) => {
+              const tag = d.replace(/^KNOW:|^KD:/, '').split('-')[0];
+              const tagColors: Record<string, string> = {
+                PHY: '#5B8FB9', CHE: '#7AAD7A', MAT: '#DC143C',
+                BIO: '#B464FF', AST: '#4488BB', ENV: '#8B6914',
+                ECO: '#C9A84C', ENG: '#888', TEC: '#666',
+              };
+              const tc = tagColors[tag] ?? '#888';
+              return (
+                <span key={d} style={{
+                  fontFamily: 'var(--font-mono)', fontSize: 8.5,
+                  color: tc, letterSpacing: '.06em',
+                  padding: '2px 7px', borderRadius: 10,
+                  border: '1px solid ' + tc + '44',
+                  background: tc + '11',
+                }}>{tag}</span>
+              );
+            })}
+          </div>
+        )}
+
         {/* Meta-Zeile */}
         <div style={{
           display: 'flex', alignItems: 'center', gap: 10,
@@ -258,15 +284,35 @@ export default function LearningPathsPage() {
 
       {/* ── Header ── */}
       <header className="container" style={{ paddingTop: 56, paddingBottom: 40 }}>
-        <p className="section-eyebrow">Lernreisen</p>
+        <p className="section-eyebrow">Entdecke die Welt</p>
         <h1 className="section-headline" style={{ maxWidth: '26ch', marginBottom: 12 }}>
-          Stell dir die Frage, die dir beim Kochen, Autofahren oder Basteln kommt.
+          Jede Frage steckt voller Wissenschaft — aus mehr als einem Fach.
         </h1>
-        <p style={{ color: 'var(--muted)', fontSize: 16, lineHeight: 1.7, maxWidth: '58ch', marginBottom: 32 }}>
-          {allPaths.length} Lernreisen — von der Küche bis zur Physik des Wassers.
-          Keine Disziplinlabels. Keine Noten. Nur Fragen, die neugierig machen.
-          Wir helfen dir, sie selbst zu beantworten — mit Experimenten und Entdeckungen.
+        <p style={{ color: 'var(--muted)', fontSize: 16, lineHeight: 1.7, maxWidth: '58ch', marginBottom: 20 }}>
+          {allPaths.length} Lernreisen — kein Lehrplan, keine Disziplinlabels.
+          Nur Alltagsfragen, die in Physik, Chemie, Biologie und Mathematik führen —
+          oft gleichzeitig. Folge deiner Neugier, nicht einem Stundenplan.
         </p>
+        {/* Beispiel-Infobox: eine Szene, viele Fächer */}
+        <div style={{
+          padding: '14px 18px', borderRadius: 10, marginBottom: 28,
+          background: 'linear-gradient(135deg, var(--navy) 0%, #0F2A4A 100%)',
+          display: 'flex', alignItems: 'flex-start', gap: 14,
+        }}>
+          <span style={{ fontSize: 24, lineHeight: 1 }}>💧</span>
+          <div>
+            <p style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: '#C9A84C',
+              letterSpacing: '.1em', textTransform: 'uppercase', marginBottom: 5 }}>
+              Beispiel — eine Frage, sechs Fächer
+            </p>
+            <p style={{ fontSize: 13, color: 'rgba(255,255,255,.82)', lineHeight: 1.65, margin: 0 }}>
+              <strong style={{ color: '#fff' }}>„Warum kühlt Kaffee in einer breiten Tasse schneller?"</strong>
+              {' '}→ Physik (Wärmeleitung), Chemie (Verdunstung), Mathematik (Oberfläche:Volumen),
+              Materialwissen (Keramik vs. Glas), Biologie (Wahrnehmung), Ingenieurwesen (Design).
+              <span style={{ color: '#C9A84C' }}> In jeder Lernreise steckt mehr als ein Fach.</span>
+            </p>
+          </div>
+        </div>
 
         {/* Suche + Zufall */}
         <div style={{ display: 'flex', gap: 10, maxWidth: 600, marginBottom: 24, flexWrap: 'wrap' }}>
