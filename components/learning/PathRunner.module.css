@@ -102,12 +102,14 @@
 
 /* ── Unit locked state ── */
 .unitLocked {
-  padding: 40px 0;
-  border-top: 1px solid var(--border);
+  padding: 32px 24px;
+  border-top: 1px dashed var(--border);
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 14px;
-  opacity: 0.45;
+  margin-top: 24px;
+  border-radius: 8px;
+  background: var(--soft);
 }
 
 .lockIcon { font-size: 20px; }
