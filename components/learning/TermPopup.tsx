@@ -86,6 +86,32 @@ export const TERMS: Record<string, TermEntry> = {
     ],
   },
 
+  spektrallinie: {
+    term: 'Spektrallinie',
+    levels: [
+      { label: 'Alle', title: 'Der Fingerabdruck eines Elements',
+        text: 'Eine farbige Linie im Regenbogen — aber viel schärfer. Jedes Element hat seinen eigenen Satz von Linien, wie ein Barcode. Natrium: immer bei 589 nm (gelb). Das ist kein Zufall — das sind Quantensprünge.' },
+      { label: 'Jugendliche', title: 'Diskrete Farben statt Regenbogen',
+        text: 'Wenn man ein Element erhitzt, leuchtet es nicht in allen Farben, sondern nur an bestimmten Stellen. Wasserstoff: 656 nm (rot), 486 nm (blaugrün), 434 nm (blauviolett). Diese Linien sind so eindeutig wie ein Fingerabdruck.' },
+      { label: 'Erwachsene', title: 'Elektronenübergänge zwischen Energieniveaus',
+        text: 'Wenn ein Elektron von einem höheren auf ein niedrigeres Energieniveau fällt, sendet es ein Photon mit genau der Energiedifferenz aus. E = hf = hc/lambda. Jedes Element hat einzigartige Energieniveaus — daher einzigartige Wellenlängen.' },
+      { label: 'Studium', title: 'Bohr-Modell, Balmer-Serie, Feinstruktur',
+        text: 'Balmer-Serie H: 1/lambda = R_H (1/2^2 - 1/n^2), n=3,4,5,... R_H = 1.097e7 m^-1. Na D-Linien bei 589.0 und 589.6 nm: Spin-Bahn-Kopplung (Feinstruktur). Fraunhofer H+K (Ca): 393.4 und 396.8 nm — stärkste Linien im Sonnenspektrum.' },
+    ],
+  },
+  absorption: {
+    term: 'Absorption',
+    levels: [
+      { label: 'Alle', title: 'Licht wird verschluckt',
+        text: 'Wenn Licht durch Gas fließt, wird genau die Energie verschluckt, die das Gas aufnehmen kann. Wie wenn du einem Lied zuhörst und plötzlich ein Ton fehlt — das Zimmer hat ihn geschluckt.' },
+      { label: 'Jugendliche', title: 'Schwarze Striche im Regenbogen',
+        text: 'Sonnenlicht durch ein Prisma ergibt einen Regenbogen — aber mit feinen schwarzen Strichen. Die Sonnenatmosphäre schluckt genau die Wellenlängen, die die enthaltenen Elemente absorbieren.' },
+      { label: 'Erwachsene', title: 'Absorptionsspektrum vs. Emissionsspektrum',
+        text: 'Heißes Gas emittiert Linien (helles Spektrum auf dunklem Grund). Dasselbe Gas kühler vor einem kontinuierlichen Hintergrund erzeugt dunkle Absorptionslinien auf buntem Grund. Kirchhoffs Gesetze (1859).' },
+      { label: 'Studium', title: 'Bouguer-Lambert-Beer, Übergangswahrscheinlichkeit',
+        text: 'Absorptionsquerschnitt sigma [cm^2], Übergangswahrscheinlichkeit A_{ul} [s^-1] (Einstein-Koeffizient). Optische Tiefe tau = integral(sigma * n * ds). Äquivalentbreite W_lambda misst Stärke einer Absorptionslinie im Stellar-Spektrum.' },
+    ],
+  },
   debye: {
     term: 'Debye',
     levels: [
