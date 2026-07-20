@@ -3,7 +3,7 @@
  * Path:      lib/learningPaths.ts
  * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/learningPaths.ts
  * Name:      Learning Paths registry
- * Version:   1.2.7
+ * Version:   1.2.8
  * Created:   2026-07-03
  * Modified:  2026-07-15 21:00 CEST
  * Depends:   —
@@ -4852,87 +4852,87 @@ export const learningPaths: LearningPath[] = [
 
   {
     id: 'PATH:SSF:PHY-SPEKTRALANALYSE-0001',
-    title: 'Wie liest man aus dem Licht was ein Stern enthält',
-    subtitle: 'Spektrallinien als Fingerabdruck: Warum Natrium gelb leuchtet, Helium nicht auf der Erde entdeckt wurde — und wie NOXIA-Scanner Ressourcen erkennen.',
+    title: 'Warum Straßenlaternen gelb leuchten — und Sterne ihre Geheimnisse verraten',
+    subtitle: 'Jedes Element hat einen Licht-Fingerabdruck. Entdecke wie man ihn liest — und warum Helium zuerst auf der Sonne entdeckt wurde.',
     status: 'prototype',
     sourceModuleId: 'PHY-L1-000001',
     kxfModuleId: 'LRN:SSF:PHY-L1-000001',
     domainsNeeded: ['KNOW:PHY-SPECTROSCOPY', 'KNOW:PHY-QUANTUM', 'KNOW:AST-STELLAR'],
     suppliedBy: {
-      knowledgeGraph: ['Prerequisite links', 'Unlock mapping'],
+      knowledgeGraph: ['PHY-L1-000001 canonical'],
       kueperCom: [], overtimeArchive: [],
       ssf: [
-        'Spektrum-Canvas: Absorptionslinien live, Element-Fingerabdrücke vergleichen',
-        'Fraunhofer-Linien: Sonnenspektrum mit identifizierten Elementen',
-        'NOXIA-Scanner-Modus: Kachel-Spektrum → Ressource identifizieren',
-        'Doppler-Erweiterung: Rotverschiebung als Geschwindigkeitsindikator',
+        'SpectralAnalysisExperiment: 4 Modi — Natriumlampe, Fraunhofer, Helium-Geschichte, NOXIA-Scanner',
+        'Helium-Zeitstrahl: 1868 Sonne → 1895 Erde → heute MRT/Supraleiter',
+        'NOXIA-Gesteins-Scanner: Granit/Basalt/Erz identifizieren via Spektrallinien',
+        'Was-wäre-wenn Quiz: Natrium bei 400nm, Helium nur auf Sonne, NOXIA-Präzision',
       ]
     },
     unlocks: ['SENSOR:SPECTRAL', 'UNL:NOX:SENSOR:SPECTRAL', 'PHY:QUANTUM-LEVELS'],
     units: [
       {
         id: 'UNIT:SPEKTRAL-FINGERABDRUCK',
-        title: 'Jedes Element hat einen Fingerabdruck aus Licht',
-        entryQuestion: 'Warum leuchten Straßenlaternen gelb — und wie nutzt man dasselbe Prinzip um Sterne zu analysieren?',
-        takeaway: 'Atome können Energie nur in diskreten Paketen aufnehmen und abgeben (Quantenmechanik). Jedes Element hat eine einzigartige Energiestufenstruktur — daher einzigartige Wellenlängen. Natrium emittiert bei 589 nm (gelb). Diese Linien im Spektrum sind so eindeutig wie Fingerabdrücke. Gustav Kirchhoff und Robert Bunsen entdeckten das 1859.',
+        title: 'Der Licht-Fingerabdruck',
+        entryQuestion: 'Warum leuchten Straßenlaternen gelb — und nicht weiß oder blau?',
+        takeaway: 'Jedes Element hat einen einzigartigen Satz von Wellenlängen, bei denen es Licht aussendet oder absorbiert. Natrium sendet immer bei 589 nm — deshalb sind Natriumlampen gelb. Dieser Fingerabdruck ist so eindeutig wie ein Barcode: Kein anderes Element hat exakt dieselben Linien.',
         gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:SPEKTRAL-STERNE' },
         sections: [
           {
             id: 'OBS:SPEKTRAL-LAMPE',
             kind: 'observation',
-            title: 'Warum leuchten Natriumlampen gelb?',
-            summary: 'Straßenlaternen leuchten oft orange-gelb. Das ist keine Designentscheidung — es ist Physik. Natriumatome können nur Licht bei 589 nm emittieren. Diese Wellenlänge erscheint unserem Auge gelb. Kein anderes Element hat diese exakte Farbe. Das macht Spektrallinien so nützlich.',
-            depthPoints: 4,
+            title: 'Die gelbe Straßenlaterne',
+            summary: 'Schau heute Abend eine Straßenlaterne an. Das warme, gelbliche Licht kommt nicht von einem Design-Entscheid — es kommt von Natriumatomen. Wenn man Strom durch Natriumgas schickt, leuchten die Atome bei exakt 589 Nanometern. Das ist physikalisch unvermeidlich. Und diese eine Wellenlänge macht das typische Natriumgelb.',
+            depthPoints: 5,
           },
           {
             id: 'EXP:ABSORPTIONSLINIEN',
             kind: 'experiment',
-            title: 'Experiment: Spektrallinien identifizieren',
-            summary: 'Spektrum-Canvas mit Regenbogenband. Klick auf Elemente (H, He, Na, Fe, Ca, Mg): charakteristische Linien erscheinen als schwarze Striche. Sonnen-Fraunhofer-Spektrum laden: welche Elemente erkennst du? Nachweis: Helium wurde 1868 zuerst in der Sonne entdeckt — erst 27 Jahre später auf der Erde.',
+            title: 'Experiment: Vier Blicke auf das Licht',
+            summary: 'Vier Modi: (1) Natriumlampe — Temperatur-Slider, Linie bleibt bei 589nm. (2) Fraunhofer — klicke auf Elemente, sieh ihre dunklen Linien im Sonnenlicht. (3) Helium — Zeitstrahl 1868→1895, erste extraterrestrische Elementenentdeckung. (4) NOXIA-Scanner — scanne Gestein, rate das Element per Spektrum.',
             interactive: true,
-            depthPoints: 8,
+            depthPoints: 12,
           },
           {
-            id: 'QUIZ:SPEKTRAL-1',
+            id: 'QUIZ:SPEKTRAL-WASWÄREWENN',
             kind: 'quiz',
-            title: 'Quiz: Spektrallinien',
-            summary: 'Warum hat jedes Element eigene Spektrallinien, wie entdeckte man Helium in der Sonne, was bedeutet Absorptionsspektrum vs. Emissionsspektrum.',
-            depthPoints: 12,
+            title: 'Quiz: Was wäre wenn — Spektrallinien',
+            summary: '(1) Natrium leuchtete bei 400nm statt 589nm — welche Farbe hätten Straßenlaternen? Violett, weil 400nm im violetten Bereich liegt. (2) Helium gäbe es nur auf der Sonne — kein Helium für MRT, Supraleiter, Raumfahrt. (3) NOXIA misst auf 0.0001nm genau — 10.000x feiner als Regenbogenfarben, kleinste Spurenelemente erkennbar.',
+            depthPoints: 15,
           },
         ],
       },
       {
         id: 'UNIT:SPEKTRAL-STERNE',
-        title: 'Wie Astronomen Sterne analysieren',
-        entryQuestion: 'Wie kann man aus dem Licht eines Sterns ablesen woraus er besteht — ohne je dort hinzufliegen?',
-        takeaway: 'Sternenlicht passiert die äußere Atmosphäre des Sterns. Bestimmte Wellenlängen werden dort absorbiert — jedes Element hinterlässt seinen Fingerabdruck. Teleskope zerlegen das Licht in Spektren. Fraunhofer zählte 1814 über 570 dunkle Linien im Sonnenspektrum. Heute kennen wir die meisten: Ca, Fe, Mg, H, Na, Ti.',
+        title: 'Wie Astronomen Sterne analysieren — ohne je hinzufliegen',
+        entryQuestion: 'Wie kann man aus dem Licht eines Sterns ablesen woraus er besteht?',
+        takeaway: 'Sternenlicht passiert die Atmosphäre des Sterns. Dabei werden bestimmte Wellenlängen absorbiert — jedes Element hinterlässt seinen Fingerabdruck. Fraunhofer zählte 1814 über 570 dunkle Linien im Sonnenlicht. Heute kennen wir die meisten: Ca (H+K), Fe, Mg, H (Balmer), Na.',
         sections: [
           {
             id: 'OBS:SPEKTRAL-FRAUNHOFER',
             kind: 'observation',
-            title: 'Fraunhofers dunkle Linien',
-            summary: 'Joseph von Fraunhofer entdeckte 1814 in München dunkle Linien im Sonnenspektrum. Er konnte sie nicht erklären, aber er kartographierte sie. Heute wissen wir: Kalzium erzeugt die auffälligen H und K Linien bei 393 und 396 nm. Diese Linien sieht man in fast jedem Stern — Kalzium ist im Universum häufig.',
+            title: 'Fraunhofers dunkle Striche',
+            summary: 'Joseph von Fraunhofer entdeckte 1814 dunkle Linien im Sonnenlicht. Er kartographierte sie mit beispielloser Präzision — ohne zu wissen was sie bedeuten. Heute wissen wir: es sind Absorptionslinien. Die Sonnenatmosphäre schluckt genau die Wellenlängen, die die enthaltenen Elemente absorbieren. Die Linien H und K bei 393/396 nm verraten: in fast jedem Stern steckt Kalzium.',
             depthPoints: 4,
           },
           {
             id: 'EXP:LICHTSPEKTRUM',
             kind: 'experiment',
-            title: 'Experiment: Stern-Spektrum analysieren',
-            summary: 'Drei Sterntypen wählen (Sonnenähnlich G2, heißer Stern A0, kühler Riese K5). Spektren werden angezeigt. Welche Linien dominieren wo? A-Stern: starke Wasserstofflinien (Balmer-Serie). G-Stern: Kalzium, Eisen. K-Stern: Molekülbanden (TiO). Temperatur-Farb-Relation: heiß = blau, kühl = rot.',
+            title: 'Experiment: Sterntypen im Spektralvergleich',
+            summary: 'Wechsle im Experiment zu "Fraunhofer". Klicke verschiedene Elemente an und sieh ihre Positionen im Sonnenspektrum. Heißer Stern: Wasserstoff-Linien dominieren (Balmer: 656, 486, 434 nm). Kühler Stern: Kalzium, Eisen dominant. Sonnenähnlich: Mischung aus Ca, Fe, Mg, Na.',
             interactive: true,
-            depthPoints: 9,
+            depthPoints: 8,
           },
           {
             id: 'QUIZ:SPEKTRAL-2',
             kind: 'quiz',
-            title: 'Quiz: Stern-Spektroskopie',
-            summary: 'Wie liest man Sternzusammensetzung aus Spektrum, warum dominieren Wasserstofflinien in heißen Sternen, was verrät Rotverschiebung.',
-            depthPoints: 15,
+            title: 'Quiz: Sternspektroskopie',
+            summary: 'Welche Linien dominieren in heißen Sternen? Wasserstoff (Balmer-Serie). Was verrät Rotverschiebung? Bewegung von der Erde weg. Welches Element wurde 1868 zuerst im Sonnenlicht entdeckt? Helium (587nm).',
+            depthPoints: 12,
           },
         ],
       },
     ],
-  },
+  }
 
 
   // ═══════════════════════════════════════════════════════════════
