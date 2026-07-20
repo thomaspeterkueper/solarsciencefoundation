@@ -3,7 +3,7 @@
  * Path:      lib/learningPaths.ts
  * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/learningPaths.ts
  * Name:      Learning Paths registry
- * Version:   1.2.1
+ * Version:   1.2.2
  * Created:   2026-07-03
  * Modified:  2026-07-15 21:00 CEST
  * Depends:   —
@@ -5138,7 +5138,7 @@ export const learningPaths: LearningPath[] = [
   {
     id: 'PATH:SSF:PHY-WASSER-DIPOL-0001',
     title: 'Warum ist Wasser eigentlich so seltsam',
-    subtitle: 'Das Dipolmolekül und seine Folgen: Warum Wasser einen ungewöhnlich hohen Siedepunkt hat, Salze loest und Leben ermoeglicht.',
+    subtitle: 'Vom Kochtopf zum Dipolmolekül: Warum Wasser bei 100°C siedet statt bei -80°C — und was das mit einem Winkel von 104,5° zu tun hat.',
     status: 'prototype',
     sourceModuleId: 'PHY-L1-000003',
     kxfModuleId: 'LRN:SSF:PHY-L1-000003',
@@ -5147,76 +5147,77 @@ export const learningPaths: LearningPath[] = [
       knowledgeGraph: ['PHY-L1-000003 canonical'],
       kueperCom: [], overtimeArchive: [],
       ssf: [
-        'Dipolmodell: Ladungsverteilung im H2O-Molekuel animiert',
-        'Wasserstoffbruecken-Canvas: Molekuel-Netzwerk, Bindungsenergie 23 kJ/mol',
-        'Vergleich: H2S siedet bei -61C, H2O bei +100C — Wasserstoffbruecken erklaeren alles',
+        'WaterMoleculeExperiment: Winkel-Slider 85-120°, Dipolpfeil live, H-Brücken-Netzwerk',
+        'Pop-up Begriffe: Dipol (Wippe-Analogie), Wasserstoffbrücke (Klebe-Kraft), VSEPR, Elektronegativität',
+        'Was-wäre-wenn Quiz: Welt ohne Dipol → Ozeane gefroren, Blut würde kochen',
+        'Kapitel-Vorschau statt Sperren: Kapitel 2 sofort sichtbar',
       ]
     },
-    unlocks: ['CHEM:WATER-MOLECULE', 'UNL:NOX:CHEM:WATER-MOLECULE', 'CHEM:HYDROGEN-BOND'],
+    unlocks: ['CHEM:WATER-MOLECULE', 'UNL:NOX:CHEM:WATER-MOLECULE', 'CHEM:HYDROGEN-BOND', 'CHEM:DIPOLE'],
     units: [
       {
-        id: 'UNIT:WASSER-DIPOL',
-        title: 'Warum Wasser ein Dipol ist',
-        entryQuestion: 'Wasser ist H₂O — zwei Wasserstoff, ein Sauerstoff. Warum hat es dann elektrische Eigenschaften?',
-        takeaway: 'Das Wassermolekuel ist gewoinkelt (104.5°). Sauerstoff ist elektronegativer als Wasserstoff — er zieht die gemeinsamen Elektronen staerker an. Dadurch entsteht eine ungleichmaessige Ladungsverteilung: Sauerstoff traegt eine Teilnegativladung (δ-), Wasserstoff eine Teilpositivladung (δ+). Das macht Wasser zum Dipolmolekuel.',
-        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:WASSER-BRUECKEN' },
+        id: 'UNIT:WASSER-100GRAD',
+        title: 'Die 100-Grad-Frage',
+        entryQuestion: 'Warum kocht Wasser erst bei 100°C — obwohl es so ein leichtes Molekül ist?',
+        takeaway: 'Wasser bricht alle Regeln: Methan (CH₄) siedet bei -161°C, Ammoniak (NH₃) bei -33°C. Nach Molekülgröße müsste Wasser bei etwa -80°C sieden. Stattdessen: +100°C. Der Grund liegt in zwei unsichtbaren Kräften — dem Dipol und den Wasserstoffbrückenbindungen.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:WASSER-HBRUECKEN' },
         sections: [
           {
-            id: 'OBS:WASSER-STRAHL',
+            id: 'OBS:WASSER-KOCHTOPF',
             kind: 'observation',
-            title: 'Der verbogene Wasserstrahl',
-            summary: 'Haelt man einen aufgeladenen Kamm an einen duennen Wasserstrahl aus dem Wasserhahn, biegt sich der Strahl ab. Kein anderes haeusfiges Molekuel macht das so deutlich. Wasser ist ein elektrischer Dipol — es reagiert auf elektrische Felder.',
+            title: 'Zwei Töpfe — eine Überraschung',
+            summary: 'Füll zwei Töpfe: einen mit Wasser, einen mit Alkohol (Ethanol siedet bei 78°C). Stell beide auf den Herd. Der Alkohol kocht zuerst — obwohl Ethanol-Moleküle fast dreimal schwerer sind als Wasser. Wie kann das sein? Das Geheimnis steckt im Inneren des Wassermoleküls.',
             depthPoints: 4,
           },
           {
             id: 'EXP:POLAR-SORTIERER',
             kind: 'experiment',
-            title: 'Experiment: Dipolstruktur des Wassermolekuels',
-            summary: 'H2O-Molekuel in 3D: Winkel 104.5°, Ladungsverteilung als Farbe (rot=negativ, blau=positiv). Elektronegatifitaet-Vergleich: O=3.44, H=2.20 auf Pauling-Skala. Vergleich: H2S hat Winkel 92°, schwaecheren Dipol, siedet bei -61°C. H2O: staerkerer Dipol, siedet bei +100°C.',
+            title: 'Experiment: Den Winkel des Wassermoleküls verstehen',
+            summary: 'Ziehe den Winkel-Slider von 85° bis 120°. Bei 85°: H-Atome zu nah — sie stoßen sich ab (instabil). Bei 120°: stabiler, aber Dipol wird schwächer. Bei 104,5°: der goldene Mittelwinkel. Wechsle auf Wasserstoffbrücken-Ansicht: drei Moleküle ziehen sich gegenseitig an.',
             interactive: true,
-            depthPoints: 8,
+            depthPoints: 9,
           },
           {
-            id: 'QUIZ:WASSER-1',
+            id: 'QUIZ:WASSER-WASWÄREWENN',
             kind: 'quiz',
-            title: 'Quiz: Wassermolekuel',
-            summary: 'Warum hat Wasser einen ungewoehnlich hohen Siedepunkt fuer seine Molekuelgroesse? A) Weil Wasser schwer ist  B) Weil Wasserstoffbrueckenbindungen extra Energie zum Loesen brauchen  C) Weil Wasser transparent ist  D) Weil Sauerstoff schwer siedet — Richtig: B.',
-            depthPoints: 12,
+            title: 'Quiz: Was wäre, wenn Wasser kein Dipol wäre?',
+            summary: 'Drei Überraschungsfragen: (1) Wasser siedet bei -80°C statt 100°C — was passiert mit den Ozeanen? → Permanent gefroren. (2) Eis wäre schwerer als Wasser — was passiert mit Seen im Winter? → Gefrieren von unten, alles stirbt. (3) Kein Dipol bei 37°C Körpertemperatur — was passiert mit deinem Blut? → Würde verdampfen.',
+            depthPoints: 15,
           },
         ],
       },
       {
-        id: 'UNIT:WASSER-BRUECKEN',
-        title: 'Das unsichtbare Netzwerk — Wasserstoffbrueckenbindungen',
-        entryQuestion: 'Warum braucht Wasser viel mehr Energie zum Verdampfen als andere Fluessigkeiten aehnlicher Groesse?',
-        takeaway: 'Jedes Wassermolekuel bildet bis zu vier Wasserstoffbrueckenbindungen mit Nachbarn (23 kJ/mol pro Bruecke). Dieses Netzwerk muss beim Verdampfen aufgebrochen werden — das kostet Energie. Deshalb: Wasser siedet bei 100°C statt bei -80°C (wo es ohne Wasserstoffbruecken sieden wuerde). Dieselbe Energie macht Wasser zum perfekten Waermespeicher.',
+        id: 'UNIT:WASSER-HBRUECKEN',
+        title: 'Das unsichtbare Netzwerk',
+        entryQuestion: 'Warum braucht Wasser so viel Energie zum Verdampfen — und was hält die Moleküle zusammen?',
+        takeaway: 'Jedes Wassermolekül bildet bis zu 4 Wasserstoffbrücken mit seinen Nachbarn (Energie: 23 kJ/mol pro Brücke). Dieses Netzwerk muss beim Kochen aufgebrochen werden — das kostet extra Energie. Deshalb der hohe Siedepunkt. Beim Gefrieren wird das Netzwerk starr und bildet ein geordnetes Gitter — dabei dehnt Wasser sich aus, Eis schwimmt.',
         sections: [
           {
-            id: 'OBS:WASSER-SIEDEPUNKT',
+            id: 'OBS:WASSER-STRAHL',
             kind: 'observation',
-            title: 'H2S siedet bei -61°C — H2O bei +100°C',
-            summary: 'Schwefelwasserstoff (H2S) ist das chemische Analogon zu Wasser — aber Schwefel hat eine geringere Elektronegativitaet. H2S-Molekuele bilden kaum Wasserstoffbruecken. Ergebnis: H2S ist bei Raumtemperatur ein Gas. H2O ist eine Fluessigkeit. Der einzige Unterschied: Wasserstoffbrueckenbindungen.',
+            title: 'Der verbogene Wasserstrahl',
+            summary: 'Halte einen aufgeladenen Plastikkamm an einen dünnen Wasserstrahl vom Wasserhahn — der Strahl biegt sich ab. Kein anderes häufiges Haushaltsmittel reagiert so deutlich. Wasser ist ein elektrischer Dipol: die negative Seite (Sauerstoff) wird vom positiven Kamm angezogen.',
             depthPoints: 4,
           },
           {
             id: 'EXP:HYDRATATION',
             kind: 'experiment',
-            title: 'Experiment: Wasserstoffbruecken-Netzwerk',
-            summary: 'Canvas zeigt 12 Wassermolekuele. Wasserstoffbruecken als gestrichelte Linien (23 kJ/mol, Laenge ~0.18 nm). Temperatur-Slider: bei 0°C perfektes Gitter (Eis), bei 100°C Netzwerk bricht auf (Dampf). Vergleich der Bindungsenergie: H-Bruecke 23 kJ/mol vs. kovalente O-H-Bindung 460 kJ/mol.',
+            title: 'Experiment: Wasserstoffbrücken-Netzwerk',
+            summary: 'Wechsle im Experiment auf "Wasserstoffbrücken": Drei Wassermoleküle mit pulsierenden goldenen Verbindungslinien. Jede Linie: 23 kJ/mol. Zum Vergleich: eine kovalente O-H Bindung hat 460 kJ/mol — 20-mal stärker. Aber es gibt Milliarden Brücken gleichzeitig. Das macht Wasser zäh.',
             interactive: true,
-            depthPoints: 9,
+            depthPoints: 8,
           },
           {
             id: 'QUIZ:WASSER-2',
             kind: 'quiz',
-            title: 'Quiz: Wasserstoffbrueckenbindungen',
-            summary: 'Wie viele Wasserstoffbruecken kann ein Wassermolekuel maximal bilden? A) 1  B) 2  C) 4  D) 6 — Richtig: C) 4 (2 Donor-H und 2 Akzeptor-Lone-Pairs am Sauerstoff).',
-            depthPoints: 15,
+            title: 'Quiz: Wasserstoffbrücken',
+            summary: 'Wie viele Wasserstoffbrücken bildet ein Wassermolekül maximal? Warum kühlt Schweiß die Haut? Warum braucht ein nasses Hemd Energie zum Trocknen?',
+            depthPoints: 12,
           },
         ],
       },
     ],
-  },
+  }
 
   {
     id: 'PATH:SSF:PHY-WASSER-PHASEN-0001',
