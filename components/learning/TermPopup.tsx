@@ -99,6 +99,45 @@ export const TERMS: Record<string, TermEntry> = {
         text: 'Balmer-Serie H: 1/lambda = R_H (1/2^2 - 1/n^2), n=3,4,5,... R_H = 1.097e7 m^-1. Na D-Linien bei 589.0 und 589.6 nm: Spin-Bahn-Kopplung (Feinstruktur). Fraunhofer H+K (Ca): 393.4 und 396.8 nm — stärkste Linien im Sonnenspektrum.' },
     ],
   },
+  denaturierung: {
+    term: 'Denaturierung',
+    levels: [
+      { label: 'Alle', title: 'Wenn Proteine ihre Form verlieren',
+        text: 'Wie ein Ei beim Kochen: Es war fluessig — dann fest. Das ist Denaturierung. Die dreidimensionale Struktur des Proteins wird zerstoert. Bei Hitze, Saeure oder mechanischer Einwirkung — meist unwiderruflich.' },
+      { label: 'Jugendliche', title: 'Hitze entknaeult das Protein',
+        text: 'Proteine sind wie aufgeknaeulte Faeden. Bei Normaltemperatur behalten sie ihre Form. Hitze loest die Knauel auf — sie verklumpen neu. Beim Ei: Eiweiss-Proteinfaeden verklumpen und werden fest. Bei Rotwein: Farbstoff-Proteinkomplexe verbinden sich mit der Textilfaser.' },
+      { label: 'Erwachsene', title: 'Irreversibler Verlust der Tertiaerstruktur',
+        text: 'Denaturierung = Verlust der Tertiaerstruktur (3D-Faltung) ohne Spaltung der Peptidbindungen. Ausloser: Hitze (>40-60°C), Saeure (pH <4), Lauge (pH >10), mechanische Energie. Ergebnis: Aggregation, veraenderte Loeslichkeit, Verlust biologischer Funktion.' },
+      { label: 'Studium', title: 'Thermodynamik: delta-G der Entfaltung',
+        text: 'Faltungsstabilitaet: delta-G_fold = -20 bis -60 kJ/mol (schwach! Nur wenige H-Bruecken + hydrophober Effekt). Denaturierungstemperatur T_m (Schmelzpunkt): hier delta-G = 0. Kooperativer Uebergang (alles-oder-nichts). Reversibel bei milden Bedingungen (Chaperone koennen refalten). Irreversibel bei Aggregation (z.B. gekochtes Ei).' },
+    ],
+  },
+  tannine: {
+    term: 'Tannine',
+    levels: [
+      { label: 'Alle', title: 'Die Gerbstoffe im Rotwein',
+        text: 'Tannine geben Rotwein seine Bitterkeit und Adstringenz (das Zuziehendes im Mund). Sie kommen aus den Traubenschalen, Kernen und Stielen. Und sie sind der Grund warum Rotweinflecken so hartnäckig sind — Tannine binden an Proteine.' },
+      { label: 'Jugendliche', title: 'Natuerliche Gerbstoffe aus der Traube',
+        text: 'Tannine (Polyphenole) heften sich an Proteine — wie Klettband. Im Mund: binden an Speichelproteine → trockenes Gefühl (Adstringenz). Im Hemd: binden an Textilfasern-Proteine → bei Hitze unlösliche Verbindung. Weisswein hat kaum Tannine — deshalb sind Weissweinflecken einfacher zu entfernen.' },
+      { label: 'Erwachsene', title: 'Polyphenole: Kondensiert und hydrolysierbar',
+        text: 'Zwei Typen: kondensierte Tannine (Proanthocyanidine, aus Traubenschalen/Kernen) und hydrolysierbare Tannine (Gallotannine, aus Holzfassern). Kondensierte Tannine binden an Proteine via H-Bruecken und hydrophobe Wechselwirkungen. Bei Hitze: kovalente Bindungen entstehen → unlöslich.' },
+      { label: 'Studium', title: 'Astringenz-Mechanismus und Protein-Polyphenol-Komplexe',
+        text: 'Tannin-Protein-Wechselwirkung: H-Bruecken zwischen OH-Gruppen der Polyphenole und Peptidbindungen/Seitenketten. Hydrophobe Stapelwechselwirkung (pi-pi). Komplexstabilitaet steigt mit Tanningroesse (polymerisierte Tannine staerker). Salivary-Protein-Praezipitation: IgA, Prolin-reiche Proteine. MW > 500 Da noetig fuer Adstringenz.' },
+    ],
+  },
+  osmose: {
+    term: 'Osmose',
+    levels: [
+      { label: 'Alle', title: 'Wasser wandert zum Salz hin',
+        text: 'Schütte Salz auf einen frischen Fleck: Das Salz zieht das Wasser aus dem Fleck heraus. Das Wasser wandert immer dorthin, wo mehr geloeste Stoffe (z.B. Salz) sind. Das nennt man Osmose.' },
+      { label: 'Jugendliche', title: 'Wasser wandert durch eine Membran',
+        text: 'Osmose: Wasser diffundiert durch eine halbdurchlaessige Membran von der verduennten zur konzentrierteren Loesung. Beim Fleck: Textilfaser als Membran. Salzloesung aussen hat hoeheren osmotischen Druck → Wasser (+ Farbstoffe) fliesst heraus. Funktioniert nur wenn Farbstoffe noch loeslich sind (frischer Fleck).' },
+      { label: 'Erwachsene', title: 'Osmotischer Druck: van-t-Hoff-Gleichung',
+        text: 'Osmotischer Druck: pi = i*c*R*T (van-t-Hoff). NaCl dissoziiert (i=2): 1 mol/L NaCl erzeugt ~48 bar osmotischen Druck. Dieser Druck treibt Wasser durch die Fasermembran. Wirkung nimmt ab wenn Farbstoffe aggregieren (alter Fleck) oder Fasermembran kollabiert.' },
+      { label: 'Studium', title: 'Semipermeable Membranen und Turgorpotential',
+        text: 'Osmose: thermodynamisch getrieben durch chemisches Potential des Wassers: mu_w = mu_w^0 + RT*ln(a_w) + V_w*P. Gleichgewicht: Druckdifferenz = osmotischer Druck pi. Reflexionskoeffizient sigma (0-1) je nach Membraneigenschaften. Bei Textilfasern: Cellulosefasern mit Kapillarstruktur — kein echter semiperablemr Membran-Mechanismus, eher Kapillardruck + Loeslichkeitsgradienten.' },
+    ],
+  },
   absorption: {
     term: 'Absorption',
     levels: [
