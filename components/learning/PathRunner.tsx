@@ -4,7 +4,7 @@
  * KUEPER · Solar Science Foundation (SSF)
  * Path:     components/learning/PathRunner.tsx
  * Name:     PathRunner — renders a LearningPath inline within the SSF shell
- * Version:  1.2.0
+ * Version:  1.2.1
  * Created:  2026-07-15
  *
  * Renders all units and sections of a LearningPath as SSF-styled content.
@@ -187,8 +187,8 @@ const EXPERIMENT_MAP: Record<string, React.ComponentType> = {
   'EXP:VERSCHLEISS-SIMULATION': PiezoMaterialExperiment, // Verschleiß
   // Chemie / Reinigung
   'EXP:CHLORGAS':               CombustionExperiment,    // Gefahrenreaktion
-  'EXP:DENATURIERUNG':          CollagenExperiment,      // Protein-Denaturierung
-  'EXP:FLECK-BEHANDLUNG':       CollagenExperiment,      // Fleck-Behandlung
+
+
   'EXP:MAYONNAISE-SIMULATION':  EmulsionExperiment,      // Emulsion = Mayo
   'EXP:OBERFLSPANNUNG':         CapillaryExperiment,     // Oberflächenspannung
   'EXP:OELEIGENSCHAFTEN':       CombustionExperiment,    // Öleigenschaften
@@ -221,8 +221,8 @@ const EXPERIMENT_MAP: Record<string, React.ComponentType> = {
   // COULOMB QUIZ
   'EXP:COULOMB-QUIZ':            CoulombQuizExperiment,
   'EXP:ABSORPTIONSLINIEN':       SpectralAnalysisExperiment,
-  'EXP:DENATURIERUNG':           RotweinExperiment,
-  'EXP:FLECK-BEHANDLUNG':        RotweinExperiment,
+
+
   'EXP:LICHTSPEKTRUM':           SpectralAnalysisExperiment,
   'EXP:SOLAR-SYSTEM':            SpectralAnalysisExperiment,
   // AUTO-DIFFERENTIAL
