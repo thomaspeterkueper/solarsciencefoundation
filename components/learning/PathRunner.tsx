@@ -4,7 +4,7 @@
  * KUEPER · Solar Science Foundation (SSF)
  * Path:     components/learning/PathRunner.tsx
  * Name:     PathRunner — renders a LearningPath inline within the SSF shell
- * Version:  1.2.1
+ * Version:  1.2.2
  * Created:  2026-07-15
  *
  * Renders all units and sections of a LearningPath as SSF-styled content.
@@ -220,6 +220,8 @@ const EXPERIMENT_MAP: Record<string, React.ComponentType> = {
   'EXP:SCHALLDAEMPFUNG':        FourierExperiment,       // Schall = Wellen
   // COULOMB QUIZ
   'EXP:COULOMB-QUIZ':            CoulombQuizExperiment,
+  'EXP:DENATURIERUNG':           RotweinExperiment,
+  'EXP:FLECK-BEHANDLUNG':        RotweinExperiment,
   'EXP:ABSORPTIONSLINIEN':       SpectralAnalysisExperiment,
 
 
