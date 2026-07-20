@@ -3,7 +3,7 @@
  * Path:      lib/learningPaths.ts
  * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/learningPaths.ts
  * Name:      Learning Paths registry
- * Version:   1.2.3
+ * Version:   1.2.4
  * Created:   2026-07-03
  * Modified:  2026-07-15 21:00 CEST
  * Depends:   —
@@ -5218,7 +5218,7 @@ export const learningPaths: LearningPath[] = [
         ],
       },
     ],
-  }
+  },
 
   {
     id: 'PATH:SSF:PHY-WASSER-PHASEN-0001',
