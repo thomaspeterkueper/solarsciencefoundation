@@ -3,7 +3,7 @@
  * Path:      lib/learningPaths.ts
  * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/learningPaths.ts
  * Name:      Learning Paths registry
- * Version:   1.2.4
+ * Version:   1.2.5
  * Created:   2026-07-03
  * Modified:  2026-07-15 21:00 CEST
  * Depends:   —
@@ -103,78 +103,35 @@ export const learningPaths: LearningPath[] = [
         id: 'UNIT:KLANG',
         title: 'Klang & Resonanz',
         entryQuestion: 'Warum klingt eine Kaffeetasse anders, je nachdem wie voll sie ist?',
+        takeaway: 'Der Ton einer Kaffeetasse entsteht durch eine stehende Welle in der Luftsaeule ueber dem Wasser. Je mehr Wasser, desto kuerzer die Luftsaeule — desto hoeher der Ton. Dasselbe Prinzip steckt in Orgelpfeifen, Floeten und Stimmgabeln.',
         gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:LICHT' },
         sections: [
           {
             id: 'OBS:KAFFEETASSE',
             kind: 'observation',
             title: 'Die klingende Tasse',
-            summary: 'Klopf an eine halb gefuellte Tasse — dann trink die Haelfte. Der Ton aendert sich. Warum?',
+            summary: 'Klopf mit einem Loeffel leicht an eine halb gefuellte Kaffeetasse. Dann trink die Haelfte. Klopf nochmal. Der Ton ist jetzt tiefer — obwohl die Tasse schwerer ist, nicht leichter. Warum bestimmt die Fluessigkeit die Tonhoehe, wenn es doch die Tasse ist die schwingt?',
             image: {
               src: '/images/observations/kaffeetasse-tku.jpg',
               alt: 'Weisse Porzellanasse mit Goldverzierung, Untertasse und Loeffel auf Holztisch',
               credit: 'Thomas Kueper'
             },
-            depthPoints: 4
-          },
-          {
-            id: 'OBS:BACH-DAVIS',
-            kind: 'observation',
-            title: 'Eigene Beobachtung: Kontrakomologie',
-            summary: 'Bach und Miles Davis erzeugen verschiedene Zeitstrukturen im Klang. Ausgangspunkt fuer die Frage: Was ist Klang physikalisch?',
-            depthPoints: 4
-          },
-          {
-            id: 'OBS:WASSERGLAS',
-            kind: 'observation',
-            title: 'Beobachtung: Das kalte Wasserglas',
-            summary: 'Ein kaltes Glas an einem warmen Tag: aussen Kondensation, innen Brechung des Hintergrunds, Fuelstand als Resonanzlinie — drei Phaenomene auf einmal sichtbar.',
-            image: {
-              src: '/images/observations/wasserglas-tku.jpg',
-              alt: 'Kaltes Wasserglas auf Holztisch, Kondensation aussen, Gelaender und Himmel dahinter durch das Glas gebrochen',
-              credit: 'Thomas Kueper'
-            },
-            optional: true,
-            depthPoints: 3
+            depthPoints: 5
           },
           {
             id: 'EXP:KAFFEETASSE',
             kind: 'experiment',
-            title: 'Experiment 1: Die klingende Tasse',
-            summary: 'Fuelstand-Slider, Web Audio erzeugt echten Ton (280–800 Hz), stehende Welle animiert. Mini-Experiment: Keramiktasse + Loeffel.',
+            title: 'Experiment: Die Tasse als Resonator',
+            summary: 'Verschiebe den Fuelstand-Slider von 0% bis 100%. Hoere wie der Ton steigt je voller die Tasse wird. Veraendere auch Breite und Wanddicke: breitere Tasse klingt tiefer, dickere Waende ebenfalls. Klicke "Ton abspielen" um den echten Ton zu hoeren.',
             interactive: true,
-            depthPoints: 6
-          },
-          {
-            id: 'EXP:WELLENMISCHER',
-            kind: 'experiment',
-            title: 'Experiment 2: Wellen ueberlagern',
-            summary: 'Zwei Oszillatoren mischbar (Frequenz + Amplitude). Summe hoerbar und sichtbar. Zeigt konstruktive/destruktive Interferenz.',
-            interactive: true,
-            depthPoints: 6
-          },
-          {
-            id: 'OBS:MURMEL',
-            kind: 'observation',
-            title: 'Beobachtung: Murmel auf verschiedenen Untergruenden',
-            summary: 'Holz vs. Teppich vs. Fliesen: Energie-Absorption und Reflexion im Alltag.',
-            optional: true,
-            depthPoints: 3
-          },
-          {
-            id: 'BRANCH:FOURIER',
-            kind: 'branch',
-            title: 'Seitenast: Fourier & Klangfarbe',
-            summary: 'Fourier-Zerlegung als Bruecke von Klang zu Spektrum.',
-            optional: true,
             depthPoints: 8
           },
           {
             id: 'QUIZ:KLANG',
             kind: 'quiz',
-            title: 'Quiz Klangstruktur',
-            summary: 'Drei Fragen: Resonanzlaenge (Tasse), Klangfarbe (Obertoene), Interferenz (destruktiv).',
-            depthPoints: 15
+            title: 'Quiz: Resonanz und Luftsaeule',
+            summary: 'Warum klingt eine volle Tasse hoeher als eine leere? Was passiert wenn man Wasser einfriert — klingt sie dann anders? Was hat eine Tasse mit einer Orgelpfeife gemeinsam?',
+            depthPoints: 12
           }
         ]
       },
