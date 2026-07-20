@@ -8,6 +8,16 @@ import { createClient } from '@supabase/supabase-js';
  *
  * SSF-0008: NOXIA uid-Parameter — Abschluss dem richtigen Spieler zuordnen
  */
+const CORS_HEADERS = {
+  'Access-Control-Allow-Origin': 'https://noxiagame.vercel.app',
+  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+};
+
+export async function OPTIONS() {
+  return new NextResponse(null, { status: 204, headers: CORS_HEADERS });
+}
+
 export async function POST(req: NextRequest) {
   try {
     const { uid, pathId } = await req.json();
@@ -43,7 +53,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Database error' }, { status: 500 });
     }
 
-    return NextResponse.json({ ok: true, uid, pathId });
+    return NextResponse.json({ ok: true, uid, pathId }, { headers: CORS_HEADERS });
   } catch (e) {
     console.error('NOXIA completion error:', e);
     return NextResponse.json({ error: 'Internal error' }, { status: 500 });
@@ -75,5 +85,5 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: 'Database error' }, { status: 500 });
   }
 
-  return NextResponse.json({ uid, completions: data ?? [] });
+  return NextResponse.json({ uid, completions: data ?? [] }, { headers: CORS_HEADERS });
 }
