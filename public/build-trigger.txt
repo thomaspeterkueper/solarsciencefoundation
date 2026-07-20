@@ -1,1 +1,1 @@
-build 2026-07-20 spiral exp
+build 2026-07-20 cors bypass header
