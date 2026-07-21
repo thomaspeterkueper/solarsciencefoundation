@@ -50,3 +50,17 @@ Bis dieser Task erledigt ist zeigt NOXIA einen Link auf:
 
 - Spieler können das richtige Modul nicht direkt öffnen
 - SSF-Unlock-Kette funktioniert, aber UX ist suboptimal
+
+
+## Erledigt 2026-07-21
+
+- `/app/learn/page.tsx`: handle `?path=` und `?module=` → redirect zu /learning-paths/[id], uid/ref erhalten
+- `/app/api/noxia/redirect/route.ts`: GET /api/noxia/redirect?path=...&uid=... → 302 redirect oder JSON URL
+
+**NOXIA kann jetzt verwenden:**
+
+```
+/learn?path=PATH:SSF:ECO-KREDIT-NOXIA-0001&ref=noxia&uid={uid}
+/learn?module=ECO-L0-000001&ref=noxia&uid={uid}
+/api/noxia/redirect?path=PATH:SSF:ECO-KREDIT-NOXIA-0001&uid={uid}
+```
