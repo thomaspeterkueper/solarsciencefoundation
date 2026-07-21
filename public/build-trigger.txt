@@ -1,1 +1,1 @@
-build 2026-07-21 noxia badge client fix
+build 2026-07-21 SSF-0019 deep link
