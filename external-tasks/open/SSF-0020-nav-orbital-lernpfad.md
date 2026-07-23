@@ -45,3 +45,8 @@ Die Gate-Prüfung in `found-location/route.ts` ist vorbereitet aber im Alpha dea
 ## Erledigt 2026-07-21
 
 UNL:NOX:SHIP:SCOUT zu AST-SONNENSYSTEM-0001 unlocks ergaenzt (v1.3.3).
+
+
+## Erledigt 2026-07-21
+
+UNL:NOX:SHIP:SCOUT zu AST-SONNENSYSTEM-0001 hinzugefügt. HohmannExperiment (EXP:HOHMANN-TRANSFER) gebaut und eingebunden. v1.3.6.
