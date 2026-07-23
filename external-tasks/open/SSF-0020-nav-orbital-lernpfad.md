@@ -40,3 +40,8 @@ Nach Abschluss kann der Spieler:
 `UNL:NOX:NAV:ORBITAL` (für Stationen) bzw. `UNL:NOX:COLONY:FOUND` (für Kolonien)
 sind als Gates in `lib/knowledge/unlocks.ts` implementiert.
 Die Gate-Prüfung in `found-location/route.ts` ist vorbereitet aber im Alpha deaktiviert.
+
+
+## Erledigt 2026-07-21
+
+UNL:NOX:SHIP:SCOUT zu AST-SONNENSYSTEM-0001 unlocks ergaenzt (v1.3.3).
