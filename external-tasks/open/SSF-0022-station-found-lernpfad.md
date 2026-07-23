@@ -105,3 +105,8 @@ Die Gate-Prüfung in `found-location/route.ts` ist vorbereitet aber im Alpha dea
 ## Erledigt 2026-07-21
 
 PATH:SSF:ENG-STATION-FOUND-0001 implementiert. Schaltet UNL:NOX:STATION:FOUND + UNL:NOX:NAV:ORBITAL frei.
+
+
+## Erledigt 2026-07-21
+
+PATH:SSF:ENG-STATION-FOUND-0001 implementiert. StationExperiment: Orbit-Vergleich (LEO/MEO/GEO) + Andock-Simulator. Unlocks: STATION:FOUND + SHIP:PIONEER + NAV:ORBITAL.
