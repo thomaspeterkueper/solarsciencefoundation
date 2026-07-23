@@ -3,7 +3,7 @@
  * Path:      lib/learningPaths.ts
  * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/learningPaths.ts
  * Name:      Learning Paths registry
- * Version:   1.3.2
+ * Version:   1.3.3
  * Created:   2026-07-03
  * Modified:  2026-07-15 21:00 CEST
  * Depends:   —
@@ -4784,7 +4784,7 @@ export const learningPaths: LearningPath[] = [
         'Vergleich direkter Weg vs. Hohmann: Energiedifferenz sichtbar',
       ]
     },
-    unlocks: ['NAV:ORBITAL', 'UNL:NOX:NAV:ORBITAL', 'AST:HOHMANN-TRANSFER'],
+    unlocks: ['NAV:ORBITAL', 'UNL:NOX:NAV:ORBITAL', 'UNL:NOX:SHIP:SCOUT', 'AST:HOHMANN-TRANSFER'],
     units: [
       {
         id: 'UNIT:ORBITAL-WARUM-KURVEN',
@@ -5564,6 +5564,165 @@ export const learningPaths: LearningPath[] = [
             kind: 'quiz',
             title: 'Quiz: Latente Waerme',
             summary: 'Wieviel Energie braucht man um 1 kg Wasser bei 100°C zu verdampfen? A) 334 kJ  B) 419 kJ  C) 2260 kJ  D) 4182 kJ — Richtig: C) 2260 kJ. Schmelzwaerme (0°C): 334 kJ/kg. Verdampfungswaerme (100°C): 2260 kJ/kg.',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  }
+,
+  {
+    id: 'PATH:SSF:ENG-COLONY-FOUND-0001',
+    title: 'Wie gruendet man eine Kolonie — und warum scheitern die meisten in den ersten 90 Tagen',
+    subtitle: 'Standortwahl, Lebenserhaltung, Ressourcenplanung: Was eine Siedlung auf dem Mars vom ersten Tag an braucht.',
+    status: 'prototype',
+    sourceModuleId: 'COLONY-L1-000001',
+    kxfModuleId: 'LRN:SSF:COLONY-L1-000001',
+    domainsNeeded: ['KNOW:ENG-LIFE-SUPPORT', 'KNOW:PHY-THERMODYNAMICS', 'KNOW:ENV-RESOURCES'],
+    suppliedBy: {
+      knowledgeGraph: ['COLONY-L1-000001 canonical'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Standort-Simulator: Ressourcen, Strahlung, Sonnenlicht abwaegen',
+        'Lebenserhaltungs-Rechner: O2, H2O, Kalorien, ISRU-Rate',
+        'Was-waere-wenn: kein Wassereis, Recycling unter 90%, Sonnensturm Tag 1',
+      ]
+    },
+    unlocks: ['UNL:NOX:COLONY:FOUND', 'UNL:NOX:SHIP:PIONEER', 'ENG:COLONY-PLANNING'],
+    units: [
+      {
+        id: 'UNIT:COLONY-STANDORT',
+        title: 'Den richtigen Ort finden',
+        entryQuestion: 'Warum ueberlebt eine Kolonie auf dem Mars nur wenn sie am richtigen Ort gegruendet wird?',
+        takeaway: 'Drei Faktoren entscheiden: Wasser (Eis im Untergrund), Energie (Sonnenlicht oder Geothermie), Schutz (Lavahoehlen, Kraterwände gegen Strahlung). Der Kompromiss zwischen allen dreien bestimmt den Standort.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:COLONY-LEBEN' },
+        sections: [
+          {
+            id: 'OBS:COLONY-MARS-KARTE',
+            kind: 'observation',
+            title: 'Drei Orte, drei Schicksale',
+            summary: 'Nordpol: Wasser vorhanden, aber 6 Monate Dunkelheit. Aequatortiefland: maximale Sonne, aber kein Wassereis, mehr Strahlung. Lavahoehlenteingang Elysium Planitia: natuerlicher Schutz, Wasser in 200m Tiefe, konstantes Licht. Kein perfekter Ort — nur Kompromisse.',
+            depthPoints: 5,
+          },
+          {
+            id: 'EXP:COLONY-STANDORT',
+            kind: 'experiment',
+            title: 'Experiment: Standort-Optimierer',
+            summary: 'Drei Schieberegler: Wasservorkommen, Sonnenstunden/Sol, Strahlungsabschirmung. Score: Ueberlebenschance Jahr 1. Reale Kandidaten voreingestellt: Jezero-Krater, Hellas Planitia, Tharsis-Vulkanhang.',
+            interactive: true,
+            depthPoints: 9,
+          },
+          {
+            id: 'QUIZ:COLONY-WASWÄREWENN',
+            kind: 'quiz',
+            title: 'Quiz: Was waere wenn — Kolonisierung',
+            summary: 'Wasserrecycling bricht auf 80% ein: Verlust 4L/Person/Tag, Kolonie stirbt in 3 Wochen. Sonnensturm Tag 1: alle in Shelter. Nahrung nur bis Tag 60: 90 kg Trockennahrung/Person mitbringen. Sabatier-Reaktor aus: kein CH4-Treibstoff aus Mars-CO2.',
+            depthPoints: 15,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:COLONY-LEBEN',
+        title: 'Die ersten 90 Tage',
+        entryQuestion: 'Was braucht eine Kolonie in den ersten 3 Monaten damit niemand stirbt?',
+        takeaway: 'Kritische Phase: O2 (Elektrolyse + 14-Tage-Backup), H2O (Recycling >95%), Energie (Solar + Batterie 3 Naechte), Nahrung (1500 kcal/Tag aus Vorraeten, Hydroponik ab Tag 30). ISRU verkuerzt Abhaengigkeit von Resupply-Missionen dramatisch.',
+        sections: [
+          {
+            id: 'OBS:COLONY-ISRU',
+            kind: 'observation',
+            title: 'ISRU: Die Kolonie baut sich selbst',
+            summary: 'ISRU = In-Situ Resource Utilization. Mars-Atmosphaere (95% CO2) + Wasser ergibt via Sabatier-Reaktion Methan (CH4) als Treibstoff. Marsboden ergibt via Schmelze + 3D-Druck Baumaterial. Jedes kg das lokal produziert wird spart rund 10.000 Dollar Transportkosten.',
+            depthPoints: 5,
+          },
+          {
+            id: 'EXP:COLONY-LEBENSERHALT',
+            kind: 'experiment',
+            title: 'Experiment: Lebenserhaltungs-Rechner',
+            summary: 'Eingabe: Personenzahl (1-20), H2O-Recycling-Rate (%), O2-Produktionsrate. Ausgabe: O2-Vorrat in Tagen, Wasserdefizit, Energiebedarf kW. Kritische Schwellen rot. Sabatier-Reaktor-Slider zeigt CH4-Eigenproduktion.',
+            interactive: true,
+            depthPoints: 9,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'PATH:SSF:ENG-STATION-FOUND-0001',
+    title: 'Wie bleibt eine Raumstation in der Umlaufbahn — und wie dockt man an',
+    subtitle: 'LEO, MEO, GEO: Warum Stationen auf verschiedenen Hoehen existieren, wie Andocken physikalisch funktioniert und warum H2O-Recycling ueberlebensnotwendig ist.',
+    status: 'prototype',
+    sourceModuleId: 'STATION-L1-000001',
+    kxfModuleId: 'LRN:SSF:STATION-L1-000001',
+    domainsNeeded: ['KNOW:AST-ORBITAL', 'KNOW:ENG-LIFE-SUPPORT', 'KNOW:PHY-MECHANICS'],
+    suppliedBy: {
+      knowledgeGraph: ['STATION-L1-000001 canonical'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: [
+        'Orbit-Hoehen-Vergleich: LEO/MEO/GEO mit Umlaufzeit, Strahlung, Kosten',
+        'Andock-Simulator: Geschwindigkeit, Winkel, Lateralversatz',
+        'Wasserrecycling-Kreislauf: ISS 93% Effizienz, Verlustkaskade',
+        'Energie-Rechner: Solarflaeche vs. Energiebedarf ohne Atmosphaere',
+      ]
+    },
+    unlocks: ['UNL:NOX:STATION:FOUND', 'UNL:NOX:SHIP:PIONEER', 'UNL:NOX:NAV:ORBITAL', 'ENG:STATION-DESIGN'],
+    units: [
+      {
+        id: 'UNIT:STATION-ORBIT',
+        title: 'Wo im All — und warum genau dort',
+        entryQuestion: 'Warum kreist die ISS in 400 km Hoehe und nicht in 40 km oder 4000 km?',
+        takeaway: 'LEO (160-2000 km): guenstig, aber Reibungsverlust braucht Reboost. MEO (2000-35786 km): GPS-Satelliten, starke Van-Allen-Strahlung. GEO (35786 km): geostationaer, perfekt fuer Kommunikation, 3-5x teurer. ISS bei 408 km: Kompromiss aus Erreichbarkeit, Strahlung und Wartbarkeit.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:STATION-ANDOCKEN' },
+        sections: [
+          {
+            id: 'OBS:STATION-ISS-BAHN',
+            kind: 'observation',
+            title: 'Die ISS als Leuchtstern',
+            summary: 'Die ISS ist mit blossem Auge sichtbar — heller als die meisten Sterne. Von Horizont zu Horizont in 6 Minuten. Bei 408 km: 92 Minuten Umlaufzeit, 16 Sonnenaufgaenge pro Tag. 16x taeglich zwischen -120 Celsius (Schatten) und +120 Celsius (Sonne).',
+            depthPoints: 5,
+          },
+          {
+            id: 'EXP:STATION-ORBIT',
+            kind: 'experiment',
+            title: 'Experiment: Orbit-Hoehen-Vergleich',
+            summary: 'Hoehen-Slider 160 bis 36000 km. Anzeigen: Umlaufzeit (min), Strahlungsintensitaet (mSv/Tag), Startkosten-Index, Kommunikationslatenz (ms). ISS, GPS und GEO-Sat als Marker eingeblendet.',
+            interactive: true,
+            depthPoints: 9,
+          },
+          {
+            id: 'QUIZ:STATION-ORBITS',
+            kind: 'quiz',
+            title: 'Quiz: Orbits und Hoehen',
+            summary: 'Warum kann man von GEO nicht einfach zurueck? Enormes Delta-v noetig. Warum GPS in MEO statt GEO? 4 Satelliten genuegen fuer globale Abdeckung. Was ist exakt Geostationaer? 35786 km, eine Umdrehung pro Erdtag.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:STATION-ANDOCKEN',
+        title: 'Andocken — Physik auf 0.05 m/s genau',
+        entryQuestion: 'Warum ist Andocken an eine Raumstation so schwierig — und wie macht man es auf 5 cm/s Annaeherungsgeschwindigkeit?',
+        takeaway: 'Andocken = exakte Bahnmanöver: gleiche Umlaufbahn + minimale Relativgeschwindigkeit + perfekte Ausrichtung. Zu schnell = Kollision. Zu langsam = Abdriften. ISS-Wasserrecycling 93%: ohne das waere die Station in Tagen leer. O2 aus Wasserelektrolyse: effizienter als Tankvorrat.',
+        sections: [
+          {
+            id: 'OBS:STATION-SOJUS',
+            kind: 'observation',
+            title: 'Sojus: 2 Tage oder 6 Stunden',
+            summary: 'Fruehe Sojus brauchten 2 Tage zur ISS (34 Orbits). Heute: 6 Stunden (4 Orbits). Unterschied: praeziseres Timing beim Start. Startfenster: 45 Sekunden. Danach: 2-Tage-Anflug als Backup.',
+            depthPoints: 5,
+          },
+          {
+            id: 'EXP:STATION-ANDOCK',
+            kind: 'experiment',
+            title: 'Experiment: Andock-Simulator',
+            summary: 'Schieberegler: Annaeherungsgeschwindigkeit (0-1 m/s), Winkelabweichung (0-10 Grad), Lateralversatz (0-50 cm). ISS-Zielwerte: <0.05 m/s, <2 Grad, <10 cm. Physik: bei 0.5 m/s und 10t Kapsel = 2.5 kJ Aufprallenergie.',
+            interactive: true,
+            depthPoints: 9,
+          },
+          {
+            id: 'QUIZ:STATION-ANDOCKEN',
+            kind: 'quiz',
+            title: 'Quiz: Andocken und Lebenserhaltung',
+            summary: 'Warum nicht zu langsam anfliegen? Abdriften durch Relativbewegung. ISS recycelt 93% Wasser fuer 6 Personen: nur 1.05L Frischwasser-Zufuhr/Tag noetig. Warum O2 aus Wasser statt Tanks? Gewichtseffizienz: Wasser liefert O2 plus H2.',
             depthPoints: 15,
           },
         ],
