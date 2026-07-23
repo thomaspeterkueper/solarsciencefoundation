@@ -3,7 +3,7 @@
  * Path:      lib/learningPaths.ts
  * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/learningPaths.ts
  * Name:      Learning Paths registry
- * Version:   1.3.5
+ * Version:   1.3.6
  * Created:   2026-07-03
  * Modified:  2026-07-15 21:00 CEST
  * Depends:   —
@@ -4815,6 +4815,14 @@ export const learningPaths: LearningPath[] = [
             summary: 'Warum brauchen Raumschiffe nicht den direkten Weg? Was ist ein Transferfenster? Warum ist Hohmann energieoptimal?',
             depthPoints: 12,
           },
+          {
+            id: 'EXP:HOHMANN-TRANSFER',
+            kind: 'experiment',
+            title: 'Experiment: Hohmann-Transfer-Rechner',
+            summary: 'Waehle Start- und Zielplanet (Merkur bis Jupiter). Canvas zeigt Transferellipse mit echter Physik. Erde-Mars: Delta-v1=2.94 km/s, 259 Tage. Formel: Delta-v = sqrt(GM/r1) * (sqrt(2r2/(r1+r2)) - 1).',
+            interactive: true,
+            depthPoints: 10,
+          }
         ],
       },
       {
@@ -4988,6 +4996,14 @@ export const learningPaths: LearningPath[] = [
             summary: 'Du nimmst 500 Credits Kredit zu 10% Zins. Nach einem Tick schuldest du: A) 500 Cr  B) 550 Cr  C) 510 Cr  D) 600 Cr — Richtig: B) 550 Cr. Zinsen = 500 x 0.10 = 50 Cr.',
             depthPoints: 12,
           },
+          {
+            id: 'EXP:KREDIT-RECHNER',
+            kind: 'experiment',
+            title: 'Experiment: Kredit-Rechner',
+            summary: 'Drei Modi: Einfacher Zins (K_n = K_0*(1+n*r)), Zinseszins (K_n = K_0*(1+r)^n) mit Vergleich, NOXIA Break-Even Tabelle (Mine-Kosten, Zinssatz/Tick, Ertrag/Tick).',
+            interactive: true,
+            depthPoints: 10,
+          }
         ],
       },
       {
@@ -5142,6 +5158,14 @@ export const learningPaths: LearningPath[] = [
             interactive: true,
             depthPoints: 15,
           },
+          {
+            id: 'EXP:WASSER-MOLEKUEL',
+            kind: 'experiment',
+            title: 'Experiment: Dipol-Simulator',
+            summary: 'Vier Modi: Wippe (Elektronegativitaet), Dipol (Ladungsverteilung), Dichte-Anomalie, H-Bruecken-Netzwerk. Reale Werte: Dipolmoment 1.85 Debye, Winkel 104.5 Grad, VSEPR-Erklaerung.',
+            interactive: true,
+            depthPoints: 10,
+          }
 
           {
             id: 'QUIZ:WASSER-DIPOL-1',
