@@ -45,3 +45,8 @@ Die Gate-Prüfung in `found-location/route.ts` ist vorbereitet aber im Alpha dea
 ## Erledigt 2026-07-21
 
 PATH:SSF:ENG-COLONY-FOUND-0001 implementiert. Schaltet UNL:NOX:COLONY:FOUND + UNL:NOX:SHIP:PIONEER frei.
+
+
+## Erledigt 2026-07-21
+
+PATH:SSF:ENG-COLONY-FOUND-0001 implementiert. ColonyExperiment: Standort-Optimierer + Lebenserhaltungs-Rechner mit NASA-Werten. Unlocks: COLONY:FOUND + SHIP:PIONEER.
