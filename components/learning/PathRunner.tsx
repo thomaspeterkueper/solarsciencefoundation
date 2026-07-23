@@ -4,7 +4,7 @@
  * KUEPER · Solar Science Foundation (SSF)
  * Path:     components/learning/PathRunner.tsx
  * Name:     PathRunner — renders a LearningPath inline within the SSF shell
- * Version:  1.2.5
+ * Version:  1.2.6
  * Created:  2026-07-15
  *
  * Renders all units and sections of a LearningPath as SSF-styled content.
@@ -78,6 +78,8 @@ import SpectralAnalysisExperiment from './SpectralAnalysisExperiment';
 import RotweinExperiment           from './RotweinExperiment';
 import SpiralExperiment            from './SpiralExperiment';
 import ColonyExperiment            from './ColonyExperiment';
+import HohmannExperiment           from './HohmannExperiment';
+import KreditExperiment            from './KreditExperiment';
 import StationExperiment           from './StationExperiment';
 
 const EXPERIMENT_MAP: Record<string, React.ComponentType> = {
@@ -223,6 +225,9 @@ const EXPERIMENT_MAP: Record<string, React.ComponentType> = {
   'EXP:SCHALLDAEMPFUNG':        FourierExperiment,       // Schall = Wellen
   // COULOMB QUIZ
   'EXP:COULOMB-QUIZ':            CoulombQuizExperiment,
+  'EXP:HOHMANN-TRANSFER':        HohmannExperiment,
+  'EXP:KREDIT-RECHNER':          KreditExperiment,
+  'EXP:KREDIT-NOXIA':            KreditExperiment,
   'EXP:COLONY-STANDORT':         ColonyExperiment,
   'EXP:COLONY-LEBENSERHALT':     ColonyExperiment,
   'EXP:STATION-ORBIT':           StationExperiment,
