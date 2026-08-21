@@ -1,0 +1,37 @@
+id: PATH:SSF:MAGNETISM-MATERIALS
+status: draft
+language:
+  primary: de
+  planned: [en]
+title:
+  de: Magnetismus & funktionale Materialien
+  en: Magnetism & Functional Materials
+summary:
+  de: >
+    Ein Grundlagenpfad von Magnetfeldern über Domänen, Hysterese und Permanentmagnete
+    bis zu Temperaturverhalten, Rohstoffketten und technischen Anwendungen.
+level:
+  entry: N1
+  exit: N3
+duration_minutes: 360
+modules:
+  - MAG-001
+  - MAG-002
+  - MAG-003
+  - MAG-004
+  - MAG-005
+  - MAG-006
+  - MAG-007
+  - MAG-008
+learning_outcomes:
+  - Magnetfelder und magnetische Dipole qualitativ erklären.
+  - Ferro-, Para- und Diamagnetismus unterscheiden.
+  - Domänen und Hysterese mit Werkstoffeigenschaften verbinden.
+  - Weich- und hartmagnetische Werkstoffe funktionsbezogen auswählen.
+  - Temperaturgrenzen und Curie-Temperatur einordnen.
+  - Magnetwerkstoffe als Prozesskette von Rohstoff bis Bauteil verstehen.
+  - Anwendungen anhand physikalischer und werkstofflicher Anforderungen vergleichen.
+architecture:
+  source_of_truth: kueper-knowledge-graph
+  ssf_role: didactic_learning_path
+  noxia_role: consumer_of_progress_and_unlocks
