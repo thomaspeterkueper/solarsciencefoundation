@@ -1,0 +1,18 @@
+id: MAG-003
+type: LearningModule
+status: draft
+language: { primary: de, planned: [en] }
+title: { de: Weich- und hartmagnetische Werkstoffe, en: Soft and hard magnetic materials }
+summary:
+  de: Hysterese, Koerzitivfeldstärke, Remanenz und die funktionsbezogene Auswahl magnetischer Werkstoffe.
+level: { ssf_level: N2, academic_context: Materialwissenschaft / Elektrotechnik }
+duration_minutes: 45
+learning_objectives:
+  de:
+    - Eine Hysteresekurve qualitativ lesen.
+    - Remanenz und Koerzitivfeldstärke erklären.
+    - Weichmagnetische von hartmagnetischen Werkstoffen unterscheiden.
+    - Werkstoffe passend zu Transformator, Elektromagnet oder Permanentmagnet auswählen.
+prerequisites: { modules: [MAG-002] }
+key_concepts: [CON:MAT:hysteresis, CON:MAT:remanence, CON:MAT:coercivity, CON:MAT:soft-magnetic, CON:MAT:hard-magnetic]
+relations: { requires: [MAG-002], precedes: [MAG-004] }
