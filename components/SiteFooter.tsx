@@ -44,6 +44,9 @@ export default function SiteFooter() {
             <Link href={`${prefix}/nutzungsbedingungen`}>
               {isGerman ? 'Nutzungsbedingungen' : 'Terms'}
             </Link>
+            <Link href={`${prefix}/ki-transparenz`}>
+              {isGerman ? 'KI-Transparenz' : 'AI transparency'}
+            </Link>
           </div>
         </nav>
       </div>
