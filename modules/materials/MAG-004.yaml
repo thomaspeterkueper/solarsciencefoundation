@@ -1,0 +1,23 @@
+id: MAG-004
+type: LearningModule
+status: draft
+language: { primary: de, planned: [en] }
+title: { de: Permanentmagnete als Werkstoffe, en: Permanent magnets as materials }
+summary:
+  de: Vergleich von Ferrit, AlNiCo, SmCo und NdFeB anhand magnetischer Leistung, Temperaturverhalten, Korrosion, Kosten und Rohstoffabhängigkeit.
+level: { ssf_level: N2, academic_context: Materialwissenschaft }
+duration_minutes: 45
+learning_objectives:
+  de:
+    - Ferrit, AlNiCo, SmCo und NdFeB als Werkstoffklassen einordnen.
+    - Magnetische Stärke nicht mit genereller technischer Eignung gleichsetzen.
+    - Temperaturbeständigkeit, Korrosion, Kosten und Rohstoffverfügbarkeit als Auswahlkriterien nutzen.
+prerequisites: { modules: [MAG-003] }
+key_concepts: [CON:MAT:ferrite-magnet, CON:MAT:alnico, CON:MAT:smco, CON:MAT:ndfeb]
+canonical_examples:
+  - id: EX:MAG:004:001
+    title: { de: Magnetwahl für Motor, Sensor und Hochtemperaturanwendung, en: Magnet selection for motor, sensor and high-temperature use }
+assessment:
+  formative:
+    - Vier Magnetwerkstoffe für unterschiedliche Einsatzprofile vergleichen.
+relations: { requires: [MAG-003], precedes: [MAG-005] }
