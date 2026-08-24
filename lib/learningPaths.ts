@@ -5165,7 +5165,7 @@ export const learningPaths: LearningPath[] = [
             summary: 'Vier Modi: Wippe (Elektronegativitaet), Dipol (Ladungsverteilung), Dichte-Anomalie, H-Bruecken-Netzwerk. Reale Werte: Dipolmoment 1.85 Debye, Winkel 104.5 Grad, VSEPR-Erklaerung.',
             interactive: true,
             depthPoints: 10,
-          }
+          },
 
           {
             id: 'QUIZ:WASSER-DIPOL-1',
@@ -5593,7 +5593,7 @@ export const learningPaths: LearningPath[] = [
         ],
       },
     ],
-  }
+  },
 
   {
     id: 'PATH:SSF:ENG-COLONY-FOUND-0001',
