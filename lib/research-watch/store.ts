@@ -18,8 +18,26 @@ export interface EvidenceStore {
   /** Find the single evidence record matching ANY of the given identity keys. */
   findByIdentityKeys(keys: string[]): Promise<EvidenceRecord | null>;
   saveEvidence(record: EvidenceRecord): Promise<void>;
+  /**
+   * Evidence records with NO open (pending/dispatched) candidate, oldest
+   * discovery first. Re-promotion input: deferred/budget-skipped evidence and
+   * evidence whose candidate was superseded (retraction/correction merge)
+   * accumulates and is drained by later runs (discovery cadence and synthesis
+   * cadence are independent — architecture SSF_RESEARCH_WATCH). Records with
+   * only done/rejected candidates are included; their fingerprints keep the
+   * promotion gate from re-creating closed assessments.
+   */
+  listUnpromotedEvidence(): Promise<EvidenceRecord[]>;
+  /**
+   * Mark the open (pending/dispatched) candidates of an evidence as superseded
+   * (rejected) — a retraction/correction invalidates assessments derived from
+   * the superseded status. Returns the invalidated candidate ids.
+   */
+  invalidateCandidatesForEvidence(evidenceId: string): Promise<string[]>;
   /** Fingerprints of open (pending/dispatched) candidates — dedup gate input. */
   listOpenCandidateFingerprints(): Promise<string[]>;
+  /** Fingerprints of closed (done/rejected) candidates — dedup gate input. */
+  listClosedCandidateFingerprints(): Promise<string[]>;
   saveCandidate(candidate: TaskCandidate): Promise<void>;
   listPendingCandidates(): Promise<TaskCandidate[]>;
   getSourceLastRun(sourceId: string): Promise<string | null>;
@@ -51,9 +69,41 @@ export class MemoryEvidenceStore implements EvidenceStore {
     }
   }
 
+  async listUnpromotedEvidence(): Promise<EvidenceRecord[]> {
+    const withOpenCandidate = new Set(
+      [...this.candidates.values()]
+        .filter((candidate) => candidate.status === 'pending' || candidate.status === 'dispatched')
+        .map((candidate) => candidate.evidence_id)
+    );
+    return [...this.evidences.values()]
+      .filter((record) => !withOpenCandidate.has(record.evidence_id))
+      .sort((a, b) => a.discovered_at.localeCompare(b.discovered_at))
+      .map((record) => structuredClone(record));
+  }
+
+  async invalidateCandidatesForEvidence(evidenceId: string): Promise<string[]> {
+    const superseded: string[] = [];
+    for (const candidate of this.candidates.values()) {
+      if (
+        candidate.evidence_id === evidenceId &&
+        (candidate.status === 'pending' || candidate.status === 'dispatched')
+      ) {
+        this.candidates.set(candidate.candidate_id, { ...candidate, status: 'rejected' });
+        superseded.push(candidate.candidate_id);
+      }
+    }
+    return superseded;
+  }
+
   async listOpenCandidateFingerprints(): Promise<string[]> {
     return [...this.candidates.values()]
       .filter((candidate) => candidate.status === 'pending' || candidate.status === 'dispatched')
+      .map((candidate) => candidate.fingerprint);
+  }
+
+  async listClosedCandidateFingerprints(): Promise<string[]> {
+    return [...this.candidates.values()]
+      .filter((candidate) => candidate.status === 'done' || candidate.status === 'rejected')
       .map((candidate) => candidate.fingerprint);
   }
 

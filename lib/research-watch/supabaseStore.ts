@@ -65,6 +65,42 @@ export class SupabaseEvidenceStore implements EvidenceStore {
     }
   }
 
+  async listUnpromotedEvidence(): Promise<EvidenceRecord[]> {
+    const { data: candidateRows, error: candidateError } = await this.supabase
+      .from('research_watch_candidates')
+      .select('evidence_id')
+      .in('status', ['pending', 'dispatched']);
+    if (candidateError) {
+      console.error('[research-watch:store] listUnpromotedEvidence candidates error:', candidateError.message);
+      return [];
+    }
+    const withOpenCandidate = new Set((candidateRows ?? []).map((row) => row.evidence_id));
+    const { data, error } = await this.supabase
+      .from('research_watch_evidences')
+      .select('*')
+      .order('discovered_at', { ascending: true });
+    if (error) {
+      console.error('[research-watch:store] listUnpromotedEvidence error:', error.message);
+      return [];
+    }
+    return (data ?? [])
+      .filter((row) => !withOpenCandidate.has(row.evidence_id)) as unknown as EvidenceRecord[];
+  }
+
+  async invalidateCandidatesForEvidence(evidenceId: string): Promise<string[]> {
+    const { data, error } = await this.supabase
+      .from('research_watch_candidates')
+      .update({ status: 'rejected' })
+      .eq('evidence_id', evidenceId)
+      .in('status', ['pending', 'dispatched'])
+      .select('candidate_id');
+    if (error) {
+      console.error('[research-watch:store] invalidateCandidatesForEvidence error:', error.message);
+      return [];
+    }
+    return (data ?? []).map((row) => row.candidate_id);
+  }
+
   async listOpenCandidateFingerprints(): Promise<string[]> {
     const { data, error } = await this.supabase
       .from('research_watch_candidates')
@@ -72,6 +108,18 @@ export class SupabaseEvidenceStore implements EvidenceStore {
       .in('status', ['pending', 'dispatched']);
     if (error) {
       console.error('[research-watch:store] listOpenCandidateFingerprints error:', error.message);
+      return [];
+    }
+    return (data ?? []).map((row) => row.fingerprint);
+  }
+
+  async listClosedCandidateFingerprints(): Promise<string[]> {
+    const { data, error } = await this.supabase
+      .from('research_watch_candidates')
+      .select('fingerprint')
+      .in('status', ['done', 'rejected']);
+    if (error) {
+      console.error('[research-watch:store] listClosedCandidateFingerprints error:', error.message);
       return [];
     }
     return (data ?? []).map((row) => row.fingerprint);

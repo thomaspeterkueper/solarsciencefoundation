@@ -28,9 +28,9 @@ import type {
 import { getActiveWatchTopics } from './topics';
 import { getEnabledWatchSources } from './sources';
 import { identityKeys, normaliseArxiv, normaliseDataset, normaliseDoi, normaliseRegistry, primaryIdentityKey } from './identity';
-import { scoreRelevance, DEFAULT_RELEVANCE_CONFIG, type RelevanceConfig } from './relevance';
+import { scoreRelevance, DEFAULT_RELEVANCE_CONFIG, type RelevanceConfig, type RelevanceResult } from './relevance';
 import { classifyImpact } from './impact';
-import { promoteCandidates, DEFAULT_PROMOTION_CONFIG, type PromotionConfig } from './promotion';
+import { promoteCandidates, DEFAULT_PROMOTION_CONFIG, type PromotionConfig, type PromotionResult } from './promotion';
 import { buildCanonValidationEnvelope, envelopeFileName, validateEnvelope, type OutboxEnvelope } from './envelope';
 import type { EvidenceStore } from './store';
 import { getDefaultAdapters } from './adapters';
@@ -88,6 +88,8 @@ export type RunSummary = {
   merged_evidence_ids: string[];
   candidates_created: string[];
   candidate_skips: Array<{ evidence_id: string; reason: string }>;
+  /** Candidates invalidated because their evidence was superseded (retraction/correction merge). */
+  superseded_candidates: string[];
   envelopes: EnvelopeEmission[];
 };
 
@@ -150,13 +152,53 @@ export function buildEvidenceRecord(
   };
 }
 
-/** Merge a re-discovery into the existing evidence object (provenance grows). */
+/** True when the incoming work carries a retraction/correction signal. */
+function isRetractionOrCorrection(work: NormalizedWork): boolean {
+  return (
+    work.publication_status === 'retracted' ||
+    work.publication_status === 'corrected' ||
+    work.evidence_type === 'retraction' ||
+    work.evidence_type === 'correction'
+  );
+}
+
+function isSupersededStatus(record: EvidenceRecord): boolean {
+  return (
+    record.publication_status === 'retracted' ||
+    record.publication_status === 'corrected' ||
+    record.evidence_type === 'retraction' ||
+    record.evidence_type === 'correction'
+  );
+}
+
+/** Union of normalized identifiers; absent incoming ids never wipe stored ones. */
+function unionIdentifiers(
+  base: EvidenceRecord['identifiers'],
+  incoming: EvidenceRecord['identifiers']
+): EvidenceRecord['identifiers'] {
+  const result: EvidenceRecord['identifiers'] = { ...base };
+  for (const key of ['doi', 'arxiv', 'registry', 'dataset'] as const) {
+    if (incoming[key]) result[key] = incoming[key];
+  }
+  return result;
+}
+
+/**
+ * Merge a re-discovery into the existing evidence object (provenance grows).
+ * When the incoming work is a retraction/correction of an already-known work
+ * (arXiv withdrawals/replacements reuse the same id), the stored status is
+ * updated and the impact re-classified to the UNCERTAIN review path — the
+ * superseded assessment must not survive (architecture: retractions/
+ * corrections update evidence status rather than deleting provenance).
+ */
 function mergeSourceRef(
   existing: EvidenceRecord,
   work: NormalizedWork,
   source: WatchSource,
+  topics: WatchTopic[],
+  config: ResearchWatchConfig,
   now: Date
-): EvidenceRecord {
+): { record: EvidenceRecord; statusChange: boolean } {
   const alreadyKnown = existing.source_refs.some(
     (ref) => ref.source_id === source.id && ref.raw_id === work.raw_id
   );
@@ -169,9 +211,36 @@ function mergeSourceRef(
           { source_id: source.id, raw_id: work.raw_id, url: work.url, discovered_at: now.toISOString() },
         ],
     identity_keys: [...new Set([...existing.identity_keys, ...identityKeys(work)])],
+    identifiers: unionIdentifiers(existing.identifiers, normalisedIdentifiers(work)),
     updated_at: now.toISOString(),
   };
-  return merged;
+
+  const statusChange = isRetractionOrCorrection(work) && !isSupersededStatus(existing);
+  if (!statusChange) return { record: merged, statusChange: false };
+
+  // Relevance is merged with the stored record so a terse retraction notice
+  // cannot push the work out of scope: the retraction of a watched-topic work
+  // MUST reach the review pipeline with immediate cost.
+  const relevance = scoreRelevance(work, topics);
+  const mergedRelevance: RelevanceResult = {
+    score: Math.max(relevance.score, existing.relevance),
+    matched_topics: [...new Set([...relevance.matched_topics, ...existing.topics])].sort(),
+  };
+  const impact = classifyImpact(work, topics, mergedRelevance, config.relevance);
+
+  merged.publication_status = work.publication_status === 'corrected' ? 'corrected' : 'retracted';
+  if (work.evidence_type === 'correction') merged.evidence_type = 'correction';
+  else if (work.evidence_type === 'retraction') merged.evidence_type = 'retraction';
+  merged.topics = mergedRelevance.matched_topics;
+  merged.impact_class = impact.impact_class;
+  merged.affected_claims = impact.affected_claims;
+  merged.affected_topics = impact.affected_topics;
+  merged.classification = impact.classification;
+  merged.confidence = impact.confidence;
+  merged.cost_policy = impact.cost_policy;
+  merged.triage_note = impact.triage_note;
+
+  return { record: merged, statusChange: true };
 }
 
 function envelopeForCandidate(
@@ -205,6 +274,7 @@ export async function runResearchWatch(options: ResearchWatchOptions): Promise<R
   const outcomes: SourceOutcome[] = [];
   const newEvidences: EvidenceRecord[] = [];
   const mergedEvidenceIds: string[] = [];
+  const supersededCandidates: string[] = [];
 
   for (const source of sources) {
     const lastRun = await store.getSourceLastRun(source.id);
@@ -236,7 +306,14 @@ export async function runResearchWatch(options: ResearchWatchOptions): Promise<R
         const keys = identityKeys(work);
         const existing = await store.findByIdentityKeys(keys);
         if (existing) {
-          await store.saveEvidence(mergeSourceRef(existing, work, source, now));
+          const merged = mergeSourceRef(existing, work, source, topics, config, now);
+          await store.saveEvidence(merged.record);
+          if (merged.statusChange) {
+            // The superseded status invalidates any assessment derived from it;
+            // the re-classified evidence re-enters promotion (see backlog below).
+            const invalidated = await store.invalidateCandidatesForEvidence(existing.evidence_id);
+            supersededCandidates.push(...invalidated);
+          }
           mergedEvidenceIds.push(existing.evidence_id);
           mergedCount++;
           continue;
@@ -266,8 +343,26 @@ export async function runResearchWatch(options: ResearchWatchOptions): Promise<R
     await store.setSourceLastRun(source.id, now.toISOString());
   }
 
-  const openFingerprints = new Set(await store.listOpenCandidateFingerprints());
-  const promotion = promoteCandidates(newEvidences, config.promotion, openFingerprints, now);
+  // Re-promotion scan: evidence deferred by an earlier run (budget skips,
+  // superseded candidates re-opened by a retraction/correction merge)
+  // accumulates and is drained by later runs — discovery cadence and synthesis
+  // cadence are independent (architecture SSF_RESEARCH_WATCH). The scan runs
+  // only when this run actually processed a source: a fully cadence-skipped
+  // run stays a no-op. Evidence already evaluated this run is excluded, and
+  // closed (done/rejected) fingerprints keep closed assessments from being
+  // re-created by the scan.
+  let promotion: PromotionResult = { candidates: [], skipped: [] };
+  if (outcomes.some((outcome) => outcome.status === 'ok')) {
+    const fingerprints = new Set([
+      ...(await store.listOpenCandidateFingerprints()),
+      ...(await store.listClosedCandidateFingerprints()),
+    ]);
+    const newEvidenceIds = new Set(newEvidences.map((evidence) => evidence.evidence_id));
+    const backlog = (await store.listUnpromotedEvidence()).filter(
+      (evidence) => !newEvidenceIds.has(evidence.evidence_id)
+    );
+    promotion = promoteCandidates([...newEvidences, ...backlog], config.promotion, fingerprints, now);
+  }
 
   for (const candidate of promotion.candidates) {
     await store.saveCandidate(candidate);
@@ -300,6 +395,7 @@ export async function runResearchWatch(options: ResearchWatchOptions): Promise<R
     merged_evidence_ids: mergedEvidenceIds,
     candidates_created: promotion.candidates.map((candidate) => candidate.candidate_id),
     candidate_skips: promotion.skipped,
+    superseded_candidates: supersededCandidates,
     envelopes,
   };
 }

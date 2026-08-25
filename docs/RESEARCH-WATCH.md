@@ -91,7 +91,12 @@ structured source metadata (relation hints, publication status, evidence
 type):
 
 - retractions/corrections never auto-accept — they park as UNCERTAIN review
-  with `cost_policy: immediate` when they touch a watched topic;
+  with `cost_policy: immediate` when they touch a watched topic; when the
+  retraction/correction arrives for a work already in the store (arXiv
+  withdrawals/replacements reuse the same id), the stored evidence status is
+  updated, the impact re-classified to the UNCERTAIN review path, identifiers
+  are unioned and any open candidate derived from the superseded status is
+  invalidated — provenance is never deleted;
 - conflicting hints park as UNCERTAIN (contradictory evidence is represented,
   never reconciled by generated prose);
 - works without structured hints park as UNCERTAIN with
@@ -104,8 +109,12 @@ type):
 A discovery may become a candidate only with: promotable impact class,
 stable identity (DOI/arXiv/registry/dataset; fingerprint-only works are
 retained but not promoted), allowed evidence type, sufficient relevance, no
-open candidate fingerprint, and remaining budget
-(`max_candidates_per_run`, default 5). Output types:
+open or closed candidate fingerprint, and remaining budget
+(`max_candidates_per_run`, default 5). Evidence deferred by the per-run
+budget is never dropped: a later run re-scans stored evidence without an
+open candidate and drains the backlog up to the budget — discovery cadence
+and synthesis cadence are independent, so many discoveries can accumulate
+into one off-peak batch. Output types:
 
 - `RESEARCH_DISCOVERY` (NEW/CONFIRMS/UNCERTAIN) → SSF-internal review;
 - `CANON_VALIDATION` (CONTRADICTS/REVISES/DEPRECATES) → routed to the KG.
