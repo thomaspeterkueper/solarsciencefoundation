@@ -1,0 +1,135 @@
+{
+  "$comment": "SSF Research Watch topic registry. Derived from the current SSF module scope (modules field). Relevance is evaluated ONLY against these topics; new topics must be proposed for review, never silently expanded. canon_claims are v0.1 seed statements maintained by SSF curators — CANON_VALIDATION candidates defer the actual judgment to the KUEPER Knowledge Graph (source of truth).",
+  "topics": [
+    {
+      "id": "TOP:SSF:PHY:GRAVITY",
+      "label": "Gravity and orbital mechanics",
+      "domains": ["Physics", "Astronomy"],
+      "modules": ["SSF-PHY-1101"],
+      "keywords": ["gravity", "gravitation", "gravitational", "gravitational acceleration", "surface gravity", "orbit", "orbital", "free fall", "mass attraction", "escape velocity", "tidal forces"],
+      "canon_claims": [
+        {
+          "id": "CLM:SSF:PHY:GRAVITY:001",
+          "text": "Gravity is the attraction between masses.",
+          "sources": ["SSF-PHY-1101", "ENT:PHY:GRAVITY"]
+        },
+        {
+          "id": "CLM:SSF:PHY:GRAVITY:002",
+          "text": "On Earth gravity makes objects fall toward the ground; in space it bends motion into orbits.",
+          "sources": ["SSF-PHY-1101"]
+        },
+        {
+          "id": "CLM:SSF:PHY:GRAVITY:003",
+          "text": "A satellite orbits by falling around a body while moving sideways fast enough to keep missing the surface.",
+          "sources": ["SSF-PHY-1101", "ENT:AST:ORBIT"]
+        }
+      ],
+      "status": "active"
+    },
+    {
+      "id": "TOP:SSF:MAT:FOUNDATIONS",
+      "label": "Mathematics foundations (numbers and arithmetic)",
+      "domains": ["Mathematics"],
+      "modules": ["SSF-MAT-0001", "SSF-MAT-0002", "SSF-MAT-0003", "SSF-MAT-0004", "SSF-MAT-0005"],
+      "keywords": ["place value", "addition", "multiplication", "fractions", "percentages", "arithmetic", "number sense"],
+      "canon_claims": [
+        {
+          "id": "CLM:SSF:MAT:FOUND:001",
+          "text": "In place-value notation the position of a digit changes its value.",
+          "sources": ["SSF-MAT-0001", "CON:MAT:L0:place-value"]
+        },
+        {
+          "id": "CLM:SSF:MAT:FOUND:002",
+          "text": "Addition combines quantities; multiplication scales them.",
+          "sources": ["SSF-MAT-0002", "SSF-MAT-0003"]
+        }
+      ],
+      "status": "active"
+    },
+    {
+      "id": "TOP:SSF:MAT:LINEAR",
+      "label": "Linear systems",
+      "domains": ["Mathematics"],
+      "modules": ["SSF-MAT-1001", "SSF-MAT-1002"],
+      "keywords": ["linear equations", "linear system", "gaussian elimination", "matrix", "systems of equations", "solution set"],
+      "canon_claims": [
+        {
+          "id": "CLM:SSF:MAT:LINEAR:001",
+          "text": "Systems of linear equations can be solved systematically by elimination.",
+          "sources": ["SSF-MAT-1001", "SSF-MAT-1002"]
+        }
+      ],
+      "status": "active"
+    },
+    {
+      "id": "TOP:SSF:AST:PLANETOLOGY",
+      "label": "Planetary science orientation",
+      "domains": ["Astronomy", "Earth science"],
+      "modules": ["AST-L1-000001"],
+      "keywords": ["planet", "planetary", "solar system", "exoplanet", "orbital period", "planetesimal", "accretion", "planetology"],
+      "canon_claims": [
+        {
+          "id": "CLM:SSF:AST:PLANET:001",
+          "text": "Planets and moons differ in composition, structure and orbits.",
+          "sources": ["AST-L1-000001"]
+        },
+        {
+          "id": "CLM:SSF:AST:PLANET:002",
+          "text": "Orbits arise from gravity bending motion around a central body.",
+          "sources": ["AST-L1-000001", "SSF-PHY-1101"]
+        }
+      ],
+      "status": "active"
+    },
+    {
+      "id": "TOP:SSF:EAR:SEISMOLOGY",
+      "label": "Planetary seismology",
+      "domains": ["Earth science", "Astronomy"],
+      "modules": ["EAR-L2-000001"],
+      "keywords": ["seismology", "seismic", "earthquake", "marsquake", "moonquake", "planetary interior", "seismic wave", "s-wave", "p-wave"],
+      "canon_claims": [
+        {
+          "id": "CLM:SSF:EAR:SEISMO:001",
+          "text": "Planetary seismology reads a body's interior from the waves of quakes.",
+          "sources": ["EAR-L2-000001"]
+        }
+      ],
+      "status": "active"
+    },
+    {
+      "id": "TOP:SSF:EAR:PETROLOGY",
+      "label": "Petrology and rock formation",
+      "domains": ["Earth science"],
+      "modules": ["EAR-L2-000002"],
+      "keywords": ["petrology", "igneous", "rock formation", "mineral", "magma", "basalt", "crystallisation", "crystallization"],
+      "canon_claims": [
+        {
+          "id": "CLM:SSF:EAR:PETRO:001",
+          "text": "Rocks form through igneous and other petrogenetic processes.",
+          "sources": ["EAR-L2-000002"]
+        }
+      ],
+      "status": "active"
+    },
+    {
+      "id": "TOP:SSF:ENG:MECHANICS",
+      "label": "Engineering mechanics (stress states, TM2)",
+      "domains": ["Engineering"],
+      "modules": ["TM2-COMB-001", "TM2-PRESS-001", "TM2-STRESS-001", "TM2-PRINCIPAL-001", "TM2-COMB-002", "TM2-STRAIN-001"],
+      "keywords": ["stress", "stress state", "principal stress", "mohr circle", "pressure vessel", "combined loading", "bending", "torsion", "strain", "hooke", "spannungszustand", "hauptspannung", "druckbehälter", "dehnung"],
+      "canon_claims": [
+        {
+          "id": "CLM:SSF:ENG:MECH:001",
+          "text": "Combined stress states require superposition of the individual load cases.",
+          "sources": ["TM2-COMB-001", "TM2-COMB-002"]
+        },
+        {
+          "id": "CLM:SSF:ENG:MECH:002",
+          "text": "A stress state at a point is described by principal stresses (Mohrscher Kreis).",
+          "sources": ["TM2-STRESS-001", "TM2-PRINCIPAL-001"]
+        }
+      ],
+      "status": "active"
+    }
+  ]
+}

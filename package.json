@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "tsc -p tsconfig.test.json && mkdir -p test-dist/config && cp -r config/research-watch test-dist/config/ && node --test \"test-dist/tests/**/*.test.js\""
   },
   "dependencies": {
     "@next/mdx": "latest",
