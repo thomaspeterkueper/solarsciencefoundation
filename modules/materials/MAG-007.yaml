@@ -1,0 +1,20 @@
+id: MAG-007
+type: LearningModule
+status: draft
+language: { primary: de, planned: [en] }
+title: { de: Anwendungen magnetischer Materialien, en: Applications of magnetic materials }
+summary:
+  de: Anwendungen von Elektromotoren, Generatoren und Transformatoren bis zu Sensorik, MRT, Lautsprechern, Datenspeicherung und magnetischen Lagern.
+level: { ssf_level: N3, academic_context: Physik / Engineering }
+duration_minutes: 50
+learning_objectives:
+  de:
+    - Magnetische Werkstoffe nach Funktion in technischen Systemen einordnen.
+    - Permanentmagnet, weichmagnetischen Kern und Elektromagnet unterscheiden.
+    - Anwendungen anhand von Feldstärke, Verlusten, Temperatur und Werkstoffwahl vergleichen.
+prerequisites: { modules: [MAG-006] }
+key_concepts: [CON:ENG:electric-motor, CON:ENG:generator, CON:ENG:transformer, CON:ENG:hall-sensor, CON:ENG:magnetic-bearing]
+canonical_examples:
+  - id: EX:MAG:007:001
+    title: { de: Warum Motor und Transformator unterschiedliche Magnetwerkstoffe brauchen, en: Why motors and transformers need different magnetic materials }
+relations: { requires: [MAG-006], precedes: [MAG-008] }

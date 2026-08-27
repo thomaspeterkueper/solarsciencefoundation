@@ -1,5 +1,6 @@
 import { learningPaths, type LearningPath } from './learningPaths';
 import { maillardLearningPath } from './learningPaths/maillard';
+import { magnetismMaterialsLearningPath } from './learningPaths/magnetismMaterials';
 
 export type LearningPathLifecycleStatus = 'prototype' | 'active';
 
@@ -76,6 +77,25 @@ const MODULE_ALIAS_MAP: Record<string, string> = {
   'LRN:SSF:BIO-5001':         'PATH:SSF:BIO-LEBEN-URSPRUNG-0001',
   'LRN:SSF:COLONY-L1-000001': 'PATH:SSF:ENG-COLONY-FOUND-0001',
   'LRN:SSF:STATION-L1-000001':'PATH:SSF:ENG-STATION-FOUND-0001',
+
+  // Magnetismus & funktionale Materialien — SSF didactic path aliases.
+  // The KG owns the canonical PHY-L1 IDs; SSF owns the path and presentation.
+  'LRN:SSF:MAG-001': 'PATH:SSF:MAGNETISM-MATERIALS',
+  'LRN:SSF:MAG-002': 'PATH:SSF:MAGNETISM-MATERIALS',
+  'LRN:SSF:MAG-003': 'PATH:SSF:MAGNETISM-MATERIALS',
+  'LRN:SSF:MAG-004': 'PATH:SSF:MAGNETISM-MATERIALS',
+  'LRN:SSF:MAG-005': 'PATH:SSF:MAGNETISM-MATERIALS',
+  'LRN:SSF:MAG-006': 'PATH:SSF:MAGNETISM-MATERIALS',
+  'LRN:SSF:MAG-007': 'PATH:SSF:MAGNETISM-MATERIALS',
+  'LRN:SSF:MAG-008': 'PATH:SSF:MAGNETISM-MATERIALS',
+  'PHY-L1-000017': 'PATH:SSF:MAGNETISM-MATERIALS',
+  'PHY-L1-000018': 'PATH:SSF:MAGNETISM-MATERIALS',
+  'PHY-L1-000019': 'PATH:SSF:MAGNETISM-MATERIALS',
+  'PHY-L1-000020': 'PATH:SSF:MAGNETISM-MATERIALS',
+  'PHY-L1-000021': 'PATH:SSF:MAGNETISM-MATERIALS',
+  'PHY-L1-000022': 'PATH:SSF:MAGNETISM-MATERIALS',
+  'PHY-L1-000023': 'PATH:SSF:MAGNETISM-MATERIALS',
+  'PHY-L1-000024': 'PATH:SSF:MAGNETISM-MATERIALS',
 };
 
 function normalizeModuleId(id: string): string {
@@ -124,7 +144,11 @@ function buildRegistry(source: LearningPath[]) {
   };
 }
 
-const registry = buildRegistry([...learningPaths, maillardLearningPath]);
+const registry = buildRegistry([
+  ...learningPaths,
+  maillardLearningPath,
+  magnetismMaterialsLearningPath,
+]);
 
 export const registeredLearningPaths = registry.paths;
 export const learningPathRegistryIssues = registry.issues;

@@ -5166,10 +5166,8 @@ export const learningPaths: LearningPath[] = [
             interactive: true,
             depthPoints: 10,
           },
-
           {
-            id: 'QUIZ:WASSER-DIPOL-1',
-            kind: 'quiz',
+            id: 'QUIZ:WASSER-DIPOL-1',            kind: 'quiz',
             title: 'Quiz: Verstanden?',
             summary: 'Quiz: Warum kocht Wasser bei 100°C statt -80°C? Was waere wenn Wasser kein Dipol waere?',
             depthPoints: 12,
@@ -5594,7 +5592,6 @@ export const learningPaths: LearningPath[] = [
       },
     ],
   },
-
   {
     id: 'PATH:SSF:ENG-COLONY-FOUND-0001',
     title: 'Wie gruendet man eine Kolonie — und warum scheitern die meisten in den ersten 90 Tagen',

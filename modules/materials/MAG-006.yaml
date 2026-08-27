@@ -1,0 +1,23 @@
+id: MAG-006
+type: LearningModule
+status: draft
+language: { primary: de, planned: [en] }
+title: { de: Vom Rohstoff zum Magneten, en: From raw material to magnet }
+summary:
+  de: Verknüpft Lagerstätte, Rohstoff, Legierung oder Verbindung, Mikrostruktur, Verarbeitung und Bauteileigenschaft zu einer Werkstoffkette.
+level: { ssf_level: N3, academic_context: Materialwissenschaft / Produktion }
+duration_minutes: 50
+learning_objectives:
+  de:
+    - Rohstoff, chemische Zusammensetzung, Mikrostruktur und Funktion unterscheiden.
+    - Erklären, wie Verarbeitung magnetische Eigenschaften beeinflusst.
+    - Magnetwerkstoffe als technische Prozesskette modellieren.
+    - Recycling und kritische Rohstoffe als Teil der Werkstoffentscheidung einordnen.
+prerequisites: { modules: [MAG-005] }
+key_concepts: [CON:MAT:composition, CON:MAT:microstructure, CON:MAT:processing, CON:MAT:critical-raw-materials, CON:MAT:recycling]
+canonical_examples:
+  - id: EX:MAG:006:001
+    title: { de: NdFeB von Rohstoff und Pulverprozess zum Motorbauteil, en: NdFeB from raw materials and powder processing to motor component }
+relations: { requires: [MAG-005], precedes: [MAG-007] }
+ssf_notes:
+  de: Dieses Modul bildet die Brücke zur allgemeinen SSF-Säule Materialwissenschaft: Zusammensetzung + Struktur + Prozess + Umwelt bestimmen die Funktion.

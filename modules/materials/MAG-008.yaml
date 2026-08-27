@@ -1,0 +1,23 @@
+id: MAG-008
+type: LearningModule
+status: draft
+language: { primary: de, planned: [en] }
+title: { de: Fortgeschrittene magnetische Funktionen, en: Advanced magnetic functions }
+summary:
+  de: Elektromagnete, Wirbelströme, Abschirmung, Magnetokalorik, Supraleitung und Flux Pinning als weiterführende Funktionsprinzipien.
+level: { ssf_level: N3, academic_context: Physik / funktionale Materialien }
+duration_minutes: 50
+learning_objectives:
+  de:
+    - Elektromagnete und Permanentmagnete funktional vergleichen.
+    - Wirbelströme als Verlustmechanismus und technische Wirkung erklären.
+    - Grundideen magnetischer Abschirmung einordnen.
+    - Magnetokalorik, Supraleitung und Flux Pinning als fortgeschrittene Materialfunktionen beschreiben.
+prerequisites: { modules: [MAG-007] }
+key_concepts: [CON:PHY:electromagnet, CON:PHY:eddy-current, CON:MAT:magnetic-shielding, CON:MAT:magnetocaloric-effect, CON:PHY:superconductivity, CON:PHY:flux-pinning]
+assessment:
+  mastery_criteria:
+    - Lernende können magnetische Materialfunktionen auf physikalische Prinzipien und Werkstoffeigenschaften zurückführen.
+relations: { requires: [MAG-007] }
+ssf_notes:
+  de: Abschlussmodul mit Anschlussmöglichkeiten an Energie-, Sensorik-, Kryotechnik- und Engineering-Pfade.

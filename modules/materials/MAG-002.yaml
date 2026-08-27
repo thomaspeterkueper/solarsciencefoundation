@@ -1,0 +1,18 @@
+id: MAG-002
+type: LearningModule
+status: draft
+language: { primary: de, planned: [en] }
+title: { de: Warum Materialien magnetisch sind, en: Why materials are magnetic }
+summary:
+  de: Von magnetischen Momenten und Elektronenspin zu Dia-, Para- und Ferromagnetismus sowie magnetischen Domänen.
+level: { ssf_level: N2, academic_context: Physik / Materialwissenschaft }
+duration_minutes: 45
+learning_objectives:
+  de:
+    - Magnetische Momente als mikroskopische Grundlage einordnen.
+    - Dia-, Para- und Ferromagnetismus unterscheiden.
+    - Magnetische Domänen erklären.
+    - Begründen, warum nicht jedes Metall ferromagnetisch ist.
+prerequisites: { modules: [MAG-001] }
+key_concepts: [CON:MAT:magnetic-moment, CON:MAT:diamagnetism, CON:MAT:paramagnetism, CON:MAT:ferromagnetism, CON:MAT:magnetic-domain]
+relations: { requires: [MAG-001], precedes: [MAG-003] }

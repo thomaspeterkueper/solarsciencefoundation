@@ -1,0 +1,21 @@
+id: MAG-005
+type: LearningModule
+status: draft
+language: { primary: de, planned: [en] }
+title: { de: Magnetismus und Temperatur, en: Magnetism and temperature }
+summary:
+  de: Curie-Temperatur, reversible und irreversible Entmagnetisierung sowie die Bedeutung realer Arbeitstemperaturen.
+level: { ssf_level: N2, academic_context: Materialwissenschaft / Thermophysik }
+duration_minutes: 40
+learning_objectives:
+  de:
+    - Curie-Temperatur erklären.
+    - Arbeitstemperatur und Curie-Temperatur unterscheiden.
+    - Reversible von irreversibler Entmagnetisierung abgrenzen.
+    - Temperatur als Werkstoffauswahlkriterium anwenden.
+prerequisites: { modules: [MAG-004] }
+key_concepts: [CON:MAT:curie-temperature, CON:MAT:demagnetization, CON:MAT:working-temperature]
+assessment:
+  formative:
+    - Zwei Magnetwerkstoffe für unterschiedlich heiße Einsatzorte bewerten.
+relations: { requires: [MAG-004], precedes: [MAG-006] }

@@ -1,0 +1,22 @@
+id: MAG-001
+type: LearningModule
+status: draft
+language: { primary: de, planned: [en] }
+title: { de: Magnetfelder verstehen, en: Understanding magnetic fields }
+summary:
+  de: Einführung in Magnetfelder, Dipole und die Verbindung zwischen elektrischem Strom und Magnetfeld.
+level: { ssf_level: N1, academic_context: Physik / Materialwissenschaft }
+duration_minutes: 35
+learning_objectives:
+  de:
+    - Magnetfelder als physikalische Felder beschreiben.
+    - Nord- und Südpol als Dipolstruktur einordnen.
+    - Feldlinien als Darstellungsmodell und nicht als reale Fäden verstehen.
+    - Erklären, dass elektrische Ströme Magnetfelder erzeugen.
+key_concepts: [CON:PHY:magnetic-field, CON:PHY:magnetic-dipole, CON:PHY:electromagnetism]
+assessment:
+  formative:
+    - Feldverlauf um Stabmagnet und stromdurchflossenen Leiter qualitativ skizzieren.
+relations: { precedes: [MAG-002] }
+ssf_notes:
+  de: Der Einstieg soll Alltagsvorstellungen von 'magnetischer Kraft' in ein Feldmodell überführen.
