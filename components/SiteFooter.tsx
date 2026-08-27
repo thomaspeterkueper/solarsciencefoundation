@@ -7,6 +7,7 @@ export default function SiteFooter() {
   const pathname = usePathname() || '/';
   const isGerman = pathname === '/de' || pathname.startsWith('/de/');
   const prefix = isGerman ? '/de' : '';
+  const transparencyHref = isGerman ? '/de/ki-transparenz' : '/ai-transparency';
 
   return (
     <footer className="site-footer">
@@ -43,6 +44,9 @@ export default function SiteFooter() {
             </Link>
             <Link href={`${prefix}/nutzungsbedingungen`}>
               {isGerman ? 'Nutzungsbedingungen' : 'Terms'}
+            </Link>
+            <Link href={transparencyHref}>
+              {isGerman ? 'KI-Transparenz' : 'AI transparency'}
             </Link>
           </div>
         </nav>
