@@ -1,0 +1,21 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "outDir": "test-dist",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "ES2020",
+    "jsx": "react-jsx",
+    "plugins": [],
+    "incremental": false,
+    "isolatedModules": false
+  },
+  "include": [
+    "lib/research-watch/**/*.ts",
+    "lib/modules.ts",
+    "lib/subjects.ts",
+    "tests/research-watch/**/*.ts"
+  ],
+  "exclude": ["node_modules"]
+}

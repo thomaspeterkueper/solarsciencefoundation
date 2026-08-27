@@ -1,0 +1,124 @@
+{
+  "$comment": "Deterministic fixture works for SSF Research Watch (self-test source SSF-SRC-FIXTURE-001). Curated exercise data, NOT a science feed. Covers: duplicate discovery across identity keys, version-distinct arXiv identity, no-impact classification, contradicting preprint (validation candidate), new topic, retraction, dataset release, conflicting hints, out-of-scope noise.",
+  "works": [
+    {
+      "raw_id": "fx-grav-dup-a",
+      "title": "Precision classroom measurement of local gravitational acceleration",
+      "abstract": "Free-fall timing in lecture halls reproduces the standard gravitational acceleration with sub-percent spread.",
+      "published_at": "2026-07-02",
+      "identifiers": { "doi": "https://doi.org/10.2401/ssf.2026.grav-dup", "arxiv": "arXiv:2501.04567v1" },
+      "url": "https://example.invalid/ssf/grav-dup",
+      "venue": "Journal of Demonstration Physics",
+      "evidence_type": "primary-study",
+      "publication_status": "published",
+      "relation_hints": [
+        { "relation": "confirms", "target": "CLM:SSF:PHY:GRAVITY:002" }
+      ]
+    },
+    {
+      "raw_id": "fx-grav-dup-b",
+      "title": "Precision classroom measurement of local gravitational acceleration",
+      "published_at": "2026-07-02",
+      "identifiers": { "doi": "10.2401/ssf.2026.grav-dup" },
+      "url": "https://example.invalid/ssf/grav-dup",
+      "evidence_type": "primary-study",
+      "publication_status": "published"
+    },
+    {
+      "raw_id": "fx-grav-dup-c",
+      "title": "Precision classroom measurement of local gravitational acceleration",
+      "published_at": "2026-07-02",
+      "identifiers": { "arxiv": "2501.04567v1" },
+      "evidence_type": "primary-study",
+      "publication_status": "published"
+    },
+    {
+      "raw_id": "fx-grav-v2",
+      "title": "Precision classroom measurement of local gravitational acceleration",
+      "abstract": "Version 2 adds a second instrument class; conclusions unchanged.",
+      "published_at": "2026-08-01",
+      "identifiers": { "arxiv": "2501.04567v2" },
+      "evidence_type": "primary-study",
+      "publication_status": "preprint"
+    },
+    {
+      "raw_id": "fx-grav-classroom",
+      "title": "A lecture-hall demonstration of free fall reproduces textbook fall behaviour",
+      "abstract": "The demonstration repeats known fall behaviour; no new or changed learning statement results.",
+      "published_at": "2026-05-12",
+      "identifiers": { "doi": "10.2401/ssf.2026.grav-classroom" },
+      "evidence_type": "primary-study",
+      "publication_status": "published",
+      "relation_hints": [
+        { "relation": "no_relation", "target": "CLM:SSF:PHY:GRAVITY:002" }
+      ]
+    },
+    {
+      "raw_id": "fx-grav-balloon",
+      "title": "High-altitude balloon measurements suggest altitude-dependent deviation from universal mass attraction",
+      "abstract": "Balloon-borne gravimetry at 30 km altitude reports deviations from the uniform-attraction model taught in introductory modules.",
+      "published_at": "2026-08-10",
+      "identifiers": { "arxiv": "2501.09876v2" },
+      "evidence_type": "primary-study",
+      "publication_status": "preprint",
+      "relation_hints": [
+        { "relation": "contradicts", "target": "CLM:SSF:PHY:GRAVITY:001" }
+      ]
+    },
+    {
+      "raw_id": "fx-exo-resonance",
+      "title": "First orbital resonance census of compact multiplanet systems",
+      "abstract": "A census of orbital resonances in compact multiplanet systems, introducing resonance statistics not yet covered by SSF modules.",
+      "published_at": "2026-07-20",
+      "identifiers": { "doi": "10.2401/ssf.2026.exo-resonance" },
+      "evidence_type": "primary-study",
+      "publication_status": "published",
+      "relation_hints": [
+        { "relation": "introduces", "target": "TOP:SSF:AST:PLANETOLOGY" }
+      ]
+    },
+    {
+      "raw_id": "fx-insight-retraction",
+      "title": "Retraction: InSight-based claim of missing marsquake seasonality",
+      "abstract": "The authors retract the earlier claim of missing marsquake seasonality after a catalogue correction.",
+      "published_at": "2026-08-14",
+      "identifiers": { "doi": "10.2401/ssf.2026.insight-seas" },
+      "evidence_type": "retraction",
+      "publication_status": "retracted"
+    },
+    {
+      "raw_id": "fx-mqs-014",
+      "title": "Marsquake catalogue v14",
+      "abstract": "Release v14 of the marsquake catalogue with 1319 events.",
+      "published_at": "2026-06-30",
+      "identifiers": { "dataset": "MQS-2026-014" },
+      "evidence_type": "dataset-release",
+      "publication_status": "published",
+      "relation_hints": [
+        { "relation": "confirms", "target": "CLM:SSF:EAR:SEISMO:001" }
+      ]
+    },
+    {
+      "raw_id": "fx-g-tension",
+      "title": "Tension between local and cosmological measurements of the gravitational constant",
+      "abstract": "Local and cosmological determinations of G disagree; the result both confirms mass attraction and contradicts the uniform-fall explanation.",
+      "published_at": "2026-08-05",
+      "identifiers": { "doi": "10.2401/ssf.2026.g-tension" },
+      "evidence_type": "primary-study",
+      "publication_status": "published",
+      "relation_hints": [
+        { "relation": "confirms", "target": "CLM:SSF:PHY:GRAVITY:001" },
+        { "relation": "contradicts", "target": "CLM:SSF:PHY:GRAVITY:002" }
+      ]
+    },
+    {
+      "raw_id": "fx-alpine-chlorophyll",
+      "title": "Chlorophyll fluorescence in alpine meadows",
+      "abstract": "Seasonal chlorophyll fluorescence variability in alpine grassland.",
+      "published_at": "2026-06-01",
+      "identifiers": { "doi": "10.2401/ssf.2026.alpine-chlorophyll" },
+      "evidence_type": "primary-study",
+      "publication_status": "published"
+    }
+  ]
+}

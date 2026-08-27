@@ -1,0 +1,41 @@
+{
+  "$comment": "SSF Research Watch source registry. Sources are configuration, not hard-coded agent knowledge. Adapter keys name replaceable implementations; provider/model identity lives in config only. Every entry carries an explicit coverage_note: absence from the watch is never interpreted as absence from science. Network sources are disabled until a feed URL is approved for operations; enable them here or via their env feed URL.",
+  "sources": [
+    {
+      "id": "SSF-SRC-FIXTURE-001",
+      "name": "SSF deterministic fixtures",
+      "source_class": "fixture",
+      "adapter": "fixture",
+      "enabled": true,
+      "cadence_hours": 24,
+      "cost_policy": "immediate",
+      "coverage_note": "Deterministic self-test data. Covers ONLY the works listed in config/research-watch/fixtures/works.json — a curated exercise set, not a science feed."
+    },
+    {
+      "id": "SSF-SRC-ARXIV-001",
+      "name": "Preprint and primary-literature feed",
+      "source_class": "primary-literature",
+      "adapter": "http-json",
+      "enabled": false,
+      "cadence_hours": 24,
+      "cost_policy": "immediate",
+      "coverage_note": "Preprints and primary literature as provided by the configured JSON feed (e.g. an arXiv API bridge). Disabled until a feed URL is approved; covers only what the feed provider indexes.",
+      "config": {
+        "env_feed_url": "RESEARCH_WATCH_ARXIV_FEED_URL"
+      }
+    },
+    {
+      "id": "SSF-SRC-AGENCY-001",
+      "name": "Authoritative agency and data-release feed",
+      "source_class": "authoritative-agency",
+      "adapter": "http-json",
+      "enabled": false,
+      "cadence_hours": 72,
+      "cost_policy": "immediate",
+      "coverage_note": "Dataset/release announcements and authoritative agency outputs via the configured JSON feed. Disabled until a feed URL is approved; covers only the agency's own publications.",
+      "config": {
+        "env_feed_url": "RESEARCH_WATCH_AGENCY_FEED_URL"
+      }
+    }
+  ]
+}
