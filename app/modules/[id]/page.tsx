@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { getKxfLearningModuleById } from '../../../lib/kxf';
 import { getRegisteredLearningPathForModule } from '../../../lib/learningPathRegistry';
 import { getDidacticModuleContent } from '../../../lib/didacticContent';
+import { getScienceFoundationContent } from '../../../lib/didacticScienceFoundations';
 
 type PageProps = {
   params: Promise<{ id: string }>;
@@ -32,7 +33,10 @@ export default async function ModulePage({ params, searchParams }: PageProps) {
   const mod = await getKxfLearningModuleById(id);
   if (!mod) notFound();
 
-  const didactic = getDidacticModuleContent(mod.id) ?? getDidacticModuleContent(id);
+  const didactic = getDidacticModuleContent(mod.id)
+    ?? getDidacticModuleContent(id)
+    ?? getScienceFoundationContent(mod.id)
+    ?? getScienceFoundationContent(id);
   const path = getRegisteredLearningPathForModule(id) ?? getRegisteredLearningPathForModule(mod.id);
   const qs = new URLSearchParams();
   if (searchParams?.uid) qs.set('uid', searchParams.uid);
