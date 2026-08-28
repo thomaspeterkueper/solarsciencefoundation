@@ -1,0 +1,7 @@
+{
+  "schema": "SSF-RESEARCH-WATCH-0.1",
+  "costPolicy": "prefer_off_peak",
+  "promotion": { "minimumRelevance": 0.45, "directCurriculumRewrite": false },
+  "adapters": ["doi", "arxiv", "registry"],
+  "notes": "Provider/model identity is intentionally not part of the domain contract. Discovery adapters remain replaceable."
+}
