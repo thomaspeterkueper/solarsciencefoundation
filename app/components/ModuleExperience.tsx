@@ -1,0 +1,164 @@
+'use client';
+
+import { useMemo, useState } from 'react';
+import type { DidacticInteraction } from '../../lib/didacticInteractions';
+
+type Task = {
+  prompt: string;
+  hint?: string;
+  solution: string;
+};
+
+type Check = {
+  question: string;
+  options: string[];
+  correctOption: number;
+  explanation: string;
+};
+
+type Props = {
+  task: Task;
+  check: Check;
+  interaction?: DidacticInteraction;
+  learningGoals: string[];
+};
+
+export default function ModuleExperience({ task, check, interaction, learningGoals }: Props) {
+  const [taskComplete, setTaskComplete] = useState(false);
+  const [checkComplete, setCheckComplete] = useState(false);
+  const [attempts, setAttempts] = useState(0);
+  const [sequenceValues, setSequenceValues] = useState<string[]>(
+    interaction?.type === 'sequence' ? interaction.answers.map(() => '') : []
+  );
+  const [taskFeedback, setTaskFeedback] = useState<string | null>(null);
+  const [selectedOption, setSelectedOption] = useState<number | null>(null);
+
+  const completed = Number(taskComplete) + Number(checkComplete);
+  const progress = completed === 2 ? 100 : completed === 1 ? 67 : 34;
+  const progressLabel = completed === 2 ? 'Geschafft' : completed === 1 ? 'Prüfen' : 'Ausprobieren';
+
+  const sequenceLabel = useMemo(() => {
+    if (interaction?.type !== 'sequence') return null;
+    return interaction.sequence.join('  →  ');
+  }, [interaction]);
+
+  function checkSequence() {
+    if (interaction?.type !== 'sequence') return;
+    const parsed = sequenceValues.map((value) => Number(value.trim()));
+    const correct = parsed.length === interaction.answers.length
+      && parsed.every((value, index) => Number.isFinite(value) && value === interaction.answers[index]);
+    setAttempts((value) => value + 1);
+    setTaskFeedback(correct ? interaction.correctFeedback : interaction.incorrectFeedback);
+    setTaskComplete(correct);
+  }
+
+  function chooseOption(index: number) {
+    setSelectedOption(index);
+    setCheckComplete(index === check.correctOption);
+  }
+
+  const answerWrong = selectedOption !== null && selectedOption !== check.correctOption;
+  const answerCorrect = selectedOption === check.correctOption;
+
+  return (
+    <>
+      <section aria-label="Modulfortschritt" style={{ maxWidth: 900, marginTop: 30 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', gap: 16, alignItems: 'center', marginBottom: 8 }}>
+          <strong>{progressLabel}</strong>
+          <span className="mono" style={{ color: 'var(--muted)' }}>{completed}/2 aktiv abgeschlossen</span>
+        </div>
+        <div style={{ height: 10, borderRadius: 999, background: 'color-mix(in srgb, var(--steel) 14%, transparent)', overflow: 'hidden' }}>
+          <div style={{ width: `${progress}%`, height: '100%', borderRadius: 999, background: 'var(--steel)', transition: 'width 220ms ease' }} />
+        </div>
+        <div className="mono" style={{ display: 'flex', justifyContent: 'space-between', gap: 8, marginTop: 8, color: 'var(--muted)', fontSize: 12 }}>
+          <span>Entdecken</span><span>Ausprobieren</span><span>Prüfen</span><span>Geschafft</span>
+        </div>
+      </section>
+
+      <section className="subject-section" style={{ maxWidth: 900 }}>
+        <h2 className="section-title" style={{ fontSize: 34 }}>Kannst du es anwenden?</h2>
+        <div className="platform-card" style={{ position: 'relative', overflow: 'hidden' }}>
+          <p style={{ fontWeight: 650, fontSize: 18 }}>{task.prompt}</p>
+
+          {interaction?.type === 'sequence' ? (
+            <div style={{ marginTop: 22 }}>
+              <div aria-label="Zahlenfolge" style={{ padding: '18px 20px', borderRadius: 18, background: 'color-mix(in srgb, var(--steel) 7%, transparent)', fontSize: 24, fontWeight: 700, letterSpacing: 1 }}>
+                {sequenceLabel}
+                <span aria-hidden="true">  →  </span>
+                {sequenceValues.map((value, index) => (
+                  <input
+                    key={index}
+                    aria-label={`Antwort ${index + 1}`}
+                    inputMode="numeric"
+                    value={value}
+                    onChange={(event) => {
+                      const next = [...sequenceValues];
+                      next[index] = event.target.value;
+                      setSequenceValues(next);
+                      setTaskFeedback(null);
+                    }}
+                    style={{ width: 74, marginLeft: 10, padding: '8px 10px', borderRadius: 10, border: '1px solid var(--line)', font: 'inherit', background: 'var(--paper)', color: 'var(--ink)' }}
+                  />
+                ))}
+              </div>
+              <button type="button" onClick={checkSequence} style={{ marginTop: 18, padding: '11px 18px', borderRadius: 999, border: 0, background: 'var(--steel)', color: 'white', fontWeight: 700, cursor: 'pointer' }}>
+                Prüfen
+              </button>
+              {taskFeedback && (
+                <p role="status" style={{ marginTop: 14, fontWeight: 600 }}>
+                  {taskComplete ? '✓ ' : ''}{taskFeedback}
+                </p>
+              )}
+              {!taskComplete && attempts >= 2 && (
+                <details style={{ marginTop: 14 }}><summary>Lösung ansehen</summary><p>{task.solution}</p></details>
+              )}
+            </div>
+          ) : (
+            <>
+              {task.hint && <details style={{ marginTop: 18 }}><summary>Hinweis</summary><p>{task.hint}</p></details>}
+              <details style={{ marginTop: 18 }}><summary>Lösung prüfen</summary><p>{task.solution}</p></details>
+            </>
+          )}
+        </div>
+      </section>
+
+      <section className="subject-section" style={{ maxWidth: 900 }}>
+        <h2 className="section-title" style={{ fontSize: 34 }}>Kurz geprüft</h2>
+        <div className="platform-card">
+          <p style={{ fontWeight: 650, fontSize: 18 }}>{check.question}</p>
+          <div style={{ display: 'grid', gap: 10, marginTop: 18 }}>
+            {check.options.map((option, index) => {
+              const selected = selectedOption === index;
+              const correct = selected && index === check.correctOption;
+              const incorrect = selected && index !== check.correctOption;
+              return (
+                <button
+                  key={option}
+                  type="button"
+                  onClick={() => chooseOption(index)}
+                  style={{ textAlign: 'left', padding: '14px 16px', borderRadius: 14, border: `1px solid ${correct ? 'var(--steel)' : 'var(--line)'}`, background: selected ? 'color-mix(in srgb, var(--steel) 9%, var(--paper))' : 'var(--paper)', color: 'var(--ink)', cursor: 'pointer', font: 'inherit' }}
+                >
+                  <strong style={{ marginRight: 10 }}>{String.fromCharCode(65 + index)}</strong>{option}{correct ? ' ✓' : incorrect ? ' · noch nicht' : ''}
+                </button>
+              );
+            })}
+          </div>
+          {answerWrong && <p role="status" style={{ marginTop: 16 }}>Noch nicht ganz. Prüfe, welche Aussage wirklich immer gelten muss.</p>}
+          {answerCorrect && <p role="status" style={{ marginTop: 16, fontWeight: 600 }}>✓ {check.explanation}</p>}
+        </div>
+      </section>
+
+      {taskComplete && checkComplete && (
+        <section className="subject-section" style={{ maxWidth: 900 }}>
+          <div className="platform-card" style={{ background: 'color-mix(in srgb, var(--steel) 7%, var(--paper))' }}>
+            <p className="kicker">Modul abgeschlossen</p>
+            <h2 className="section-title" style={{ fontSize: 30 }}>Das kannst du jetzt</h2>
+            <ul style={{ marginBottom: 0, paddingLeft: 22 }}>
+              {learningGoals.map((goal) => <li key={goal} style={{ marginBottom: 8 }}>✓ {goal}</li>)}
+            </ul>
+          </div>
+        </section>
+      )}
+    </>
+  );
+}
