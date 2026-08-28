@@ -1,10 +1,12 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
+import DidacticInteractionPanel from '../../../components/DidacticInteractionPanel';
 import { getKxfLearningModuleById } from '../../../lib/kxf';
 import { getRegisteredLearningPathForModule } from '../../../lib/learningPathRegistry';
 import { getDidacticModuleContent } from '../../../lib/didacticContent';
 import { getScienceFoundationContent } from '../../../lib/didacticScienceFoundations';
+import { getDidacticInteraction } from '../../../lib/didacticInteractions';
 
 type PageProps = {
   params: Promise<{ id: string }>;
@@ -28,6 +30,12 @@ function subjectHref(domain: string) {
   return slug ? `/subjects/${slug}` : '/subjects';
 }
 
+function difficultyLabel(difficulty: number) {
+  if (difficulty <= 1) return 'Grundlage';
+  if (difficulty === 2) return 'Aufbau';
+  return 'Vertiefung';
+}
+
 export default async function ModulePage({ params, searchParams }: PageProps) {
   const { id } = await params;
   const mod = await getKxfLearningModuleById(id);
@@ -37,6 +45,7 @@ export default async function ModulePage({ params, searchParams }: PageProps) {
     ?? getDidacticModuleContent(id)
     ?? getScienceFoundationContent(mod.id)
     ?? getScienceFoundationContent(id);
+  const interaction = getDidacticInteraction(mod.id) ?? getDidacticInteraction(id);
   const path = getRegisteredLearningPathForModule(id) ?? getRegisteredLearningPathForModule(mod.id);
   const qs = new URLSearchParams();
   if (searchParams?.uid) qs.set('uid', searchParams.uid);
@@ -52,19 +61,19 @@ export default async function ModulePage({ params, searchParams }: PageProps) {
         <span className="mono" style={{ color: 'var(--muted)' }}>{mod.id}</span>
       </nav>
 
-      <header style={{ maxWidth: '78ch' }}>
-        <p className="kicker">Learning module · {mod.domain}</p>
+      <header style={{ maxWidth: 900, padding: '34px 36px', borderRadius: 28, background: 'color-mix(in srgb, var(--steel) 7%, var(--paper))' }}>
+        <p className="kicker">Lernmodul · {mod.domain}</p>
         <h1 className="hero" style={{ fontSize: 52 }}>{mod.title}</h1>
         <p className="lede" style={{ maxWidth: '66ch' }}>{mod.summary}</p>
         <div className="mono" style={{ display: 'flex', gap: 18, flexWrap: 'wrap', marginTop: 20, color: 'var(--muted)' }}>
-          <span>{duration} min</span><span>difficulty {mod.difficulty}</span><span>{mod.id}</span>
+          <span>{duration} min</span><span>{difficultyLabel(mod.difficulty)}</span><span>{mod.id}</span>
         </div>
       </header>
 
       {didactic ? (
         <>
           <section className="subject-section" style={{ maxWidth: 900 }}>
-            <h2 className="section-title" style={{ fontSize: 34 }}>Lernziel</h2>
+            <h2 className="section-title" style={{ fontSize: 34 }}>Darum geht es</h2>
             <div className="platform-card">
               <ul style={{ margin: 0, paddingLeft: 22 }}>
                 {didactic.learningGoals.map((goal) => <li key={goal} style={{ marginBottom: 8 }}>{goal}</li>)}
@@ -90,25 +99,12 @@ export default async function ModulePage({ params, searchParams }: PageProps) {
             </div>
           </section>
 
-          <section className="subject-section" style={{ maxWidth: 900 }}>
-            <h2 className="section-title" style={{ fontSize: 34 }}>Jetzt du</h2>
-            <div className="platform-card">
-              <p style={{ fontWeight: 600 }}>{didactic.task.prompt}</p>
-              {didactic.task.hint && <details style={{ marginTop: 18 }}><summary>Hinweis</summary><p>{didactic.task.hint}</p></details>}
-              <details style={{ marginTop: 18 }}><summary>Lösung prüfen</summary><p>{didactic.task.solution}</p></details>
-            </div>
-          </section>
-
-          <section className="subject-section" style={{ maxWidth: 900 }}>
-            <h2 className="section-title" style={{ fontSize: 34 }}>Kurz geprüft</h2>
-            <div className="platform-card">
-              <p style={{ fontWeight: 600 }}>{didactic.check.question}</p>
-              <ol style={{ paddingLeft: 22 }}>
-                {didactic.check.options.map((option) => <li key={option} style={{ marginBottom: 8 }}>{option}</li>)}
-              </ol>
-              <details style={{ marginTop: 18 }}><summary>Antwort anzeigen</summary><p>{didactic.check.explanation}</p></details>
-            </div>
-          </section>
+          <DidacticInteractionPanel
+            task={didactic.task}
+            check={didactic.check}
+            interaction={interaction}
+            learningGoals={didactic.learningGoals}
+          />
         </>
       ) : (
         <section className="subject-section" style={{ maxWidth: 900 }}>
@@ -125,7 +121,7 @@ export default async function ModulePage({ params, searchParams }: PageProps) {
           <div className="subject-grid">
             {mod.exercises.map((exercise, index) => (
               <article className="subject-card" key={exercise.id}>
-                <span className="code">Exercise {index + 1}</span>
+                <span className="code">Übung {index + 1}</span>
                 <strong style={{ marginTop: 16 }}>{exercise.question}</strong>
                 <ol style={{ margin: '16px 0 0', paddingLeft: 22 }}>
                   {exercise.options.map((option) => <li key={option} style={{ marginBottom: 8 }}>{option}</li>)}
@@ -138,10 +134,10 @@ export default async function ModulePage({ params, searchParams }: PageProps) {
 
       <section className="subject-section" style={{ maxWidth: 900 }}>
         <div className="platform-card">
-          <p className="mono" style={{ color: 'var(--muted)', marginTop: 0 }}>Knowledge source</p>
+          <p className="mono" style={{ color: 'var(--muted)', marginTop: 0 }}>Wissensgrundlage</p>
           <p>{mod.source.authority}</p>
           {mod.source.kxfEntityIds.length > 0 && <p className="mono">{mod.source.kxfEntityIds.join(' · ')}</p>}
-          {path && <p style={{ marginTop: 18 }}><Link href={`/learning-paths/${encodeURIComponent(path.id)}${q}`}>Open in learning path: {path.title} →</Link></p>}
+          {path && <p style={{ marginTop: 18 }}><Link href={`/learning-paths/${encodeURIComponent(path.id)}${q}`}>Im Lernpfad öffnen: {path.title} →</Link></p>}
         </div>
       </section>
     </div>
