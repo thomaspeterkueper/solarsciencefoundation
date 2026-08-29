@@ -47,18 +47,23 @@ Bitte kleine fachlich abgeschlossene SSF-Pfade für die Teil-Unlocks und anschli
 - `mars-habitat` wird erst im Integrationspfad vergeben.
 - SSF dupliziert keine NOXIA-Spielregeln; NOXIA dupliziert keine SSF-Lerninhalte.
 
-## Blocker-Prüfung 2026-08-29
+## Stale-Task-Untersuchung und Entblockung 2026-08-29
 
-Der Auftrag lag länger als zwei Stunden offen und wurde deshalb gemäß Stale-Task-Regel unmittelbar untersucht. Der Stillstand ist nicht durch fehlende SSF-Implementierungsfähigkeit verursacht, sondern durch eine bestehende Source-of-Truth-Abhängigkeit:
+Der frühere Source-of-Truth-Blocker ist inzwischen aufgehoben. Die im Knowledge Graph angeforderten kanonischen Modulidentitäten sind auf dem KG-Default-Branch in Commit `81aad150ac7b2180b00e73daa90b57a523d9490e` vorhanden; der Rückauftrag `KG-SSF-20260829-noxia-unlock-identities-ready.md` enthält die verbindlichen Zuordnungen.
 
-- `docs/noxia-module-api.md` definiert den Knowledge Graph als Source of Truth für kanonische Wissens-/Modulidentität und strukturelle Metadaten; SSF besitzt Didaktik und Lerninhalt.
-- `lib/kxf.ts` normalisiert die Live-Lernmodule aus dem KG/KXF-Export. `module.unlocks[]` stammt dabei aus den KXF-Modulrecords (`dependencies.moduleUnlocks` / `module_unlocks` / `unlocks` bzw. `noxia.grants`).
-- Für die hier geforderten neuen Lernpfade sind im KG derzeit keine passenden kanonischen Modulrecords auffindbar. Würde SSF eigenständig neue kanonische Modulidentitäten oder konkurrierende Unlock-Zuordnungen erfinden, würde es die bestehende Source-of-Truth-Grenze verletzen.
+Damit ist die fachliche SSF-Arbeit wieder lokal, eindeutig und ohne neue Kanonentscheidung möglich. Die kanonischen IDs sind unter anderem:
 
-Der fehlende strukturelle Schritt wurde daher an das zuständige Repository geroutet:
+- `LRN:SSF:NOX-RESOURCE-EXTRACTION`
+- `LRN:SSF:NOX-WATER-PROCESSING`
+- `LRN:SSF:NOX-PRESSURE-SYSTEMS`
+- `LRN:SSF:NOX-AIRLOCK`
+- `LRN:SSF:NOX-LIFE-SUPPORT`
+- `LRN:SSF:NOX-THERMAL-CONTROL`
+- `LRN:SSF:NOX-RADIATION-PROTECTION`
+- `LRN:SSF:NOX-ENVIRONMENT-MONITORING`
+- `LRN:SSF:NOX-HABITAT-REDUNDANCY`
+- `LRN:SSF:NOX-MARS-HABITAT`
 
-`kueper-knowledge-graph/external-tasks/open/EXT-SSF-KG-20260829-noxia-unlock-learning-module-identities.md`
+**Bereits weitergearbeitet:** Der vorhandene Wasseraufbereitungs-Pfad deckt die angeforderte didaktische Prozesskette bereits ab und war nur noch an eine veraltete lokale KXF-ID gebunden. `lib/learningPaths/noxiaWaterProcessing.ts` verwendet seit Commit `e19b8356dfb711daf0810dc047afba829423af3b` die kanonische KG-ID `LRN:SSF:NOX-WATER-PROCESSING`; die vorhandene NOXIA-ID `UNL:NOX:water-processing` bleibt unverändert.
 
-**Fortschritt 2026-08-29:** Im Knowledge Graph liegt inzwischen Draft-PR #38 `feat: canonical NOXIA unlock learning-module identities` mit genau diesen Modulidentitäten, NOXIA-Unlock-Referenzen und KXF-Abhängigkeiten vor. Der PR ist noch nicht gemergt; Vercel ist auf Head `6def4787…` erfolgreich. Bis zur Übernahme in den KG-Default-Branch bleibt diese SSF-Aufgabe bewusst offen und SSF erzeugt keine konkurrierenden kanonischen Identitäten.
-
-**Nächster Schritt:** Nach Übernahme der KG-Identitäten in den Default-Branch kann SSF die didaktischen Pfade lokal implementieren und diesen Auftrag nach `done/` verschieben.
+**Noch offen:** Rohstoffgewinnung sowie die sieben Habitat-Teilpfade und der Habitat-Integrationspfad. Für diese Implementierungen ist nach der KG-Entblockung keine weitere Architektur- oder Kanonentscheidung erforderlich. Der Auftrag bleibt daher unter `open/`, bis diese lokalen SSF-Lernpfade umgesetzt und registriert sind.
