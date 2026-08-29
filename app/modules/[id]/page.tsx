@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import DidacticInteractionPanel from '../../../components/DidacticInteractionPanel';
+import ContributionPreview from '../../../components/ContributionPreview';
 import { getKxfLearningModuleById, getKxfLearningModules, moduleIdMatches } from '../../../lib/kxf';
 import { getRegisteredLearningPathForModule } from '../../../lib/learningPathRegistry';
 import { getDidacticModuleContent } from '../../../lib/didacticContent';
@@ -150,29 +151,33 @@ export default async function ModulePage({ params, searchParams }: PageProps) {
           <p className="section-eyebrow">Redaktionell veröffentlicht</p>
           <h2 className="section-title" style={{ fontSize: 34 }}>Ergänzende SSF-Beiträge</h2>
           <p style={{ color: 'var(--muted)', lineHeight: 1.7 }}>
-            Diese Beiträge ergänzen die didaktische Ebene des Moduls. Sie verändern weder die KXF-Modulidentität noch kanonische Aussagen des Knowledge Graph.
+            Diese Beiträge ergänzen die didaktische Ebene des Moduls. Sie verändern weder die KXF-Modulidentität noch kanonische Aussagen des Knowledge Graph. Autorenschaft und redaktionelle Provenienz werden mit der veröffentlichten Version festgehalten.
           </p>
           <div style={{ display: 'grid', gap: 18, marginTop: 24 }}>
             {publishedContributions.map((contribution) => (
-              <article className="platform-card" key={contribution.id}>
-                <div className="mono" style={{ color: 'var(--muted)', fontSize: 12 }}>
-                  Version {contribution.version} · {new Date(contribution.publishedAt).toLocaleDateString('de-DE')}
-                </div>
-                <h3 style={{ marginTop: 10 }}>{contribution.title}</h3>
-                <p style={{ color: 'var(--muted)', lineHeight: 1.7 }}>{contribution.summary}</p>
-                <div style={{ whiteSpace: 'pre-wrap', lineHeight: 1.75 }}>{contribution.bodyMarkdown}</div>
-                {contribution.sourceNotes && (
-                  <details style={{ marginTop: 18 }}>
-                    <summary>Quellen- und Redaktionshinweise</summary>
-                    <div style={{ whiteSpace: 'pre-wrap', marginTop: 10, color: 'var(--muted)' }}>{contribution.sourceNotes}</div>
-                  </details>
-                )}
-                {contribution.kgRequestRef && (
-                  <p className="mono" style={{ marginTop: 16, fontSize: 12, color: 'var(--muted)' }}>
-                    KG-Anforderung: {contribution.kgRequestRef}
-                  </p>
-                )}
-              </article>
+              <div key={contribution.id}>
+                <ContributionPreview
+                  title={contribution.title}
+                  summary={contribution.summary}
+                  bodyMarkdown={contribution.bodyMarkdown}
+                  sourceNotes={contribution.sourceNotes}
+                  targetModuleId={contribution.moduleId}
+                  authorLabel={contribution.authorDisplayName ?? 'SSF-Autorenkonto'}
+                  statusLabel={`Version ${contribution.version} · ${new Date(contribution.publishedAt).toLocaleDateString('de-DE')}`}
+                />
+                <details style={{ marginTop: 10, padding: '14px 18px', border: '1px solid var(--border)', borderRadius: 12 }}>
+                  <summary>Review- und Publikationsprovenienz</summary>
+                  <div style={{ marginTop: 12, color: 'var(--muted)', lineHeight: 1.7 }}>
+                    <p><strong>Autorenschaft:</strong> {contribution.authorDisplayName ?? 'SSF-Autorenkonto'}</p>
+                    {contribution.reviewedByDisplayName && <p><strong>Fachreview:</strong> {contribution.reviewedByDisplayName}</p>}
+                    {contribution.approvedByDisplayName && <p><strong>Redaktionelle Freigabe:</strong> {contribution.approvedByDisplayName}</p>}
+                    {contribution.publishedByDisplayName && <p><strong>Materialisierung:</strong> {contribution.publishedByDisplayName}</p>}
+                    {contribution.reviewerNoteSnapshot && <p><strong>Review-Hinweis:</strong> {contribution.reviewerNoteSnapshot}</p>}
+                    {contribution.editorNoteSnapshot && <p><strong>Redaktionshinweis:</strong> {contribution.editorNoteSnapshot}</p>}
+                    {contribution.kgRequestRef && <p className="mono" style={{ fontSize: 12 }}>KG-Anforderung: {contribution.kgRequestRef}</p>}
+                  </div>
+                </details>
+              </div>
             ))}
           </div>
         </section>
