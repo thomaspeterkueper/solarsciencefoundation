@@ -1,4 +1,5 @@
 import AuthorWorkspace from '../../components/AuthorWorkspace';
+import PublicAuthorProfileEditor from '../../components/PublicAuthorProfileEditor';
 
 export default function AuthorPage() {
   return (
@@ -8,6 +9,7 @@ export default function AuthorPage() {
       <p style={{ maxWidth: '72ch', color: 'var(--muted)', lineHeight: 1.8 }}>
         Der Autorenbereich ist für freigeschaltete SSF-Autorinnen und -Autoren. Entwürfe bleiben zunächst privat, werden anschließend fachlich geprüft, bei Bedarf überarbeitet und erst nach redaktioneller Freigabe veröffentlicht.
       </p>
+      <PublicAuthorProfileEditor />
       <AuthorWorkspace />
     </div>
   );
