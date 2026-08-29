@@ -30,6 +30,9 @@ export default function DidacticInteractionPanel({ task, check, interaction, lea
   const [sequenceValues, setSequenceValues] = useState<string[]>(
     interaction?.type === 'sequence' ? interaction.answers.map(() => '') : []
   );
+  const [numericValues, setNumericValues] = useState<string[]>(
+    interaction?.type === 'numeric-fields' ? interaction.fields.map(() => '') : []
+  );
   const [taskFeedback, setTaskFeedback] = useState<string | null>(null);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
 
@@ -42,14 +45,26 @@ export default function DidacticInteractionPanel({ task, check, interaction, lea
     return interaction.sequence.join('  →  ');
   }, [interaction]);
 
+  function finishTask(correct: boolean, correctFeedback: string, incorrectFeedback: string) {
+    setAttempts((value) => value + 1);
+    setTaskFeedback(correct ? correctFeedback : incorrectFeedback);
+    setTaskComplete(correct);
+  }
+
   function checkSequence() {
     if (interaction?.type !== 'sequence') return;
     const parsed = sequenceValues.map((value) => Number(value.trim()));
     const correct = parsed.length === interaction.answers.length
       && parsed.every((value, index) => Number.isFinite(value) && value === interaction.answers[index]);
-    setAttempts((value) => value + 1);
-    setTaskFeedback(correct ? interaction.correctFeedback : interaction.incorrectFeedback);
-    setTaskComplete(correct);
+    finishTask(correct, interaction.correctFeedback, interaction.incorrectFeedback);
+  }
+
+  function checkNumericFields() {
+    if (interaction?.type !== 'numeric-fields') return;
+    const parsed = numericValues.map((value) => Number(value.trim().replace(',', '.')));
+    const correct = parsed.length === interaction.fields.length
+      && parsed.every((value, index) => Number.isFinite(value) && value === interaction.fields[index].answer);
+    finishTask(correct, interaction.correctFeedback, interaction.incorrectFeedback);
   }
 
   function chooseOption(index: number) {
@@ -101,6 +116,34 @@ export default function DidacticInteractionPanel({ task, check, interaction, lea
                 ))}
               </div>
               <button type="button" onClick={checkSequence} className="btn" style={{ marginTop: 18 }}>Prüfen</button>
+              {taskFeedback && <p role="status" style={{ marginTop: 14, fontWeight: 600 }}>{taskComplete ? '✓ ' : ''}{taskFeedback}</p>}
+              {!taskComplete && attempts >= 2 && <details style={{ marginTop: 14 }}><summary>Lösung ansehen</summary><p>{task.solution}</p></details>}
+            </div>
+          ) : interaction?.type === 'numeric-fields' ? (
+            <div style={{ marginTop: 22 }}>
+              <div style={{ display: 'grid', gap: 14, padding: '18px 20px', borderRadius: 18, background: 'color-mix(in srgb, var(--steel) 7%, transparent)' }}>
+                {interaction.fields.map((field, index) => (
+                  <label key={field.label} style={{ display: 'grid', gridTemplateColumns: 'minmax(110px, 1fr) minmax(100px, 180px)', gap: 14, alignItems: 'center' }}>
+                    <strong>{field.label}</strong>
+                    <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <input
+                        aria-label={field.label}
+                        inputMode="decimal"
+                        value={numericValues[index] ?? ''}
+                        onChange={(event) => {
+                          const next = [...numericValues];
+                          next[index] = event.target.value;
+                          setNumericValues(next);
+                          setTaskFeedback(null);
+                        }}
+                        style={{ width: '100%', minWidth: 0, padding: '10px 12px', borderRadius: 10, border: '1px solid var(--line)', font: 'inherit', background: 'var(--paper)', color: 'var(--ink)' }}
+                      />
+                      {field.suffix && <span>{field.suffix}</span>}
+                    </span>
+                  </label>
+                ))}
+              </div>
+              <button type="button" onClick={checkNumericFields} className="btn" style={{ marginTop: 18 }}>Prüfen</button>
               {taskFeedback && <p role="status" style={{ marginTop: 14, fontWeight: 600 }}>{taskComplete ? '✓ ' : ''}{taskFeedback}</p>}
               {!taskComplete && attempts >= 2 && <details style={{ marginTop: 14 }}><summary>Lösung ansehen</summary><p>{task.solution}</p></details>}
             </div>
