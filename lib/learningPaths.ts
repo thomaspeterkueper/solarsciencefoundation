@@ -3,7 +3,7 @@
  * Path:      lib/learningPaths.ts
  * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/learningPaths.ts
  * Name:      Learning Paths registry
- * Version:   1.3.7
+ * Version:   1.3.8
  * Created:   2026-07-03
  * Modified:  2026-07-15 21:00 CEST
  * Depends:   —
@@ -5749,8 +5749,8 @@ export const learningPaths: LearningPath[] = [
         ],
       },
     ],
-  }
-,
+  },
+
   {
     id: 'PATH:SSF:PHY-WASSER-VAKUUM-0001',
     title: 'Warum kann man auf dem Mars kein Wasser kochen — und was passiert stattdessen?',
