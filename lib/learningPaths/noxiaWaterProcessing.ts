@@ -2,7 +2,8 @@ import type { LearningPath } from '../learningPaths';
 
 /**
  * SSF foundation path for NOXIA's canonical water-processing unlock.
- * NOXIA owns unlock semantics; SSF owns the didactic implementation.
+ * NOXIA owns unlock semantics; the Knowledge Graph owns the canonical learning-module identity;
+ * SSF owns the didactic implementation.
  */
 export const noxiaWaterProcessingLearningPath: LearningPath = {
   id: 'PATH:SSF:NOX-WATER-PROCESSING-0001',
@@ -10,12 +11,13 @@ export const noxiaWaterProcessingLearningPath: LearningPath = {
   subtitle: 'Erkennen, was im Wasser steckt, die passende Trennmethode wählen und eine Aufbereitungskette zusammenstellen.',
   status: 'prototype',
   sourceModuleId: 'SSF-NOX-WATER-0001',
-  kxfModuleId: 'LRN:SSF:NOX-WATER-0001',
+  kxfModuleId: 'LRN:SSF:NOX-WATER-PROCESSING',
   domainsNeeded: ['KD:CHEMISTRY', 'KD:PHYSICS', 'KD:ENVIRONMENT'],
   suppliedBy: {
     knowledgeGraph: [
       'Grundlagen zu Stoffgemischen, Teilchengrößen, Lösungen und Membrantransport',
       'Fachliche Voraussetzungen und Begriffsrelationen',
+      'Kanonische Lernmodul-Identität LRN:SSF:NOX-WATER-PROCESSING (KG commit 81aad150ac7b2180b00e73daa90b57a523d9490e)',
     ],
     kueperCom: [],
     overtimeArchive: [],
