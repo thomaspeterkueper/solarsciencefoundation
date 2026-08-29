@@ -59,4 +59,6 @@ Der fehlende strukturelle Schritt wurde daher an das zuständige Repository gero
 
 `kueper-knowledge-graph/external-tasks/open/EXT-SSF-KG-20260829-noxia-unlock-learning-module-identities.md`
 
-**Nächster Schritt:** KG stellt kanonische `LRN:SSF:*`-Identitäten bzw. Zuordnungen und die NOXIA-Grant-Metadaten im Learning-Modules-KXF bereit. Danach kann SSF die didaktischen Pfade lokal implementieren und diesen Auftrag nach `done/` verschieben.
+**Fortschritt 2026-08-29:** Im Knowledge Graph liegt inzwischen Draft-PR #38 `feat: canonical NOXIA unlock learning-module identities` mit genau diesen Modulidentitäten, NOXIA-Unlock-Referenzen und KXF-Abhängigkeiten vor. Der PR ist noch nicht gemergt; Vercel ist auf Head `6def4787…` erfolgreich. Bis zur Übernahme in den KG-Default-Branch bleibt diese SSF-Aufgabe bewusst offen und SSF erzeugt keine konkurrierenden kanonischen Identitäten.
+
+**Nächster Schritt:** Nach Übernahme der KG-Identitäten in den Default-Branch kann SSF die didaktischen Pfade lokal implementieren und diesen Auftrag nach `done/` verschieben.
