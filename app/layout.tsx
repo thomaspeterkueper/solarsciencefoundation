@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
-import Link from 'next/link';
-import Signet from '../components/Signet';
+import LocaleDocumentSync from '../components/LocaleDocumentSync';
+import SiteBrand from '../components/SiteBrand';
 import SiteFooter from '../components/SiteFooter';
 import SiteNav from '../components/SiteNav';
 import './globals.css';
@@ -16,18 +16,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>
+        <LocaleDocumentSync />
         <header className="site-header">
           <div className="header-shell">
             <div className="brand-grid">
-              <Link href="/" className="brand" style={{ color: 'inherit' }}>
-                <span className="brand-signet"><Signet size={58} /></span>
-                <span className="brand-text">
-                  <span className="wordmark">Solar Science Foundation</span>
-                  <span className="tagline">Founded Sundern 2045 · NOχ¹Δ Universe</span>
-                </span>
-              </Link>
+              <SiteBrand />
               <SiteNav mode="utility" />
             </div>
             <div className="nav-row">
