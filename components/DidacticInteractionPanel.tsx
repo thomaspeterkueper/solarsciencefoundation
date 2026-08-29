@@ -33,6 +33,9 @@ export default function DidacticInteractionPanel({ task, check, interaction, lea
   const [numericValues, setNumericValues] = useState<string[]>(
     interaction?.type === 'numeric-fields' ? interaction.fields.map(() => '') : []
   );
+  const [choiceValues, setChoiceValues] = useState<Array<number | null>>(
+    interaction?.type === 'choice-fields' ? interaction.fields.map(() => null) : []
+  );
   const [taskFeedback, setTaskFeedback] = useState<string | null>(null);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
 
@@ -64,6 +67,13 @@ export default function DidacticInteractionPanel({ task, check, interaction, lea
     const parsed = numericValues.map((value) => Number(value.trim().replace(',', '.')));
     const correct = parsed.length === interaction.fields.length
       && parsed.every((value, index) => Number.isFinite(value) && value === interaction.fields[index].answer);
+    finishTask(correct, interaction.correctFeedback, interaction.incorrectFeedback);
+  }
+
+  function checkChoiceFields() {
+    if (interaction?.type !== 'choice-fields') return;
+    const correct = choiceValues.length === interaction.fields.length
+      && choiceValues.every((value, index) => value !== null && value === interaction.fields[index].correctOption);
     finishTask(correct, interaction.correctFeedback, interaction.incorrectFeedback);
   }
 
@@ -144,6 +154,40 @@ export default function DidacticInteractionPanel({ task, check, interaction, lea
                 ))}
               </div>
               <button type="button" onClick={checkNumericFields} className="btn" style={{ marginTop: 18 }}>Prüfen</button>
+              {taskFeedback && <p role="status" style={{ marginTop: 14, fontWeight: 600 }}>{taskComplete ? '✓ ' : ''}{taskFeedback}</p>}
+              {!taskComplete && attempts >= 2 && <details style={{ marginTop: 14 }}><summary>Lösung ansehen</summary><p>{task.solution}</p></details>}
+            </div>
+          ) : interaction?.type === 'choice-fields' ? (
+            <div style={{ marginTop: 22 }}>
+              <div style={{ display: 'grid', gap: 16, padding: '18px 20px', borderRadius: 18, background: 'color-mix(in srgb, var(--steel) 7%, transparent)' }}>
+                {interaction.fields.map((field, fieldIndex) => (
+                  <fieldset key={field.label} style={{ border: 0, margin: 0, padding: 0 }}>
+                    <legend style={{ fontWeight: 700, marginBottom: 10 }}>{field.label}</legend>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
+                      {field.options.map((option, optionIndex) => {
+                        const selected = choiceValues[fieldIndex] === optionIndex;
+                        return (
+                          <button
+                            key={option}
+                            type="button"
+                            aria-pressed={selected}
+                            onClick={() => {
+                              const next = [...choiceValues];
+                              next[fieldIndex] = optionIndex;
+                              setChoiceValues(next);
+                              setTaskFeedback(null);
+                            }}
+                            style={{ padding: '10px 14px', borderRadius: 12, border: `1px solid ${selected ? 'var(--steel)' : 'var(--line)'}`, background: selected ? 'color-mix(in srgb, var(--steel) 10%, var(--paper))' : 'var(--paper)', color: 'var(--ink)', cursor: 'pointer', font: 'inherit' }}
+                          >
+                            {option}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </fieldset>
+                ))}
+              </div>
+              <button type="button" onClick={checkChoiceFields} className="btn" style={{ marginTop: 18 }}>Prüfen</button>
               {taskFeedback && <p role="status" style={{ marginTop: 14, fontWeight: 600 }}>{taskComplete ? '✓ ' : ''}{taskFeedback}</p>}
               {!taskComplete && attempts >= 2 && <details style={{ marginTop: 14 }}><summary>Lösung ansehen</summary><p>{task.solution}</p></details>}
             </div>
