@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { registeredLearningPaths } from '../lib/learningPathRegistry';
 import FeaturedQuestionCard from '../components/FeaturedQuestionCard';
+import FoundationHighlights from '../components/FoundationHighlights';
 
 const FEATURED_QUESTIONS = [
   { q: 'Warum ist der Himmel blau?', path: 'PATH:SSF:PHY-SKY-0001', cluster: 'Physik' },
@@ -58,6 +59,8 @@ export default async function HomePage() {
             <Link href="/foundation" style={{ color: 'inherit', textDecoration: 'none' }}><div className="entry-card"><h3>Stiftung</h3><p>Auftrag, Menschen, Transparenz und das institutionelle Modell der SSF.</p><span className="entry-link">Foundation verstehen →</span></div></Link>
           </div>
         </section>
+
+        <FoundationHighlights locale="de" placement="home" />
 
         <section style={{ paddingTop: 48, paddingBottom: 64, borderTop: '1px solid var(--border)', maxWidth: '60ch' }}>
           <p className="section-eyebrow">Das Prinzip</p>
