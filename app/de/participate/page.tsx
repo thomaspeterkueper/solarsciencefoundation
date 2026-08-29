@@ -1,3 +1,4 @@
+import ParticipationApplicationPanel from '../../../components/ParticipationApplicationPanel';
 import { editorialWorkflow, participationRoles } from '../../../lib/participationModel';
 
 const roleOrder = ['learner', 'member', 'supporting-member', 'author', 'reviewer', 'editor'];
@@ -55,11 +56,13 @@ export default function GermanParticipatePage() {
         </p>
       </section>
 
+      <ParticipationApplicationPanel locale="de" />
+
       <section style={{ marginTop: 56, padding: 28, border: '1px solid var(--border)', borderRadius: 18 }}>
         <p className="section-eyebrow">Status</p>
-        <h2 style={{ marginTop: 8 }}>Noch keine Anträge oder Zahlungen</h2>
+        <h2 style={{ marginTop: 8 }}>Anträge sind aktiv, Zahlungen noch nicht.</h2>
         <p style={{ color: 'var(--muted)', lineHeight: 1.7, marginBottom: 0 }}>
-          Das Rollen- und Reviewmodell ist jetzt definiert. Aufnahmeverfahren, Mitgliedsbeiträge, Zahlungsabwicklung und technische Autorenkonten werden erst aktiviert, wenn die jeweiligen Prozesse verbindlich festgelegt und implementiert sind.
+          Mitgliedschaft, Fördermitgliedschaft und Autorenschaft können jetzt beantragt werden. Ein Antrag vergibt keine Rolle automatisch. Mitgliedsbeiträge, Zahlungsabwicklung und formale Governance-Rechte werden erst aktiviert, wenn diese Regeln verbindlich festgelegt sind.
         </p>
       </section>
     </div>

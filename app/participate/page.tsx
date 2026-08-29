@@ -1,3 +1,4 @@
+import ParticipationApplicationPanel from '../../components/ParticipationApplicationPanel';
 import { editorialWorkflow, participationRoles } from '../../lib/participationModel';
 
 const roleOrder = ['learner', 'member', 'supporting-member', 'author', 'reviewer', 'editor'];
@@ -55,11 +56,13 @@ export default function ParticipatePage() {
         </p>
       </section>
 
+      <ParticipationApplicationPanel locale="en" />
+
       <section style={{ marginTop: 56, padding: 28, border: '1px solid var(--border)', borderRadius: 18 }}>
         <p className="section-eyebrow">Status</p>
-        <h2 style={{ marginTop: 8 }}>Applications and payments are not active yet</h2>
+        <h2 style={{ marginTop: 8 }}>Applications are active; payments are not.</h2>
         <p style={{ color: 'var(--muted)', lineHeight: 1.7, marginBottom: 0 }}>
-          The role and review model is now defined. Admission procedures, membership fees, payment processing and technical author accounts will only be activated once those processes have been explicitly specified and implemented.
+          Membership, supporting membership and authorship can now be applied for. An application never grants a role automatically. Membership fees, payment processing and formal governance rights remain inactive until those rules are explicitly defined.
         </p>
       </section>
     </div>

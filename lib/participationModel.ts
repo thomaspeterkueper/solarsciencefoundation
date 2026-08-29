@@ -1,3 +1,5 @@
+import type { MembershipRoleId } from './membership';
+
 export type ParticipationRoleId =
   | 'learner'
   | 'member'
@@ -15,6 +17,7 @@ export type ParticipationRole = {
   capabilities: string[];
   requiresAdmission: boolean;
   mayPublishDirectly: boolean;
+  technicalRoleIds: MembershipRoleId[];
 };
 
 export const participationRoles: ParticipationRole[] = [
@@ -27,6 +30,7 @@ export const participationRoles: ParticipationRole[] = [
     capabilities: ['learn', 'track-own-progress'],
     requiresAdmission: false,
     mayPublishDirectly: false,
+    technicalRoleIds: ['ROLE:SSF:guest', 'ROLE:SSF:free-member'],
   },
   {
     id: 'member',
@@ -37,6 +41,7 @@ export const participationRoles: ParticipationRole[] = [
     capabilities: ['learn', 'track-own-progress', 'community-participation', 'submit-feedback'],
     requiresAdmission: true,
     mayPublishDirectly: false,
+    technicalRoleIds: ['ROLE:SSF:free-member'],
   },
   {
     id: 'supporting-member',
@@ -47,6 +52,7 @@ export const participationRoles: ParticipationRole[] = [
     capabilities: ['learn', 'community-participation', 'support-foundation'],
     requiresAdmission: true,
     mayPublishDirectly: false,
+    technicalRoleIds: ['ROLE:SSF:supporting-member'],
   },
   {
     id: 'author',
@@ -57,6 +63,7 @@ export const participationRoles: ParticipationRole[] = [
     capabilities: ['propose-didactic-content', 'revise-own-submissions', 'provide-sources'],
     requiresAdmission: true,
     mayPublishDirectly: false,
+    technicalRoleIds: ['ROLE:SSF:contributor', 'ROLE:SSF:co-author'],
   },
   {
     id: 'reviewer',
@@ -67,6 +74,7 @@ export const participationRoles: ParticipationRole[] = [
     capabilities: ['review-submissions', 'request-revision', 'recommend-publication'],
     requiresAdmission: true,
     mayPublishDirectly: false,
+    technicalRoleIds: ['ROLE:SSF:co-author', 'ROLE:SSF:curator'],
   },
   {
     id: 'editor',
@@ -77,6 +85,7 @@ export const participationRoles: ParticipationRole[] = [
     capabilities: ['editorial-decision', 'publish-ssf-content', 'manage-attribution'],
     requiresAdmission: true,
     mayPublishDirectly: true,
+    technicalRoleIds: ['ROLE:SSF:curator'],
   },
 ];
 
@@ -96,3 +105,7 @@ export const governancePrinciples = {
   sourceOfTruth: 'Canonical scientific facts and identifiers remain governed by the KUEPER Knowledge Graph.',
   ssfResponsibility: 'SSF governs didactics, presentation, exercises, learning progress and editorial publication.',
 } as const;
+
+export function getParticipationRole(id: ParticipationRoleId) {
+  return participationRoles.find((role) => role.id === id) ?? null;
+}
