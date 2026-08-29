@@ -19,7 +19,20 @@ export type NumericFieldsInteraction = {
   incorrectFeedback: string;
 };
 
-export type DidacticInteraction = SequenceInteraction | NumericFieldsInteraction;
+export type ChoiceField = {
+  label: string;
+  options: string[];
+  correctOption: number;
+};
+
+export type ChoiceFieldsInteraction = {
+  type: 'choice-fields';
+  fields: ChoiceField[];
+  correctFeedback: string;
+  incorrectFeedback: string;
+};
+
+export type DidacticInteraction = SequenceInteraction | NumericFieldsInteraction | ChoiceFieldsInteraction;
 
 const interactions: Record<string, DidacticInteraction> = {
   'MAT-L0-000001': {
@@ -55,6 +68,36 @@ const interactions: Record<string, DidacticInteraction> = {
     ],
     correctFeedback: 'Richtig. 3 von 5 Kugeln sind blau: 3/5 = 0,6 = 60 %.',
     incorrectFeedback: 'Noch nicht ganz. Es gibt 5 Kugeln insgesamt und davon 3 blaue. Teile die günstigen durch alle möglichen Fälle.'
+  },
+  'PHY-L1-000001': {
+    type: 'choice-fields',
+    fields: [
+      { label: 'Tonhöhe', options: ['gleich', 'verschieden'], correctOption: 0 },
+      { label: 'Lautstärke', options: ['gleich', 'verschieden'], correctOption: 1 },
+      { label: 'Größere Amplitude klingt', options: ['leiser', 'lauter'], correctOption: 1 }
+    ],
+    correctFeedback: 'Genau. Gleiche Frequenz bedeutet gleiche Tonhöhe. Unterschiedliche Amplitude bedeutet unterschiedliche Lautstärke; die größere Amplitude wird lauter wahrgenommen.',
+    incorrectFeedback: 'Ordne die Begriffe noch einmal zu: Frequenz bestimmt die Tonhöhe, Amplitude die Stärke der Schwingung.'
+  },
+  'CHE-L1-000001': {
+    type: 'choice-fields',
+    fields: [
+      { label: 'Wasser ist überwiegend', options: ['polar', 'unpolar'], correctOption: 0 },
+      { label: 'Speiseöl ist überwiegend', options: ['polar', 'unpolar'], correctOption: 1 },
+      { label: 'Darum mischen sich beide', options: ['gut', 'nur schlecht'], correctOption: 1 }
+    ],
+    correctFeedback: 'Richtig. Wasser ist polar, typische Ölmoleküle sind überwiegend unpolar. Deshalb sind günstige Wechselwirkungen zwischen beiden Stoffen begrenzt und sie trennen sich.',
+    incorrectFeedback: 'Prüfe zuerst die Polarität beider Stoffe. Wasser bevorzugt Wechselwirkungen mit geladenen oder polaren Teilchen.'
+  },
+  'AST-L1-000001': {
+    type: 'choice-fields',
+    fields: [
+      { label: 'Bei gleichem Radius ist das Volumen', options: ['gleich', 'verschieden'], correctOption: 0 },
+      { label: 'Planet A hat bei doppelter Masse die Dichte', options: ['halb so groß', 'gleich groß', 'doppelt so groß'], correctOption: 2 },
+      { label: 'Das kann auf mehr', options: ['dichte Materialien', 'leere Räume', 'leichte Gase allein'], correctOption: 0 }
+    ],
+    correctFeedback: 'Genau. Bei gleichem Radius ist das Volumen gleich. Doppelte Masse bei gleichem Volumen bedeutet doppelte mittlere Dichte und kann auf einen höheren Anteil dichter Materialien hindeuten.',
+    incorrectFeedback: 'Nutze ρ = m/V: Gleicher Radius bedeutet gleiches Volumen. Vergleiche dann nur noch die Massen.'
   }
 };
 
