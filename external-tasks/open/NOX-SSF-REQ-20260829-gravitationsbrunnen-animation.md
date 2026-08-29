@@ -74,3 +74,9 @@ SSF würde mit einer frei gewählten Modul-ID eine konkurrierende kanonische Ler
 **Gerouteter nächster Schritt:** Im Ziel-Repository NOXIA wurde `external-tasks/open/SSF-NOX-REQ-20260829-gravitationsbrunnen-module-mapping.md` angelegt. Dort sind lokale `kurs_id`, kanonische Pfad-ID und SSF/KG-Modul-ID zu bestätigen bzw. bei fehlender kanonischer Identität an den Knowledge Graph weiterzurouten.
 
 Bis diese Zuordnung vorliegt, bleibt dieser Auftrag unter `open/`. Die Interactive-ID `gravitationsbrunnen` und die fachlich-didaktischen Anforderungen sind bereits eindeutig; nach Rückmeldung ist die SSF-Implementierung lokal und ohne weitere fachliche Entscheidung möglich.
+
+## Governance-Prüfung — 2026-08-29 18:55Z
+
+Agenten-PR #28 implementiert die Animation, führt dabei aber zusätzlich die bislang nicht vom KG bestätigten Identitäten `SSF-PHY-GRAVITATIONSBRUNNEN-0001` und `PATH:SSF:PHY-GRAVITATIONSBRUNNEN-0001` ein und routet darauf aufbauend bereits an NOXIA. Das widerspricht dem oben dokumentierten Blocker und dem weiterhin offenen KG-Auftrag `EXT-NOX-KG-20260829-energy-work-gravitational-well-module.md`.
+
+Der PR wurde deshalb mit einem Governance-Hinweis versehen und darf auf diesem Head nicht integriert werden. Die fachliche Animation und `interactiveId: gravitationsbrunnen` können erhalten bleiben; kanonische Modul-/Pfadidentitäten müssen aus der KG-Rückgabe stammen. Der Auftrag bleibt `open`.
