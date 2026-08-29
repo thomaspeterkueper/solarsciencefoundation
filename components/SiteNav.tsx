@@ -26,27 +26,31 @@ export default function SiteNav({ mode = 'main' }: { mode?: 'main' | 'utility' }
     ? {
         menu: 'Menü',
         close: 'Schließen',
-        explore: 'Entdecken',
-        map: 'Wissenskarte',
-        subjects: 'Fächer',
-        paths: 'Lernpfade',
+        learn: 'Lernen',
         research: 'Forschung',
+        participate: 'Mitwirken',
+        foundation: 'Stiftung',
         login: 'Anmelden',
         lang: 'DE'
       }
     : {
         menu: 'Menu',
         close: 'Close',
-        explore: 'Explore',
-        map: 'Knowledge Map',
-        subjects: 'Subjects',
-        paths: 'Learning Paths',
+        learn: 'Learn',
         research: 'Research',
+        participate: 'Participate',
+        foundation: 'Foundation',
         login: 'Sign in',
         lang: 'EN'
       };
 
   const languageHref = isGerman ? toEnglishPath(pathname) : toGermanPath(pathname);
+  const mainLinks = [
+    { href: `${prefix}/learning`, label: labels.learn },
+    { href: `${prefix}/research`, label: labels.research },
+    { href: `${prefix}/participate`, label: labels.participate },
+    { href: `${prefix}/foundation`, label: labels.foundation },
+  ];
 
   if (mode === 'utility') {
     return (
@@ -63,11 +67,9 @@ export default function SiteNav({ mode = 'main' }: { mode?: 'main' | 'utility' }
         </button>
         {open && (
           <div id="ssf-mobile-menu" className="mobile-menu">
-            <Link href={`${prefix}/learn`} onClick={() => setOpen(false)}>{labels.explore}</Link>
-            <Link href={`${prefix}/learn`} onClick={() => setOpen(false)}>{labels.map}</Link>
-            <Link href={`${prefix}/subjects`} onClick={() => setOpen(false)}>{labels.subjects}</Link>
-            <Link href={`${prefix}/learning-paths`} onClick={() => setOpen(false)}>{labels.paths}</Link>
-            <Link href={`${prefix}/research`} onClick={() => setOpen(false)}>{labels.research}</Link>
+            {mainLinks.map((item) => (
+              <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>{item.label}</Link>
+            ))}
             <a href="https://noxiagame.vercel.app" target="_blank" rel="noreferrer" onClick={() => setOpen(false)}>NOχ¹Δ ↗</a>
             <Link href={languageHref} onClick={() => setOpen(false)}>◉ {labels.lang}⌄</Link>
             <Link href={`${prefix}/login`} onClick={() => setOpen(false)}>{labels.login}</Link>
@@ -79,11 +81,7 @@ export default function SiteNav({ mode = 'main' }: { mode?: 'main' | 'utility' }
 
   return (
     <nav className="nav nav-main" aria-label={isGerman ? 'Hauptnavigation' : 'Main navigation'}>
-      <Link href={`${prefix}/learn`}>{labels.explore}</Link>
-      <Link href={`${prefix}/learn`}>{labels.map}</Link>
-      <Link href={`${prefix}/subjects`}>{labels.subjects}</Link>
-      <Link href={`${prefix}/learning-paths`}>{labels.paths}</Link>
-      <Link href={`${prefix}/research`}>{labels.research}</Link>
+      {mainLinks.map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}
     </nav>
   );
 }
