@@ -1,6 +1,7 @@
 import { learningPaths, type LearningPath } from './learningPaths';
 import { maillardLearningPath } from './learningPaths/maillard';
 import { magnetismMaterialsLearningPath } from './learningPaths/magnetismMaterials';
+import { noxiaWaterProcessingLearningPath } from './learningPaths/noxiaWaterProcessing';
 
 export type LearningPathLifecycleStatus = 'prototype' | 'active';
 
@@ -77,6 +78,7 @@ const MODULE_ALIAS_MAP: Record<string, string> = {
   'LRN:SSF:BIO-5001':         'PATH:SSF:BIO-LEBEN-URSPRUNG-0001',
   'LRN:SSF:COLONY-L1-000001': 'PATH:SSF:ENG-COLONY-FOUND-0001',
   'LRN:SSF:STATION-L1-000001':'PATH:SSF:ENG-STATION-FOUND-0001',
+  'LRN:SSF:NOX-WATER-0001':   'PATH:SSF:NOX-WATER-PROCESSING-0001',
 
   // Magnetismus & funktionale Materialien — SSF didactic path aliases.
   // The KG owns the canonical PHY-L1 IDs; SSF owns the path and presentation.
@@ -148,6 +150,7 @@ const registry = buildRegistry([
   ...learningPaths,
   maillardLearningPath,
   magnetismMaterialsLearningPath,
+  noxiaWaterProcessingLearningPath,
 ]);
 
 export const registeredLearningPaths = registry.paths;
