@@ -1,3 +1,5 @@
+import Link from 'next/link';
+import FoundationJourney from '../../../components/FoundationJourney';
 import ParticipationApplicationPanel from '../../../components/ParticipationApplicationPanel';
 import { editorialWorkflow, participationRoles } from '../../../lib/participationModel';
 
@@ -19,7 +21,7 @@ export default function GermanParticipatePage() {
       <p className="section-eyebrow">Mitwirken</p>
       <h1 className="section-headline" style={{ maxWidth: '18ch' }}>Lernen ist offen. Mitwirkung hat klare Rollen.</h1>
       <p style={{ maxWidth: '66ch', color: 'var(--muted)', lineHeight: 1.8, fontSize: 17 }}>
-        Die Solar Science Foundation soll Wissen frei zugänglich machen und zugleich eine belastbare Gemeinschaft für Mitgliedschaft, Förderung und Autorenschaft aufbauen. Diese Rollen sind bewusst getrennt: Geld kauft keine fachliche Autorität, und Autorenschaft bedeutet nicht ungeprüfte Veröffentlichung.
+        Die Solar Science Foundation macht Wissen frei zugänglich und baut zugleich eine belastbare Gemeinschaft für Mitgliedschaft, Förderung und Autorenschaft auf. Diese Rollen sind bewusst getrennt: Geld kauft keine fachliche Autorität, und Autorenschaft bedeutet nicht ungeprüfte Veröffentlichung.
       </p>
 
       <section style={{ paddingTop: 48 }}>
@@ -46,6 +48,7 @@ export default function GermanParticipatePage() {
         <ol style={{ lineHeight: 1.9, paddingLeft: 24 }}>
           {editorialWorkflow.map((step) => <li key={step}>{workflowLabels[step]}</li>)}
         </ol>
+        <p><Link href="/de/authors">Öffentliche SSF-Autorinnen und -Autoren und ihre Beiträge ansehen →</Link></p>
       </section>
 
       <section style={{ paddingTop: 56, maxWidth: '72ch' }}>
@@ -65,6 +68,8 @@ export default function GermanParticipatePage() {
           Mitgliedschaft, Fördermitgliedschaft und Autorenschaft können jetzt beantragt werden. Ein Antrag vergibt keine Rolle automatisch. Mitgliedsbeiträge, Zahlungsabwicklung und formale Governance-Rechte werden erst aktiviert, wenn diese Regeln verbindlich festgelegt sind.
         </p>
       </section>
+
+      <FoundationJourney locale="de" current="participate" />
     </div>
   );
 }

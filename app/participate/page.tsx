@@ -1,3 +1,5 @@
+import Link from 'next/link';
+import FoundationJourney from '../../components/FoundationJourney';
 import ParticipationApplicationPanel from '../../components/ParticipationApplicationPanel';
 import { editorialWorkflow, participationRoles } from '../../lib/participationModel';
 
@@ -19,7 +21,7 @@ export default function ParticipatePage() {
       <p className="section-eyebrow">Participate</p>
       <h1 className="section-headline" style={{ maxWidth: '18ch' }}>Learning is open. Participation has clear roles.</h1>
       <p style={{ maxWidth: '66ch', color: 'var(--muted)', lineHeight: 1.8, fontSize: 17 }}>
-        Solar Science Foundation is intended to keep knowledge openly accessible while building a reliable community for membership, support and authorship. These roles are deliberately separate: money does not buy scientific authority, and authorship does not mean unreviewed publication.
+        Solar Science Foundation keeps knowledge openly accessible while building a reliable community for membership, support and authorship. These roles are deliberately separate: money does not buy scientific authority, and authorship does not mean unreviewed publication.
       </p>
 
       <section style={{ paddingTop: 48 }}>
@@ -46,6 +48,7 @@ export default function ParticipatePage() {
         <ol style={{ lineHeight: 1.9, paddingLeft: 24 }}>
           {editorialWorkflow.map((step) => <li key={step}>{workflowLabels[step]}</li>)}
         </ol>
+        <p><Link href="/authors">See current public SSF authors and their published contributions →</Link></p>
       </section>
 
       <section style={{ paddingTop: 56, maxWidth: '72ch' }}>
@@ -65,6 +68,8 @@ export default function ParticipatePage() {
           Membership, supporting membership and authorship can now be applied for. An application never grants a role automatically. Membership fees, payment processing and formal governance rights remain inactive until those rules are explicitly defined.
         </p>
       </section>
+
+      <FoundationJourney locale="en" current="participate" />
     </div>
   );
 }
