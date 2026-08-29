@@ -7,6 +7,7 @@ import { getRegisteredLearningPathForModule } from '../../../lib/learningPathReg
 import { getDidacticModuleContent } from '../../../lib/didacticContent';
 import { getScienceFoundationContent } from '../../../lib/didacticScienceFoundations';
 import { getDidacticInteraction } from '../../../lib/didacticInteractions';
+import { getPublishedContributionsForModule } from '../../../lib/publishedContributions';
 
 type PageProps = {
   params: Promise<{ id: string }>;
@@ -44,6 +45,7 @@ export default async function ModulePage({ params, searchParams }: PageProps) {
   ]);
   if (!mod) notFound();
 
+  const publishedContributions = await getPublishedContributionsForModule(mod.id);
   const didactic = getDidacticModuleContent(mod.id)
     ?? getDidacticModuleContent(id)
     ?? getScienceFoundationContent(mod.id)
@@ -139,6 +141,39 @@ export default async function ModulePage({ params, searchParams }: PageProps) {
           <div className="platform-card">
             <h2 className="section-title" style={{ fontSize: 30 }}>Didaktischer Inhalt in Vorbereitung</h2>
             <p>Dieses kanonische Wissensmodul ist bereits verfügbar. Die eigenständige SSF-Lerneinheit wird noch didaktisch ausgearbeitet.</p>
+          </div>
+        </section>
+      )}
+
+      {publishedContributions.length > 0 && (
+        <section className="subject-section" style={{ maxWidth: 900 }}>
+          <p className="section-eyebrow">Redaktionell veröffentlicht</p>
+          <h2 className="section-title" style={{ fontSize: 34 }}>Ergänzende SSF-Beiträge</h2>
+          <p style={{ color: 'var(--muted)', lineHeight: 1.7 }}>
+            Diese Beiträge ergänzen die didaktische Ebene des Moduls. Sie verändern weder die KXF-Modulidentität noch kanonische Aussagen des Knowledge Graph.
+          </p>
+          <div style={{ display: 'grid', gap: 18, marginTop: 24 }}>
+            {publishedContributions.map((contribution) => (
+              <article className="platform-card" key={contribution.id}>
+                <div className="mono" style={{ color: 'var(--muted)', fontSize: 12 }}>
+                  Version {contribution.version} · {new Date(contribution.publishedAt).toLocaleDateString('de-DE')}
+                </div>
+                <h3 style={{ marginTop: 10 }}>{contribution.title}</h3>
+                <p style={{ color: 'var(--muted)', lineHeight: 1.7 }}>{contribution.summary}</p>
+                <div style={{ whiteSpace: 'pre-wrap', lineHeight: 1.75 }}>{contribution.bodyMarkdown}</div>
+                {contribution.sourceNotes && (
+                  <details style={{ marginTop: 18 }}>
+                    <summary>Quellen- und Redaktionshinweise</summary>
+                    <div style={{ whiteSpace: 'pre-wrap', marginTop: 10, color: 'var(--muted)' }}>{contribution.sourceNotes}</div>
+                  </details>
+                )}
+                {contribution.kgRequestRef && (
+                  <p className="mono" style={{ marginTop: 16, fontSize: 12, color: 'var(--muted)' }}>
+                    KG-Anforderung: {contribution.kgRequestRef}
+                  </p>
+                )}
+              </article>
+            ))}
           </div>
         </section>
       )}
