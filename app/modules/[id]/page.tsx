@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import DidacticInteractionPanel from '../../../components/DidacticInteractionPanel';
-import { getKxfLearningModuleById } from '../../../lib/kxf';
+import { getKxfLearningModuleById, getKxfLearningModules, moduleIdMatches } from '../../../lib/kxf';
 import { getRegisteredLearningPathForModule } from '../../../lib/learningPathRegistry';
 import { getDidacticModuleContent } from '../../../lib/didacticContent';
 import { getScienceFoundationContent } from '../../../lib/didacticScienceFoundations';
@@ -38,7 +38,10 @@ function difficultyLabel(difficulty: number) {
 
 export default async function ModulePage({ params, searchParams }: PageProps) {
   const { id } = await params;
-  const mod = await getKxfLearningModuleById(id);
+  const [mod, allModules] = await Promise.all([
+    getKxfLearningModuleById(id),
+    getKxfLearningModules(),
+  ]);
   if (!mod) notFound();
 
   const didactic = getDidacticModuleContent(mod.id)
@@ -52,6 +55,29 @@ export default async function ModulePage({ params, searchParams }: PageProps) {
   if (searchParams?.ref) qs.set('ref', searchParams.ref);
   const q = qs.toString() ? `?${qs.toString()}` : '';
   const duration = didactic?.durationMinutes ?? mod.durationMinutes;
+
+  const nextModules = mod.unlocks
+    .map((unlockId) => allModules.find((candidate) => moduleIdMatches(candidate, unlockId)))
+    .filter((candidate): candidate is NonNullable<typeof candidate> => Boolean(candidate))
+    .filter((candidate, index, candidates) => candidates.findIndex((item) => item.id === candidate.id) === index)
+    .slice(0, 3)
+    .map((candidate) => ({
+      id: candidate.id,
+      title: candidate.title,
+      domain: candidate.domain,
+      durationMinutes: getDidacticModuleContent(candidate.id)?.durationMinutes
+        ?? getScienceFoundationContent(candidate.id)?.durationMinutes
+        ?? candidate.durationMinutes,
+      href: `/modules/${encodeURIComponent(candidate.id)}${q}`,
+    }));
+
+  const pathContext = path
+    ? {
+        id: path.id,
+        title: path.title,
+        href: `/learning-paths/${encodeURIComponent(path.id)}${q}`,
+      }
+    : null;
 
   return (
     <div className="container" style={{ paddingTop: 56, paddingBottom: 80 }}>
@@ -104,6 +130,8 @@ export default async function ModulePage({ params, searchParams }: PageProps) {
             check={didactic.check}
             interaction={interaction}
             learningGoals={didactic.learningGoals}
+            nextModules={nextModules}
+            pathContext={pathContext}
           />
         </>
       ) : (
