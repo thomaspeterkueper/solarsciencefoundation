@@ -2,6 +2,7 @@ import { learningPaths, type LearningPath } from './learningPaths';
 import { maillardLearningPath } from './learningPaths/maillard';
 import { magnetismMaterialsLearningPath } from './learningPaths/magnetismMaterials';
 import { noxiaWaterProcessingLearningPath } from './learningPaths/noxiaWaterProcessing';
+import { noxiaUnlockFoundationLearningPaths } from './learningPaths/noxiaUnlockFoundations';
 
 export type LearningPathLifecycleStatus = 'prototype' | 'active';
 
@@ -151,6 +152,7 @@ const registry = buildRegistry([
   maillardLearningPath,
   magnetismMaterialsLearningPath,
   noxiaWaterProcessingLearningPath,
+  ...noxiaUnlockFoundationLearningPaths,
 ]);
 
 export const registeredLearningPaths = registry.paths;
