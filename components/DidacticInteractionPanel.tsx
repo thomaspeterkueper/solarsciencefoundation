@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import type { DidacticInteraction } from '../lib/didacticInteractions';
 
@@ -16,14 +17,37 @@ type Check = {
   explanation: string;
 };
 
+type CompletionNextModule = {
+  id: string;
+  title: string;
+  href: string;
+  domain: string;
+  durationMinutes: number;
+};
+
+type CompletionPath = {
+  id: string;
+  title: string;
+  href: string;
+};
+
 type Props = {
   task: Task;
   check: Check;
   interaction?: DidacticInteraction;
   learningGoals: string[];
+  nextModules?: CompletionNextModule[];
+  pathContext?: CompletionPath | null;
 };
 
-export default function DidacticInteractionPanel({ task, check, interaction, learningGoals }: Props) {
+export default function DidacticInteractionPanel({
+  task,
+  check,
+  interaction,
+  learningGoals,
+  nextModules = [],
+  pathContext = null,
+}: Props) {
   const [taskComplete, setTaskComplete] = useState(false);
   const [checkComplete, setCheckComplete] = useState(false);
   const [attempts, setAttempts] = useState(0);
@@ -33,7 +57,7 @@ export default function DidacticInteractionPanel({ task, check, interaction, lea
   const [numericValues, setNumericValues] = useState<string[]>(
     interaction?.type === 'numeric-fields' ? interaction.fields.map(() => '') : []
   );
-  const [choiceValues, setChoiceValues] = useState<Array<number | null>>(
+  const [choiceValues, setChoiceValues] = useState<(number | null)[]>(
     interaction?.type === 'choice-fields' ? interaction.fields.map(() => null) : []
   );
   const [taskFeedback, setTaskFeedback] = useState<string | null>(null);
@@ -73,7 +97,7 @@ export default function DidacticInteractionPanel({ task, check, interaction, lea
   function checkChoiceFields() {
     if (interaction?.type !== 'choice-fields') return;
     const correct = choiceValues.length === interaction.fields.length
-      && choiceValues.every((value, index) => value !== null && value === interaction.fields[index].correctOption);
+      && choiceValues.every((value, index) => value === interaction.fields[index].correctOption);
     finishTask(correct, interaction.correctFeedback, interaction.incorrectFeedback);
   }
 
@@ -159,30 +183,26 @@ export default function DidacticInteractionPanel({ task, check, interaction, lea
             </div>
           ) : interaction?.type === 'choice-fields' ? (
             <div style={{ marginTop: 22 }}>
-              <div style={{ display: 'grid', gap: 16, padding: '18px 20px', borderRadius: 18, background: 'color-mix(in srgb, var(--steel) 7%, transparent)' }}>
+              <div style={{ display: 'grid', gap: 18 }}>
                 {interaction.fields.map((field, fieldIndex) => (
-                  <fieldset key={field.label} style={{ border: 0, margin: 0, padding: 0 }}>
+                  <fieldset key={field.label} style={{ border: 0, padding: 0, margin: 0 }}>
                     <legend style={{ fontWeight: 700, marginBottom: 10 }}>{field.label}</legend>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
-                      {field.options.map((option, optionIndex) => {
-                        const selected = choiceValues[fieldIndex] === optionIndex;
-                        return (
-                          <button
-                            key={option}
-                            type="button"
-                            aria-pressed={selected}
-                            onClick={() => {
-                              const next = [...choiceValues];
-                              next[fieldIndex] = optionIndex;
-                              setChoiceValues(next);
-                              setTaskFeedback(null);
-                            }}
-                            style={{ padding: '10px 14px', borderRadius: 12, border: `1px solid ${selected ? 'var(--steel)' : 'var(--line)'}`, background: selected ? 'color-mix(in srgb, var(--steel) 10%, var(--paper))' : 'var(--paper)', color: 'var(--ink)', cursor: 'pointer', font: 'inherit' }}
-                          >
-                            {option}
-                          </button>
-                        );
-                      })}
+                    <div style={{ display: 'grid', gap: 8 }}>
+                      {field.options.map((option, optionIndex) => (
+                        <button
+                          key={option}
+                          type="button"
+                          onClick={() => {
+                            const next = [...choiceValues];
+                            next[fieldIndex] = optionIndex;
+                            setChoiceValues(next);
+                            setTaskFeedback(null);
+                          }}
+                          style={{ textAlign: 'left', padding: '12px 14px', borderRadius: 12, border: '1px solid var(--line)', background: choiceValues[fieldIndex] === optionIndex ? 'color-mix(in srgb, var(--steel) 9%, var(--paper))' : 'var(--paper)', color: 'var(--ink)', cursor: 'pointer', font: 'inherit' }}
+                        >
+                          {option}
+                        </button>
+                      ))}
                     </div>
                   </fieldset>
                 ))}
@@ -237,6 +257,36 @@ export default function DidacticInteractionPanel({ task, check, interaction, lea
             <ul style={{ marginBottom: 0, paddingLeft: 22 }}>
               {learningGoals.map((goal) => <li key={goal} style={{ marginBottom: 8 }}>✓ {goal}</li>)}
             </ul>
+
+            {(nextModules.length > 0 || pathContext) && (
+              <div style={{ marginTop: 28, paddingTop: 24, borderTop: '1px solid var(--line)' }}>
+                <h3 style={{ margin: '0 0 12px', fontSize: 22 }}>Wie geht es weiter?</h3>
+                {pathContext && (
+                  <p style={{ marginTop: 0 }}>
+                    <span style={{ color: 'var(--muted)' }}>Dein Lernpfad: </span>
+                    <Link href={pathContext.href}><strong>{pathContext.title}</strong></Link>
+                  </p>
+                )}
+                {nextModules.length > 0 && (
+                  <div style={{ display: 'grid', gap: 12, marginTop: 16 }}>
+                    {nextModules.map((nextModule, index) => (
+                      <Link
+                        key={nextModule.id}
+                        href={nextModule.href}
+                        className="subject-card"
+                        style={{ textDecoration: 'none', color: 'inherit' }}
+                      >
+                        <span className="code">{index === 0 ? 'Empfohlener nächster Schritt' : 'Weiterlernen'}</span>
+                        <strong style={{ display: 'block', marginTop: 10 }}>{nextModule.title}</strong>
+                        <span className="mono" style={{ display: 'block', marginTop: 8, color: 'var(--muted)' }}>
+                          {nextModule.domain} · {nextModule.durationMinutes} min · {nextModule.id}
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </section>
       )}
