@@ -3,9 +3,9 @@
  * Path: lib/modules.ts
  * Repo: github.com/thomaspeterkueper/SolarScienceFoundation/blob/main/lib/modules.ts
  * Name: modules - local didactic content registry
- * Version: 0.3.0
+ * Version: 0.3.1
  * Created: 2026-06-26
- * Modified: 2026-07-04
+ * Modified: 2026-08-29
  * Depends: none
  */
 
@@ -302,6 +302,45 @@ export const learningModules: LearningModule[] = [
           'Weil seine Seitwärtsbewegung ihn immer wieder am Fallen vorbeibringt — er ist ständig im freien Fall.',
           'Weil der Mond leichter als Luft ist.',
           'Weil die Sonne den Mond abstößt.'
+        ],
+        correctOption: 1
+      }
+    ]
+  },
+
+  // ── SSF-PHY-GRAVITATIONSBRUNNEN-0001 (NOXIA: „Energie & Arbeit", animation_id: gravitationsbrunnen) ──
+  {
+    id: 'SSF-PHY-GRAVITATIONSBRUNNEN-0001',
+    title: 'Warum kostet es Energie, einen Himmelskörper zu verlassen?',
+    domain: 'Physics',
+    difficulty: 2,
+    durationMinutes: 20,
+    summary:
+      'Warum braucht eine Rakete Energie, um die Erde zu verlassen — obwohl sie im All scheinbar nichts wiegt?',
+    source: { authority: 'ssf-local', kxfEntityIds: ['CON:L1:gravitation', 'CON:L1:orbitalmechanik'] },
+    unlocks: ['UNL:NOX:gravitationsbrunnen'],
+    exercises: [
+      {
+        id: 'EX:SSF-PHY-GRAVITATIONSBRUNNEN-0001:001',
+        type: 'single_choice',
+        question: 'Was beschreibt das Gravitationspotential Φ an einem Ort?',
+        options: [
+          'Die potentielle Energie pro Kilogramm an diesem Ort',
+          'Die Geschwindigkeit eines umlaufenden Satelliten',
+          'Die Temperatur der Planetenoberfläche',
+          'Die Dichte des Himmelskörpers'
+        ],
+        correctOption: 0
+      },
+      {
+        id: 'EX:SSF-PHY-GRAVITATIONSBRUNNEN-0001:002',
+        type: 'single_choice',
+        question: 'Warum kostet es Energie, einen Himmelskörper zu verlassen?',
+        options: [
+          'Weil das Gravitationspotential mit wachsendem Abstand negativer wird.',
+          'Weil man gegen die Potentialdifferenz zwischen Oberfläche und Zielort Arbeit verrichten muss.',
+          'Weil im Weltraum Reibung herrscht.',
+          'Weil Raketen ohne Atmosphäre nicht beschleunigen können.'
         ],
         correctOption: 1
       }

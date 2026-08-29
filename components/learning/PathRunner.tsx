@@ -81,6 +81,7 @@ import ColonyExperiment            from './ColonyExperiment';
 import HohmannExperiment           from './HohmannExperiment';
 import KreditExperiment            from './KreditExperiment';
 import StationExperiment           from './StationExperiment';
+import GravityWellExperiment       from './GravityWellExperiment';
 
 const EXPERIMENT_MAP: Record<string, React.ComponentType> = {
   // PHY-SKY
@@ -232,6 +233,8 @@ const EXPERIMENT_MAP: Record<string, React.ComponentType> = {
   'EXP:COLONY-LEBENSERHALT':     ColonyExperiment,
   'EXP:STATION-ORBIT':           StationExperiment,
   'EXP:STATION-ANDOCK':          StationExperiment,
+  // PHY-GRAVITATIONSBRUNNEN (Energie & Arbeit)
+  'EXP:GRAVITATIONSBRUNNEN':     GravityWellExperiment,
   'EXP:POLARKURVEN':             SpiralExperiment,
   'EXP:SCHMIEGEKREIS':           SpiralExperiment,
   'EXP:DENATURIERUNG':           RotweinExperiment,

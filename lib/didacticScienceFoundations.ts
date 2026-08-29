@@ -1,6 +1,46 @@
 import type { DidacticModuleContent } from './didacticContent';
 
 const scienceContent: Record<string, DidacticModuleContent> = {
+  'SSF-PHY-GRAVITATIONSBRUNNEN-0001': {
+    moduleId: 'SSF-PHY-GRAVITATIONSBRUNNEN-0001',
+    durationMinutes: 20,
+    learningGoals: [
+      'Gravitationspotential und Potentialdifferenz als Energie pro Kilogramm verstehen.',
+      'Den Zusammenhang zwischen Abstand, potentieller Energie und notwendiger Hubarbeit erklären.',
+      'Begründen, warum das Verlassen eines Gravitationsfeldes Energie benötigt.',
+      'Verschiedene Himmelskörper anhand ihrer Brunnentiefe vergleichen.'
+    ],
+    introduction: [
+      'Jeder Himmelskörper sitzt in einem Gravitationsbrunnen. Das Gravitationspotential Φ = −G·M/r beschreibt die potentielle Energie pro Kilogramm an einem Ort: Es ist überall negativ und wird mit wachsendem Abstand r vom Zentrum weniger negativ. An der Erdoberfläche beträgt es etwa −62,5 MJ/kg.',
+      'Wer eine Masse aus dem Brunnen hinaushebt, muss die Potentialdifferenz zwischen Start- und Zielort bezahlen: W = m·(Φ(r₂) − Φ(r₁)). Deshalb kostet das Verlassen eines Gravitationsfeldes immer Energie — auch wenn man im All nichts mehr „wiegt“.'
+    ],
+    examples: [
+      {
+        title: 'Erde: 62,5 GJ für eine Tonne',
+        body: 'Um 1 Tonne von der Erdoberfläche ins Unendliche zu heben, sind theoretisch m·|Φ₀| ≈ 1000 kg · 62,5 MJ/kg = 62,5 GJ Arbeit nötig. Die Fluchtgeschwindigkeit 11,2 km/s steckt dieselbe Energie in Bewegungsform.'
+      },
+      {
+        title: 'Mond: ein flacher Brunnen',
+        body: 'Der Mond hat nur Φ₀ ≈ −2,8 MJ/kg und eine Fluchtgeschwindigkeit von 2,4 km/s. Dieselbe Tonne Nutzlast benötigt dort nur rund 2,8 GJ. Der Brunnen ist flacher, weil der Mond etwa 81-mal weniger Masse hat als die Erde.'
+      }
+    ],
+    task: {
+      prompt: 'Ein Raumschiff startet von der Erdoberfläche. Erkläre mit dem Gravitationspotential, warum die meiste Hubarbeit in den ersten Kilometern über der Oberfläche steckt und nicht erst weit draußen im All.',
+      hint: 'Vergleiche die Potentialdifferenz zwischen r₁ = R und r₂ = 2R mit der zwischen r₁ = 5R und r₂ = 10R.',
+      solution: 'Das Potential Φ = −G·M/r wird nach außen flacher. Von R auf 2R steigt Φ von −GM/R auf −GM/(2R) — die Differenz ist GM/(2R), die Hälfte der gesamten Fluchtarbeit. Zwischen 5R und 10R beträgt die Differenz dagegen nur noch GM/(10R). Der Brunnen ist an der Oberfläche am steilsten, deshalb steckt dort die meiste Arbeit.'
+    },
+    check: {
+      question: 'Was passiert mit der nötigen Hubarbeit pro Kilometer, wenn man sich immer weiter von einem Himmelskörper entfernt?',
+      options: [
+        'Sie bleibt überall gleich groß.',
+        'Sie wird kleiner, weil der Potentialbrunnen nach außen flacher wird.',
+        'Sie wird größer, weil das Potential negativer wird.',
+        'Sie verschwindet sofort nach dem Verlassen der Atmosphäre.'
+      ],
+      correctOption: 1,
+      explanation: 'Das Potential Φ = −G·M/r wird mit wachsendem r weniger negativ und verändert sich immer langsamer. Die Potentialdifferenz pro Strecke — und damit die nötige Arbeit pro Kilometer — nimmt nach außen ab.'
+    }
+  },
   'PHY-L1-000001': {
     moduleId: 'PHY-L1-000001',
     durationMinutes: 14,

@@ -3,9 +3,9 @@
  * Path:      lib/learningPaths.ts
  * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/learningPaths.ts
  * Name:      Learning Paths registry
- * Version:   1.3.6
+ * Version:   1.3.7
  * Created:   2026-07-03
- * Modified:  2026-07-15 21:00 CEST
+ * Modified:  2026-08-29
  * Depends:   —
  */
 
@@ -18,6 +18,12 @@ export type LearningPathSection = {
   depthPoints?: number;
   /** True if this section contains interactive/audio elements (Web Audio API, Canvas) */
   interactive?: boolean;
+  /**
+   * Stable id of a structured interactive (lib/learningInteractives.ts).
+   * Delivered to NOXIA as a typed `interactive` section; NOXIA binds its
+   * renderer to this id. See docs/noxia-module-api.md.
+   */
+  interactiveId?: string;
   /**
    * Optional image for observation cards.
    * Path relative to /public — e.g. "/images/observations/kaffeetasse-tku.jpg"

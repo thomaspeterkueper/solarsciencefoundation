@@ -1,0 +1,11 @@
+{
+  "target": "NOXIA",
+  "title": "Renderer fuer SSF-interactive-Section (gravitationsbrunnen) in der Akademie binden",
+  "reason": "SSF hat die interaktive Lernanimation Gravitationsbrunnen umgesetzt und liefert sie seit 2026-08-29 als typisierten Section-Typ 'interactive' im Modulvertrag GET /api/noxia/modules/SSF-PHY-GRAVITATIONSBRUNNEN-0001 (contentVersion 1.1, stable interactiveId 'gravitationsbrunnen', inkl. params und Text-Fallback). Der bisherige Platzhalter 'Animation: gravitationsbrunnen / Interaktive Animation folgt in Solar Academy 0.3' in KursRenderer.tsx (FolieAnimation) bleibt ohne diesen Renderer im Spiel bestehen.",
+  "requested_change": "In der NOXIA-Akademie den Section-Typ 'interactive' (SsfModuleSection) aus dem SSF-Modulvertrag inline rendern: Himmelskoerper-Auswahl aus params.bodies, Abstands-Slider aus params.distance, Anzeige von Φ = −G·M/r, ΔΦ, Hubarbeit fuer params.testMassKg und v_esc = √(2·G·M/r) mit params.constants.G; bei fehlender Interaktions-Unterstuetzung params.fallback statt Platzhalter anzeigen. Optional die lokale Folie mit animation_id 'gravitationsbrunnen' auf das SSF-Modul SSF-PHY-GRAVITATIONSBRUNNEN-0001 (pathId PATH:SSF:PHY-GRAVITATIONSBRUNNEN-0001) verweisen lassen. Kein iframe, keine externe Navigation.",
+  "expected_result": "Im Kurs 'Energie & Arbeit' erscheint am Abschnitt 'Gravitationsbrunnen visualisiert' die interaktive Animation aus dem SSF-Vertrag statt des Platzhalters; bei nicht renderbarer Interaktion wird der SSF-Fallbacktext angezeigt.",
+  "priority": "high",
+  "parent_task": "2986772f-1be5-470c-bb11-3b87fae7e23c",
+  "depth": 1,
+  "affects": ["target-code"]
+}

@@ -5,8 +5,8 @@
       "id": "TOP:SSF:PHY:GRAVITY",
       "label": "Gravity and orbital mechanics",
       "domains": ["Physics", "Astronomy"],
-      "modules": ["SSF-PHY-1101"],
-      "keywords": ["gravity", "gravitation", "gravitational", "gravitational acceleration", "surface gravity", "orbit", "orbital", "free fall", "mass attraction", "escape velocity", "tidal forces"],
+      "modules": ["SSF-PHY-1101", "SSF-PHY-GRAVITATIONSBRUNNEN-0001"],
+      "keywords": ["gravity", "gravitation", "gravitational", "gravitational acceleration", "gravitational potential", "potential energy", "surface gravity", "orbit", "orbital", "free fall", "mass attraction", "escape velocity", "tidal forces"],
       "canon_claims": [
         {
           "id": "CLM:SSF:PHY:GRAVITY:001",
@@ -22,6 +22,11 @@
           "id": "CLM:SSF:PHY:GRAVITY:003",
           "text": "A satellite orbits by falling around a body while moving sideways fast enough to keep missing the surface.",
           "sources": ["SSF-PHY-1101", "ENT:AST:ORBIT"]
+        },
+        {
+          "id": "CLM:SSF:PHY:GRAVITY:004",
+          "text": "Leaving a gravitational field costs work equal to the mass times the gravitational potential difference between start and destination.",
+          "sources": ["SSF-PHY-GRAVITATIONSBRUNNEN-0001", "CON:L1:gravitation"]
         }
       ],
       "status": "active"
