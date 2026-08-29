@@ -1,15 +1,67 @@
-import PlatformSectionLanding from '../../components/PlatformSectionLanding';
+import { editorialWorkflow, participationRoles } from '../../lib/participationModel';
+
+const roleOrder = ['learner', 'member', 'supporting-member', 'author', 'reviewer', 'editor'];
+const workflowLabels: Record<string, string> = {
+  proposal: 'Proposal',
+  'editorial-screening': 'Editorial screening',
+  'scientific-review': 'Scientific review',
+  revision: 'Revision',
+  'editorial-approval': 'Editorial approval',
+  publication: 'Publication',
+};
 
 export default function ParticipatePage() {
-  return <PlatformSectionLanding
-    eyebrow="Participate"
-    title="SSF should be more than a course catalogue."
-    intro="The platform is intended to become a place where learners, authors and supporters can contribute in different roles. This page makes that part of the project visible without pretending that unfinished membership workflows already exist."
-    entries={[
-      { eyebrow: 'Community', title: 'Membership', body: 'A future regular membership can connect people who want to learn, discuss and help shape the foundation over time.' },
-      { eyebrow: 'Support', title: 'Supporting membership', body: 'A separate supporting role is planned for people who want to strengthen open scientific learning financially or organizationally without needing an author role.' },
-      { eyebrow: 'Contribute knowledge', title: 'Become an author', body: 'SSF is designed for multiple authors. Contributors should be able to propose didactic modules while canonical scientific knowledge remains governed by the Knowledge Graph.' },
-    ]}
-    note="Membership applications, payments and author onboarding are not active yet. The next implementation step should define roles, rights, review workflow and the boundary between editorial SSF content and canonical KG knowledge before forms are opened."
-  />;
+  const roles = roleOrder.map((id) => participationRoles.find((role) => role.id === id)!).filter(Boolean);
+
+  return (
+    <div className="container" style={{ paddingTop: 64, paddingBottom: 80 }}>
+      <p className="section-eyebrow">Participate</p>
+      <h1 className="section-headline" style={{ maxWidth: '18ch' }}>Learning is open. Participation has clear roles.</h1>
+      <p style={{ maxWidth: '66ch', color: 'var(--muted)', lineHeight: 1.8, fontSize: 17 }}>
+        Solar Science Foundation is intended to keep knowledge openly accessible while building a reliable community for membership, support and authorship. These roles are deliberately separate: money does not buy scientific authority, and authorship does not mean unreviewed publication.
+      </p>
+
+      <section style={{ paddingTop: 48 }}>
+        <p className="section-eyebrow">Role model</p>
+        <h2 className="section-headline">Six roles, different responsibilities</h2>
+        <div className="entries-grid" style={{ marginTop: 28 }}>
+          {roles.map((role) => (
+            <article className="entry-card" key={role.id}>
+              <p className="section-eyebrow">{role.requiresAdmission ? 'Admission required' : 'Open access'}</p>
+              <h3>{role.titleEn}</h3>
+              <p>{role.purposeEn}</p>
+              <small>{role.mayPublishDirectly ? 'May publish under editorial responsibility.' : 'No direct publication without approval.'}</small>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section style={{ paddingTop: 64, maxWidth: '72ch' }}>
+        <p className="section-eyebrow">Authorship</p>
+        <h2 className="section-headline">Uploading a contribution does not make it SSF knowledge.</h2>
+        <p style={{ color: 'var(--muted)', lineHeight: 1.8 }}>
+          Authors develop the didactic layer: explanations, examples, exercises, learning paths and source notes. Scientific claims are reviewed; canonical scientific facts and identifiers remain governed by the KUEPER Knowledge Graph. Publication as SSF content remains an editorial decision.
+        </p>
+        <ol style={{ lineHeight: 1.9, paddingLeft: 24 }}>
+          {editorialWorkflow.map((step) => <li key={step}>{workflowLabels[step]}</li>)}
+        </ol>
+      </section>
+
+      <section style={{ paddingTop: 56, maxWidth: '72ch' }}>
+        <p className="section-eyebrow">Membership & support</p>
+        <h2 className="section-headline">Belonging and supporting are not the same thing.</h2>
+        <p style={{ color: 'var(--muted)', lineHeight: 1.8 }}>
+          Regular membership is intended for community participation. Supporting membership strengthens the work financially or organizationally. Neither automatically grants author, reviewer or editorial rights.
+        </p>
+      </section>
+
+      <section style={{ marginTop: 56, padding: 28, border: '1px solid var(--border)', borderRadius: 18 }}>
+        <p className="section-eyebrow">Status</p>
+        <h2 style={{ marginTop: 8 }}>Applications and payments are not active yet</h2>
+        <p style={{ color: 'var(--muted)', lineHeight: 1.7, marginBottom: 0 }}>
+          The role and review model is now defined. Admission procedures, membership fees, payment processing and technical author accounts will only be activated once those processes have been explicitly specified and implemented.
+        </p>
+      </section>
+    </div>
+  );
 }
