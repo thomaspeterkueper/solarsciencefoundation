@@ -3,7 +3,7 @@
  * Path:      lib/learningPaths.ts
  * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/learningPaths.ts
  * Name:      Learning Paths registry
- * Version:   1.3.6
+ * Version:   1.3.7
  * Created:   2026-07-03
  * Modified:  2026-07-15 21:00 CEST
  * Depends:   —
@@ -5745,6 +5745,362 @@ export const learningPaths: LearningPath[] = [
             title: 'Quiz: Andocken und Lebenserhaltung',
             summary: 'Warum nicht zu langsam anfliegen? Abdriften durch Relativbewegung. ISS recycelt 93% Wasser fuer 6 Personen: nur 1.05L Frischwasser-Zufuhr/Tag noetig. Warum O2 aus Wasser statt Tanks? Gewichtseffizienz: Wasser liefert O2 plus H2.',
             depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  }
+,
+  {
+    id: 'PATH:SSF:PHY-WASSER-VAKUUM-0001',
+    title: 'Warum kann man auf dem Mars kein Wasser kochen — und was passiert stattdessen?',
+    subtitle: 'Tripelpunkt, Sublimation, ISRU: Unterhalb 611 Pa gibt es keine fluessige Phase. Mars-Atmosphaere: ~600 Pa. Wassereis sublimiert direkt zu Dampf.',
+    status: 'prototype',
+    sourceModuleId: 'PHY-WASSER-VAKUUM-0001',
+    kxfModuleId: 'LRN:SSF:PHY-WASSER-VAKUUM-0001',
+    domainsNeeded: ['KNOW:PHY-THERMODYNAMICS', 'KNOW:AST-MARS', 'KNOW:ENG-ISRU'],
+    suppliedBy: {
+      knowledgeGraph: ['PHY-WASSER-VAKUUM-0001 canonical'],
+      kueperCom: [], overtimeArchive: ['OTA-TEC-0034 §3'],
+      ssf: ['Phasendiagramm-Experiment: Druck-Schieberegler live', 'Wasserextraktor-Sim: Sublimationsrate bei 600 Pa']
+    },
+    unlocks: ['UNL:NOX:ISRU:WATER-EXTRACTION', 'ISRU:WATER-EXTRACTION', 'PHY:VACUUM-PHASE-DIAGRAM'],
+    units: [
+      {
+        id: 'UNIT:VAKUUM-TRIPELPUNKT',
+        title: 'Der Tripelpunkt — wo alle drei Phasen zusammenkommen',
+        entryQuestion: 'Warum gibt es auf dem Mars kein fluessiges Wasser — obwohl die Temperatur manchmal ueber 0 Grad steigt?',
+        takeaway: 'Fluessiges Wasser braucht mindestens 611.7 Pa Druck. Mars: ~600 Pa. Deshalb sublimiert Eis direkt zu Dampf. Phoenix-Lander 2008 hat das live beobachtet: weisse Klumpen verschwanden ohne zu schmelzen.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:VAKUUM-ISRU' },
+        sections: [
+          {
+            id: 'OBS:VAKUUM-PHOENIX',
+            kind: 'observation',
+            title: 'Phoenix 2008: Eis das verschwindet',
+            summary: 'NASA Phoenix Lander beobachtete weisse Klumpen unter seinem Landegestell. Innerhalb von Tagen verschwanden sie — kein Tropfen, keine Pfuetze. Direktes Sublimieren. Der Marsdruck von ~600 Pa liegt knapp unterhalb des Tripelpunkts — der Grenze wo fluessiges Wasser physikalisch nicht existieren kann.',
+            depthPoints: 5,
+          },
+          {
+            id: 'EXP:VAKUUM-PHASENDIAGRAMM',
+            kind: 'experiment',
+            title: 'Experiment: Phasendiagramm Wasser',
+            summary: 'Druck-Schieberegler (1 Pa bis 200000 Pa) und Temperatur-Schieberegler (-100 bis +150 Celsius). Phasendiagramm zeigt live: fest/fluessig/gasfoermig. Tripelpunkt-Marker bei 611.7 Pa. Mars-Marker bei 600 Pa — immer im festen oder gasfoermigen Bereich. Erde-Meeresniveau bei 101325 Pa.',
+            interactive: true,
+            depthPoints: 10,
+          },
+          {
+            id: 'QUIZ:VAKUUM-TRIPELPUNKT',
+            kind: 'quiz',
+            title: 'Quiz: Was waere wenn — Vakuum und Druck',
+            summary: 'Mars-Druck steigt auf 1500 Pa: fluessiges Wasser moeglich? Ja, knapp ueber Tripelpunkt. Raumanzug leckt auf Mond (fast Vakuum): was passiert mit Koerperfluessigkeiten? Sieden bei Koerpertemperatur unter 6.3 kPa Armstrong-Grenze. Warum muss der Wasserextraktor eine Kondensationsfalle haben? Dampf bei 600 Pa wuerde sonst entweichen.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:VAKUUM-ISRU',
+        title: 'Sublimation als Werkzeug — der Wasserextraktor',
+        entryQuestion: 'Wenn Eis auf dem Mars direkt sublimiert — wie gewinnt man daraus Fluessigwasser?',
+        takeaway: 'Wasserextraktor: Regolith erwaermen (Sublimation ausloesen) → Dampf absaugen → Kaeltefalle bei -80 Celsius (Rekondensation zu Frost) → aufschmelzen. Niederdruck ist Vorteil: Sublimation beginnt bei niedrigerer Temperatur als Verdampfung noetig waere.',
+        sections: [
+          {
+            id: 'EXP:VAKUUM-EXTRAKTOR',
+            kind: 'experiment',
+            title: 'Experiment: Wasserextraktor-Simulation',
+            summary: 'Vier Phasen: Regolith-Erwaermung, Sublimationsrate (g/h), Kaeltefallen-Temperatur, Rekondensationsrate. Energiebilanz: kW Eingang vs. L/Tag Ausgang. Eisgehalt-Schieberegler (2-40 Gew.-%) zeigt Energiebedarf pro Liter.',
+            interactive: true,
+            depthPoints: 10,
+          },
+          {
+            id: 'QUIZ:VAKUUM-ISRU',
+            kind: 'quiz',
+            title: 'Quiz: Wasserextraktion auf dem Mars',
+            summary: 'Warum funktioniert atmosphaerische Wassergewinnung auf dem Mars nicht? Kaum Wasserdampf in der Atmosphaere. Perchlorat im Regolith: warum gefaehrlich? Toxisch, muss vor Einspeisung gefiltert werden. Eisgehalt 2% vs. 20%: wie viel mehr Energie? Ca. 10x mehr bei 2%.',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'PATH:SSF:AST-MARS-REGOLITH-0001',
+    title: 'Was steckt im Marsboden — und warum macht das die Kolonisierung schwierig?',
+    subtitle: 'Perchlorat, Wassereis, abrasiver Staub: Marsregolith ist kein Dreck. Was darin steckt bestimmt wo eine Kolonie ueberleben kann.',
+    status: 'prototype',
+    sourceModuleId: 'AST-MARS-REGOLITH-0001',
+    kxfModuleId: 'LRN:SSF:AST-MARS-REGOLITH-0001',
+    domainsNeeded: ['KNOW:AST-MARS', 'KNOW:ENV-TOXICOLOGY', 'KNOW:ENG-ISRU'],
+    suppliedBy: {
+      knowledgeGraph: ['AST-MARS-REGOLITH-0001 canonical'],
+      kueperCom: [], overtimeArchive: ['OTA-TEC-0034 §3 §6 §8 §14'],
+      ssf: ['Regolith-Zusammensetzungs-Explorer', 'Perchlorat-Grenzwertrechner', 'Eis-Kartierung MRO-Daten', 'Standort-Eignungsrechner']
+    },
+    unlocks: ['UNL:NOX:SENSOR:SUBSURFACE', 'UNL:NOX:ISRU:REGOLITH-ANALYSIS', 'SENSOR:SUBSURFACE'],
+    units: [
+      {
+        id: 'UNIT:REGOLITH-ZUSAMMENSETZUNG',
+        title: 'Was ist Marsregolith — und warum ist er kein Dreck',
+        entryQuestion: 'Warum koennen Astronauten den Marsboden nicht einfach als Erde benutzen — weder als Baustoff noch fuer Landwirtschaft?',
+        takeaway: 'Marsregolith enthaelt Perchlorate (0.5-1 Gew.-%, hochtoxisch), keinen organischen Kohlenstoff, extrem feine abrasive Partikel und regional Wassereis. Vor jeder Nutzung muss Perchlorat entfernt werden (Filtration oder thermische Zersetzung bei >600 Celsius).',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:REGOLITH-EISGEHALT' },
+        sections: [
+          {
+            id: 'OBS:REGOLITH-ROT',
+            kind: 'observation',
+            title: 'Warum ist der Mars rot — und was steckt darunter?',
+            summary: 'Eisenoxid (Fe2O3, Haematit) macht den Mars rot — Rost. Aber das ist nur die Oberflaeche. Darunter: Silikate, Sulfate, Perchlorate, regional Wassereis. Curiosity-Rover hat Perchlorat in fast allen Bodenproben gefunden. Das macht Marsregolith zu einem Rohstoff der zuerst gereinigt werden muss bevor er nutzbar ist.',
+            depthPoints: 5,
+          },
+          {
+            id: 'EXP:REGOLITH-EXPLORER',
+            kind: 'experiment',
+            title: 'Experiment: Marsregolith-Analyse',
+            summary: 'Kreisdiagramm Marsregolith: SiO2 ~45%, Fe2O3 ~18%, Al2O3 ~10%, SO3 ~9%, Perchlorate ~0.5-1%, Rest. Klick auf Perchlorat: WHO-Grenzwert 0.7 mg/L vs. Mars-Gehalt. Klick auf Wassereis: regionale Verteilungskarte. Vergleich Marsboden vs. Erdboden fuer Landwirtschaft.',
+            interactive: true,
+            depthPoints: 10,
+          },
+          {
+            id: 'QUIZ:REGOLITH-1',
+            kind: 'quiz',
+            title: 'Quiz: Marsregolith',
+            summary: 'Warum ist Perchlorat auf dem Mars so ein Problem? Vorkommt fast ueberall, schadigt Schilddruese. Marsregolith direkt fuer Hydroponik? Nein, Perchlorat toetet Pflanzen. Mars-Staub vs. Mondstaub: was ist gefaehrlicher? Mars-Staub enthaelt loesliches Perchlorat, beides scharfkantig.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:REGOLITH-EISGEHALT',
+        title: 'Wo steckt das Wasser — und wie findet man es von der Umlaufbahn',
+        entryQuestion: 'Wie weiss eine Kolonie vor der Landung wo im Marsboden Wassereis steckt — ohne einen einzigen Bohrer?',
+        takeaway: 'Neutronenspektrometer-Satelliten (MRO CRISM) messen Wasserstoff-Signatur orbital. Mehr Wasserstoff = mehr Wassereis. Diese Karten existieren fuer den ganzen Mars. Entscheidend: Eisgehalt > 5 Gew.-% und Overburden < 2 m fuer wirtschaftliche Extraktion.',
+        sections: [
+          {
+            id: 'EXP:REGOLITH-STANDORT',
+            kind: 'experiment',
+            title: 'Experiment: Standort-Eignungsrechner',
+            summary: 'Drei Schieberegler: Eisgehalt (2-40 Gew.-%), Overburden-Dicke (0-5 m), Perchlorat-Konzentration (0.1-2 Gew.-%). Ausgabe: Wasserertrag L/Tag, Energie kWh/L, Aufbereitungsaufwand, Eignungsscore. Reale Hotspots: Utopia Planitia (hoher Eisgehalt [R]), Arabia Terra (mittlerer Eisgehalt [H]).',
+            interactive: true,
+            depthPoints: 10,
+          },
+          {
+            id: 'QUIZ:REGOLITH-2',
+            kind: 'quiz',
+            title: 'Quiz: Eis-Kartierung und Standortwahl',
+            summary: 'Utopia Planitia: hoher Eisgehalt aber hohe Breite. Nachteil? Langer Winter, wenig Sonnenenergie. Arabia Terra: geringerer Eisgehalt, aequatorial. Vorteil? Mehr Sonnenstunden, aber mehr Energie pro Liter. Warum Overburden < 2 m kritisch? Tiefer graben = exponentiell mehr Energie und Maschinenverschleiss.',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'PATH:SSF:PHY-MONDSTAUB-VERSCHLEISS-0001',
+    title: 'Warum hat Mondstaub Apollo-Astronauten fast den Einsatz gekostet?',
+    subtitle: 'Scharfkantig, elektrostatisch aufgeladen, ueberall: Mondstaub ist das heimtueckischste Ingenieursproblem der Raumfahrt.',
+    status: 'prototype',
+    sourceModuleId: 'PHY-MONDSTAUB-VERSCHLEISS-0001',
+    kxfModuleId: 'LRN:SSF:PHY-MONDSTAUB-VERSCHLEISS-0001',
+    domainsNeeded: ['KNOW:PHY-SURFACE', 'KNOW:AST-MOON', 'KNOW:ENG-MATERIALS'],
+    suppliedBy: {
+      knowledgeGraph: ['PHY-MONDSTAUB-VERSCHLEISS-0001 canonical'],
+      kueperCom: [], overtimeArchive: ['OTA-TEC-0035 §3 §13'],
+      ssf: ['Mondstaub-Mikroskop: Vergleich irdischer Staub vs. Mondstaub', 'Verschleiss-Simulator: Abrasionsrate vs. Partikelgroesse', 'Elektrostatik-Demo: Aufladung im Vakuum']
+    },
+    unlocks: ['UNL:NOX:TOOL:DUST-MITIGATION', 'TOOL:DUST-MITIGATION'],
+    units: [
+      {
+        id: 'UNIT:MONDSTAUB-EIGENSCHAFTEN',
+        title: 'Mondstaub — das unscheinbarste Problem der Raumfahrt',
+        entryQuestion: 'Warum war Mondstaub eine groessere Herausforderung als Strahlung oder Vakuum bei den Apollo-Missionen?',
+        takeaway: 'Mondstaub ist scharfkantig weil kein Wasser oder Wind die Kanten abrundet. Elektrostatisch aufgeladen weil Sonnenwind ihn belaed. Klebt an allem — Raumanzuege, Gelenke, Solarzellen. Apollo-Astronauten konnten nach Mondausflug Raumanzuege kaum oeffnen. Das ist das Hauptproblem fuer alle Mondoberflaechenoperationen.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:MONDSTAUB-TECHNIK' },
+        sections: [
+          {
+            id: 'OBS:MONDSTAUB-APOLLO',
+            kind: 'observation',
+            title: 'Apollo 17: der Staubproblem-Bericht',
+            summary: 'Gene Cernan und Harrison Schmitt berichteten nach jedem Mondausflug: Dichtungen schwerer zu bedienen, Instrumente beeintraechtigt, Staubpartikel in der Kabine trotz bester Reinigung. Der LRV-Rover zeigte Abrieb an Reifen und Radlagerungen. Mondstaub ist nicht nur laestig — er ist abrasiv auf molekularer Ebene.',
+            depthPoints: 5,
+          },
+          {
+            id: 'EXP:MONDSTAUB-VERGLEICH',
+            kind: 'experiment',
+            title: 'Experiment: Mondstaub unter dem Mikroskop',
+            summary: 'Vergleich: irdischer Strand-Sand (rund, glatt) vs. Mondregolith (scharfkantig, glasartig). Abrasionsrate-Slider: Partikelgroesse (1-1000 Mikrometer) vs. Verschleissrate an Dichtungen. Elektrostatik-Demo: Partikel im Vakuum ohne Feuchtigkeits-Daempfung laden sich auf und kleben.',
+            interactive: true,
+            depthPoints: 10,
+          },
+          {
+            id: 'QUIZ:MONDSTAUB-1',
+            kind: 'quiz',
+            title: 'Quiz: Mondstaub-Eigenschaften',
+            summary: 'Warum ist Mondstaub scharfkantiger als Sandstaub? Kein Wasser-Transport der Kanten abrundet. Warum klebt Mondstaub an Raumanzuegen? Elektrostatische Aufladung durch Sonnenwind. Warum ist Mondstaub schlimmer als Mars-Staub fuer Mechanik? Mond: kein Wind raeumte ihn weg, Mars: leichter Wind hilft leicht. Beide problematisch.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:MONDSTAUB-TECHNIK',
+        title: 'Wie schützt man Technik vor Mondstaub?',
+        entryQuestion: 'Welche Loesungen gibt es gegen das Mondstaub-Problem — und warum sind alle nur teilweise wirksam?',
+        takeaway: 'Mesh-Wheel-Raeder (Drahtgeflecht) statt Luftreifen reduzieren Druckverlust-Risiko aber nicht Abrasion. Elektrische Felder koennen Staub abschiessen (noch experimentell). Regelmaessige Reinigung und Dichtungstausch unvermeidlich. Kein perfektes Verfahren bekannt.',
+        sections: [
+          {
+            id: 'EXP:MONDSTAUB-LOESUNGEN',
+            kind: 'experiment',
+            title: 'Experiment: Dust-Mitigation-Vergleich',
+            summary: 'Vier Strategien vergleichen: mechanische Buersten, elektrische Felder (aktiv), passive Beschichtungen (Lotus-Effekt-analog), regelmaessiger Wechsel verschleissgefaehrdeter Teile. Effektivitaet-Balken und Energiebedarf-Anzeige. Kein Verfahren erzielt 100%.',
+            interactive: true,
+            depthPoints: 8,
+          },
+          {
+            id: 'QUIZ:MONDSTAUB-2',
+            kind: 'quiz',
+            title: 'Quiz: Staubschutz-Technik',
+            summary: 'Mesh-Wheel-Reifen: kein Luftverlust bei Puncture — aber was ist der Nachteil? Trotzdem Abrasion, geringere Federung. Warum degradieren Solarzellen auf dem Mond? Staubbelag reduziert Transmission. Elektrostatische Reinigung: warum noch nicht Standardtechnik? Hoher Energieaufwand, noch in Erprobung.',
+            depthPoints: 12,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'PATH:SSF:ENG-LIFESUPPORT-MOBIL-0001',
+    title: 'Wie atmet man in einem Fahrzeug das 400 km vom naechsten Habitat entfernt ist?',
+    subtitle: 'O2-Budget, CO2-Entfernung, Druckkabine: Life-Support im Kleinformat ist das kritischste System eines bemannten Rovers.',
+    status: 'prototype',
+    sourceModuleId: 'ENG-LIFESUPPORT-MOBIL-0001',
+    kxfModuleId: 'LRN:SSF:ENG-LIFESUPPORT-MOBIL-0001',
+    domainsNeeded: ['KNOW:ENG-LIFE-SUPPORT', 'KNOW:PHY-THERMODYNAMICS', 'KNOW:ENG-SAFETY'],
+    suppliedBy: {
+      knowledgeGraph: ['ENG-LIFESUPPORT-MOBIL-0001 canonical'],
+      kueperCom: [], overtimeArchive: ['OTA-TEC-0035 §3 §5 §14'],
+      ssf: ['Life-Support-Budget-Rechner', 'Druckkabinen-Simulator', 'Notfallreserve-Rechner']
+    },
+    unlocks: ['UNL:NOX:ENG:PRESSURE-CABIN', 'UNL:NOX:TOOL:LIFE-SUPPORT-MOBILE', 'ENG:PRESSURE-CABIN'],
+    units: [
+      {
+        id: 'UNIT:LIFESUPPORT-BUDGET',
+        title: 'Das Life-Support-Budget — jede Stunde zaehlt',
+        entryQuestion: 'Wie viel O2 braucht eine Zweipersonen-Crew fuer einen 8-Stunden-Ausflug — und was passiert wenn der Rover liegen bleibt?',
+        takeaway: 'O2-Bedarf: 0.84 kg/Person/Tag (NASA-Baseline). CO2 muss laufend entfernt werden — LiOH-Kartuschen (Apollo) oder CDRA-Systeme (ISS). Notfallreserve: Rueckweg + 20% Sicherheitsmarge. Armstrong-Grenze bei 6.3 kPa: ab hier siedet Blut.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:LIFESUPPORT-NOTFALL' },
+        sections: [
+          {
+            id: 'OBS:LIFESUPPORT-APOLLO13',
+            kind: 'observation',
+            title: 'Apollo 13: CO2-Krise',
+            summary: 'Apollo 13, 1970: Explosion beschaedigte die Sauerstofftanks. Die Crew flieh ins Mondlandemodul — aber dessen LiOH-CO2-Filter waren bald erschoepft. NASA und Crew mussten mit Klebeband, Plastiktueten und Socken einen Adapter bauen um die quadratischen Filter des Kommandokapsel-Systems in die runden Schraenke des Mondlandemoduls zu passen. Jede Minute zaehlt bei CO2-Vergiftung.',
+            depthPoints: 5,
+          },
+          {
+            id: 'EXP:LIFESUPPORT-BUDGET',
+            kind: 'experiment',
+            title: 'Experiment: Life-Support-Rechner',
+            summary: 'Eingabe: Crew-Groesse (1-4), Missionsdauer (h), Kabinen-Druck (kPa), Fahrstrecke (km). Ausgabe: O2-Bedarf (kg), CO2-Produktion (kg/h), LiOH-Kartuschen-Anzahl, Notfallreserve (h). Warnung bei zu knappem Budget. Armstrong-Grenze als rote Linie.',
+            interactive: true,
+            depthPoints: 10,
+          },
+          {
+            id: 'QUIZ:LIFESUPPORT-1',
+            kind: 'quiz',
+            title: 'Quiz: Life-Support-Budget',
+            summary: 'Warum ist CO2-Entfernung wichtiger als O2-Nachlieferung? CO2 vergiftet schneller als O2-Mangel sichtbar wird. Armstrong-Grenze 6.3 kPa: was bedeutet das? Wasser im Blut siedet bei Koerpertemperatur. Notfallreserve 20%: warum nicht 10%? Systemausfaelle passieren an schlechten Tagen — Murphy-Gesetz.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:LIFESUPPORT-NOTFALL',
+        title: 'Was tun wenn Life-Support versagt?',
+        entryQuestion: 'Was ist der Plan wenn die CO2-Filterung im Rover ausfaellt — 200 km von der Basis entfernt?',
+        takeaway: 'Prioritaet 1: CO2-Level messen. Prioritaet 2: Rueckkehr-Kurs setzen (auch beschaedigter Rover kann meist fahren). Prioritaet 3: Notfallbake aktivieren. Redundanz-Design: zwei unabhaengige Life-Support-Kreise, EVA-Raumanzuege als Backup. Zeit bis CO2-Vergiftung: ca. 2-4 Stunden bei vollstaendigem Filterausfall.',
+        sections: [
+          {
+            id: 'EXP:LIFESUPPORT-NOTFALL',
+            kind: 'experiment',
+            title: 'Experiment: Notfall-Entscheidungsbaum',
+            summary: 'Interaktives Szenario: Filter faellt aus. Entscheide: Sofort umkehren vs. Weiterfahren zum naechsten Waypoint? CO2-Level-Anzeige steigt. Energiereserve-Anzeige. Zeit-bis-Grenzwert-Countdown. Verschiedene Szenarien: 50 km, 150 km, 300 km von Basis.',
+            interactive: true,
+            depthPoints: 10,
+          },
+          {
+            id: 'QUIZ:LIFESUPPORT-2',
+            kind: 'quiz',
+            title: 'Quiz: Notfallprotokolle',
+            summary: 'CO2-Vergiftung: erste Symptome? Kopfschmerzen, Schwindel — werden oft falsch als O2-Mangel interpretiert. Warum sind EVA-Raumanzuege als Backup wichtig? Jeder Anzug hat eigenen Life-Support fuer mehrere Stunden. Warum zwei unabhaengige Life-Support-Kreise? Single-Point-of-Failure vermeiden.',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'PATH:SSF:AST-MONDNAVIGATION-0001',
+    title: 'Wie findet ein Rover auf dem Mond den Weg zurueck — wenn es kein GPS gibt?',
+    subtitle: 'Sterne, Gyros, Bakenradio: Navigation auf dem Mond kombiniert antike und moderne Methoden — ohne Satellitenstuetzung.',
+    status: 'prototype',
+    sourceModuleId: 'AST-MONDNAVIGATION-0001',
+    kxfModuleId: 'LRN:SSF:AST-MONDNAVIGATION-0001',
+    domainsNeeded: ['KNOW:AST-NAVIGATION', 'KNOW:PHY-MECHANICS', 'KNOW:ENG-SYSTEMS'],
+    suppliedBy: {
+      knowledgeGraph: ['AST-MONDNAVIGATION-0001 canonical'],
+      kueperCom: [], overtimeArchive: ['OTA-TEC-0035 §12'],
+      ssf: ['Sternen-Triangulations-Experiment', 'Inertialnavigations-Drift-Simulator', 'Rover-Navigations-Spiel']
+    },
+    unlocks: ['UNL:NOX:NAV:SURFACE', 'UNL:NOX:SENSOR:INERTIAL', 'NAV:SURFACE', 'SENSOR:INERTIAL'],
+    units: [
+      {
+        id: 'UNIT:MONDNAV-GRUNDLAGEN',
+        title: 'Navigation ohne GPS — fuenf Methoden im Vergleich',
+        entryQuestion: 'Ein Rover ist 200 km von der Basis entfernt. GPS gibt es nicht. Wie findet er den Weg zurueck?',
+        takeaway: 'Fuenf Methoden, alle fehlerbehaftet: (1) Inertialnavigation (Gyroskop-Drift), (2) Sternennavigation (sehr genau, Rechenaufwand), (3) Odometrie (Schlupf auf lockerem Boden), (4) Bakennavigation (nur in Reichweite), (5) Solarnavigation (Sonnenwinkel). Redundanz ist das Prinzip: keine Methode allein ist zuverlaessig.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:MONDNAV-PRAXIS' },
+        sections: [
+          {
+            id: 'OBS:MONDNAV-APOLL-LRV',
+            kind: 'observation',
+            title: 'Apollo-LRV: Navigation mit Radumdrehungen und Gyro',
+            summary: 'Der Apollo Lunar Roving Vehicle hatte kein GPS. Er zahlte Radumdrehungen (Odometrie) und nutzte ein Gyroskop fuer die Richtung. Navigation war so genau dass Astronauten stets wussten wo sie waren — aber nur weil sie auf gut kartiertem Terrain fuhren und relativ kurze Strecken. Fuer Langstrecken braucht man mehr.',
+            depthPoints: 5,
+          },
+          {
+            id: 'EXP:MONDNAV-VERGLEICH',
+            kind: 'experiment',
+            title: 'Experiment: Navigationsmethoden-Vergleich',
+            summary: 'Vier Methoden nebeneinander: Inertial (Drift-Akkumulation visualisiert), Sternen (Winkel-Messung animiert), Odometrie (Schlupf-Simulation auf verschiedenen Untergründen), Baken (Empfangsreichweite-Kreis). Fehler-Akkumulation ueber Zeit/Distanz fuer jede Methode.',
+            interactive: true,
+            depthPoints: 10,
+          },
+          {
+            id: 'QUIZ:MONDNAV-1',
+            kind: 'quiz',
+            title: 'Quiz: Navigationsmethoden',
+            summary: 'Warum ist Sternennavigation auf dem Mond besser als auf der Erde? Kein Atmosphaere, Sterne immer sichtbar, kein Szintillieren. Inertialnavigation: was ist Drift? Kleine Messfehler akkumulieren ueber Zeit. Horizont-Distanz Mond: wie weit sieht man bei 1.8 m Augenhoehe? ~6.7 km (kleinerer Radius als Erde).',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:MONDNAV-PRAXIS',
+        title: 'Navigation in der Praxis — Fehler erkennen und korrigieren',
+        entryQuestion: 'Der Gyro zeigt 47 Grad Nordwest, die Sternen-Messung zeigt 52 Grad Nordwest — welcher hat recht?',
+        takeaway: 'Beide koennen falsch liegen. Navigations-Fusion: mehrere Methoden werden gewichtet kombiniert. Grosser Unterschied = Fehlerwarnung. Referenz-Fix: bei Sichtlinie zur Basis per Laser oder Bake einmal genau einmessen, dann Inertial von dort weiter. Dead Reckoning als Basis, Sternen-Fix als Kalibrierung.',
+        sections: [
+          {
+            id: 'EXP:MONDNAV-FUSION',
+            kind: 'experiment',
+            title: 'Experiment: Sensor-Fusion und Fehlerkorrektur',
+            summary: 'Rover-Simulation: fahre 50 km. Verschiedene Sensor-Kombinationen waehlbar. Fehler-Akkumulation als roten Kreis (Unsicherheitsbereich). Sternen-Fix reduziert Kreis. Baken-Signal eliminiert Drift komplett wenn in Reichweite. Ziel: Basis within 100m Genauigkeit erreichen.',
+            interactive: true,
+            depthPoints: 10,
+          },
+          {
+            id: 'QUIZ:MONDNAV-2',
+            kind: 'quiz',
+            title: 'Quiz: Navigation in der Praxis',
+            summary: 'Was ist Dead Reckoning? Letzter bekannter Punkt + Richtung + Geschwindigkeit + Zeit = geschaetzte Position. Warum Sternen-Fix als Kalibrierung? Keine Drift, absoluter Referenzrahmen. Warum trotzdem Odometrie nutzen? Liefert schnelle Updates zwischen Sternen-Fixes.',
+            depthPoints: 12,
           },
         ],
       },
