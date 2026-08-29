@@ -46,3 +46,17 @@ Bitte kleine fachlich abgeschlossene SSF-Pfade für die Teil-Unlocks und anschli
 - Voraussetzungen werden in SSF didaktisch berücksichtigt.
 - `mars-habitat` wird erst im Integrationspfad vergeben.
 - SSF dupliziert keine NOXIA-Spielregeln; NOXIA dupliziert keine SSF-Lerninhalte.
+
+## Blocker-Prüfung 2026-08-29
+
+Der Auftrag lag länger als zwei Stunden offen und wurde deshalb gemäß Stale-Task-Regel unmittelbar untersucht. Der Stillstand ist nicht durch fehlende SSF-Implementierungsfähigkeit verursacht, sondern durch eine bestehende Source-of-Truth-Abhängigkeit:
+
+- `docs/noxia-module-api.md` definiert den Knowledge Graph als Source of Truth für kanonische Wissens-/Modulidentität und strukturelle Metadaten; SSF besitzt Didaktik und Lerninhalt.
+- `lib/kxf.ts` normalisiert die Live-Lernmodule aus dem KG/KXF-Export. `module.unlocks[]` stammt dabei aus den KXF-Modulrecords (`dependencies.moduleUnlocks` / `module_unlocks` / `unlocks` bzw. `noxia.grants`).
+- Für die hier geforderten neuen Lernpfade sind im KG derzeit keine passenden kanonischen Modulrecords auffindbar. Würde SSF eigenständig neue kanonische Modulidentitäten oder konkurrierende Unlock-Zuordnungen erfinden, würde es die bestehende Source-of-Truth-Grenze verletzen.
+
+Der fehlende strukturelle Schritt wurde daher an das zuständige Repository geroutet:
+
+`kueper-knowledge-graph/external-tasks/open/EXT-SSF-KG-20260829-noxia-unlock-learning-module-identities.md`
+
+**Nächster Schritt:** KG stellt kanonische `LRN:SSF:*`-Identitäten bzw. Zuordnungen und die NOXIA-Grant-Metadaten im Learning-Modules-KXF bereit. Danach kann SSF die didaktischen Pfade lokal implementieren und diesen Auftrag nach `done/` verschieben.
