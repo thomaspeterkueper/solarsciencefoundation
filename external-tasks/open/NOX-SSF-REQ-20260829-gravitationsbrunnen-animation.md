@@ -57,3 +57,20 @@ Keine NOXIA-spezifische UI in SSF implementieren. NOXIA baut nach Lieferung den 
 ## Rückgabe an NOXIA
 
 Nach Umsetzung bitte die endgültige Payload-Struktur und die stabile Interactive-ID dokumentieren, damit NOXIA den Renderer gezielt anbinden kann.
+
+## Stale-Untersuchung / Blocker — 2026-08-29
+
+Der Auftrag lag länger als zwei Stunden unverändert. Die Intake-Ursache ist nicht ein lokaler SSF-Workflowfehler: Das SSF-Repository besitzt derzeit keine eigenen GitHub-Actions-Läufe. Die fachliche Implementierung ist jedoch an einer fehlenden kanonischen Integrationszuordnung blockiert.
+
+Die Prüfung des bestehenden Vertrags ergibt:
+
+- `lib/noxiaBridge.ts` liefert Inhalte ausschließlich für kanonische SSF/KXF-Modulidentitäten über `/api/noxia/modules/{moduleId}` aus.
+- NOXIA nutzt für nicht zugeordnete lokale Kurse bewusst den lokalen DB-Kursrenderer als Fallback.
+- Der Platzhalter `animation_id: gravitationsbrunnen` stammt aus diesem lokalen NOXIA-Kurssystem.
+- Im NOXIA-Repository ist für den Kurs „Energie & Arbeit“ keine eindeutige `PATH:SSF:*`-/`LRN:SSF:*`-Zuordnung dokumentiert; die vorhandene `kg_path_id`-Migration deckt nur die Kurse Zahlen & Einheiten sowie Prozentrechnung ab.
+
+SSF würde mit einer frei gewählten Modul-ID eine konkurrierende kanonische Lernidentität erzeugen. Das ist gemäß Source-of-Truth-Grenze nicht zulässig.
+
+**Gerouteter nächster Schritt:** Im Ziel-Repository NOXIA wurde `external-tasks/open/SSF-NOX-REQ-20260829-gravitationsbrunnen-module-mapping.md` angelegt. Dort sind lokale `kurs_id`, kanonische Pfad-ID und SSF/KG-Modul-ID zu bestätigen bzw. bei fehlender kanonischer Identität an den Knowledge Graph weiterzurouten.
+
+Bis diese Zuordnung vorliegt, bleibt dieser Auftrag unter `open/`. Die Interactive-ID `gravitationsbrunnen` und die fachlich-didaktischen Anforderungen sind bereits eindeutig; nach Rückmeldung ist die SSF-Implementierung lokal und ohne weitere fachliche Entscheidung möglich.
