@@ -6106,6 +6106,156 @@ export const learningPaths: LearningPath[] = [
       },
     ],
   }
+,
+  {
+    id: 'PATH:SSF:CHE-WASSER-AUFBEREITUNG-0001',
+    title: 'Warum ist Wasser aus dem Fluss nicht trinkbar — und was macht es sauber?',
+    subtitle: 'Sedimentation, Filtration, Desinfektion: die vollständige Aufbereitungskette von Rohwasser bis Trinkwasser — und wie sie auf dem Mars funktioniert.',
+    status: 'prototype',
+    sourceModuleId: 'NOX-WATER-PROCESSING',
+    kxfModuleId: 'LRN:SSF:NOX-WATER-PROCESSING',
+    domainsNeeded: ['KNOW:CHE-WATER', 'KNOW:ENG-FILTRATION', 'KNOW:ENV-WATER'],
+    suppliedBy: {
+      knowledgeGraph: ['CHE-L1-000015 canonical'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: ['Aufbereitungsketten-Simulator', 'Filtrations-Experiment', 'Mars-Recycling-Rechner']
+    },
+    unlocks: ['UNL:NOX:water-processing', 'BLD:NOX:wasseraufbereitung-1'],
+    units: [
+      {
+        id: 'UNIT:WASSER-ROHWASSER',
+        title: 'Was steckt in Rohwasser — und warum ist es gefährlich?',
+        entryQuestion: 'Warum kann man Wasser aus einem sauber aussehenden Bach nicht einfach trinken?',
+        takeaway: 'Rohwasser enthält Schwebstoffe, gelöste Mineralien, organische Verbindungen und Mikroorganismen. Was gefährlich ist sieht man nicht. Aufbereitung = physikalische + chemische + biologische Prozesse in Reihe. Kein einzelner Schritt reicht allein.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:WASSER-AUFBEREITUNG' },
+        sections: [
+          {
+            id: 'OBS:WASSER-ROHWASSER',
+            kind: 'observation',
+            title: 'Beobachtung: Das trübe Glas',
+            summary: 'Ein Glas Flusswasser sieht nach wenigen Minuten nicht sauber aus — Schwebstoffe setzen sich ab. Aber selbst das klare Wasser darüber ist nicht sicher: Bakterien, Viren, gelöste Schwermetalle sind unsichtbar. Cholera-Epidemien entstanden aus "klar aussehenden" Brunnen. Sehen ersetzt keine Analyse.',
+            depthPoints: 5,
+          },
+          {
+            id: 'EXP:WASSER-AUFBEREITUNG',
+            kind: 'experiment',
+            title: 'Experiment: Aufbereitungsketten-Simulator',
+            summary: 'Baue eine Aufbereitungskette: Grobfilter → Sedimentation → Feinfilter (Sand/Aktivkohle) → Desinfektion (UV/Chlor). Rohwasser-Qualitäts-Slider (Trübung, Bakterien, Chemikalien). Ergebnis: Wasserqualität nach jeder Stufe. Mars-Modus: Recycling-Rate-Slider (ISS-Referenz 93%). Membranfilter (RO) als optionale Zusatzstufe.',
+            interactive: true,
+            depthPoints: 12,
+          },
+          {
+            id: 'QUIZ:WASSER-AUFBEREITUNG',
+            kind: 'quiz',
+            title: 'Quiz: Wasseraufbereitung',
+            summary: 'Warum reicht Kochen allein nicht? Chemikalien werden nicht entfernt. Warum Aktivkohle? Adsorbiert organische Verbindungen und Geschmackstoffe. Warum Umkehrosmose auf dem Mars unverzichtbar? Höchste Recyclingrate, kein kontinuierlicher Nachschub möglich. Was ist die ISS-Recyclingrate? 93% (Urin + Kondenswasser → Trinkwasser).',
+            depthPoints: 15,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:WASSER-AUFBEREITUNG',
+        title: 'Wasseraufbereitung auf dem Mars — wenn jeder Liter zählt',
+        entryQuestion: 'Wie recycelt die ISS 93% des Wassers — und warum ist das auf dem Mars noch wichtiger?',
+        takeaway: 'ISS ECLSS: Urin + Kondenswasser → Destillation → Filtration → Desinfektion → Trinkwasser. Verlustrate 7%/Tag. Mars: kein Nachschub → Verlust muss auf < 2% gedrückt werden. Schlüsseltechnologie: Vakuumdestillation (niedriger Energieaufwand bei Mars-Druck) + Membranfilter.',
+        sections: [
+          {
+            id: 'OBS:WASSER-ISS',
+            kind: 'observation',
+            title: 'ISS: Astronauten trinken ihren eigenen Urin',
+            summary: 'Das klingt absurd — ist aber Alltag auf der ISS seit 2008. Das ECLSS-System (Environmental Control and Life Support System) recycelt Urin, Schweiß und Ausatemluft zu Trinkwasser. 93% Effizienz. Die NASA sagt: "Yesterday's coffee is tomorrow's coffee." Auf dem Mars muss diese Rate noch höher sein.',
+            depthPoints: 4,
+          },
+          {
+            id: 'EXP:WASSER-MARS',
+            kind: 'experiment',
+            title: 'Experiment: Mars-Wasserbudget',
+            summary: 'Eingabe: Crew-Größe (1-10), Recycling-Rate (85-99%), Tage-Vorrat. Ausgabe: Wasserverlust L/Tag, Resupply-Frequenz, Energiebedarf Destillation. Vergleich: ISS (93%) vs. Mars-Ziel (97%) vs. Worst-Case (85%) — wie lange hält der Vorrat?',
+            interactive: true,
+            depthPoints: 8,
+          },
+          {
+            id: 'QUIZ:WASSER-MARS',
+            kind: 'quiz',
+            title: 'Quiz: Mars-Wasseraufbereitung',
+            summary: 'Warum Vakuumdestillation auf dem Mars effizienter als auf der Erde? Niedrigerer Siedepunkt bei Mars-Druck = weniger Energie. Hauptverlustquelle ISS? Atemluftfeuchtigkeit. Warum > 93% Recycling auf dem Mars nötig? Kein Nachschub, Resupply kostet 10.000 USD/kg.',
+            depthPoints: 12,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'PATH:SSF:ENG-ROHSTOFFGEWINNUNG-0001',
+    title: 'Wie kommt ein Mineral aus dem Boden in die Fabrik — und was geht dabei verloren?',
+    subtitle: 'Deposit, Abbau, Trennung, Aufbereitung: die vollständige Prozesskette der Rohstoffgewinnung — und warum Ausbeute nie 100% ist.',
+    status: 'prototype',
+    sourceModuleId: 'NOX-RESOURCE-EXTRACTION',
+    kxfModuleId: 'LRN:SSF:NOX-RESOURCE-EXTRACTION',
+    domainsNeeded: ['KNOW:ENG-MINING', 'KNOW:CHE-SEPARATION', 'KNOW:ENV-RESOURCES'],
+    suppliedBy: {
+      knowledgeGraph: ['ENG-L1-000005 canonical'],
+      kueperCom: [], overtimeArchive: [],
+      ssf: ['Prozessketten-Simulator', 'Trennexperiment', 'Ressourcen-Effizienz-Rechner']
+    },
+    unlocks: ['UNL:NOX:resource-extraction', 'BLD:NOX:mine-1'],
+    units: [
+      {
+        id: 'UNIT:ROHSTOFF-DEPOSIT',
+        title: 'Was ist ein Deposit — und wie findet man es?',
+        entryQuestion: 'Warum liegt Erz nicht einfach an der Oberfläche — und wie findet man es ohne zu graben?',
+        takeaway: 'Ein Deposit ist eine natürliche Anreicherung eines Minerals auf abbauwürdige Konzentration. Kupfer: 0.3-1% Erz-Gehalt. Eisen: 30-60%. Detektionsmethoden: Geophysik (Magnetik, Gravimetrie), Geochemie (Bodenproben), Fernerkundung (Spektralanalyse). Auf dem Mars: Neutronenspektrometer + CRISM-Daten.',
+        gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:ROHSTOFF-PROZESSKETTE' },
+        sections: [
+          {
+            id: 'OBS:ROHSTOFF-KUPFER',
+            kind: 'observation',
+            title: 'Beobachtung: Wie viel Berg für ein Kilo Kupfer?',
+            summary: 'Für 1 kg Kupfer muss man 100-300 kg Gestein fördern, zerkleinern und aufbereiten. Das meiste landet als Bergehalde. Für seltene Erden (Neodym für Windkraftmagnete): 1 kg Metall aus bis zu 1000 kg Gestein. Das ist kein Versagen der Technik — das ist die Natur der Deposits.',
+            depthPoints: 5,
+          },
+          {
+            id: 'EXP:ROHSTOFF-TRENNUNG',
+            kind: 'experiment',
+            title: 'Experiment: Trennverfahren-Simulator',
+            summary: 'Rohstoff-Gemisch wählen (Eisenerz/Kupfererz/Seltene Erden). Trennverfahren in Reihe: Zerkleinerung → Dichte-Trennung (Schwimm-Sink) → Flotation (Luftblasen) → Magnetscheidung. Ausbeute-Balken nach jedem Schritt. Energiebedarf-Anzeige. Mars-Modus: Regolith als Rohmaterial, andere Zusammensetzung.',
+            interactive: true,
+            depthPoints: 12,
+          },
+          {
+            id: 'QUIZ:ROHSTOFF-1',
+            kind: 'quiz',
+            title: 'Quiz: Deposit und Trennung',
+            summary: 'Warum ist Flotation so wichtig? Trennt hydrophile von hydrophoben Mineralen — sehr selektiv. Warum kostet Bergbau so viel Energie? Zerkleinerung: exponentiell steigender Aufwand je feiner. Was ist Ausbeute? Verhältnis gewonnenes Metall zu Metall im abgebauten Erz. Nie 100%.',
+            depthPoints: 12,
+          },
+        ],
+      },
+      {
+        id: 'UNIT:ROHSTOFF-PROZESSKETTE',
+        title: 'Von der Mine zur Hütte — die vollständige Prozesskette',
+        entryQuestion: 'Was passiert zwischen "Gestein abbauen" und "nutzbares Metall haben" — und wo gehen die größten Verluste verloren?',
+        takeaway: 'Prozesskette: Deposit-Erkundung → Abbau → Transport → Aufbereitung (Zerkleinerung/Trennung) → Verhüttung → Raffinierung → Handelsgut. Verluste an jedem Schritt. Gesamtausbeute Kupfer typisch 85-95%. Wasserverbrauch: 100-300 L/kg Kupfer. Auf dem Mars: ISRU schließt lokale Kreisläufe.',
+        sections: [
+          {
+            id: 'EXP:ROHSTOFF-KETTE',
+            kind: 'experiment',
+            title: 'Experiment: Prozessketten-Rechner',
+            summary: 'Eingabe: Deposit-Größe (t), Erzgehalt (%), Abbaurate (t/Tag). Ausgabe: Jahresproduktion (kg Metall), Bergehalde (t/Jahr), Wasserverbrauch (L/Tag), Energiebedarf (kW). Mars-Modus: Perchlorat-Filterung als Zusatzschritt, Energiekosten erhöht.',
+            interactive: true,
+            depthPoints: 10,
+          },
+          {
+            id: 'QUIZ:ROHSTOFF-2',
+            kind: 'quiz',
+            title: 'Quiz: Prozesskette und Ressourceneffizienz',
+            summary: 'Größter Energieverbraucher im Bergbau? Zerkleinerung (Crushing/Grinding) — bis zu 50% des Gesamtenergieverbrauchs. Warum ist Recycling effizienter als Bergbau? Kein Abbau, kein Transport, keine Aufbereitung von Gangart. Warum auf dem Mars ISRU besser als Erd-Import? 10.000 USD/kg Transportkosten.',
+            depthPoints: 15,
+          },
+        ],
+      },
+    ],
+  }
 ];
 
 export function getLearningPathById(id: string) {
