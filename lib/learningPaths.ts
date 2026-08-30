@@ -6105,8 +6105,8 @@ export const learningPaths: LearningPath[] = [
         ],
       },
     ],
-  }
-,
+  },
+
   {
     id: 'PATH:SSF:CHE-WASSER-AUFBEREITUNG-0001',
     title: 'Warum ist Wasser aus dem Fluss nicht trinkbar — und was macht es sauber?',
