@@ -1,300 +1,166 @@
 # Minimum Viable Mars Colony — Evidenzbasis für 497 Personen
 
-**Status:** SSF Research Note v0.1  
+**Status:** SSF Research Note v0.2 — externer Evidenzaudit eingearbeitet  
 **Datum:** 2026-08-30  
 **Population:** 497 Personen  
 **Resilienzanforderung:** mindestens 30 Tage ohne externen Nachschub  
-**Zweck:** reale wissenschaftlich-technische Grundlage für eine spätere OTA-Systemarchitektur und erst danach eine NOXIA-Projektion.
+**Zweck:** reale wissenschaftlich-technische Grundlage für OTA-Systemarchitektur und erst danach NOXIA-Projektion.  
+**Audit:** `docs/research/tharsis-hub-497-external-evidence-audit.md`
 
 ## 1. Epistemische Trennung
 
-Diese Note unterscheidet drei Klassen:
+- **[R] Referenzwert:** direkt aus NASA/ESA bzw. technischer Primär-/Fachquelle.
+- **[S] Skalierung:** transparenter Rechenschritt aus einem Referenzwert.
+- **[A] Architekturannahme:** Planungsbereich, weil es keine qualifizierte Referenzanlage für eine 497-Personen-Marskolonie gibt.
 
-- **[R] Referenzwert:** direkt aus NASA/ESA bzw. technischer Primärquelle.
-- **[S] Skalierung:** transparenter linearer Rechenschritt aus einem Referenzwert.
-- **[A] Architekturannahme:** ingenieurmäßiger Planungsbereich, weil es für eine 497-Personen-Marskolonie heute keine qualifizierte Referenzanlage gibt.
+[A]-Werte sind weder Vorhersagen noch NOXIA-Spielwerte. OTA muss sie durch konkrete System-/Objektdossiers verifizieren oder ersetzen.
 
-Die Zahlen in [A] sind keine Vorhersagen und keine NOXIA-Spielwerte. Sie sind Arbeitsbereiche für die nächste Systemarchitektur.
+## 2. Harte Stoffstrombasis
 
-## 2. Primäre Referenzen
+### 2.1 O₂ und CO₂
 
-1. NASA OCHMO Carbon Dioxide Technical Brief / Human Integration Design Handbook: Standard Mission Day mit Bewegung: O₂-Verbrauch 0,82 kg/Person/Tag; CO₂-Produktion 1,04 kg/Person/Tag.  
-   https://www.nasa.gov/ochmo-tb-004-carbon-dioxide-2/
-2. NASA ECLSS: ISS-Wasseraufbereitung; 2023 wurden 98 % Gesamt-Wasserrückgewinnung demonstriert.  
-   https://www.nasa.gov/missions/station/iss-research/nasa-achieves-water-recovery-milestone-on-international-space-station/
-3. NASA Advanced Life Support: beispielhafte Luft-/Wasserströme pro Crewmitglied: O₂ 0,84 kg/d, CO₂ 1,00 kg/d; Trink-/Speisewasser 2,37 kg/d, Urinspülwasser 0,50 kg/d, Waschwasser 1,29 kg/d.  
-   https://ntrs.nasa.gov/api/citations/20100036823/downloads/20100036823.pdf
-4. NASA Food Mass Reduction / Mars Food Studies: heutige verpackte Raumfahrtnahrung etwa 1,14–1,83 kg/Person/Tag je nach Systemannahme und Verpackung.  
-   https://ntrs.nasa.gov/search.jsp?R=20090006804  
-   https://ntrs.nasa.gov/api/citations/20030033919/downloads/20030033919.pdf
-5. NASA Spacecraft Habitable Volume Workshop: 80 m³ Netto-Habitatvolumen pro Person wurde als Langzeit-Referenzgröße untersucht.  
-   https://ntrs.nasa.gov/citations/20110016362
-6. NASA CHAPEA: 1.700 ft² Habitat für vier Personen, inklusive privater Räume, Küche, Medizin, Freizeit, Fitness, Arbeit, Crop Growth und Technik.  
-   https://www.nasa.gov/humans-in-space/chapea/about-chapea/
-7. NASA Fission Surface Power: aktuelle Demonstrator-Klasse mindestens 40 kWe, ausgelegt für kontinuierlichen Betrieb über Jahre; skalierbar für Mond/Mars, aber ausdrücklich noch keine Kolonieanlage.  
-   https://www.nasa.gov/exploration-systems-development-mission-directorate/fission-surface-power/
-8. NASA Mars RAD: Marsoberfläche etwa 210 µGy/Tag durch galaktische kosmische Strahlung in der beobachteten Phase; SEP-Ereignisse bleiben ein wesentlicher Unsicherheitsfaktor.  
-   https://science.nasa.gov/resource/radiation-measurements-on-mars/
-9. NASA Medical System Concept of Operations for Mars: keine verlässliche Echtzeit-Telemedizin/Evakuation; Exploration verlangt deutlich höhere medizinische Autonomie.  
-   https://ntrs.nasa.gov/citations/20160013234
-10. ESA MELiSSA: Ziel ist ein nahezu geschlossener regenerativer Kreislauf für Wasser, O₂, Nahrung und organische Reststoffe; heutiger Status ist Forschungs-/Pilotniveau, nicht vollwertige Kolonieversorgung.  
-    https://www.esa.int/Enabling_Support/Space_Engineering_Technology/Melissa/Closed_Loop_Concept
-
-## 3. Harte Stoffstrombasis für 497 Personen
-
-### 3.1 Sauerstoff und Kohlendioxid
-
-[R] NASA Standard Mission Day mit Bewegung:
-
-- O₂: 0,82 kg/Person/Tag
-- CO₂: 1,04 kg/Person/Tag
+[R] Geprüfte NASA-Werte liegen je nach Missions-/Aktivitätsannahme bei ungefähr 0,82–0,84 kg O₂/Person/Tag und 1,00–1,04 kg CO₂/Person/Tag.
 
 [S] Für 497 Personen:
+- O₂: **407,5–417,5 kg/Tag**
+- CO₂: **497–516,9 kg/Tag**
+- konservative SSF-Basis: **~408 kg O₂/Tag**, **~517 kg CO₂/Tag**
+- 30-Tage-O₂-Äquivalent bei 0,82 kg/P/d: **12,23 t**
 
-- **O₂-Bedarf: 407,5 kg/Tag**
-- **CO₂-Abfuhr: 516,9 kg/Tag**
-- 30-Tage-O₂-Äquivalent ohne Regeneration: **12,23 t O₂**
-- 30-Tage-CO₂-Verarbeitung: **15,51 t CO₂**
+[R/A] ISS-ECLSS bestätigt regenerative Prozessketten und Redundanzlogik, nicht die Skalierung unveränderter ISS-Racks auf 497 Personen. OTA muss Prozessstränge dimensionieren.
 
-Das Minimum darf daher keine einzelne O₂-Quelle oder einen einzelnen CO₂-Scrubber als Single Point of Failure besitzen. Ein 30-Tage-Tanklager nur für O₂ ist möglich, aber für eine dauerhaft betriebene Siedlung energetisch/logistisch schlechter als regenerativer Betrieb plus Notreserve.
+### 2.2 Wasser
 
-### 3.2 Wasser
+[R] ISS-artige Minimalströme für Trink-/Speise-/Hygiene-/Spülwasser liegen in der Größenordnung 3,8–4,2 kg/Person/Tag; ISS-ECLSS hat 98 % Gesamtwasserrückgewinnung demonstriert.
 
-[R] Die NASA-Referenz für sehr sparsamen Raumflugbetrieb liegt bei ungefähr 3,8–4,2 kg/Person/Tag an unmittelbar bereitgestelltem Trink-, Speise-, Hygiene- und Spülwasser. [R] ISS-ECLSS hat 98 % Rückgewinnung demonstriert.
+[S] Für 497 Personen: **~1,88–2,09 t/Tag** sehr sparsamer raumfahrtartiger Bruttodurchsatz.
 
-[S] Minimaler ISS-artiger Bruttodurchsatz für 497 Personen:
+[A] Für eine dauerhafte Siedlung bleibt Szenario B als interner Habitat-/ECLSS-Arbeitsbereich **15–25 kg/Person/Tag = 7,5–12,4 t/Tag brutto**. **0,3–0,8 t/Tag** bleibt als vorläufige gesicherte Nachspeisekapazität des stark geschlossenen Habitat-/ECLSS-Kerns brauchbar.
 
-- ca. **1,88–2,07 t Wasser/Tag**
+**Auditkorrektur:** Diese 0,3–0,8 t/Tag sind **keine vollständige kolonieweite Wasser-ISRU-Kapazität**.
 
-[A] Für eine dauerhafte Kolonie ist dieser Wert als untere Überlebens-/Raumfahrtgrenze zu verstehen. Eine bewohnbare Siedlung mit Duschen, Küche, Medizin, Reinigung, Werkstatt und Pflanzenmodulen benötigt einen höheren internen Bruttodurchsatz. Für Systemarchitektur werden deshalb angesetzt:
+[R] Ralphs et al. (2015) schätzen inklusive Regolithverarbeitung, Fertigung, Perchloratbehandlung, Pflanzenbau, Habitatwartung und Wasserstoffbedarf 1,2 kg/h/Person Bruttobedarf und bei pauschal 90 % Rückgewinnung 0,12 kg/h/Person ISRU-Nachspeisung.
 
-- Szenario A: **8–12 kg/Person/Tag** → 4,0–6,0 t/Tag brutto
-- Szenario B: **15–25 kg/Person/Tag** → 7,5–12,4 t/Tag brutto
-- Szenario C: **25–40 kg/Person/Tag** → 12,4–19,9 t/Tag brutto
+[S] Für 497 Personen: **1,431 t/Tag**. Dieser Wert ist eine breite kolonieweite Vergleichsgröße, keine ECLSS-Messgröße und keine bottom-up dimensionierte Anlage.
 
-Bei 95–98 % tatsächlicher Rückgewinnung bedeutet Szenario B rechnerisch nur etwa **0,15–0,62 t/Tag** Kreislaufverlust. Zusätzlich sind Wasserbindung in Nahrung/Produkten, Leckage, Filterrückstände, EVA-Verluste und Wartung zu berücksichtigen. Für die Basiskolonie wird deshalb zunächst **0,3–0,8 t/Tag gesicherte Nachspeisefähigkeit** als Planungsbereich angesetzt.
+Für OTA sind getrennte Wasserbilanzen zwingend: ECLSS/menschlich; Nahrung/Pflanzen; Industrie/ISRU; Verluste/Wartung; Chargen/Inventar/Expansion.
 
-30-Tage-Nachspeisereserve B: **9–24 t Wasser**, zusätzlich zu Wasser im laufenden Kreislauf und lokalen Rohwasservorräten.
+[A] Bis OTA die Prozessbilanz liefert, ist **1,4 t/Tag nur als Prüfpunkt** für kolonieweite Rohwassergewinnung mitzuführen. Reserve, Spitzen-/Chargenbedarf und N-1-Fähigkeit kommen zusätzlich hinzu.
 
-### 3.3 Nahrung
+### 2.3 Nahrung
 
-[R] NASA-Studien nennen für heutige verpackte Raumfahrtnahrung ungefähr 1,14–1,83 kg/Person/Tag.
+[R] NASA-Studien nennen für verpackte Raumfahrtnahrung ungefähr 1,14–1,83 kg/Person/Tag.
 
-[S] Für 497 Personen:
+[S] Für 497 Personen: **0,57–0,91 t/Tag**, für 30 Tage **17,0–27,3 t**.
 
-- **0,57–0,91 t Nahrung/Tag**
-- **17,0–27,3 t für 30 Tage**
+[A] Die 30-Tage-Notreserve bleibt vollständig lagerfähig und unabhängig von lokaler Pflanzenproduktion.
 
-[A] Für Szenario B sollte die 30-Tage-Notreserve vollständig lagerfähig und unabhängig von lokaler Pflanzenproduktion sein. Lokale Produktion ist für Frische, Resilienz und spätere Importreduktion sinnvoll, darf im Minimum aber nicht die einzige Kalorienquelle darstellen.
+## 3. Habitatvolumen — korrigierte Begriffe
 
-## 4. Habitatgröße
+[R] NASA unterscheidet Pressurized Volume, Habitable Volume und Net Habitable Volume (NHV). NHV ist das tatsächlich funktional für die Crew verbleibende Volumen nach Abzügen u. a. für Stowage, Müll und unbrauchbare Hohlräume.
 
-[R] NASA untersuchte für Langzeitmissionen 80 m³ Netto-Habitatvolumen pro Person. CHAPEA stellt für vier Personen ca. 158 m² Gesamtfläche bereit, rund 39,5 m²/Person.
+[R] Eine NASA-Deep-Space-Habitat-Entwurfsarbeit verwendet **25 m³ Mindest-NHV pro Crewmitglied als Designannahme**. [S] Für 497 Personen wären das **12.425 m³ NHV**. Das ist keine Marsstadt-Norm und kein Bruttodruckvolumen.
 
-[S] Für 497 Personen:
+[R] Die früher verwendeten **80 m³/Person** stammen aus einer NASA-Workshopfrage zur Akzeptabilität eines Langzeit-Deep-Space-Habitats. Sie sind **kein NASA-Mindestwert**. Die frühere Ableitung 39.760 m³ als wissenschaftlich bestimmtes Mindest-NHV wird zurückgezogen.
 
-- **Netto-Habitatvolumen: ca. 39.760 m³** bei 80 m³/Person
-- **CHAPEA-artige Nutzfläche: ca. 19.600 m²** bei 39,5 m²/Person
+[R] CHAPEA stellt vier Personen rund 158 m² Gesamtfläche zur Verfügung, ist jedoch ein Analoghabitat und keine Skalierungsnorm.
 
-[A] Für eine Minimum-Viable-Colony wird daher nicht mit einem einzigen großen Druckkörper gerechnet, sondern mit segmentierten Druckzonen. Planungsbereich:
+[A] Die bisherigen SSF-Bereiche dürfen OTA als Startgrößen prüfen, aber nicht als direkte Evidenz behandeln:
+- Wohn-/Arbeits-/Medizin-/Gemeinschaftsfläche: **18.000–25.000 m² [A]**
+- zusätzliche druckbeaufschlagte Technik/Lager/Schleusen: **5.000–10.000 m² [A]**
+- Bruttodruckvolumen: **bottom-up aus Segmenten bestimmen**; bisherige 40.000–60.000 m³ nur historische Planungsbandbreite, nicht kanonisieren.
 
-- reine Wohn-/Arbeits-/Medizin-/Gemeinschaftsfläche: **18.000–25.000 m²**
-- zusätzliche druckbeaufschlagte Technik/Lager/Schleusen: **5.000–10.000 m²**
-- gesamtes netto druckbeaufschlagtes Volumen: **40.000–60.000 m³**
+## 4. Druck-, Brand- und Kontaminationssegmentierung
 
-Mindestens mehrere unabhängig isolierbare Brand-/Drucksegmente sind sicherheitsbedingt zwingend.
+[R] NASA-Safe-Haven- und Habitatstudien bestätigen mehrere isolierbare Druckvolumina als Schutz gegen Feuer, Rauch/Kontamination und Druckverlust. Konzepte reichen von einem 30-Tage-Safe-Haven bis zu zwei vollwertigen Druckvolumina. Kritische Funktionen können segmentbezogen verteilt bzw. mehrfach vorhanden sein.
 
-## 5. Elektrische Leistung und Energiespeicherung
+[A] Tharsis Hub darf deshalb **keine einzelne durchgehend gekoppelte Druck-/Luftzone** besitzen.
 
-Es gibt keinen heutigen belastbaren NASA-Wert „kW pro 497-Personen-Marskolonie“. Die 40-kWe-Fission-Surface-Power-Klasse ist ein Technologieanker, kein Größenmodell für eine Kolonie.
+Nicht belegt und daher verworfen: pauschale Grenzen wie 50–150 Personen pro Segment.
 
-[A] Für Szenario B wird deshalb ein Bottom-up-Planungsband verwendet, das ECLSS, Wasseraufbereitung, Wärme-/Kälteanlagen, Beleuchtung, IT/Kommunikation, medizinische Infrastruktur, Werkstatt, Lagerlogistik, Roverladung, begrenzte ISRU und Reserve berücksichtigt:
+OTA muss Segmentgröße aus Hazard-Analyse bestimmen und mindestens Druckisolation, getrennte Luftzirkulation, Feuer-/Rauchkontrolle, Überleben nach Verlust des größten Segments, Safe-Haven-/Medizin-/Fluchtzugang, redundante Medien/ECLSS, Storm Shelter, Wartung und Erweiterung prüfen.
 
-- **mittlere elektrische Last: 3–5 MW**
-- **Spitzenlast: 5–8 MW**
-- kritische lebenserhaltende Last, die auch im schweren Fehlerfall erhalten bleiben muss: zunächst **1,5–2,5 MW** als zu verifizierender Architekturwert
+## 5. Elektrische Leistung — Bottom-up statt Personenskalierung
 
-Diese Werte sind [A], nicht [R]. Sie müssen im OTA-Systementwurf pro Subsystem neu bilanziert werden.
+[R] NASA Fission Surface Power (mindestens 40-kWe-Klasse) ist ein Technologieanker, **kein kW/Person-Modell**.
 
-### Energiespeicherung
+[R] NASA-Beispiele zeigen stark funktionsabhängige Lasten: ein früher 100-m³-Marsoberflächenhabitatbaustein wird mit 30 kWe beschrieben; ein Mars-Transit-Habitat-Sizing-Beispiel mit etwa 26,6 kW; ein Mars Water Extraction Rig im Referenzfall mit rund 55 kWe inklusive Wachstumsmarge. Diese Werte sind nicht linear mit Bevölkerung skalierbar.
 
-Bei nuklearer Grundlast muss nicht die gesamte Kolonie über Tage aus Batterien laufen. Speicher dient vor allem für Lastsprünge, Umschaltung, Schwarzstart und zeitweise Trennung von Netzsegmenten.
+**Auditentscheidung:** Eine Hochrechnung auf 8–10 MW aus kleinen Crew-/FSP-Systemen ist methodisch ungeeignet.
 
-[A] Szenario B:
+[A] Der bisherige SSF-Bereich bleibt ausschließlich als zu prüfender Startbereich:
+- mittlere Last: **3–5 MW [A]**
+- Spitzenlast: **5–8 MW [A]**
+- kritische Last: **1,5–2,5 MW [A]**
+- Kurzzeitspeicher: **3–10 MWh [A]**
 
-- Kurzzeitspeicher 2–4 h kritische Last: **3–10 MWh**
-- zusätzliche 12–24-h-Resilienz sollte vorzugsweise über räumlich getrennte Erzeuger, Brennstoff-/Reaktordiversität oder andere Langzeitspeicher realisiert werden, nicht ausschließlich über Batterien.
+OTA Phase 2 muss eine Lasttabelle aus konkreten Anlagen erzeugen: Habitatgrundlast, ECLSS, Thermalkontrolle, Wasser-ISRU, Nahrung/Pflanzen, Werkstatt/Fertigung, Medizin/Labor, Außenlogistik/Fahrzeugladung, Netzverluste und Reserve; jeweils normal/peak/degraded/Black Start.
 
-## 6. Thermische Kontrolle
+## 6. Thermalkontrolle und Marsstaub
 
-Fast jede elektrische Leistung und menschliche Stoffwechselenergie wird letztlich zu Wärme. Auf Mars ist Konvektion an die dünne Außenatmosphäre begrenzt; Wärmeabfuhr braucht gezielte Radiatoren/Wärmesenken.
+[A] 3–6 MW abzuführende Wärme bleibt lediglich eine Systemgrenzenannahme, solange die elektrische/thermische Bottom-up-Bilanz fehlt.
 
-[A] Als erste Systemgrenze ist bei 3–5 MW mittlerer elektrischer Last mit einer **thermisch abzuführenden Größenordnung von 3–6 MW** zu rechnen, abhängig davon, welcher Anteil über Außenprozesse, Abgas-/Prozessströme oder gespeicherte Produkte abgeführt wird.
+[R] Eine universelle Radiatorleistung in W/m² ist für Mars nicht belastbar. Relevante Größen sind Radiatortemperatur, Emissivität, solare Absorptivität, Orientierung/ein- oder zweiseitige Fläche, Sichtfaktoren, Solar- und atmosphärische IR-Last, dünne Konvektion und Staubzustand.
 
-Thermalkontrolle ist damit kein Nebensystem, sondern ein primärer Netzdienst der Kolonie.
+[R] NASA-Marsstaubversuche zeigen bei hoch emittierenden Beschichtungen eine Abnahme effektiver Emissivität von nahe 0,9 bis etwa 0,5 mit zunehmender Staubauflage. Andere Tests zeigen je nach Staubmaterial ungefähr 10–40 % Degradation. Wind kann reinigen, bei hohen staubbeladenen Geschwindigkeiten aber auch abrasiv wirken.
 
-## 7. Abfall- und Reststoffströme
+[R] NASA führt 2026 Thermal Radiator With Electrodynamic Dust Shield (TREDS) für Mond/Mars mit TRL 4. Aktive Staubminderung ist ein realer Technologiepfad, aber noch keine reife Standardkomponente.
 
-Für eine 497-Personen-Kolonie ist eine einzige seriöse kg/Tag-Zahl nicht aus heutigen Raumfahrtdaten ableitbar, weil lokale Nahrungserzeugung, Verpackung, Hygiene, Reparatur und Fertigung den Strom dominieren.
+**Auditentscheidung:** Die externe Radiatorfläche **8.000–36.000 m² nicht kanonisieren**. OTA muss Radiatoren nach Wärmeniveau/Prozessstrang auslegen. Staubdegradation, Reinigung, Wartung und N-1-Fähigkeit gehören in das Dossier.
 
-[A] Die Architektur muss mindestens getrennt behandeln:
+## 7. Wasser-ISRU-Technologie
 
-- Urin/Schwarzwasser
-- Grauwasser
-- organische Küchen-/Pflanzenreste
-- trockene Hygiene-/Verpackungsabfälle
-- technische Abfälle/Filter/Harze
-- Metallschrott und polymerbasierte Fertigungsreste
-- medizinisch kontaminierte Stoffe
+Die externe Angabe `385 kg/h Regolith → 7,7 kg/h Wasser` konnte in belastbarer Primärform nicht ausreichend bestätigt werden und wird nicht übernommen.
 
-Für Szenario B ist **Materialrückgewinnung vor Entsorgung** zwingend. Organische und wasserreiche Ströme sind Ressourcen für Wasser-/Nährstoffrückgewinnung, nicht bloß Müll.
+[R] Besser belegte NASA-Referenz: ein Mars Water Extraction Rig verarbeitet im Referenzfall rund 700 t Regolith für 3,4 t Wasser pro Monat; Peak ~35 kWe Heizung plus ~7 kWe Wasserprozess, mit 30 % Wachstumsmarge ~55 kWe. Andere NASA-ISRU-Studien zeigen starke Abhängigkeit von Wassergehalt/Mineralogie und Extraktionstemperatur.
 
-## 8. Medizin
+**Folgerung:** keine Anlagenzahl per einfacher Division. OTA muss Standortwassergehalt, Verfahren, Aufbereitung, Produktionsrate, Betriebszeit, Reserve und Ausfall eines Strangs gemeinsam dimensionieren.
 
-[R] NASA Mars-Medizinkonzepte gehen von hoher Autonomie aus, weil Evakuation und Echtzeit-Telemedizin nicht zuverlässig zur Verfügung stehen.
-
-Für 497 Menschen ist die Größenordnung nicht mehr „Crew medical kit“, sondern eine kleine, technisch autarke Klinik.
-
-[A] Funktional zwingend:
-
-- 24/7 Erst- und Notfallversorgung
-- Diagnostik inkl. Labor, Ultraschall und Röntgen/geeigneter Bildgebung
-- chirurgische Stabilisierung und kleinere/akute Operationen
-- Zahnmedizin
-- Isolation/Infektionskontrolle
-- Apotheke und steriles Material
-- psychologische/psychiatrische Versorgung
-- Rehabilitation/Physiotherapie
-- telemedizinische Datenverbindung mit asynchroner Entscheidungsunterstützung
-
-Die Personalausstattung gehört in OTA/Sozialarchitektur, nicht in diese technische SSF-Note.
-
-## 9. Strahlenschutz
-
-[R] Curiosity RAD maß auf der Marsoberfläche in der beobachteten Phase rund 210 µGy/Tag aus galaktischer kosmischer Strahlung. Solar Particle Events sind zusätzlich und stark variabel.
-
-Folgerung:
-
-- normale Aufenthaltsbereiche benötigen dauerhafte Abschirmstrategie;
-- mindestens ein stark geschützter Storm Shelter pro unabhängigem Habitatsegment ist sicherheitsbedingt zwingend;
-- Wasser, Vorräte und lokaler Regolith sind als multifunktionale Abschirmmassen technisch attraktiv;
-- Abschirmung muss mit Sekundärstrahlung und Materialwahl gemeinsam bewertet werden; „mehr Metall“ ist nicht automatisch besser.
+## 8. Weitere Mindestfunktionen
 
-## 10. Oberflächenmobilität, Logistik und Mediennetze
+### Medizin
+[R] Marsmissionen benötigen hohe medizinische Autonomie. [A] Für 497 Menschen mindestens: 24/7 Notfallversorgung, Labor/Bildgebung, chirurgische Stabilisierung, Zahnmedizin, Isolation, Apotheke/Sterilgut, psychologische Versorgung, Rehabilitation und asynchrone Telemedizin.
 
-Noch keine Anzahl konkreter NOXIA-Fahrzeuge festlegen. Für das Minimum sind jedoch folgende Funktionen zwingend:
-
-1. druckbeaufschlagter Personen-/Rettungstransport
-2. unbemannter Frachttransport
-3. Bau-/Erdbewegung für Regolith, Schutzwälle und Leitungsbau
-4. Wartungs-/Bergefahrzeug
-5. EVA-Unterstützung in Basisnähe
-6. Inspektion/Robotik für Außenanlagen
-
-Mediennetze müssen mindestens Strom, Daten, Wasser, O₂/Prozessgase und Abwasser führen. Kritische Netze brauchen segmentierbare Ring-/Mehrwege-Topologie; ein einziger zentraler Leitungskorridor wäre kein Minimum, sondern ein systemischer Single Point of Failure.
-
-## 11. Szenariovergleich
-
-| Größe | A — konservativ | B — plausible Basiskolonie | C — weiter entwickelt |
-|---|---:|---:|---:|
-| Population | 497 | 497 | 497 |
-| O₂-Stoffstrom | 408 kg/d | 408 kg/d | 408 kg/d |
-| CO₂-Verarbeitung | 517 kg/d | 517 kg/d | 517 kg/d |
-| Wasser brutto intern | 4–6 t/d | 7,5–12,4 t/d | 12,4–19,9 t/d |
-| Wasser-Rückgewinnung | 90–95 % [A] | 95–98 % [A/R-Ziel] | ≥98 % [A] |
-| Wasser-Nachspeisung | 0,3–0,8+ t/d | 0,3–0,8 t/d | <0,4 t/d, soweit technisch erreichbar |
-| Nahrung importiert | überwiegend | 0,57–0,91 t/d als sichere Obergrenze/Reserve | deutlich reduziert durch lokale Produktion |
-| 30-Tage-Nahrungsreserve | 17–27 t | 17–27 t | 17–27 t Notreserve trotz lokaler Produktion |
-| Druckvolumen | 35–45 Tsd. m³ | 40–60 Tsd. m³ | 50–80 Tsd. m³ |
-| Nutzfläche | 18–22 Tsd. m² | 23–35 Tsd. m² inkl. Drucktechnik | 30–45 Tsd. m² |
-| mittlere elektrische Last | 2–4 MW [A] | 3–5 MW [A] | 5–10 MW [A] |
-| Spitzenlast | 4–6 MW [A] | 5–8 MW [A] | 8–15 MW [A] |
-| Kurzzeitspeicher | 2–6 MWh [A] | 3–10 MWh [A] | 5–20 MWh [A] |
-| lokale ISRU | gering | Wasser/O₂/Baustoffe begrenzt | deutlich höher |
-| lokale Nahrungsproduktion | gering | Ergänzung/Frische | wesentlicher Anteil |
-
-**Bewertung:** Szenario B ist für Tharsis Hub der sinnvollste Startanker. A ist für 497 Personen logistisch zu importabhängig; C setzt Technologien und lokale Produktionsketten voraus, die besser als spätere Entwicklungsstufe behandelt werden.
-
-## 12. Minimum-funktionale Systemarchitektur
-
-### Funktional zwingend
-
-- segmentierte druckbeaufschlagte Habitate
-- O₂-Erzeugung / O₂-Speicher / Atmosphärenmischung
-- CO₂-Entfernung und Spurengasmanagement
-- Wasseraufbereitung und getrennte Wasserqualitäten
-- elektrische Grundlastversorgung
-- thermische Kontrolle
-- Nahrungslager und Essensversorgung
-- Sanitär-/Abwassersystem
-- Daten-/Kommunikationssystem
-- EVA-/Airlock-System
-- technische Werkstatt und Ersatzteillager
-- Medizin
-
-### Sicherheitsbedingt zwingend
-
-- räumlich getrennte Energiequellen bzw. unabhängige Erzeugungsstränge
-- N+1 bzw. funktional gleichwertige Redundanz für O₂, CO₂, Wasser und kritische Pumpen
-- isolierbare Druck-/Brandsegmente
-- Storm Shelters
-- Branddetektion/-bekämpfung
-- Not-O₂ und Notstrom
-- mehrere unabhängige Flucht-/Rettungswege innerhalb der Basisarchitektur
-- getrennte kritische Medienrouten
-
-### Für 30 Tage Resilienz zwingend
-
-- 17–27 t lagerfähige Nahrungsreserve
-- 9–24 t Wasser-Nachspeisereserve für Szenario B plus Kreislaufbestand
-- kritische Filter, Sorbentien, Dichtungen, Pumpen-/Ventilteile, Elektronikmodule, medizinische Verbrauchsmaterialien
-- ausreichende O₂-Pufferreserve bzw. alternative O₂-Erzeugung
-- Ersatz-/Notleistung für kritische Lasten
-
-### Sinnvoll, aber nicht zwingend für den Start
-
-- größere lokale Nahrungsproduktion
-- umfangreiche Metallurgie
-- große kommerzielle Fertigung
-- Komfortflächen oberhalb des Langzeit-Habitabilitätsminimums
-- private Fahrzeuge
-
-## 13. Offene Unsicherheiten für OTA
-
-Vor einer konkreten Anlagenliste müssen in OTA folgende Architekturentscheidungen getroffen werden:
-
-1. Primärenergie: Kernspaltung, Solar+nuklearer Backup oder anderes Hybridmodell?
-2. Lokale Wasserquelle: Eisabbau, hydratisierte Minerale, importiertes Startinventar; welche Förderleistung ist kanonisch?
-3. O₂: Elektrolyse aus Wasser, CO₂-Elektrolyse, kombinierte Systeme?
-4. Grad lokaler Nahrungsproduktion im Startjahr.
-5. Unterirdische/überdeckte Habitate vs. oberirdische Druckmodule.
-6. zentrale vs. verteilte ECLSS-Architektur.
-7. zulässiger Technikstand und Wartungsautomatisierung im NOXIA-Zeitraum.
-
-Diese Entscheidungen sind Welttechnik und gehören nicht SSF.
-
-## 14. Kernaussage für Tharsis Hub
-
-Eine 497-Personen-Basiskolonie ist technisch bereits eine **kleine industrielle Anlage**, keine vergrößerte Raumstationscrew. Der plausible Startzustand besteht nicht aus möglichst wenigen Gebäuden, sondern aus möglichst wenigen **unabhängigen Funktionen mit notwendiger Redundanz**.
-
-Für Szenario B sind als erste Gesamtgrößenordnung anzusetzen:
-
-```text
-Population                         497 Personen
-Autarkiereserve                    >= 30 Tage
-O2-Bedarf                          ~408 kg/Tag
-CO2-Abfuhr                         ~517 kg/Tag
-Wasser-Bruttodurchsatz             ~7,5–12,4 t/Tag
-Wasser-Nettonachspeisung           ~0,3–0,8 t/Tag
-Nahrungsbedarf / Importreferenz    ~0,57–0,91 t/Tag
-30-Tage-Nahrungsreserve            ~17–27 t
-30-Tage-Wasser-Nachspeisereserve   ~9–24 t
-mittlere elektrische Last          ~3–5 MW [A]
-Spitzenlast                        ~5–8 MW [A]
-Kurzzeit-Energiespeicher           ~3–10 MWh [A]
-thermische Abfuhr                  ~3–6 MW [A]
-Netto-Druckvolumen                 ~40.000–60.000 m3
-Nutzfläche druckbeaufschlagt       ~23.000–35.000 m2
-```
-
-Diese Bilanz ist ausreichend, um als nächstes im OTA die kanonische Welttechnik-Systemarchitektur zu definieren. Sie ist noch nicht ausreichend, um NOXIA-Gebäudeanzahlen direkt festzulegen.
+### Strahlenschutz
+[R] Marsoberflächenstrahlung und variable Solarereignisse verlangen dauerhafte Abschirmung und besonders geschützte Bereiche. [A] Mindestens ein stark geschützter Storm Shelter je unabhängigem Habitat-/Safe-Haven-Verbund.
+
+### Netze und Mobilität
+[A] Kritische Netze für Strom, Daten, Wasser, O₂/Prozessgase und Abwasser müssen segmentierbar und mehrwegig sein. Ein einzelner zentraler Medienkorridor ist kein resilientes Minimum.
+
+Funktional erforderlich, Stückzahlen erst nach OTA: druckbeaufschlagter Personen-/Rettungstransport; unbemannter Frachttransport; Bau-/Erdbewegung; Wartungs-/Bergefahrzeug; EVA-Unterstützung; Außeninspektion/Robotik.
+
+## 9. Verbindliche Übergabeparameter für OTA Phase 2
+
+**Direkt belastbare Stoffstrombasis:**
+- Population: **497**
+- Resilienz ohne externen Nachschub: **≥30 Tage**
+- O₂: **~408 kg/Tag** als SSF-Referenz, Literaturband ~408–418
+- CO₂: **~517 kg/Tag** als konservative SSF-Referenz, Literaturband ~497–517
+- Nahrung: **0,57–0,91 t/Tag**, 30 Tage **17–27 t**
+
+**Von OTA zu dimensionieren:**
+- Habitat-NHV/Bruttodruckvolumen: bottom-up; 25 m³/P nur Design-Referenz, 80 m³/P kein Mindestwert
+- Wasser ECLSS-Nachspeisung: **0,3–0,8 t/Tag [A]**
+- kolonieweite Wassergewinnung: **1,4 t/Tag nur Prüfpunkt**, bottom-up ersetzen
+- elektrische Last: **3–5 MW Mittel / 5–8 MW Peak nur [A]-Startband**, bottom-up ersetzen
+- Wärmeabfuhr/Radiatorfläche: aus Lasten, Temperaturniveaus und Mars-Randbedingungen berechnen
+- Druck-/Brandsegmente: mehrere isolierbare Volumina zwingend; Größe aus Hazard-Analyse
+- Redundanz: keine Single Points of Failure bei O₂, CO₂-Abfuhr, Wasser, kritischer Kühlung, Strom-/Datenversorgung und Safe-Haven-Funktion
+
+## 10. Tragende Quellen
+
+1. NASA OCHMO CO₂: https://www.nasa.gov/ochmo-tb-004-carbon-dioxide-2/
+2. NASA ISS 98 % water recovery: https://www.nasa.gov/missions/station/iss-research/nasa-achieves-water-recovery-milestone-on-international-space-station/
+3. NASA Advanced Life Support: https://ntrs.nasa.gov/api/citations/20100036823/downloads/20100036823.pdf
+4. NASA Fission Surface Power: https://www.nasa.gov/exploration-systems-development-mission-directorate/fission-surface-power/
+5. NASA functional-volume definitions: https://www.nasa.gov/wp-content/uploads/2015/03/human_integration_design_processes.pdf
+6. NASA Human-System Standard definitions: https://www.nasa.gov/reference/appendix-c-vol-2/
+7. NASA Deep Space Habitat design example: https://ntrs.nasa.gov/citations/20205007970
+8. NASA Habitable Volume Workshop: https://ntrs.nasa.gov/citations/20110016362
+9. NASA Safe Haven Configurations: https://ntrs.nasa.gov/citations/20170012311
+10. NASA Mars thermal architecture: https://ntrs.nasa.gov/citations/19970001606
+11. NASA Martian dust/radiators: https://ntrs.nasa.gov/citations/20040161153
+12. NASA aeolian radiator dust study: https://ntrs.nasa.gov/citations/19900016752
+13. NASA Dust Mitigation / TREDS: https://www.nasa.gov/dust-mitigation/
+14. NASA Mars Water Extraction Rig: https://ntrs.nasa.gov/citations/20230018562
+15. Ralphs et al. 2015, *Water extraction on Mars for an expanding human colony*, Life Sciences in Space Research 7, DOI 10.1016/j.lssr.2015.10.001.
