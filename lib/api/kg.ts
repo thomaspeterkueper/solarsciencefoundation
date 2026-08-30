@@ -2,7 +2,7 @@
  * KUEPER - Solar Science Foundation (SSF)
  * Path: lib/api/kg.ts
  * Name: Knowledge Graph API adapter
- * Version: 0.1.0
+ * Version: 0.2.0
  * Created: 2026-07-08
  */
 
@@ -67,31 +67,46 @@ async function fetchJson<T>(sourceUrl: string): Promise<{ data: T | null; error?
   }
 }
 
+/**
+ * Fetch a canonical KG export.
+ *
+ * Export files on the KG default branch are the versioned Source of Truth for
+ * SSF's KXF consumers. A configured live API can lag behind that branch while
+ * still returning HTTP 200. Therefore raw/main is preferred for exports and
+ * the live API is retained as an availability fallback only.
+ *
+ * Entity resolution remains live-API-first in resolveKgId().
+ */
 export async function fetchKgExport<T>(exportPath: string): Promise<KgFetchResult<T>> {
-  const liveUrls = candidateLiveUrls(exportPath);
   const errors: string[] = [];
-
-  for (const sourceUrl of liveUrls) {
-    const result = await fetchJson<T>(sourceUrl);
-    if (result.data) {
-      return { data: result.data, sourceUrl, sourceType: 'kg-live-api', loaded: true };
-    }
-    errors.push(`${sourceUrl}: ${result.error ?? 'no data'}`);
-  }
-
   const rawUrl = kgRawExportUrl(exportPath);
   const raw = await fetchJson<T>(rawUrl);
+
   if (raw.data) {
     return {
       data: raw.data,
       sourceUrl: rawUrl,
       sourceType: 'github-raw',
-      loaded: true,
-      error: errors.length ? errors.join(' | ') : undefined
+      loaded: true
     };
   }
 
   errors.push(`${rawUrl}: ${raw.error ?? 'no data'}`);
+
+  for (const sourceUrl of candidateLiveUrls(exportPath)) {
+    const result = await fetchJson<T>(sourceUrl);
+    if (result.data) {
+      return {
+        data: result.data,
+        sourceUrl,
+        sourceType: 'kg-live-api',
+        loaded: true,
+        error: errors.join(' | ')
+      };
+    }
+    errors.push(`${sourceUrl}: ${result.error ?? 'no data'}`);
+  }
+
   return {
     data: null,
     sourceUrl: rawUrl,
