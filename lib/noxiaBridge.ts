@@ -2,6 +2,8 @@ import { getKxfLearningModuleById, getKxfLearningModules } from './kxf';
 import { getDidacticModuleContent, type DidacticModuleContent } from './didacticContent';
 import { getScienceFoundationContent } from './didacticScienceFoundations';
 import { getRegisteredLearningPathForModule } from './learningPathRegistry';
+import { getLearningInteractive, type LearningInteractiveParams } from './learningInteractives';
+import { gravitationsbrunnenLearningPath } from './learningPaths/gravitationsbrunnen';
 import { buildUnlocks } from './progress';
 
 export type NoxiaKnowledgeModule = {
@@ -23,11 +25,19 @@ export type NoxiaModuleSection =
   | { type: 'text'; text: string }
   | { type: 'key_point'; text: string }
   | { type: 'example'; title: string; text: string }
-  | { type: 'task'; prompt: string; hint?: string };
+  | { type: 'task'; prompt: string; hint?: string }
+  | {
+      type: 'interactive';
+      interactiveId: string;
+      title: string;
+      instruction: string;
+      params: LearningInteractiveParams;
+      fallback: string;
+    };
 
 export type NoxiaModuleDetail = NoxiaKnowledgeModule & {
   schemaVersion: '1.0';
-  contentVersion: '1.0';
+  contentVersion: '1.1';
   sections: NoxiaModuleSection[];
   assessment: Array<{
     type: 'multiple_choice';
@@ -44,13 +54,40 @@ function getDidactic(moduleId: string): DidacticModuleContent | undefined {
   return getDidacticModuleContent(moduleId) ?? getScienceFoundationContent(moduleId);
 }
 
+function getPathForModule(moduleId: string) {
+  const registered = getRegisteredLearningPathForModule(moduleId);
+  if (registered) return registered;
+  const canonicalGravityIds = new Set([
+    'PHY-L2-000005',
+    'LRN:SSF:PHY-ENERGIE-ARBEIT-0001',
+  ]);
+  return canonicalGravityIds.has(moduleId) ? gravitationsbrunnenLearningPath : null;
+}
+
+function collectInteractiveSections(moduleId: string): NoxiaModuleSection[] {
+  const path = getPathForModule(moduleId);
+  if (!path) return [];
+  const seen = new Set<string>();
+  const sections: NoxiaModuleSection[] = [];
+  for (const unit of path.units) {
+    for (const section of unit.sections) {
+      if (!section.interactiveId || seen.has(section.interactiveId)) continue;
+      const interactive = getLearningInteractive(section.interactiveId);
+      if (!interactive) continue;
+      seen.add(section.interactiveId);
+      sections.push({ type: 'interactive', ...interactive });
+    }
+  }
+  return sections;
+}
+
 function baseUrl() {
   return process.env.NEXT_PUBLIC_SITE_URL ?? 'https://solarsciencefoundation.vercel.app';
 }
 
 function toNoxiaModule(module: Awaited<ReturnType<typeof getKxfLearningModules>>[number]): NoxiaKnowledgeModule {
   const didactic = getDidactic(module.id);
-  const path = getRegisteredLearningPathForModule(module.id);
+  const path = getPathForModule(module.id);
   const site = baseUrl();
   return {
     id: module.id,
@@ -82,6 +119,9 @@ export async function getNoxiaKnowledgeModule(moduleId: string): Promise<NoxiaMo
     for (const goal of didactic.learningGoals) sections.push({ type: 'key_point', text: goal });
     sections.push({ type: 'heading', text: 'Entdecken' });
     for (const paragraph of didactic.introduction) sections.push({ type: 'text', text: paragraph });
+  }
+  sections.push(...collectInteractiveSections(module.id));
+  if (didactic) {
     sections.push({ type: 'heading', text: 'Beispiele' });
     for (const example of didactic.examples) sections.push({ type: 'example', title: example.title, text: example.body });
     sections.push({ type: 'heading', text: 'Jetzt du' });
@@ -90,7 +130,7 @@ export async function getNoxiaKnowledgeModule(moduleId: string): Promise<NoxiaMo
   return {
     ...toNoxiaModule(module),
     schemaVersion: '1.0',
-    contentVersion: '1.0',
+    contentVersion: '1.1',
     sections,
     assessment: didactic ? [{ type: 'multiple_choice', ...didactic.check }] : [],
     prerequisites: [],
