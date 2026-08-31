@@ -1,9 +1,9 @@
 # SSF-DIDAKTIK.md
 ## Solar Science Foundation · Didaktisches Grundprinzip
 
-**Version:** 0.2.0
+**Version:** 0.3.0
 **Erstellt:** 2026-07-15
-**Geändert:** 2026-07-15 · v0.2.0: Entdeckung, Lernszenen-Regel, Einstiegsfragen-Kapitel, Disziplin-Präzisierung
+**Geändert:** 2026-08-31 · v0.3.0: Dokumentfamilie um ENGINEERING-LEARNING-TEMPLATE.md erweitert
 **Status:** Kanonisch
 **Repo:** thomaspeterkueper/solarsciencefoundation
 
@@ -269,15 +269,17 @@ Dieses Dokument ist die Grundlage. Die Autorenfamilie baut darauf auf:
 ```
 SSF-DIDAKTIK.md          ← dieses Dokument
     │
-    ├── SSF-AUTORENLEITFADEN.md      ← wie schreibt man einen Lernpfad
-    ├── SSF-LERNPFAD-TEMPLATE.md     ← Vorlage für neue Pfade
-    ├── SSF-LERNSZENEN-TEMPLATE.md   ← Vorlage für einzelne Szenen
-    └── SSF-QUIZ-RICHTLINIEN.md      ← wie schreibt man gute Quiz-Fragen
+    ├── SSF-AUTORENLEITFADEN.md               ← wie schreibt man einen Lernpfad
+    ├── ENGINEERING-LEARNING-TEMPLATE.md      ← Autorenmuster für technische/ingenieurwissenschaftliche Module (Pilot)
+    ├── SSF-LERNPFAD-TEMPLATE.md              ← Vorlage für neue Pfade
+    ├── SSF-LERNSZENEN-TEMPLATE.md            ← Vorlage für einzelne Szenen
+    └── SSF-QUIZ-RICHTLINIEN.md               ← wie schreibt man gute Quiz-Fragen
 ```
 
 ---
 
-*Solar Science Foundation · SSF-DIDAKTIK.md · v0.2.0 · 2026-07-15*
+*Solar Science Foundation · SSF-DIDAKTIK.md · v0.3.0 · 2026-08-31*
 *Autor: Thomas Peter Küper · Repo: thomaspeterkueper/solarsciencefoundation*
 *v0.1.0: Grunddokument — Lernreise, drei Rollen, Dramaturgie, Lernszene, Formelregel*
 *v0.2.0: Entdeckung als Leitbegriff, Einstiegsfragen-Kapitel, Lernszenen-Grundregel, Disziplin-Präzisierung, Dokumentfamilie*
+*v0.3.0: Dokumentfamilie um ENGINEERING-LEARNING-TEMPLATE.md erweitert*

@@ -1,0 +1,266 @@
+<!--
+KUEPER · Solar Science Foundation (SSF)
+Path:     docs/ENGINEERING-LEARNING-TEMPLATE.md
+Version:  0.1.0
+Created:  2026-08-30
+Source:   didactic pattern derived from user-provided "Lexikon Konstruktionslehre 1"
+-->
+
+# ENGINEERING-LEARNING-TEMPLATE.md
+## Autorenmuster für technische und ingenieurwissenschaftliche Lernmodule
+
+**Status:** Pilot · Ergänzung zu `LEARNING-PRINCIPLES.md`, `EDITORIAL.md`, `SSF-DIDAKTIK.md` (kanonische Dramaturgie) und `SSF-QUIZ-RICHTLINIEN.md` (Kanonisch)  
+**Geltung:** technische/ingenieurwissenschaftliche SSF-Module; nach Pilotierung auf andere geeignete Fächer übertragbar  
+
+---
+
+## 1. Zweck
+
+Technische Lerninhalte sollen nicht als Folge isolierter Definitionen oder als `Text → Quiz` aufgebaut werden. Gute Module führen vom beobachtbaren Problem über Begriffe und Systemzusammenhänge zur Anwendung und begründeten Entscheidung.
+
+Das Grundmuster lautet:
+
+> **Orientierung → Begriff → Interaktion → Zusammenhang → Anwendung → Entscheidung → Formel/Modell → Kurztest → Merksatz**
+
+Das Muster ergänzt die epistemische Pyramide EP0–EP4; es ersetzt sie nicht. Kanonische Definitionen und wissenschaftliche Aussagen bleiben KG-/OTA-gebunden gemäß `LEARNING-PRINCIPLES.md` und `EDITORIAL.md`.
+
+### 1.1 Verhältnis zur kanonischen Dramaturgie
+
+Die Modulfolge ist eine technische Spezialisierung der kanonischen Dramaturgie aus `SSF-DIDAKTIK.md` (§ 3). Dort ist die Reihenfolge ausdrücklich **nicht verhandelbar**; die kanonische Dramaturgie hat deshalb Vorrang. Für technische Module gilt:
+
+| Engineering-Modulschritt | kanonischer Schritt (SSF-DIDAKTIK.md) |
+|---|---|
+| Orientierung (3.1) | ① Beobachtung / ② Einstiegsfrage |
+| Begriff (3.2) | vorbereitendes Vokabular (kein kanonischer Schritt) |
+| Interaktion (3.3) | ④ Experiment |
+| Zusammenhang (3.4) | ⑤ Erklärung |
+| Anwendung (3.5) | ⑦ Anwendung |
+| Entscheidung (3.6) | technische Abwägung (kein kanonischer Schritt) |
+| Formel/Modell (3.7) | Formelregel: Formeln erst nach der Erklärung |
+| Kurztest (3.8) | ⑧ Quiz — gemäß `SSF-QUIZ-RICHTLINIEN.md` |
+| Merksatz (3.9) | ⑨ Takeaway |
+
+Konsequenz: Das Experiment (Interaktion) steht vor der Erklärung (Zusammenhang), die Formel erst nach der Erklärung, und der Kurztest prüft Verständnis statt Begriffserkennung (siehe § 3.8).
+
+---
+
+## 2. Didaktischer Ursprung
+
+Das Muster übernimmt aus der bereitgestellten Konstruktionslehre insbesondere folgende Strukturprinzipien:
+
+- ein Gesamtprozess wird vor seinen Einzelbegriffen sichtbar gemacht;
+- Begriffe werden über ihre Rolle im Prozess und ihre Beziehungen erklärt;
+- Systemgrenzen werden über **Energie-, Stoff- und Informationsflüsse (E/S/I)** beschrieben;
+- Gesamtfunktionen werden in Teilfunktionen zerlegt, bevor konkrete Geräte oder Bauformen gewählt werden;
+- für Teilfunktionen werden mehrere Lösungsmöglichkeiten betrachtet;
+- Kombinationen werden systematisch synthetisiert und anschließend nach Kriterien bewertet;
+- überschlägige Auslegung und späterer Nachweis werden epistemisch getrennt;
+- Formeln und Merkhilfen verdichten das zuvor verstandene Modell, statt es zu ersetzen.
+
+Diese Prinzipien sind besonders geeignet für SSF, weil sie Wissen, Modellbildung, Anwendung und Entscheidung miteinander verbinden.
+
+---
+
+## 3. Modulstruktur
+
+### 3.1 Orientierung
+
+Eine konkrete Frage, Beobachtung oder technische Aufgabe eröffnet das Modul.
+
+**Ziel:** Der Lernende versteht, welches Problem erklärt oder gelöst werden soll.
+
+Keine Lösung vorwegnehmen. Narrative dürfen illustrieren, aber gemäß R-01 nicht definieren.
+
+### 3.2 Begriff
+
+Die für das Problem notwendigen Fachbegriffe werden knapp und eindeutig eingeführt.
+
+**Ziel:** gemeinsames Vokabular.
+
+Definitionen müssen auf kanonische KG-/OTA-Quellen zurückführbar sein.
+
+### 3.3 Interaktion
+
+Der Lernende verändert einen oder wenige relevante Parameter und beobachtet eine kausal verständliche Wirkung. Erst danach wird das zugrunde liegende Modell erklärt (3.4) — Experiment vor Erklärung, wie in `SSF-DIDAKTIK.md` gefordert.
+
+Geeignet sind beispielsweise:
+
+- Durchfluss, Druck, Temperatur oder Leistung verändern;
+- einen Stoff- oder Energiepfad unterbrechen;
+- Komponenten ein- und ausschalten;
+- zwei Wirkprinzipien vergleichen;
+- eine Störung oder einen Ausfall auslösen.
+
+Die Interaktion braucht immer einen textlichen Fallback.
+
+### 3.4 Zusammenhang
+
+Die in der Interaktion (3.3) beobachtete Wirkung wird nun erklärt. Die Begriffe werden dazu in ein Modell, einen Prozess oder eine Funktionsstruktur gebracht.
+
+Für technische Systeme ist die bevorzugte Darstellung zunächst eine lösungsneutrale Blackbox:
+
+- Systemgrenze
+- Eingänge
+- Ausgänge
+- Energieflüsse
+- Stoffflüsse
+- Informations-/Signalflüsse
+- relevante Störgrößen
+
+Danach kann die Gesamtfunktion in Teilfunktionen zerlegt werden.
+
+### 3.5 Anwendung
+
+Eine kleine Aufgabe verlangt die Verwendung des gerade aufgebauten Modells. Die Aufgabe soll Transfer prüfen, nicht bloß eine Formulierung aus dem Text wiederholen.
+
+### 3.6 Entscheidung
+
+Wo mehrere technisch plausible Lösungen existieren, soll der Lernende eine begründete Auswahl treffen.
+
+Mögliche Kriterien:
+
+- Funktion/Leistung
+- Sicherheit
+- Energiebedarf
+- Stoffbedarf
+- Masse/Volumen
+- Fertigung/Montage
+- Wartung/Instandhaltung
+- Robustheit/Redundanz
+- Kosten
+
+Bei komplexeren Modulen können Gewichtung, Paarvergleich oder Nutzwertanalyse eingesetzt werden. Eine Bewertungsmethode darf nicht den Eindruck erzeugen, eine subjektive Gewichtung sei eine Naturkonstante.
+
+### 3.7 Formel oder Modell
+
+Eine Formel wird erst dann zentral, wenn die Größen konzeptuell eingeführt sind.
+
+Jede Formel erhält mindestens:
+
+- Bedeutung der Größen und Einheiten;
+- Gültigkeitsbereich bzw. Annahmen;
+- qualitative Aussage (`wenn X steigt, was geschieht mit Y?`);
+- mindestens eine Anwendung oder Parameteränderung.
+
+Überschlägige Auslegung und belastbarer Nachweis sind sprachlich zu unterscheiden.
+
+### 3.8 Kurztest
+
+Der Kurztest folgt verbindlich `SSF-QUIZ-RICHTLINIEN.md` (Status: Kanonisch): genau **3 Fragen** in fester Reihenfolge **Anwendung → Verständnis → Transfer**, jede mit genau **4 Antwortmöglichkeiten**. Er prüft Verständnis, kein Auswendiglernen — Fragen, die nur Begriffe oder Definitionen abfragen, sind ausgeschlossen.
+
+Für technische Module:
+
+1. **Anwendung** — eine konkrete Rechnung oder direkte Anwendung des Modells aus 3.5/3.7;
+2. **Verständnis** — warum das Prinzip gilt, bezogen auf den Zusammenhang aus 3.4 und die in 3.3 beobachtete Wirkung;
+3. **Transfer** — eine Konsequenz für einen anderen Fall, optional mit begründeter technischer Entscheidung aus 3.6.
+
+### 3.9 Merksatz
+
+Am Ende steht eine kurze Verdichtung des Moduls. Merksätze dürfen vereinfachen, aber nicht fachlich falsch werden.
+
+---
+
+## 4. Engineering-spezifisches Vertiefungsmuster
+
+Für System- und Konstruktionsmodule kann die Modulfolge erweitert werden:
+
+1. **Anforderung klären** — Was muss das System leisten? Was ist Festforderung, was Wunsch?
+2. **Blackbox bilden** — Was überschreitet die Systemgrenze als Energie, Stoff oder Information?
+3. **Gesamtfunktion formulieren** — lösungsneutral, bevorzugt Substantiv + Tätigkeitswort.
+4. **Teilfunktionen bilden** — noch keine konkrete Geräteauswahl.
+5. **Teillösungen sammeln** — mehrere Wirkprinzipien zulassen.
+6. **Lösungen kombinieren** — bei Bedarf morphologischer Kasten.
+7. **Unverträglichkeiten erkennen** — technisch unsinnige Kombinationen ausscheiden.
+8. **Varianten bewerten** — transparente Kriterien und Gewichtungen.
+9. **Grob auslegen** — Größenordnungen, Leistung, Stoffströme, Dimensionen.
+10. **Grenzen und Unsicherheiten benennen** — was wäre für einen echten Nachweis zusätzlich nötig?
+
+Diese Reihenfolge verhindert, dass ein bekanntes Bauteil voreilig zur vermeintlich einzigen Lösung wird.
+
+---
+
+## 5. Mapping auf EP0–EP4
+
+| Modulschritt | Schwerpunkt | typische EP-Ebene |
+|---|---|---|
+| Orientierung | Beobachtung/Problem | EP0 |
+| Begriff | Benennung/Definition | EP1 |
+| Interaktion | Modell explorieren | EP2–EP3 |
+| Zusammenhang | Modell/Funktionsstruktur | EP2 |
+| Anwendung | Transfer | EP3 |
+| Entscheidung | technische Abwägung | EP3 |
+| Formel/Modell | quantitative Modellierung | EP2–EP3 |
+| Kurztest | Diagnose | EP1–EP3 |
+| Merksatz | Verdichtung | EP1–EP2 |
+
+NOXIA-/Weltbezug ist kein zusätzlicher Modulschritt. Er kann innerhalb von Anwendung oder Entscheidung als EP3/EP4-Kontext dienen. EP4 bleibt nachgeordnet: Ein NOXIA-Gebäude darf zeigen, wozu Wissen gebraucht wird, aber nicht definieren, wie Natur oder Technik grundsätzlich funktioniert.
+
+---
+
+## 6. Pilotcluster: Konstruktionslehre / Engineering Design
+
+Der erste Pilotcluster soll nicht einfach das bereitgestellte Skript reproduzieren, sondern dessen didaktische Struktur in eigenständige SSF-Module überführen.
+
+Vorgeschlagene Lernfolge:
+
+1. **Vom Problem zur Anforderung**  
+   Lastenheft/Pflichtenheft als Kontext; Festforderung vs. Wunsch; Anforderungsgruppen.
+
+2. **Technische Systeme als Blackbox**  
+   Systemgrenze; Energie, Stoff, Information; Störgrößen.
+
+3. **Von der Gesamtfunktion zur Funktionsstruktur**  
+   Haupt-, Neben- und Störfunktionen; lösungsneutrale Teilfunktionen.
+
+4. **Mehr als eine Lösung finden**  
+   systematische und intuitive Lösungssuche; Lösungsklassen.
+
+5. **Der morphologische Kasten**  
+   Teilfunktionen × Teillösungen; Kombination und Unverträglichkeit.
+
+6. **Technische Lösungen bewerten**  
+   Kriterien, Gewichtung, Nutzwertanalyse; technische und wirtschaftliche Zielkonflikte.
+
+7. **Vom Konzept zum Entwurf**  
+   Prinzipskizze, Grob-/Feingestaltung, Baustruktur.
+
+8. **Auslegen ist nicht Nachweisen**  
+   überschlägige Dimensionierung, Sicherheitsannahmen, Iteration, Nachweisrechnung.
+
+9. **Leistung, Wirkungsgrad und Antriebsstrang**  
+   Energieerhaltung, Verluste, Leistung/Drehmoment/Drehzahl als quantitative Anwendung.
+
+### Pilotprojekt innerhalb des Clusters
+
+**Systemaufgabe: Wasseraufbereitung für eine kleine Marsbasis**
+
+Der Lernende erhält Anforderungen und modelliert zunächst die Blackbox. Danach zerlegt er das System beispielsweise in Förderung, Vorbehandlung, Trennung/Reinigung, Qualitätsüberwachung, Speicherung und Reststoffbehandlung. Erst anschließend werden technische Teillösungen angeboten. Varianten können nach Energiebedarf, Wartbarkeit, Robustheit, Masse/Volumen und Redundanz bewertet werden.
+
+NOXIA kann später eine konkrete Spielsituation als EP3/EP4-Anwendung liefern. Didaktik, Lernstruktur und Darstellung bleiben SSF-eigen; kanonische wissenschaftlich-technische Definitionen und Aussagen bleiben an KG/OTA bzw. die dort referenzierten Quellen gebunden.
+
+---
+
+## 7. Autoren-Check vor Freigabe
+
+Ein technisches Modul ist erst freigabefähig, wenn alle zutreffenden Fragen mit Ja beantwortet werden können:
+
+- Ist das Problem vor der Lösung verständlich?
+- Sind Definitionen von Beispielen/Narrativen getrennt?
+- Ist die Systemgrenze klar?
+- Sind relevante Energie-, Stoff- und Informationsflüsse sichtbar?
+- Wird bei einer frühen Funktionsanalyse nicht bereits unnötig eine konkrete Bauform vorausgesetzt?
+- Kann der Lernende mindestens einen Zusammenhang selbst anwenden oder verändern?
+- Sind Alternativen und Zielkonflikte sichtbar, wenn es tatsächlich mehrere Lösungen gibt?
+- Sind Formeln mit Größen, Einheiten, Annahmen und Gültigkeitsbereich erklärt?
+- Sind Auslegung, Annahme und Nachweis sauber getrennt?
+- Prüft der Kurztest Verständnis statt bloß Textwiedererkennung?
+- Ist der Merksatz korrekt genug, um ohne den restlichen Text stehen zu können?
+- Bleibt ein NOXIA-/Narrativbezug Illustration oder Anwendung statt Wissensquelle?
+
+---
+
+## 8. Quellen- und Rechtehinweis
+
+Die bereitgestellte Konstruktionslehre dient hier als **didaktische Referenz für Struktur und Themenauswahl**, nicht als Textquelle für die Veröffentlichung. SSF-Module werden eigenständig formuliert. Wissenschaftliche/technische Aussagen erhalten vor Veröffentlichung die nach `EDITORIAL.md` erforderlichen KG-/OTA- bzw. Primärquellen.
+
+Formulierungen, Tabellen, Merkhilfen, Beispiele und Grafiken der Vorlage werden nicht ungeprüft oder wörtlich in öffentliche SSF-Inhalte übernommen.
