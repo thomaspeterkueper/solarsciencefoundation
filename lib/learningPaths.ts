@@ -18,6 +18,8 @@ export type LearningPathSection = {
   depthPoints?: number;
   /** True if this section contains interactive/audio elements (Web Audio API, Canvas) */
   interactive?: boolean;
+  /** Interactive id resolved via getLearningInteractive() (e.g. 'gravitationsbrunnen') */
+  interactiveId?: string;
   /**
    * Optional image for observation cards.
    * Path relative to /public — e.g. "/images/observations/kaffeetasse-tku.jpg"
