@@ -27,10 +27,10 @@ export async function OPTIONS() {
 }
 
 export async function GET(req: NextRequest) {
-  // Build module list directly from learningPaths.ts
-  const modules = learningPaths
-    .filter(p => p.status !== 'hidden')
-    .map(p => {
+  // LearningPath.status currently admits only active | prototype, so every
+  // registered path is intentionally visible to the NOXIA module index.
+  // If a hidden state is introduced later, add it to the canonical type first.
+  const modules = learningPaths.map(p => {
       // Collect all unlock IDs from the path
       const unlocks: string[] = p.unlocks ?? [];
 
@@ -55,7 +55,7 @@ export async function GET(req: NextRequest) {
         durationMinutes,
         unlocks,
         ssfUrl:          `https://solarsciencefoundation.vercel.app/learning-paths/${encodeURIComponent(p.id)}`,
-        status:          p.status ?? 'prototype',
+        status:          p.status,
       };
     });
 
