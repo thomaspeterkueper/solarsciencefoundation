@@ -6163,7 +6163,7 @@ export const learningPaths: LearningPath[] = [
             id: 'OBS:WASSER-ISS',
             kind: 'observation',
             title: 'ISS: Astronauten trinken ihren eigenen Urin',
-            summary: 'Das klingt absurd — ist aber Alltag auf der ISS seit 2008. Das ECLSS-System (Environmental Control and Life Support System) recycelt Urin, Schweiß und Ausatemluft zu Trinkwasser. 93% Effizienz. Die NASA sagt: "Yesterday's coffee is tomorrow's coffee." Auf dem Mars muss diese Rate noch höher sein.',
+            summary: 'Das klingt absurd — ist aber Alltag auf der ISS seit 2008. Das ECLSS-System (Environmental Control and Life Support System) recycelt Urin, Schweiß und Ausatemluft zu Trinkwasser. 93% Effizienz. Die NASA sagt: "Yesterday’s coffee is tomorrow’s coffee." Auf dem Mars muss diese Rate noch höher sein.',
             depthPoints: 4,
           },
           {
