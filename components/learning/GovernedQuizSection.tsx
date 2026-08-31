@@ -35,7 +35,7 @@ export default function GovernedQuizSection({ section, onComplete, onDepth }: Pr
   }
 
   function evaluate() {
-    if (answers.some((answer) => answer === null) || passed) return;
+    if (!quiz || answers.some((answer) => answer === null) || passed) return;
     const result = scoreLearningQuiz(quiz, answers as number[]);
     setScore(result);
     if (result === 3) {
