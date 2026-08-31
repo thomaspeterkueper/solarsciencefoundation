@@ -15,7 +15,9 @@
     "lib/research-watch/**/*.ts",
     "lib/modules.ts",
     "lib/subjects.ts",
-    "tests/research-watch/**/*.ts"
+    "lib/learningQuiz.ts",
+    "tests/research-watch/**/*.ts",
+    "tests/learningQuiz.test.ts"
   ],
   "exclude": ["node_modules"]
 }
