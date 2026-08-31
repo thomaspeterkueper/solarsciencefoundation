@@ -12,38 +12,41 @@ affects: [KG, SSF]
 
 ## Anlass
 
-Research Candidate `RES-20260831-EAA9EDD9` liegt inzwischen als **R1 — critical-review correction** vor. R1 trennt intrinsische Materialeigenschaften sauber von sorten-/herstellerabhängigen Betriebsgrenzen und volatile Markt-/Supply-Chain-Daten von zeitstabilen Werkstoffaussagen.
+Research Candidate `RES-20260831-EAA9EDD9` liegt inzwischen als **R2 — critical-review replacement** vor. R2 trennt intrinsische Materialeigenschaften sauber von sorten-/herstellerabhängigen Betriebsgrenzen und volatile Markt-/Supply-Chain-Daten von zeitstabilen Werkstoffaussagen.
 
 ## Anforderung an SSF
 
-Bitte `modules/materials/MAG-004.yaml` und den relevanten Vergleichs-/Anwendungsteil von `MAG-005` gegen R1 prüfen.
+Bitte `modules/materials/MAG-004.yaml` und den relevanten Vergleichs-/Anwendungsteil von `MAG-005` gegen R2 prüfen.
 
-### 1. Keine scheinbar universellen Tmax-Werte
+### 1. Drei Ebenen sauber trennen
 
-Curie-Temperatur, `(BH)max`, Koerzitivität und Einsatztemperatur nicht vermischen. Insbesondere maximale Einsatztemperaturen sind stark sorten-, Geometrie-, Last- und Herstellerabhängig und sollen nur als quellengebundene Bereiche bzw. konkrete Grade geführt werden.
+1. Werkstoff-/Familieneigenschaften wie Curie-Temperatur, Energiedichte und Koerzitivität.
+2. Grade- und anwendungsabhängige Designgrenzen wie maximale Betriebstemperatur, zulässiges Gegenfeld und Korrosionsschutz.
+3. Datierte Markt-/Lieferkettensnapshots wie Preise, Produktionskonzentration, Exportregeln und Recyclingkapazitäten.
+
+Eine einzelne zeitlose Zahl für `Tmax`, Kosten pro kg oder „Korrosionsbeständigkeit“ pro Materialklasse ist wissenschaftlich zu grob.
 
 ### 2. Ferrit
 
-- keine Seltenen Erden,
-- sehr gute Korrosionsbeständigkeit,
-- deutlich geringeres Energieprodukt als NdFeB/SmCo,
-- günstige und robuste Standardklasse.
-
-Konkrete Zahlen als Sorten-/Quellenwerte, nicht als universelle Ferritkonstanten.
+- geringe Energiedichte gegenüber NdFeB/SmCo,
+- oxidisch und meist korrosionsrobust,
+- keine Seltene-Erden-Abhängigkeit,
+- konkrete Zahlen als Sorten-/Quellenwerte, nicht als universelle Ferritkonstanten.
 
 ### 3. AlNiCo
 
-Die didaktisch zentrale Einschränkung bleibt die relativ geringe Koerzitivfeldstärke und damit Entmagnetisierungsanfälligkeit in Gegenfeldern. Hohe Curie-/Einsatztemperaturen nicht zu einem einzigen allgemeinen Tmax verdichten. Kobalt als relevanten kritischen Rohstoff erwähnen.
+Die didaktisch zentrale Einschränkung ist die relativ geringe Koerzitivität und damit Entmagnetisierungsanfälligkeit in Gegenfeldern. Hohe Remanenz und Temperaturtauglichkeit geeigneter Grades als Stärke darstellen, aber kein universelles Tmax setzen. Kobalt als relevanten Rohstoffkontext erwähnen.
 
 ### 4. SmCo
 
-SmCo5 und Sm2Co17 getrennt bzw. als unterschiedliche Unterfamilien behandeln. Temperatur-, Energieprodukt- und Koerzitivitätswerte unterscheiden sich erheblich. Gute Hochtemperatur- und Korrosionseigenschaften als Stärke darstellen, aber keine pauschale universelle Einsatzgrenze nennen.
+SmCo5 und Sm2Co17 getrennt bzw. als unterschiedliche Unterfamilien behandeln. Hohe Koerzitivität, hohe Energiedichte und gute Hochtemperatureignung geeigneter Grades sind belastbar; konkrete Einsatzgrenzen bleiben grade- und anwendungsabhängig. Sm/Co-Rohstoffabhängigkeit kennzeichnen.
 
 ### 5. NdFeB
 
-- höchstes kommerzielles Energieprodukt im Vergleich,
-- Temperatur- und Koerzitivitätsverhalten stark gradeabhängig,
-- korrosionsanfällige Werkstofffamilie, Schutz-/Beschichtungsbedarf jedoch **nicht als ausnahmslos zwingend für jede Ausführung und Umgebung formulieren**,
+- höchste verbreitete kommerzielle Energiedichte,
+- starke Grade-Abhängigkeit bei Koerzitivität und Temperatur,
+- gesintertes NdFeB ist korrosionsanfällig und wird häufig geschützt,
+- Schutz/Beschichtung **nicht als ausnahmslos zwingend für jede Ausführung und Umgebung formulieren**,
 - Abhängigkeit von Nd/Pr und je nach Hochkoerzitiv-Grade zusätzlich Dy/Tb.
 
 ### 6. Kosten, Markt und Supply Chain
@@ -65,5 +68,5 @@ MAG-004/005 vermitteln belastbare Materialfamilien-Unterschiede, ohne Gradeigens
 ## Referenz
 
 - Research ID: `RES-20260831-EAA9EDD9`
-- Revision: `R1 — critical-review correction`
+- Revision: `R2 — critical-review replacement after raw candidate was merged`
 - KG-Pfad: `research/candidates/RES-20260831-EAA9EDD9.md`
