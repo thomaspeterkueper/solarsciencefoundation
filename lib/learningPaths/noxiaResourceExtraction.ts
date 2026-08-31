@@ -2,61 +2,26 @@ import type { LearningPath } from '../learningPaths';
 
 /** SSF didactic implementation for the KG-owned NOXIA resource-extraction module identity. */
 export const noxiaResourceExtractionLearningPath: LearningPath = {
-  id: 'PATH:SSF:NOX-RESOURCE-EXTRACTION-0001',
-  title: 'Wie gewinnt man Rohstoffe, ohne nur Gestein zu bewegen?',
-  subtitle: 'Vom Gemisch zum nutzbaren Stoffstrom: Eigenschaften erkennen, Trennschritte wählen und Ausbeute gegen Aufwand abwägen.',
-  status: 'prototype',
-  sourceModuleId: 'ENG-L1-000005',
-  kxfModuleId: 'LRN:SSF:NOX-RESOURCE-EXTRACTION',
-  domainsNeeded: ['KD:ENGINEERING', 'KD:GEOLOGY', 'KD:PHYSICS'],
-  suppliedBy: {
-    knowledgeGraph: [
-      'Kanonische Lernmodul-Identität LRN:SSF:NOX-RESOURCE-EXTRACTION',
-      'Strukturelle Zuordnung zu ENG-L1-000005',
-      'Fachliche Voraussetzungen und Modulabhängigkeiten',
-    ],
-    kueperCom: [], overtimeArchive: [],
-    ssf: ['Problemorientierte Lernsequenz', 'Trial-and-Error-Trennaufgaben', 'Kompetenznachweis Anwendung → Verständnis → Transfer'],
-  },
-  unlocks: ['UNL:NOX:resource-extraction'],
+  id: 'PATH:SSF:NOX-RESOURCE-EXTRACTION-0001', title: 'Wie gewinnt man Rohstoffe, ohne nur Gestein zu bewegen?', subtitle: 'Vom Gemisch zum nutzbaren Stoffstrom: Eigenschaften erkennen, Trennschritte wählen und Ausbeute gegen Aufwand abwägen.', status: 'prototype', sourceModuleId: 'ENG-L1-000005', kxfModuleId: 'LRN:SSF:NOX-RESOURCE-EXTRACTION', domainsNeeded: ['KD:ENGINEERING', 'KD:GEOLOGY', 'KD:PHYSICS'],
+  suppliedBy: { knowledgeGraph: ['Kanonische Lernmodul-Identität LRN:SSF:NOX-RESOURCE-EXTRACTION','Strukturelle Zuordnung zu ENG-L1-000005','Fachliche Voraussetzungen und Modulabhängigkeiten'], kueperCom: [], overtimeArchive: [], ssf: ['Problemorientierte Lernsequenz','Trial-and-Error-Trennaufgaben','Kompetenznachweis Anwendung → Verständnis → Transfer'] }, unlocks: ['UNL:NOX:resource-extraction'],
   units: [
-    {
-      id: 'UNIT:NOX-RESOURCE-EXTRACTION-1',
-      title: 'Im Gestein steckt noch kein Produkt',
-      entryQuestion: 'Ein Gestein enthält 8 % eines gesuchten Minerals. Warum sagt diese Zahl noch nicht, ob du es sinnvoll gewinnen kannst?',
-      takeaway: 'Eine Lagerstätte wird erst durch Trennbarkeit, Ausbeute, Reinheit und Aufwand zu einer nutzbaren Rohstoffquelle.',
-      gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:NOX-RESOURCE-EXTRACTION-2' },
-      sections: [
-        { id: 'OBS:NOX-RESOURCE-ORE', kind: 'observation', title: 'Erz ist ein Gemisch', summary: 'Stell dir 100 kg gebrochenes Gestein vor. Nur ein Teil enthält den Zielstoff; der Rest muss erkannt, getrennt, transportiert oder als Rückstand behandelt werden.', depthPoints: 5 },
-        { id: 'EXP:NOX-RESOURCE-SORT', kind: 'exercise', title: 'Welche Eigenschaft hilft dir?', summary: 'Ein Modellgemisch enthält Kies, Sand, Eisenstücke und Salz. Ordne mögliche Trennideen den Eigenschaften zu: Korngröße, Magnetisierbarkeit und Löslichkeit. Versuche zuerst eine Reihenfolge und prüfe danach, welche Stoffe noch vermischt sind.', depthPoints: 10 },
-        { id: 'EXPL:NOX-RESOURCE-PROPERTY', kind: 'explanation', title: 'Trennung braucht einen Unterschied', summary: 'Technische Trennverfahren funktionieren, weil Bestandteile sich in einer nutzbaren Eigenschaft unterscheiden: etwa Größe, Dichte, magnetischem Verhalten, Löslichkeit oder Oberflächeneigenschaften. Ohne ausreichenden Eigenschaftskontrast wird die Trennung schwierig oder aufwendig.', depthPoints: 8 },
-        { id: 'QUIZ:NOX-RESOURCE-EXTRACTION-1', kind: 'quiz', title: 'Vom Gemisch zur Trennidee', summary: 'Ein Gemisch enthält groben Kies und feinen Sand. Welches Prinzip würdest du zuerst testen?||Magnetische Trennung||Siebung nach Korngröße*||Desinfektion||Destillation---Warum kann ein Trennverfahren überhaupt zwei Bestandteile unterscheiden?||Weil sie sich in einer nutzbaren Eigenschaft unterscheiden*||Weil jeder Rohstoff automatisch rein vorliegt||Weil Zerkleinern alle Stoffe chemisch verändert||Weil Rückstände immer leichter sind---Ein fein gemahlenes Gemisch enthält magnetische und nichtmagnetische Mineralkörner ähnlicher Größe. Was ist der sinnvollste nächste Versuch?||Noch feiner sieben||Magnetische Trennung testen*||Nur Wasser verdampfen||Alle Körner gemeinsam einschmelzen', depthPoints: 5 },
-      ],
-    },
-    {
-      id: 'UNIT:NOX-RESOURCE-EXTRACTION-2',
-      title: 'Eine Prozesskette statt eines Zauberfilters',
-      entryQuestion: 'Warum wird Rohmaterial oft zerkleinert, sortiert und erst danach weiter aufbereitet?',
-      takeaway: 'Jeder Prozessschritt bereitet einen Stoffstrom für den nächsten vor und verschiebt dabei Reinheit, Ausbeute, Aufwand und Rückstandsmenge.',
-      gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:NOX-RESOURCE-EXTRACTION-3' },
-      sections: [
-        { id: 'EXPL:NOX-RESOURCE-LIBERATION', kind: 'explanation', title: 'Erst freilegen, dann trennen', summary: 'Wenn Zielmineral und Begleitgestein fest miteinander verwachsen sind, kann Zerkleinerung die Bestandteile zunächst freilegen. Zu grob bedeutet schlechte Trennbarkeit; unnötig fein bedeutet zusätzlichen Energiebedarf und kann nachfolgende Prozesse erschweren.', depthPoints: 8 },
-        { id: 'EXP:NOX-RESOURCE-CHAIN', kind: 'exercise', title: 'Trial and Error: Baue die Kette', summary: 'Für Kies + Sand + Eisen + Salz stehen Magnet, Sieb, Wasser, Filter und Eindampfen zur Verfügung. Entwirf eine Kette. Prüfe nach jedem Schritt: Welcher Stoffstrom entsteht, was ist schon rein genug, was muss weiterbehandelt werden und welcher Schritt wäre unnötig?', depthPoints: 12 },
-        { id: 'EXPL:NOX-RESOURCE-BALANCE', kind: 'explanation', title: 'Ausbeute und Reinheit ziehen nicht immer in dieselbe Richtung', summary: 'Eine strengere Trennung kann ein reineres Produkt liefern, aber zugleich mehr Zielstoff in den Rückstand schicken. Deshalb werden Produktqualität und Rückgewinnung gemeinsam betrachtet.', depthPoints: 8 },
-        { id: 'QUIZ:NOX-RESOURCE-EXTRACTION-2', kind: 'quiz', title: 'Die Prozesskette verstehen', summary: 'Zielmineral und Begleitgestein sind noch fest verwachsen. Was ist vor einer eigenschaftsbasierten Trennung häufig sinnvoll?||Geeignet zerkleinern, um Bestandteile freizulegen*||Nur das Endprodukt wiegen||Den Rückstand ignorieren||Jede Probe maximal fein mahlen---Warum ist maximales Zerkleinern nicht automatisch optimal?||Weil Zerkleinerung Energie kostet und unnötige Feinheit Folgeprozesse erschweren kann*||Weil kleine Partikel keine Masse besitzen||Weil alle Minerale dann magnetisch werden||Weil Reinheit nur von der Korngröße abhängt---Eine zusätzliche Trennstufe erhöht die Produktreinheit, verliert aber viel Zielstoff im Rückstand. Was musst du bewerten?||Nur die Farbe des Produkts||Reinheit und Rückgewinnung gemeinsam*||Nur die Zahl der Maschinen||Nur die Korngröße des Rückstands', depthPoints: 5 },
-      ],
-    },
-    {
-      id: 'UNIT:NOX-RESOURCE-EXTRACTION-3',
-      title: 'Wann ist die bessere Trennung wirklich besser?',
-      entryQuestion: 'Variante A gewinnt 95 % des Zielstoffs mit hohem Energie- und Wasserbedarf; Variante B 88 % mit deutlich weniger Aufwand. Welche ist besser?',
-      takeaway: 'Eine Extraktionskette wird als Gesamtsystem bewertet: nutzbarer Stoffstrom, Reinheit, Ausbeute, Energie, Wasser und Rückstände.',
-      sections: [
-        { id: 'OBS:NOX-RESOURCE-TRADEOFF', kind: 'observation', title: 'Mehr Ausbeute hat einen Preis', summary: 'Die letzten Prozentpunkte Rückgewinnung können überproportional viel Zerkleinerung, Wasser, Energie oder Anlagenkapazität benötigen. Technisch möglich und systemisch sinnvoll sind daher nicht dasselbe.', depthPoints: 5 },
-        { id: 'EXP:NOX-RESOURCE-DECISION', kind: 'exercise', title: 'Entscheide für eine Marsbasis', summary: 'Vergleiche zwei gedachte Prozessketten nicht nur nach Tonnen Produkt. Berücksichtige Produktreinheit, Anteil des zurückgewonnenen Zielstoffs, Strombedarf, Wasserbedarf und Rückstände. Begründe, welche Engpassressource deine Entscheidung verändert.', depthPoints: 12 },
-        { id: 'EXPL:NOX-RESOURCE-RESIDUES', kind: 'explanation', title: 'Auch der Rückstand gehört zum System', summary: 'Was nicht im Produktstrom landet, verschwindet nicht. Rückstände können Zielstoff enthalten, Wasser binden, Fläche benötigen oder weitere Behandlung verlangen. Stoffbilanzen machen diese Nebenströme sichtbar.', depthPoints: 8 },
-        { id: 'QUIZ:NOX-RESOURCE-EXTRACTION-3', kind: 'quiz', title: 'Systementscheidung statt Einzelrekord', summary: 'Zwei Verfahren liefern dieselbe Produktreinheit. A gewinnt 95 % bei sehr hohem Energiebedarf, B 90 % bei deutlich geringerem Energiebedarf. Was ist fachlich richtig?||A ist immer besser||B ist immer besser||Die Entscheidung hängt von Gesamtbilanz und Engpässen ab*||Nur die Maschinenzahl entscheidet---Warum gehört der Rückstand in die Bewertung?||Weil dort Zielstoff, Wasser und weitere Behandlungsaufwände gebunden sein können*||Weil Rückstände grundsätzlich das Hauptprodukt sind||Weil Stoffbilanzen nur reine Stoffe erfassen||Weil Energiebedarf nichts mit Prozessen zu tun hat---Auf einer wasserarmen Marsbasis erreichen zwei Ketten ähnliche Ausbeute und Reinheit. Welche zusätzliche Größe kann zum entscheidenden Kriterium werden?||Wasserbedarf der Prozesskette*||Farbe der Maschinen||Anzahl der Kapitel im Lernpfad||Name des Minerals', depthPoints: 8 },
-      ],
-    },
-  ],
+    { id:'UNIT:NOX-RESOURCE-EXTRACTION-1', title:'Im Gestein steckt noch kein Produkt', entryQuestion:'Ein Gestein enthält 8 % eines gesuchten Minerals. Warum sagt diese Zahl noch nicht, ob du es sinnvoll gewinnen kannst?', takeaway:'Eine Lagerstätte wird erst durch Trennbarkeit, Ausbeute, Reinheit und Aufwand zu einer nutzbaren Rohstoffquelle.', gate:{type:'quiz_all_correct',unlocksUnitId:'UNIT:NOX-RESOURCE-EXTRACTION-2'}, sections:[
+      {id:'OBS:NOX-RESOURCE-ORE',kind:'observation',title:'Erz ist ein Gemisch',summary:'Stell dir 100 kg gebrochenes Gestein vor. Nur ein Teil enthält den Zielstoff; der Rest muss erkannt, getrennt, transportiert oder als Rückstand behandelt werden.',depthPoints:5},
+      {id:'EXP:NOX-RESOURCE-SORT',kind:'exercise',title:'Welche Eigenschaft hilft dir?',summary:'Ein Modellgemisch enthält Kies, Sand, Eisenstücke und Salz. Ordne mögliche Trennideen den Eigenschaften zu: Korngröße, Magnetisierbarkeit und Löslichkeit.',depthPoints:10},
+      {id:'EXPL:NOX-RESOURCE-PROPERTY',kind:'explanation',title:'Trennung braucht einen Unterschied',summary:'Technische Trennverfahren funktionieren, weil Bestandteile sich in einer nutzbaren Eigenschaft unterscheiden: etwa Größe, Dichte, magnetischem Verhalten, Löslichkeit oder Oberflächeneigenschaften.',depthPoints:8},
+      {id:'QUIZ:NOX-RESOURCE-EXTRACTION-1',kind:'quiz',title:'Vom Gemisch zur Trennidee',summary:'Ein Gemisch enthält groben Kies und feinen Sand. Welches Prinzip würdest du zuerst testen?||Magnetische Trennung||Siebung nach Korngröße*||Desinfektion||Destillation---Warum kann ein Trennverfahren überhaupt zwei Bestandteile unterscheiden?||Weil sie sich in einer nutzbaren Eigenschaft unterscheiden*||Weil jeder Rohstoff automatisch rein vorliegt||Weil Zerkleinern alle Stoffe chemisch verändert||Weil Rückstände immer leichter sind---Ein fein gemahlenes Gemisch enthält magnetische und nichtmagnetische Mineralkörner ähnlicher Größe. Was ist der sinnvollste nächste Versuch?||Noch feiner sieben||Magnetische Trennung testen*||Nur Wasser verdampfen||Alle Körner gemeinsam einschmelzen',depthPoints:5}
+    ]},
+    { id:'UNIT:NOX-RESOURCE-EXTRACTION-2', title:'Eine Prozesskette statt eines Zauberfilters', entryQuestion:'Warum wird Rohmaterial oft zerkleinert, sortiert und erst danach weiter aufbereitet?', takeaway:'Jeder Prozessschritt bereitet einen Stoffstrom für den nächsten vor und verschiebt dabei Reinheit, Ausbeute, Aufwand und Rückstandsmenge.', gate:{type:'quiz_all_correct',unlocksUnitId:'UNIT:NOX-RESOURCE-EXTRACTION-3'}, sections:[
+      {id:'EXPL:NOX-RESOURCE-LIBERATION',kind:'explanation',title:'Erst freilegen, dann trennen',summary:'Wenn Zielmineral und Begleitgestein fest miteinander verwachsen sind, kann Zerkleinerung die Bestandteile zunächst freilegen. Zu grob bedeutet schlechte Trennbarkeit; unnötig fein bedeutet zusätzlichen Energiebedarf.',depthPoints:8},
+      {id:'EXP:NOX-RESOURCE-CHAIN',kind:'experiment',title:'Trial and Error: Baue die Kette',summary:'Für Kies + Sand + Eisen + Salz stehen Magnet, Sieb, Wasser, Filter und Eindampfen zur Verfügung. Probiere eine Reihenfolge aus und beobachte die entstehenden Stoffströme.',interactive:true,depthPoints:12},
+      {id:'EXPL:NOX-RESOURCE-BALANCE',kind:'explanation',title:'Ausbeute und Reinheit ziehen nicht immer in dieselbe Richtung',summary:'Eine strengere Trennung kann ein reineres Produkt liefern, aber zugleich mehr Zielstoff in den Rückstand schicken. Deshalb werden Produktqualität und Rückgewinnung gemeinsam betrachtet.',depthPoints:8},
+      {id:'QUIZ:NOX-RESOURCE-EXTRACTION-2',kind:'quiz',title:'Die Prozesskette verstehen',summary:'Zielmineral und Begleitgestein sind noch fest verwachsen. Was ist vor einer eigenschaftsbasierten Trennung häufig sinnvoll?||Geeignet zerkleinern, um Bestandteile freizulegen*||Nur das Endprodukt wiegen||Den Rückstand ignorieren||Jede Probe maximal fein mahlen---Warum ist maximales Zerkleinern nicht automatisch optimal?||Weil Zerkleinerung Energie kostet und unnötige Feinheit Folgeprozesse erschweren kann*||Weil kleine Partikel keine Masse besitzen||Weil alle Minerale dann magnetisch werden||Weil Reinheit nur von der Korngröße abhängt---Eine zusätzliche Trennstufe erhöht die Produktreinheit, verliert aber viel Zielstoff im Rückstand. Was musst du bewerten?||Nur die Farbe des Produkts||Reinheit und Rückgewinnung gemeinsam*||Nur die Zahl der Maschinen||Nur die Korngröße des Rückstands',depthPoints:5}
+    ]},
+    { id:'UNIT:NOX-RESOURCE-EXTRACTION-3', title:'Wann ist die bessere Trennung wirklich besser?', entryQuestion:'Variante A gewinnt 95 % des Zielstoffs mit hohem Energie- und Wasserbedarf; Variante B 88 % mit deutlich weniger Aufwand. Welche ist besser?', takeaway:'Eine Extraktionskette wird als Gesamtsystem bewertet: nutzbarer Stoffstrom, Reinheit, Ausbeute, Energie, Wasser und Rückstände.', sections:[
+      {id:'OBS:NOX-RESOURCE-TRADEOFF',kind:'observation',title:'Mehr Ausbeute hat einen Preis',summary:'Die letzten Prozentpunkte Rückgewinnung können überproportional viel Zerkleinerung, Wasser, Energie oder Anlagenkapazität benötigen.',depthPoints:5},
+      {id:'EXP:NOX-RESOURCE-DECISION',kind:'exercise',title:'Entscheide für eine Marsbasis',summary:'Vergleiche zwei gedachte Prozessketten nach Produktreinheit, Rückgewinnung, Strombedarf, Wasserbedarf und Rückständen. Begründe, welche Engpassressource deine Entscheidung verändert.',depthPoints:12},
+      {id:'EXPL:NOX-RESOURCE-RESIDUES',kind:'explanation',title:'Auch der Rückstand gehört zum System',summary:'Was nicht im Produktstrom landet, verschwindet nicht. Rückstände können Zielstoff enthalten, Wasser binden, Fläche benötigen oder weitere Behandlung verlangen.',depthPoints:8},
+      {id:'QUIZ:NOX-RESOURCE-EXTRACTION-3',kind:'quiz',title:'Systementscheidung statt Einzelrekord',summary:'Zwei Verfahren liefern dieselbe Produktreinheit. A gewinnt 95 % bei sehr hohem Energiebedarf, B 90 % bei deutlich geringerem Energiebedarf. Was ist fachlich richtig?||A ist immer besser||B ist immer besser||Die Entscheidung hängt von Gesamtbilanz und Engpässen ab*||Nur die Maschinenzahl entscheidet---Warum gehört der Rückstand in die Bewertung?||Weil dort Zielstoff, Wasser und weitere Behandlungsaufwände gebunden sein können*||Weil Rückstände grundsätzlich das Hauptprodukt sind||Weil Stoffbilanzen nur reine Stoffe erfassen||Weil Energiebedarf nichts mit Prozessen zu tun hat---Auf einer wasserarmen Marsbasis erreichen zwei Ketten ähnliche Ausbeute und Reinheit. Welche zusätzliche Größe kann zum entscheidenden Kriterium werden?||Wasserbedarf der Prozesskette*||Farbe der Maschinen||Anzahl der Kapitel im Lernpfad||Name des Minerals',depthPoints:8}
+    ]}
+  ]
 };
