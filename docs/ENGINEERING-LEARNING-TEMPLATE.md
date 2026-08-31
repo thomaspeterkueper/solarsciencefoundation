@@ -9,7 +9,7 @@ Source:   didactic pattern derived from user-provided "Lexikon Konstruktionslehr
 # ENGINEERING-LEARNING-TEMPLATE.md
 ## Autorenmuster für technische und ingenieurwissenschaftliche Lernmodule
 
-**Status:** Pilot · Ergänzung zu `LEARNING-PRINCIPLES.md` und `EDITORIAL.md`  
+**Status:** Pilot · Ergänzung zu `LEARNING-PRINCIPLES.md`, `EDITORIAL.md`, `SSF-DIDAKTIK.md` (kanonische Dramaturgie) und `SSF-QUIZ-RICHTLINIEN.md` (Kanonisch)  
 **Geltung:** technische/ingenieurwissenschaftliche SSF-Module; nach Pilotierung auf andere geeignete Fächer übertragbar  
 
 ---
@@ -20,9 +20,27 @@ Technische Lerninhalte sollen nicht als Folge isolierter Definitionen oder als `
 
 Das Grundmuster lautet:
 
-> **Orientierung → Begriff → Zusammenhang → Interaktion → Anwendung → Entscheidung → Formel/Modell → Kurztest → Merksatz**
+> **Orientierung → Begriff → Interaktion → Zusammenhang → Anwendung → Entscheidung → Formel/Modell → Kurztest → Merksatz**
 
 Das Muster ergänzt die epistemische Pyramide EP0–EP4; es ersetzt sie nicht. Kanonische Definitionen und wissenschaftliche Aussagen bleiben KG-/OTA-gebunden gemäß `LEARNING-PRINCIPLES.md` und `EDITORIAL.md`.
+
+### 1.1 Verhältnis zur kanonischen Dramaturgie
+
+Die Modulfolge ist eine technische Spezialisierung der kanonischen Dramaturgie aus `SSF-DIDAKTIK.md` (§ 3). Dort ist die Reihenfolge ausdrücklich **nicht verhandelbar**; die kanonische Dramaturgie hat deshalb Vorrang. Für technische Module gilt:
+
+| Engineering-Modulschritt | kanonischer Schritt (SSF-DIDAKTIK.md) |
+|---|---|
+| Orientierung (3.1) | ① Beobachtung / ② Einstiegsfrage |
+| Begriff (3.2) | vorbereitendes Vokabular (kein kanonischer Schritt) |
+| Interaktion (3.3) | ④ Experiment |
+| Zusammenhang (3.4) | ⑤ Erklärung |
+| Anwendung (3.5) | ⑦ Anwendung |
+| Entscheidung (3.6) | technische Abwägung (kein kanonischer Schritt) |
+| Formel/Modell (3.7) | Formelregel: Formeln erst nach der Erklärung |
+| Kurztest (3.8) | ⑧ Quiz — gemäß `SSF-QUIZ-RICHTLINIEN.md` |
+| Merksatz (3.9) | ⑨ Takeaway |
+
+Konsequenz: Das Experiment (Interaktion) steht vor der Erklärung (Zusammenhang), die Formel erst nach der Erklärung, und der Kurztest prüft Verständnis statt Begriffserkennung (siehe § 3.8).
 
 ---
 
@@ -61,9 +79,23 @@ Die für das Problem notwendigen Fachbegriffe werden knapp und eindeutig eingef�
 
 Definitionen müssen auf kanonische KG-/OTA-Quellen zurückführbar sein.
 
-### 3.3 Zusammenhang
+### 3.3 Interaktion
 
-Die Begriffe werden in ein Modell, einen Prozess oder eine Funktionsstruktur gebracht.
+Der Lernende verändert einen oder wenige relevante Parameter und beobachtet eine kausal verständliche Wirkung. Erst danach wird das zugrunde liegende Modell erklärt (3.4) — Experiment vor Erklärung, wie in `SSF-DIDAKTIK.md` gefordert.
+
+Geeignet sind beispielsweise:
+
+- Durchfluss, Druck, Temperatur oder Leistung verändern;
+- einen Stoff- oder Energiepfad unterbrechen;
+- Komponenten ein- und ausschalten;
+- zwei Wirkprinzipien vergleichen;
+- eine Störung oder einen Ausfall auslösen.
+
+Die Interaktion braucht immer einen textlichen Fallback.
+
+### 3.4 Zusammenhang
+
+Die in der Interaktion (3.3) beobachtete Wirkung wird nun erklärt. Die Begriffe werden dazu in ein Modell, einen Prozess oder eine Funktionsstruktur gebracht.
 
 Für technische Systeme ist die bevorzugte Darstellung zunächst eine lösungsneutrale Blackbox:
 
@@ -76,20 +108,6 @@ Für technische Systeme ist die bevorzugte Darstellung zunächst eine lösungsne
 - relevante Störgrößen
 
 Danach kann die Gesamtfunktion in Teilfunktionen zerlegt werden.
-
-### 3.4 Interaktion
-
-Der Lernende verändert einen oder wenige relevante Parameter und beobachtet eine kausal verständliche Wirkung.
-
-Geeignet sind beispielsweise:
-
-- Durchfluss, Druck, Temperatur oder Leistung verändern;
-- einen Stoff- oder Energiepfad unterbrechen;
-- Komponenten/Teilfunktionen ein- und ausschalten;
-- zwei Wirkprinzipien vergleichen;
-- eine Störung oder einen Ausfall auslösen.
-
-Die Interaktion braucht immer einen textlichen Fallback.
 
 ### 3.5 Anwendung
 
@@ -128,12 +146,13 @@ Jede Formel erhält mindestens:
 
 ### 3.8 Kurztest
 
-2–5 kurze Fragen prüfen unterschiedliche Ebenen:
+Der Kurztest folgt verbindlich `SSF-QUIZ-RICHTLINIEN.md` (Status: Kanonisch): genau **3 Fragen** in fester Reihenfolge **Anwendung → Verständnis → Transfer**, jede mit genau **4 Antwortmöglichkeiten**. Er prüft Verständnis, kein Auswendiglernen — Fragen, die nur Begriffe oder Definitionen abfragen, sind ausgeschlossen.
 
-1. Begriff erkennen;
-2. Zusammenhang erklären;
-3. Modell anwenden;
-4. optional eine technische Entscheidung begründen.
+Für technische Module:
+
+1. **Anwendung** — eine konkrete Rechnung oder direkte Anwendung des Modells aus 3.5/3.7;
+2. **Verständnis** — warum das Prinzip gilt, bezogen auf den Zusammenhang aus 3.4 und die in 3.3 beobachtete Wirkung;
+3. **Transfer** — eine Konsequenz für einen anderen Fall, optional mit begründeter technischer Entscheidung aus 3.6.
 
 ### 3.9 Merksatz
 
@@ -166,8 +185,8 @@ Diese Reihenfolge verhindert, dass ein bekanntes Bauteil voreilig zur vermeintli
 |---|---|---|
 | Orientierung | Beobachtung/Problem | EP0 |
 | Begriff | Benennung/Definition | EP1 |
-| Zusammenhang | Modell/Funktionsstruktur | EP2 |
 | Interaktion | Modell explorieren | EP2–EP3 |
+| Zusammenhang | Modell/Funktionsstruktur | EP2 |
 | Anwendung | Transfer | EP3 |
 | Entscheidung | technische Abwägung | EP3 |
 | Formel/Modell | quantitative Modellierung | EP2–EP3 |
