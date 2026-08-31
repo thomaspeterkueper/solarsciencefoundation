@@ -81,6 +81,16 @@ export const subjects: Subject[] = [
       'SSF Biology covers life from cells to ecosystems and prepares later modules about closed habitats, medicine, evolution and extraterrestrial biospheres.'
   },
   {
+    id: 'SUB:KON',
+    slug: 'contracomology',
+    title: 'Contracomology',
+    mark: '∿',
+    levelRange: 'Orientation',
+    description: 'Zeitform, AVI-Punkt und Transformationsperspektiven einer kuratierten Werk-Theorie [W].',
+    longDescription:
+      'SSF führt in die vom Knowledge Graph freigegebenen Contracomology-Begriffe ein. Der Bereich ist ausdrücklich als Werk-Theorie [W] gekennzeichnet und wird nicht als empirisch bestätigte Naturwissenschaft präsentiert.'
+  },
+  {
     id: 'SUB:EAR',
     slug: 'earth-science',
     title: 'Earth science',
@@ -131,6 +141,13 @@ export const learningPaths: LearningPath[] = [
       'TM2-COMB-002',
       'TM2-STRAIN-001'
     ]
+  },
+  {
+    id: 'PATH:SSF:KON-EINFUEHRUNG-0001',
+    subject: 'contracomology',
+    title: 'Contracomology — Einführung',
+    description: 'Orientierung zu Zeitform, AVI-Punkt, OEM sowie Objekt-, Beziehungs- und Transformationsperspektive; epistemisch als Werk-Theorie [W] gekennzeichnet.',
+    moduleIds: ['KON-L1-000001']
   }
 ];
 
