@@ -19,6 +19,11 @@ export type LearningPathSection = {
   /** True if this section contains interactive/audio elements (Web Audio API, Canvas) */
   interactive?: boolean;
   /**
+   * Stable ID of a structured interactive section (SSF→NOXIA content contract),
+   * e.g. 'gravitationsbrunnen'. Resolved via lib/learningInteractives.
+   */
+  interactiveId?: string;
+  /**
    * Optional image for observation cards.
    * Path relative to /public — e.g. "/images/observations/kaffeetasse-tku.jpg"
    * Convention: suffix -tku = photo by Thomas Küper
@@ -63,6 +68,12 @@ export type LearningPath = {
     ssf: string[];
   };
   unlocks: string[];
+  /**
+   * Optional link to the subject's specialist portal (e.g. contracomology.org).
+   * Only set when the target is deployed and reachability has been verified —
+   * SSF never publishes unverified external links.
+   */
+  portalUrl?: string;
   units: LearningPathUnit[];
 };
 
@@ -6163,7 +6174,7 @@ export const learningPaths: LearningPath[] = [
             id: 'OBS:WASSER-ISS',
             kind: 'observation',
             title: 'ISS: Astronauten trinken ihren eigenen Urin',
-            summary: 'Das klingt absurd — ist aber Alltag auf der ISS seit 2008. Das ECLSS-System (Environmental Control and Life Support System) recycelt Urin, Schweiß und Ausatemluft zu Trinkwasser. 93% Effizienz. Die NASA sagt: "Yesterday's coffee is tomorrow's coffee." Auf dem Mars muss diese Rate noch höher sein.',
+            summary: 'Das klingt absurd — ist aber Alltag auf der ISS seit 2008. Das ECLSS-System (Environmental Control and Life Support System) recycelt Urin, Schweiß und Ausatemluft zu Trinkwasser. 93% Effizienz. Die NASA sagt: "Yesterday\'s coffee is tomorrow\'s coffee." Auf dem Mars muss diese Rate noch höher sein.',
             depthPoints: 4,
           },
           {

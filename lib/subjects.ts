@@ -81,6 +81,16 @@ export const subjects: Subject[] = [
       'SSF Biology covers life from cells to ecosystems and prepares later modules about closed habitats, medicine, evolution and extraterrestrial biospheres.'
   },
   {
+    id: 'SUB:KON',
+    slug: 'contracomology',
+    title: 'Contracomology',
+    mark: '∿',
+    levelRange: 'Orientierungskurs',
+    description: 'Zeitform, AVI-Punkt und Entfaltungsmodule: Denkrahmen einer kuratierten Werk-Theorie [W].',
+    longDescription:
+      'Contracomology is a curated work theory [W] of the KUEPER ecosystem — no claim of external scientific validation or peer review. The SSF introductory course covers the canonical concepts Zeitform, AVI-Punkt and Omnizedentes Entfaltungsmodul plus the three perspectives Objekt, Beziehung and Transformation. Fachportal: contracomology.org.'
+  },
+  {
     id: 'SUB:EAR',
     slug: 'earth-science',
     title: 'Earth science',
@@ -131,6 +141,14 @@ export const learningPaths: LearningPath[] = [
       'TM2-COMB-002',
       'TM2-STRAIN-001'
     ]
+  },
+  {
+    id: 'PATH:SSF:KON-EINFUEHRUNG-0001',
+    subject: 'contracomology',
+    title: 'Contracomology — Einführungskurs',
+    description:
+      'Zeitform, AVI-Punkt, Omnizedentes Entfaltungsmodul und die drei Perspektiven Objekt, Beziehung und Transformation — kuratierte Werk-Theorie [W], Portal: contracomology.org.',
+    moduleIds: ['KON-L1-000001']
   }
 ];
 

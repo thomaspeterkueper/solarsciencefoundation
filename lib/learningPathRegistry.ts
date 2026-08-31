@@ -3,6 +3,7 @@ import { maillardLearningPath } from './learningPaths/maillard';
 import { magnetismMaterialsLearningPath } from './learningPaths/magnetismMaterials';
 import { noxiaWaterProcessingLearningPath } from './learningPaths/noxiaWaterProcessing';
 import { noxiaUnlockFoundationLearningPaths } from './learningPaths/noxiaUnlockFoundations';
+import { contracomologyLearningPath } from './learningPaths/contracomology';
 
 export type LearningPathLifecycleStatus = 'prototype' | 'active';
 
@@ -162,6 +163,7 @@ const registry = buildRegistry([
   magnetismMaterialsLearningPath,
   noxiaWaterProcessingLearningPath,
   ...noxiaUnlockFoundationLearningPaths,
+  contracomologyLearningPath,
 ]);
 
 export const registeredLearningPaths = registry.paths;

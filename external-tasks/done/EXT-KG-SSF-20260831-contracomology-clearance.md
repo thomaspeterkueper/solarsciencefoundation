@@ -46,3 +46,14 @@ SSF darf keine neuen fachlichen Contracomology-Definitionen erfinden. Diese blei
 ## Rückmeldung
 
 Nach Umsetzung bitte die konkrete SSF-Modul-/Path-ID an den KG zurückmelden, damit der KG sie im Learning-Contract registrieren und NOXIA eindeutig darauf referenzieren kann.
+
+## Erledigt 2026-08-31
+
+Der Academy-/Kurskatalogeintrag ist auf Basis von `KD:KON:N1` umgesetzt (Details in `external-tasks/done/KON-000004-contracomology-academy-entry.md`):
+
+- Pfad-ID: `PATH:SSF:KON-EINFUEHRUNG-0001`
+- KXF-Modul-ID: `LRN:SSF:KON-L1-000001`
+- Modul-ID: `KON-L1-000001`
+- Subject: `SUB:KON` (slug `contracomology`)
+
+Es wurden ausschließlich die freigegebenen kanonischen Konzepte verwendet; `ma-u`/`ma-ta-u` blieben ungenutzt. Die konkreten IDs sind per Outbox-Envelope `.kueper/outbox/SSF-KG-KON-000004-learning-contract-registration.json` an den KG zur Registrierung im Learning-Contract zurückgemeldet, damit NOXIA eindeutig darauf referenzieren kann.

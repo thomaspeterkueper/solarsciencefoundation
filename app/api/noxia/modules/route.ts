@@ -28,8 +28,8 @@ export async function OPTIONS() {
 
 export async function GET(req: NextRequest) {
   // Build module list directly from learningPaths.ts
+  // Note: status is 'prototype' | 'active' — there is no hidden status to filter.
   const modules = learningPaths
-    .filter(p => p.status !== 'hidden')
     .map(p => {
       // Collect all unlock IDs from the path
       const unlocks: string[] = p.unlocks ?? [];

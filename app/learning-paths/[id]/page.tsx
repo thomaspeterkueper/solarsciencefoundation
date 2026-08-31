@@ -91,6 +91,24 @@ export default async function LearningPathDetailPage({ params, searchParams }: P
         <span style={{ color: 'var(--muted)', fontSize: 12 }}>— {lifecycle.description}</span>
       </div>
 
+      {path.portalUrl && (
+        <p style={{ margin: '4px 0 12px' }}>
+          <a
+            href={path.portalUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              fontFamily: 'var(--font-mono)', fontSize: 12,
+              color: 'var(--gold)', letterSpacing: '.04em',
+              textDecoration: 'none',
+              borderBottom: '1px dashed var(--gold)',
+            }}
+          >
+            ↗ Fachportal — {path.portalUrl.replace(/^https?:\/\//, '')}
+          </a>
+        </p>
+      )}
+
       {path.unlocks.length > 0 && (
         <div style={{
           display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap',

@@ -1,0 +1,11 @@
+{
+  "target": "KG",
+  "title": "Register SSF Contracomology path/module IDs in the KG/SSF Learning-Contract",
+  "reason": "The KG clearance EXT-KG-SSF-20260831 requires SSF to report the concrete SSF module/path IDs back so the KG can register them in the Learning-Contract and NOXIA can reference them. SSF implemented the Contracomology Academy catalogue entry (KON-000004) and returns the IDs.",
+  "requested_change": "Register the Contracomology introductory course IDs in the KG/SSF Learning-Contract (KXF): path PATH:SSF:KON-EINFUEHRUNG-0001, KXF module LRN:SSF:KON-L1-000001, module KON-L1-000001, mapped to KD:KON:N1 with the canonical concepts CON:L1:zeitform, CON:L1:avi-punkt, CON:L1:oem, CON:L1:paradigma-1, CON:L1:paradigma-2, CON:L1:paradigma-3.",
+  "expected_result": "The KG Learning-Contract / KXF export lists KON-L1-000001 under KD:KON:N1 so that NOXIA and SSF can reference the canonical module identity.",
+  "priority": "medium",
+  "parent_task": "af49b4dc-c73d-45ea-b2ef-6323b14ac197",
+  "depth": 1,
+  "affects": ["source-code", "target-code"]
+}
