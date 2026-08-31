@@ -16,6 +16,13 @@ Der aktuelle Lernpfadbestand in `lib/learningPaths.ts` und `lib/learningPathRegi
 
 Der Befund betrifft nicht die didaktische Qualität einzelner Pfade, sondern Identitäts- und Registry-Integrität.
 
+KG hat die `KNOW:*`-Migration inzwischen vollständig klassifiziert. Maßgebliche Verträge ab KXF 0.6.14:
+
+- `exports/knowledge-domains-foundations-0.1.json` v0.1.0
+- `exports/legacy-knowledge-domain-mappings-0.1.json` v0.1.0
+
+`KNOW:*` ist damit ausdrücklich **Legacy**, nicht ein zweiter kanonischer KnowledgeDomain-Namespace.
+
 ## Befund A — lokale Section-/Experiment-IDs kollidieren semantisch
 
 Mehrere `EXP:*`-IDs werden für fachlich völlig verschiedene Interaktionen wiederverwendet. Konkrete Fälle:
@@ -73,22 +80,60 @@ Nicht geprüft werden derzeit mindestens:
 - Alias-Ziele auf nicht vorhandene Pfade,
 - semantisch widersprüchliche Alias-Auflösungen.
 
-## Befund D — nicht-kanonische Knowledge-Domain-Namespace-Referenzen
+## Befund D — `KNOW:*` ist ein Legacy-Namespace
 
-Im aktuellen `lib/learningPaths.ts` existieren mindestens 22 Verwendungen des Legacy-/lokalen Namespace `KNOW:*` in `domainsNeeded`, z. B.:
+Die vollständige Normalisierung des aktuellen Bestands ergibt **39 eindeutige `KNOW:*`-Legacy-IDs**. Wiederholte Verwendung derselben Legacy-ID in mehreren Pfaden wird dabei nur einmal gezählt.
 
-- `KNOW:PHY-THERMODYNAMICS`
-- `KNOW:CHE-ELECTROCHEMISTRY`
-- `KNOW:ECO-FINANCE`
-- `KNOW:MAT-ARITHMETIC`
-- `KNOW:PHY-ORBITAL-MECHANICS`
-- `KNOW:PHY-SPECTROSCOPY`
-- `KNOW:CHE-MOLECULAR`
-- `KNOW:PHY-PHASE-TRANSITIONS`
+Davon:
 
-Diese IDs sind im KG nicht als kanonische KnowledgeDomain-IDs registriert. Der KG-Kanon verwendet `KD:*`.
+- 29 Legacy-IDs mappen auf bereits vorhandene kanonische `KD:*`-Domains,
+- 10 Legacy-IDs benötigen neu angelegte stabile Fachdomains,
+- dafür wurden inklusive zweier notwendiger Eltern-Domains insgesamt 12 neue `KD:*`-Domains registriert,
+- 0 Legacy-IDs wurden als dauerhafte SSF-lokale Fachdomain akzeptiert.
 
-`KNOW:*` darf daher nicht als KG-kanonisch ausgegeben werden. Falls eine solche Domain fachlich benötigt wird, muss SSF eine KG-Registrierung bzw. ein Mapping anfordern; bis dahin ist die Referenz ausdrücklich lokal/legacy.
+Die vollständige maschinenlesbare Zuordnung steht in `exports/legacy-knowledge-domain-mappings-0.1.json`.
+
+### Direkt zu verwendende Mappings
+
+- `KNOW:PHY-THERMODYNAMICS` → `KD:PHYS-THERM:N1`
+- `KNOW:CHE-ELECTROCHEMISTRY` → `KD:CHM-ELECTROCHEM:N2`
+- `KNOW:PHY-ELECTRICITY` → `KD:ELEC:N1`
+- `KNOW:ECO-FINANCE` → `KD:ECO-FINANCE:N2`
+- `KNOW:MAT-ARITHMETIC` → `KD:MATH:N1`
+- `KNOW:MAT-EXPONENTIAL` → `KD:MATH:N1`
+- `KNOW:PHY-ORBITAL-MECHANICS` → `KD:SPACE-ORBITAL-MECHANICS:N2`
+- `KNOW:PHY-GRAVITY` → `KD:PHYS:N1`
+- `KNOW:AST-SOLAR-SYSTEM` → `KD:GEO-PLANET:N1`
+- `KNOW:PHY-SPECTROSCOPY` → `KD:PHYS-SPECTROSCOPY:N2`
+- `KNOW:PHY-QUANTUM` → `KD:PHYS-QM:N2`
+- `KNOW:AST-STELLAR` → `KD:ASTRO-STELLAR:N2`
+- `KNOW:CHE-MOLECULAR` → `KD:CHM:N1`
+- `KNOW:PHY-ELECTROSTATICS` → `KD:PHYS-EM:N2`
+- `KNOW:CHE-HYDROGEN-BOND` → `KD:CHM:N1`
+- `KNOW:PHY-PHASE-TRANSITIONS` → `KD:PHYS-THERM:N1`
+- `KNOW:AST-PLANETARY` → `KD:GEO-PLANET:N1`
+- `KNOW:PHY-DENSITY` → `KD:PHYS:N1`
+- `KNOW:CHE-CRYSTAL-STRUCTURE` → `KD:MTL:N1`
+- `KNOW:PHY-VAPOR-PRESSURE` → `KD:PHYS-THERM:N1`
+- `KNOW:PHY-HEAT-CAPACITY` → `KD:PHYS-THERM:N1`
+- `KNOW:PHY-LATENT-HEAT` → `KD:PHYS-THERM:N1`
+- `KNOW:ENV-CLIMATE` → `KD:ENV:N1`
+- `KNOW:ENG-LIFE-SUPPORT` → `KD:SPACE-LIFE-SUPPORT:N2`
+- `KNOW:ENV-RESOURCES` → `KD:ENV:N1`
+- `KNOW:AST-ORBITAL` → `KD:SPACE-ORBITAL-MECHANICS:N2`
+- `KNOW:PHY-MECHANICS` → `KD:PHYS:N1`
+- `KNOW:AST-MARS` → `KD:GEO-PLANET:N1`
+- `KNOW:ENG-ISRU` → `KD:SPACE-ISRU:N2`
+- `KNOW:ENV-TOXICOLOGY` → `KD:ENV:N1`
+- `KNOW:PHY-SURFACE` → `KD:PHYS:N1`
+- `KNOW:AST-MOON` → `KD:GEO-PLANET:N1`
+- `KNOW:ENG-MATERIALS` → `KD:MTL:N1`
+- `KNOW:ENG-SAFETY` → `KD:ENG-SAFETY:N2`
+- `KNOW:AST-NAVIGATION` → `KD:SPACE-NAVIGATION:N2`
+- `KNOW:ENG-SYSTEMS` → `KD:ENG:N1`
+- `KNOW:CHE-WATER` → `KD:CHM:N1`
+- `KNOW:ENG-FILTRATION` → `KD:ENG-WATER-TREATMENT:N2`
+- `KNOW:ENV-WATER` → `KD:ENV:N1`
 
 ## Anforderungen
 
@@ -137,12 +182,13 @@ Eine implizite First-Wins-Auflösung ist nicht zulässig.
 
 CI/Test hinzufügen, der bei den ersten fünf Integritätsfehlern fehlschlägt; bei bewusstem 1:n-Modulmapping muss die Mehrdeutigkeit explizit deklariert sein.
 
-### 4. `KNOW:*` bereinigen
+### 4. `KNOW:*` vollständig migrieren
 
-- Keine `KNOW:*`-ID als KG-kanonische Domain deklarieren.
-- Bereits vorhandene passende `KD:*`-IDs verwenden.
-- Für fehlende fachliche Domains gesammelt KG-Anforderungen stellen statt neue `KD:*` selbst zu erfinden.
-- Übergangsweise `KNOW:*` nur als klar markierte SSF-Legacy-Aliase behandeln.
+- `domainsNeeded` auf die oben festgelegten `KD:*`-IDs umstellen.
+- Keine `KNOW:*`-ID mehr als KG-kanonische Domain ausgeben.
+- `KNOW:*` darf nur noch als interner Legacy-Alias für Migration/Backward Compatibility vorkommen.
+- SSF muss `exports/legacy-knowledge-domain-mappings-0.1.json` nicht dauerhaft zur Laufzeit benötigen, sobald alle aktiven Pfade auf `KD:*` umgestellt sind.
+- Neue fachliche Domains künftig wieder über KG anfordern; die jetzige Klassifikation ist kein Freibrief für lokale `KD:*`-Erfindungen.
 
 ### 5. Bestehenden Karamell-R1-Auftrag mit berücksichtigen
 
@@ -155,5 +201,5 @@ Erledigt, wenn:
 1. keine semantisch verschiedenen Lernobjekte mehr dieselbe `EXP:/UNIT:/OBS:/QUIZ:/BRANCH:`-ID teilen,
 2. Modul-zu-Pfad-Mehrdeutigkeiten nicht mehr stillschweigend per First-Wins aufgelöst werden,
 3. Registry/CI diese Fehler automatisch erkennt,
-4. `domainsNeeded` keine nicht auflösbaren `KNOW:*`-IDs mehr als kanonische KnowledgeDomains ausgibt,
-5. fehlende Domains über KG-Anforderungen statt lokale kanonische Erfindungen nachgezogen werden.
+4. `domainsNeeded` ausschließlich auflösbare kanonische `KD:*`-IDs verwendet,
+5. `KNOW:*` nur noch als klarer Legacy-/Kompatibilitätslayer existiert und nicht mehr als aktiver KnowledgeDomain-Namespace.
