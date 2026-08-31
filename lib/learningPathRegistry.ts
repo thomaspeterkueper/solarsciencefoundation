@@ -3,6 +3,7 @@ import { maillardLearningPath } from './learningPaths/maillard';
 import { magnetismMaterialsLearningPath } from './learningPaths/magnetismMaterials';
 import { noxiaWaterProcessingLearningPath } from './learningPaths/noxiaWaterProcessing';
 import { noxiaUnlockFoundationLearningPaths } from './learningPaths/noxiaUnlockFoundations';
+import { contracomologyLearningPath } from './learningPaths/contracomology';
 
 export type LearningPathLifecycleStatus = 'prototype' | 'active';
 
@@ -32,11 +33,7 @@ export type LearningPathRegistryIssue = {
   occurrences: number;
 };
 
-// ── Alias-Map: alte Modul-IDs → Lernpfad-ID ────────────────────────────────
-// Wenn ein KXF- oder Legacy-Modul keinen direkten sourceModuleId-Match hat,
-// wird hier auf den thematisch nächsten Lernpfad weitergeleitet.
 const MODULE_ALIAS_MAP: Record<string, string> = {
-  // Legacy modules.ts IDs (SSF-MAT-0001..0005, SSF-MAT-1001..1002, SSF-PHY-1101)
   'SSF-MAT-0001': 'PATH:SSF:MAT-VEC-0001',
   'SSF-MAT-0002': 'PATH:SSF:MAT-VEC-0001',
   'SSF-MAT-0003': 'PATH:SSF:MAT-LGS-0001',
@@ -45,7 +42,6 @@ const MODULE_ALIAS_MAP: Record<string, string> = {
   'SSF-MAT-1001': 'PATH:SSF:MAT-VEC-0001',
   'SSF-MAT-1002': 'PATH:SSF:MAT-VEC-0001',
   'SSF-PHY-1101': 'PATH:SSF:PHY-WAVE-SPECTRUM-0001',
-  // KG Learning-YAML IDs
   'SSF-AST-1101': 'PATH:SSF:PHY-SKY-0001',
   'SSF-AST-1201': 'PATH:SSF:PHY-SKY-0001',
   'SSF-AST-2101': 'PATH:SSF:PHY-SKY-0001',
@@ -59,7 +55,6 @@ const MODULE_ALIAS_MAP: Record<string, string> = {
   'SSF-PHY-1302': 'PATH:SSF:PHY-ELEKTROMOTOR-BASICS-0001',
   'SSF-TEC-1101': 'PATH:SSF:ENG-DMS-0001',
   'SSF-TEC-1201': 'PATH:SSF:ENG-EDM-0001',
-  // KXF module IDs with LRN: prefix — must also be mapped
   'LRN:SSF:PHY-1101':         'PATH:SSF:PHY-WAVE-SPECTRUM-0001',
   'LRN:SSF:PHY-L1-000001':    'PATH:SSF:PHY-SPEKTRALANALYSE-0001',
   'LRN:SSF:AST-L1-000001':    'PATH:SSF:AST-SONNENSYSTEM-0001',
@@ -89,9 +84,6 @@ const MODULE_ALIAS_MAP: Record<string, string> = {
   'CHE-L1-000015':                     'PATH:SSF:CHE-WASSER-AUFBEREITUNG-0001',
   'ENG-L1-000005':                     'PATH:SSF:ENG-ROHSTOFFGEWINNUNG-0001',
   'LRN:SSF:NOX-WATER-0001':   'PATH:SSF:NOX-WATER-PROCESSING-0001',
-
-  // Magnetismus & funktionale Materialien — SSF didactic path aliases.
-  // The KG owns the canonical PHY-L1 IDs; SSF owns the path and presentation.
   'LRN:SSF:MAG-001': 'PATH:SSF:MAGNETISM-MATERIALS',
   'LRN:SSF:MAG-002': 'PATH:SSF:MAGNETISM-MATERIALS',
   'LRN:SSF:MAG-003': 'PATH:SSF:MAGNETISM-MATERIALS',
@@ -135,7 +127,6 @@ function buildRegistry(source: LearningPath[]) {
     }
   }
 
-  // Register aliases: old/KG module IDs → nearest learning path
   for (const [aliasId, targetPathId] of Object.entries(MODULE_ALIAS_MAP)) {
     const normalized = normalizeModuleId(aliasId);
     if (!byModuleId.has(normalized)) {
@@ -162,6 +153,7 @@ const registry = buildRegistry([
   magnetismMaterialsLearningPath,
   noxiaWaterProcessingLearningPath,
   ...noxiaUnlockFoundationLearningPaths,
+  contracomologyLearningPath,
 ]);
 
 export const registeredLearningPaths = registry.paths;
