@@ -192,9 +192,8 @@ Diese Reihenfolge verhindert, dass ein bekanntes Bauteil voreilig zur vermeintli
 | Formel/Modell | quantitative Modellierung | EP2–EP3 |
 | Kurztest | Diagnose | EP1–EP3 |
 | Merksatz | Verdichtung | EP1–EP2 |
-| NOXIA-/Weltbezug | Illustration/Anwendung | EP3–EP4 |
 
-EP4 bleibt nachgeordnet: Ein NOXIA-Gebäude darf zeigen, wozu Wissen gebraucht wird, aber nicht definieren, wie Natur oder Technik grundsätzlich funktioniert.
+NOXIA-/Weltbezug ist kein zusätzlicher Modulschritt. Er kann innerhalb von Anwendung oder Entscheidung als EP3/EP4-Kontext dienen. EP4 bleibt nachgeordnet: Ein NOXIA-Gebäude darf zeigen, wozu Wissen gebraucht wird, aber nicht definieren, wie Natur oder Technik grundsätzlich funktioniert.
 
 ---
 
@@ -237,7 +236,7 @@ Vorgeschlagene Lernfolge:
 
 Der Lernende erhält Anforderungen und modelliert zunächst die Blackbox. Danach zerlegt er das System beispielsweise in Förderung, Vorbehandlung, Trennung/Reinigung, Qualitätsüberwachung, Speicherung und Reststoffbehandlung. Erst anschließend werden technische Teillösungen angeboten. Varianten können nach Energiebedarf, Wartbarkeit, Robustheit, Masse/Volumen und Redundanz bewertet werden.
 
-NOXIA kann später eine konkrete Spielsituation als EP3/EP4-Anwendung liefern. Die wissenschaftlich-technische Definition und Didaktik bleiben SSF-eigen.
+NOXIA kann später eine konkrete Spielsituation als EP3/EP4-Anwendung liefern. Didaktik, Lernstruktur und Darstellung bleiben SSF-eigen; kanonische wissenschaftlich-technische Definitionen und Aussagen bleiben an KG/OTA bzw. die dort referenzierten Quellen gebunden.
 
 ---
 
