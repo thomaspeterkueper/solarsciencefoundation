@@ -28,8 +28,8 @@ function applyStep(streams: Stream[], step: Step): Stream[] {
       const solids = stream.materials.filter((m) => m !== 'Salz');
       next.push({ label: 'Filterkuchen', materials: solids, water: false });
       next.push({ label: 'Filtrat', materials: ['Salz'], water: true });
-    } else if (step === 'evaporate' && stream.water && stream.materials.length === 1 && stream.materials[0] === 'Salz') {
-      next.push({ label: 'Salzprodukt', materials: ['Salz'], water: false });
+    } else if (step === 'evaporate' && stream.water) {
+      next.push({ ...stream, label: stream.materials.length === 1 && stream.materials[0] === 'Salz' ? 'Salzprodukt' : stream.label, water: false });
     } else {
       next.push(stream);
     }

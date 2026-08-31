@@ -74,6 +74,7 @@ import HohmannExperiment from './HohmannExperiment';
 import KreditExperiment from './KreditExperiment';
 import StationExperiment from './StationExperiment';
 import WaterTreatmentExperiment from './WaterTreatmentExperiment';
+import ResourceSeparationExperiment from './ResourceSeparationExperiment';
 
 const EXPERIMENT_MAP: Record<string, React.ComponentType> = {
   'EXP:RAYLEIGH': RayleighExperiment,
@@ -203,6 +204,7 @@ const EXPERIMENT_MAP: Record<string, React.ComponentType> = {
   'EXP:NOX-WATER-FILTER': WaterTreatmentExperiment,
   'EXP:NOX-WATER-DESTILLATION': WaterTreatmentExperiment,
   'EXP:NOX-WATER-CHAIN': WaterTreatmentExperiment,
+  'EXP:NOX-RESOURCE-CHAIN': ResourceSeparationExperiment,
 };
 
 function depthDisplay(raw: number) {
