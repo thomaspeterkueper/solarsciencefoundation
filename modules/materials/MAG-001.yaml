@@ -6,6 +6,7 @@ title: { de: Magnetfelder verstehen, en: Understanding magnetic fields }
 summary:
   de: Einführung in Magnetfelder, Dipole und die Verbindung zwischen elektrischem Strom und Magnetfeld.
 level: { ssf_level: N1, academic_context: Physik / Materialwissenschaft }
+knowledge_domain: KD:PHY-MAGNETISM:N1
 duration_minutes: 35
 learning_objectives:
   de:
@@ -19,4 +20,4 @@ assessment:
     - Feldverlauf um Stabmagnet und stromdurchflossenen Leiter qualitativ skizzieren.
 relations: { precedes: [MAG-002] }
 ssf_notes:
-  de: Der Einstieg soll Alltagsvorstellungen von 'magnetischer Kraft' in ein Feldmodell überführen.
+  de: Der Einstieg soll Alltagsvorstellungen von 'magnetischer Kraft' in ein Feldmodell überführen. MAG-001 ist eine lokale SSF-Draft-ID und keine KG-kanonische LearningModule-ID.
