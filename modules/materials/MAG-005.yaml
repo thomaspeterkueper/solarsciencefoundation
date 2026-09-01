@@ -4,18 +4,31 @@ status: draft
 language: { primary: de, planned: [en] }
 title: { de: Magnetismus und Temperatur, en: Magnetism and temperature }
 summary:
-  de: Curie-Temperatur, reversible und irreversible Entmagnetisierung sowie die Bedeutung realer Arbeitstemperaturen.
+  de: Curie-Temperatur, reversible und irreversible Entmagnetisierung sowie grade- und anwendungsabhängige Arbeitstemperaturen sauber unterscheiden.
 level: { ssf_level: N2, academic_context: Materialwissenschaft / Thermophysik }
+knowledge_domain: KD:MAT-MAGNETIC-MATERIALS:N2
 duration_minutes: 40
 learning_objectives:
   de:
-    - Curie-Temperatur erklären.
-    - Arbeitstemperatur und Curie-Temperatur unterscheiden.
-    - Reversible von irreversibler Entmagnetisierung abgrenzen.
-    - Temperatur als Werkstoffauswahlkriterium anwenden.
+    - Curie-Temperatur als Materialphänomen erklären und von einer zulässigen Arbeitstemperatur unterscheiden.
+    - Reversible temperaturbedingte Flussänderungen von irreversibler Entmagnetisierung abgrenzen.
+    - Erklären, warum zulässige Arbeitstemperatur von Grade, Geometrie, Magnetkreis/Gegenfeld und zulässiger Flussänderung abhängt.
+    - Hersteller-Tmax-Werte nur zusammen mit Grade- und Quellenkontext verwenden.
+    - Temperatur als eine von mehreren gekoppelten Werkstoff- und Designgrößen anwenden.
 prerequisites: { modules: [MAG-004] }
 key_concepts: [CON:MAT:curie-temperature, CON:MAT:demagnetization, CON:MAT:working-temperature]
+concept_boundaries:
+  curie_temperature:
+    de: Die Curie-Temperatur ist nicht gleichbedeutend mit der maximal zulässigen Arbeitstemperatur eines Magnetbauteils.
+  working_temperature:
+    de: Eine zulässige Arbeitstemperatur ist keine universelle Familienkonstante. Sie hängt unter anderem von Grade, Bauteilgeometrie, Magnetkreis/Gegenfeld und der im Design akzeptierten Flussänderung ab.
+  demagnetization:
+    de: Reversible Temperaturkoeffizienten und irreversible Entmagnetisierung sind getrennte Effekte und müssen didaktisch getrennt bewertet werden.
+evidence_policy:
+  de: Konkrete Tmax- oder Herstellerwerte nur mit Grade, Mess-/Anwendungskontext, Quelle und Datum verwenden; keine Einzelzahl als zeitlose Eigenschaft der gesamten Werkstofffamilie lehren.
 assessment:
   formative:
-    - Zwei Magnetwerkstoffe für unterschiedlich heiße Einsatzorte bewerten.
+    - Zwei Magnetwerkstoffe für unterschiedlich heiße Einsatzorte bewerten und begründen, welche zusätzlichen Grade-, Geometrie- und Magnetkreisangaben für eine belastbare Entscheidung fehlen.
 relations: { requires: [MAG-004], precedes: [MAG-006] }
+ssf_notes:
+  de: MAG-005 ist eine lokale SSF-Draft-ID und keine KG-kanonische LearningModule-ID. Eine spätere Promotion erfolgt ausschließlich über KG mit einer MAT-L2-NNNNNN-ID.
