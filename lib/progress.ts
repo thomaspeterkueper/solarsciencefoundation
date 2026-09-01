@@ -1,15 +1,12 @@
 /**
  * KUEPER · Solar Science Foundation (SSF)
  * Path:      lib/progress.ts
- * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/progress.ts
  * Name:      progress — progress store, grading & unlock derivation
- * Version:   0.1.0
- * Created:   2026-06-26
- * Modified:  2026-06-26 13:00 CEST
- * Depends:   lib/modules
+ * Version:   0.2.0
  */
 
 import { getModuleById, type LearningModule } from './modules';
+import { getRegisteredLearningPathById, getRegisteredLearningPathForModule } from './learningPathRegistry';
 
 export type SubmittedAnswer = {
   exerciseId: string;
@@ -152,8 +149,9 @@ export function buildUnlocks(moduleIds: string[]): Unlock[] {
 
   for (const moduleId of moduleIds) {
     const learningModule = getModuleById(moduleId);
-    if (!learningModule) continue;
-    for (const unlockId of learningModule.unlocks) {
+    const governedPath = getRegisteredLearningPathForModule(moduleId) ?? getRegisteredLearningPathById(moduleId);
+    const unlockIds = learningModule?.unlocks ?? governedPath?.unlocks ?? [];
+    for (const unlockId of unlockIds) {
       if (seen.has(unlockId)) continue;
       seen.add(unlockId);
       unlocks.push({
