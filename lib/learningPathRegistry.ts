@@ -6,6 +6,7 @@ import { noxiaUnlockFoundationLearningPaths } from './learningPaths/noxiaUnlockF
 import { noxiaResourceExtractionLearningPath } from './learningPaths/noxiaResourceExtraction';
 import { contracomologyLearningPath } from './learningPaths/contracomology';
 import { redWineStainLearningPath } from './learningPaths/redWineStain';
+import { caramelizationLearningPath } from './learningPaths/caramelization';
 
 export type LearningPathLifecycleStatus = 'prototype' | 'active';
 
@@ -121,6 +122,7 @@ function buildRegistry(source: LearningPath[]) {
 }
 
 const registry = buildRegistry([
+  caramelizationLearningPath,
   redWineStainLearningPath,
   ...learningPaths,
   maillardLearningPath,
