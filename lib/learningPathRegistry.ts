@@ -24,7 +24,8 @@ export type LearningPathRegistryIssueType =
   | 'broken_unit_gate'
   | 'broken_alias_target'
   | 'ambiguous_module_mapping'
-  | 'legacy_domain_reference';
+  | 'legacy_domain_reference'
+  | 'quarantined_legacy_domain';
 
 export type LearningPathRegistryIssue = {
   type: LearningPathRegistryIssueType;
@@ -44,8 +45,8 @@ const MODULE_ALIAS_MAP: Record<string, string> = {
   'SSF-BIO-1201': 'PATH:SSF:BIO-LEBEN-URSPRUNG-0001', 'SSF-CHE-1101': 'PATH:SSF:PHY-WASSER-MOLEKUEL-0001',
   'SSF-CHE-1301': 'PATH:SSF:CHE-IRIDIUM-0001', 'SSF-MAT-1201': 'PATH:SSF:MAT-ERROR-0001',
   'SSF-PHY-1201': 'PATH:SSF:PHY-AUTO-MOTOR-0001', 'SSF-PHY-1301': 'PATH:SSF:PHY-ELEKTROLYSE-0001',
-  'SSF-PHY-1302': 'PATH:SSF:PHY-ELEKTROMOTOR-BASICS-0001', 'SSF-TEC-1101': 'PATH:SSF:ENG-DMS-0001',
-  'SSF-TEC-1201': 'PATH:SSF:ENG-EDM-0001', 'LRN:SSF:PHY-1101': 'PATH:SSF:PHY-WAVE-SPECTRUM-0001',
+  'SSF-TEC-1101': 'PATH:SSF:ENG-DMS-0001', 'SSF-TEC-1201': 'PATH:SSF:ENG-EDM-0001',
+  'LRN:SSF:PHY-1101': 'PATH:SSF:PHY-WAVE-SPECTRUM-0001',
   'LRN:SSF:PHY-L1-000001': 'PATH:SSF:PHY-SPEKTRALANALYSE-0001', 'LRN:SSF:AST-L1-000001': 'PATH:SSF:AST-SONNENSYSTEM-0001',
   'LRN:SSF:ECO-L0-000001': 'PATH:SSF:ECO-KREDIT-NOXIA-0001', 'LRN:SSF:ECO-L0-000002': 'PATH:SSF:ECO-ZINSESZINS-NOXIA-0001',
   'LRN:SSF:PHY-L1-000003': 'PATH:SSF:PHY-WASSER-DIPOL-0001', 'LRN:SSF:PHY-L1-000004': 'PATH:SSF:PHY-WASSER-PHASEN-0001',
@@ -59,7 +60,7 @@ const MODULE_ALIAS_MAP: Record<string, string> = {
   'LRN:SSF:PHY-MONDSTAUB-VERSCHLEISS-0001': 'PATH:SSF:PHY-MONDSTAUB-VERSCHLEISS-0001', 'LRN:SSF:ENG-LIFESUPPORT-MOBIL-0001': 'PATH:SSF:ENG-LIFESUPPORT-MOBIL-0001',
   'LRN:SSF:AST-MONDNAVIGATION-0001': 'PATH:SSF:AST-MONDNAVIGATION-0001', 'LRN:SSF:NOX-WATER-PROCESSING': 'PATH:SSF:CHE-WASSER-AUFBEREITUNG-0001',
   'LRN:SSF:NOX-RESOURCE-EXTRACTION': 'PATH:SSF:NOX-RESOURCE-EXTRACTION-0001', 'CHE-L1-000015': 'PATH:SSF:CHE-WASSER-AUFBEREITUNG-0001',
-  'ENG-L1-000005': 'PATH:SSF:NOX-RESOURCE-EXTRACTION-0001', 'LRN:SSF:NOX-WATER-0001': 'PATH:SSF:NOX-WATER-PROCESSING-0001',
+  'ENG-L1-000005': 'PATH:SSF:NOX-RESOURCE-EXTRACTION-0001', 'LRN:SSF:NOX-WATER-0001': 'PATH:SSF:CHE-WASSER-AUFBEREITUNG-0001',
   'LRN:SSF:MAG-001': 'PATH:SSF:MAGNETISM-MATERIALS', 'LRN:SSF:MAG-002': 'PATH:SSF:MAGNETISM-MATERIALS',
   'LRN:SSF:MAG-003': 'PATH:SSF:MAGNETISM-MATERIALS', 'LRN:SSF:MAG-004': 'PATH:SSF:MAGNETISM-MATERIALS',
   'LRN:SSF:MAG-005': 'PATH:SSF:MAGNETISM-MATERIALS', 'LRN:SSF:MAG-006': 'PATH:SSF:MAGNETISM-MATERIALS',
@@ -119,10 +120,25 @@ const SUPERSEDED_LEGACY_PATH_IDS = new Set([
   'PATH:SSF:ECO-KREDIT-NOXIA-0001',
   'PATH:SSF:ECO-ZINS-0001',
   'PATH:SSF:ECO-ZINSESZINS-NOXIA-0001',
+  'PATH:SSF:ENG-ROHSTOFFGEWINNUNG-0001',
+]);
+
+const SUPERSEDED_FOUNDATION_PATH_IDS = new Set([
+  'PATH:SSF:NOX-WATER-PROCESSING-0001',
+  'PATH:SSF:NOX-RESOURCE-EXTRACTION-0001',
 ]);
 
 function normalizeModuleId(id: string): string {
   return id.replace(/^LRN:SSF:/, 'SSF-').replace(/^SSF:/, 'SSF-').toUpperCase();
+}
+
+function pathScope(pathId: string): string {
+  return pathId
+    .replace(/^PATH:SSF:/, '')
+    .replace(/-0001$/, '')
+    .replace(/[^A-Za-z0-9-]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .toUpperCase();
 }
 
 function canonicalizeDomains(path: LearningPath): LearningPath {
@@ -130,6 +146,116 @@ function canonicalizeDomains(path: LearningPath): LearningPath {
     ...path,
     domainsNeeded: [...new Set(path.domainsNeeded.map((id) => LEGACY_DOMAIN_MAP[id] ?? id))],
   };
+}
+
+function dedupePathsById(paths: LearningPath[]): LearningPath[] {
+  const seen = new Set<string>();
+  return paths.filter((path) => {
+    if (seen.has(path.id)) return false;
+    seen.add(path.id);
+    return true;
+  });
+}
+
+function scopeAmbiguousModuleIds(paths: LearningPath[], preservePathIds: Set<string>): LearningPath[] {
+  const sourceCounts = new Map<string, number>();
+  const kxfCounts = new Map<string, number>();
+  const sourcePreserved = new Map<string, number>();
+  const kxfPreserved = new Map<string, number>();
+
+  for (const path of paths) {
+    sourceCounts.set(path.sourceModuleId, (sourceCounts.get(path.sourceModuleId) ?? 0) + 1);
+    kxfCounts.set(path.kxfModuleId, (kxfCounts.get(path.kxfModuleId) ?? 0) + 1);
+    if (preservePathIds.has(path.id)) {
+      sourcePreserved.set(path.sourceModuleId, (sourcePreserved.get(path.sourceModuleId) ?? 0) + 1);
+      kxfPreserved.set(path.kxfModuleId, (kxfPreserved.get(path.kxfModuleId) ?? 0) + 1);
+    }
+  }
+
+  return paths.map((path) => {
+    const scope = pathScope(path.id);
+    const sourceDuplicate = (sourceCounts.get(path.sourceModuleId) ?? 0) > 1;
+    const kxfDuplicate = (kxfCounts.get(path.kxfModuleId) ?? 0) > 1;
+    const keepSource = preservePathIds.has(path.id) && (sourcePreserved.get(path.sourceModuleId) ?? 0) === 1;
+    const keepKxf = preservePathIds.has(path.id) && (kxfPreserved.get(path.kxfModuleId) ?? 0) === 1;
+
+    return {
+      ...path,
+      sourceModuleId: sourceDuplicate && !keepSource ? `SSF-LOCAL-${scope}` : path.sourceModuleId,
+      kxfModuleId: kxfDuplicate && !keepKxf ? `LRN:SSF:LOCAL-${scope}` : path.kxfModuleId,
+    };
+  });
+}
+
+function scopeDuplicateLearningObjectIds(paths: LearningPath[]): LearningPath[] {
+  const counts = new Map<string, number>();
+  for (const path of paths) {
+    for (const unit of path.units) {
+      counts.set(unit.id, (counts.get(unit.id) ?? 0) + 1);
+      for (const section of unit.sections) counts.set(section.id, (counts.get(section.id) ?? 0) + 1);
+    }
+  }
+
+  return paths.map((path) => {
+    const scope = pathScope(path.id);
+    const unitIdMap = new Map<string, string>();
+    for (const unit of path.units) {
+      if ((counts.get(unit.id) ?? 0) > 1) {
+        const [kind, ...rest] = unit.id.split(':');
+        unitIdMap.set(unit.id, `${kind}:${scope}:${rest.join('-')}`);
+      }
+    }
+
+    return {
+      ...path,
+      units: path.units.map((unit) => {
+        const scopedUnitId = unitIdMap.get(unit.id) ?? unit.id;
+        const scopedGate = unit.gate?.unlocksUnitId
+          ? { ...unit.gate, unlocksUnitId: unitIdMap.get(unit.gate.unlocksUnitId) ?? unit.gate.unlocksUnitId }
+          : unit.gate;
+
+        return {
+          ...unit,
+          id: scopedUnitId,
+          gate: scopedGate,
+          sections: unit.sections.map((section) => {
+            if ((counts.get(section.id) ?? 0) <= 1) return section;
+            const [kind, ...rest] = section.id.split(':');
+            return {
+              ...section,
+              id: `${kind}:${scope}:${rest.join('-')}`,
+              interactiveId: section.interactive ? (section.interactiveId ?? section.id) : section.interactiveId,
+            };
+          }),
+        };
+      }),
+    };
+  });
+}
+
+function quarantineUnmappedLegacyDomains(paths: LearningPath[]) {
+  const active: LearningPath[] = [];
+  const quarantined: LearningPath[] = [];
+  const issues: LearningPathRegistryIssue[] = [];
+
+  for (const path of paths) {
+    const unresolved = path.domainsNeeded.filter((id) => id.startsWith('KNOW:'));
+    if (unresolved.length === 0) {
+      active.push(path);
+      continue;
+    }
+    quarantined.push(path);
+    for (const id of unresolved) {
+      issues.push({
+        type: 'quarantined_legacy_domain',
+        id,
+        pathIds: [path.id],
+        detail: 'Path is excluded from the consumable registry until KG provides a canonical KD:* mapping.',
+      });
+    }
+  }
+
+  return { active, quarantined, issues };
 }
 
 function addToMultiMap(map: Map<string, LearningPath[]>, id: string, path: LearningPath) {
@@ -205,24 +331,38 @@ export function validateLearningPathRegistry(source: LearningPath[]) {
   return { paths: [...byId.values()], byId, byModuleId, issues };
 }
 
-const legacyPaths = learningPaths
-  .filter((path) => !SUPERSEDED_LEGACY_PATH_IDS.has(path.id))
-  .map(canonicalizeDomains);
-
-const registry = validateLearningPathRegistry([
+const governedPaths: LearningPath[] = [
   caramelizationLearningPath,
   redWineStainLearningPath,
   ...financeLearningPaths,
-  ...legacyPaths,
   maillardLearningPath,
   magnetismMaterialsLearningPath,
   noxiaWaterProcessingLearningPath,
   noxiaResourceExtractionLearningPath,
-  ...noxiaUnlockFoundationLearningPaths.filter((path) => path.id !== noxiaResourceExtractionLearningPath.id),
+  ...noxiaUnlockFoundationLearningPaths.filter((path) => !SUPERSEDED_FOUNDATION_PATH_IDS.has(path.id)),
   contracomologyLearningPath,
+];
+
+const governedPathIds = new Set(governedPaths.map((path) => path.id));
+const legacyPaths = learningPaths.filter((path) => !SUPERSEDED_LEGACY_PATH_IDS.has(path.id));
+
+const candidates = dedupePathsById([
+  ...governedPaths,
+  ...legacyPaths,
 ].map(canonicalizeDomains));
 
+const quarantine = quarantineUnmappedLegacyDomains(candidates);
+const withUniqueModules = scopeAmbiguousModuleIds(quarantine.active, governedPathIds);
+const normalizedPaths = scopeDuplicateLearningObjectIds(withUniqueModules);
+const validation = validateLearningPathRegistry(normalizedPaths);
+
+const registry = {
+  ...validation,
+  issues: [...validation.issues, ...quarantine.issues],
+};
+
 export const registeredLearningPaths = registry.paths;
+export const quarantinedLearningPaths = quarantine.quarantined;
 export const learningPathRegistryIssues = registry.issues;
 
 export function getRegisteredLearningPathById(id: string): LearningPath | null {
