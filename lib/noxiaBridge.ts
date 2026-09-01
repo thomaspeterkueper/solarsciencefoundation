@@ -1,7 +1,8 @@
 import { getKxfLearningModuleById, getKxfLearningModules } from './kxf';
 import { getDidacticModuleContent, type DidacticModuleContent } from './didacticContent';
 import { getScienceFoundationContent } from './didacticScienceFoundations';
-import { getRegisteredLearningPathForModule } from './learningPathRegistry';
+import { getRegisteredLearningPathById, getRegisteredLearningPathForModule } from './learningPathRegistry';
+import type { LearningPath, LearningPathSection } from './learningPaths';
 import { getLearningInteractive, type LearningInteractiveParams } from './learningInteractives';
 import { gravitationsbrunnenLearningPath } from './learningPaths/gravitationsbrunnen';
 import { buildUnlocks } from './progress';
@@ -55,7 +56,7 @@ function getDidactic(moduleId: string): DidacticModuleContent | undefined {
 }
 
 function getPathForModule(moduleId: string) {
-  const registered = getRegisteredLearningPathForModule(moduleId);
+  const registered = getRegisteredLearningPathForModule(moduleId) ?? getRegisteredLearningPathById(moduleId);
   if (registered) return registered;
   const canonicalGravityIds = new Set([
     'PHY-L2-000005',
@@ -104,6 +105,75 @@ function toNoxiaModule(module: Awaited<ReturnType<typeof getKxfLearningModules>>
   };
 }
 
+function pathModuleId(path: LearningPath) {
+  return path.kxfModuleId || path.sourceModuleId || path.id;
+}
+
+function pathDomain(path: LearningPath) {
+  return path.domainsNeeded?.[0] ?? 'Science';
+}
+
+function toNoxiaPathModule(path: LearningPath): NoxiaKnowledgeModule {
+  const site = baseUrl();
+  const id = pathModuleId(path);
+  return {
+    id,
+    pathId: path.id,
+    title: path.title,
+    domain: pathDomain(path),
+    difficulty: 1,
+    durationMinutes: Math.max(5, (path.units?.length ?? 1) * 7),
+    summary: path.subtitle ?? '',
+    unlocks: path.unlocks ?? [],
+    sourceEntityIds: path.suppliedBy?.knowledgeGraph ?? [],
+    ssfUrl: `${site}/learning-paths/${encodeURIComponent(path.id)}`,
+    detailUrl: `${site}/api/noxia/modules/${encodeURIComponent(id)}`
+  };
+}
+
+function sectionToNoxia(section: LearningPathSection): NoxiaModuleSection[] {
+  if (section.interactiveId) {
+    const interactive = getLearningInteractive(section.interactiveId);
+    if (interactive) return [{ type: 'interactive', ...interactive }];
+  }
+  if (section.kind === 'example') {
+    return [{ type: 'example', title: section.title, text: section.summary }];
+  }
+  if (section.kind === 'exercise') {
+    return [{ type: 'task', prompt: section.summary }];
+  }
+  if (section.kind === 'quiz') {
+    return [{ type: 'task', prompt: section.summary, hint: 'Prüfe die Ursache-Wirkungs-Kette, bevor du das Modul abschließt.' }];
+  }
+  if (section.kind === 'observation') {
+    return [{ type: 'text', text: section.summary }];
+  }
+  if (section.kind === 'experiment') {
+    return [{ type: 'example', title: section.title, text: section.summary }];
+  }
+  return [{ type: 'key_point', text: section.summary }];
+}
+
+function pathDetail(path: LearningPath): NoxiaModuleDetail {
+  const sections: NoxiaModuleSection[] = [];
+  for (const unit of path.units) {
+    sections.push({ type: 'heading', text: unit.title });
+    if (unit.entryQuestion) sections.push({ type: 'text', text: unit.entryQuestion });
+    for (const section of unit.sections) sections.push(...sectionToNoxia(section));
+    if (unit.takeaway) sections.push({ type: 'key_point', text: `Merksatz: ${unit.takeaway}` });
+  }
+  const base = toNoxiaPathModule(path);
+  return {
+    ...base,
+    schemaVersion: '1.0',
+    contentVersion: '1.1',
+    sections,
+    assessment: [],
+    prerequisites: path.domainsNeeded ?? [],
+    sources: [{ authority: 'kueper-knowledge-graph', entityIds: base.sourceEntityIds }]
+  };
+}
+
 export async function getNoxiaKnowledgeModules(): Promise<NoxiaKnowledgeModule[]> {
   const modules = await getKxfLearningModules();
   return modules.map(toNoxiaModule);
@@ -111,7 +181,10 @@ export async function getNoxiaKnowledgeModules(): Promise<NoxiaKnowledgeModule[]
 
 export async function getNoxiaKnowledgeModule(moduleId: string): Promise<NoxiaModuleDetail | null> {
   const module = await getKxfLearningModuleById(moduleId);
-  if (!module) return null;
+  if (!module) {
+    const path = getPathForModule(moduleId);
+    return path ? pathDetail(path) : null;
+  }
   const didactic = getDidactic(module.id);
   const sections: NoxiaModuleSection[] = [];
   if (didactic) {
