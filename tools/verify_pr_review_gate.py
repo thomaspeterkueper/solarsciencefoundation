@@ -9,9 +9,12 @@ head, this check fails closed.
 
 Workflows triggered by issue_comment execute on the default branch, so their own
 check suite never attaches to the PR head. When invoked from such a run
-(REPORT_CHECK_RUN=true), the gate therefore reports its verdict explicitly as a
-check run on the PR head via the Checks API; that check run is what the PR merge
-box evaluates.
+(REPORT_CHECK_RUN=true), the gate therefore reports its current verdict
+explicitly as a check run on the PR head via the Checks API; that check run is
+what the PR merge box evaluates. Every comment-triggered run reports, not just
+success: a run that finds no evidence posts a failing check run, revoking any
+earlier green run of the same name (check runs are immutable once completed, so
+the newest run with the name wins in the merge box).
 """
 from __future__ import annotations
 
@@ -49,6 +52,36 @@ def reviewer_logins() -> set[str]:
     """Authorized reviewer accounts, lowercased, from REVIEWER_LOGINS."""
     raw = os.environ.get("REVIEWER_LOGINS", "").strip()
     return {login.lower() for login in raw.replace(",", " ").split() if login}
+
+
+def reporting_enabled() -> bool:
+    """True when this run must report its verdict as a check run on the PR
+    head (comment-triggered runs execute on the default branch, so their own
+    check suite never attaches to the PR head)."""
+    return os.environ.get("REPORT_CHECK_RUN", "").strip().lower() in {"1", "true", "yes"}
+
+
+def report_check_run(owner: str, name: str, head: str, *, conclusion: str, title: str, summary: str, details_url: str | None = None):
+    """Post a completed check run on the PR head with the shared check-run name.
+
+    Check runs are immutable once completed, so every verdict is a fresh run
+    rather than an update; the latest run with CHECK_RUN_NAME on the head is
+    what the merge box evaluates. That is what makes revocation possible: a
+    later failing run supersedes an earlier green one."""
+    payload = {
+        "name": CHECK_RUN_NAME,
+        "head_sha": head,
+        "status": "completed",
+        "conclusion": conclusion,
+        "output": {"title": title, "summary": summary},
+    }
+    if details_url:
+        payload["details_url"] = details_url
+    check = api(f"/repos/{owner}/{name}/check-runs", payload)
+    print(
+        f"review-gate: reported {CHECK_RUN_NAME} ({conclusion}) on {head}: "
+        f"{check.get('html_url')}",
+    )
 
 
 def evidence_match(item, accepted_prefixes, reviewers) -> dict | None:
@@ -118,31 +151,41 @@ def main() -> int:
             f"review-gate: no KUEPER automated PASS evidence for exact head {head}; failing closed",
             file=sys.stderr,
         )
+        if reporting_enabled():
+            # Re-validation found no evidence (e.g. the PASS comment was
+            # edited to remove or downgrade the verdict). Report the current
+            # verdict as a failing check run so the earlier green run of the
+            # same name no longer holds in the merge box.
+            report_check_run(
+                owner,
+                name,
+                head,
+                conclusion="failure",
+                title="KUEPER exact-head PASS not verified",
+                summary=(
+                    f"No KUEPER automated PASS evidence for head `{head}`. "
+                    "Previously published PASS evidence is no longer found; "
+                    "publish it again for the exact current head to re-enable "
+                    "the gate."
+                ),
+            )
         return 1
 
     print(f"review-gate: exact-head PASS evidence found for {head}")
-    if os.environ.get("REPORT_CHECK_RUN", "").strip().lower() in {"1", "true", "yes"}:
+    if reporting_enabled():
         author = str(((evidence.get("user") or {}).get("login")) or "unknown")
         comment_url = evidence.get("html_url") or ""
-        check = api(
-            f"/repos/{owner}/{name}/check-runs",
-            {
-                "name": CHECK_RUN_NAME,
-                "head_sha": head,
-                "status": "completed",
-                "conclusion": "success",
-                "details_url": comment_url,
-                "output": {
-                    "title": "KUEPER exact-head PASS verified",
-                    "summary": (
-                        f"PASS evidence for head `{head}` verified from authorized "
-                        f"reviewer `{author}`."
-                    ),
-                },
-            },
-        )
-        print(
-            f"review-gate: reported {CHECK_RUN_NAME} on {head}: {check.get('html_url')}",
+        report_check_run(
+            owner,
+            name,
+            head,
+            conclusion="success",
+            title="KUEPER exact-head PASS verified",
+            summary=(
+                f"PASS evidence for head `{head}` verified from authorized "
+                f"reviewer `{author}`."
+            ),
+            details_url=comment_url,
         )
     return 0
 

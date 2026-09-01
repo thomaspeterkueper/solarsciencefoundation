@@ -5,8 +5,9 @@ governance-critical properties of tools/verify_pr_review_gate.py:
 
 - PASS evidence is only accepted from comments authored by an allowed
   reviewer login (forgery by arbitrary commenters is rejected);
-- comment-triggered runs report the verdict as a check run on the PR's
-  exact head SHA via the Checks API.
+- comment-triggered runs report the current verdict — success or failure —
+  as a check run on the PR's exact head SHA via the Checks API, so an
+  edited PASS comment revokes the earlier green run.
 """
 from __future__ import annotations
 
@@ -199,10 +200,29 @@ class MainTest(unittest.TestCase):
         self.assertEqual(payload["conclusion"], "success")
         self.assertIn("thomaspeterkueper", payload["output"]["summary"])
 
-    def test_no_evidence_does_not_create_check_run(self):
+    def test_no_evidence_reports_failing_check_run(self):
+        # Revocation: when re-validation finds no evidence (e.g. the PASS
+        # comment was edited to remove the verdict), the comment-triggered
+        # run must post a failing check run so the earlier green run of the
+        # same name no longer holds in the merge box.
+        code, mocked = self.run_main(
+            [self.pr_metadata(), [], {"html_url": "https://github.com/x"}],
+            env={"REPORT_CHECK_RUN": "true"},
+        )
+        self.assertEqual(code, 1)
+        path, payload = mocked.call_args_list[-1].args
+        self.assertTrue(path.endswith("/check-runs"))
+        self.assertEqual(payload["name"], gate.CHECK_RUN_NAME)
+        self.assertEqual(payload["head_sha"], HEAD)
+        self.assertEqual(payload["status"], "completed")
+        self.assertEqual(payload["conclusion"], "failure")
+        self.assertNotIn("thomaspeterkueper", payload["output"]["summary"])
+
+    def test_no_evidence_without_reporting_creates_no_check_run(self):
+        # pull_request-triggered runs (REPORT_CHECK_RUN unset) attach their
+        # own job check to the head and must not create API check runs.
         code, mocked = self.run_main(
             [self.pr_metadata(), []],
-            env={"REPORT_CHECK_RUN": "true"},
         )
         self.assertEqual(code, 1)
         for call in mocked.call_args_list:
