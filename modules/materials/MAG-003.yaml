@@ -6,6 +6,7 @@ title: { de: Weich- und hartmagnetische Werkstoffe, en: Soft and hard magnetic m
 summary:
   de: Hysterese, Koerzitivfeldstärke, Remanenz und die funktionsbezogene Auswahl magnetischer Werkstoffe.
 level: { ssf_level: N2, academic_context: Materialwissenschaft / Elektrotechnik }
+knowledge_domain: KD:MAT-MAGNETIC-MATERIALS:N2
 duration_minutes: 45
 learning_objectives:
   de:
@@ -16,3 +17,5 @@ learning_objectives:
 prerequisites: { modules: [MAG-002] }
 key_concepts: [CON:MAT:hysteresis, CON:MAT:remanence, CON:MAT:coercivity, CON:MAT:soft-magnetic, CON:MAT:hard-magnetic]
 relations: { requires: [MAG-002], precedes: [MAG-004] }
+ssf_notes:
+  de: MAG-003 ist eine lokale SSF-Draft-ID und keine KG-kanonische LearningModule-ID.
