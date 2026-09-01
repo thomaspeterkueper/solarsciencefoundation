@@ -7,6 +7,7 @@ import { noxiaResourceExtractionLearningPath } from './learningPaths/noxiaResour
 import { contracomologyLearningPath } from './learningPaths/contracomology';
 import { redWineStainLearningPath } from './learningPaths/redWineStain';
 import { caramelizationLearningPath } from './learningPaths/caramelization';
+import { financeLearningPaths } from './learningPaths/finance';
 
 export type LearningPathLifecycleStatus = 'prototype' | 'active';
 
@@ -22,7 +23,8 @@ export type LearningPathRegistryIssueType =
   | 'duplicate_learning_object_id'
   | 'broken_unit_gate'
   | 'broken_alias_target'
-  | 'ambiguous_module_mapping';
+  | 'ambiguous_module_mapping'
+  | 'legacy_domain_reference';
 
 export type LearningPathRegistryIssue = {
   type: LearningPathRegistryIssueType;
@@ -68,8 +70,66 @@ const MODULE_ALIAS_MAP: Record<string, string> = {
   'PHY-L1-000023': 'PATH:SSF:MAGNETISM-MATERIALS', 'PHY-L1-000024': 'PATH:SSF:MAGNETISM-MATERIALS',
 };
 
+const LEGACY_DOMAIN_MAP: Record<string, string> = {
+  'KNOW:PHY-THERMODYNAMICS': 'KD:PHYS-THERM:N1',
+  'KNOW:CHE-ELECTROCHEMISTRY': 'KD:CHM-ELECTROCHEM:N2',
+  'KNOW:PHY-ELECTRICITY': 'KD:ELEC:N1',
+  'KNOW:ECO-FINANCE': 'KD:ECO-FINANCE:N2',
+  'KNOW:MAT-ARITHMETIC': 'KD:MATH:N1',
+  'KNOW:MAT-EXPONENTIAL': 'KD:MATH:N1',
+  'KNOW:PHY-ORBITAL-MECHANICS': 'KD:SPACE-ORBITAL-MECHANICS:N2',
+  'KNOW:PHY-GRAVITY': 'KD:PHYS:N1',
+  'KNOW:AST-SOLAR-SYSTEM': 'KD:GEO-PLANET:N1',
+  'KNOW:PHY-SPECTROSCOPY': 'KD:PHYS-SPECTROSCOPY:N2',
+  'KNOW:PHY-QUANTUM': 'KD:PHYS-QM:N2',
+  'KNOW:AST-STELLAR': 'KD:ASTRO-STELLAR:N2',
+  'KNOW:CHE-MOLECULAR': 'KD:CHM:N1',
+  'KNOW:PHY-ELECTROSTATICS': 'KD:PHYS-EM:N2',
+  'KNOW:CHE-HYDROGEN-BOND': 'KD:CHM:N1',
+  'KNOW:PHY-PHASE-TRANSITIONS': 'KD:PHYS-THERM:N1',
+  'KNOW:AST-PLANETARY': 'KD:GEO-PLANET:N1',
+  'KNOW:PHY-DENSITY': 'KD:PHYS:N1',
+  'KNOW:CHE-CRYSTAL-STRUCTURE': 'KD:MTL:N1',
+  'KNOW:PHY-VAPOR-PRESSURE': 'KD:PHYS-THERM:N1',
+  'KNOW:PHY-HEAT-CAPACITY': 'KD:PHYS-THERM:N1',
+  'KNOW:PHY-LATENT-HEAT': 'KD:PHYS-THERM:N1',
+  'KNOW:ENV-CLIMATE': 'KD:ENV:N1',
+  'KNOW:ENG-LIFE-SUPPORT': 'KD:SPACE-LIFE-SUPPORT:N2',
+  'KNOW:ENV-RESOURCES': 'KD:ENV:N1',
+  'KNOW:AST-ORBITAL': 'KD:SPACE-ORBITAL-MECHANICS:N2',
+  'KNOW:PHY-MECHANICS': 'KD:PHYS:N1',
+  'KNOW:AST-MARS': 'KD:GEO-PLANET:N1',
+  'KNOW:ENG-ISRU': 'KD:SPACE-ISRU:N2',
+  'KNOW:ENV-TOXICOLOGY': 'KD:ENV:N1',
+  'KNOW:PHY-SURFACE': 'KD:PHYS:N1',
+  'KNOW:AST-MOON': 'KD:GEO-PLANET:N1',
+  'KNOW:ENG-MATERIALS': 'KD:MTL:N1',
+  'KNOW:ENG-SAFETY': 'KD:ENG-SAFETY:N2',
+  'KNOW:AST-NAVIGATION': 'KD:SPACE-NAVIGATION:N2',
+  'KNOW:ENG-SYSTEMS': 'KD:ENG:N1',
+  'KNOW:CHE-WATER': 'KD:CHM:N1',
+  'KNOW:ENG-FILTRATION': 'KD:ENG-WATER-TREATMENT:N2',
+  'KNOW:ENV-WATER': 'KD:ENV:N1',
+};
+
+const SUPERSEDED_LEGACY_PATH_IDS = new Set([
+  'PATH:SSF:CHE-KUECHE-KARAMELL-0001',
+  'PATH:SSF:CHE-REINIGUNG-ROTWEIN-0001',
+  'PATH:SSF:ECO-KREDIT-0001',
+  'PATH:SSF:ECO-KREDIT-NOXIA-0001',
+  'PATH:SSF:ECO-ZINS-0001',
+  'PATH:SSF:ECO-ZINSESZINS-NOXIA-0001',
+]);
+
 function normalizeModuleId(id: string): string {
   return id.replace(/^LRN:SSF:/, 'SSF-').replace(/^SSF:/, 'SSF-').toUpperCase();
+}
+
+function canonicalizeDomains(path: LearningPath): LearningPath {
+  return {
+    ...path,
+    domainsNeeded: [...new Set(path.domainsNeeded.map((id) => LEGACY_DOMAIN_MAP[id] ?? id))],
+  };
 }
 
 function addToMultiMap(map: Map<string, LearningPath[]>, id: string, path: LearningPath) {
@@ -79,7 +139,7 @@ function addToMultiMap(map: Map<string, LearningPath[]>, id: string, path: Learn
   map.set(normalized, entries);
 }
 
-function buildRegistry(source: LearningPath[]) {
+export function validateLearningPathRegistry(source: LearningPath[]) {
   const byId = new Map<string, LearningPath>();
   const byModuleId = new Map<string, LearningPath[]>();
   const issues: LearningPathRegistryIssue[] = [];
@@ -95,6 +155,12 @@ function buildRegistry(source: LearningPath[]) {
     addToMultiMap(byModuleId, path.kxfModuleId, path);
     addToMultiMap(sourceModuleMap, path.sourceModuleId, path);
     addToMultiMap(kxfModuleMap, path.kxfModuleId, path);
+
+    for (const domainId of path.domainsNeeded) {
+      if (domainId.startsWith('KNOW:')) {
+        issues.push({ type: 'legacy_domain_reference', id: domainId, pathIds: [path.id], detail: 'Active runtime paths must expose canonical KD:* domains.' });
+      }
+    }
 
     const unitIds = new Set(path.units.map((unit) => unit.id));
     for (const unit of path.units) {
@@ -139,17 +205,22 @@ function buildRegistry(source: LearningPath[]) {
   return { paths: [...byId.values()], byId, byModuleId, issues };
 }
 
-const registry = buildRegistry([
+const legacyPaths = learningPaths
+  .filter((path) => !SUPERSEDED_LEGACY_PATH_IDS.has(path.id))
+  .map(canonicalizeDomains);
+
+const registry = validateLearningPathRegistry([
   caramelizationLearningPath,
   redWineStainLearningPath,
-  ...learningPaths,
+  ...financeLearningPaths,
+  ...legacyPaths,
   maillardLearningPath,
   magnetismMaterialsLearningPath,
   noxiaWaterProcessingLearningPath,
   noxiaResourceExtractionLearningPath,
   ...noxiaUnlockFoundationLearningPaths.filter((path) => path.id !== noxiaResourceExtractionLearningPath.id),
   contracomologyLearningPath,
-]);
+].map(canonicalizeDomains));
 
 export const registeredLearningPaths = registry.paths;
 export const learningPathRegistryIssues = registry.issues;
@@ -158,7 +229,6 @@ export function getRegisteredLearningPathById(id: string): LearningPath | null {
   return registry.byId.get(id) ?? null;
 }
 
-/** Primary compatibility lookup. Ambiguity is no longer hidden: callers that care must use getRegisteredLearningPathsForModule(). */
 export function getRegisteredLearningPathForModule(moduleId: string): LearningPath | null {
   const matches = registry.byModuleId.get(normalizeModuleId(moduleId)) ?? [];
   return matches.length === 1 ? matches[0] : null;
