@@ -6,6 +6,7 @@ title: { de: Warum Materialien magnetisch sind, en: Why materials are magnetic }
 summary:
   de: Von magnetischen Momenten und Elektronenspin zu Dia-, Para- und Ferromagnetismus sowie magnetischen Domänen.
 level: { ssf_level: N2, academic_context: Physik / Materialwissenschaft }
+knowledge_domain: KD:MAT-MAGNETIC-MATERIALS:N2
 duration_minutes: 45
 learning_objectives:
   de:
@@ -16,3 +17,5 @@ learning_objectives:
 prerequisites: { modules: [MAG-001] }
 key_concepts: [CON:MAT:magnetic-moment, CON:MAT:diamagnetism, CON:MAT:paramagnetism, CON:MAT:ferromagnetism, CON:MAT:magnetic-domain]
 relations: { requires: [MAG-001], precedes: [MAG-003] }
+ssf_notes:
+  de: MAG-002 ist eine lokale SSF-Draft-ID und keine KG-kanonische LearningModule-ID.
