@@ -16,8 +16,12 @@
     "lib/modules.ts",
     "lib/subjects.ts",
     "lib/learningQuiz.ts",
+    "lib/learningPaths.ts",
+    "lib/learningPathRegistry.ts",
+    "lib/learningPaths/**/*.ts",
     "tests/research-watch/**/*.ts",
-    "tests/learningQuiz.test.ts"
+    "tests/learningQuiz.test.ts",
+    "tests/learningPathRegistry.test.ts"
   ],
   "exclude": ["node_modules"]
 }
