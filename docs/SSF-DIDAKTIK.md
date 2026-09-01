@@ -1,9 +1,9 @@
 # SSF-DIDAKTIK.md
 ## Solar Science Foundation · Didaktisches Grundprinzip
 
-**Version:** 0.3.0
+**Version:** 0.4.0
 **Erstellt:** 2026-07-15
-**Geändert:** 2026-08-31 · v0.3.0: Dokumentfamilie um ENGINEERING-LEARNING-TEMPLATE.md erweitert
+**Geändert:** 2026-09-01 · v0.4.0: Dramaturgie auf verständnisorientierte Erklärung und sinnvolle Visualisierung/Interaktion umgestellt
 **Status:** Kanonisch
 **Repo:** thomaspeterkueper/solarsciencefoundation
 
@@ -18,13 +18,13 @@ Der Unterschied:
 | Modul | Lernreise |
 |-------|-----------|
 | Vermittelt Stoff | Ermöglicht Entdeckung |
-| Beginnt mit Definitionen | Beginnt mit Beobachtungen |
+| Beginnt mit Definitionen | Beginnt mit einer Frage oder Beobachtung |
 | Endet mit Prüfung | Endet mit Verstehen |
 | Lernender konsumiert | Lernender entdeckt |
 
-Ein Nutzer sollte nach jedem Abschnitt das Gefühl haben, etwas **selbst entdeckt** zu haben — nicht nur etwas gelesen zu haben.
+Ein Nutzer sollte nach jedem Abschnitt das Gefühl haben, etwas **verstanden oder selbst entdeckt** zu haben — nicht nur etwas gelesen oder einen Regler bewegt zu haben.
 
-Die SSF ist keine Lernplattform im klassischen Sinn. Sie ist eine **Plattform zum Entdecken**.
+Die SSF ist keine Lernplattform im klassischen Sinn. Sie ist eine **Plattform zum Entdecken und Verstehen**.
 
 ---
 
@@ -32,7 +32,7 @@ Die SSF ist keine Lernplattform im klassischen Sinn. Sie ist eine **Plattform zu
 
 ```
 Knowledge Graph  →  kennt Fakten
-SSF              →  erzählt Geschichten über diese Fakten
+SSF              →  erzählt Geschichten über diese Fakten und macht Zusammenhänge verständlich
 NOXIA            →  lässt den Nutzer mit diesen Fakten handeln
 ```
 
@@ -49,53 +49,68 @@ Konsequenz für Entscheidungen:
 
 ## 3. Die didaktische Dramaturgie
 
-Jeder Lernpfad und jedes Kapitel folgt dieser Sequenz.
-Nicht jeder Schritt muss explizit vorhanden sein — aber die Reihenfolge ist nicht verhandelbar.
+Die SSF verwendet eine **verständnisorientierte Dramaturgie**. Sie ist verbindlich in ihrer Logik, aber nicht mechanisch in der Zahl der Screens oder Sections.
+
+Die Grundfolge lautet:
 
 ```
-① Beobachtung
-   Ein Alltagsphänomen. Keine Fachbegriffe. Kein Vorwissen nötig.
-   Beispiel: "Warum klingt ein vorbeifahrendes Auto höher als ein stehendes?"
+① Frage / Motivation
+   Ein konkretes Phänomen, Problem oder eine Beobachtung. Kein Fachjargon als Einstieg.
 
-② Einstiegsfrage
-   Die Frage die die Beobachtung aufwirft. Offen, neugierig.
-   Keine Disziplinbezeichnung ("Physik", "Chemie").
+② Beobachtung
+   Was ist tatsächlich zu sehen, zu messen oder aus dem Alltag bekannt?
+   Kann mit ① auf demselben Screen verbunden werden.
 
-③ Vermutung
-   Der Lernende darf raten. Kein Fehler möglich.
-   Optional — aber wo möglich einbauen.
+③ Erste Erklärung
+   Gerade genug Modell, damit der Lernende versteht, worauf er beim nächsten Schritt achten soll.
+   Keine unnötige Vollständigkeit, Formeln nur wenn bereits verständlich.
 
-④ Experiment
-   Interaktiv, visuell, unmittelbar. Parameter verändern, Wirkung sehen.
-   Kein Experiment ohne Slider oder Eingabe — statische Grafiken sind keine Experimente.
+④ Veranschaulichung / Erkundung
+   Die Darstellungsform wird nach Erkenntniswert gewählt:
+   - interaktives Experiment, wenn eigenes Verändern eine neue Einsicht erzeugt;
+   - Schema, Illustration, Animation, Foto oder Vergleich, wenn Darstellung genügt;
+   - reale Beobachtung oder Beispiel, wenn dies fachlich klarer ist.
 
-⑤ Erklärung
-   Kurz. Das eine Prinzip das dieses Kapitel vermittelt.
-   Formeln erst nach der Erklärung — nie davor.
+⑤ Vertiefte Erklärung / Erkenntnis
+   Die Beobachtung aus ④ wird mit dem fachlichen Modell verbunden. Hier darf die Erklärung präziser werden.
 
-⑥ Verbindung
-   Was hat das mit etwas zu tun das der Lernende schon kennt?
-   Oder: Was öffnet sich dadurch für das nächste Kapitel?
+⑥ Verbindung / Anwendung
+   Das Prinzip wird auf einen konkreten Fall übertragen oder öffnet den nächsten Zusammenhang.
 
-⑦ Anwendung
-   Ein konkretes Beispiel oder eine Aufgabe aus der Praxis.
-   Optional, aber wertvoll.
+⑦ Verständnisfragen
+   Erst nachdem genügend Erklärung und Erfahrung vorhanden sind.
+   Quizfragen prüfen Anwendung, Verständnis und Transfer — nicht bloße Begriffserkennung.
 
-⑧ Quiz
-   3 Fragen. Kein Auswendiglernen — Verständnis.
-   Falsche Antwort öffnet Erklärung, keine Strafe.
-   3/3 korrekt → Takeaway + nächstes Kapitel öffnet sich.
+⑧ Takeaway
+   Ein Satz: die Kernentdeckung des Kapitels.
 
-⑨ Takeaway
-   Ein Satz. Die Kern-Entdeckung des Kapitels.
-   Geschrieben als Einsicht, nicht als Zusammenfassung.
-   Erscheint erst nach 3/3 Quiz.
-
-⑩ Nächster Horizont
-   Vorschau auf das folgende Kapitel — sichtbar aber gesperrt.
-   Titel und erste Frage lesbar.
-   Erzeugt Anticipation, keine Obligation.
+⑨ Nächster Horizont
+   Eine anschließende Frage oder ein verwandter Pfad macht sichtbar, wie das Wissensnetz weitergeht.
 ```
+
+### 3.1 Experiment vor oder nach Erklärung?
+
+Es gibt **keine universelle Regel**, dass ein Experiment immer vor der Erklärung stehen muss.
+
+Ein Experiment darf vor einer ausführlichen Erklärung stehen, wenn das Phänomen ohne Vorwissen sinnvoll beobachtbar und interpretierbar ist. Braucht der Lernende dagegen ein minimales Modell, um überhaupt zu erkennen, was eine Veränderung bedeutet, steht eine **erste Erklärung vor der Interaktion**. Danach folgt die vertiefte Erklärung.
+
+Beispiele:
+- Ein fallender Gegenstand kann zunächst beobachtet werden; die Modellierung folgt danach.
+- Bei pH, Membrantransport oder elektrischen Ersatzschaltungen kann ein minimales Begriffsmodell vor der Interaktion nötig sein, damit der Nutzer nicht nur Slider bewegt.
+
+### 3.2 Interaktion ist kein Selbstzweck
+
+**Interaktiv, wo Interaktion Erkenntnis erzeugt. Visuell, wo Darstellung genügt.**
+
+Ein Slider, Button oder Drag-and-drop macht einen Inhalt nicht automatisch didaktisch besser. Eine Interaktion ist nur gerechtfertigt, wenn mindestens eine relevante Variable sinnvoll verändert wird und die resultierende Beobachtung einen Zusammenhang sichtbar macht.
+
+Nicht zulässig:
+- Slider ohne fachlich interpretierbare Wirkung;
+- fachfremde Wiederverwendung eines Experiments nur weil eine Komponente existiert;
+- Klickaufgaben, die lediglich Text in eine andere Form übersetzen;
+- Quiz als Ersatz für fehlende Erklärung.
+
+Statische oder animierte Grafiken sind ausdrücklich erwünscht, wenn sie den Zusammenhang klarer vermitteln als eine künstliche Interaktion.
 
 ---
 
@@ -105,27 +120,16 @@ Eine **Lernszene** ist die kleinste didaktische Einheit der SSF.
 
 ### Grundregel: Eine Lernszene beantwortet genau eine Frage.
 
-Eine Lernszene endet nicht mit einem Thema. Sie endet mit einer **beantworteten Frage** — und damit mit einer neuen Entdeckung.
+Eine Lernszene endet nicht mit einem Thema. Sie endet mit einer **beantworteten Frage** — und damit idealerweise mit einer neuen Entdeckung.
 
-**Schlecht:**
-> Schwingungen
-
-> DMS
-
-> Rayleigh-Streuung
+**Schlecht:** Schwingungen · DMS · Rayleigh-Streuung
 
 **Gut:**
-> Warum schwingt eine Gitarrensaite?
+- Warum schwingt eine Gitarrensaite?
+- Warum ändert sich der Widerstand eines Drahtes beim Dehnen?
+- Warum streuen Luftmoleküle blaues Licht stärker als rotes?
 
-> Warum ändert sich der Widerstand eines Drahtes beim Dehnen?
-
-> Warum streuen Luftmoleküle blaues Licht stärker als rotes?
-
-Das ist noch kein Kapitel. Noch kein Modul. Noch kein Pfad.
-Es ist eine einzelne **Entdeckung** — eine Szene.
-
-Mehrere Lernszenen bilden ein **Kapitel**.
-Mehrere Kapitel bilden einen **Lernpfad**.
+Mehrere Lernszenen bilden ein **Kapitel**. Mehrere Kapitel bilden einen **Lernpfad**.
 
 ### Mapping auf die technische Struktur
 
@@ -135,151 +139,105 @@ Mehrere Kapitel bilden einen **Lernpfad**.
 | Kapitel | LearningPathUnit | `id`, `entryQuestion`, `takeaway` |
 | Lernszene | LearningPathSection | `id`, `kind`, `summary` |
 
-Die technischen Begriffe bleiben unverändert im Code.
-Die didaktischen Begriffe werden in der UI und in der Dokumentation verwendet.
+Die technischen Begriffe bleiben im Code; die didaktischen Begriffe werden in UI und Dokumentation verwendet.
 
 ---
 
 ## 5. Die gute Einstiegsfrage
 
-Die Einstiegsfrage ist der sichtbarste Teil eines Kapitels. Sie ist der erste Kontakt des Lernenden mit dem Inhalt. Sie entscheidet ob jemand weiterliest oder nicht.
+Die Einstiegsfrage ist der erste Kontakt mit dem Inhalt. Sie soll verständlich sein, neugierig machen und beim Phänomen beginnen.
 
-### Merkmale einer guten Einstiegsfrage
+Merkmale:
+- konkrete Beobachtung, Situation oder echtes Problem;
+- enthält nicht bereits die Lösung;
+- keine unnötigen Fachbegriffe;
+- aus Perspektive des Lernenden formuliert;
+- muss nicht künstlich offen sein, wenn eine präzise Alltagsfrage stärker ist.
 
-- Beschreibt eine Beobachtung oder ein Phänomen
-- Enthält keine Lösung
-- Enthält **keine Fachbegriffe**
-- Macht neugierig — lässt mehrere Vermutungen zu
-- Ist aus der Perspektive des Lernenden formuliert, nicht aus der des Lehrenden
+Beispiele:
+- Warum ist der Himmel blau?
+- Warum wird ein Gummiband dünner, wenn man es dehnt?
+- Warum klingt ein vorbeifahrendes Auto anders als ein stehendes?
+- Wie schneidet man Stahl, der härter ist als das Werkzeug?
 
-### Beispiele
-
-**Gut:**
-> Warum ist der Himmel blau?
-
-> Warum wird ein Gummiband dünner wenn man es dehnt?
-
-> Warum klingt ein vorbeifahrendes Auto anders als ein stehendes?
-
-> Wie schneidet man Stahl der härter ist als jedes Werkzeug?
-
-**Nicht gut:**
-> Rayleigh-Streuung (Fachbegriff, keine Frage)
-
-> Doppler-Effekt (Fachbegriff, keine Frage)
-
-> Hookesches Gesetz (Fachbegriff, keine Frage)
-
-> Was ist der Wärmeausdehnungskoeffizient? (beginnt mit Lösung, nicht Beobachtung)
-
-### Prüffragen für Autoren
-
-Bevor eine Einstiegsfrage akzeptiert wird, sollte sie diese drei Tests bestehen:
-
-1. **Kann ein 12-Jähriger die Frage verstehen?** — Wenn nicht, zu viele Fachbegriffe.
-2. **Lässt die Frage mehrere Antworten zu?** — Wenn nicht, ist es keine echte Frage, sondern eine Aufgabe.
-3. **Würde jemand diese Frage stellen, wenn er aus dem Fenster schaut?** — Wenn nicht, beginnt die Frage beim Wissen, nicht bei der Welt.
+Prüffragen:
+1. Kann ein interessierter Nichtfachmann die Frage verstehen?
+2. Entsteht daraus ein echter Erklärungsbedarf?
+3. Führt die folgende Szene tatsächlich zur Antwort?
 
 ---
 
 ## 6. Was SSF nicht ist
 
-- Kein MOOC — kein Kurs mit festem Start- und Endpunkt
-- Kein Schulbuch — kein Top-Down-Curriculum
-- Kein Wikipedia — kein enzyklopädisches Nachschlagewerk
-- Keine Prüfungsvorbereitung — kein Auswendiglernen
+- Kein MOOC mit vorgeschriebenem Gesamtweg
+- Kein Schulbuch mit reinem Top-down-Curriculum
+- Kein Wikipedia-Ersatz
+- Keine Prüfungsvorbereitung
+- Keine Sammlung dekorativer Simulationen
 
-SSF ist ein **Wissensnetzwerk zum Selbstentdecken**.
-Der Lernende bestimmt den Einstiegspunkt.
-Das Netzwerk zeigt was als nächstes möglich ist.
-Niemand schreibt vor wo man beginnen oder enden muss.
+SSF ist ein **Wissensnetzwerk zum Selbstentdecken und Verstehen**. Der Lernende kann an unterschiedlichen Fragen einsteigen; Voraussetzungen und Verbindungen sorgen dafür, dass daraus ein konsistentes Wissensnetz entsteht.
 
 ---
 
 ## 7. Disziplinlabels — kein Einstiegspunkt für Lernende
 
-**Disziplinbezeichnungen strukturieren die Inhalte intern. Sie sind niemals der Einstiegspunkt für Lernende.**
+Disziplinbezeichnungen strukturieren Inhalte intern. Der lernende Nutzer beginnt mit einer Frage oder einem Problem, nicht mit einer Verwaltungs-ID.
 
-Lernende sehen als Einstieg immer eine Frage — nie eine Disziplinbezeichnung.
-
-Intern (KG, Entwicklerdokumentation, Metadaten) erlaubt:
-- Kanonische IDs wie `LRN:SSF:PHY-SKY-0001`
-- Domainfelder wie `PHY`, `MAT`, `ENG`
-- Verweise auf Quellen und Lehrstühle
-
-In der Lernenden-Ansicht erlaubt (nur als Kontext, nie als Einstieg):
-- Verweise unter "Mehr erfahren" oder "Quellen"
-- Horizont-Karten die verwandte Themen zeigen
-
-In der Lernenden-Ansicht verboten als Einstieg:
-- "Physik · Optik · Kapitel 3"
-- "TM2-STRAIN-001"
-- "Vorlesung Technische Mechanik 2"
+Intern erlaubt sind kanonische IDs, Domains, Quellen und Fachklassifikation. In der Lernendenansicht können Fachgebiete als Kontext oder Navigation erscheinen, aber nicht die eigentliche Einstiegsfrage ersetzen.
 
 ---
 
 ## 8. Formelregel
 
-Formeln erscheinen **nach** der intuitiven Erklärung — nie davor.
+Formeln erscheinen **nach einer intuitiven Erklärung der Größen und des Zusammenhangs**.
 
-**Richtige Reihenfolge:**
+Beispiel:
 ```
-① Beobachtung: Stahl dehnt sich aus.
-② Experiment: Slider zeigt wie viel.
-③ Erklärung: "Je länger, desto mehr."
-④ Formel: ΔL = α · L₀ · ΔT
-```
-
-**Falsche Reihenfolge:**
-```
-① Formel: ΔL = α · L₀ · ΔT
-② Erklärung dazu
-③ Beispiel
+① Frage/Beobachtung: Ein langer Stahlstab wird beim Erwärmen länger.
+② Erste Erklärung: Temperatur verändert den mittleren Abstand der Teilchen; die Längenänderung hängt auch von Ausgangslänge und Material ab.
+③ Visualisierung/Experiment: Temperatur und Ausgangslänge variieren.
+④ Erkenntnis: doppelte Ausgangslänge → unter gleichen Bedingungen doppelte Längenänderung.
+⑤ Formel: ΔL = α · L₀ · ΔT
 ```
 
-Die Formel ist die **Verdichtung** der Entdeckung — nicht ihr Ausgangspunkt.
+Die Formel ist die **Verdichtung eines bereits verstandenen Modells**, nicht dessen Ersatz.
 
 ---
 
 ## 9. Zehn Schritte früher
 
-Die SSF beginnt dort wo andere Plattformen und Vorlesungen aufhören zu erklären.
+Die SSF beginnt häufig dort, wo Fachliteratur Vorwissen voraussetzt. Das bedeutet nicht, Fachlichkeit zu vermeiden, sondern sie **aufzubauen**.
 
-Hochschulen beginnen oft bei:
-```
-Rosette → Transformation → Tensor → σx
-```
+Hochschulmaterial kann bei `Rosette → Transformation → Tensor → σx` beginnen. Eine SSF-Lernreise kann vorher fragen: `Warum ändert ein gedehnter Draht überhaupt seinen elektrischen Widerstand?`
 
-SSF beginnt bei:
-```
-Warum wird ein Gummiband länger?
-```
+SSF richtet sich an Menschen, die verstehen wollen. Fortgeschrittene Tiefe darf folgen, sobald das begriffliche Fundament trägt.
 
-Das ist kein Qualitätsproblem der Hochschulen.
-Es ist eine andere Zielgruppe und ein anderes Ziel.
+---
 
-SSF richtet sich an Menschen die **verstehen** wollen — nicht an Menschen die bestehen müssen.
+## 10. Autoren- und Reviewregel
+
+Vor Freigabe jeder Lernreise ist zu prüfen:
+1. Gibt es eine echte motivierende Frage oder Beobachtung?
+2. Wird das notwendige mentale Modell erklärt, bevor es vorausgesetzt wird?
+3. Hat jede Interaktion einen eigenen fachlichen Erkenntniswert?
+4. Wäre ein Schema/Bild/eine Animation klarer als die Interaktion? Falls ja, wird die visuelle Form bevorzugt.
+5. Baut die vertiefte Erklärung sichtbar auf der Beobachtung auf?
+6. Kommen Verständnisfragen erst nach ausreichender Vermittlung?
+7. Ist das Takeaway fachlich korrekt und als Einsicht formulierbar?
 
 ---
 
 ## Dokumentfamilie
 
-Dieses Dokument ist die Grundlage. Die Autorenfamilie baut darauf auf:
+`SSF-DIDAKTIK.md` ist kanonisch. Spezialisierte Templates dürfen die Grundregeln konkretisieren, aber nicht durch starre Reihenfolgen widersprechen.
 
-```
-SSF-DIDAKTIK.md          ← dieses Dokument
-    │
-    ├── SSF-AUTORENLEITFADEN.md               ← wie schreibt man einen Lernpfad
-    ├── ENGINEERING-LEARNING-TEMPLATE.md      ← Autorenmuster für technische/ingenieurwissenschaftliche Module (Pilot)
-    ├── SSF-LERNPFAD-TEMPLATE.md              ← Vorlage für neue Pfade
-    ├── SSF-LERNSZENEN-TEMPLATE.md            ← Vorlage für einzelne Szenen
-    └── SSF-QUIZ-RICHTLINIEN.md               ← wie schreibt man gute Quiz-Fragen
-```
+- `SSF-AUTORENLEITFADEN.md`
+- `ENGINEERING-LEARNING-TEMPLATE.md`
+- `SSF-LERNPFAD-TEMPLATE.md`
+- `SSF-LERNSZENEN-TEMPLATE.md`
+- `SSF-QUIZ-RICHTLINIEN.md`
 
 ---
 
-*Solar Science Foundation · SSF-DIDAKTIK.md · v0.3.0 · 2026-08-31*
+*Solar Science Foundation · SSF-DIDAKTIK.md · v0.4.0 · 2026-09-01*
 *Autor: Thomas Peter Küper · Repo: thomaspeterkueper/solarsciencefoundation*
-*v0.1.0: Grunddokument — Lernreise, drei Rollen, Dramaturgie, Lernszene, Formelregel*
-*v0.2.0: Entdeckung als Leitbegriff, Einstiegsfragen-Kapitel, Lernszenen-Grundregel, Disziplin-Präzisierung, Dokumentfamilie*
-*v0.3.0: Dokumentfamilie um ENGINEERING-LEARNING-TEMPLATE.md erweitert*
