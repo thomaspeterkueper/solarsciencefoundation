@@ -4,7 +4,7 @@
  * KUEPER · Solar Science Foundation (SSF)
  * Path:     components/learning/PathRunner.tsx
  * Name:     PathRunner — renders a LearningPath inline within the SSF shell
- * Version:  1.3.0
+ * Version:  1.3.1
  * Created:  2026-07-15
  */
 
@@ -225,7 +225,7 @@ function SectionCard({ section, onQuizComplete, onDepth }: {
 }) {
   const [branchOpen, setBranchOpen] = useState(false);
   const [skipped, setSkipped] = useState(false);
-  const ExperimentComponent = EXPERIMENT_MAP[section.id];
+  const ExperimentComponent = EXPERIMENT_MAP[section.interactiveId ?? section.id];
   const [depthAwarded, setDepthAwarded] = useState(false);
 
   function awardOnce() {
