@@ -2,9 +2,9 @@
 """Fail-closed exact-head gate for KUEPER automated PR review evidence.
 
 The gate is deliberately provider-agnostic: it does not call a reviewer. It only
-accepts already-published PASS evidence for the exact pull-request head SHA.
-If the reviewer is unavailable, stale, or has reviewed another head, this check
-fails closed.
+accepts already-published PASS evidence for the pull request's exact current head
+SHA. If the reviewer is unavailable, stale, or has reviewed another head, this
+check fails closed.
 """
 from __future__ import annotations
 
@@ -30,13 +30,28 @@ def api(path: str):
 def main() -> int:
     repo = os.environ.get("GITHUB_REPOSITORY", "").strip()
     pr_raw = os.environ.get("PR_NUMBER", "").strip()
-    head = os.environ.get("PR_HEAD_SHA", "").strip().lower()
-    if not repo or not pr_raw or not head:
-        print("review-gate: missing repository, PR number, or head SHA", file=sys.stderr)
+    event_head = os.environ.get("PR_HEAD_SHA", "").strip().lower()
+    if not repo or not pr_raw:
+        print("review-gate: missing repository or PR number", file=sys.stderr)
         return 2
 
     owner, name = repo.split("/", 1)
     pr = int(pr_raw)
+    metadata = api(f"/repos/{owner}/{name}/pulls/{pr}")
+    if str(metadata.get("state") or "").lower() != "open":
+        print("review-gate: PR is not open; failing closed", file=sys.stderr)
+        return 2
+    head = str(((metadata.get("head") or {}).get("sha")) or "").strip().lower()
+    if not head:
+        print("review-gate: could not resolve current PR head; failing closed", file=sys.stderr)
+        return 2
+    if event_head and event_head != head:
+        print(
+            f"review-gate: event head {event_head} differs from current head {head}; failing closed",
+            file=sys.stderr,
+        )
+        return 1
+
     accepted_prefixes = {head, head[:12], head[:13]}
     page = 1
     found = False
