@@ -4,20 +4,36 @@ status: draft
 language: { primary: de, planned: [en] }
 title: { de: Permanentmagnete als Werkstoffe, en: Permanent magnets as materials }
 summary:
-  de: Vergleich von Ferrit, AlNiCo, SmCo und NdFeB anhand magnetischer Leistung, Temperaturverhalten, Korrosion, Kosten und Rohstoffabhängigkeit.
+  de: Vergleich von Ferrit, AlNiCo, SmCo und NdFeB anhand belastbarer Familienunterschiede; gradeabhängige Designgrenzen und volatile Markt-/Lieferkettendaten werden ausdrücklich getrennt.
 level: { ssf_level: N2, academic_context: Materialwissenschaft }
+knowledge_domain: KD:MAT-MAGNETIC-MATERIALS:N2
 duration_minutes: 45
 learning_objectives:
   de:
-    - Ferrit, AlNiCo, SmCo und NdFeB als Werkstoffklassen einordnen.
-    - Magnetische Stärke nicht mit genereller technischer Eignung gleichsetzen.
-    - Temperaturbeständigkeit, Korrosion, Kosten und Rohstoffverfügbarkeit als Auswahlkriterien nutzen.
+    - Ferrit, AlNiCo, SmCo und NdFeB als Werkstofffamilien einordnen.
+    - Energiedichte, Remanenz und Koerzitivität als unterschiedliche Auswahlgrößen verwenden.
+    - Familienmerkmale von grade- und anwendungsabhängigen Betriebsgrenzen unterscheiden.
+    - Marktpreis, Lieferkettenlage und Recyclingkapazität als datierte Evidenz statt als zeitlose Werkstoffeigenschaft behandeln.
+    - Korrosionsschutz als werkstoff-, ausführungs- und umgebungsabhängige Designentscheidung einordnen.
 prerequisites: { modules: [MAG-003] }
 key_concepts: [CON:MAT:ferrite-magnet, CON:MAT:alnico, CON:MAT:smco, CON:MAT:ndfeb]
+material_families:
+  ferrite:
+    de: Niedrigere Energiedichte als NdFeB und SmCo; oxidische und meist korrosionsrobuste Familie; keine Seltene-Erden-Abhängigkeit. Konkrete Zahlen bleiben Sorten-/Quellenwerte.
+  alnico:
+    de: Hohe Remanenz und bei geeigneten Grades hohe Temperaturtauglichkeit, aber vergleichsweise geringe Koerzitivität und damit relevante Entmagnetisierungsanfälligkeit in Gegenfeldern. Kobalt ist ein relevanter Rohstoffkontext.
+  smco:
+    de: SmCo5 und Sm2Co17 sind unterschiedliche Unterfamilien. Geeignete Grades kombinieren hohe Koerzitivität, hohe Energiedichte und gute Hochtemperatureignung; konkrete Einsatzgrenzen bleiben grade- und anwendungsabhängig. Sm/Co-Abhängigkeit beachten.
+  ndfeb:
+    de: Höchste verbreitete kommerzielle Energiedichte dieser vier Familien; starke Grade-Abhängigkeit bei Koerzitivität und Temperatur. Gesintertes NdFeB ist häufig korrosionsschutzbedürftig, aber Schutz/Beschichtung ist keine ausnahmslose Regel jeder Ausführung und Umgebung. Rohstoffbezug vor allem Nd/Pr, bei manchen Hochkoerzitiv-Grades zusätzlich Dy/Tb.
+evidence_policy:
+  de: Kosten, Produktionskonzentration, Exportregeln, Recyclingquoten und industrielle Kapazitäten dürfen nur mit Datum und Quelle als Snapshot verwendet werden. Keine zeitlosen USD/kg-Werte oder pauschalen Rangfolgen wie 'SmCo ist immer am teuersten'.
 canonical_examples:
   - id: EX:MAG:004:001
     title: { de: Magnetwahl für Motor, Sensor und Hochtemperaturanwendung, en: Magnet selection for motor, sensor and high-temperature use }
 assessment:
   formative:
-    - Vier Magnetwerkstoffe für unterschiedliche Einsatzprofile vergleichen.
+    - Vier Magnetfamilien für unterschiedliche Einsatzprofile vergleichen und dabei Familienmerkmal, Gradegrenze und Marktsnapshot getrennt kennzeichnen.
 relations: { requires: [MAG-003], precedes: [MAG-005] }
+ssf_notes:
+  de: MAG-004 ist eine lokale SSF-Draft-ID und keine KG-kanonische LearningModule-ID. Eine spätere Promotion erfolgt ausschließlich über KG mit einer MAT-L2-NNNNNN-ID.
