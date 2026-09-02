@@ -1,83 +1,36 @@
 import type { LearningPath } from '../learningPaths';
 
-/**
- * SSF implementation of KG learning contract ENG-L1-000001.
- * Canonical source: exports/energy-power-generation-0.1.json
- */
 export const powerGenerationLearningPath: LearningPath = {
-  id: 'PATH:SSF:NOX-POWER-GENERATION-0001',
-  title: 'Wie wird aus einer Energiequelle nutzbarer elektrischer Strom?',
-  subtitle: 'Energieumwandlung, Leistung, Wirkungsgrad und Versorgung als zusammenhängendes Erzeugungssystem verstehen.',
-  status: 'prototype',
-  sourceModuleId: 'ENG-L1-000001',
-  kxfModuleId: 'LRN:SSF:ENG-POWER-GENERATION-0001',
-  domainsNeeded: ['KD:ENG-POWER-GENERATION:N2', 'KD:PHYS:N1', 'KD:ENG:N1'],
-  suppliedBy: {
-    knowledgeGraph: [
-      'KD:ENG-POWER-GENERATION:N2',
-      'ENG-L1-000001',
-      'CON:ENG:power-vs-energy',
-      'CON:ENG:energy-conversion-chain',
-      'CON:ENG:generation-efficiency',
-      'CON:ENG:generation-profile',
-      'CON:ENG:dispatchability',
-      'CON:ENG:electrical-generation-balance',
-      'CON:ENG:storage-grid-redundancy',
-    ],
-    kueperCom: [], overtimeArchive: [],
-    ssf: ['Problemorientierte Lernsequenz', 'Leistungs-/Energiebilanz', 'NOXIA-Systemtransfer'],
-  },
+  id: 'PATH:SSF:NOX-POWER-GENERATION-0001', title: 'Wie wird aus einer Energiequelle nutzbarer elektrischer Strom?',
+  subtitle: 'Energieumwandlung, Leistung, Wirkungsgrad und Versorgung als zusammenhängendes Erzeugungssystem verstehen.', status: 'prototype',
+  sourceModuleId: 'ENG-L1-000001', kxfModuleId: 'LRN:SSF:ENG-POWER-GENERATION-0001', domainsNeeded: ['KD:ENG-POWER-GENERATION:N2','KD:PHYS:N1','KD:ENG:N1'],
+  suppliedBy: { knowledgeGraph: ['KD:ENG-POWER-GENERATION:N2','ENG-L1-000001','CON:ENG:power-vs-energy','CON:ENG:energy-conversion-chain','CON:ENG:generation-efficiency','CON:ENG:generation-profile','CON:ENG:dispatchability','CON:ENG:electrical-generation-balance','CON:ENG:storage-grid-redundancy'], kueperCom: [], overtimeArchive: [], ssf: ['Problemorientierte Lernsequenz','Leistungs-/Energiebilanz','NOXIA-Systemtransfer'] },
   unlocks: ['UNL:NOX:power-generation'],
   units: [
-    {
-      id: 'UNIT:POWER:CONVERSION',
-      title: 'Von der Quelle zur elektrischen Energie',
-      entryQuestion: 'Warum erzeugt eine Energiequelle nicht automatisch elektrischen Strom?',
-      takeaway: 'Ein Erzeugungssystem braucht eine Umwandlungskette. Quelle, Wandler und elektrische Abgabe sind unterschiedliche Teile des Systems.',
-      gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:POWER:POWER-ENERGY' },
-      sections: [
-        { id: 'OBS:POWER:SOURCES', kind: 'observation', title: 'Sonne, Bewegung, chemische und thermische Quellen', summary: 'Verschiedene Quellen stellen Energie in unterschiedlichen Formen bereit. Erst eine geeignete technische Umwandlung macht daraus elektrische Energie.', depthPoints: 5 },
-        { id: 'EXPL:POWER:CHAIN', kind: 'explanation', title: 'Die Energieumwandlungskette', summary: 'Bei Photovoltaik wird Strahlungsenergie direkt elektrisch nutzbar gemacht. Bei einem Generator führt mechanische Bewegung zur elektrischen Erzeugung. Diese Beispiele sind unterschiedliche Anwendungen desselben Grundgedankens: Energie wird umgewandelt, nicht erzeugt.', depthPoints: 9 },
-        { id: 'EXAMPLE:POWER:TECHNOLOGIES', kind: 'example', title: 'Technologie ist Anwendung, nicht Universalregel', summary: 'Solar-PV und Generatorprinzip zeigen zwei verschiedene Umwandlungswege. Eigenschaften einer Technologie dürfen nicht automatisch auf alle Erzeuger übertragen werden.', depthPoints: 7 },
-        { id: 'QUIZ:POWER:CONVERSION', kind: 'quiz', title: 'Umwandlung verstehen', summary: 'Quelle, Umwandlung und elektrische Abgabe voneinander unterscheiden.', depthPoints: 10 },
-      ],
-    },
-    {
-      id: 'UNIT:POWER:POWER-ENERGY',
-      title: 'Leistung ist nicht Energie',
-      entryQuestion: 'Warum sagt eine Anlage mit 10 kW noch nicht, wie viel Energie sie an einem Tag liefert?',
-      takeaway: 'Leistung beschreibt die momentane Rate der Energieübertragung. Energie ergibt sich aus Leistung über Zeit; bei konstanter Leistung gilt E = P · t.',
-      gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:POWER:EFFICIENCY' },
-      sections: [
-        { id: 'EXPL:POWER:P-VS-E', kind: 'explanation', title: 'kW und kWh beantworten verschiedene Fragen', summary: 'Kilowatt beschreibt Leistung. Kilowattstunden beschreiben Energie. Eine hohe Nennleistung kann bei kurzer oder schwankender Verfügbarkeit trotzdem eine kleinere Energiemenge liefern.', depthPoints: 9 },
-        { id: 'EXAMPLE:POWER:DAY', kind: 'example', title: 'Zeit gehört in die Bilanz', summary: 'Eine konstante elektrische Leistung von 2 kW über 5 Stunden entspricht 10 kWh Energie. Reale Erzeugungsprofile sind häufig nicht konstant, deshalb muss die Leistung über die Zeit betrachtet werden.', depthPoints: 8 },
-        { id: 'QUIZ:POWER:P-VS-E', kind: 'quiz', title: 'Leistung und Energie trennen', summary: 'Aus Leistung und Zeit eine Energiebilanz ableiten und typische kW/kWh-Verwechslungen erkennen.', depthPoints: 11 },
-      ],
-    },
-    {
-      id: 'UNIT:POWER:EFFICIENCY',
-      title: 'Warum nicht die gesamte Eingangsenergie elektrisch ankommt',
-      entryQuestion: 'Was bedeutet ein Wirkungsgrad von weniger als 100 Prozent für die Erzeugungskette?',
-      takeaway: 'Wirkungsgrad vergleicht nutzbare Ausgangsenergie oder -leistung mit der zugeführten Größe. Verluste müssen in der Systembilanz berücksichtigt werden.',
-      gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:POWER:PROFILE' },
-      sections: [
-        { id: 'EXPL:POWER:EFFICIENCY', kind: 'explanation', title: 'Nutzbarer Ausgang und Verluste', summary: 'Vereinfacht gilt η = P_out / P_in beziehungsweise für passende Zeiträume η = E_out / E_in. Welche Verlustmechanismen auftreten, hängt von der jeweiligen Technologie ab.', depthPoints: 10 },
-        { id: 'EXAMPLE:POWER:BOUNDARY', kind: 'example', title: 'Die Systemgrenze entscheidet mit', summary: 'Der Wirkungsgrad eines einzelnen Wandlers ist nicht automatisch der Wirkungsgrad der gesamten Versorgung. Leistungselektronik, Leitungen, Speicher und weitere Stufen können zusätzliche Verluste verursachen.', depthPoints: 8 },
-        { id: 'QUIZ:POWER:EFFICIENCY', kind: 'quiz', title: 'Wirkungsgrad richtig verwenden', summary: 'Eingang, Ausgang, Verlust und Systemgrenze korrekt unterscheiden.', depthPoints: 11 },
-      ],
-    },
-    {
-      id: 'UNIT:POWER:PROFILE',
-      title: 'Erzeugung und Bedarf müssen zeitlich zusammenpassen',
-      entryQuestion: 'Was hilft eine große Tagesenergiemenge, wenn genau im kritischen Moment keine Leistung verfügbar ist?',
-      takeaway: 'Versorgungssicherheit entsteht aus dem zeitlichen Zusammenspiel von Erzeugungsprofil, Bedarf, Regelbarkeit, Speicher, Netz und Reserven.',
-      sections: [
-        { id: 'OBS:POWER:MISMATCH', kind: 'observation', title: 'Energie genug, Leistung zur falschen Zeit', summary: 'Ein System kann über einen langen Zeitraum genügend Energie erzeugen und trotzdem kurzfristig unterversorgt sein. Die elektrische Bilanz muss deshalb zeitaufgelöst gedacht werden.', depthPoints: 6 },
-        { id: 'EXPL:POWER:DISPATCH', kind: 'explanation', title: 'Verfügbarkeit und Regelbarkeit', summary: 'Erzeuger unterscheiden sich darin, wann und wie steuerbar ihre Leistung verfügbar ist. Speicher oder Netzkopplung können zeitliche Differenzen zwischen Erzeugung und Verbrauch ausgleichen.', depthPoints: 9 },
-        { id: 'EXPL:POWER:REDUNDANCY', kind: 'explanation', title: 'Redundanz ist mehr als zusätzliche Nennleistung', summary: 'Robustheit verlangt, gemeinsame Fehlerursachen mitzudenken. Zwei Erzeuger sind keine vollständig unabhängige Reserve, wenn beide von derselben kritischen Infrastruktur abhängen.', depthPoints: 9 },
-        { id: 'EXERCISE:POWER:NOXIA', kind: 'exercise', title: 'NOXIA: Versorgungssystem entwerfen', summary: 'Ordne für ein Habitat Grundlast, Spitzenlast, Erzeugungsprofile, Speicher und Reservepfade. Begründe, welche Größe die Versorgung begrenzt: Leistung, Energie, Verfügbarkeit oder eine gemeinsame Abhängigkeit.', depthPoints: 12 },
-        { id: 'QUIZ:POWER:SYSTEM', kind: 'quiz', title: 'Vom Erzeuger zum Versorgungssystem', summary: 'Eine Systementscheidung aus Leistungs-, Energie-, Wirkungsgrad- und Verfügbarkeitsbilanz begründen.', depthPoints: 12 },
-      ],
-    },
-  ],
+    { id:'UNIT:POWER:CONVERSION', title:'Von der Quelle zur elektrischen Energie', entryQuestion:'Die Sonne scheint – warum kann trotzdem das Licht ausgehen?', takeaway:'Energie wird umgewandelt, nicht erzeugt. Quelle, Wandler, Speicher und elektrische Abgabe sind verschiedene Teile eines Versorgungssystems.', gate:{type:'quiz_all_correct',unlocksUnitId:'UNIT:POWER:POWER-ENERGY'}, sections:[
+      {id:'OBS:POWER:SOURCES',kind:'observation',title:'Energie ist vorhanden – aber in welcher Form?',summary:'Sonnenlicht liefert Strahlungsenergie, Wind Bewegungsenergie und Brennstoffe chemische Energie. Ein Verbraucher benötigt dagegen elektrische Energie in passender Form und zum richtigen Zeitpunkt.',depthPoints:5},
+      {id:'EXPL:POWER:CHAIN',kind:'explanation',title:'Quelle → Wandler → Speicher → Verbraucher',summary:'Photovoltaik wandelt Strahlungsenergie elektrisch um; ein Generator wandelt mechanische Energie elektrisch um. Speicher verschieben Energie zeitlich, erzeugen sie aber nicht.',depthPoints:8},
+      {id:'EXP:POWER:FLOW',kind:'experiment',title:'Beobachte die Umwandlungskette',summary:'Verfolge den Energiefluss durch mehrere Stufen und beobachte, wo Verluste auftreten.',interactive:true,interactiveId:'EXP:POWER:FLOW',depthPoints:10},
+      {id:'QUIZ:POWER:CONVERSION',kind:'quiz',title:'Quelle oder Wandler?',summary:'Ordne Quelle, Wandler, Speicher und Verbraucher korrekt ein.',depthPoints:8}
+    ]},
+    { id:'UNIT:POWER:POWER-ENERGY', title:'Leistung ist nicht Energie', entryQuestion:'Eine Anlage hat 10 kW. Wie viele kWh liefert sie heute?', takeaway:'Leistung ist die momentane Rate der Energieübertragung. Energie ist Leistung über Zeit.', gate:{type:'quiz_all_correct',unlocksUnitId:'UNIT:POWER:EFFICIENCY'}, sections:[
+      {id:'EXPL:POWER:P-VS-E',kind:'explanation',title:'kW und kWh beantworten verschiedene Fragen',summary:'Kilowatt beschreibt Leistung. Kilowattstunden beschreiben Energie. 4 kW über 6 Stunden ergeben bei konstanter Leistung 24 kWh.',depthPoints:8},
+      {id:'EXP:POWER:P-VS-E',kind:'experiment',title:'Mach aus kW eine kWh-Bilanz',summary:'Verändere Leistung und Zeit. Die dargestellte Fläche macht sichtbar, warum beide Größen nötig sind.',interactive:true,interactiveId:'EXP:POWER:P-VS-E',depthPoints:12},
+      {id:'EXAMPLE:POWER:GENERATOR',kind:'example',title:'Generatorvergleich',summary:'Ein Generator mit 5 kW, der drei Stunden konstant mit dieser Leistung läuft, liefert 15 kWh – sofern Energiequelle und Betriebsbedingungen das zulassen.',depthPoints:6},
+      {id:'QUIZ:POWER:P-VS-E',kind:'quiz',title:'Finde den kW/kWh-Denkfehler',summary:'Unterscheide Momentanleistung und Energiemenge.',depthPoints:9}
+    ]},
+    { id:'UNIT:POWER:EFFICIENCY', title:'Warum nicht alles ankommt', entryQuestion:'Warum ist der Wirkungsgrad einer einzelnen Komponente nicht der Wirkungsgrad des Gesamtsystems?', takeaway:'Verluste wirken entlang der gesamten Kette. Bei aufeinanderfolgenden Stufen werden ihre Wirkungsgrade multipliziert.', gate:{type:'quiz_all_correct',unlocksUnitId:'UNIT:POWER:PROFILE'}, sections:[
+      {id:'EXPL:POWER:EFFICIENCY',kind:'explanation',title:'Systemgrenze zuerst festlegen',summary:'Vereinfacht gilt η = P_out/P_in oder für passende Zeiträume η = E_out/E_in. PV, Leistungselektronik, Speicher und Leitungen können jeweils eigene Verluste beitragen.',depthPoints:9},
+      {id:'EXP:POWER:EFFICIENCY',kind:'experiment',title:'Verluste durch die Kette verfolgen',summary:'Ändere die Wirkungsgrade einzelner Stufen und beobachte den Gesamteffekt.',interactive:true,interactiveId:'EXP:POWER:FLOW',depthPoints:11},
+      {id:'QUIZ:POWER:EFFICIENCY',kind:'quiz',title:'Addieren oder multiplizieren?',summary:'Prüfe Wirkungsgrad, Verlust und Systemgrenze.',depthPoints:9}
+    ]},
+    { id:'UNIT:POWER:PROFILE', title:'Versorgung muss zu jeder Zeit funktionieren', entryQuestion:'Was hilft genügend Tagesenergie, wenn genau nachts die Batterie leer ist?', takeaway:'Versorgungssicherheit entsteht zu jedem Zeitpunkt aus dem Zusammenspiel von Erzeugung, Bedarf, Speicher und unabhängigen Reservepfaden.', sections:[
+      {id:'OBS:POWER:MISMATCH',kind:'observation',title:'Der Tagesmittelwert kann täuschen',summary:'Ein Habitat kann über 24 Stunden rechnerisch viel Energie erzeugen und trotzdem in einzelnen Stunden zu wenig Leistung verfügbar haben.',depthPoints:6},
+      {id:'EXP:POWER:HABITAT',kind:'experiment',title:'24 Stunden Habitatversorgung',summary:'Verändere Solarspitze, Grundlast und Batteriekapazität und suche die Versorgungslücke.',interactive:true,interactiveId:'EXP:POWER:HABITAT',depthPoints:14},
+      {id:'EXPL:POWER:REDUNDANCY',kind:'explanation',title:'Zwei Systeme sind nicht automatisch zwei unabhängige Systeme',summary:'Gemeinsame Leitungen, Leistungselektronik, Kühlung oder andere Single Points of Failure können mehrere Erzeuger gleichzeitig unwirksam machen.',depthPoints:8},
+      {id:'EXP:POWER:REDUNDANCY',kind:'experiment',title:'Lass Teile des Systems ausfallen',summary:'Teste Nacht, Staub, Batterie, Reservegenerator und eine gemeinsame Infrastruktur als Fehlerursachen.',interactive:true,interactiveId:'EXP:POWER:REDUNDANCY',depthPoints:14},
+      {id:'EXERCISE:POWER:NOXIA',kind:'exercise',title:'Transfer: Entwirf ein Mars-Habitat',summary:'Entwirf aus Solar, Speicher und regelbarer Reserve ein Versorgungskonzept. Begründe mit Leistung, Energie, zeitlicher Verfügbarkeit und unabhängigen Fehlerpfaden – nicht nur mit installierten kW.',depthPoints:14},
+      {id:'QUIZ:POWER:SYSTEM',kind:'quiz',title:'Systemcheck',summary:'Bewerte eine Versorgung als Gesamtsystem und identifiziere den tatsächlichen Engpass.',depthPoints:10}
+    ]}
+  ]
 };
