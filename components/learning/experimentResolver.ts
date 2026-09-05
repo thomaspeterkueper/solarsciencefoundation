@@ -6,6 +6,9 @@ import WearExperiment from './WearExperiment';
 import WaterHardnessExperiment from './WaterHardnessExperiment';
 import PiezoMaterialExperiment from './PiezoMaterialExperiment';
 import BatteryTemperatureExperiment from './BatteryTemperatureExperiment';
+import SurfaceVolumeExperiment from './SurfaceVolumeExperiment';
+import HeatTransportExperiment from './HeatTransportExperiment';
+import CentripetalExperiment from './CentripetalExperiment';
 
 const semanticOverrides: Record<string, ComponentType> = {
   'EXP:MOHS': ScratchHardnessExperiment,
@@ -14,6 +17,9 @@ const semanticOverrides: Record<string, ComponentType> = {
   'EXP:BATTERIE-ALTERUNG': BatteryTemperatureExperiment,
   'EXP:WASSERHAERTE': WaterHardnessExperiment,
   'EXP:PIEZO-MATERIALVERGLEICH': PiezoMaterialExperiment,
+  'EXP:OBERFLAECHE-VOLUMEN': SurfaceVolumeExperiment,
+  'EXP:WAERMETRANSPORT': HeatTransportExperiment,
+  'EXP:ZENTRIFUGAL-SIMULATION': CentripetalExperiment,
 };
 
 /**
