@@ -70,13 +70,11 @@ import PowerRedundancyExperiment from './PowerRedundancyExperiment';
 import PolarityExperiment from './PolarityExperiment';
 import HydrogenBondExperiment from './HydrogenBondExperiment';
 import OsmosisExperiment from './OsmosisExperiment';
+import BatteryManagementExperiment from './BatteryManagementExperiment';
+import BatteryFastChargeExperiment from './BatteryFastChargeExperiment';
 
 export type ExperimentModelType = 'interactive-model' | 'simulation' | 'calculator' | 'visualization';
-export type ExperimentDefinition = {
-  component: ComponentType;
-  modelType: ExperimentModelType;
-  concepts?: string[];
-};
+export type ExperimentDefinition = { component: ComponentType; modelType: ExperimentModelType; concepts?: string[] };
 
 const registry: Record<string, ExperimentDefinition> = {
   'EXP:POWER:P-VS-E': { component: PowerEnergyExperiment, modelType: 'interactive-model', concepts: ['CON:ENG:power-vs-energy'] },
@@ -86,6 +84,8 @@ const registry: Record<string, ExperimentDefinition> = {
   'EXP:POLARITAET': { component: PolarityExperiment, modelType: 'interactive-model' },
   'EXP:HBRUECKEN': { component: HydrogenBondExperiment, modelType: 'interactive-model' },
   'EXP:OSMOSE': { component: OsmosisExperiment, modelType: 'interactive-model' },
+  'EXP:BATTERIE-MANAGEMENT': { component: BatteryManagementExperiment, modelType: 'interactive-model' },
+  'EXP:SCHNELLLADEN-SIMULATION': { component: BatteryFastChargeExperiment, modelType: 'simulation' },
   'EXP:RAYLEIGH': { component: RayleighExperiment, modelType: 'visualization' },
   'EXP:ATMOSPHAERE-PFAD': { component: SunsetExperiment, modelType: 'visualization' },
   'EXP:WEGLAENGE': { component: SunsetExperiment, modelType: 'visualization' },
@@ -199,14 +199,6 @@ const registry: Record<string, ExperimentDefinition> = {
   'EXP:NOX-RESOURCE-CHAIN': { component: ResourceSeparationExperiment, modelType: 'simulation' },
 };
 
-export function getExperimentDefinition(id: string | undefined): ExperimentDefinition | undefined {
-  return id ? registry[id] : undefined;
-}
-
-export function getExperimentComponent(id: string | undefined): ComponentType | undefined {
-  return getExperimentDefinition(id)?.component;
-}
-
-export function getRegisteredExperimentIds(): string[] {
-  return Object.keys(registry);
-}
+export function getExperimentDefinition(id: string | undefined): ExperimentDefinition | undefined { return id ? registry[id] : undefined; }
+export function getExperimentComponent(id: string | undefined): ComponentType | undefined { return getExperimentDefinition(id)?.component; }
+export function getRegisteredExperimentIds(): string[] { return Object.keys(registry); }
