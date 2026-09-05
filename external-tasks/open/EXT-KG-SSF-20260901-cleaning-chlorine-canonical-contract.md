@@ -52,4 +52,15 @@ Sicherheitsanforderungen:
 8. Registry-/KXF-/Pfadvalidierung ausführen und sicherstellen, dass der Pfad erst nach korrekter Kanonisierung wieder aktiv ist.
 9. Nach Umsetzung Task nach `external-tasks/done/` verschieben und Commit-/Testnachweise dokumentieren.
 
+## KG Review 2026-09-05
+
+Abnahme weiterhin blockiert. Gegen aktuellen SSF-Stand geprüft:
+
+- `lib/learningPaths.ts` enthält `PATH:SSF:CHE-REINIGUNG-CHLOR-0001` weiterhin mit `kxfModuleId: LRN:SSF:CHE-2003`.
+- `domainsNeeded` enthält weiterhin die nicht kanonischen IDs `KD:CHE-OXIDATION`, `KD:CHE-REDOX`, `KD:CHE-SAFETY`.
+- `CHM-L1-000004` ist im aktuellen `lib/learningPaths.ts` nicht vorhanden.
+- `KD:CHM-CHEMICAL-SAFETY:N2` ist im aktuellen `lib/learningPaths.ts` nicht vorhanden.
+
+Vor Verschiebung nach `done/` müssen die oben definierten kanonischen IDs und Prerequisites tatsächlich im aktiven/registrierten Pfad umgesetzt und die alten Parallelidentitäten entfernt sein.
+
 SSF bleibt Source of Truth für Didaktik; KG für IDs, Domains, Concepts, Prerequisites und Sicherheitsanforderungen.
