@@ -18,10 +18,12 @@
     "lib/learningQuiz.ts",
     "lib/learningPaths.ts",
     "lib/learningPathRegistry.ts",
+    "lib/experimentSemanticContracts.ts",
     "lib/learningPaths/**/*.ts",
     "tests/research-watch/**/*.ts",
     "tests/learningQuiz.test.ts",
-    "tests/learningPathRegistry.test.ts"
+    "tests/learningPathRegistry.test.ts",
+    "tests/experimentSemanticContracts.test.ts"
   ],
   "exclude": ["node_modules"]
 }
