@@ -1,10 +1,10 @@
 'use client';
-/** KUEPER · SSF · PathRunner · Version 1.4.0 */
+/** KUEPER · SSF · PathRunner · Version 1.4.1 */
 import { useCallback, useState } from 'react';
 import type { LearningPath, LearningPathSection, LearningPathUnit } from '../../lib/learningPaths';
 import styles from './PathRunner.module.css';
 import GovernedQuizSection from './GovernedQuizSection';
-import { getExperimentComponent } from './experimentRegistry';
+import { resolveExperimentComponent } from './experimentResolver';
 
 function depthDisplay(raw: number) {
   const d = Math.round(100 * (1 - 1 / (1 + raw / 26)));
@@ -23,7 +23,7 @@ function SectionCard({ section, onQuizComplete, onDepth }: {
   const [branchOpen, setBranchOpen] = useState(false);
   const [skipped, setSkipped] = useState(false);
   const [depthAwarded, setDepthAwarded] = useState(false);
-  const ExperimentComponent = getExperimentComponent(section.interactiveId ?? section.id);
+  const ExperimentComponent = resolveExperimentComponent(section);
 
   function awardOnce() {
     if (section.kind !== 'quiz' && !depthAwarded && section.depthPoints) {
@@ -65,7 +65,7 @@ function SectionCard({ section, onQuizComplete, onDepth }: {
     {section.kind !== 'observation' && section.kind !== 'quiz' && section.kind !== 'experiment' && <p className={styles.sectionSummary}>{section.summary}</p>}
     {ExperimentComponent && <div className={styles.experimentWrap}><ExperimentComponent /></div>}
     {section.interactive && !ExperimentComponent && <div className={styles.experimentPlaceholder}>
-      <p className={styles.placeholderText}>Interaktives Experiment — wird gerade portiert.</p>
+      <p className={styles.placeholderText}>Für diese Sektion ist noch kein fachlich eindeutiges interaktives Modell hinterlegt.</p>
       <a href={`/prototypes/ssf-${section.id.toLowerCase().replace(/[^a-z0-9]/g, '-')}.html`} className={styles.protoLink} target="_blank" rel="noopener noreferrer">Im Prototyp öffnen →</a>
     </div>}
     {section.kind === 'quiz' && <GovernedQuizSection section={section} onComplete={onQuizComplete} onDepth={onDepth} />}
