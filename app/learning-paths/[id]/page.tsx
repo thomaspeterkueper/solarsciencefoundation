@@ -5,6 +5,7 @@ import {
   getLearningPathStatus,
   getRegisteredLearningPathById,
 } from '../../../lib/learningPathRegistry';
+import { applyLearningPathScienceOverride } from '../../../lib/learningPathScienceOverrides';
 
 type PageProps = {
   params: Promise<{ id: string }>;
@@ -18,7 +19,7 @@ export default async function LearningPathDetailPage({ params, searchParams }: P
   const sp = searchParams ? await searchParams : {};
   const noxiaUid = sp?.uid ?? null;
   const fromNoxia = sp?.ref === 'noxia';
-  const path = getRegisteredLearningPathById(decodeURIComponent(id));
+  const path = applyLearningPathScienceOverride(getRegisteredLearningPathById(decodeURIComponent(id)));
 
   if (!path) notFound();
 
@@ -27,7 +28,6 @@ export default async function LearningPathDetailPage({ params, searchParams }: P
 
   return (
     <div className="container reading" style={{ paddingTop: 'max(var(--header-h, 132px), 40px)', paddingBottom: 96 }}>
-      {/* NOXIA context banner */}
       {fromNoxia && (
         <div style={{
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
@@ -51,7 +51,6 @@ export default async function LearningPathDetailPage({ params, searchParams }: P
           }}>← Zurück zu NOXIA</a>
         </div>
       )}
-      {/* Page header: title as small eyebrow, subtitle as the headline */}
       <p style={{
         fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.12em',
         textTransform: 'uppercase', color: 'var(--muted)', marginBottom: 10,
