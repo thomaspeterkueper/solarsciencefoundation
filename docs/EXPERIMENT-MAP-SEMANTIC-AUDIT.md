@@ -1,11 +1,13 @@
 # EXPERIMENT_MAP — semantischer Integritätsaudit
 
-Stand: 2026-09-01
-Status: Arbeits- und Reviewdokument
+Stand: 2026-09-06
+Status: laufender Audit; die ursprünglich identifizierten C- und B-Zuordnungen sind weitgehend bereinigt.
 
 ## Ziel
 
-`PathRunner.EXPERIMENT_MAP` darf eine Komponente nur dann wiederverwenden, wenn das dargestellte Modell fachlich zum Learning Object passt. Ähnliche UI-Mechanik (Slider, Diagramm, Animation) ist **kein** ausreichender Grund für Wiederverwendung.
+Ein Experiment darf nur wiederverwendet werden, wenn das dargestellte fachliche Modell zum Learning Object passt. Ähnliche UI-Mechanik wie Slider, Diagramm oder Animation ist kein ausreichender Grund für Wiederverwendung.
+
+Leitprinzip: **Interaktiv, wo Interaktion Erkenntnis erzeugt. Visuell, wo Darstellung genügt.**
 
 ## Einstufung
 
@@ -13,101 +15,68 @@ Status: Arbeits- und Reviewdokument
 - **B — prüfen/verbessern:** fachliche Nähe vorhanden, aber Komponente oder Benennung kann eine zu starke Analogie erzeugen.
 - **C — ersetzen:** fachfremdes Modell; Wiederverwendung erzeugt falsches Lernen.
 
-## Bereits korrigiert
+## Bereinigte Fehlzuordnungen
 
-- `EXP:NEUTRALISATION` → eigenes stöchiometrisches Neutralisationsmodell statt Critical Materials.
-- `EXP:OXIDATION`, `EXP:CHLORGAS` → Chlor-/Hypochlorit-Modell statt Critical Materials bzw. Verbrennung.
-- `EXP:POROESITAET` → Oberflächen-/Porositätsmodell statt DustGrain.
-- `EXP:QUELLUNG` → hygroskopisches Quellungsmodell statt PipeFreezing.
-- `EXP:ZELLTURGOR` → qualitatives Wasserpotential/Turgor-Modell statt DewPoint.
-- `EXP:WISCHER-TECHNIK` → Wischergeometrie/-bewegung statt Evaporation.
-- `EXP:OELEIGENSCHAFTEN` → Öl-/Viskositätsmodell statt Combustion.
+### Chemie / Wasser / Reinigung
 
-## C — klare semantische Fehlzuordnungen
+- `EXP:POLARITAET` → eigenes Polaritäts-/Dipolmodell statt Spinmodell.
+- `EXP:HBRUECKEN` → eigenes Wasserstoffbrückenmodell statt Wheatstone-Brücke.
+- `EXP:OSMOSE` → eigenes Osmosemodell statt Origin-of-Life-Timeline.
+- `EXP:POLAR-SORTIERER` → eigenes Polaritäts-/Löslichkeitsmodell statt Mizellenmodell.
+- `EXP:OBERFLSPANNUNG` → eigenes Oberflächenspannungsmodell statt Kapillaritätsmodell.
+- `EXP:DAMPFDRUCK-TEMP` → eigenes Dampfdruck-/Siedemodell statt DustGrain.
+- `EXP:DRUCK-BLASEN` → Dampfdruck-/Siedemodell; Blasenbildung wird nicht mit einem reinen Phasendiagramm verwechselt.
+- `EXP:NEUTRALISATION` → stöchiometrisches Neutralisationsmodell.
+- `EXP:OXIDATION`, `EXP:CHLORGAS` → Chlor-/Hypochlorit-Modell.
+- `EXP:POROESITAET` → Oberflächen-/Porositätsmodell.
+- `EXP:QUELLUNG` → hygroskopisches Quellungsmodell.
+- `EXP:ZELLTURGOR` → qualitatives Wasserpotential/Turgor-Modell.
+- `EXP:WISCHER-TECHNIK` → Wischergeometrie/-bewegung.
+- `EXP:OELEIGENSCHAFTEN` → Öl-/Viskositätsmodell.
 
-1. `EXP:POLARITAET → SpinExperiment`
-   - Elektronen-/Spinmodell ist kein Modell molekularer Polarität.
-   - Maßnahme: eigenes Dipol-/Elektronegativitätsmodell oder vorhandenes Wasserdipol-Modell nur bei explizit passendem Scope.
+### Werkstoffe / Messtechnik
 
-2. `EXP:DAMPFDRUCK-TEMP → DustGrainExperiment`
-   - Dampfdruck/Temperatur und Staubkornmechanik sind fachlich verschieden.
-   - Maßnahme: eigenes Dampfdruckmodell oder PhaseDiagram/Evaporation nur nach Prüfung der tatsächlich dargestellten Größe.
+- `EXP:MOHS` → Ritzhärtemodell; Mohs wird nicht als universelle Werkstoffhärte behandelt.
+- Legacy `EXP:HAERTE` wird kontextbezogen auf `EXP:WASSERHAERTE` oder `EXP:PIEZO-MATERIALVERGLEICH` normalisiert.
+- `EXP:MOTOR-VERSCHLEISS`, `EXP:VERSCHLEISS-SIMULATION` → tribologisches Verschleiß-Lehrmodell.
+- `EXP:ROSETTE` → eigenes 0°/45°/90°-DMS-Rosettenmodell mit Hauptdehnungsrekonstruktion.
+- `EXP:AUSWERTUNG` → `EXP:DMS-MEASUREMENT-CHAIN`; idealisierte DMS-Messkette statt generischem Fehlerexperiment.
+- `EXP:ASPEKT` → `EXP:EDM-ASPECT-RATIO`; Tiefe/Durchmesser-Modell statt Piezo-Materialvergleich.
+- `EXP:BUILDER` → `EXP:ERROR-PROPAGATION-BUILDER`; Unsicherheitsbeiträge statt Kugeldichte-spezifischer UI.
 
-3. `EXP:OSMOSE → OriginOfLifeTimeline`
-   - Timeline ist kein Osmosemodell.
-   - Maßnahme: eigenes Membran-/Wasserpotential-Modell.
+### Batterie / Fahrzeug / Mechanik
 
-4. `EXP:HAERTE`, `EXP:MOHS → PiezoMaterialExperiment`
-   - Piezoelektrische Materialeigenschaften modellieren keine Ritzhärte.
-   - Maßnahme: eigenes Härte-/Ritzvergleichsmodell; Mohs nur für mineralogischen Ritzvergleich verwenden, nicht als universelle Werkstoffhärteskala.
+- `EXP:BATTERIE-ALTERUNG` → batterie-spezifisches Temperatur-/BMS-Lehrmodell.
+- `EXP:BATTERIE-MANAGEMENT` → eigenes BMS-Zustandsmodell.
+- `EXP:SCHNELLLADEN-SIMULATION` → eigenes SOC-/Temperatur-/Laderatenmodell.
+- `EXP:HAFTUNG-REIBUNG`, `EXP:GEWICHT-TRAKTION` → Traktions-/Lastverlagerungsmodell statt Bremsenergie.
+- `EXP:KRAFT-DREHZAHL` → Drehmoment-/Drehzahl-/Leistungsmodell statt Viertaktanimation.
+- `EXP:BESCHLEUNIGUNG-VERGLEICH` → vereinfachtes Leistungs-/Masse-/Traktionsmodell statt MaterialsDashboard.
+- `EXP:ZENTRIFUGAL-SIMULATION` → Zentripetalmodell statt Drehmomentmodell.
 
-5. `EXP:BATTERIE-ALTERUNG`, `EXP:BATTERIE-MANAGEMENT → ElectrolyzerExperiment`
-   - Elektrolyseur ist kein Batteriealterungs- oder BMS-Modell.
-   - Maßnahme: Batterie-spezifische Modelle.
+### Wärme / Akustik
 
-6. `EXP:SCHNELLLADEN-SIMULATION`, `EXP:BESCHLEUNIGUNG-VERGLEICH → MaterialsDashboardExperiment`
-   - Dashboard-Wiederverwendung ist ohne explizit generischen Datensatz semantisch nicht belastbar.
-   - Maßnahme: Schnelllade-/Beschleunigungsmodelle separat prüfen und spezialisieren.
+- `EXP:OBERFLAECHE-VOLUMEN` → geometrisches O/V-Modell statt Wärmekapazität.
+- `EXP:WAERMETRANSPORT` → Wärmeleitungsmodell statt Wärmekapazität.
+- `EXP:SCHALLDAEMPFUNG` → frequenzabhängiger Ein-/Ausgangsspektrumsvergleich statt bloßer Fourier-Wiederverwendung.
 
-7. `EXP:ASPEKT → PiezoMaterialExperiment`
-   - Identifier ist semantisch nicht selbsterklärend; Zuordnung zu Piezo-Materialien nicht begründbar.
-   - Maßnahme: Ursprungs-Learning-Object lokalisieren und neu zuordnen oder Interaktivität entfernen.
+## Bestätigte A-Fälle aus der B-Liste
 
-8. `EXP:MOTOR-VERSCHLEISS`, `EXP:VERSCHLEISS-SIMULATION → PiezoMaterialExperiment`
-   - Piezo-Materialvergleich ist kein Verschleißmodell.
-   - Maßnahme: tribologisches Modell oder statische Verschleißdarstellung.
+- `EXP:ARBEITSPUNKT → DiodeExperiment` ist im konkreten Learning Object tatsächlich Diodenkennlinie + Lastgerade + Arbeitspunkt und damit semantisch passend.
+- `EXP:GAUSS → LGSExperiment` darf nur aktiv bleiben, wenn das konkrete Learning Object Gauß-Elimination eines linearen Gleichungssystems meint; ansonsten muss die ID umbenannt werden.
 
-9. `EXP:POLAR-SORTIERER → MicelleExperiment`
-   - Polarität/Sortierung und Mizellenbildung sind nicht dasselbe Modell.
-   - Maßnahme: eigenes Polaritäts-/Löslichkeitsmodell.
+## Architekturstatus
 
-10. `EXP:BUILDER → DensityErrorExperiment`
-    - generischer Identifier, fachliche Bedeutung nicht aus Mapping ableitbar.
-    - Maßnahme: Ursprung lokalisieren; keine Wiederverwendung ohne expliziten Mechanismus.
+Der frühere große String→Component-Switch wurde bereits in eine lesbare Registry und einen semantischen Resolver aufgeteilt. Der Resolver dient derzeit vor allem dazu, Legacy-IDs kontrolliert auf eindeutige semantische IDs bzw. spezialisierte Komponenten zu normalisieren.
 
-11. `EXP:GAUSS → LGSExperiment`
-    - nur dann A, wenn tatsächlich Gauß-Elimination/LGS gemeint ist. Der Identifier allein reicht nicht.
-    - Maßnahme: Learning Object prüfen und semantisch präziseren Identifier vergeben.
+Noch sinnvoll als nächste Härtung:
 
-12. `EXP:HBRUECKEN → WheatstoneExperiment`
-    - falls „H-Brücken“ Wasserstoffbrücken meint: klare Fehlzuordnung zur Wheatstone-Brücke.
-    - Maßnahme: Ursprungsinhalt prüfen; bei Wasserstoffbrücken molekulares Modell verwenden.
+1. Experiment-Metadaten vollständig React-unabhängig halten: `id`, `domains`, `concepts`, `modelType`, optional Modellannahmen.
+2. Learning Sections einen erwarteten Concept-/Domain-Scope deklarieren lassen.
+3. Tests so erweitern, dass fachlich inkompatible Section↔Experiment-Zuordnungen fehlschlagen.
+4. Generische Legacy-IDs (`EXP:HAERTE`, `EXP:ASPEKT`, `EXP:AUSWERTUNG`, `EXP:BUILDER`) schrittweise aus den eigentlichen Lernpfaddaten entfernen; Resolver nur noch als Migrationsschicht verwenden.
+5. Fehlende Experimente weiterhin fail-closed behandeln: keine fachfremde Komponente als Platzhalter.
 
-## B — fachliche Nähe, aber Review erforderlich
+## Offene Reviewpunkte außerhalb des reinen Mappings
 
-- `EXP:OBERFLSPANNUNG → CapillaryExperiment`: Kapillarität hängt mit Oberflächenspannung zusammen, ist aber nicht identisch. Prüfen, ob die Komponente Oberflächenspannung selbst sichtbar macht.
-- `EXP:DRUCK-BLASEN → PhaseDiagramExperiment`: Phasendiagramm kann Druck-/Siedezusammenhänge zeigen; „Blasen“ benötigt ggf. Keimbildung/Sieden als eigenes Modell.
-- `EXP:OBERFLAECHE-VOLUMEN → WaterHeatCapacityExperiment`: Oberfläche/Volumen ist geometrisch; Wärmekapazität ist eine andere Größe. Wahrscheinlich C nach Ursprungsprüfung.
-- `EXP:WAERMETRANSPORT → WaterHeatCapacityExperiment`: Wärmekapazität beeinflusst Energiespeicherung, ist aber nicht Wärmetransport. Wahrscheinlich C.
-- `EXP:ROSETTE → HookeExperiment`: bei DMS-Rosette nur teilweise passend; Rosettengeometrie und Dehnungsrekonstruktion fehlen möglicherweise.
-- `EXP:ZENTRIFUGAL-SIMULATION → TorqueExperiment`: Drehmoment und Zentrifugal-/Zentripetalzusammenhang sind verschieden. Wahrscheinlich C.
-- `EXP:SCHALLDAEMPFUNG → FourierExperiment`: Spektralanalyse kann Dämmwirkung darstellen, aber nur wenn Ein-/Ausgangsspektrum explizit modelliert wird.
-- `EXP:GEWICHT-TRAKTION`, `EXP:HAFTUNG-REIBUNG → BrakeEnergyExperiment`: Bremsenergie ist nicht automatisch Reibungs-/Traktionsmodell.
-- `EXP:KRAFT-DREHZAHL → FourStrokeExperiment`: Motortakt und Drehmoment-/Drehzahlkennfeld sind verschieden.
-- `EXP:ARBEITSPUNKT → DiodeExperiment`: passend nur bei elektrischem Dioden-Arbeitspunkt; Kontext prüfen.
-- `EXP:AUSWERTUNG → DensityErrorExperiment`: generischer Identifier; fachliche Bedeutung muss explizit gemacht werden.
-
-## A — derzeit plausible Wiederverwendung
-
-Beispiele: Rayleigh/Atmosphärenweg, Vektorrechner/Skalar, thermische Dehnung, Hooke, Poisson, Wheatstone-Brücke, Diodenkennlinie, Fourier/Wellenmischung, Wasser-Molekül, Erwärmungskurve, Dichteanomalie, Taupunkt, Phasendiagramm, Verdunstung, Kapillarität (für Kapillar-Learning-Objects), Rohrsprengung durch Gefrieren, Viertakt/Kolbenmechanik, Bremsenergie/Reibungswärme, Verbrennungschemie/-temperatur, Emulsion/Emulgator, Kollagen/Gelatine, Mizelle/Tensid, Batterie Laden/Entladen/Innenwiderstand, Pumpenmodelle, Magnetismusmodelle, Piezo-Funke/DMS, Hohmann-Transfer, NOXIA Wasser- und Ressourcenketten.
-
-## Architekturproblem
-
-Der Audit zeigt ein strukturelles Problem: `EXPERIMENT_MAP` ist ein großer globaler String→Component-Switch. Dadurch kann ein fachlich falsches Mapping technisch völlig gültig sein.
-
-### Empfohlene Härtung
-
-1. Experiment-Metadaten einführen: `id`, `component`, `domains`, `concepts`, `modelType`.
-2. Learning Sections deklarieren neben `interactiveId` den erwarteten Concept-/Domain-Scope.
-3. Registry-Test schlägt fehl, wenn Experiment- und Section-Scope nicht kompatibel sind.
-4. Generische IDs wie `EXP:ASPEKT`, `EXP:AUSWERTUNG`, `EXP:BUILDER` aus aktiven Pfaden entfernen bzw. semantisch umbenennen.
-5. Fehlende Experimente nicht durch fachfremde Komponenten ersetzen. Statische Schema-/Erklärsektion ist der korrekte Fallback.
-
-## Nächste Abarbeitungsreihenfolge
-
-1. Polarität / H-Brücken / Osmose
-2. Härte / Mohs / Verschleiß
-3. Batteriealterung / BMS / Schnellladen
-4. Oberfläche-Volumen / Wärmetransport / Zentrifugal
-5. generische IDs `ASPEKT`, `AUSWERTUNG`, `BUILDER`
-6. verbleibende B-Fälle einzeln anhand ihrer Learning Objects klassifizieren
+Der Mapping-Audit ist nicht identisch mit einem vollständigen Science-Review der Lerntexte. Mehrere Legacy-Pfade enthalten weiterhin zu absolute oder didaktisch problematische Aussagen, unter anderem zu Mohs-Härte, Fensterreinigung, Holz, Motor-/Batteriekennwerten und einzelnen Wasser-/Oberflächen-Erklärungen. Diese müssen separat in den aktiven Pfaden bereinigt bzw. durch spezialisierte Pfade superseded werden.
