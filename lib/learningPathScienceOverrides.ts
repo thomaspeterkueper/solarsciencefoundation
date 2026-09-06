@@ -4,6 +4,10 @@ import { windowCleaningLearningPath } from './learningPaths/windowCleaning';
 import { tileWoodCleaningLearningPath } from './learningPaths/tileWoodCleaning';
 import { autoMotorLearningPath } from './learningPaths/autoMotor';
 import { autoBatteryLearningPath } from './learningPaths/autoBattery';
+import { osmosisLearningPath } from './learningPaths/osmosis';
+import { boilingPressureLearningPath } from './learningPaths/boilingPressure';
+import { emulsionLearningPath } from './learningPaths/emulsion';
+import { waterSurfaceLearningPath } from './learningPaths/waterSurface';
 
 const overrides = new Map<string, LearningPath>([
   [surfaceCleaningLearningPath.id, surfaceCleaningLearningPath],
@@ -11,6 +15,10 @@ const overrides = new Map<string, LearningPath>([
   [tileWoodCleaningLearningPath.id, tileWoodCleaningLearningPath],
   [autoMotorLearningPath.id, autoMotorLearningPath],
   [autoBatteryLearningPath.id, autoBatteryLearningPath],
+  [osmosisLearningPath.id, osmosisLearningPath],
+  [boilingPressureLearningPath.id, boilingPressureLearningPath],
+  [emulsionLearningPath.id, emulsionLearningPath],
+  [waterSurfaceLearningPath.id, waterSurfaceLearningPath],
 ]);
 
 export function applyLearningPathScienceOverride(path: LearningPath | null): LearningPath | null {
