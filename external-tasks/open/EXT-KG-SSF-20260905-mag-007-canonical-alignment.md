@@ -50,4 +50,10 @@ Kanonische Concepts:
 7. Prerequisite `MAG-006` und Relation `requires: [MAG-006]` beibehalten; die kanonische Domain-Zuordnung ergänzt diese lokale Sequenz und ersetzt sie nicht.
 8. Nach Umsetzung Registry-/Modulvalidierung ausführen und Task mit Commit-/Testnachweisen nach `done/` verschieben.
 
+## KG-Abnahme 2026-09-06
+
+Aktueller SSF-`main` wurde gegen `modules/materials/MAG-007.yaml` geprüft. Der Task ist **noch nicht umgesetzt**: Die Datei entspricht weiterhin dem ursprünglichen Draft und enthält insbesondere noch keine `knowledge_domain: KD:ENG-ELECTROMAGNETIC-SYSTEMS:N3`-Zuordnung. Die kanonischen `key_concepts` sind bereits vorhanden, reichen ohne Domain-Bindung und die oben geforderten fachlichen Abgrenzungen aber nicht zur Abnahme.
+
+Status bleibt daher `open`.
+
 SSF bleibt Source of Truth für Didaktik und lokale Modulstruktur; KG für Domains, Concepts und kanonische Identitäten.
