@@ -12,6 +12,14 @@ import CentripetalExperiment from './CentripetalExperiment';
 import ErrorPropagationBuilderExperiment from './ErrorPropagationBuilderExperiment';
 import EdmAspectRatioExperiment from './EdmAspectRatioExperiment';
 import DmsMeasurementChainExperiment from './DmsMeasurementChainExperiment';
+import SurfaceTensionExperiment from './SurfaceTensionExperiment';
+import VaporPressureBoilingExperiment from './VaporPressureBoilingExperiment';
+import PolaritySolubilityExperiment from './PolaritySolubilityExperiment';
+import TractionExperiment from './TractionExperiment';
+import TorqueSpeedExperiment from './TorqueSpeedExperiment';
+import DmsRosetteExperiment from './DmsRosetteExperiment';
+import SoundAttenuationExperiment from './SoundAttenuationExperiment';
+import VehicleAccelerationExperiment from './VehicleAccelerationExperiment';
 
 const semanticOverrides: Record<string, ComponentType> = {
   'EXP:MOHS': ScratchHardnessExperiment,
@@ -26,6 +34,16 @@ const semanticOverrides: Record<string, ComponentType> = {
   'EXP:ERROR-PROPAGATION-BUILDER': ErrorPropagationBuilderExperiment,
   'EXP:EDM-ASPECT-RATIO': EdmAspectRatioExperiment,
   'EXP:DMS-MEASUREMENT-CHAIN': DmsMeasurementChainExperiment,
+  'EXP:OBERFLSPANNUNG': SurfaceTensionExperiment,
+  'EXP:DAMPFDRUCK-TEMP': VaporPressureBoilingExperiment,
+  'EXP:DRUCK-BLASEN': VaporPressureBoilingExperiment,
+  'EXP:POLAR-SORTIERER': PolaritySolubilityExperiment,
+  'EXP:HAFTUNG-REIBUNG': TractionExperiment,
+  'EXP:GEWICHT-TRAKTION': TractionExperiment,
+  'EXP:KRAFT-DREHZAHL': TorqueSpeedExperiment,
+  'EXP:ROSETTE': DmsRosetteExperiment,
+  'EXP:SCHALLDAEMPFUNG': SoundAttenuationExperiment,
+  'EXP:BESCHLEUNIGUNG-VERGLEICH': VehicleAccelerationExperiment,
 };
 
 const legacySemanticIds: Record<string, string> = {
