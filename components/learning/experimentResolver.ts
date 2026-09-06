@@ -9,6 +9,9 @@ import BatteryTemperatureExperiment from './BatteryTemperatureExperiment';
 import SurfaceVolumeExperiment from './SurfaceVolumeExperiment';
 import HeatTransportExperiment from './HeatTransportExperiment';
 import CentripetalExperiment from './CentripetalExperiment';
+import ErrorPropagationBuilderExperiment from './ErrorPropagationBuilderExperiment';
+import EdmAspectRatioExperiment from './EdmAspectRatioExperiment';
+import DmsMeasurementChainExperiment from './DmsMeasurementChainExperiment';
 
 const semanticOverrides: Record<string, ComponentType> = {
   'EXP:MOHS': ScratchHardnessExperiment,
@@ -20,15 +23,21 @@ const semanticOverrides: Record<string, ComponentType> = {
   'EXP:OBERFLAECHE-VOLUMEN': SurfaceVolumeExperiment,
   'EXP:WAERMETRANSPORT': HeatTransportExperiment,
   'EXP:ZENTRIFUGAL-SIMULATION': CentripetalExperiment,
+  'EXP:ERROR-PROPAGATION-BUILDER': ErrorPropagationBuilderExperiment,
+  'EXP:EDM-ASPECT-RATIO': EdmAspectRatioExperiment,
+  'EXP:DMS-MEASUREMENT-CHAIN': DmsMeasurementChainExperiment,
 };
 
-/**
- * Legacy EXP:HAERTE was accidentally reused for two unrelated concepts.
- * Keep the old authored data readable, but normalize it to semantic runtime IDs.
- * New content must use the explicit IDs above.
- */
+const legacySemanticIds: Record<string, string> = {
+  'EXP:BUILDER': 'EXP:ERROR-PROPAGATION-BUILDER',
+  'EXP:ASPEKT': 'EXP:EDM-ASPECT-RATIO',
+  'EXP:AUSWERTUNG': 'EXP:DMS-MEASUREMENT-CHAIN',
+};
+
+/** Keep old authored data readable while normalizing ambiguous/generic legacy IDs. */
 function normalizeLegacyId(section: LearningPathSection): string | undefined {
   const id = section.interactiveId ?? section.id;
+  if (legacySemanticIds[id]) return legacySemanticIds[id];
   if (id !== 'EXP:HAERTE') return id;
 
   const context = `${section.title} ${section.summary}`.toLowerCase();
@@ -43,10 +52,8 @@ export function resolveExperimentComponent(section: LearningPathSection): Compon
   return semanticOverrides[id] ?? getRegistryExperimentComponent(id);
 }
 
-export function getSemanticExperimentId(section: LearningPathSection): string | undefined {
-  return normalizeLegacyId(section);
-}
+export function getSemanticExperimentId(section: LearningPathSection): string | undefined { return normalizeLegacyId(section); }
 
 export function isAmbiguousExperimentId(id: string): boolean {
-  return id === 'EXP:HAERTE';
+  return id === 'EXP:HAERTE' || id === 'EXP:BUILDER' || id === 'EXP:ASPEKT' || id === 'EXP:AUSWERTUNG';
 }
