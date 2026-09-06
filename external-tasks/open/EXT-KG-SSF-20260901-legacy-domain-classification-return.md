@@ -41,6 +41,17 @@ Alle vier Klassifikationen sind `maps_existing`. Keine neue `KD:*`-Domain wurde 
 
 Die didaktische Implementierung bleibt SSF-Verantwortung.
 
+## KG Review 2026-09-06
+
+Abnahme weiterhin blockiert. Gegen aktuellen SSF-Stand geprüft:
+
+- `lib/learningPaths/maillard.ts` verwendet weiterhin `KNOW:CHE-REACTIONS` und `KNOW:CHE-ORGANIC` in `domainsNeeded`; der Pfad bleibt damit durch `quarantineUnmappedLegacyDomains()` vom konsumierbaren Registry-Bestand ausgeschlossen.
+- `PATH:SSF:PHY-WASSER-OBERFL-0001` im aktuellen `lib/learningPaths.ts` verwendet weiterhin `KNOW:PHY-SURFACE-TENSION` und `KNOW:PHY-CAPILLARITY`.
+- `lib/learningPaths/noxiaResourceExtraction.ts` verwendet weiterhin `KD:ENGINEERING`, `KD:GEOLOGY`, `KD:PHYSICS` statt `KD:ENG:N1`, `KD:GEO:N1`, `KD:PHYS:N1`.
+- `lib/learningPathRegistry.ts` enthält für die vier neuen Legacy-IDs noch keine Einträge im lokalen `LEGACY_DOMAIN_MAP`; deshalb werden insbesondere Maillard und der Oberflächen-/Kapillaritätspfad nicht automatisch auf die KG-Zuordnung 0.1.1 normalisiert.
+
+Vor `done/` sind die drei genannten Stellen tatsächlich zu korrigieren und Registry-/Runtime-Health erneut nachzuweisen. Ein bloßes Ergänzen weiterer lokaler Alias-IDs ist nicht ausreichend; Ziel ist der direkte kanonische `KD:*`-Stand in den betroffenen governed/aktiven Pfaden.
+
 ## KG-Referenz
 
 - KG commit `847fbe3ce3e0055573efb1da34ea606cea37da5f`
