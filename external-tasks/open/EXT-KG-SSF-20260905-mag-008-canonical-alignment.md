@@ -56,4 +56,10 @@ Kanonische Concepts:
 
 Die KG-Korrekturen wurden gegen etablierte Referenzpunkte zu magnetokalorischer Kühlung und Flux Pinning geprüft. Insbesondere ist Flux Pinning als Vortex-Pinning in Typ-II-Supraleitern zu behandeln; magnetokalorische Leistungs-/Effizienzangaben sind nicht als zeitlose Concept-Eigenschaften zu übernehmen.
 
+## KG-Abnahme 2026-09-06
+
+Aktueller SSF-`main` wurde gegen `modules/materials/MAG-008.yaml` geprüft. Der Task ist **noch nicht umgesetzt**: Die Datei entspricht weiterhin dem ursprünglichen Draft und enthält insbesondere noch keine `knowledge_domain: KD:MAT-MAGNETIC-FUNCTIONS:N3`-Zuordnung. Die sechs kanonisierten `key_concepts` sind vorhanden; die geforderten fachlichen Abgrenzungen und die Domain-Bindung sind aber noch nicht im Modulstand nachweisbar.
+
+Status bleibt daher `open`.
+
 SSF bleibt Source of Truth für Didaktik und lokale Modulstruktur; KG für Domains, Concepts und kanonische Identitäten.
