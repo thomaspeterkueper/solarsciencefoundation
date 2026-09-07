@@ -8,6 +8,7 @@ import { osmosisLearningPath } from './learningPaths/osmosis';
 import { boilingPressureLearningPath } from './learningPaths/boilingPressure';
 import { emulsionLearningPath } from './learningPaths/emulsion';
 import { waterSurfaceLearningPath } from './learningPaths/waterSurface';
+import { chlorineCleaningLearningPath } from './learningPaths/chlorineCleaning';
 
 const overrides = new Map<string, LearningPath>([
   [surfaceCleaningLearningPath.id, surfaceCleaningLearningPath],
@@ -19,6 +20,7 @@ const overrides = new Map<string, LearningPath>([
   [boilingPressureLearningPath.id, boilingPressureLearningPath],
   [emulsionLearningPath.id, emulsionLearningPath],
   [waterSurfaceLearningPath.id, waterSurfaceLearningPath],
+  [chlorineCleaningLearningPath.id, chlorineCleaningLearningPath],
 ]);
 
 export function applyLearningPathScienceOverride(path: LearningPath | null): LearningPath | null {
