@@ -4,20 +4,25 @@ status: draft
 language: { primary: de, planned: [en] }
 title: { de: Fortgeschrittene magnetische Funktionen, en: Advanced magnetic functions }
 summary:
-  de: Elektromagnete, Wirbelströme, Abschirmung, Magnetokalorik, Supraleitung und Flux Pinning als weiterführende Funktionsprinzipien.
+  de: Elektromagnete, Wirbelströme, Abschirmung, Magnetokalorik, Supraleitung und Flux Pinning als unterschiedliche weiterführende Funktionsprinzipien – nicht als ein gemeinsamer Magnetwerkstoffmechanismus.
 level: { ssf_level: N3, academic_context: Physik / funktionale Materialien }
 duration_minutes: 50
+knowledge_domain: KD:MAT-MAGNETIC-FUNCTIONS:N3
 learning_objectives:
   de:
-    - Elektromagnete und Permanentmagnete funktional vergleichen.
-    - Wirbelströme als Verlustmechanismus und technische Wirkung erklären.
-    - Grundideen magnetischer Abschirmung einordnen.
-    - Magnetokalorik, Supraleitung und Flux Pinning als fortgeschrittene Materialfunktionen beschreiben.
+    - Elektromagnete und Permanentmagnete funktional vergleichen und erklären, dass ein Elektromagnet sein Feld wesentlich durch elektrischen Strom erzeugt; ein ferromagnetischer Kern ist häufig, aber nicht begriffsnotwendig.
+    - Wirbelströme als Verlust- und Erwärmungsmechanismus sowie als gezielt nutzbaren Effekt erklären und den Einfluss von Leitfähigkeit, Geometrie und zeitlicher Feldänderung einordnen.
+    - Hochpermeable Flussführung, leitfähige Wirbelstrom-Abschirmung und supraleitende magnetische Reaktion als unterschiedliche Mechanismen magnetischer Abschirmung unterscheiden.
+    - Den magnetokalorischen Effekt als feldinduzierte reversible thermische Reaktion geeigneter Materialien beschreiben, ohne universelle Effektstärken, Temperaturfenster oder Wirkungsgrade zu behaupten.
+    - Supraleitung über verschwindenden Gleichstromwiderstand hinaus anhand magnetischen Verhaltens sowie kritischer Temperatur, Feldstärke und Stromdichte einordnen.
+    - Flux Pinning vom Meissner-Effekt unterscheiden und als Festhalten von Flussvortizes an Pinning-Zentren in Typ-II-Supraleitern mit Bezug zu kritischer Stromdichte, Hysterese und stabiler Levitation erklären.
 prerequisites: { modules: [MAG-007] }
 key_concepts: [CON:PHY:electromagnet, CON:PHY:eddy-current, CON:MAT:magnetic-shielding, CON:MAT:magnetocaloric-effect, CON:PHY:superconductivity, CON:PHY:flux-pinning]
 assessment:
   mastery_criteria:
-    - Lernende können magnetische Materialfunktionen auf physikalische Prinzipien und Werkstoffeigenschaften zurückführen.
+    - Lernende können die behandelten magnetischen Funktionen ihren jeweils unterschiedlichen physikalischen Mechanismen und relevanten Werkstoffeigenschaften zuordnen.
+    - Lernende können erklären, warum Abschirmung, Magnetokalorik, Supraleitung und Flux Pinning nicht durch ein einziges allgemeines Magnetwerkstoffmodell beschrieben werden.
+    - Lernende können Flux Pinning und Meissner-Effekt begrifflich und funktional auseinanderhalten.
 relations: { requires: [MAG-007] }
 ssf_notes:
-  de: Abschlussmodul mit Anschlussmöglichkeiten an Energie-, Sensorik-, Kryotechnik- und Engineering-Pfade.
+  de: Abschlussmodul mit Anschlussmöglichkeiten an Energie-, Sensorik-, Kryotechnik- und Engineering-Pfade. Technologiereife und konkrete Leistungsdaten werden nur als datierte Evidenz behandelt, nicht als zeitlose Concept-Eigenschaften.
