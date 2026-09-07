@@ -4,17 +4,28 @@ status: draft
 language: { primary: de, planned: [en] }
 title: { de: Anwendungen magnetischer Materialien, en: Applications of magnetic materials }
 summary:
-  de: Anwendungen von Elektromotoren, Generatoren und Transformatoren bis zu Sensorik, MRT, Lautsprechern, Datenspeicherung und magnetischen Lagern.
+  de: Anwendungen von Elektromotoren, Generatoren und Transformatoren bis zu Sensorik, MRT, Lautsprechern, Datenspeicherung und magnetischen Lagern. Entscheidend ist dabei nicht eine universell beste Werkstoffklasse, sondern die Funktion des magnetischen Materials im jeweiligen System.
 level: { ssf_level: N3, academic_context: Physik / Engineering }
 duration_minutes: 50
+knowledge_domain: KD:ENG-ELECTROMAGNETIC-SYSTEMS:N3
 learning_objectives:
   de:
     - Magnetische Werkstoffe nach Funktion in technischen Systemen einordnen.
-    - Permanentmagnet, weichmagnetischen Kern und Elektromagnet unterscheiden.
-    - Anwendungen anhand von Feldstärke, Verlusten, Temperatur und Werkstoffwahl vergleichen.
+    - Permanentmagnet, weichmagnetischen Flussführer und Elektromagnet unterscheiden und ihre jeweilige Systemfunktion erklären.
+    - Erklären, dass Motoren und Generatoren je nach Topologie Permanentmagnete, Elektromagnete und weichmagnetische Flussführungen unterschiedlich kombinieren.
+    - Transformatoren als Anwendung weichmagnetischer Kerne einordnen und Werkstoffwahl mit Verlusten, Sättigung und Betriebsfrequenz verbinden.
+    - Hall-Sensoren als Magnetfeldsensoren auf Basis des Hall-Effekts einordnen, ohne den Sensor selbst pauschal als Magnetwerkstoff-Bauteil zu behandeln.
+    - Permanentmagnetische, elektromagnetische und hybride Magnetlager unterscheiden.
+    - Werkstoff- und Systemauswahl anhand von Feldanforderung, Verlusten, Temperatur, mechanischen Randbedingungen und Systemtopologie vergleichen, ohne universelle Rangfolge.
 prerequisites: { modules: [MAG-006] }
 key_concepts: [CON:ENG:electric-motor, CON:ENG:generator, CON:ENG:transformer, CON:ENG:hall-sensor, CON:ENG:magnetic-bearing]
 canonical_examples:
   - id: EX:MAG:007:001
     title: { de: Warum Motor und Transformator unterschiedliche Magnetwerkstoffe brauchen, en: Why motors and transformers need different magnetic materials }
+    framing:
+      de: Ein Motor oder Generator kann je nach Topologie Permanentmagnete, Elektromagnete und weichmagnetische Flussführungen kombinieren. Ein Transformator benötigt dagegen keinen Permanentmagneten; sein Kern wird als weichmagnetischer Flusspfad insbesondere nach Verlusten, Sättigung und Frequenz ausgewählt.
+  - id: EX:MAG:007:002
+    title: { de: Hall-Sensor und Magnetlager – Sensorfunktion ist nicht Werkstofffunktion, en: Hall sensor and magnetic bearing – sensing is not a material function }
+    framing:
+      de: Ein Hall-Sensor erfasst Magnetfelder über den Hall-Effekt. Magnetlager können permanentmagnetisch, elektromagnetisch oder hybrid arbeiten. In beiden Fällen muss die Systemfunktion getrennt von der Rolle einzelner magnetischer Werkstoffe betrachtet werden.
 relations: { requires: [MAG-006], precedes: [MAG-008] }
