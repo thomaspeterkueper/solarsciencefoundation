@@ -18,6 +18,19 @@ const ACTIVE_REGISTRY_BLOCKERS = new Set([
   'legacy_domain_reference',
 ]);
 
+const GOVERNED_PATHS_WITH_SUPERSEDED_LEGACY_COPIES = [
+  'PATH:SSF:CHE-KUECHE-KARAMELL-0001',
+  'PATH:SSF:CHE-REINIGUNG-ROTWEIN-0001',
+  'PATH:SSF:CHE-REINIGUNG-KALK-0001',
+  'PATH:SSF:CHE-REINIGUNG-CHLOR-0001',
+  'PATH:SSF:ECO-KREDIT-0001',
+  'PATH:SSF:ECO-KREDIT-NOXIA-0001',
+  'PATH:SSF:ECO-ZINS-0001',
+  'PATH:SSF:ECO-ZINSESZINS-NOXIA-0001',
+  'PATH:SSF:ENG-ROHSTOFFGEWINNUNG-0001',
+  'PATH:SSF:CHE-WASSER-AUFBEREITUNG-0001',
+] as const;
+
 test('consumable learning-path registry has no structural identity blockers', () => {
   const blockers = learningPathRegistryIssues.filter((issue) => ACTIVE_REGISTRY_BLOCKERS.has(issue.type));
   assert.deepEqual(blockers, [], JSON.stringify(blockers, null, 2));
@@ -30,6 +43,14 @@ test('consumable learning paths expose only canonical KD domain references', () 
       .map((domainId) => ({ pathId: path.id, domainId })),
   );
   assert.deepEqual(legacyRefs, [], JSON.stringify(legacyRefs, null, 2));
+});
+
+test('governed paths stay unique while their legacy copies are being removed', () => {
+  for (const pathId of GOVERNED_PATHS_WITH_SUPERSEDED_LEGACY_COPIES) {
+    const matches = registeredLearningPaths.filter((path) => path.id === pathId);
+    assert.equal(matches.length, 1, `${pathId} must resolve to exactly one consumable path`);
+    assert.equal(getRegisteredLearningPathById(pathId)?.id, pathId);
+  }
 });
 
 test('chlorine cleaning path resolves only through the canonical KG/KXF contract', () => {
