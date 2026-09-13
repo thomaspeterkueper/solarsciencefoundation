@@ -18,15 +18,18 @@ const ACTIVE_REGISTRY_BLOCKERS = new Set([
   'legacy_domain_reference',
 ]);
 
-const GOVERNED_PATHS_WITH_SUPERSEDED_LEGACY_COPIES = [
+const GOVERNED_REPLACEMENT_PATH_IDS = [
   'PATH:SSF:CHE-KUECHE-KARAMELL-0001',
   'PATH:SSF:CHE-REINIGUNG-ROTWEIN-0001',
   'PATH:SSF:CHE-REINIGUNG-KALK-0001',
   'PATH:SSF:CHE-REINIGUNG-CHLOR-0001',
-  'PATH:SSF:ECO-KREDIT-0001',
   'PATH:SSF:ECO-KREDIT-NOXIA-0001',
-  'PATH:SSF:ECO-ZINS-0001',
   'PATH:SSF:ECO-ZINSESZINS-NOXIA-0001',
+] as const;
+
+const RETIRED_LEGACY_PATH_IDS = [
+  'PATH:SSF:ECO-KREDIT-0001',
+  'PATH:SSF:ECO-ZINS-0001',
   'PATH:SSF:ENG-ROHSTOFFGEWINNUNG-0001',
   'PATH:SSF:CHE-WASSER-AUFBEREITUNG-0001',
 ] as const;
@@ -45,12 +48,23 @@ test('consumable learning paths expose only canonical KD domain references', () 
   assert.deepEqual(legacyRefs, [], JSON.stringify(legacyRefs, null, 2));
 });
 
-test('governed paths stay unique while their legacy copies are being removed', () => {
-  for (const pathId of GOVERNED_PATHS_WITH_SUPERSEDED_LEGACY_COPIES) {
+test('governed replacements stay unique while physical legacy cleanup proceeds', () => {
+  for (const pathId of GOVERNED_REPLACEMENT_PATH_IDS) {
     const matches = registeredLearningPaths.filter((path) => path.id === pathId);
     assert.equal(matches.length, 1, `${pathId} must resolve to exactly one consumable path`);
     assert.equal(getRegisteredLearningPathById(pathId)?.id, pathId);
   }
+});
+
+test('retired legacy path identities do not leak back into the consumable registry', () => {
+  for (const pathId of RETIRED_LEGACY_PATH_IDS) {
+    assert.equal(getRegisteredLearningPathById(pathId), null, `${pathId} must remain retired`);
+  }
+});
+
+test('canonical NOXIA replacements exist for retired raw-resource and water paths', () => {
+  assert.ok(getRegisteredLearningPathById('PATH:SSF:NOX-RESOURCE-EXTRACTION-0001'));
+  assert.ok(getRegisteredLearningPathById('PATH:SSF:NOX-WATER-PROCESSING-0001'));
 });
 
 test('chlorine cleaning path resolves only through the canonical KG/KXF contract', () => {
