@@ -1,8 +1,9 @@
 # SSF Learning Path Legacy Migration
 
-**Version:** 1.0.0  
+**Version:** 1.0.1  
 **Status:** Active migration plan  
 **Created:** 2026-09-13  
+**Updated:** 2026-09-13  
 **Scope:** `lib/learningPaths.ts` → governed specialized learning-path files
 
 ## Ziel
@@ -19,9 +20,13 @@ Die Laufzeit-Source-of-Truth ist `lib/learningPathRegistry.ts`. Neue Lernpfade w
 
 ---
 
-## Bereits spezialisierte Pfade mit noch vorhandener Legacy-Kopie
+## Aktueller Migrationsbestand
 
-Der aktuelle Registry-Stand markiert folgende Legacy-IDs als superseded:
+Der Registry-Layer blendet derzeit mehrere historische IDs aus. Dabei müssen zwei Fälle unterschieden werden.
+
+### A. Gleiche Path-ID, governed Ersatz vorhanden
+
+Diese IDs bleiben als konsumierbare Lernpfade erhalten; ihre autoritative Definition kommt aus einer spezialisierten Datei:
 
 | Path ID | Governed source | Migrationsstatus |
 |---|---|---|
@@ -29,12 +34,21 @@ Der aktuelle Registry-Stand markiert folgende Legacy-IDs als superseded:
 | `PATH:SSF:CHE-REINIGUNG-ROTWEIN-0001` | `lib/learningPaths/redWineStain.ts` | physische Legacy-Entfernung offen |
 | `PATH:SSF:CHE-REINIGUNG-KALK-0001` | `lib/learningPaths/limescaleCleaning.ts` | physische Legacy-Entfernung offen |
 | `PATH:SSF:CHE-REINIGUNG-CHLOR-0001` | `lib/learningPaths/chlorineCleaning.ts` | physische Legacy-Entfernung offen |
-| `PATH:SSF:ECO-KREDIT-0001` | `lib/learningPaths/finance.ts` | physische Legacy-Entfernung offen |
 | `PATH:SSF:ECO-KREDIT-NOXIA-0001` | `lib/learningPaths/finance.ts` | physische Legacy-Entfernung offen |
-| `PATH:SSF:ECO-ZINS-0001` | `lib/learningPaths/finance.ts` | physische Legacy-Entfernung offen |
 | `PATH:SSF:ECO-ZINSESZINS-NOXIA-0001` | `lib/learningPaths/finance.ts` | physische Legacy-Entfernung offen |
-| `PATH:SSF:ENG-ROHSTOFFGEWINNUNG-0001` | `lib/learningPaths/noxiaResourceExtraction.ts` / governed resource path | physische Legacy-Entfernung offen |
-| `PATH:SSF:CHE-WASSER-AUFBEREITUNG-0001` | `lib/learningPaths/noxiaWaterProcessing.ts` / governed water path | physische Legacy-Entfernung offen |
+
+### B. Historische Path-ID ist bewusst retired
+
+Diese IDs sollen **nicht** wieder als konsumierbare Pfade auftauchen. Inhaltlich relevante Nachfolger besitzen andere kanonische IDs:
+
+| Retired legacy ID | Heutiger governed Bezug | Regel |
+|---|---|---|
+| `PATH:SSF:ECO-KREDIT-0001` | `PATH:SSF:ECO-KREDIT-NOXIA-0001` | alte ID bleibt retired |
+| `PATH:SSF:ECO-ZINS-0001` | `PATH:SSF:ECO-ZINSESZINS-NOXIA-0001` | alte ID bleibt retired |
+| `PATH:SSF:ENG-ROHSTOFFGEWINNUNG-0001` | `PATH:SSF:NOX-RESOURCE-EXTRACTION-0001` | alte ID bleibt retired |
+| `PATH:SSF:CHE-WASSER-AUFBEREITUNG-0001` | `PATH:SSF:NOX-WATER-PROCESSING-0001` | alte ID bleibt retired |
+
+Diese Unterscheidung ist wichtig: Eine superseded ID bedeutet nicht automatisch, dass exakt dieselbe ID in einer spezialisierten Datei weiterleben muss.
 
 Zusätzlich existieren Foundation-Pfade, deren ältere Varianten durch governed NOXIA-foundation paths ersetzt werden. Diese werden separat im Registry-Layer behandelt und dürfen nicht mit fachlich eigenständigen SSF-Pfaden verwechselt werden.
 
@@ -53,19 +67,17 @@ Warum zuerst: Diese Pfade besitzen bereits spezialisierte Dateien und sind fachl
 
 ### Welle B — Finance
 
-1. Kredit
-2. Kredit/NOXIA-Anwendung
-3. Zins
-4. Zinseszins/NOXIA-Anwendung
+1. historische Kreditdefinitionen
+2. historische Zinsdefinitionen
 
-Vor physischer Entfernung müssen alle Modul-Aliase und Abhängigkeiten gegen `finance.ts` geprüft werden.
+Vor physischer Entfernung müssen Modul-Aliase und Abhängigkeiten gegen `finance.ts` geprüft werden. Die retired IDs `PATH:SSF:ECO-KREDIT-0001` und `PATH:SSF:ECO-ZINS-0001` dürfen dabei nicht versehentlich reaktiviert werden.
 
 ### Welle C — Ressourcen/Wasser
 
-1. Rohstoffgewinnung
-2. Wasseraufbereitung
+1. historische Rohstoffgewinnung
+2. historische Wasseraufbereitung
 
-Diese Pfade sind stärker mit NOXIA-Unlocks und Foundation-Pfaden gekoppelt. Vor Entfernung ist ein Gate-/Unlock-Abgleich erforderlich.
+Diese Pfade sind stärker mit NOXIA-Unlocks und Foundation-Pfaden gekoppelt. Vor Entfernung ist ein Gate-/Unlock-Abgleich erforderlich. Die kanonischen Nachfolger sind `PATH:SSF:NOX-RESOURCE-EXTRACTION-0001` und `PATH:SSF:NOX-WATER-PROCESSING-0001`.
 
 ---
 
@@ -74,13 +86,14 @@ Diese Pfade sind stärker mit NOXIA-Unlocks und Foundation-Pfaden gekoppelt. Vor
 Für jede Entfernung gilt dieselbe Reihenfolge:
 
 1. Legacy-Block in `lib/learningPaths.ts` identifizieren.
-2. `id`, `sourceModuleId`, `kxfModuleId`, `domainsNeeded`, Unit-IDs, Section-IDs und Gates mit dem governed Pfad vergleichen.
+2. `id`, `sourceModuleId`, `kxfModuleId`, `domainsNeeded`, Unit-IDs, Section-IDs und Gates mit dem governed Pfad oder dem dokumentierten Nachfolger vergleichen.
 3. Prüfen, ob andere Legacy-Pfade auf Unit-/Section-IDs oder Unlocks verweisen.
 4. Regressionstest für die kanonische Registry-Auflösung ergänzen, falls noch nicht vorhanden.
-5. Legacy-Block physisch entfernen.
-6. zugehörige ID aus `SUPERSEDED_LEGACY_PATH_IDS` entfernen.
-7. Tests ausführen.
-8. Erst nach grünem CI gilt die Migration als abgeschlossen.
+5. Bei retired IDs zusätzlich testen, dass die alte Identität **nicht** wieder konsumierbar wird.
+6. Legacy-Block physisch entfernen.
+7. zugehörige ID aus `SUPERSEDED_LEGACY_PATH_IDS` entfernen, sobald der Block tatsächlich nicht mehr existiert.
+8. Tests ausführen.
+9. Erst nach grünem CI gilt die Migration als abgeschlossen.
 
 Eine Entfernung darf nicht nur deshalb erfolgen, weil der Registry-Layer die Legacy-Kopie derzeit ausblendet.
 
@@ -92,6 +105,7 @@ Die Migration ist abgeschlossen, wenn:
 
 - `SUPERSEDED_LEGACY_PATH_IDS` leer ist;
 - governed Pfade direkt aus spezialisierten Dateien kommen;
+- retired Legacy-IDs durch Regressionstests gegen versehentliche Reaktivierung geschützt sind;
 - `lib/learningPaths.ts` nur noch nicht migrierte historische Pfade enthält oder vollständig auf Typdefinitionen/Kompatibilität reduziert wurde;
 - keine Application-Route den Legacy-Array direkt konsumiert;
 - Registry-Tests keine Identitäts-, Domain-, Gate- oder Alias-Probleme melden.
