@@ -1,9 +1,9 @@
 # SSF Learning Path Legacy Migration
 
-**Version:** 1.0.1  
+**Version:** 1.1.0  
 **Status:** Active migration plan  
 **Created:** 2026-09-13  
-**Updated:** 2026-09-13  
+**Updated:** 2026-09-25  
 **Scope:** `lib/learningPaths.ts` → governed specialized learning-path files
 
 ## Ziel
@@ -30,10 +30,10 @@ Diese IDs bleiben als konsumierbare Lernpfade erhalten; ihre autoritative Defini
 
 | Path ID | Governed source | Migrationsstatus |
 |---|---|---|
-| `PATH:SSF:CHE-KUECHE-KARAMELL-0001` | `lib/learningPaths/caramelization.ts` | physische Legacy-Entfernung offen |
-| `PATH:SSF:CHE-REINIGUNG-ROTWEIN-0001` | `lib/learningPaths/redWineStain.ts` | physische Legacy-Entfernung offen |
-| `PATH:SSF:CHE-REINIGUNG-KALK-0001` | `lib/learningPaths/limescaleCleaning.ts` | physische Legacy-Entfernung offen |
-| `PATH:SSF:CHE-REINIGUNG-CHLOR-0001` | `lib/learningPaths/chlorineCleaning.ts` | physische Legacy-Entfernung offen |
+| `PATH:SSF:CHE-KUECHE-KARAMELL-0001` | `lib/learningPaths/caramelization.ts` | **Welle A abgeschlossen 2026-09-25** |
+| `PATH:SSF:CHE-REINIGUNG-ROTWEIN-0001` | `lib/learningPaths/redWineStain.ts` | **Welle A abgeschlossen 2026-09-25** |
+| `PATH:SSF:CHE-REINIGUNG-KALK-0001` | `lib/learningPaths/limescaleCleaning.ts` | **Welle A abgeschlossen 2026-09-25** |
+| `PATH:SSF:CHE-REINIGUNG-CHLOR-0001` | `lib/learningPaths/chlorineCleaning.ts` | **Welle A abgeschlossen 2026-09-25** |
 | `PATH:SSF:ECO-KREDIT-NOXIA-0001` | `lib/learningPaths/finance.ts` | physische Legacy-Entfernung offen |
 | `PATH:SSF:ECO-ZINSESZINS-NOXIA-0001` | `lib/learningPaths/finance.ts` | physische Legacy-Entfernung offen |
 
@@ -63,7 +63,7 @@ Zusätzlich existieren Foundation-Pfade, deren ältere Varianten durch governed 
 3. Kalkreinigung
 4. Hypochlorit/Chlorreinigung
 
-Warum zuerst: Diese Pfade besitzen bereits spezialisierte Dateien und sind fachlich weitgehend voneinander isoliert. Das Risiko für fremde Gates und Unlocks ist gering.
+**Abgeschlossen am 2026-09-25.** Die vier Legacy-Blöcke wurden physisch aus `lib/learningPaths.ts` entfernt; die zugehörigen IDs wurden anschließend aus `SUPERSEDED_LEGACY_PATH_IDS` entfernt. Die governed Definitionen bleiben autoritativ.
 
 ### Welle B — Finance
 
