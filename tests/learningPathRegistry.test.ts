@@ -89,3 +89,14 @@ test('chlorine cleaning path resolves only through the canonical KG/KXF contract
   assert.ok(path.suppliedBy.knowledgeGraph.includes('REQ:CHM:HYPOCHLORITE-ACID-MIX-SAFETY-0001'));
   assert.ok(path.suppliedBy.knowledgeGraph.includes('REQ:CHM:BLEACH-MECHANISM-QUALIFIER-0001'));
 });
+
+
+test('NOXIA scientific observation path teaches evidence before technology unlocks', () => {
+  const path=getRegisteredLearningPathById('PATH:SSF:NOX-SCIENTIFIC-OBSERVATION-0001');
+  assert.ok(path,'scientific observation path must be registered');
+  assert.equal(path.kxfModuleId,'LRN:SSF:NOX-SCIENTIFIC-OBSERVATION');
+  assert.ok(path.unlocks.includes('UNL:NOX:scientific-observation'));
+  assert.ok(path.units.some(unit=>unit.sections.some(section=>section.id==='EXPL:NOX-OBS-NEGATIVE')),'negative evidence must be taught');
+  assert.ok(path.units.some(unit=>unit.sections.some(section=>section.id==='EXP:NOX-OBS-SOLUTION-SPACE')),'technology solution-space transfer must be taught');
+  assert.ok(path.domainsNeeded.every(id=>id.startsWith('KD:')),'path must use canonical knowledge domains');
+});
