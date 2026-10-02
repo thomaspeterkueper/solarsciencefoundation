@@ -20,6 +20,12 @@ export type LearningPathSection = {
   interactive?: boolean;
   /** Interactive id resolved via getLearningInteractive() (e.g. 'gravitationsbrunnen') */
   interactiveId?: string;
+  /** External simulator owned by another system. SSF owns the learning contract and fallback, not simulator physics. */
+  externalSimulator?: {
+    simulatorId: string;
+    instruction: string;
+    fallback: string;
+  };
   /**
    * Optional image for observation cards.
    * Path relative to /public — e.g. "/images/observations/kaffeetasse-tku.jpg"
