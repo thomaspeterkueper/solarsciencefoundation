@@ -28,6 +28,13 @@ export type NoxiaModuleSection =
   | { type: 'example'; title: string; text: string }
   | { type: 'task'; prompt: string; hint?: string }
   | {
+      type: 'external_simulator';
+      simulatorId: string;
+      title: string;
+      instruction: string;
+      fallback: string;
+    }
+  | {
       type: 'interactive';
       interactiveId: string;
       title: string;
@@ -132,6 +139,9 @@ function toNoxiaPathModule(path: LearningPath): NoxiaKnowledgeModule {
 }
 
 function sectionToNoxia(section: LearningPathSection): NoxiaModuleSection[] {
+  if (section.externalSimulator) {
+    return [{ type: 'external_simulator', title: section.title, ...section.externalSimulator }];
+  }
   if (section.interactiveId) {
     const interactive = getLearningInteractive(section.interactiveId);
     if (interactive) return [{ type: 'interactive', ...interactive }];
