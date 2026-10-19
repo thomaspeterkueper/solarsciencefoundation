@@ -520,3 +520,27 @@
   color: var(--navy);
   margin-bottom: 4px;
 }
+
+/* Evidence level of historical content (docs/SSF-BELEGSTUFEN.md) */
+.evidenceBadge {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid currentColor;
+  cursor: help;
+}
+
+.evidence_quelle {
+  color: #0F6E56;
+}
+
+.evidence_forschung {
+  color: #185FA5;
+}
+
+.evidence_rekonstruktion {
+  color: #854F0B;
+}

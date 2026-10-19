@@ -9,6 +9,9 @@
  * Depends:   —
  */
 
+import type { LearningEvidenceLevel } from './learningEvidence';
+export type { LearningEvidenceLevel };
+
 export type LearningPathSection = {
   id: string;
   kind: 'observation' | 'explanation' | 'example' | 'exercise' | 'experiment' | 'quiz' | 'branch';
@@ -35,7 +38,18 @@ export type LearningPathSection = {
    * a "Lösung zeigen" button so learners can try the task first.
    */
   solution?: string;
+  /**
+   * Evidence level for sections that make historical claims or reconstruct
+   * historical practice (see docs/SSF-BELEGSTUFEN.md). Timeless subject matter
+   * (mathematics, physics) carries no evidence level.
+   * - 'quelle':          what a historical text, find or inscription itself attests
+   * - 'forschung':       what research infers or reconstructs from the sources
+   * - 'rekonstruktion':  what SSF reconstructs didactically (models, exercises, hands-on tasks)
+   */
+  evidence?: LearningEvidenceLevel;
 };
+
+
 
 export type LearningPathUnit = {
   id: string;

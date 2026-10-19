@@ -2,6 +2,7 @@
 /** KUEPER · SSF · PathRunner · Version 1.4.1 */
 import { useCallback, useState } from 'react';
 import type { LearningPath, LearningPathSection, LearningPathUnit } from '../../lib/learningPaths';
+import { LEARNING_EVIDENCE_LABELS } from '../../lib/learningEvidence';
 import styles from './PathRunner.module.css';
 import GovernedQuizSection from './GovernedQuizSection';
 import { resolveExperimentComponent } from './experimentResolver';
@@ -42,6 +43,7 @@ function SectionCard({ section, onQuizComplete, onDepth }: {
     return <div className={styles.branch}>
       <div className={styles.branchHeader}>
         <span className={styles.kindBadge} style={{ color: 'var(--gold-2)' }}>Seitenast — optional</span>
+        {section.evidence && <span className={`${styles.evidenceBadge} ${styles['evidence_' + section.evidence]}`} title={LEARNING_EVIDENCE_LABELS[section.evidence].description}>{LEARNING_EVIDENCE_LABELS[section.evidence].label}</span>}
         <strong className={styles.sectionTitle}>{section.title}</strong>
         <p className={styles.sectionSummary}>{section.summary}</p>
       </div>
@@ -82,6 +84,7 @@ function SectionCard({ section, onQuizComplete, onDepth }: {
       <span className={styles.kindBadge}>{kindLabel[section.kind] ?? section.kind}</span>
       {section.optional && <button className={styles.skipBtn} onClick={() => setSkipped(true)}>überspringen</button>}
       {section.interactive && !ExperimentComponent && <span className={styles.interactiveBadge}>interaktiv</span>}
+      {section.evidence && <span className={`${styles.evidenceBadge} ${styles['evidence_' + section.evidence]}`} title={LEARNING_EVIDENCE_LABELS[section.evidence].description}>{LEARNING_EVIDENCE_LABELS[section.evidence].label}</span>}
     </div>
   </div>;
 }

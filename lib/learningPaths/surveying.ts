@@ -1,4 +1,4 @@
-import type { LearningPath, LearningPathSection } from '../learningPaths';
+import type { LearningEvidenceLevel, LearningPath, LearningPathSection } from '../learningPaths';
 
 // Surveying series (Vermessung ohne Laser und GPS) – three governed paths.
 // Canonical identities from kueper-knowledge-graph (2026-10-19):
@@ -77,7 +77,7 @@ export const gromaLearningPath: LearningPath = {
       gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:GROMA:ZENTURIATION' },
       sections: [
         { id: 'OBS:GROMA:ZWEI-SCHNUERE', kind: 'observation', title: 'Zwei Schnüre werden zu einer', summary: 'Schaut man an zwei hintereinander hängenden Schnüren vorbei, gibt es genau eine Blickrichtung, in der die hintere hinter der vorderen verschwindet. Diese Blickrichtung ist eine Gerade – und sie lässt sich mit Stäben ins Gelände übertragen.', depthPoints: 4 },
-        { id: 'EXPL:GROMA:ABLAUF', kind: 'explanation', title: 'Der Messablauf in vier Schritten', summary: 'Erstens: Stab einstecken und das Zentrallot über den Ausgangspunkt bringen. Zweitens: Das Kreuz drehen, bis ein Arm in die gewünschte Richtung zeigt. Drittens: An zwei gegenüberliegenden Loten vorbeipeilen, bis sie sich decken; ein Helfer setzt in dieser Linie Fluchtstäbe. Viertens: Über das andere Lotpaar genauso peilen – diese Linie steht rechtwinklig zur ersten, weil die Kreuzarme fest im 90-Grad-Winkel stehen.', depthPoints: 10 },
+        { id: 'EXPL:GROMA:ABLAUF', kind: 'explanation', title: 'Der Messablauf in vier Schritten', summary: 'Aus Funden und den Schriften der Landvermesser lässt sich der Ablauf etwa so rekonstruieren. Erstens: Stab einstecken und das Zentrallot über den Ausgangspunkt bringen. Zweitens: Das Kreuz drehen, bis ein Arm in die gewünschte Richtung zeigt. Drittens: An zwei gegenüberliegenden Loten vorbeipeilen, bis sie sich decken; ein Helfer setzt in dieser Linie Fluchtstäbe. Viertens: Über das andere Lotpaar genauso peilen – diese Linie steht rechtwinklig zur ersten, weil die Kreuzarme fest im 90-Grad-Winkel stehen.', depthPoints: 10 },
         { id: 'EXPL:GROMA:ACHSEN', kind: 'explanation', title: 'Cardo und decumanus', summary: 'Die beiden rechtwinkligen Hauptlinien hießen decumanus und cardo. Sie bildeten das Grundgerüst für Militärlager, Stadtgrundrisse und die Einteilung von Ackerland. Oft lief der decumanus etwa in Ost-West- und der cardo in Nord-Süd-Richtung, doch häufig richteten sich die Achsen auch nach Gelände, Küste oder vorhandenen Straßen.', depthPoints: 8 },
         { id: 'EXPL:GROMA:KNOTENSCHNUR', kind: 'explanation', title: 'Die Probe mit 3, 4 und 5', summary: 'Ob ein Winkel wirklich rechtwinklig ist, lässt sich ohne Instrument prüfen. Man misst auf dem einen Schenkel 3 Längeneinheiten ab, auf dem anderen 4. Ist der Winkel genau rechtwinklig, beträgt der Abstand zwischen den beiden Endpunkten genau 5 Einheiten, denn 3 mal 3 plus 4 mal 4 ergibt 25, und das ist 5 mal 5. Ein Seil mit 12 gleichen Abschnitten, zum Dreieck gelegt, reicht dafür aus. Dass schon ägyptische „Seilspanner“ so gearbeitet hätten, wird oft erzählt, ist aber nicht belegt; sicher belegt sind ganzzahlige Seitenverhältnisse für rechte Winkel in Mesopotamien und in den indischen Śulbasūtras.', depthPoints: 8 },
         exercise('EXR:GROMA:DIAGONALE', 'Diagonale prüfen', 'Du hast mit deiner Groma eine Ecke für ein Beet abgesteckt. Ein Schenkel ist 6 Meter lang, der andere 8 Meter. Wie lang muss die Diagonale zwischen den Endpunkten sein, wenn der Winkel stimmt? Und was bedeutet es, wenn du 10,4 Meter misst?', 'Es gilt 6 · 6 + 8 · 8 = 36 + 64 = 100, die Wurzel aus 100 ist 10. Die Diagonale muss also 10 Meter lang sein – das ist das 3-4-5-Dreieck mal zwei. Misst du 10,4 Meter, ist der Winkel etwas größer als 90 Grad; die Ecke muss nachgerichtet werden.'),
@@ -130,7 +130,7 @@ export const heightMeasurementLearningPath: LearningPath = {
         { id: 'OBS:HOEHEN:AQUAEDUKT', kind: 'observation', title: 'Eine Leitung mit fast keinem Gefälle', summary: 'Die römische Wasserleitung nach Nîmes, zu der die berühmte Brücke Pont du Gard gehört, ist rund 50 Kilometer lang. Zwischen Quelle und Stadt liegen trotzdem nur etwa 11 bis 13 Meter Höhenunterschied – je nach Quelle. Das Wasser floss also auf einem Kilometer im Mittel nur ein paar Dutzend Zentimeter bergab.', depthPoints: 4 },
         { id: 'EXPL:HOEHEN:WASSERSPIEGEL', kind: 'explanation', title: 'Der Wasserspiegel als Lineal', summary: 'Stehendes Wasser bildet immer eine waagerechte Oberfläche, weil die Schwerkraft es überall gleich nach unten zieht. Ein Lot zeigt die Senkrechte, ein Wasserspiegel die Waagerechte. Beides zusammen gibt dem Vermesser ein festes Bezugssystem, das nicht davon abhängt, wie schief der Boden ist.', depthPoints: 8 },
         practice('PRX:HOEHEN:WASSERGLAS', 'Das schiefe Glas', 'Fülle ein durchsichtiges Glas halb mit Wasser und kippe es langsam zur Seite, ohne etwas zu verschütten. Beobachte die Wasseroberfläche gegen eine Tischkante oder eine Fensterbank. Das Glas ist schief, die Oberfläche bleibt waagerecht. Genau diese Eigenschaft nutzten die Römer beim Chorobates.'),
-        { id: 'EXPL:HOEHEN:CHOROBATES', kind: 'explanation', title: 'Der Chorobates', summary: 'Der römische Architekt Vitruv beschreibt den Chorobates: einen langen Holztisch von etwa 20 Fuß, also rund 6 Metern, mit Loten an den Seiten und einer Wasserrinne auf der Oberseite. Steht die Wasseroberfläche überall gleich hoch in der Rinne, liegt der Tisch waagerecht. Über seine Oberkante peilt man dann zu einer entfernten Messlatte und liest ab, wie viel höher oder tiefer der Boden dort liegt.', depthPoints: 10 },
+        { id: 'EXPL:HOEHEN:CHOROBATES', kind: 'explanation', title: 'Der Chorobates', summary: 'Der römische Architekt Vitruv beschreibt den Chorobates: einen langen Holztisch von etwa 20 Fuß, also rund 6 Metern, mit Loten an den Seiten und einer Wasserrinne auf der Oberseite. Steht die Wasseroberfläche überall gleich hoch in der Rinne, liegt der Tisch waagerecht. Wie genau damit im Gelände gemessen wurde, beschreibt Vitruv nur knapp. Die Peilung über die Oberkante zu einer entfernten Messlatte ist eine naheliegende Rekonstruktion.', depthPoints: 10 },
         exercise('EXR:HOEHEN:GEFAELLE', 'Gefälle berechnen', 'Eine Leitung verliert auf 50 Kilometern 12 Meter Höhe. Wie viele Zentimeter sind das pro Kilometer? Und wie viel Prozent Gefälle sind das (Höhenunterschied geteilt durch Strecke mal 100)?', 'Pro Kilometer: 12 Meter geteilt durch 50 sind 0,24 Meter, also 24 Zentimeter. In Prozent: 0,24 Meter geteilt durch 1.000 Meter mal 100 ergibt 0,024 Prozent. Zum Vergleich: Ein Gehweg mit 2 Prozent Gefälle fällt schon fast hundertmal so steil ab.'),
         { id: 'QUIZ:HOEHEN:WAAGERECHTE', kind: 'quiz', title: QUIZ_TITLE, summary: 'Eine Leitung verliert auf 20 Kilometern 6 Meter Höhe. Wie groß ist das Gefälle pro Kilometer?||3 Meter||30 Zentimeter*||3 Zentimeter||60 Zentimeter---Warum eignet sich eine ruhende Wasseroberfläche als Bezug für Höhenmessungen?||Weil Wasser Licht bricht||Weil sie sich durch die Schwerkraft von selbst waagerecht einstellt*||Weil Wasser schwerer ist als Holz||Weil sie immer auf Meereshöhe liegt---Eine moderne Wasserwaage hat eine Luftblase in einer gebogenen Röhre. Was hat sie mit dem Chorobates gemeinsam?||Beide messen Entfernungen||Beide nutzen eine Flüssigkeit, die sich durch die Schwerkraft ausrichtet, um die Waagerechte zu zeigen*||Beide funktionieren nur mit Sonnenlicht||Nichts, die Wasserwaage misst Winkel', depthPoints: 12 },
       ],
@@ -385,7 +385,7 @@ export const asiaOrientSurveyingLearningPath: LearningPath = {
         { id: 'OBS:ASIEN:FELD', kind: 'observation', title: 'Ein Feld wird verkauft', summary: 'Wird ein Teil eines Feldes verkauft, muss jemand festlegen, wo genau die neue Grenze verläuft und wie groß die Teile sind. Das ist heute Aufgabe des Katasteramts. Schon vor fast 4000 Jahren gab es dafür Pläne auf Tontafeln.', depthPoints: 4 },
         { id: 'EXPL:ASIEN:BABYLON', kind: 'explanation', title: 'Feldpläne aus Babylonien', summary: 'Eine Tontafel aus Sippar im heutigen Irak, etwa 1900 bis 1600 vor Christus beschrieben, zeigt die Teilung eines Feldes nach einem Teilverkauf. Die rechten Winkel der Teilflächen beruhen auf Seitenverhältnissen wie 3 zu 4 zu 5. Eine Statue des Herrschers Gudea aus derselben Region, rund 2100 vor Christus, hält sogar einen Bauplan mit Maßstab auf dem Schoß.', depthPoints: 8 },
         { id: 'EXPL:ASIEN:SULBA', kind: 'explanation', title: 'Altäre aus Seil und Pflock', summary: 'Die indischen Śulbasūtras sind Anleitungen, um Feueraltäre exakt abzustecken – nur mit Seil (śulba) und Pflöcken. Sie nennen mehrere ganzzahlige Seitenverhältnisse für rechte Winkel, etwa 3-4-5, 5-12-13 und 8-15-17, und beschreiben den Zusammenhang zwischen Diagonale und Seiten eines Rechtecks. Die ältesten dieser Texte werden meist auf etwa 800 bis 500 vor Christus datiert; die Datierung ist umstritten.', depthPoints: 8 },
-        { id: 'EXPL:ASIEN:STADTRASTER', kind: 'explanation', title: 'Städte im Raster', summary: 'Schon die Städte der Induskultur wie Mohenjo-daro hatten um 2500 vor Christus Straßen, die überwiegend einem rasterähnlichen Plan folgten, dazu Abwasserkanäle und Ziegel im Verhältnis 1 zu 2 zu 4. Der chinesische Text Kaogongji beschreibt eine ideale quadratische Hauptstadt mit Straßenraster. Gebaut wurde ein solches Raster etwa in Chang’an, gegründet 582, das wiederum Vorbild für Nara und Kyōto in Japan wurde.', depthPoints: 8 },
+        { id: 'EXPL:ASIEN:STADTRASTER', kind: 'explanation', title: 'Städte im Raster', summary: 'Schon die Städte der Induskultur wie Mohenjo-daro hatten um 2500 vor Christus Straßen, die überwiegend einem rasterähnlichen Plan folgten, dazu Abwasserkanäle und Ziegel im Verhältnis 1 zu 2 zu 4. Der chinesische Text Kaogongji beschreibt eine ideale quadratische Hauptstadt mit Straßenraster – eine Textvorstellung, kein Bauplan; wie diese Idealstadt genau aussehen sollte, wird in der Forschung unterschiedlich rekonstruiert. Gebaut wurde ein solches Raster etwa in Chang’an, gegründet 582, das wiederum Vorbild für Nara und Kyōto in Japan wurde.', depthPoints: 8 },
         exercise('EXR:ASIEN:TRIPEL', 'Ganzzahlige rechte Winkel prüfen', 'Prüfe, ob die Seitenverhältnisse 5-12-13 und 8-15-17 aus den Śulbasūtras wirklich rechte Winkel ergeben. Wie lang muss ein Seil sein, das man für 5-12-13 mit 1 Meter pro Einheit zum Dreieck legt?', '5 · 5 + 12 · 12 = 25 + 144 = 169 = 13 · 13. Und 8 · 8 + 15 · 15 = 64 + 225 = 289 = 17 · 17. Beide ergeben also einen rechten Winkel. Das Seil für 5-12-13 ist 5 + 12 + 13 = 30 Meter lang.'),
         practice('PRX:ASIEN:SEIL', 'Ein Śulba-Seil', 'Nimm eine Schnur und markiere mit Klebeband 30 gleiche Abschnitte, zum Beispiel je 10 Zentimeter. Lege daraus auf dem Boden ein Dreieck mit den Seiten 5, 12 und 13 Abschnitten, indem du drei Markierungen mit Nadeln oder Heringen fixierst. Prüfe den Winkel zwischen den Seiten 5 und 12 mit einem Geodreieck. Wie genau gelingt es dir?'),
         { id: 'QUIZ:ASIEN:RASTER', kind: 'quiz', title: QUIZ_TITLE, summary: 'Ein Seil wird zum Dreieck mit 8, 15 und 17 Abschnitten gelegt. Wo entsteht der rechte Winkel?||Zwischen den Seiten 15 und 17||Zwischen den Seiten 8 und 15*||Zwischen den Seiten 8 und 17||Es entsteht kein rechter Winkel---Warum eignen sich ganzzahlige Seitenverhältnisse wie 3-4-5 für die Feldmessung?||Weil sie besonders kurz sind||Weil man rechte Winkel allein mit einem gleichmäßig unterteilten Seil abstecken kann*||Weil ganze Zahlen genauer sind als Brüche||Weil sie die Fläche verdoppeln---Was unterscheidet die Idealstadt des Kaogongji von einer real gebauten Stadt wie Chang’an?||Nichts, beide sind identisch||Das Kaogongji beschreibt ein Ideal; reale Städte übernahmen das Raster, wichen aber in Einzelheiten ab*||Chang’an hatte kein Straßenraster||Das Kaogongji ist ein Bauplan für Chang’an', depthPoints: 12 },
@@ -415,7 +415,7 @@ export const asiaOrientSurveyingLearningPath: LearningPath = {
       sections: [
         { id: 'OBS:ASIEN:INSEL', kind: 'observation', title: 'Ein Gipfel hinter dem Wasser', summary: 'Vom Strand aus sieht man in der Ferne eine Insel mit einem Berg. Wie weit sie weg ist und wie hoch der Berg ist, lässt sich nicht abschreiten. Ein Winkelmesser ist nicht zur Hand – nur zwei gerade Stangen.', depthPoints: 4 },
         { id: 'EX:ASIEN:INSEL-SCHEMA', kind: 'example', title: 'Schema: zwei Stangen, zwei Sichtlinien', summary: 'Der chinesische Mathematiker Liu Hui beschrieb 263 nach Christus diese Aufgabe. Zwei gleich hohe Stangen stehen in bekanntem Abstand hintereinander auf einer Linie zur Insel. Hinter jeder Stange tritt man so weit zurück, bis man – mit dem Auge am Boden – die Stangenspitze genau vor dem Inselgipfel sieht. Hinter der hinteren Stange muss man etwas weiter zurück als hinter der vorderen. Dieser kleine Unterschied verrät alles.', image: { src: '/images/diagrams/liu-hui-insel.svg', alt: 'Schema: Insel links, zwei gleich hohe Stangen S1 und S2 im Abstand d, Sichtlinien vom Gipfel über die Stangenspitzen zum Boden, Rücktrittsweiten a1 und a2.', credit: CREDIT }, depthPoints: 10 },
-        { id: 'EXPL:ASIEN:DOPPELTE-DIFFERENZ', kind: 'explanation', title: 'Warum der Unterschied genügt', summary: 'Jede Sichtlinie bildet mit Stange und Boden ein kleines Dreieck, das dem großen Dreieck aus Gipfel, Inselhöhe und Boden ähnlich ist. Vergleicht man beide Stangen, fällt die unbekannte Entfernung heraus. Es gilt: Höhe = Stangenhöhe mal Abstand der Stangen geteilt durch die Differenz der Rücktrittsweiten, plus Stangenhöhe. Entfernung der Insel von der vorderen Stange = vordere Rücktrittsweite mal Abstand geteilt durch die Differenz. Liu Huis Handbuch gehörte später zu den Prüfungstexten chinesischer Beamter.', depthPoints: 10 },
+        { id: 'EXPL:ASIEN:DOPPELTE-DIFFERENZ', kind: 'explanation', title: 'Warum der Unterschied genügt', summary: 'Jede Sichtlinie bildet mit Stange und Boden ein kleines Dreieck, das dem großen Dreieck aus Gipfel, Inselhöhe und Boden ähnlich ist. Vergleicht man beide Stangen, fällt die unbekannte Entfernung heraus. Liu Hui gibt die Rechenregel in Worten an; in heutiger Schreibweise gilt: Höhe = Stangenhöhe mal Abstand der Stangen geteilt durch die Differenz der Rücktrittsweiten, plus Stangenhöhe. Entfernung der Insel von der vorderen Stange = vordere Rücktrittsweite mal Abstand geteilt durch die Differenz. Liu Huis Handbuch gehörte später zu den Prüfungstexten chinesischer Beamter.', depthPoints: 10 },
         exercise('EXR:ASIEN:LIU-HUI', 'Liu Huis Originalaufgabe', 'Die Stangen sind 5 bu hoch und stehen 1000 bu auseinander. Hinter der vorderen Stange tritt man 123 bu zurück, hinter der hinteren 127 bu. Wie hoch ist die Insel, und wie weit ist sie von der vorderen Stange entfernt? (Ein bu sind etwa 1,5 bis 2 Meter.)', 'Differenz der Rücktritte: 127 − 123 = 4 bu. Höhe: 5 · 1000 : 4 + 5 = 1250 + 5 = 1255 bu. Entfernung: 123 · 1000 : 4 = 30.750 bu. Das sind genau die Zahlen aus Liu Huis Lösung – in heutigen Einheiten grob 2 Kilometer Höhe und 50 Kilometer Entfernung, je nach Länge des bu.'),
         practice('PRX:ASIEN:TISCHMODELL', 'Die Inselmessung auf dem Tisch', 'Stelle am einen Ende eines langen Tisches eine Tasse als Insel auf. Stelle zwei gleich lange Stifte senkrecht in Knete im Abstand von 20 Zentimetern auf eine Linie zur Tasse. Lege das Auge flach an die Tischplatte und rücke hinter jedem Stift so weit zurück, bis Stiftspitze und Tassenrand übereinander liegen; markiere jeweils die Stelle. Rechne mit Liu Huis Formel die Höhe der Tasse und ihre Entfernung aus und miss zur Kontrolle nach.'),
         { id: 'QUIZ:ASIEN:INSEL', kind: 'quiz', title: QUIZ_TITLE, summary: 'Stangen 2 Meter hoch, 50 Meter Abstand, Rücktritte 4 Meter und 5 Meter. Wie hoch ist der Turm dahinter?||52 Meter||102 Meter*||100 Meter||25 Meter---Warum braucht Liu Huis Verfahren keinen Winkelmesser?||Weil alle Winkel 45 Grad sind||Weil ähnliche Dreiecke die Winkel ersetzen und nur Strecken gemessen werden*||Weil die Insel immer gleich weit weg ist||Weil man die Höhe schätzt---Was passiert mit dem Ergebnis, wenn die Differenz der Rücktrittsweiten falsch gemessen wird?||Nichts, sie spielt keine Rolle||Weil man durch eine kleine Zahl teilt, wirken sich schon kleine Messfehler stark aus*||Nur die Höhe ändert sich, nicht die Entfernung||Das Ergebnis wird immer zu klein', depthPoints: 12 },
@@ -454,10 +454,79 @@ export const asiaOrientSurveyingLearningPath: LearningPath = {
   ],
 };
 
+// Evidence levels (docs/SSF-BELEGSTUFEN.md): only sections with historical claims or
+// reconstructions of historical practice are tagged; timeless mathematics and physics
+// stay untagged. Kept as one auditable table rather than scattered through the paths.
+export const SURVEYING_SECTION_EVIDENCE: Record<string, LearningEvidenceLevel> = {
+  'OBS:GROMA:STRASSEN': 'quelle',
+  'OBS:GROMA:BAUTEILE': 'forschung',
+  'EX:GROMA:SCHEMA': 'rekonstruktion',
+  'EXPL:GROMA:VERSATZ': 'forschung',
+  'EXPL:GROMA:ABLAUF': 'rekonstruktion',
+  'EXPL:GROMA:ACHSEN': 'forschung',
+  'EXPL:GROMA:KNOTENSCHNUR': 'forschung',
+  'EXPL:GROMA:ZENTURIATION': 'forschung',
+  'EXR:GROMA:CENTURIAE': 'rekonstruktion',
+  'EXPL:GROMA:GRENZEN': 'forschung',
+  'BR:GROMA:QUELLEN': 'quelle',
+  'PRX:GROMA:FLUCHTSTAEBE': 'rekonstruktion',
+  'PRX:GROMA:MINI-GROMA': 'rekonstruktion',
+  'PRX:GROMA:RECHTER-WINKEL': 'rekonstruktion',
+  'OBS:HOEHEN:AQUAEDUKT': 'forschung',
+  'EXPL:HOEHEN:CHOROBATES': 'quelle',
+  'EXR:HOEHEN:GEFAELLE': 'rekonstruktion',
+  'EXPL:TRIANG:AEHNLICH': 'forschung',
+  'EXPL:TRIANG:DIOPTRA': 'quelle',
+  'EXPL:TRIANG:SNELLIUS': 'quelle',
+  'BR:TRIANG:WINKELSUMME': 'forschung',
+  'EXPL:SONNE:VITRUV': 'quelle',
+  'EX:SONNE:KREIS-SCHEMA': 'rekonstruktion',
+  'OBS:SONNE:SYENE': 'quelle',
+  'EX:SONNE:ERATOSTHENES-SCHEMA': 'rekonstruktion',
+  'EXPL:SONNE:ERATOSTHENES': 'quelle',
+  'EXR:SONNE:ERDUMFANG': 'rekonstruktion',
+  'PRX:SONNE:ZWEI-ORTE': 'rekonstruktion',
+  'BR:SONNE:FRUEHE-SONNENUHREN': 'quelle',
+  'EXPL:ASIEN:BABYLON': 'forschung',
+  'EXPL:ASIEN:SULBA': 'quelle',
+  'EXPL:ASIEN:STADTRASTER': 'forschung',
+  'PRX:ASIEN:SEIL': 'rekonstruktion',
+  'EXPL:ASIEN:QANAT': 'quelle',
+  'EXPL:ASIEN:QANAT-MESSEN': 'forschung',
+  'EXR:ASIEN:QANAT': 'rekonstruktion',
+  'PRX:ASIEN:SCHNURWAAGE': 'rekonstruktion',
+  'EX:ASIEN:INSEL-SCHEMA': 'quelle',
+  'EXPL:ASIEN:DOPPELTE-DIFFERENZ': 'rekonstruktion',
+  'EXR:ASIEN:LIU-HUI': 'quelle',
+  'PRX:ASIEN:TISCHMODELL': 'rekonstruktion',
+  'OBS:ASIEN:TURM': 'quelle',
+  'EXPL:ASIEN:ZHOUBI': 'quelle',
+  'EXPL:ASIEN:GAOCHENG': 'quelle',
+  'EXPL:ASIEN:MAMUN': 'quelle',
+  'EXR:ASIEN:GRAD': 'rekonstruktion',
+  'BR:ASIEN:INO': 'quelle',
+  'EX:ASIEN:BIRUNI-SCHEMA': 'rekonstruktion',
+  'EXPL:ASIEN:BIRUNI': 'forschung',
+  'EXR:ASIEN:BIRUNI': 'rekonstruktion',
+};
+
+function withEvidence(path: LearningPath): LearningPath {
+  return {
+    ...path,
+    units: path.units.map(unit => ({
+      ...unit,
+      sections: unit.sections.map(section => {
+        const evidence = SURVEYING_SECTION_EVIDENCE[section.id];
+        return evidence ? { ...section, evidence } : section;
+      }),
+    })),
+  };
+}
+
 export const surveyingLearningPaths: LearningPath[] = [
   gromaLearningPath,
   heightMeasurementLearningPath,
   triangulationLearningPath,
   sundialLearningPath,
   asiaOrientSurveyingLearningPath,
-];
+].map(withEvidence);

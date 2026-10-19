@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { getRegisteredLearningPathById, getRegisteredLearningPathForModule } from '../lib/learningPathRegistry';
 import { parseLearningQuiz } from '../lib/learningQuiz';
+import { SURVEYING_SECTION_EVIDENCE } from '../lib/learningPaths/surveying';
 
 const SERIES = [
   { pathId: 'PATH:SSF:TEC-GROMA-0001', moduleId: 'TEC-L1-000001', concept: 'CON:L1:groma', images: ['/images/diagrams/groma-aufbau.svg'] },
@@ -42,3 +43,20 @@ for (const entry of SERIES) {
     for (const src of entry.images) assert.ok(images.includes(src), `${src} must be shown`);
   });
 }
+
+test('evidence table only references existing sections of the surveying series', () => {
+  const ids = new Set(SERIES.flatMap(entry => getRegisteredLearningPathById(entry.pathId)?.units.flatMap(unit => unit.sections.map(section => section.id)) ?? []));
+  for (const id of Object.keys(SURVEYING_SECTION_EVIDENCE)) assert.ok(ids.has(id), `${id} must exist`);
+});
+
+test('reconstructions of historical practice are never presented as source findings', () => {
+  for (const entry of SERIES) {
+    const path = getRegisteredLearningPathById(entry.pathId);
+    assert.ok(path);
+    for (const section of path.units.flatMap(unit => unit.sections)) {
+      if (section.id.startsWith('PRX:') && section.evidence) assert.equal(section.evidence, 'rekonstruktion', `${section.id}`);
+      if (section.image && section.evidence) assert.notEqual(section.evidence, 'forschung', `${section.id}: our schemata are either source content or didactic reconstruction`);
+    }
+    assert.ok(path.units.flatMap(unit => unit.sections).some(section => section.evidence), `${entry.pathId} tags its historical content`);
+  }
+});
