@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 380" role="img" aria-labelledby="t d" font-family="system-ui, -apple-system, Segoe UI, sans-serif">
+  <title id="t">Aufbau einer römischen Groma</title>
+  <desc id="d">Senkrechter Stab mit seitlichem Ausleger, an dessen Ende ein drehbares Kreuz mit vier Loten hängt. Ein Zentrallot unter der Kreuzmitte markiert den Messpunkt am Boden.</desc>
+  <rect width="380" height="380" rx="12" fill="#F7F5EF"/>
+  <line x1="40" y1="330" x2="230" y2="330" stroke="#B4B2A9" stroke-width="1"/>
+  <line x1="60" y1="130" x2="60" y2="330" stroke="#5F5E5A" stroke-width="4"/>
+  <line x1="60" y1="130" x2="150" y2="130" stroke="#5F5E5A" stroke-width="3"/>
+  <line x1="150" y1="130" x2="150" y2="118" stroke="#5F5E5A" stroke-width="2"/>
+  <line x1="95" y1="118" x2="205" y2="118" stroke="#BA7517" stroke-width="3"/>
+  <line x1="128" y1="100" x2="172" y2="136" stroke="#BA7517" stroke-width="3"/>
+  <g stroke="#444441" stroke-width="0.7">
+    <line x1="95" y1="118" x2="95" y2="235"/>
+    <line x1="205" y1="118" x2="205" y2="235"/>
+    <line x1="128" y1="100" x2="128" y2="225"/>
+    <line x1="172" y1="136" x2="172" y2="245"/>
+    <line x1="150" y1="130" x2="150" y2="300"/>
+  </g>
+  <g fill="#444441">
+    <circle cx="95" cy="240" r="5"/>
+    <circle cx="205" cy="240" r="5"/>
+    <circle cx="128" cy="230" r="5"/>
+    <circle cx="172" cy="250" r="5"/>
+    <circle cx="150" cy="305" r="5"/>
+  </g>
+  <circle cx="150" cy="330" r="3.5" fill="#D85A30"/>
+  <g stroke="#888780" stroke-width="0.6" stroke-dasharray="3 3">
+    <line x1="212" y1="114" x2="240" y2="108"/>
+    <line x1="212" y1="220" x2="240" y2="220"/>
+    <line x1="158" y1="305" x2="240" y2="305"/>
+    <line x1="156" y1="330" x2="240" y2="335"/>
+  </g>
+  <g font-size="12" fill="#2C2C2A">
+    <text x="244" y="112">Kreuz (stella)</text>
+    <text x="244" y="224">Lote zum Peilen</text>
+    <text x="244" y="309">Zentrallot</text>
+    <text x="244" y="339">Messpunkt</text>
+    <text x="40" y="358">Stab (ferramentum)</text>
+  </g>
+</svg>

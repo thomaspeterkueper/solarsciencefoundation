@@ -36,7 +36,7 @@ for (const p of []) { void p; } // populated below
 function getSubjectFromPathId(id: string): SubjectCode {
   if (id.includes(':CHE:') || id.includes('CHE-')) return 'CHE';
   if (id.includes(':MAT:') || id.includes('MAT-')) return 'MAT';
-  if (id.includes(':ENG:') || id.includes('ENG-') || id.includes('EL-')) return 'ENG';
+  if (id.includes(':ENG:') || id.includes('ENG-') || id.includes('EL-') || id.includes('TEC-')) return 'ENG';
   if (id.includes(':BIO:') || id.includes('BIO-')) return 'BIO';
   return 'PHY';
 }

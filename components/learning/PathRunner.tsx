@@ -63,6 +63,10 @@ function SectionCard({ section, onQuizComplete, onDepth }: {
     <strong className={styles.sectionTitle}>{section.title}</strong>
     {section.kind === 'observation' && <p className={styles.observationText}>{section.summary}</p>}
     {section.kind !== 'observation' && section.kind !== 'quiz' && section.kind !== 'experiment' && <p className={styles.sectionSummary}>{section.summary}</p>}
+    {section.image && <figure className={styles.sectionFigure}>
+      <img src={section.image.src} alt={section.image.alt} className={styles.sectionImage} loading="lazy" />
+      {section.image.credit && <figcaption className={styles.figureCredit}>{section.image.credit}</figcaption>}
+    </figure>}
     {ExperimentComponent && <div className={styles.experimentWrap}><ExperimentComponent /></div>}
     {section.interactive && !ExperimentComponent && <div className={styles.experimentPlaceholder}>
       <p className={styles.placeholderText}>Für diese Sektion ist noch kein fachlich eindeutiges interaktives Modell hinterlegt.</p>
