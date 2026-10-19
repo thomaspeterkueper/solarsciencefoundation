@@ -24,5 +24,9 @@ test('Groma path quizzes parse and gates chain through all units', () => {
     if (index < path.units.length - 1) assert.ok(unit.gate?.unlocksUnitId && unitIds.has(unit.gate.unlocksUnitId));
     else assert.equal(unit.gate, undefined);
   });
-  assert.ok(path.units.some(unit => unit.sections.some(section => section.image?.src === '/images/diagrams/groma-aufbau.svg')));
+  const images = path.units.flatMap(unit => unit.sections.map(section => section.image?.src)).filter(Boolean);
+  for (const src of ['/images/diagrams/groma-aufbau.svg', '/images/diagrams/nivellement.svg', '/images/diagrams/triangulation.svg']) {
+    assert.ok(images.includes(src), `${src} must be shown`);
+  }
+  assert.ok(path.units.length >= 4 && path.units.length <= 8, 'author guide: 4–8 units');
 });

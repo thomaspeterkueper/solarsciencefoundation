@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 300" role="img" aria-labelledby="t d" font-family="system-ui, -apple-system, Segoe UI, sans-serif">
+  <title id="t">Entfernung über einen Fluss mit einem Dreieck</title>
+  <desc id="d">Auf einem Ufer liegt eine 100 Meter lange Basislinie von A nach B. Am anderen Ufer steht ein Baum C genau gegenüber von A, mit rechtem Winkel bei A. Bei B wird ein Winkel von 60 Grad gemessen. Daraus ergibt sich die Entfernung von A nach C zu etwa 173 Metern.</desc>
+  <rect width="380" height="300" rx="12" fill="#F7F5EF"/>
+  <rect x="16" y="118" width="348" height="34" fill="#B5D4F4"/>
+  <text x="352" y="140" font-size="12" fill="#0C447C" text-anchor="end">Fluss</text>
+  <g stroke="#2C2C2A" stroke-width="1.2">
+    <line x1="130" y1="250" x2="230" y2="250"/>
+    <line x1="130" y1="250" x2="130" y2="77"/>
+    <line x1="230" y1="250" x2="130" y2="77" stroke-dasharray="5 4"/>
+  </g>
+  <path d="M130 240 L140 240 L140 250" fill="none" stroke="#2C2C2A" stroke-width="0.8"/>
+  <path d="M205 250 A25 25 0 0 1 217.5 228.4" fill="none" stroke="#D85A30" stroke-width="1.5"/>
+  <g fill="#2C2C2A">
+    <circle cx="130" cy="250" r="3.5"/>
+    <circle cx="230" cy="250" r="3.5"/>
+  </g>
+  <circle cx="130" cy="72" r="7" fill="#3B6D11"/>
+  <g font-size="12" fill="#2C2C2A">
+    <text x="144" y="70">Baum C</text>
+    <text x="116" y="270">A</text>
+    <text x="236" y="270">B</text>
+    <text x="180" y="272" text-anchor="middle">Basis 100 m</text>
+    <text x="240" y="232" fill="#993C1D">60°</text>
+    <text x="122" y="200" text-anchor="end">≈ 173 m</text>
+  </g>
+</svg>
