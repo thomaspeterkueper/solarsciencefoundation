@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 340" role="img" aria-labelledby="t d" font-family="system-ui, -apple-system, Segoe UI, sans-serif">
+  <title id="t">Liu Huis Inselmessung</title>
+  <desc id="d">Zwei gleich hohe Stangen stehen im Abstand d hintereinander. Hinter jeder Stange tritt man so weit zurück, bis Stangenspitze und Inselgipfel auf Bodenhöhe in einer Linie liegen: a1 hinter der ersten, a2 hinter der zweiten Stange. Aus d, der Stangenhöhe und der Differenz a2 minus a1 folgen Höhe und Entfernung der Insel.</desc>
+  <rect width="380" height="340" rx="12" fill="#F7F5EF"/>
+  <rect x="100" y="222" width="62" height="8" fill="#B5D4F4"/>
+  <polygon points="20,230 60,60 100,230" fill="#C0DD97" stroke="#3B6D11" stroke-width="1"/>
+  <line x1="10" y1="230" x2="370" y2="230" stroke="#888780" stroke-width="1"/>
+  <g stroke="#2C2C2A" stroke-width="3">
+    <line x1="170" y1="230" x2="170" y2="190"/>
+    <line x1="230" y1="230" x2="230" y2="190"/>
+  </g>
+  <g stroke="#BA7517" stroke-width="1" stroke-dasharray="5 4">
+    <line x1="60" y1="60" x2="203.8" y2="230"/>
+    <line x1="60" y1="60" x2="282.3" y2="230"/>
+  </g>
+  <g fill="#D85A30">
+    <circle cx="203.8" cy="230" r="3.5"/>
+    <circle cx="282.3" cy="230" r="3.5"/>
+  </g>
+  <g stroke="#534AB7" stroke-width="1">
+    <line x1="170" y1="262" x2="203.8" y2="262"/>
+    <line x1="230" y1="280" x2="282.3" y2="280"/>
+    <line x1="170" y1="298" x2="230" y2="298"/>
+  </g>
+  <g font-size="12" fill="#2C2C2A">
+    <text x="60" y="48" text-anchor="middle">Insel</text>
+    <text x="170" y="246" text-anchor="middle">S1</text>
+    <text x="230" y="246" text-anchor="middle">S2</text>
+    <text x="210" y="266" fill="#3C3489">a₁ = 123</text>
+    <text x="288" y="284" fill="#3C3489">a₂ = 127</text>
+    <text x="236" y="302" fill="#3C3489">d = 1000</text>
+    <text x="20" y="326">Höhe = 5 · 1000 : (127 − 123) + 5 = 1255 bu</text>
+  </g>
+</svg>

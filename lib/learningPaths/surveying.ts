@@ -6,10 +6,13 @@ import type { LearningPath, LearningPathSection } from '../learningPaths';
 //   TEC-L1-000002  Höhenmessung     PATH:SSF:TEC-HOEHEN-0001         CON:L1:chorobates, CON:L1:nivellement
 //   TEC-L2-000001  Triangulation    PATH:SSF:TEC-TRIANGULATION-0001  CON:L1:triangulation
 //   AST-L1-000002  Sonnenuhr        PATH:SSF:AST-SONNENUHR-0001      CON:L1:gnomon, CON:L1:sonnenuhr, CON:L1:erdumfang-eratosthenes
+//   TEC-L2-000002  Asien & Orient   PATH:SSF:TEC-ASIEN-ORIENT-0001   CON:L1:qanat, CON:L1:doppelte-differenz, CON:L1:erdradius-kimmtiefe
+// Historical foundation (kueper.com): DOC:KUE:KUE-HIS-0001-2026-DE
 // SSF owns the didactic design. Non-interactive: observation, explanation, schema,
 // exercise with collapsible solution, practical task (Praxis), quiz.
 
 const CREDIT = 'Schema: Solar Science Foundation';
+const HISTORY_DOC = 'DOC:KUE:KUE-HIS-0001-2026-DE';
 const QUIZ_TITLE = 'Anwendung → Verständnis → Transfer';
 
 function practice(id: string, title: string, summary: string): LearningPathSection {
@@ -32,7 +35,7 @@ export const gromaLearningPath: LearningPath = {
   domainsNeeded: ['KD:MATH-GEO:N1', 'KD:HIS-ARCH'],
   suppliedBy: {
     knowledgeGraph: ['TEC-L1-000001', 'CON:L1:groma', 'CON:L1:zenturiation'],
-    kueperCom: [],
+    kueperCom: [HISTORY_DOC],
     overtimeArchive: [],
     ssf: ['Schema: Aufbau der Groma', 'Aufgaben mit Lösung', 'Praxis: Fluchtstäbe, Mini-Groma, Knotenschnur', 'Quiz je Einheit'],
   },
@@ -76,7 +79,7 @@ export const gromaLearningPath: LearningPath = {
         { id: 'OBS:GROMA:ZWEI-SCHNUERE', kind: 'observation', title: 'Zwei Schnüre werden zu einer', summary: 'Schaut man an zwei hintereinander hängenden Schnüren vorbei, gibt es genau eine Blickrichtung, in der die hintere hinter der vorderen verschwindet. Diese Blickrichtung ist eine Gerade – und sie lässt sich mit Stäben ins Gelände übertragen.', depthPoints: 4 },
         { id: 'EXPL:GROMA:ABLAUF', kind: 'explanation', title: 'Der Messablauf in vier Schritten', summary: 'Erstens: Stab einstecken und das Zentrallot über den Ausgangspunkt bringen. Zweitens: Das Kreuz drehen, bis ein Arm in die gewünschte Richtung zeigt. Drittens: An zwei gegenüberliegenden Loten vorbeipeilen, bis sie sich decken; ein Helfer setzt in dieser Linie Fluchtstäbe. Viertens: Über das andere Lotpaar genauso peilen – diese Linie steht rechtwinklig zur ersten, weil die Kreuzarme fest im 90-Grad-Winkel stehen.', depthPoints: 10 },
         { id: 'EXPL:GROMA:ACHSEN', kind: 'explanation', title: 'Cardo und decumanus', summary: 'Die beiden rechtwinkligen Hauptlinien hießen decumanus und cardo. Sie bildeten das Grundgerüst für Militärlager, Stadtgrundrisse und die Einteilung von Ackerland. Oft lief der decumanus etwa in Ost-West- und der cardo in Nord-Süd-Richtung, doch häufig richteten sich die Achsen auch nach Gelände, Küste oder vorhandenen Straßen.', depthPoints: 8 },
-        { id: 'EXPL:GROMA:KNOTENSCHNUR', kind: 'explanation', title: 'Die Probe mit 3, 4 und 5', summary: 'Ob ein Winkel wirklich rechtwinklig ist, lässt sich ohne Instrument prüfen. Man misst auf dem einen Schenkel 3 Längeneinheiten ab, auf dem anderen 4. Ist der Winkel genau rechtwinklig, beträgt der Abstand zwischen den beiden Endpunkten genau 5 Einheiten, denn 3 mal 3 plus 4 mal 4 ergibt 25, und das ist 5 mal 5. Ein Seil mit 12 gleichen Abschnitten, zum Dreieck gelegt, reicht dafür aus.', depthPoints: 8 },
+        { id: 'EXPL:GROMA:KNOTENSCHNUR', kind: 'explanation', title: 'Die Probe mit 3, 4 und 5', summary: 'Ob ein Winkel wirklich rechtwinklig ist, lässt sich ohne Instrument prüfen. Man misst auf dem einen Schenkel 3 Längeneinheiten ab, auf dem anderen 4. Ist der Winkel genau rechtwinklig, beträgt der Abstand zwischen den beiden Endpunkten genau 5 Einheiten, denn 3 mal 3 plus 4 mal 4 ergibt 25, und das ist 5 mal 5. Ein Seil mit 12 gleichen Abschnitten, zum Dreieck gelegt, reicht dafür aus. Dass schon ägyptische „Seilspanner“ so gearbeitet hätten, wird oft erzählt, ist aber nicht belegt; sicher belegt sind ganzzahlige Seitenverhältnisse für rechte Winkel in Mesopotamien und in den indischen Śulbasūtras.', depthPoints: 8 },
         exercise('EXR:GROMA:DIAGONALE', 'Diagonale prüfen', 'Du hast mit deiner Groma eine Ecke für ein Beet abgesteckt. Ein Schenkel ist 6 Meter lang, der andere 8 Meter. Wie lang muss die Diagonale zwischen den Endpunkten sein, wenn der Winkel stimmt? Und was bedeutet es, wenn du 10,4 Meter misst?', 'Es gilt 6 · 6 + 8 · 8 = 36 + 64 = 100, die Wurzel aus 100 ist 10. Die Diagonale muss also 10 Meter lang sein – das ist das 3-4-5-Dreieck mal zwei. Misst du 10,4 Meter, ist der Winkel etwas größer als 90 Grad; die Ecke muss nachgerichtet werden.'),
         practice('PRX:GROMA:RECHTER-WINKEL', 'Einen rechten Winkel abstecken und prüfen', 'Stecke mit deiner Mini-Groma oder mit zwei Schnüren eine rechtwinklige Ecke im Garten oder auf einer Wiese ab. Markiere auf dem einen Schenkel 3 Meter und auf dem anderen 4 Meter vom Eckpunkt aus. Miss mit einem Maßband den Abstand zwischen den beiden Markierungen. Wie nah kommst du an 5 Meter heran? Probiere es danach mit einem Seil, in das du 12 Knoten im Abstand von je einem großen Schritt geknüpft hast.'),
         { id: 'QUIZ:GROMA:WINKEL', kind: 'quiz', title: QUIZ_TITLE, summary: 'Der Vermesser hat eine Linie über das erste Lotpaar abgesteckt. Wie bekommt er die rechtwinklige Querlinie?||Er dreht das Kreuz um 45 Grad||Er peilt über das zweite, dazu rechtwinklige Lotpaar*||Er misst mit einem Seil die Diagonale||Er stellt den Stab schräg---Warum beweist ein Abstand von genau 5 Metern zwischen der 3-Meter- und der 4-Meter-Marke einen rechten Winkel?||Weil 3 plus 4 ungefähr 5 ergibt||Weil nur beim rechten Winkel 3 · 3 + 4 · 4 genau 5 · 5 ergibt*||Weil alle Dreiecke mit ganzen Zahlen rechtwinklig sind||Weil 5 Meter die längste Seite sein muss---Eine römische Stadt liegt an einer schräg verlaufenden Küste. Ihr Straßenraster ist nicht nach Norden ausgerichtet. Ist das ein Messfehler?||Ja, cardo muss immer genau nach Norden zeigen||Nein, die Achsen wurden oft nach Gelände oder Küste ausgerichtet*||Ja, die Groma kann nur Nord-Süd-Linien messen||Nein, weil Küstenstädte kein Raster hatten', depthPoints: 12 },
@@ -111,7 +114,7 @@ export const heightMeasurementLearningPath: LearningPath = {
   domainsNeeded: ['KD:MATH-GEO:N1', 'KD:PHYS-MECH:N1'],
   suppliedBy: {
     knowledgeGraph: ['TEC-L1-000002', 'CON:L1:chorobates', 'CON:L1:nivellement'],
-    kueperCom: [],
+    kueperCom: [HISTORY_DOC],
     overtimeArchive: [],
     ssf: ['Schema: Nivellement', 'Aufgaben mit Lösung', 'Praxis: Wasserglas, Schlauchwaage, Höhenmarke', 'Quiz je Einheit'],
   },
@@ -189,7 +192,7 @@ export const triangulationLearningPath: LearningPath = {
   domainsNeeded: ['KD:MATH-GEO:N1'],
   suppliedBy: {
     knowledgeGraph: ['TEC-L2-000001', 'CON:L1:triangulation'],
-    kueperCom: [],
+    kueperCom: [HISTORY_DOC],
     overtimeArchive: [],
     ssf: ['Schema: Schattenmessung', 'Schema: Entfernung über eine Basislinie', 'Aufgaben mit Lösung', 'Praxis: Baumhöhe, 45-Grad-Trick, GPS-Genauigkeit', 'Quiz je Einheit'],
   },
@@ -270,7 +273,7 @@ export const sundialLearningPath: LearningPath = {
   domainsNeeded: ['KD:MATH-GEO:N1', 'KD:ASTRO-BASIC'],
   suppliedBy: {
     knowledgeGraph: ['AST-L1-000002', 'CON:L1:gnomon', 'CON:L1:sonnenuhr', 'CON:L1:erdumfang-eratosthenes'],
-    kueperCom: [],
+    kueperCom: [HISTORY_DOC],
     overtimeArchive: [],
     ssf: ['Schema: Nordrichtung aus dem Schatten', 'Schema: Erdumfang nach Eratosthenes', 'Aufgaben mit Lösung', 'Praxis: Mittagslinie, Schattenprotokoll, Pappsonnenuhr, Sonnenmittag, Schattenvergleich', 'Quiz je Einheit'],
   },
@@ -285,7 +288,7 @@ export const sundialLearningPath: LearningPath = {
       sections: [
         { id: 'OBS:SONNE:STAB', kind: 'observation', title: 'Ein Stab im Sonnenschein', summary: 'Steckt man einen Stab senkrecht in den Boden, wandert sein Schatten im Laufe des Tages. Am Vormittag ist er lang und zeigt nach Westen, gegen Mittag wird er kürzer, am Nachmittag wieder länger und zeigt nach Osten. Irgendwann dazwischen ist er am kürzesten.', depthPoints: 4 },
         { id: 'EX:SONNE:KREIS-SCHEMA', kind: 'example', title: 'Schema: der Kreis um den Stab', summary: 'Der kürzeste Schatten zeigt bei uns genau nach Norden, aber den Moment des kürzesten Schattens erwischt man schwer. Einfacher ist ein Kreis: Man markiert am Vormittag die Schattenspitze und zieht mit einer Schnur einen Kreis um den Stab durch diese Marke. Am Nachmittag wartet man, bis die Schattenspitze den Kreis wieder berührt, und markiert auch diesen Punkt. Die Mitte zwischen beiden Marken liegt genau nördlich des Stabs.', image: { src: '/images/diagrams/indischer-kreis.svg', alt: 'Draufsicht: Stab in der Mitte eines Kreises, Kurve der Schattenspitze, zwei Marken auf dem Kreis am Vor- und Nachmittag, Nord-Süd-Linie durch die Mitte zwischen beiden Marken.', credit: CREDIT }, depthPoints: 10 },
-        { id: 'EXPL:SONNE:VITRUV', kind: 'explanation', title: 'Ein Verfahren für Stadtplaner', summary: 'Der römische Architekt Vitruv beschreibt diese Methode für die Planung von Städten: einen ebenen Platz, einen Bronzestab in der Mitte, eine Marke am Vormittag, einen Kreis und eine zweite Marke am Nachmittag. So ließen sich die Himmelsrichtungen festlegen, nach denen Straßen ausgerichtet wurden – die Brücke zu cardo und decumanus aus dem Groma-Modul. Der Trick funktioniert, weil die Sonne vormittags und nachmittags symmetrisch zum Mittag steht.', depthPoints: 8 },
+        { id: 'EXPL:SONNE:VITRUV', kind: 'explanation', title: 'Ein Verfahren für Stadtplaner', summary: 'Der römische Architekt Vitruv beschreibt diese Methode für die Planung von Städten: einen ebenen Platz, einen Bronzestab in der Mitte, eine Marke am Vormittag, einen Kreis und eine zweite Marke am Nachmittag. So ließen sich die Himmelsrichtungen festlegen, nach denen Straßen ausgerichtet wurden – die Brücke zu cardo und decumanus aus dem Groma-Modul. Der Trick funktioniert, weil die Sonne vormittags und nachmittags symmetrisch zum Mittag steht. Dasselbe Verfahren beschreiben auch das indische Kātyāyana-Śulbasūtra und der chinesische Text Kaogongji; der Name „indischer Kreis“ geht auf den Gelehrten al-Bīrūnī zurück.', depthPoints: 8 },
         exercise('EXR:SONNE:MITTELSENKRECHTE', 'Norden konstruieren', 'Die beiden Marken auf dem Kreis liegen 3,20 Meter auseinander. Wie findest du ohne Winkelmesser den Punkt genau nördlich des Stabs, und wie legst du die Nord-Süd-Linie fest?', 'Miss die Strecke zwischen den Marken und halbiere sie: Nach 1,60 Metern liegt der Mittelpunkt. Die Linie vom Stab durch diesen Mittelpunkt ist die Nord-Süd-Linie, der Mittelpunkt liegt auf der Nordseite. Ohne Maßband geht es mit einer Schnur als Zirkel: Um beide Marken gleich große Kreisbögen schlagen – die Verbindungslinie ihrer Schnittpunkte geht durch den Stab und zeigt nach Norden.'),
         practice('PRX:SONNE:MITTAGSLINIE', 'Eine Mittagslinie im Garten', 'Stecke an einem sonnigen Tag auf ebenem Boden einen geraden Stab senkrecht in die Erde; prüfe ihn mit einem Faden mit Gewicht. Markiere gegen 10 Uhr die Schattenspitze mit einem Stöckchen. Binde eine Schnur locker um den Stab und ziehe damit einen Kreis durch die Marke. Am Nachmittag wartest du, bis die Schattenspitze den Kreis wieder berührt, und markierst diesen Punkt. Lege die Nord-Süd-Linie fest und vergleiche sie mit einem Kompass: Die Abweichung beträgt in Deutschland nur wenige Grad.'),
         { id: 'QUIZ:SONNE:NORDEN', kind: 'quiz', title: QUIZ_TITLE, summary: 'Am Vormittag zeigt der Schatten eines Stabs nach Westnordwest. In welche Richtung zeigt er bei gleicher Länge am Nachmittag?||Nach Westsüdwest||Nach Ostnordost*||Nach Süden||Genau nach Westen---Warum misst man zwei gleich lange Schatten statt den kürzesten Schatten?||Weil der kürzeste Schatten nach Süden zeigt||Weil man den Moment des kürzesten Schattens schwer genau erkennt, gleich lange Schatten aber leicht mit einem Kreis findet*||Weil kurze Schatten unscharf sind||Weil der Stab mittags umfällt---Eine römische Stadt soll mit dem decumanus genau in Ost-West-Richtung angelegt werden. Wie hilft der Schattenkreis?||Er misst die Länge der Straße||Er liefert die Nord-Süd-Linie, und die Ost-West-Linie steht rechtwinklig dazu*||Er zeigt, wo Wasser fließt||Er ersetzt die Groma vollständig', depthPoints: 12 },
@@ -354,9 +357,107 @@ export const sundialLearningPath: LearningPath = {
   ],
 };
 
+// ─── Modul 5: Vermessen in Asien und im Orient ───────────────────────────────
+
+export const asiaOrientSurveyingLearningPath: LearningPath = {
+  id: 'PATH:SSF:TEC-ASIEN-ORIENT-0001',
+  title: 'Wie haben Babylon, Indien, Persien und China vermessen?',
+  subtitle: 'Seile und Raster, unterirdische Wasserstollen, eine Insel ohne Winkelmessung, riesige Schattenstäbe und ein Erdradius vom Berggipfel: Vermessung und Planung jenseits von Rom. Teil 5 der Reihe Vermessung.',
+  status: 'prototype',
+  sourceModuleId: 'TEC-L2-000002',
+  kxfModuleId: 'LRN:SSF:TEC-L2-000002',
+  domainsNeeded: ['KD:MATH-GEO:N1', 'KD:HIS-ARCH', 'KD:ASTRO-BASIC'],
+  suppliedBy: {
+    knowledgeGraph: ['TEC-L2-000002', 'CON:L1:qanat', 'CON:L1:doppelte-differenz', 'CON:L1:erdradius-kimmtiefe'],
+    kueperCom: [HISTORY_DOC],
+    overtimeArchive: [],
+    ssf: ['Schema: Liu Huis Inselmessung', 'Schema: Erdradius aus der Kimmtiefe', 'Aufgaben mit Lösung', 'Praxis: Knotenschnur 5-12-13, Schnurwaage, Tischmodell der Inselmessung, Horizont beobachten', 'Quiz je Einheit'],
+  },
+  unlocks: [],
+  units: [
+    {
+      id: 'UNIT:ASIEN:RASTER',
+      title: 'Seile, Raster und Idealstädte',
+      entryQuestion: 'Wie teilte man vor 4000 Jahren ein Feld gerecht auf, und wie plante man eine ganze Stadt auf dem Reißbrett?',
+      takeaway: 'Seil und Pflock genügten, um rechte Winkel und gerechte Flächen abzustecken; Mesopotamien, Indien und China nutzten dafür ganzzahlige Seitenverhältnisse und planten Städte als Raster.',
+      gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:ASIEN:QANAT' },
+      sections: [
+        { id: 'OBS:ASIEN:FELD', kind: 'observation', title: 'Ein Feld wird verkauft', summary: 'Wird ein Teil eines Feldes verkauft, muss jemand festlegen, wo genau die neue Grenze verläuft und wie groß die Teile sind. Das ist heute Aufgabe des Katasteramts. Schon vor fast 4000 Jahren gab es dafür Pläne auf Tontafeln.', depthPoints: 4 },
+        { id: 'EXPL:ASIEN:BABYLON', kind: 'explanation', title: 'Feldpläne aus Babylonien', summary: 'Eine Tontafel aus Sippar im heutigen Irak, etwa 1900 bis 1600 vor Christus beschrieben, zeigt die Teilung eines Feldes nach einem Teilverkauf. Die rechten Winkel der Teilflächen beruhen auf Seitenverhältnissen wie 3 zu 4 zu 5. Eine Statue des Herrschers Gudea aus derselben Region, rund 2100 vor Christus, hält sogar einen Bauplan mit Maßstab auf dem Schoß.', depthPoints: 8 },
+        { id: 'EXPL:ASIEN:SULBA', kind: 'explanation', title: 'Altäre aus Seil und Pflock', summary: 'Die indischen Śulbasūtras sind Anleitungen, um Feueraltäre exakt abzustecken – nur mit Seil (śulba) und Pflöcken. Sie nennen mehrere ganzzahlige Seitenverhältnisse für rechte Winkel, etwa 3-4-5, 5-12-13 und 8-15-17, und beschreiben den Zusammenhang zwischen Diagonale und Seiten eines Rechtecks. Die ältesten dieser Texte werden meist auf etwa 800 bis 500 vor Christus datiert; die Datierung ist umstritten.', depthPoints: 8 },
+        { id: 'EXPL:ASIEN:STADTRASTER', kind: 'explanation', title: 'Städte im Raster', summary: 'Schon die Städte der Induskultur wie Mohenjo-daro hatten um 2500 vor Christus Straßen, die überwiegend einem rasterähnlichen Plan folgten, dazu Abwasserkanäle und Ziegel im Verhältnis 1 zu 2 zu 4. Der chinesische Text Kaogongji beschreibt eine ideale quadratische Hauptstadt mit Straßenraster. Gebaut wurde ein solches Raster etwa in Chang’an, gegründet 582, das wiederum Vorbild für Nara und Kyōto in Japan wurde.', depthPoints: 8 },
+        exercise('EXR:ASIEN:TRIPEL', 'Ganzzahlige rechte Winkel prüfen', 'Prüfe, ob die Seitenverhältnisse 5-12-13 und 8-15-17 aus den Śulbasūtras wirklich rechte Winkel ergeben. Wie lang muss ein Seil sein, das man für 5-12-13 mit 1 Meter pro Einheit zum Dreieck legt?', '5 · 5 + 12 · 12 = 25 + 144 = 169 = 13 · 13. Und 8 · 8 + 15 · 15 = 64 + 225 = 289 = 17 · 17. Beide ergeben also einen rechten Winkel. Das Seil für 5-12-13 ist 5 + 12 + 13 = 30 Meter lang.'),
+        practice('PRX:ASIEN:SEIL', 'Ein Śulba-Seil', 'Nimm eine Schnur und markiere mit Klebeband 30 gleiche Abschnitte, zum Beispiel je 10 Zentimeter. Lege daraus auf dem Boden ein Dreieck mit den Seiten 5, 12 und 13 Abschnitten, indem du drei Markierungen mit Nadeln oder Heringen fixierst. Prüfe den Winkel zwischen den Seiten 5 und 12 mit einem Geodreieck. Wie genau gelingt es dir?'),
+        { id: 'QUIZ:ASIEN:RASTER', kind: 'quiz', title: QUIZ_TITLE, summary: 'Ein Seil wird zum Dreieck mit 8, 15 und 17 Abschnitten gelegt. Wo entsteht der rechte Winkel?||Zwischen den Seiten 15 und 17||Zwischen den Seiten 8 und 15*||Zwischen den Seiten 8 und 17||Es entsteht kein rechter Winkel---Warum eignen sich ganzzahlige Seitenverhältnisse wie 3-4-5 für die Feldmessung?||Weil sie besonders kurz sind||Weil man rechte Winkel allein mit einem gleichmäßig unterteilten Seil abstecken kann*||Weil ganze Zahlen genauer sind als Brüche||Weil sie die Fläche verdoppeln---Was unterscheidet die Idealstadt des Kaogongji von einer real gebauten Stadt wie Chang’an?||Nichts, beide sind identisch||Das Kaogongji beschreibt ein Ideal; reale Städte übernahmen das Raster, wichen aber in Einzelheiten ab*||Chang’an hatte kein Straßenraster||Das Kaogongji ist ein Bauplan für Chang’an', depthPoints: 12 },
+      ],
+    },
+    {
+      id: 'UNIT:ASIEN:QANAT',
+      title: 'Wasser aus dem Berg: die Qanate',
+      entryQuestion: 'Wie bringt man Grundwasser kilometerweit durch einen Tunnel in die Wüste, ohne dass es stehen bleibt oder den Stollen ausspült?',
+      takeaway: 'Ein Qanat ist ein fast waagerechter Stollen mit gleichmäßigem kleinem Gefälle; Lote übertragen die Richtung von der Oberfläche nach unten, und eine waagerechte Bezugslinie hält das Gefälle.',
+      gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:ASIEN:INSEL' },
+      sections: [
+        { id: 'OBS:ASIEN:SCHAECHTE', kind: 'observation', title: 'Eine Perlenkette in der Wüste', summary: 'Auf Luftbildern aus dem Iran sieht man lange Reihen kleiner Krater, wie Perlen auf einer Schnur, die von den Bergen in die Ebene führen. Jeder Krater ist der Erdwall um einen senkrechten Schacht. Unter ihnen verläuft ein Tunnel, in dem Wasser fließt.', depthPoints: 4 },
+        { id: 'EXPL:ASIEN:QANAT', kind: 'explanation', title: 'Aufbau eines Qanats', summary: 'Am Fuß eines Berges gräbt man zuerst einen Probeschacht bis zum Grundwasser, den Mutterbrunnen. Von der Ebene aus treibt man einen Stollen mit sehr kleinem Gefälle auf ihn zu, im Iran im Mittel etwa ein halbes Prozent. Senkrechte Schächte in Abständen dienen dem Aushub, der Belüftung und der Orientierung. Persische Qanate sind seit dem 5. Jahrhundert vor Christus sicher belegt; elf iranische Qanate sind heute UNESCO-Welterbe.', depthPoints: 10 },
+        { id: 'EXPL:ASIEN:QANAT-MESSEN', kind: 'explanation', title: 'Messen unter Tage', summary: 'Beschreibungen aus dem 20. Jahrhundert zeigen, wie Qanat-Bauer arbeiteten: Zwei Lote im Schacht übertragen die Richtung der Linie an der Oberfläche in den Stollen. Eine gespannte, nasse Schnur zeigt die Waagerechte, denn Tropfen laufen zum tieferen Ende. Eine Lampe hilft, die Richtung im Dunkeln zu halten. Der persische Gelehrte al-Karajī schrieb um 1015 bis 1020 das älteste erhaltene Fachbuch dazu, mit eigenen Nivelliergeräten. Dass antike Baumeister ebenso arbeiteten, ist wahrscheinlich, aber nicht direkt belegt.', depthPoints: 10 },
+        exercise('EXR:ASIEN:QANAT', 'Einen Qanat planen', 'Ein Qanat soll 3 Kilometer lang werden und ein Gefälle von 0,5 Prozent haben. Wie viele Meter tiefer liegt der Austritt als der Stollenanfang am Mutterbrunnen? Wie viele Schächte braucht man, wenn alle 30 Meter einer gegraben wird?', 'Gefälle: 3.000 Meter mal 0,5 : 100 = 15 Meter. Schächte: 3.000 : 30 = 100 Abstände; je nach Zählung am Anfang und Ende also rund 100 Schächte. Bei geringerem Gefälle fließt das Wasser langsamer und spült den Stollen weniger aus.'),
+        practice('PRX:ASIEN:SCHNURWAAGE', 'Die nasse Schnur', 'Spanne draußen eine Schnur von einigen Metern Länge zwischen zwei Stöcken und mache sie mit einem nassen Schwamm feucht. Beobachte, in welche Richtung die Tropfen laufen und wo sie sich sammeln. Verschiebe ein Ende so lange nach oben oder unten, bis die Tropfen nicht mehr wandern. Prüfe das Ergebnis mit einer Wasserwaage oder deiner Schlauchwaage.'),
+        { id: 'QUIZ:ASIEN:QANAT', kind: 'quiz', title: QUIZ_TITLE, summary: 'Ein Qanat ist 2 Kilometer lang und fällt um 8 Meter. Wie groß ist das Gefälle?||4 Prozent||0,4 Prozent*||0,04 Prozent||8 Prozent---Wozu hängt man in einem Qanat-Schacht zwei Lote nebeneinander auf?||Um die Tiefe zu messen||Um die Richtung der Linie an der Oberfläche in den Stollen zu übertragen*||Um Wasser zu schöpfen||Um den Schacht zu stützen---Warum darf das Gefälle eines Qanats weder zu groß noch null sein?||Weil sonst die Schächte einstürzen||Ohne Gefälle steht das Wasser, bei zu großem Gefälle spült es den Stollen aus*||Weil das Wasser sonst verdunstet||Weil der Mutterbrunnen sonst überläuft', depthPoints: 12 },
+      ],
+    },
+    {
+      id: 'UNIT:ASIEN:INSEL',
+      title: 'Die Insel im Meer',
+      entryQuestion: 'Wie hoch und wie weit entfernt ist eine Insel, wenn man nur zwei Stangen und das eigene Ufer hat?',
+      takeaway: 'Liu Huis „doppelte Differenz“ bestimmt Höhe und Entfernung eines unerreichbaren Punkts allein aus zwei gleich hohen Stangen, ihrem Abstand und den beiden Rücktrittsweiten – ganz ohne Winkelmessung.',
+      gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:ASIEN:GNOMON' },
+      sections: [
+        { id: 'OBS:ASIEN:INSEL', kind: 'observation', title: 'Ein Gipfel hinter dem Wasser', summary: 'Vom Strand aus sieht man in der Ferne eine Insel mit einem Berg. Wie weit sie weg ist und wie hoch der Berg ist, lässt sich nicht abschreiten. Ein Winkelmesser ist nicht zur Hand – nur zwei gerade Stangen.', depthPoints: 4 },
+        { id: 'EX:ASIEN:INSEL-SCHEMA', kind: 'example', title: 'Schema: zwei Stangen, zwei Sichtlinien', summary: 'Der chinesische Mathematiker Liu Hui beschrieb 263 nach Christus diese Aufgabe. Zwei gleich hohe Stangen stehen in bekanntem Abstand hintereinander auf einer Linie zur Insel. Hinter jeder Stange tritt man so weit zurück, bis man – mit dem Auge am Boden – die Stangenspitze genau vor dem Inselgipfel sieht. Hinter der hinteren Stange muss man etwas weiter zurück als hinter der vorderen. Dieser kleine Unterschied verrät alles.', image: { src: '/images/diagrams/liu-hui-insel.svg', alt: 'Schema: Insel links, zwei gleich hohe Stangen S1 und S2 im Abstand d, Sichtlinien vom Gipfel über die Stangenspitzen zum Boden, Rücktrittsweiten a1 und a2.', credit: CREDIT }, depthPoints: 10 },
+        { id: 'EXPL:ASIEN:DOPPELTE-DIFFERENZ', kind: 'explanation', title: 'Warum der Unterschied genügt', summary: 'Jede Sichtlinie bildet mit Stange und Boden ein kleines Dreieck, das dem großen Dreieck aus Gipfel, Inselhöhe und Boden ähnlich ist. Vergleicht man beide Stangen, fällt die unbekannte Entfernung heraus. Es gilt: Höhe = Stangenhöhe mal Abstand der Stangen geteilt durch die Differenz der Rücktrittsweiten, plus Stangenhöhe. Entfernung der Insel von der vorderen Stange = vordere Rücktrittsweite mal Abstand geteilt durch die Differenz. Liu Huis Handbuch gehörte später zu den Prüfungstexten chinesischer Beamter.', depthPoints: 10 },
+        exercise('EXR:ASIEN:LIU-HUI', 'Liu Huis Originalaufgabe', 'Die Stangen sind 5 bu hoch und stehen 1000 bu auseinander. Hinter der vorderen Stange tritt man 123 bu zurück, hinter der hinteren 127 bu. Wie hoch ist die Insel, und wie weit ist sie von der vorderen Stange entfernt? (Ein bu sind etwa 1,5 bis 2 Meter.)', 'Differenz der Rücktritte: 127 − 123 = 4 bu. Höhe: 5 · 1000 : 4 + 5 = 1250 + 5 = 1255 bu. Entfernung: 123 · 1000 : 4 = 30.750 bu. Das sind genau die Zahlen aus Liu Huis Lösung – in heutigen Einheiten grob 2 Kilometer Höhe und 50 Kilometer Entfernung, je nach Länge des bu.'),
+        practice('PRX:ASIEN:TISCHMODELL', 'Die Inselmessung auf dem Tisch', 'Stelle am einen Ende eines langen Tisches eine Tasse als Insel auf. Stelle zwei gleich lange Stifte senkrecht in Knete im Abstand von 20 Zentimetern auf eine Linie zur Tasse. Lege das Auge flach an die Tischplatte und rücke hinter jedem Stift so weit zurück, bis Stiftspitze und Tassenrand übereinander liegen; markiere jeweils die Stelle. Rechne mit Liu Huis Formel die Höhe der Tasse und ihre Entfernung aus und miss zur Kontrolle nach.'),
+        { id: 'QUIZ:ASIEN:INSEL', kind: 'quiz', title: QUIZ_TITLE, summary: 'Stangen 2 Meter hoch, 50 Meter Abstand, Rücktritte 4 Meter und 5 Meter. Wie hoch ist der Turm dahinter?||52 Meter||102 Meter*||100 Meter||25 Meter---Warum braucht Liu Huis Verfahren keinen Winkelmesser?||Weil alle Winkel 45 Grad sind||Weil ähnliche Dreiecke die Winkel ersetzen und nur Strecken gemessen werden*||Weil die Insel immer gleich weit weg ist||Weil man die Höhe schätzt---Was passiert mit dem Ergebnis, wenn die Differenz der Rücktrittsweiten falsch gemessen wird?||Nichts, sie spielt keine Rolle||Weil man durch eine kleine Zahl teilt, wirken sich schon kleine Messfehler stark aus*||Nur die Höhe ändert sich, nicht die Entfernung||Das Ergebnis wird immer zu klein', depthPoints: 12 },
+      ],
+    },
+    {
+      id: 'UNIT:ASIEN:GNOMON',
+      title: 'Riesige Schattenstäbe und ein Grad Erde',
+      entryQuestion: 'Warum baute man in China einen über zwölf Meter hohen Schattenstab, und wie lang ist ein Grad auf der Erde?',
+      takeaway: 'Längere Schattenstäbe machen Messungen genauer; Meridianmessungen in China und im Abbasidenreich bestimmten die Länge eines Breitengrads, indem man Strecken abmaß und Sonnen- oder Polhöhe verglich.',
+      gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:ASIEN:ERDRADIUS' },
+      sections: [
+        { id: 'OBS:ASIEN:TURM', kind: 'observation', title: 'Ein Turm als Sonnenuhr', summary: 'In Dengfeng in China steht ein Bauwerk aus dem Jahr 1276, das wie ein Turm mit einer langen Steinbahn davor aussieht. Der Turm selbst ist ein riesiger Schattenstab, die Steinbahn sein Maßstab. Er gehört heute zum UNESCO-Welterbe.', depthPoints: 4 },
+        { id: 'EXPL:ASIEN:ZHOUBI', kind: 'explanation', title: 'Eine falsche Regel wird widerlegt', summary: 'Ein alter chinesischer Text, das Zhoubi, nahm an, der Mittagsschatten eines 8 chi hohen Stabs ändere sich um 1 cun je 1000 li Nord-Süd-Abstand. Diese Regel beruhte auf der Vorstellung einer flachen Erde. In den Jahren 724 und 725 ließ der Mönch Yi Xing an vielen Orten zwischen dem heutigen Vietnam und der Mongolei Schatten und Polhöhe messen. Das Ergebnis widerlegte die alte Regel.', depthPoints: 8 },
+        { id: 'EXPL:ASIEN:GAOCHENG', kind: 'explanation', title: 'Guo Shoujings Riesengnomon', summary: 'Ein Schatten ist am Rand immer etwas unscharf. Je länger der Stab, desto länger der Schatten und desto kleiner wird der relative Ablesefehler. Guo Shoujing ließ deshalb 1276 in Gaocheng einen Querbalken in über 12 Metern Höhe als Schattenwerfer anbringen; davor liegt eine rund 31 Meter lange Steinbahn mit Wasserrinnen, die ihre Waagerechte kontrollieren. Eine kleine Lochblende machte den unscharfen Balkenschatten scharf. Die Messungen flossen in einen Kalender von 1281 ein.', depthPoints: 10 },
+        { id: 'EXPL:ASIEN:MAMUN', kind: 'explanation', title: 'Ein Grad abschreiten', summary: 'Um 830 ließ der Kalif al-Ma’mūn in der Ebene von Sindschar im heutigen Irak zwei Gruppen von einem Punkt aus nach Norden und nach Süden gehen, bis sich die Höhe des Himmelspols um ein Grad verändert hatte. Die abgeschrittene Strecke ergab die Länge eines Breitengrads: überliefert sind rund 56⅔ arabische Meilen. Wie lang diese Meile war, ist nicht sicher bekannt.', depthPoints: 8 },
+        exercise('EXR:ASIEN:GRAD', 'Vom Grad zum Erdumfang', 'Al-Ma’mūns Vermesser fanden 56⅔ arabische Meilen pro Grad. Welcher Erdumfang in Meilen folgt daraus? Und welcher Umfang ergibt sich, wenn man – wie heute – rund 111 Kilometer pro Grad ansetzt?', '56⅔ · 360 = 20.400 arabische Meilen. Mit 111 Kilometern pro Grad: 111 · 360 ≈ 40.000 Kilometer. Wie gut die arabische Messung war, hängt also allein davon ab, wie lang eine arabische Meile war – und genau das ist umstritten.'),
+        { id: 'BR:ASIEN:INO', kind: 'branch', title: 'Japan zu Fuß vermessen', summary: 'Zwischen 1800 und 1816 vermaß der Japaner Inō Tadataka in zehn Reisen die Küsten und Wege Japans – insgesamt rund 35.000 Kilometer – mit Messschnur, Kompassen und Sternbeobachtungen. Seine Gradmessung ergab etwa 111 Kilometer pro Breitengrad. Seine Schüler vollendeten 1821 die erste genaue Landeskarte Japans.', optional: true, depthPoints: 6 },
+        { id: 'QUIZ:ASIEN:GNOMON', kind: 'quiz', title: QUIZ_TITLE, summary: 'Ein 2 Meter hoher Stab wirft 3 Meter Schatten. Wie lang ist zur selben Zeit der Schatten eines 12 Meter hohen Gnomons?||15 Meter||18 Meter*||24 Meter||6 Meter---Warum baute Guo Shoujing einen so hohen Schattenwerfer?||Damit man ihn von weitem sieht||Weil ein längerer Schatten denselben Ablesefehler relativ kleiner macht und so genauer misst*||Weil die Sonne in China höher steht||Damit er auch nachts funktioniert---Al-Ma’mūns Leute gingen nach Norden, bis sich die Polhöhe um 1 Grad änderte. Was setzt diese Methode stillschweigend voraus?||Dass die Erde flach ist||Dass die Erde gekrümmt ist, sodass sich die Polhöhe mit der Breite ändert*||Dass der Polarstern sich bewegt||Dass alle Meilen gleich lang sind wie Kilometer', depthPoints: 12 },
+      ],
+    },
+    {
+      id: 'UNIT:ASIEN:ERDRADIUS',
+      title: 'Den Erdradius vom Berg aus messen',
+      entryQuestion: 'Kann man die Größe der Erde von einem einzigen Berggipfel aus bestimmen?',
+      takeaway: 'Al-Bīrūnī bestimmte aus Berghöhe und Kimmtiefe den Erdradius; die Methode ist geometrisch elegant, reagiert aber sehr empfindlich auf kleinste Winkelfehler und auf Lichtbrechung.',
+      sections: [
+        { id: 'OBS:ASIEN:HORIZONT', kind: 'observation', title: 'Der Horizont sinkt', summary: 'Am Strand liegt der Horizont scheinbar genau auf Augenhöhe. Steigt man auf einen Turm oder Berg, liegt er ein kleines Stück unter der Waagerechten, und man sieht weiter. Der Grund ist die Krümmung der Erde.', depthPoints: 4 },
+        { id: 'EX:ASIEN:BIRUNI-SCHEMA', kind: 'example', title: 'Schema: Berg, Horizont, Erdmittelpunkt', summary: 'Der Gelehrte al-Bīrūnī maß in den 1020er Jahren bei Nandana im heutigen Pakistan zuerst mit einem Astrolab von zwei Standpunkten aus die Höhe eines Berges. Dann maß er vom Gipfel, wie tief der Horizont unter der Waagerechten liegt – die Kimmtiefe. Die Sichtlinie zum Horizont berührt die Erde, sie steht dort rechtwinklig auf dem Erdradius. So entsteht ein rechtwinkliges Dreieck aus Erdradius, Erdradius plus Berghöhe und Sichtlinie.', image: { src: '/images/diagrams/biruni-erdradius.svg', alt: 'Schema: Berg der Höhe h auf der Erde, waagerechte Linie am Gipfel, Sichtlinie zum Horizont unter dem Winkel theta, Radien zum Gipfel und zum Berührpunkt; nicht maßstäblich.', credit: CREDIT }, depthPoints: 10 },
+        { id: 'EXPL:ASIEN:BIRUNI', kind: 'explanation', title: 'Die Rechnung', summary: 'Im Dreieck gilt: Erdradius geteilt durch Erdradius plus Berghöhe ist gleich dem Kosinus der Kimmtiefe. Umgestellt ergibt sich R = h · cos θ : (1 − cos θ). Al-Bīrūnī erhielt mit einer Berghöhe von gut 300 Metern und einer Kimmtiefe von 34 Bogenminuten einen Erdradius, der je nach Umrechnung seiner Ellen bei rund 6.300 Kilometern liegt. Dass das dem heutigen Wert so nahe kommt, ist zum Teil Glück: Die Lichtbrechung in der Luft hebt den Horizont an, und schon eine Bogenminute Messfehler verändert das Ergebnis um rund sechs Prozent.', depthPoints: 10 },
+        exercise('EXR:ASIEN:BIRUNI', 'Wie empfindlich ist die Methode?', 'Rechne mit einem Taschenrechner: Berghöhe h = 321,5 Meter, Kimmtiefe θ = 34 Bogenminuten (34 : 60 Grad). Welcher Erdradius ergibt sich? Und welcher bei 33 und bei 35 Bogenminuten?', 'Bei 34 Bogenminuten ist cos θ ≈ 0,999951, also 1 − cos θ ≈ 0,0000489. R ≈ 321,5 · 0,999951 : 0,0000489 ≈ 6.570 Kilometer. Bei 33 Bogenminuten ergeben sich rund 6.980 Kilometer, bei 35 rund 6.200 Kilometer. Eine einzige Bogenminute – ein Sechzigstel Grad – verschiebt das Ergebnis also um etwa 6 Prozent.'),
+        practice('PRX:ASIEN:HORIZONT', 'Wie weit sieht man?', 'Für die Sichtweite bis zum Horizont gilt näherungsweise: Sichtweite in Kilometern ≈ 3,57 mal Wurzel aus der Augenhöhe in Metern. Rechne aus, wie weit du am Strand mit 1,7 Metern Augenhöhe, auf einem 30 Meter hohen Turm und auf einem 300 Meter hohen Berg sehen kannst. Überprüfe es beim nächsten Ausflug an einem Aussichtspunkt mit Blick über Wasser oder eine weite Ebene.'),
+        { id: 'QUIZ:ASIEN:ERDRADIUS', kind: 'quiz', title: QUIZ_TITLE, summary: 'Mit der Näherung Sichtweite ≈ 3,57 · Wurzel aus der Augenhöhe: Wie weit sieht man ungefähr von einem 100 Meter hohen Turm?||10 Kilometer||36 Kilometer*||357 Kilometer||100 Kilometer---Warum steht die Sichtlinie zum Horizont rechtwinklig auf dem Erdradius?||Weil der Berg senkrecht steht||Weil sie die Erdkugel am Horizont nur berührt, und eine Berührende steht immer rechtwinklig zum Radius*||Weil das Licht gebrochen wird||Weil der Horizont waagerecht ist---Die Luft biegt Lichtstrahlen leicht zur Erde hin. Wie wirkt sich das auf al-Bīrūnīs Messung aus?||Gar nicht||Der Horizont erscheint etwas höher, die gemessene Kimmtiefe wird kleiner und der berechnete Erdradius zu groß*||Der Berg erscheint niedriger||Der Erdradius wird zu klein', depthPoints: 12 },
+      ],
+    },
+  ],
+};
+
 export const surveyingLearningPaths: LearningPath[] = [
   gromaLearningPath,
   heightMeasurementLearningPath,
   triangulationLearningPath,
   sundialLearningPath,
+  asiaOrientSurveyingLearningPath,
 ];

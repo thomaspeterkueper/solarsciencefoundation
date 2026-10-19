@@ -8,6 +8,7 @@ const SERIES = [
   { pathId: 'PATH:SSF:TEC-HOEHEN-0001', moduleId: 'TEC-L1-000002', concept: 'CON:L1:nivellement', images: ['/images/diagrams/nivellement.svg'] },
   { pathId: 'PATH:SSF:TEC-TRIANGULATION-0001', moduleId: 'TEC-L2-000001', concept: 'CON:L1:triangulation', images: ['/images/diagrams/schattenmessung.svg', '/images/diagrams/triangulation.svg'] },
   { pathId: 'PATH:SSF:AST-SONNENUHR-0001', moduleId: 'AST-L1-000002', concept: 'CON:L1:sonnenuhr', images: ['/images/diagrams/indischer-kreis.svg', '/images/diagrams/eratosthenes.svg'] },
+  { pathId: 'PATH:SSF:TEC-ASIEN-ORIENT-0001', moduleId: 'TEC-L2-000002', concept: 'CON:L1:doppelte-differenz', images: ['/images/diagrams/liu-hui-insel.svg', '/images/diagrams/biruni-erdradius.svg'] },
 ];
 
 for (const entry of SERIES) {
@@ -18,6 +19,7 @@ for (const entry of SERIES) {
     assert.equal(getRegisteredLearningPathForModule(entry.moduleId)?.id, path.id);
     assert.ok(path.suppliedBy.knowledgeGraph.includes(entry.concept));
     assert.ok(path.domainsNeeded.every(domain => domain.startsWith('KD:')));
+    assert.ok(path.suppliedBy.kueperCom.includes('DOC:KUE:KUE-HIS-0001-2026-DE'), 'links the historical foundation');
   });
 
   test(`${entry.pathId} has parsable quizzes, solved exercises, practice and chained gates`, () => {

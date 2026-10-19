@@ -118,7 +118,7 @@ const CLUSTERS: Record<string, {
   ingenieur: {
     label: 'Ingenieurwesen', icon: '⚙️', color: '#8B6914',
     horizon: 'Als nächstes: Wie entsteht der Entladekreis beim Erodieren? — Kondensatoren und RC-Glieder',
-    ids: ['PATH:SSF:ENG-DMS-0001','PATH:SSF:ENG-EDM-0001','PATH:SSF:EL-DIODE-0001','PATH:SSF:TEC-GROMA-0001','PATH:SSF:TEC-HOEHEN-0001','PATH:SSF:TEC-TRIANGULATION-0001'],
+    ids: ['PATH:SSF:ENG-DMS-0001','PATH:SSF:ENG-EDM-0001','PATH:SSF:EL-DIODE-0001','PATH:SSF:TEC-GROMA-0001','PATH:SSF:TEC-HOEHEN-0001','PATH:SSF:TEC-TRIANGULATION-0001','PATH:SSF:TEC-ASIEN-ORIENT-0001'],
   },
 };
 
