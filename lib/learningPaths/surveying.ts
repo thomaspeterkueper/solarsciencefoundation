@@ -5,6 +5,7 @@ import type { LearningPath, LearningPathSection } from '../learningPaths';
 //   TEC-L1-000001  Groma            PATH:SSF:TEC-GROMA-0001          CON:L1:groma, CON:L1:zenturiation
 //   TEC-L1-000002  Höhenmessung     PATH:SSF:TEC-HOEHEN-0001         CON:L1:chorobates, CON:L1:nivellement
 //   TEC-L2-000001  Triangulation    PATH:SSF:TEC-TRIANGULATION-0001  CON:L1:triangulation
+//   AST-L1-000002  Sonnenuhr        PATH:SSF:AST-SONNENUHR-0001      CON:L1:gnomon, CON:L1:sonnenuhr, CON:L1:erdumfang-eratosthenes
 // SSF owns the didactic design. Non-interactive: observation, explanation, schema,
 // exercise with collapsible solution, practical task (Praxis), quiz.
 
@@ -257,8 +258,105 @@ export const triangulationLearningPath: LearningPath = {
   ],
 };
 
+// ─── Modul 4: Sonnenuhr (AST) ────────────────────────────────────────────────
+
+export const sundialLearningPath: LearningPath = {
+  id: 'PATH:SSF:AST-SONNENUHR-0001',
+  title: 'Was verrät ein Schatten über Richtung, Zeit und die Größe der Erde?',
+  subtitle: 'Ein einfacher Stab zeigt, wo Norden liegt, wie spät es ist und wie groß die Erde ist: Schattenstab, Sonnenuhr, Sonnenzeit und das Experiment des Eratosthenes. Teil 4 der Reihe Vermessung.',
+  status: 'prototype',
+  sourceModuleId: 'AST-L1-000002',
+  kxfModuleId: 'LRN:SSF:AST-L1-000002',
+  domainsNeeded: ['KD:MATH-GEO:N1', 'KD:ASTRO-BASIC'],
+  suppliedBy: {
+    knowledgeGraph: ['AST-L1-000002', 'CON:L1:gnomon', 'CON:L1:sonnenuhr', 'CON:L1:erdumfang-eratosthenes'],
+    kueperCom: [],
+    overtimeArchive: [],
+    ssf: ['Schema: Nordrichtung aus dem Schatten', 'Schema: Erdumfang nach Eratosthenes', 'Aufgaben mit Lösung', 'Praxis: Mittagslinie, Schattenprotokoll, Pappsonnenuhr, Sonnenmittag, Schattenvergleich', 'Quiz je Einheit'],
+  },
+  unlocks: [],
+  units: [
+    {
+      id: 'UNIT:SONNE:NORDEN',
+      title: 'Norden aus dem Schatten',
+      entryQuestion: 'Wie findet man ohne Kompass heraus, wo Norden ist?',
+      takeaway: 'Ein senkrechter Stab wirft vormittags und nachmittags gleich lange Schatten in spiegelbildliche Richtungen; die Mitte zwischen beiden Schattenspitzen liegt genau im Norden.',
+      gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:SONNE:WANDERN' },
+      sections: [
+        { id: 'OBS:SONNE:STAB', kind: 'observation', title: 'Ein Stab im Sonnenschein', summary: 'Steckt man einen Stab senkrecht in den Boden, wandert sein Schatten im Laufe des Tages. Am Vormittag ist er lang und zeigt nach Westen, gegen Mittag wird er kürzer, am Nachmittag wieder länger und zeigt nach Osten. Irgendwann dazwischen ist er am kürzesten.', depthPoints: 4 },
+        { id: 'EX:SONNE:KREIS-SCHEMA', kind: 'example', title: 'Schema: der Kreis um den Stab', summary: 'Der kürzeste Schatten zeigt bei uns genau nach Norden, aber den Moment des kürzesten Schattens erwischt man schwer. Einfacher ist ein Kreis: Man markiert am Vormittag die Schattenspitze und zieht mit einer Schnur einen Kreis um den Stab durch diese Marke. Am Nachmittag wartet man, bis die Schattenspitze den Kreis wieder berührt, und markiert auch diesen Punkt. Die Mitte zwischen beiden Marken liegt genau nördlich des Stabs.', image: { src: '/images/diagrams/indischer-kreis.svg', alt: 'Draufsicht: Stab in der Mitte eines Kreises, Kurve der Schattenspitze, zwei Marken auf dem Kreis am Vor- und Nachmittag, Nord-Süd-Linie durch die Mitte zwischen beiden Marken.', credit: CREDIT }, depthPoints: 10 },
+        { id: 'EXPL:SONNE:VITRUV', kind: 'explanation', title: 'Ein Verfahren für Stadtplaner', summary: 'Der römische Architekt Vitruv beschreibt diese Methode für die Planung von Städten: einen ebenen Platz, einen Bronzestab in der Mitte, eine Marke am Vormittag, einen Kreis und eine zweite Marke am Nachmittag. So ließen sich die Himmelsrichtungen festlegen, nach denen Straßen ausgerichtet wurden – die Brücke zu cardo und decumanus aus dem Groma-Modul. Der Trick funktioniert, weil die Sonne vormittags und nachmittags symmetrisch zum Mittag steht.', depthPoints: 8 },
+        exercise('EXR:SONNE:MITTELSENKRECHTE', 'Norden konstruieren', 'Die beiden Marken auf dem Kreis liegen 3,20 Meter auseinander. Wie findest du ohne Winkelmesser den Punkt genau nördlich des Stabs, und wie legst du die Nord-Süd-Linie fest?', 'Miss die Strecke zwischen den Marken und halbiere sie: Nach 1,60 Metern liegt der Mittelpunkt. Die Linie vom Stab durch diesen Mittelpunkt ist die Nord-Süd-Linie, der Mittelpunkt liegt auf der Nordseite. Ohne Maßband geht es mit einer Schnur als Zirkel: Um beide Marken gleich große Kreisbögen schlagen – die Verbindungslinie ihrer Schnittpunkte geht durch den Stab und zeigt nach Norden.'),
+        practice('PRX:SONNE:MITTAGSLINIE', 'Eine Mittagslinie im Garten', 'Stecke an einem sonnigen Tag auf ebenem Boden einen geraden Stab senkrecht in die Erde; prüfe ihn mit einem Faden mit Gewicht. Markiere gegen 10 Uhr die Schattenspitze mit einem Stöckchen. Binde eine Schnur locker um den Stab und ziehe damit einen Kreis durch die Marke. Am Nachmittag wartest du, bis die Schattenspitze den Kreis wieder berührt, und markierst diesen Punkt. Lege die Nord-Süd-Linie fest und vergleiche sie mit einem Kompass: Die Abweichung beträgt in Deutschland nur wenige Grad.'),
+        { id: 'QUIZ:SONNE:NORDEN', kind: 'quiz', title: QUIZ_TITLE, summary: 'Am Vormittag zeigt der Schatten eines Stabs nach Westnordwest. In welche Richtung zeigt er bei gleicher Länge am Nachmittag?||Nach Westsüdwest||Nach Ostnordost*||Nach Süden||Genau nach Westen---Warum misst man zwei gleich lange Schatten statt den kürzesten Schatten?||Weil der kürzeste Schatten nach Süden zeigt||Weil man den Moment des kürzesten Schattens schwer genau erkennt, gleich lange Schatten aber leicht mit einem Kreis findet*||Weil kurze Schatten unscharf sind||Weil der Stab mittags umfällt---Eine römische Stadt soll mit dem decumanus genau in Ost-West-Richtung angelegt werden. Wie hilft der Schattenkreis?||Er misst die Länge der Straße||Er liefert die Nord-Süd-Linie, und die Ost-West-Linie steht rechtwinklig dazu*||Er zeigt, wo Wasser fließt||Er ersetzt die Groma vollständig', depthPoints: 12 },
+      ],
+    },
+    {
+      id: 'UNIT:SONNE:WANDERN',
+      title: 'Warum der Schatten wandert',
+      entryQuestion: 'Warum ist der Schatten im Sommer mittags kurz und im Winter lang?',
+      takeaway: 'Die Erde dreht sich in 24 Stunden einmal, die Sonne scheint daher 15 Grad pro Stunde weiterzuwandern; wie hoch sie mittags steht, hängt von Breitengrad und Jahreszeit ab.',
+      gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:SONNE:POLSTAB' },
+      sections: [
+        { id: 'OBS:SONNE:JAHRESZEIT', kind: 'observation', title: 'Kurze Sommerschatten, lange Winterschatten', summary: 'Mittags im Juni ist dein eigener Schatten kürzer als du selbst. Mittags im Dezember ist er ein Vielfaches deiner Körpergröße. Die Sonne steht im Winter einfach viel tiefer am Himmel, obwohl es dieselbe Tageszeit ist.', depthPoints: 4 },
+        { id: 'EXPL:SONNE:DREHUNG', kind: 'explanation', title: '15 Grad pro Stunde', summary: 'Nicht die Sonne wandert, sondern die Erde dreht sich. Für eine volle Umdrehung von 360 Grad braucht sie etwa 24 Stunden, in einer Stunde also 360 durch 24, gleich 15 Grad. Um genau diesen Winkel scheint die Sonne jede Stunde am Himmel weiterzurücken – und der Schatten mit ihr.', depthPoints: 8 },
+        { id: 'EXPL:SONNE:MITTAGSHOEHE', kind: 'explanation', title: 'Wie hoch steht die Sonne mittags?', summary: 'Die Erdachse ist um etwa 23,4 Grad gegen die Erdbahn geneigt. Zur Tagundnachtgleiche im März und September steht die Sonne mittags 90 Grad minus Breitengrad hoch, auf 50 Grad nördlicher Breite also 40 Grad. Zum Sommeranfang kommen 23,4 Grad hinzu, zum Winteranfang werden sie abgezogen. Je tiefer die Sonne, desto länger der Schatten.', depthPoints: 10 },
+        exercise('EXR:SONNE:MITTAGSHOEHE', 'Mittagshöhe berechnen', 'Frankfurt liegt auf etwa 50 Grad nördlicher Breite. Wie hoch steht die Sonne dort mittags zur Tagundnachtgleiche, zum Sommeranfang und zum Winteranfang?', 'Tagundnachtgleiche: 90 − 50 = 40 Grad. Sommeranfang: 40 + 23,4 = 63,4 Grad. Winteranfang: 40 − 23,4 = 16,6 Grad. Ein 1 Meter hoher Stab wirft im Winter mittags deshalb einen über 3 Meter langen Schatten, im Sommer einen nur etwa einen halben Meter langen.'),
+        practice('PRX:SONNE:SCHATTENPROTOKOLL', 'Ein Schattenprotokoll', 'Lege an einem sonnigen Tag ein großes Blatt Papier auf eine waagerechte Fläche und stelle einen Stift oder Nagel senkrecht in die Mitte. Markiere jede volle Stunde die Schattenspitze und schreibe die Uhrzeit dazu. Am Abend ziehst du Linien vom Fußpunkt zu jeder Marke und misst die Winkel zwischen benachbarten Linien. Sind sie alle gleich 15 Grad? Notiere das Ergebnis – die nächste Einheit erklärt es.'),
+        { id: 'QUIZ:SONNE:WANDERN', kind: 'quiz', title: QUIZ_TITLE, summary: 'Um wie viel Grad scheint die Sonne in 3 Stunden weiterzuwandern?||15 Grad||45 Grad*||30 Grad||90 Grad---Warum ist der Mittagsschatten im Winter länger als im Sommer?||Weil die Erde im Winter weiter von der Sonne entfernt ist||Weil die geneigte Erdachse die Sonne im Winter mittags tiefer stehen lässt*||Weil die Sonne im Winter schwächer leuchtet||Weil sich die Erde im Winter langsamer dreht---In Rom auf etwa 42 Grad nördlicher Breite: Wie hoch steht die Sonne mittags zur Tagundnachtgleiche?||42 Grad||48 Grad*||90 Grad||23,4 Grad', depthPoints: 12 },
+      ],
+    },
+    {
+      id: 'UNIT:SONNE:POLSTAB',
+      title: 'Die Sonnenuhr',
+      entryQuestion: 'Warum steht der Stab an vielen Sonnenuhren schräg und nicht senkrecht?',
+      takeaway: 'Zeigt der Stab einer Sonnenuhr parallel zur Erdachse zum Himmelspol, dreht sich sein Schatten gleichmäßig um 15 Grad pro Stunde; seine Neigung gegen den Boden ist gleich dem Breitengrad.',
+      gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:SONNE:UHRZEIT' },
+      sections: [
+        { id: 'OBS:SONNE:KIRCHENWAND', kind: 'observation', title: 'Sonnenuhren an alten Wänden', summary: 'An Kirchen, Rathäusern und alten Bauernhäusern findet man aufgemalte Sonnenuhren. Ihr Schattenstab ragt meist schräg aus der Wand und zeigt nach unten in Richtung Süden. Die Stundenlinien darunter sind nicht gleichmäßig verteilt.', depthPoints: 4 },
+        { id: 'EXPL:SONNE:POLSTAB', kind: 'explanation', title: 'Der Polstab', summary: 'Die Sonne dreht sich scheinbar um die Erdachse. Stellt man den Schattenstab parallel zu dieser Achse, zeigt er auf den Himmelsnordpol, nahe beim Polarstern. Dann dreht sich der Schatten genau gleichmäßig um den Stab, 15 Grad pro Stunde, egal zu welcher Jahreszeit. Damit der Stab parallel zur Erdachse steht, muss er gegen den waagerechten Boden um genau so viele Grad geneigt sein, wie der Breitengrad beträgt.', depthPoints: 10 },
+        { id: 'EXPL:SONNE:ZIFFERBLATT', kind: 'explanation', title: 'Gleichmäßige und ungleichmäßige Zifferblätter', summary: 'Steht das Zifferblatt senkrecht zum Polstab, sind die Stundenlinien gleichmäßig 15 Grad voneinander entfernt; das ist die Äquatorialsonnenuhr. Liegt das Zifferblatt dagegen waagerecht auf dem Boden oder hängt senkrecht an einer Wand, wird der gleichmäßig drehende Schatten schräg auf die Fläche projiziert. Die Stundenlinien rücken dann um Mittag eng zusammen und spreizen sich zum Morgen und Abend hin. Auf 50 Grad Breite liegen die Linien einer waagerechten Sonnenuhr etwa 11,6, 23,9, 37,5, 53,0 und 70,7 Grad von der Mittagslinie entfernt.', depthPoints: 10 },
+        exercise('EXR:SONNE:NEIGUNG', 'Den Polstab einstellen', 'Wie steil muss der Polstab gegen den waagerechten Boden in Hamburg (etwa 53,5 Grad Breite) und in München (etwa 48,1 Grad Breite) geneigt sein? Und welchen Winkel schließen auf einer Äquatorialsonnenuhr die Linien für 9 Uhr und 12 Uhr ein?', 'Die Neigung ist gleich dem Breitengrad: in Hamburg etwa 53,5 Grad, in München etwa 48,1 Grad. Auf der Äquatorialsonnenuhr liegen zwischen 9 und 12 Uhr drei Stunden, also 3 · 15 = 45 Grad.'),
+        practice('PRX:SONNE:PAPPSONNENUHR', 'Eine Äquatorialsonnenuhr aus Pappe', 'Zeichne auf festen Karton einen Kreis und teile ihn mit dem Geodreieck in 24 gleiche Abschnitte von je 15 Grad; beschrifte sie mit den Stunden, 12 Uhr unten. Stich einen Schaschlikspieß genau durch die Mitte, sodass er senkrecht zur Scheibe steht. Stelle die Uhr draußen so auf, dass der Spieß nach Norden zeigt und gegen den Boden um deinen Breitengrad geneigt ist – in Frankfurt etwa 50 Grad. Von März bis September fällt der Schatten auf die Oberseite der Scheibe.'),
+        { id: 'QUIZ:SONNE:POLSTAB', kind: 'quiz', title: QUIZ_TITLE, summary: 'Eine Sonnenuhr soll in Kopenhagen auf etwa 55,7 Grad Breite stehen. Wie stark muss der Polstab gegen den Boden geneigt sein?||34,3 Grad||55,7 Grad*||45 Grad||90 Grad---Warum dreht sich der Schatten eines Polstabs gleichmäßig um 15 Grad pro Stunde?||Weil der Stab besonders lang ist||Weil der Stab parallel zur Erdachse steht, um die sich die Sonne scheinbar gleichmäßig dreht*||Weil das Zifferblatt waagerecht liegt||Weil die Sonne mittags am höchsten steht---Bei deinem Schattenprotokoll auf waagerechtem Papier waren die Winkel um Mittag kleiner als 15 Grad. Woran liegt das?||Die Uhr ging falsch||Der senkrechte Stift ist kein Polstab; auf der waagerechten Fläche wird der Schatten ungleichmäßig projiziert*||Die Erde dreht sich mittags langsamer||Das Papier war zu klein', depthPoints: 12 },
+      ],
+    },
+    {
+      id: 'UNIT:SONNE:UHRZEIT',
+      title: 'Sonnenzeit und Uhrzeit',
+      entryQuestion: 'Warum zeigt die Sonnenuhr im Garten im Sommer über eine Stunde weniger an als das Handy?',
+      takeaway: 'Die Sonnenuhr zeigt die Ortszeit; die Uhr zeigt die Zeit der Zeitzone – Längengrad, Sommerzeit und die Zeitgleichung erklären den Unterschied.',
+      gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:SONNE:ERATOSTHENES' },
+      sections: [
+        { id: 'OBS:SONNE:ABWEICHUNG', kind: 'observation', title: 'Die Sonnenuhr geht nach', summary: 'Wer seine Pappsonnenuhr im Juli mit dem Handy vergleicht, wundert sich: Wenn das Handy 13 Uhr anzeigt, steht der Schatten noch deutlich vor 12. Und selbst im Winter, ohne Sommerzeit, stimmen die beiden selten genau überein.', depthPoints: 4 },
+        { id: 'EXPL:SONNE:LAENGE', kind: 'explanation', title: 'Ein Mittag für jeden Ort', summary: 'Die Sonne steht für jeden Ort zu einem anderen Zeitpunkt am höchsten: Je weiter westlich, desto später. Bei 15 Grad pro Stunde sind das 4 Minuten pro Längengrad. Damit nicht jeder Ort eine eigene Zeit hat, gilt in Mitteleuropa die Mitteleuropäische Zeit, bezogen auf 15 Grad östlicher Länge. Orte westlich davon haben ihren Sonnenmittag später als 12 Uhr. In der Sommerzeit kommt noch eine Stunde dazu.', depthPoints: 10 },
+        { id: 'EXPL:SONNE:ZEITGLEICHUNG', kind: 'explanation', title: 'Die Zeitgleichung', summary: 'Auch am selben Ort kommt der Sonnenmittag nicht jeden Tag zur selben Uhrzeit. Die Erde läuft auf einer leicht elliptischen Bahn unterschiedlich schnell um die Sonne, und ihre Achse ist geneigt. Dadurch schwankt der Sonnenmittag im Laufe des Jahres um bis zu etwa eine Viertelstunde nach vorn und hinten. Diese Korrektur heißt Zeitgleichung; manche Sonnenuhren tragen dafür eine Tabelle oder eine Achterschleife.', depthPoints: 8 },
+        exercise('EXR:SONNE:FRANKFURT', 'Sonnenmittag in Frankfurt', 'Frankfurt liegt auf etwa 8,7 Grad östlicher Länge. Um wie viele Minuten liegt der Sonnenmittag später als 12 Uhr Mitteleuropäischer Zeit, wenn man die Zeitgleichung außer Acht lässt? Wann ist das in der Sommerzeit?', 'Unterschied zu 15 Grad: 15 − 8,7 = 6,3 Grad. Mal 4 Minuten ergibt etwa 25 Minuten. Der Sonnenmittag ist also gegen 12:25 Uhr MEZ, in der Sommerzeit gegen 13:25 Uhr. Je nach Jahreszeit verschiebt ihn die Zeitgleichung noch um bis zu etwa eine Viertelstunde.'),
+        practice('PRX:SONNE:SONNENMITTAG', 'Den Sonnenmittag finden', 'Nutze deine Mittagslinie aus der ersten Einheit. Beobachte an einem sonnigen Tag, wann der Schatten des Stabs genau auf der Linie liegt, und notiere die Uhrzeit vom Handy. Vergleiche mit deiner Rechnung aus der Aufgabe. Wiederhole die Messung einige Wochen später: Hat sich die Uhrzeit verschoben?'),
+        { id: 'QUIZ:SONNE:UHRZEIT', kind: 'quiz', title: QUIZ_TITLE, summary: 'Aachen liegt auf etwa 6,1 Grad östlicher Länge. Wie viele Minuten nach 12 Uhr MEZ ist dort ungefähr Sonnenmittag, ohne Zeitgleichung?||6 Minuten||36 Minuten*||9 Minuten||61 Minuten---Warum zeigt eine Sonnenuhr nicht die Uhrzeit der Zeitzone an?||Weil Sonnenuhren ungenau gebaut sind||Weil sie die Ortszeit nach dem Sonnenstand zeigt, die Zeitzone aber für einen festen Längengrad gilt*||Weil die Sonne nicht immer scheint||Weil die Erde sich nachts langsamer dreht---Görlitz liegt fast genau auf 15 Grad östlicher Länge. Was folgt für eine Sonnenuhr dort im Winter?||Sie geht eine Stunde vor||Sie stimmt bis auf die Zeitgleichung mit der Uhrzeit überein*||Sie geht 15 Minuten nach||Sie funktioniert dort nicht', depthPoints: 12 },
+      ],
+    },
+    {
+      id: 'UNIT:SONNE:ERATOSTHENES',
+      title: 'Die Erde mit einem Schatten vermessen',
+      entryQuestion: 'Kann man mit zwei Stäben und ihren Schatten herausfinden, wie groß die ganze Erde ist?',
+      takeaway: 'Weil die Sonnenstrahlen parallel einfallen, entspricht der Unterschied der Schattenwinkel zweier Orte dem Winkel im Erdmittelpunkt; aus diesem Bruchteil des Kreises und der Entfernung folgt der Erdumfang.',
+      sections: [
+        { id: 'OBS:SONNE:SYENE', kind: 'observation', title: 'Ein Tag ohne Schatten', summary: 'In Syene, dem heutigen Assuan in Ägypten, steht die Sonne am Mittag des Sommeranfangs fast senkrecht über dem Kopf; senkrechte Stäbe werfen dann kaum einen Schatten. Zur selben Zeit wirft ein Stab im weiter nördlich gelegenen Alexandria einen deutlichen, kurzen Schatten.', depthPoints: 4 },
+        { id: 'EX:SONNE:ERATOSTHENES-SCHEMA', kind: 'example', title: 'Schema: zwei Stäbe, ein Winkel', summary: 'Die Sonne ist so weit entfernt, dass ihre Strahlen praktisch parallel ankommen. Der Stab in Syene zeigt genau zur Sonne, der Stab in Alexandria steht schräg dazu, weil die Erde gekrümmt ist. Der Schattenwinkel in Alexandria ist deshalb genau so groß wie der Winkel zwischen den beiden Orten im Erdmittelpunkt.', image: { src: '/images/diagrams/eratosthenes.svg', alt: 'Schema: parallele Sonnenstrahlen, Stab in Syene ohne Schatten, Stab in Alexandria mit Schatten, gleicher Winkel im Erdmittelpunkt; Winkel vergrößert gezeichnet.', credit: CREDIT }, depthPoints: 10 },
+        { id: 'EXPL:SONNE:ERATOSTHENES', kind: 'explanation', title: 'Eratosthenes rechnet', summary: 'Der Gelehrte Eratosthenes maß im 3. Jahrhundert vor Christus in Alexandria einen Winkel von etwa einem Fünfzigstel des Vollkreises, rund 7,2 Grad. Die Entfernung nach Syene gab er mit 5.000 Stadien an. Der ganze Umfang musste also 50-mal so groß sein: 250.000 Stadien. Sein eigenes Werk ist verloren, wir kennen die Rechnung aus späteren Berichten, vor allem von Kleomedes. Wie lang ein Stadion genau war, ist umstritten – je nach Annahme lag er nur wenige Prozent oder bis zu etwa 15 Prozent daneben.', depthPoints: 10 },
+        exercise('EXR:SONNE:ERDUMFANG', 'Den Erdumfang nachrechnen', 'Nimm an, Syene und Alexandria liegen 800 Kilometer auseinander und der Schattenwinkel in Alexandria beträgt 7,2 Grad. Welchen Erdumfang erhältst du? Welcher Umfang ergäbe sich bei nur 7 Grad?', 'Der Vollkreis hat 360 Grad, 360 : 7,2 = 50. Umfang = 50 · 800 km = 40.000 Kilometer. Bei 7 Grad: 360 : 7 ≈ 51,4, also etwa 41.100 Kilometer. Ein Messfehler von 0,2 Grad verändert das Ergebnis schon um rund 3 Prozent.'),
+        practice('PRX:SONNE:ZWEI-ORTE', 'Das Eratosthenes-Experiment zu zweit', 'Verabrede dich mit jemandem, der einige hundert Kilometer weiter nördlich oder südlich wohnt. Messt am selben Tag zum jeweiligen Sonnenmittag die Länge des Schattens eines genau 1 Meter hohen, senkrechten Stabs. Aus Stablänge und Schattenlänge bestimmt jeder den Sonnenwinkel, zum Beispiel durch eine maßstäbliche Zeichnung. Den Nord-Süd-Abstand eurer Orte findet ihr auf einer Karte. Teilt 360 Grad durch den Unterschied der Winkel und multipliziert mit dem Abstand.'),
+        { id: 'BR:SONNE:FRUEHE-SONNENUHREN', kind: 'branch', title: 'Die ältesten Sonnenuhren', summary: 'Schattenuhren sind sehr alt. Im Tal der Könige in Ägypten fanden Forschende der Universität Basel einen bemalten Kalksteinsplitter aus dem 13. Jahrhundert vor Christus: ein Halbkreis, in zwölf Abschnitte von je etwa 15 Grad geteilt, mit einem Loch für einen Schattenstab – eine der ältesten bekannten Sonnenuhren. Der griechische Geschichtsschreiber Herodot berichtet, die Griechen hätten den Schattenstab, den Gnomon, und die Einteilung des Tages in zwölf Teile von den Babyloniern übernommen.', optional: true, depthPoints: 6 },
+        { id: 'QUIZ:SONNE:ERATOSTHENES', kind: 'quiz', title: QUIZ_TITLE, summary: 'Zwei Orte liegen 500 Kilometer auseinander, ihre Schattenwinkel unterscheiden sich um 4,5 Grad. Welcher Erdumfang folgt daraus?||36.000 Kilometer||40.000 Kilometer*||45.000 Kilometer||22.500 Kilometer---Warum darf Eratosthenes den Schattenwinkel mit dem Winkel im Erdmittelpunkt gleichsetzen?||Weil die Erde eine Scheibe ist||Weil die Sonnenstrahlen wegen der großen Entfernung der Sonne praktisch parallel einfallen*||Weil Syene genau am Äquator liegt||Weil beide Stäbe gleich lang sind---Was würde die Messung zeigen, wenn die Erde flach wäre und die Sonnenstrahlen parallel einfielen?||Größere Schatten im Norden||An beiden Orten denselben Schattenwinkel*||Keinen Schatten an beiden Orten||Doppelt so lange Schatten in Syene', depthPoints: 12 },
+      ],
+    },
+  ],
+};
+
 export const surveyingLearningPaths: LearningPath[] = [
   gromaLearningPath,
   heightMeasurementLearningPath,
   triangulationLearningPath,
+  sundialLearningPath,
 ];

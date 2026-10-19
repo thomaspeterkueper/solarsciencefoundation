@@ -85,6 +85,7 @@ const CLUSTERS: Record<string, {
     horizon: 'Als nächstes: Wie nutzt man Gravitationsschlingen zum Beschleunigen? — Swing-by-Manöver',
     ids: [
       'PATH:SSF:AST-SONNENSYSTEM-0001',
+      'PATH:SSF:AST-SONNENUHR-0001',
     ],
   },
   mathematik: {

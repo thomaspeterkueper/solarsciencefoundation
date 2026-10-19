@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 320" role="img" aria-labelledby="t d" font-family="system-ui, -apple-system, Segoe UI, sans-serif">
+  <title id="t">Nordrichtung aus dem Schatten</title>
+  <desc id="d">Draufsicht: Ein Stab steht in der Mitte eines Kreises. Die Schattenspitze wandert über den Tag entlang einer Kurve. Vormittags und nachmittags berührt sie den Kreis je einmal. Die Mitte zwischen beiden Punkten liegt genau nördlich des Stabs; die Linie vom Stab dorthin ist die Nord-Süd-Linie.</desc>
+  <rect width="380" height="320" rx="12" fill="#F7F5EF"/>
+  <line x1="190" y1="44" x2="190" y2="262" stroke="#534AB7" stroke-width="1.2"/>
+  <circle cx="190" cy="150" r="90" fill="none" stroke="#888780" stroke-width="1"/>
+  <path d="M60 143.3 Q190 0.7 320 143.3" fill="none" stroke="#BA7517" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <g stroke="#5F5E5A" stroke-width="2">
+    <line x1="190" y1="150" x2="121.1" y2="92.1"/>
+    <line x1="190" y1="150" x2="258.9" y2="92.1"/>
+  </g>
+  <line x1="121.1" y1="92.1" x2="258.9" y2="92.1" stroke="#888780" stroke-width="0.8"/>
+  <g fill="#D85A30">
+    <circle cx="121.1" cy="92.1" r="4"/>
+    <circle cx="258.9" cy="92.1" r="4"/>
+  </g>
+  <circle cx="190" cy="92.1" r="3" fill="#534AB7"/>
+  <circle cx="190" cy="150" r="5" fill="#2C2C2A"/>
+  <g font-size="12" fill="#2C2C2A">
+    <text x="190" y="36" text-anchor="middle" fill="#3C3489">N</text>
+    <text x="190" y="278" text-anchor="middle" fill="#3C3489">S</text>
+    <text x="200" y="168">Stab</text>
+    <text x="366" y="40" text-anchor="end">Weg der Schattenspitze</text>
+    <text x="40" y="296">Gleich lange Schatten am Vor- und Nachmittag:</text>
+    <text x="40" y="312">die Mitte zwischen beiden Marken liegt im Norden.</text>
+  </g>
+</svg>

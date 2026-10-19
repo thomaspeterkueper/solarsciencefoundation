@@ -7,6 +7,7 @@ const SERIES = [
   { pathId: 'PATH:SSF:TEC-GROMA-0001', moduleId: 'TEC-L1-000001', concept: 'CON:L1:groma', images: ['/images/diagrams/groma-aufbau.svg'] },
   { pathId: 'PATH:SSF:TEC-HOEHEN-0001', moduleId: 'TEC-L1-000002', concept: 'CON:L1:nivellement', images: ['/images/diagrams/nivellement.svg'] },
   { pathId: 'PATH:SSF:TEC-TRIANGULATION-0001', moduleId: 'TEC-L2-000001', concept: 'CON:L1:triangulation', images: ['/images/diagrams/schattenmessung.svg', '/images/diagrams/triangulation.svg'] },
+  { pathId: 'PATH:SSF:AST-SONNENUHR-0001', moduleId: 'AST-L1-000002', concept: 'CON:L1:sonnenuhr', images: ['/images/diagrams/indischer-kreis.svg', '/images/diagrams/eratosthenes.svg'] },
 ];
 
 for (const entry of SERIES) {
