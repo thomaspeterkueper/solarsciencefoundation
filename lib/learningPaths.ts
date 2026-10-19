@@ -30,6 +30,11 @@ export type LearningPathSection = {
     alt: string;
     credit?: string;
   };
+  /**
+   * Optional worked solution for exercise sections. Rendered collapsed behind
+   * a "Lösung zeigen" button so learners can try the task first.
+   */
+  solution?: string;
 };
 
 export type LearningPathUnit = {

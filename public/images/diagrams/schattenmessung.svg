@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 250" role="img" aria-labelledby="t d" font-family="system-ui, -apple-system, Segoe UI, sans-serif">
+  <title id="t">Baumhöhe aus dem Schatten</title>
+  <desc id="d">Ein Baum wirft einen 18 Meter langen Schatten, ein 2 Meter hoher Stab daneben einen 3 Meter langen. Die Sonnenstrahlen treffen beide im selben Winkel, die Dreiecke sind ähnlich. Der Baum ist daher 18 mal 2 durch 3, also 12 Meter hoch.</desc>
+  <rect width="380" height="250" rx="12" fill="#F7F5EF"/>
+  <circle cx="350" cy="36" r="14" fill="#EF9F27"/>
+  <line x1="20" y1="210" x2="360" y2="210" stroke="#888780" stroke-width="1"/>
+  <line x1="60" y1="212" x2="240" y2="212" stroke="#5F5E5A" stroke-width="4"/>
+  <line x1="300" y1="212" x2="330" y2="212" stroke="#5F5E5A" stroke-width="4"/>
+  <line x1="60" y1="210" x2="60" y2="118" stroke="#854F0B" stroke-width="4"/>
+  <circle cx="60" cy="108" r="18" fill="#3B6D11"/>
+  <line x1="300" y1="210" x2="300" y2="190" stroke="#2C2C2A" stroke-width="3"/>
+  <g stroke="#BA7517" stroke-width="1" stroke-dasharray="5 4">
+    <line x1="60" y1="90" x2="240" y2="210"/>
+    <line x1="300" y1="190" x2="330" y2="210"/>
+  </g>
+  <g font-size="12" fill="#2C2C2A">
+    <text x="70" y="165">Höhe ?</text>
+    <text x="150" y="234" text-anchor="middle">Schatten 18 m</text>
+    <text x="294" y="186" text-anchor="end">Stab 2 m</text>
+    <text x="315" y="234" text-anchor="middle">Schatten 3 m</text>
+  </g>
+</svg>

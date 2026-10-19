@@ -498,3 +498,25 @@
   color: #922B21;
   border: 1px solid #F0A8A0;
 }
+
+/* Collapsible worked solution for exercise sections */
+.solution {
+  margin: 4px 0 12px;
+}
+
+.solutionText {
+  font-size: 14px;
+  color: var(--text-2, #555);
+  line-height: 1.65;
+  margin: 0;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+
+.solutionText span {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--navy);
+  margin-bottom: 4px;
+}

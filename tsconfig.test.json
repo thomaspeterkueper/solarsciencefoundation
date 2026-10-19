@@ -23,7 +23,7 @@
     "tests/research-watch/**/*.ts",
     "tests/learningQuiz.test.ts",
     "tests/learningPathRegistry.test.ts",
-    "tests/gromaLearningPath.test.ts",
+    "tests/surveyingLearningPaths.test.ts",
     "tests/experimentSemanticContracts.test.ts"
   ],
   "exclude": ["node_modules"]

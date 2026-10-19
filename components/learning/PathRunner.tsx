@@ -23,6 +23,7 @@ function SectionCard({ section, onQuizComplete, onDepth }: {
   const [branchOpen, setBranchOpen] = useState(false);
   const [skipped, setSkipped] = useState(false);
   const [depthAwarded, setDepthAwarded] = useState(false);
+  const [solutionOpen, setSolutionOpen] = useState(false);
   const ExperimentComponent = resolveExperimentComponent(section);
 
   function awardOnce() {
@@ -67,6 +68,10 @@ function SectionCard({ section, onQuizComplete, onDepth }: {
       <img src={section.image.src} alt={section.image.alt} className={styles.sectionImage} loading="lazy" />
       {section.image.credit && <figcaption className={styles.figureCredit}>{section.image.credit}</figcaption>}
     </figure>}
+    {section.solution && <div className={styles.solution}>
+      {!solutionOpen && <button className={styles.branchBtn} onClick={() => { setSolutionOpen(true); awardOnce(); }}>Lösung zeigen</button>}
+      {solutionOpen && <p className={styles.solutionText}><span>Lösung</span>{section.solution}</p>}
+    </div>}
     {ExperimentComponent && <div className={styles.experimentWrap}><ExperimentComponent /></div>}
     {section.interactive && !ExperimentComponent && <div className={styles.experimentPlaceholder}>
       <p className={styles.placeholderText}>Für diese Sektion ist noch kein fachlich eindeutiges interaktives Modell hinterlegt.</p>
