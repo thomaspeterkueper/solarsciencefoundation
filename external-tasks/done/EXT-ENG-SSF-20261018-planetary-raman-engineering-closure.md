@@ -29,3 +29,8 @@ Engineering will need SSF review only if future work introduces:
 - new evidence changing the current 30–50 km status.
 
 Until then the existing SSF document remains the scientific source.
+
+
+## SSF disposition — 2026-10-23
+
+Archived as completed informational Engineering feedback: no change to the existing scientific boundary is requested. The 30–50 km claim remains hypothetical/unresolved; future evidence would require a new scientific review request. No additional implementation or scientific validation is claimed by this archival action.
