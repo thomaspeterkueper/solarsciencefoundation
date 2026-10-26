@@ -1,6 +1,39 @@
 import type { DidacticModuleContent } from './didacticContent';
 
 const scienceContent: Record<string, DidacticModuleContent> = {
+  'EAR-L1-000002': {
+    moduleId: 'EAR-L1-000002',
+    durationMinutes: 18,
+    learningGoals: [
+      'Geomagnetische Polumkehr von einer geographischen Polverlagerung unterscheiden.',
+      'Umkehrrate und Paläointensität als verschiedene Messgrößen erklären.',
+      'Zwischen zeitlicher Korrelation und einer gesicherten Ursache-Wirkungs-Kette unterscheiden.'
+    ],
+    introduction: [
+      'Der Geodynamo erzeugt das Erdmagnetfeld durch Strömungen im flüssigen äußeren Erdkern. Über geologische Zeiträume kehrte seine dominierende Dipolpolarität mehrfach um; das ist keine Drehung der geographischen Erdachse.',
+      'Eine Studie rekonstruierte eine Phase ungewöhnlich häufiger Magnetfeldwechsel um 261 Millionen Jahre vor heute. Gleichzeitig gab es eine biotische Krise. Die zeitliche Übereinstimmung beweist jedoch nicht, dass Magnetfeldwechsel das Artensterben verursacht haben.'
+    ],
+    examples: [
+      { title: 'Magnetostratigraphie', body: 'Abfolgen magnetisierter Gesteinsschichten helfen frühere Polaritätswechsel zu rekonstruieren. Eine Magnetozone ist kein gemessenes Aussterbeereignis.' },
+      { title: 'Wichtiger Gegenbefund', body: 'Paläointensitätsdaten begrenzen eine Erklärung, nach der die Magnetosphäre ausreichend geschwächt gewesen wäre, um allein durch Ozonabbau das Artensterben auszulösen.' }
+    ],
+    task: {
+      prompt: 'In derselben Zeit treten häufige Magnetfeldwechsel und ein Rückgang von Arten auf. Welche weiteren Belege brauchst du für eine kausale Erklärung?',
+      hint: 'Denke an Magnetfeldstärke, Teilchenexposition, Atmosphäre, zeitliche Auflösung und konkurrierende Ursachen.',
+      solution: 'Nötig sind unabhängige Evidenz für ausreichende Feldschwächung, messbare Exposition und ökologische Wirkungen sowie ein Vergleich mit Vulkanismus, Klimawandel und anderen Stressoren.'
+    },
+    check: {
+      question: 'Welche Aussage ist nach den bisherigen Studien fachlich zulässig?',
+      options: [
+        'Jede Polumkehr löst ein Artensterben aus.',
+        'Häufige Polwechsel wurden rekonstruiert; eine kausale Rolle beim Artensterben bleibt offen.',
+        'Der gesamte Erdkern hat sich um 180 Grad gedreht.',
+        'Die Magnetostratigraphie misst unmittelbar die damalige UV-Belastung.'
+      ],
+      correctOption: 1,
+      explanation: 'Die zeitliche Korrelation ist interessant, ersetzt aber nicht den Nachweis eines biologisch wirksamen Mechanismus.'
+    }
+  },
   'EAR-L1-000001': {
     moduleId: 'EAR-L1-000001',
     durationMinutes: 15,
