@@ -1,8 +1,8 @@
 import type { DidacticModuleContent } from './didacticContent';
 
 const scienceContent: Record<string, DidacticModuleContent> = {
-  'GEO-L1-000001': {
-    moduleId: 'GEO-L1-000001',
+  'EAR-L1-000001': {
+    moduleId: 'EAR-L1-000001',
     durationMinutes: 15,
     learningGoals: [
       'Mineralisch gespeichertes Wasser von einem flüssigen Ozean unterscheiden.',
