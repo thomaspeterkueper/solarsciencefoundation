@@ -1,6 +1,39 @@
 import type { DidacticModuleContent } from './didacticContent';
 
 const scienceContent: Record<string, DidacticModuleContent> = {
+  'GEO-L1-000001': {
+    moduleId: 'GEO-L1-000001',
+    durationMinutes: 15,
+    learningGoals: [
+      'Mineralisch gespeichertes Wasser von einem flüssigen Ozean unterscheiden.',
+      'Direkte lokale Evidenz von globalen Modellschätzungen unterscheiden.',
+      'Speicherkapazität, Wasserinventar und Austauschfluss auseinanderhalten.'
+    ],
+    introduction: [
+      'In etwa 410 bis 660 Kilometern Tiefe befinden sich Hochdruckminerale wie Wadsleyit und Ringwoodit. Wasserstoff und OH-Gruppen können in ihre festen Kristallstrukturen eingebaut werden. Die Mantelübergangszone ist deshalb kein entdecktes unterirdisches Meer.',
+      'Ein Ringwoodit-Einschluss in einem Diamanten belegte 2014 lokale Hydratation. Die Gesamtmenge des Wassers in dieser Zone wird dagegen aus Modellen der Seismologie und Mineralphysik abgeschätzt; sie ist nicht direkt gemessen.'
+    ],
+    examples: [
+      { title: 'Direkte Probe', body: 'Ein wasserhaltiger Ringwoodit-Einschluss ist eine lokale Beobachtung und belegt keine überall gleichmäßige Wasserverteilung.' },
+      { title: 'Planetarer Haushalt', body: 'Die mögliche Speicherkapazität des Mantels, sein tatsächlicher Wasserbestand und seine langfristigen Austauschflüsse sind drei unterschiedliche Größen.' }
+    ],
+    task: {
+      prompt: 'Eine Modellstudie schätzt den Mantelwasserbestand auf ein Ozeanäquivalent. Was darfst du daraus NICHT schließen?',
+      hint: 'Prüfe, ob das Ergebnis direkt gemessen wurde und ob es sich um flüssiges Wasser handelt.',
+      solution: 'Nicht zulässig sind die Aussagen, im Mantel liege ein flüssiger Ozean, sein Wasserbestand sei überall direkt gemessen oder es folge daraus eine kurzfristige Meeresspiegeländerung.'
+    },
+    check: {
+      question: 'Was belegt ein wasserhaltiger Ringwoodit-Einschluss in einem Diamanten?',
+      options: [
+        'Einen frei fließenden Ozean unter der Erdkruste.',
+        'Eine lokal wasserhaltige Hochdruckmineralphase.',
+        'Die genaue globale Wassermenge der gesamten Erde.',
+        'Eine unmittelbar bevorstehende Küstenverschiebung.'
+      ],
+      correctOption: 1,
+      explanation: 'Der Mineraleinschluss ist direkte lokale Evidenz; globale Wasserinventare sind modellabhängige Schätzungen.'
+    }
+  },
   'PHY-L1-000001': {
     moduleId: 'PHY-L1-000001',
     durationMinutes: 14,
