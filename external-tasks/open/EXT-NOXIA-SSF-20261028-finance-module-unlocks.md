@@ -1,3 +1,6 @@
+> **Ersetzt durch `EXT-NOXIA-SSF-20261029-learning-prerequisites.md` (29.10.2026)** – dort mit genauen Kennungen, Dateien, Soll und Abnahme.
+> Zuordnung: Punkt 1–2 → A · Punkt 3 → E, F · Punkt 4 → D · Punkt 5 → E. Bitte nur noch den neuen Request bearbeiten.
+
 # NOXIA → SSF Request: NOXIA-Freischaltungen der Finanzpfade wieder eintragen
 
 Origin: NOXIA (noxiagame, Fix „Lernvoraussetzungen wieder mit Lernmodulen verbinden“, 28.10.2026)
