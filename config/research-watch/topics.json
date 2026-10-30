@@ -130,6 +130,39 @@
         }
       ],
       "status": "active"
+    },
+    {
+      "id": "TOP:SSF:PHY:NUCLEAR_TRANSMUTATION",
+      "label": "Nuclear transmutation (mercury to gold)",
+      "domains": ["Physics"],
+      "modules": ["PHY-L1-000031"],
+      "keywords": [
+        "nuclear transmutation",
+        "transmutation",
+        "mercury-198",
+        "gold-197",
+        "mercury to gold",
+        "neutron capture",
+        "isotope"
+      ],
+      "canon_claims": [],
+      "status": "active"
+    },
+    {
+      "id": "TOP:SSF:PHY:LEVITATED_OPTOMECHANICS",
+      "label": "Levitated optomechanics and entanglement",
+      "domains": ["Physics"],
+      "modules": ["SSF-PHY-LEVITATION-2026"],
+      "keywords": [
+        "levitated optomechanics",
+        "levitated nanoparticle",
+        "levitated nanosphere",
+        "optical tweezer",
+        "optomechanical entanglement",
+        "macroscopic quantum"
+      ],
+      "canon_claims": [],
+      "status": "active"
     }
   ]
 }
