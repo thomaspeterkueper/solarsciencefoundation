@@ -511,7 +511,7 @@ export const learningModules: LearningModule[] = [
         correctOption: 0
       }
     ]
-  }
+  },
 
   // Canonical KG module ID reserved in KG PR #261; await merge before release.
   // Scientific source: DOC:KUE:KUE-SCI-0100-2026-DE.
