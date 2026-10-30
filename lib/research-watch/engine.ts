@@ -277,7 +277,17 @@ export async function runResearchWatch(options: ResearchWatchOptions): Promise<R
   const supersededCandidates: string[] = [];
 
   for (const source of sources) {
-    const lastRun = await store.getSourceLastRun(source.id);
+    let lastRun: string | null;
+    try {
+      lastRun = await store.getSourceLastRun(source.id);
+    } catch (error) {
+      outcomes.push({
+        source_id: source.id,
+        status: 'error',
+        error: error instanceof Error ? error.message : 'unknown store error',
+      });
+      continue;
+    }
     const minIntervalMs = source.cadence_hours * 60 * 60 * 1000;
     if (lastRun && now.getTime() - new Date(lastRun).getTime() < minIntervalMs) {
       outcomes.push({ source_id: source.id, status: 'skipped_cadence' });
