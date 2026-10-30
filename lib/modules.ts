@@ -513,10 +513,10 @@ export const learningModules: LearningModule[] = [
     ]
   }
 
-  // Provisional SSF-local module ID pending KG canonical module mapping.
+  // Canonical KG module ID reserved in KG PR #261; await merge before release.
   // Scientific source: DOC:KUE:KUE-SCI-0100-2026-DE.
   {
-    id: 'SSF-PHY-GOLD-2026',
+    id: 'PHY-L1-000031',
     title: 'Kann man Gold herstellen? Kerntransmutation verstehen',
     domain: 'Physics',
     difficulty: 3,
@@ -536,7 +536,7 @@ export const learningModules: LearningModule[] = [
     unlocks: [],
     exercises: [
       {
-        id: 'EX:SSF-PHY-GOLD-2026:001',
+        id: 'EX:PHY-L1-000031:001',
         type: 'single_choice',
         question: 'Warum kann normale Chemie Quecksilber nicht in Gold verwandeln?',
         options: [
@@ -548,7 +548,7 @@ export const learningModules: LearningModule[] = [
         correctOption: 0
       },
       {
-        id: 'EX:SSF-PHY-GOLD-2026:002',
+        id: 'EX:PHY-L1-000031:002',
         type: 'single_choice',
         question: 'Was geschieht bei der Reaktion Hg-198(n,2n)Hg-197?',
         options: [
@@ -560,7 +560,7 @@ export const learningModules: LearningModule[] = [
         correctOption: 0
       },
       {
-        id: 'EX:SSF-PHY-GOLD-2026:003',
+        id: 'EX:PHY-L1-000031:003',
         type: 'single_choice',
         question: 'Wie ist die Angabe von ungefähr zwei Tonnen Gold je GW thermischer Fusionsleistung und Jahr einzuordnen?',
         options: [
@@ -572,7 +572,7 @@ export const learningModules: LearningModule[] = [
         correctOption: 1
       },
       {
-        id: 'EX:SSF-PHY-GOLD-2026:004',
+        id: 'EX:PHY-L1-000031:004',
         type: 'single_choice',
         question: 'Was ist zur Unternehmensmeldung über erzeugtes Gold aus Quecksilber noch erforderlich?',
         options: [
