@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { getModuleById, learningModules } from '../lib/modules';
 
-const ID = 'SSF-PHY-GOLD-2026';
+const ID = 'PHY-L1-000031';
 
 test('gold module provides four well-formed science questions', () => {
   const module = getModuleById(ID);
@@ -31,7 +31,7 @@ test('gold module cites its KUE science document and KG concepts', () => {
   ]);
 });
 
-test('unregistered canonical ID cannot grant a game unlock', () => {
+test('pending canonical module cannot grant a game unlock', () => {
   const module = getModuleById(ID);
   assert.ok(module);
   assert.deepEqual(module.unlocks, []);
