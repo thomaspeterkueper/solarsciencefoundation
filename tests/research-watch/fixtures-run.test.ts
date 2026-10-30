@@ -13,7 +13,7 @@
 
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtemp, rm } from 'node:fs/promises';
+import { mkdtemp, readdir, rm } from 'node:fs/promises';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { runResearchWatch } from '../../lib/research-watch/engine';
@@ -92,6 +92,27 @@ test('full fixture run: 11 works → 9 evidence, 2 merges, 5 bounded candidates,
     assert.deepEqual(summary.envelopes[0].errors, []);
     assert.equal(summary.envelopes[0].envelope.target, 'KG');
     assert.ok(summary.envelopes[0].file);
+  } finally {
+    await rm(outboxDir, { recursive: true, force: true });
+  }
+});
+
+test('dry run with configured outbox directory writes no files but reports the envelope', async () => {
+  const outboxDir = await mkdtemp(join(tmpdir(), 'ssf-rw-dry-'));
+  try {
+    const summary = await runResearchWatch({
+      store: new MemoryEvidenceStore(),
+      sources: [fixtureSource()],
+      now: FIXED_NOW,
+      outboxDir,
+      dryRun: true,
+      parentTask: 'EXT-ECO-SSF-20260821-001',
+    });
+
+    assert.equal(summary.envelopes.length, 1);
+    assert.equal(summary.envelopes[0].file, null);
+    assert.equal(summary.envelopes[0].envelope.target, 'KG');
+    assert.deepEqual(await readdir(outboxDir), []);
   } finally {
     await rm(outboxDir, { recursive: true, force: true });
   }
