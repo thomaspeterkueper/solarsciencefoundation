@@ -25,7 +25,11 @@
     "tests/learningQuiz.test.ts",
     "tests/learningPathRegistry.test.ts",
     "tests/surveyingLearningPaths.test.ts",
-    "tests/experimentSemanticContracts.test.ts"
+    "tests/experimentSemanticContracts.test.ts",
+    "tests/levitatedOptomechanics.test.ts",
+    "tests/goldTransmutationModule.test.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }
