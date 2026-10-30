@@ -511,9 +511,82 @@ export const learningModules: LearningModule[] = [
         correctOption: 0
       }
     ]
-  }
+  },
 
-];
+  // Canonical KG module ID reserved in KG PR #261; await merge before release.
+  // Scientific source: DOC:KUE:KUE-SCI-0100-2026-DE.
+  {
+    id: 'PHY-L1-000031',
+    title: 'Kann man Gold herstellen? Kerntransmutation verstehen',
+    domain: 'Physics',
+    difficulty: 3,
+    durationMinutes: 15,
+    summary: 'Kann man aus Quecksilber wirklich Gold gewinnen – und wann wird aus einer Berechnung ein experimenteller Nachweis?',
+    source: {
+      authority: 'DOC:KUE:KUE-SCI-0100-2026-DE',
+      kxfEntityIds: [
+        'CON:NUC:mercury-198',
+        'CON:NUC:mercury-197',
+        'CON:NUC:gold-197',
+        'CON:NUC:mercury-gold-transmutation'
+      ]
+    },
+    // A permanent game unlock requires a registered KG/SSF mapping and
+    // server-side completion validation; do not issue one prematurely.
+    unlocks: [],
+    exercises: [
+      {
+        id: 'EX:PHY-L1-000031:001',
+        type: 'single_choice',
+        question: 'Warum kann normale Chemie Quecksilber nicht in Gold verwandeln?',
+        options: [
+          'Weil bei chemischen Reaktionen die Protonenzahl des Atomkerns unverändert bleibt',
+          'Weil Quecksilber keine Elektronen besitzt',
+          'Weil Gold nur in Sternen vorkommt',
+          'Weil alle Isotope dieselbe Ordnungszahl wie Gold haben'
+        ],
+        correctOption: 0
+      },
+      {
+        id: 'EX:PHY-L1-000031:002',
+        type: 'single_choice',
+        question: 'Was geschieht bei der Reaktion Hg-198(n,2n)Hg-197?',
+        options: [
+          'Ein Neutron wird aufgenommen und zwei Neutronen verlassen den Kern',
+          'Zwei Protonen werden durch Elektronen ersetzt',
+          'Gold zerfällt in Quecksilber',
+          'Der Kern nimmt zwei Neutronen auf, ohne eines abzugeben'
+        ],
+        correctOption: 0
+      },
+      {
+        id: 'EX:PHY-L1-000031:003',
+        type: 'single_choice',
+        question: 'Wie ist die Angabe von ungefähr zwei Tonnen Gold je GW thermischer Fusionsleistung und Jahr einzuordnen?',
+        options: [
+          'Als bereits nachgewiesene kommerzielle Produktion',
+          'Als Simulation unter bestimmten Annahmen',
+          'Als Menge pro Kilowattstunde Netzstrom',
+          'Als Messwert des CERN aus einem kommerziellen Fusionsreaktor'
+        ],
+        correctOption: 1
+      },
+      {
+        id: 'EX:PHY-L1-000031:004',
+        type: 'single_choice',
+        question: 'Was ist zur Unternehmensmeldung über erzeugtes Gold aus Quecksilber noch erforderlich?',
+        options: [
+          'Nichts, jede Unternehmensmeldung ist automatisch wissenschaftlich bestätigt',
+          'Nur eine höhere Marktpreisprognose',
+          'Nachvollziehbare Messdaten und unabhängige Überprüfung',
+          'Eine Umwandlung durch gewöhnliche chemische Reaktionen'
+        ],
+        correctOption: 2
+      }
+    ]
+  },
+
+]; 
 
 export function getModuleById(id: string) {
   return learningModules.find((module) => module.id === id) ?? null;
