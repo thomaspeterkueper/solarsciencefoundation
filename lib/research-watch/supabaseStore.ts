@@ -16,6 +16,14 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 import type { EvidenceRecord, TaskCandidate } from './types';
 import type { EvidenceStore } from './store';
 
+/** Operational store failure (transport/database/query) — never conflated with "not found". */
+export class StoreError extends Error {
+  constructor(operation: string, cause: string) {
+    super(`research-watch store ${operation} failed: ${cause}`);
+    this.name = 'StoreError';
+  }
+}
+
 export class SupabaseEvidenceStore implements EvidenceStore {
   constructor(private readonly supabase: SupabaseClient) {}
 
@@ -29,8 +37,7 @@ export class SupabaseEvidenceStore implements EvidenceStore {
       .maybeSingle();
 
     if (error) {
-      console.error('[research-watch:store] findByIdentityKeys error:', error.message);
-      return null;
+      throw new StoreError('findByIdentityKeys', error.message);
     }
     if (!data) return null;
     return data as unknown as EvidenceRecord;
@@ -61,7 +68,7 @@ export class SupabaseEvidenceStore implements EvidenceStore {
       updated_at: record.updated_at,
     });
     if (error) {
-      console.error('[research-watch:store] saveEvidence error:', error.message);
+      throw new StoreError('saveEvidence', error.message);
     }
   }
 
@@ -71,8 +78,7 @@ export class SupabaseEvidenceStore implements EvidenceStore {
       .select('evidence_id')
       .in('status', ['pending', 'dispatched']);
     if (candidateError) {
-      console.error('[research-watch:store] listUnpromotedEvidence candidates error:', candidateError.message);
-      return [];
+      throw new StoreError('listUnpromotedEvidence', candidateError.message);
     }
     const withOpenCandidate = new Set((candidateRows ?? []).map((row) => row.evidence_id));
     const { data, error } = await this.supabase
@@ -80,8 +86,7 @@ export class SupabaseEvidenceStore implements EvidenceStore {
       .select('*')
       .order('discovered_at', { ascending: true });
     if (error) {
-      console.error('[research-watch:store] listUnpromotedEvidence error:', error.message);
-      return [];
+      throw new StoreError('listUnpromotedEvidence', error.message);
     }
     return (data ?? [])
       .filter((row) => !withOpenCandidate.has(row.evidence_id)) as unknown as EvidenceRecord[];
@@ -95,8 +100,7 @@ export class SupabaseEvidenceStore implements EvidenceStore {
       .in('status', ['pending', 'dispatched'])
       .select('candidate_id');
     if (error) {
-      console.error('[research-watch:store] invalidateCandidatesForEvidence error:', error.message);
-      return [];
+      throw new StoreError('invalidateCandidatesForEvidence', error.message);
     }
     return (data ?? []).map((row) => row.candidate_id);
   }
@@ -107,8 +111,7 @@ export class SupabaseEvidenceStore implements EvidenceStore {
       .select('fingerprint')
       .in('status', ['pending', 'dispatched']);
     if (error) {
-      console.error('[research-watch:store] listOpenCandidateFingerprints error:', error.message);
-      return [];
+      throw new StoreError('listOpenCandidateFingerprints', error.message);
     }
     return (data ?? []).map((row) => row.fingerprint);
   }
@@ -119,8 +122,7 @@ export class SupabaseEvidenceStore implements EvidenceStore {
       .select('fingerprint')
       .in('status', ['done', 'rejected']);
     if (error) {
-      console.error('[research-watch:store] listClosedCandidateFingerprints error:', error.message);
-      return [];
+      throw new StoreError('listClosedCandidateFingerprints', error.message);
     }
     return (data ?? []).map((row) => row.fingerprint);
   }
@@ -138,7 +140,7 @@ export class SupabaseEvidenceStore implements EvidenceStore {
       dispatched_at: candidate.dispatched_at ?? null,
     });
     if (error) {
-      console.error('[research-watch:store] saveCandidate error:', error.message);
+      throw new StoreError('saveCandidate', error.message);
     }
   }
 
@@ -149,8 +151,7 @@ export class SupabaseEvidenceStore implements EvidenceStore {
       .eq('status', 'pending')
       .order('created_at', { ascending: true });
     if (error) {
-      console.error('[research-watch:store] listPendingCandidates error:', error.message);
-      return [];
+      throw new StoreError('listPendingCandidates', error.message);
     }
     return (data ?? []) as unknown as TaskCandidate[];
   }
@@ -162,8 +163,7 @@ export class SupabaseEvidenceStore implements EvidenceStore {
       .eq('source_id', sourceId)
       .maybeSingle();
     if (error) {
-      console.error('[research-watch:store] getSourceLastRun error:', error.message);
-      return null;
+      throw new StoreError('getSourceLastRun', error.message);
     }
     return data?.last_run_at ?? null;
   }
@@ -174,7 +174,7 @@ export class SupabaseEvidenceStore implements EvidenceStore {
       last_run_at: at,
     });
     if (error) {
-      console.error('[research-watch:store] setSourceLastRun error:', error.message);
+      throw new StoreError('setSourceLastRun', error.message);
     }
   }
 }
