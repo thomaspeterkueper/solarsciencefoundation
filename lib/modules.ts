@@ -511,7 +511,7 @@ export const learningModules: LearningModule[] = [
         correctOption: 0
       }
     ]
-  }
+  },
 
   // Draft lesson; canonical KG module registration and player unlock pending.
   {
