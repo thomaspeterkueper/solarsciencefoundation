@@ -12,7 +12,7 @@
 // nichts wird persistiert. Aktivierung: RESEARCH_WATCH_DRY_RUN=false
 // (Supabase-Service-Role erforderlich, Migration 20260824120000_research_watch.sql).
 //
-// Outbox: Nur wenn RESEARCH_WATCH_OUTBOX_DIR gesetzt ist (schreibbares
+// Outbox: Im Trockenmodus wird nie geschrieben. Sonst nur wenn RESEARCH_WATCH_OUTBOX_DIR gesetzt ist (schreibbares
 // Verzeichnis, z. B. ein lokaler Checkout), werden Cross-Project-Envelopes
 // (.kueper/outbox/*.json) für KG-gerichtete CANON_VALIDATION-Kandidaten
 // geschrieben. SSF-interne Kandidaten bleiben im Candidate-Store.
@@ -48,6 +48,7 @@ export async function GET(req: NextRequest) {
     summary = await runResearchWatch({
       store: new MemoryEvidenceStore(),
       outboxDir,
+      dryRun: true,
       parentTask: 'EXT-ECO-SSF-20260821-001',
     })
   } else {
