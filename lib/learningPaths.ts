@@ -4878,7 +4878,7 @@ export const learningPaths: LearningPath[] = [
   {
     id: 'PATH:SSF:PHY-WASSER-PHASEN-0001',
     title: 'Warum hat Wasser genau drei Formen — und was passiert auf dem Mars',
-    subtitle: 'Phasendiagramm: Wie Druck und Temperatur bestimmen ob Wasser fest, fluessig oder gasfoermig ist — und warum auf dem Mars kein fluessiges Wasser existiert.',
+    subtitle: 'Phasendiagramm: Wie Druck und Temperatur bestimmen ob Wasser fest, fluessig oder gasfoermig ist – und warum es auf dem Mars kaum fluessiges Wasser gibt.',
     status: 'prototype',
     sourceModuleId: 'PHY-L1-000004',
     kxfModuleId: 'LRN:SSF:PHY-L1-000004',
@@ -4927,9 +4927,9 @@ export const learningPaths: LearningPath[] = [
       },
       {
         id: 'UNIT:PHASEN-MARS',
-        title: 'Warum auf dem Mars kein fluessiges Wasser existiert',
+        title: 'Warum es auf dem Mars kaum fluessiges Wasser gibt',
         entryQuestion: 'Der Mars hat Eis an den Polen — warum schmilzt es nicht einfach wenn es waermer wird?',
-        takeaway: 'Der Atmosphaerendruck auf dem Mars betraegt durchschnittlich 6.36 mbar — fast genau der Tripelpunkt des Wassers (6.11 mbar). Erwaermt sich Marseis, sublimiert es direkt zu Wasserdampf ohne den fluessigen Zustand zu durchlaufen. Fluessiges Wasser existiert auf der Marsoberflaeche nicht — ausser kurzzeitig in tiefen Kratern bei hoeherem lokalem Druck.',
+        takeaway: 'Der Atmosphaerendruck auf dem Mars betraegt im Mittel 6.36 mbar, je nach Jahreszeit 4 bis 9 mbar – fast genau der Tripelpunkt des Wassers (6.11 mbar). Erwaermt sich Marseis, sublimiert es meist direkt zu Wasserdampf. Fluessiges Wasser ist nur in einem schmalen Fenster moeglich und dort nicht stabil: Es verdunstet oder gefriert schnell. In tiefen Becken wie Hellas ist der Druck hoeher und das Fenster etwas breiter.',
         sections: [
           {
             id: 'OBS:MARS-EIS',
@@ -4950,7 +4950,7 @@ export const learningPaths: LearningPath[] = [
             id: 'QUIZ:PHASEN-2',
             kind: 'quiz',
             title: 'Quiz: Mars und Phasenuebergaenge',
-            summary: 'Welcher Druck ist der Tripelpunkt des Wassers? A) 1 bar  B) 0.006 bar  C) 0.1 bar  D) 10 bar — Richtig: B) 0.006 bar (6.11 mbar). Darunter: kein fluessiges Wasser moeglich.',
+            summary: 'Welcher Druck ist der Tripelpunkt des Wassers? A) 1 bar  B) 0.006 bar  C) 0.1 bar  D) 10 bar — Richtig: B) 0.006 bar (6.11 mbar). Darunter: kein fluessiges Wasser moeglich. Der Mars liegt im Mittel mit 6.36 mbar nur knapp darueber.',
             depthPoints: 15,
           },
         ],
@@ -5423,7 +5423,7 @@ export const learningPaths: LearningPath[] = [
   {
     id: 'PATH:SSF:PHY-WASSER-VAKUUM-0001',
     title: 'Warum kann man auf dem Mars kein Wasser kochen — und was passiert stattdessen?',
-    subtitle: 'Tripelpunkt, Sublimation, ISRU: Unterhalb 611 Pa gibt es keine fluessige Phase. Mars-Atmosphaere: ~600 Pa. Wassereis sublimiert direkt zu Dampf.',
+    subtitle: 'Tripelpunkt, Sublimation, ISRU: Unterhalb 611 Pa gibt es keine fluessige Phase. Mars-Atmosphaere: im Mittel 636 Pa, jahreszeitlich 400 bis 870 Pa – knapp am Tripelpunkt. Wassereis sublimiert meist direkt zu Dampf.',
     status: 'prototype',
     sourceModuleId: 'PHY-WASSER-VAKUUM-0001',
     kxfModuleId: 'LRN:SSF:PHY-WASSER-VAKUUM-0001',
@@ -5431,29 +5431,29 @@ export const learningPaths: LearningPath[] = [
     suppliedBy: {
       knowledgeGraph: ['PHY-WASSER-VAKUUM-0001 canonical'],
       kueperCom: [], overtimeArchive: ['OTA-TEC-0034 §3'],
-      ssf: ['Phasendiagramm-Experiment: Druck-Schieberegler live', 'Wasserextraktor-Sim: Sublimationsrate bei 600 Pa']
+      ssf: ['Phasendiagramm-Experiment: Druck-Schieberegler live', 'Wasserextraktor-Sim: Sublimationsrate bei Mars-Bodendruck (400 bis 870 Pa)']
     },
     unlocks: ['UNL:NOX:ISRU:WATER-EXTRACTION', 'ISRU:WATER-EXTRACTION', 'PHY:VACUUM-PHASE-DIAGRAM'],
     units: [
       {
         id: 'UNIT:VAKUUM-TRIPELPUNKT',
         title: 'Der Tripelpunkt — wo alle drei Phasen zusammenkommen',
-        entryQuestion: 'Warum gibt es auf dem Mars kein fluessiges Wasser — obwohl die Temperatur manchmal ueber 0 Grad steigt?',
-        takeaway: 'Fluessiges Wasser braucht mindestens 611.7 Pa Druck. Mars: ~600 Pa. Deshalb sublimiert Eis direkt zu Dampf. Phoenix-Lander 2008 hat das live beobachtet: weisse Klumpen verschwanden ohne zu schmelzen.',
+        entryQuestion: 'Warum gibt es auf dem Mars kaum fluessiges Wasser – obwohl die Temperatur manchmal ueber 0 Grad steigt?',
+        takeaway: 'Fluessiges Wasser braucht mindestens 611.7 Pa Druck. Mars: im Mittel 636 Pa, je nach Jahreszeit 400 bis 870 Pa – also oft knapp darunter, oft knapp darueber. Selbst wo Wasser fluessig sein darf, ist es nicht stabil und verdunstet oder gefriert schnell. Deshalb sublimiert freiliegendes Eis meist direkt zu Dampf. Phoenix-Lander 2008 hat das live beobachtet: weisse Klumpen verschwanden ohne zu schmelzen.',
         gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:VAKUUM-ISRU' },
         sections: [
           {
             id: 'OBS:VAKUUM-PHOENIX',
             kind: 'observation',
             title: 'Phoenix 2008: Eis das verschwindet',
-            summary: 'NASA Phoenix Lander beobachtete weisse Klumpen unter seinem Landegestell. Innerhalb von Tagen verschwanden sie — kein Tropfen, keine Pfuetze. Direktes Sublimieren. Der Marsdruck von ~600 Pa liegt knapp unterhalb des Tripelpunkts — der Grenze wo fluessiges Wasser physikalisch nicht existieren kann.',
+            summary: 'NASA Phoenix Lander beobachtete weisse Klumpen unter seinem Landegestell. Innerhalb von Tagen verschwanden sie — kein Tropfen, keine Pfuetze. Direktes Sublimieren. Der Marsdruck liegt im Mittel nur knapp ueber dem Tripelpunkt von 611.7 Pa und im Jahreslauf oft darunter – an dieser Grenze kann fluessiges Wasser nicht dauerhaft bestehen.',
             depthPoints: 5,
           },
           {
             id: 'EXP:VAKUUM-PHASENDIAGRAMM',
             kind: 'experiment',
             title: 'Experiment: Phasendiagramm Wasser',
-            summary: 'Druck-Schieberegler (1 Pa bis 200000 Pa) und Temperatur-Schieberegler (-100 bis +150 Celsius). Phasendiagramm zeigt live: fest/fluessig/gasfoermig. Tripelpunkt-Marker bei 611.7 Pa. Mars-Marker bei 600 Pa — immer im festen oder gasfoermigen Bereich. Erde-Meeresniveau bei 101325 Pa.',
+            summary: 'Druck-Schieberegler (1 Pa bis 200000 Pa) und Temperatur-Schieberegler (-100 bis +150 Celsius). Phasendiagramm zeigt live: fest/fluessig/gasfoermig. Tripelpunkt-Marker bei 611.7 Pa. Mars-Bereich 400 bis 870 Pa (Mittel 636 Pa) – direkt am Tripelpunkt, fluessig hoechstens in einem schmalen Streifen knapp ueber 0 Grad. Erde-Meeresniveau bei 101325 Pa.',
             interactive: true,
             depthPoints: 10,
           },
@@ -5461,7 +5461,7 @@ export const learningPaths: LearningPath[] = [
             id: 'QUIZ:VAKUUM-TRIPELPUNKT',
             kind: 'quiz',
             title: 'Quiz: Was waere wenn — Vakuum und Druck',
-            summary: 'Mars-Druck steigt auf 1500 Pa: fluessiges Wasser moeglich? Ja, knapp ueber Tripelpunkt. Raumanzug leckt auf Mond (fast Vakuum): was passiert mit Koerperfluessigkeiten? Sieden bei Koerpertemperatur unter 6.3 kPa Armstrong-Grenze. Warum muss der Wasserextraktor eine Kondensationsfalle haben? Dampf bei 600 Pa wuerde sonst entweichen.',
+            summary: 'Mars-Druck steigt auf 1500 Pa: fluessiges Wasser moeglich? Ja, knapp ueber Tripelpunkt. Raumanzug leckt auf Mond (fast Vakuum): was passiert mit Koerperfluessigkeiten? Sieden bei Koerpertemperatur unter 6.3 kPa Armstrong-Grenze. Warum muss der Wasserextraktor eine Kondensationsfalle haben? Dampf bei Mars-Bodendruck wuerde sonst entweichen.',
             depthPoints: 12,
           },
         ],
