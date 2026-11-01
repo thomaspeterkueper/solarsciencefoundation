@@ -513,6 +513,23 @@ export const learningModules: LearningModule[] = [
     ]
   },
 
+  // Draft lesson; canonical KG module registration and player unlock pending.
+  {
+    id: 'SSF-PHY-LEVITATION-2026',
+    title: 'Eine Nanokugel und ihr Licht: Was bedeutet Verschränkung?',
+    domain: 'Physics',
+    difficulty: 4,
+    durationMinutes: 15,
+    summary: 'Kann die Bewegung einer schwebenden Nanokugel mit einem Lichtfeld quantenmechanisch verschränkt sein?',
+    source: { authority: 'DOC:KUE:KUE-SCI-0201-2026-DE', kxfEntityIds: ['CON:PHY:levitated-nanosphere', 'CON:PHY:optomechanical-entanglement', 'CON:PHY:traveling-optical-field'] },
+    unlocks: [],
+    exercises: [
+      { id: 'EX:SSF-PHY-LEVITATION-2026:001', type: 'single_choice', question: 'Womit wird die Nanokugel im Experiment gehalten?', options: ['Mit einer optischen Falle', 'Mit einem mechanischen Faden', 'Durch elektrische Ladung auf einer Platte', 'In einem Wasserbad'], correctOption: 0 },
+      { id: 'EX:SSF-PHY-LEVITATION-2026:002', type: 'single_choice', question: 'Welche Größen werden im Experiment verschränkt?', options: ['Die Temperatur zweier Labore', 'Die Bewegung der Nanokugel und ein optisches Feld', 'Die Masse von Erde und Mond', 'Zwei chemische Bindungen'], correctOption: 1 },
+      { id: 'EX:SSF-PHY-LEVITATION-2026:003', type: 'single_choice', question: 'Was bedeutet der Befund NICHT?', options: ['Quantenkorrelationen sind experimentell untersuchbar', 'Mechanische Oszillatoren können relevant sein', 'Überlichtschnelle Nachrichtenübertragung ist möglich', 'Ein optischer Resonator kann Teil des Aufbaus sein'], correctOption: 2 },
+      { id: 'EX:SSF-PHY-LEVITATION-2026:004', type: 'single_choice', question: 'Was ist eine zulässige Anwendungsperspektive statt bereits bewiesener Funktion?', options: ['Ein einsatzfähiger Quantencomputer', 'Eine mögliche künftige Schnittstelle zwischen Materie und Licht', 'Ein Beweis für Bewusstsein in Nanokugeln', 'Eine neue Methode zur Fernkommunikation ohne Signal'], correctOption: 1 }
+    ]
+  },
   // Canonical KG module ID reserved in KG PR #261; await merge before release.
   // Scientific source: DOC:KUE:KUE-SCI-0100-2026-DE.
   {
@@ -586,7 +603,7 @@ export const learningModules: LearningModule[] = [
     ]
   },
 
-]; 
+];
 
 export function getModuleById(id: string) {
   return learningModules.find((module) => module.id === id) ?? null;

@@ -16,16 +16,16 @@
 
 import type { NormalizedWork, WatchTopic } from './types';
 
+// Candidate promotion is gated by PromotionConfig (promotion.ts), not by a
+// relevance threshold; a former `min_candidate` field was dead config and is
+// ignored if still present in external config objects.
 export type RelevanceConfig = {
   /** Below this score a work is treated as out of scope. */
   min_consideration: number;
-  /** Below this score no task candidate is promoted (evidence is still kept). */
-  min_candidate: number;
 };
 
 export const DEFAULT_RELEVANCE_CONFIG: RelevanceConfig = {
   min_consideration: 0.25,
-  min_candidate: 0.5,
 };
 
 /** Multi-word keywords are stronger deterministic signals than single words. */

@@ -12,7 +12,7 @@
 // nichts wird persistiert. Aktivierung: RESEARCH_WATCH_DRY_RUN=false
 // (Supabase-Service-Role erforderlich, Migration 20260824120000_research_watch.sql).
 //
-// Outbox: Nur wenn RESEARCH_WATCH_OUTBOX_DIR gesetzt ist (schreibbares
+// Outbox: Im Trockenmodus wird nie geschrieben. Sonst nur wenn RESEARCH_WATCH_OUTBOX_DIR gesetzt ist (schreibbares
 // Verzeichnis, z. B. ein lokaler Checkout), werden Cross-Project-Envelopes
 // (.kueper/outbox/*.json) für KG-gerichtete CANON_VALIDATION-Kandidaten
 // geschrieben. SSF-interne Kandidaten bleiben im Candidate-Store.
@@ -43,11 +43,13 @@ export async function GET(req: NextRequest) {
   const outboxDir = process.env.RESEARCH_WATCH_OUTBOX_DIR?.trim() || undefined
 
   let summary
+  try {
   if (DRY_RUN) {
     // Nichts persistieren — komplette Pipeline auf In-Memory-Store.
     summary = await runResearchWatch({
       store: new MemoryEvidenceStore(),
       outboxDir,
+      dryRun: true,
       parentTask: 'EXT-ECO-SSF-20260821-001',
     })
   } else {
@@ -64,6 +66,13 @@ export async function GET(req: NextRequest) {
       outboxDir,
       parentTask: 'EXT-ECO-SSF-20260821-001',
     })
+  }
+  } catch (error) {
+    console.error('[research-watch:cron] run failed:', error)
+    return NextResponse.json(
+      { ok: false, error: error instanceof Error ? error.message : 'research-watch run failed' },
+      { status: 500 }
+    )
   }
 
   return NextResponse.json({

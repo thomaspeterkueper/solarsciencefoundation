@@ -61,6 +61,8 @@ export type ResearchWatchOptions = {
   now?: Date;
   /** When set, cross-project envelopes are written to this directory. */
   outboxDir?: string;
+  /** Dry run: envelopes are built and reported, but nothing is written to the outbox. */
+  dryRun?: boolean;
   /** parent_task field of emitted envelopes. */
   parentTask?: string;
 };
@@ -277,7 +279,17 @@ export async function runResearchWatch(options: ResearchWatchOptions): Promise<R
   const supersededCandidates: string[] = [];
 
   for (const source of sources) {
-    const lastRun = await store.getSourceLastRun(source.id);
+    let lastRun: string | null;
+    try {
+      lastRun = await store.getSourceLastRun(source.id);
+    } catch (error) {
+      outcomes.push({
+        source_id: source.id,
+        status: 'error',
+        error: error instanceof Error ? error.message : 'unknown store error',
+      });
+      continue;
+    }
     const minIntervalMs = source.cadence_hours * 60 * 60 * 1000;
     if (lastRun && now.getTime() - new Date(lastRun).getTime() < minIntervalMs) {
       outcomes.push({ source_id: source.id, status: 'skipped_cadence' });
@@ -332,6 +344,9 @@ export async function runResearchWatch(options: ResearchWatchOptions): Promise<R
         new_evidence: newCount,
         merged: mergedCount,
       });
+      // Only a successful run consumes the cadence window; a failed run stays
+      // eligible for retry on the next invocation (error kept in the outcome).
+      await store.setSourceLastRun(source.id, now.toISOString());
     } catch (error) {
       outcomes.push({
         source_id: source.id,
@@ -339,8 +354,6 @@ export async function runResearchWatch(options: ResearchWatchOptions): Promise<R
         error: error instanceof Error ? error.message : 'unknown adapter error',
       });
     }
-
-    await store.setSourceLastRun(source.id, now.toISOString());
   }
 
   // Re-promotion scan: evidence deferred by an earlier run (budget skips,
@@ -374,7 +387,7 @@ export async function runResearchWatch(options: ResearchWatchOptions): Promise<R
     const built = envelopeForCandidate(candidate, parentTask);
     if (!built) continue;
 
-    if (built.errors.length === 0 && options.outboxDir) {
+    if (built.errors.length === 0 && options.outboxDir && !options.dryRun) {
       const fileName = envelopeFileName(candidate.candidate_id);
       await mkdir(options.outboxDir, { recursive: true });
       await writeFile(join(options.outboxDir, fileName), `${JSON.stringify(built.envelope, null, 2)}\n`, 'utf8');
@@ -383,7 +396,10 @@ export async function runResearchWatch(options: ResearchWatchOptions): Promise<R
       envelopes.push({
         envelope: built.envelope,
         file: null,
-        errors: built.errors.length > 0 ? built.errors : ['no outbox directory configured'],
+        errors:
+          built.errors.length > 0
+            ? built.errors
+            : [options.dryRun ? 'dry run: outbox not written' : 'no outbox directory configured'],
       });
     }
   }
