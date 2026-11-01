@@ -43,6 +43,7 @@ export async function GET(req: NextRequest) {
   const outboxDir = process.env.RESEARCH_WATCH_OUTBOX_DIR?.trim() || undefined
 
   let summary
+  try {
   if (DRY_RUN) {
     // Nichts persistieren — komplette Pipeline auf In-Memory-Store.
     summary = await runResearchWatch({
@@ -65,6 +66,13 @@ export async function GET(req: NextRequest) {
       outboxDir,
       parentTask: 'EXT-ECO-SSF-20260821-001',
     })
+  }
+  } catch (error) {
+    console.error('[research-watch:cron] run failed:', error)
+    return NextResponse.json(
+      { ok: false, error: error instanceof Error ? error.message : 'research-watch run failed' },
+      { status: 500 }
+    )
   }
 
   return NextResponse.json({
