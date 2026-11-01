@@ -327,6 +327,23 @@
         }
       ],
       "status": "active"
+    },
+    {
+      "id": "TOP:SSF:PHY:NUCLEAR_TRANSMUTATION",
+      "label": "Nuclear transmutation (mercury to gold)",
+      "domains": ["Physics"],
+      "modules": ["PHY-L1-000031"],
+      "keywords": [
+        "nuclear transmutation",
+        "transmutation",
+        "mercury-198",
+        "gold-197",
+        "mercury to gold",
+        "neutron capture",
+        "isotope"
+      ],
+      "canon_claims": [],
+      "status": "active"
     }
   ]
 }
