@@ -334,6 +334,9 @@ export async function runResearchWatch(options: ResearchWatchOptions): Promise<R
         new_evidence: newCount,
         merged: mergedCount,
       });
+      // Only a successful run consumes the cadence window; a failed run stays
+      // eligible for retry on the next invocation (error kept in the outcome).
+      await store.setSourceLastRun(source.id, now.toISOString());
     } catch (error) {
       outcomes.push({
         source_id: source.id,
@@ -341,8 +344,6 @@ export async function runResearchWatch(options: ResearchWatchOptions): Promise<R
         error: error instanceof Error ? error.message : 'unknown adapter error',
       });
     }
-
-    await store.setSourceLastRun(source.id, now.toISOString());
   }
 
   // Re-promotion scan: evidence deferred by an earlier run (budget skips,
