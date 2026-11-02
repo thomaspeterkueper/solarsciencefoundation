@@ -6,6 +6,7 @@ import type { LearningPath, LearningPathSection } from './learningPaths';
 import { getLearningInteractive, type LearningInteractiveParams } from './learningInteractives';
 import { gravitationsbrunnenLearningPath } from './learningPaths/gravitationsbrunnen';
 import { buildUnlocks } from './progress';
+import { parseLearningQuiz } from './learningQuiz';
 
 export type NoxiaKnowledgeModule = {
   id: string;
@@ -131,6 +132,36 @@ function toNoxiaPathModule(path: LearningPath): NoxiaKnowledgeModule {
   };
 }
 
+type NoxiaAssessmentItem = NoxiaModuleDetail['assessment'][number];
+
+/**
+ * Translates the governed Kurztests (`kind: 'quiz'`, see lib/learningQuiz.ts)
+ * of a learning path into the machine-readable assessment NOXIA grades against.
+ * Questions without an authored explanation fall back to the correct answer
+ * plus the unit takeaway, so NOXIA can always show feedback.
+ */
+export function pathAssessment(path: LearningPath): NoxiaAssessmentItem[] {
+  const items: NoxiaAssessmentItem[] = [];
+  for (const unit of path.units) {
+    for (const section of unit.sections) {
+      if (section.kind !== 'quiz') continue;
+      const quiz = parseLearningQuiz(section.summary);
+      if (!quiz) continue;
+      for (const question of quiz) {
+        const fallback = [`Richtig: ${question.options[question.correctIndex]}.`, unit.takeaway].filter(Boolean).join(' ');
+        items.push({
+          type: 'multiple_choice',
+          question: question.prompt,
+          options: [...question.options],
+          correctOption: question.correctIndex,
+          explanation: question.explanation ?? fallback,
+        });
+      }
+    }
+  }
+  return items;
+}
+
 function sectionToNoxia(section: LearningPathSection): NoxiaModuleSection[] {
   if (section.interactiveId) {
     const interactive = getLearningInteractive(section.interactiveId);
@@ -143,6 +174,8 @@ function sectionToNoxia(section: LearningPathSection): NoxiaModuleSection[] {
     return [{ type: 'task', prompt: section.summary }];
   }
   if (section.kind === 'quiz') {
+    // Governed Kurztests are delivered as assessment[]; only free-form self-checks stay a task.
+    if (parseLearningQuiz(section.summary)) return [];
     return [{ type: 'task', prompt: section.summary, hint: 'Prüfe die Ursache-Wirkungs-Kette, bevor du das Modul abschließt.' }];
   }
   if (section.kind === 'observation') {
@@ -168,7 +201,7 @@ function pathDetail(path: LearningPath): NoxiaModuleDetail {
     schemaVersion: '1.0',
     contentVersion: '1.1',
     sections,
-    assessment: [],
+    assessment: pathAssessment(path),
     prerequisites: path.domainsNeeded ?? [],
     sources: [{ authority: 'kueper-knowledge-graph', entityIds: base.sourceEntityIds }]
   };
@@ -200,12 +233,16 @@ export async function getNoxiaKnowledgeModule(moduleId: string): Promise<NoxiaMo
     sections.push({ type: 'heading', text: 'Jetzt du' });
     sections.push({ type: 'task', prompt: didactic.task.prompt, ...(didactic.task.hint ? { hint: didactic.task.hint } : {}) });
   }
+  const linkedPath = getPathForModule(module.id);
+  const pathItems = linkedPath ? pathAssessment(linkedPath) : [];
+  const base = toNoxiaModule(module);
   return {
-    ...toNoxiaModule(module),
+    ...base,
+    unlocks: [...new Set([...base.unlocks, ...(linkedPath?.unlocks ?? [])])],
     schemaVersion: '1.0',
     contentVersion: '1.1',
     sections,
-    assessment: didactic ? [{ type: 'multiple_choice', ...didactic.check }] : [],
+    assessment: pathItems.length ? pathItems : didactic ? [{ type: 'multiple_choice', ...didactic.check }] : [],
     prerequisites: [],
     sources: [{ authority: module.source.authority, entityIds: module.source.kxfEntityIds }]
   };

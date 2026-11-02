@@ -2,6 +2,8 @@ export type LearningQuizQuestion = {
   prompt: string;
   options: [string, string, string, string];
   correctIndex: number;
+  /** Optional explanation shown after answering, authored as a sixth part starting with `?`. */
+  explanation?: string;
 };
 
 export type LearningQuiz = [LearningQuizQuestion, LearningQuizQuestion, LearningQuizQuestion];
@@ -9,6 +11,9 @@ export type LearningQuiz = [LearningQuizQuestion, LearningQuizQuestion, Learning
 /**
  * Compact authoring format used by LearningPathSection.summary:
  * question||answer||correct answer*||answer||answer---...
+ *
+ * An optional sixth part `?Erklärung` carries the feedback for the question:
+ * question||A||B*||C||D||?Warum B stimmt
  *
  * Canonical SSF governance requires exactly three questions
  * (Anwendung → Verständnis → Transfer), each with four options and
@@ -23,9 +28,16 @@ export function parseLearningQuiz(summary: string | undefined): LearningQuiz | n
   const questions: LearningQuizQuestion[] = [];
   for (const block of blocks) {
     const parts = block.split('||').map((part) => part.trim());
-    if (parts.length !== 5 || !parts[0]) return null;
+    if ((parts.length !== 5 && parts.length !== 6) || !parts[0]) return null;
 
-    const rawOptions = parts.slice(1);
+    let explanation: string | undefined;
+    if (parts.length === 6) {
+      if (!parts[5].startsWith('?')) return null;
+      explanation = parts[5].slice(1).trim();
+      if (!explanation) return null;
+    }
+
+    const rawOptions = parts.slice(1, 5);
     const marked = rawOptions
       .map((option, index) => option.endsWith('*') ? index : -1)
       .filter((index) => index >= 0);
@@ -38,6 +50,7 @@ export function parseLearningQuiz(summary: string | undefined): LearningQuiz | n
       prompt: parts[0],
       options: options as [string, string, string, string],
       correctIndex: marked[0],
+      ...(explanation ? { explanation } : {}),
     });
   }
 

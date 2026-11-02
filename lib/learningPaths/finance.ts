@@ -15,7 +15,7 @@ export const financeLearningPaths: LearningPath[] = [
       overtimeArchive: [],
       ssf: ['Problemorientierte Kredit-Einführung', 'Kreditrechner', 'NOXIA-Anwendung und Transfer'],
     },
-    unlocks: [],
+    unlocks: ['UNL:NOX:bank-credit'],
     units: [
       {
         id: 'UNIT:ECO-KREDIT:GRUNDLAGEN',
@@ -58,7 +58,7 @@ export const financeLearningPaths: LearningPath[] = [
       overtimeArchive: [],
       ssf: ['Vergleich von einfachem Zins und Zinseszins', 'Exponentielles Wachstum', 'Transfer in langfristige NOXIA-Finanzierung'],
     },
-    unlocks: [],
+    unlocks: ['UNL:NOX:bank-compound'],
     units: [
       {
         id: 'UNIT:ECO-ZINSESZINS:VERGLEICH',

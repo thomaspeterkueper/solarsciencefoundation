@@ -24,6 +24,7 @@
     "tests/research-watch/**/*.ts",
     "tests/learningQuiz.test.ts",
     "tests/learningPathRegistry.test.ts",
+    "tests/noxiaPrerequisites.test.ts",
     "tests/surveyingLearningPaths.test.ts",
     "tests/experimentSemanticContracts.test.ts",
     "tests/levitatedOptomechanics.test.ts"
