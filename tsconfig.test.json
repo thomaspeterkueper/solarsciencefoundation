@@ -16,6 +16,7 @@
     "lib/modules.ts",
     "lib/subjects.ts",
     "lib/learningQuiz.ts",
+    "lib/learningPathAssessment.ts",
     "lib/learningEvidence.ts",
     "lib/learningPaths.ts",
     "lib/learningPathRegistry.ts",
@@ -25,6 +26,7 @@
     "tests/learningQuiz.test.ts",
     "tests/learningPathRegistry.test.ts",
     "tests/noxiaPrerequisites.test.ts",
+    "tests/noxiaExams.test.ts",
     "tests/surveyingLearningPaths.test.ts",
     "tests/experimentSemanticContracts.test.ts",
     "tests/levitatedOptomechanics.test.ts"

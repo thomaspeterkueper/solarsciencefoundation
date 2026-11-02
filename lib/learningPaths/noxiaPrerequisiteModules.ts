@@ -1,4 +1,5 @@
 import type { LearningPath, LearningPathSection, LearningPathUnit } from '../learningPaths';
+import { quiz, type QuizQuestion } from './quizAuthoring';
 
 /**
  * Lernmodule für NOXIA-Lernvoraussetzungen (Request EXT-NOXIA-SSF-20261029-learning-prerequisites).
@@ -12,24 +13,6 @@ import type { LearningPath, LearningPathSection, LearningPathUnit } from '../lea
  * folgt die Benennung dem Muster der bestehenden NOXIA-Fundamentmodule und wird beim KG
  * zur Bestätigung gemeldet.
  */
-
-type QuizQuestion = {
-  q: string;
-  /** Vier Antworten; die richtige steht an Position `correct`. */
-  a: [string, string, string, string];
-  correct: 0 | 1 | 2 | 3;
-  why: string;
-};
-
-/** Baut den Kurztest im kompakten Format `Frage||A||B*||C||D||?Erklärung---…` (lib/learningQuiz.ts). */
-function quiz(questions: [QuizQuestion, QuizQuestion, QuizQuestion]): string {
-  return questions
-    .map(({ q, a, correct, why }) => {
-      const options = a.map((option, index) => (index === correct ? `${option}*` : option));
-      return [q, ...options, `?${why}`].join('||');
-    })
-    .join('---');
-}
 
 function section(
   id: string,

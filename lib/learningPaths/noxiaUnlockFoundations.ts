@@ -1,4 +1,5 @@
 import type { LearningPath, LearningPathSection } from '../learningPaths';
+import { examQuiz, hasExamQuiz } from './noxiaExamQuizzes';
 
 type UnlockPathSpec = {
   slug: string;
@@ -35,13 +36,21 @@ function sections(slug: string, topic: string, question: string, takeaway: strin
       summary: 'Ordne die entscheidenden Größen, Risiken und Abhängigkeiten und begründe, welche technische Entscheidung daraus folgt.',
       depthPoints: 8,
     },
-    {
-      id: `QUIZ:${slug}-${topic}`,
-      kind: 'quiz',
-      title: 'Verständnis prüfen',
-      summary: 'Erkläre die zentrale Ursache-Wirkungs-Kette in eigenen Worten und nenne eine Fehlentscheidung, die dadurch vermieden wird.',
-      depthPoints: 5,
-    },
+    hasExamQuiz(`${slug}:${topic}`)
+      ? {
+          id: `QUIZ:${slug}-${topic}`,
+          kind: 'quiz',
+          title: 'Kurztest',
+          summary: examQuiz(`${slug}:${topic}`),
+          depthPoints: 9,
+        }
+      : {
+          id: `QUIZ:${slug}-${topic}`,
+          kind: 'quiz',
+          title: 'Verständnis prüfen',
+          summary: 'Erkläre die zentrale Ursache-Wirkungs-Kette in eigenen Worten und nenne eine Fehlentscheidung, die dadurch vermieden wird.',
+          depthPoints: 5,
+        },
   ];
 }
 

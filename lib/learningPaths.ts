@@ -10,6 +10,7 @@
  */
 
 import type { LearningEvidenceLevel } from './learningEvidence';
+import { examQuiz } from './learningPaths/noxiaExamQuizzes';
 export type { LearningEvidenceLevel };
 
 export type LearningPathSection = {
@@ -4481,7 +4482,7 @@ export const learningPaths: LearningPath[] = [
             id: 'QUIZ:ORBITAL-1',
             kind: 'quiz',
             title: 'Quiz: Transferbahnen',
-            summary: 'Warum brauchen Raumschiffe nicht den direkten Weg? Was ist ein Transferfenster? Warum ist Hohmann energieoptimal?',
+            summary: examQuiz('QUIZ:ORBITAL-1'),
             depthPoints: 12,
           },
           {
@@ -4519,7 +4520,7 @@ export const learningPaths: LearningPath[] = [
             id: 'QUIZ:ORBITAL-2',
             kind: 'quiz',
             title: 'Quiz: Hohmann-Transfer',
-            summary: 'Zwei Δv-Manöver beim Hohmann-Transfer benennen, Reisezeit Erde→Mars schätzen, warum längere Reise manchmal weniger Energie braucht.',
+            summary: examQuiz('QUIZ:ORBITAL-2'),
             depthPoints: 15,
           },
         ],

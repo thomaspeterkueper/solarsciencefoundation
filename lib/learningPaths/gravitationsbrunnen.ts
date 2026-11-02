@@ -1,4 +1,5 @@
 import type { LearningPath } from '../learningPaths';
+import { examQuiz } from './noxiaExamQuizzes';
 
 /**
  * SSF didactic path for the KG-owned Energie & Arbeit module.
@@ -56,6 +57,20 @@ export const gravitationsbrunnenLearningPath: LearningPath = {
           title: 'Fluchtgeschwindigkeit: dieselbe Energiebilanz',
           summary: 'Setzt man die kinetische Energie ½mv² gleich der ideal benötigten Energie GMm/r, erhält man vₑ = √(2GM/r). Das ist ein Idealmodell; reale Starts haben zusätzliche Verluste.',
           depthPoints: 10,
+        },
+        {
+          id: 'QUIZ:GRAVITATIONSBRUNNEN-1',
+          kind: 'quiz',
+          title: 'Kurztest 1: Potential und Arbeit',
+          summary: examQuiz('QUIZ:GRAVITATIONSBRUNNEN-1'),
+          depthPoints: 9,
+        },
+        {
+          id: 'QUIZ:GRAVITATIONSBRUNNEN-2',
+          kind: 'quiz',
+          title: 'Kurztest 2: Fluchtenergie und Fluchtgeschwindigkeit',
+          summary: examQuiz('QUIZ:GRAVITATIONSBRUNNEN-2'),
+          depthPoints: 9,
         },
       ],
     },
