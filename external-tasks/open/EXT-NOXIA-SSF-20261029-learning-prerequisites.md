@@ -1,5 +1,5 @@
 ---
-status: open
+status: partially-done
 id: EXT-NOXIA-SSF-20261029-learning-prerequisites
 requester: SYS:KUEPER:noxia
 recipient: SYS:KUEPER:ssf
@@ -198,3 +198,43 @@ Alle haben Inhalt. Die Prüfung fehlt bzw. kommt noch als Rohtext – siehe Exam
 - Wo kein Modul existiert (B, C, D, E, F, G), zeigt NOXIA „Lernmodul folgt“. Sobald ein Modul mit der Freischaltung in `/api/noxia/modules` auftaucht, erscheint dort automatisch „Jetzt lernen →“ – ohne Änderung in NOXIA. Ausnahme ist D, falls sich die Kennungen ändern.
 
 Bitte je Abschnitt einen Erledigt-Vermerk mit den tatsächlichen Kennungen ergänzen.
+
+---
+
+## Erledigt-Vermerk SSF (02.11.2026, SSF `main` `126317b`)
+
+**Status: A–F erledigt, G offen, H zur Kenntnis genommen.** Der Request bleibt wegen G offen.
+
+Alle Module liefern in `GET /api/noxia/modules/{id}` Inhalt (`sections` > 0) und eine Prüfung (`assessment` = 6 Fragen mit Erklärung). Beide Kennungen (KXF und Legacy) lösen auf dasselbe Modul auf; `/api/noxia/modules` liefert als `id` die KXF-Kennung. Für Schmelze, Robotikfertigung und Präzisionsinstrumente sind die Kennungen SSF-Vorschläge. Die KG-Bestätigung ist angefragt (`EXT-SSF-KG-20261102-noxia-module-identities`).
+
+| Abschnitt | Modul (`id` in `/api/noxia/modules`) | Legacy-ID | Pfad | `unlocks` |
+|---|---|---|---|---|
+| A | `LRN:SSF:ECO-L0-000001` | `ECO-L0-000001` | `ECO-KREDIT-NOXIA-0001` | `UNL:NOX:bank-credit` |
+| A | `LRN:SSF:ECO-L0-000002` | `ECO-L0-000002` | `ECO-ZINSESZINS-NOXIA-0001` | `UNL:NOX:bank-compound` |
+| B | `LRN:SSF:NOX-SMELTING` | `SSF-NOX-SMELTING-0001` | `NOX-SMELTING-0001` | `UNL:NOX:smelting` |
+| C | `LRN:SSF:NOX-ROBOT-FABRICATION` | `SSF-NOX-ROBOT-FABRICATION-0001` | `NOX-ROBOT-FABRICATION-0001` | `UNL:NOX:ENG:ROBOT-FABRICATION` |
+| C | `LRN:SSF:NOX-PRECISION-INSTRUMENTATION` | `SSF-NOX-PRECISION-INSTRUMENTATION-0001` | `NOX-PRECISION-INSTRUMENTATION-0001` | `UNL:NOX:ENG:PRECISION-INSTRUMENTATION` |
+| E | `LRN:SSF:ECO-L0-000003` | `ECO-L0-000003` | `ECO-SICHERHEIT-NOXIA-0001` | `UNL:NOX:bank-collateral` |
+| F | `LRN:SSF:ECO-L1-000001` | `ECO-L1-000001` | `ECO-ARBITRAGE-NOXIA-0001` | `UNL:NOX:advanced-trading` |
+| F | `LRN:SSF:ECO-L1-000002` | `ECO-L1-000002` | `ECO-BODENWERT-NOXIA-0001` | `UNL:NOX:land-value` |
+
+`unlocks/check` liefert die Freischaltung für KXF- und Legacy-Kennung (Test `tests/noxiaPrerequisites.test.ts`). `ECO-L1-…` zählt in NOXIA wie vorgesehen nicht zur kaufmännischen Grundausbildung, `ECO-L0-000003` schon.
+
+### D · Flugausbildung: andere Kennungen, NOXIA muss anpassen
+
+SSF hat die Kennungen **nicht** auf `PHY-1101` gelegt. `LRN:SSF:PHY-1101` gehört in KG/SSF zu „Was die Welt aus sich macht“ (Schwingungen und Spektren, `PHY-WAVE-SPECTRUM-0001`); das alte Legacy-Modul `SSF-PHY-1101` „Was ist Schwerkraft?“ hat keinen Inhalt. Beides auf ein Thema zu zwingen, hätte erneut zwei Themen unter einer Kennung ergeben.
+
+| Thema | Kennung (`id` in `/api/noxia/modules`) | Kürzel für NOXIA | Inhalt |
+|---|---|---|---|
+| Gravitation | `LRN:SSF:PHY-ENERGIE-ARBEIT-0001` (auch `PHY-L2-000005`) | `PHY-ENERGIE-ARBEIT-0001` | Gravitationsbrunnen, 7 Abschnitte, interaktiv, 6 Prüfungsfragen, `unlocks: []` |
+| Orbitalmechanik | `LRN:SSF:AST-L1-000001` (auch `AST-L1-000001`) | `AST-L1-000001` | Hohmann-Transfer, 11 Abschnitte, 6 Prüfungsfragen, `unlocks`: `NAV:ORBITAL`, `UNL:NOX:NAV:ORBITAL`, `UNL:NOX:SHIP:SCOUT`, `AST:HOHMANN-TRANSFER` |
+
+- `AST-2101`, `LRN:SSF:AST-2101` und `SSF-AST-2101` lösen jetzt auf den Orbitalmechanik-Pfad auf (vorher falsch auf „Warum ist der Himmel blau“).
+- **Aktion NOXIA:** `PILOT_TRAINING_MODULES = ['PHY-ENERGIE-ARBEIT-0001', 'AST-L1-000001']` (NOXIA vergleicht das Kürzel nach dem letzten `:`; Abschluss wird unter der `id` aus `/api/noxia/modules` gespeichert). `lib/knowledge/data.ts` und `app/knowledge/page.tsx` führen noch `LRN:SSF:PHY-1101` und `LRN:SSF:AST-2101`.
+- `GET …/modules/PHY-1101` liefert weiter das leere Legacy-Modul. Die Kennungsklärung für `PHY-1101` ist bei KG angefragt.
+
+### G · offen
+`UNL:NOX:NAV:CURVATURE` und `UNL:NOX:research:magnetobiology-experiment-design` haben noch kein Modul (niedrige Priorität). Für das Magnetobiologie-Modul braucht SSF eine fachliche Absicherung durch KG, bevor Inhalt entsteht.
+
+### H · zur Kenntnis genommen
+Vorgemerkt. Hinweis: `UNL:NOX:orbital-navigation` trägt heute `SSF-PHY-1101` und wird mit der Klärung der Kennung neu zugeordnet.

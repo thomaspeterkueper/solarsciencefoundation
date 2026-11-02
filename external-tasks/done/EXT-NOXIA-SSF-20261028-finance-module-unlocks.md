@@ -34,3 +34,9 @@ NOXIA ordnet bekannte Module über ein eigenes Lernverzeichnis (`lib/knowledge/l
    - `AST-2101` wird über `MODULE_ALIAS_MAP` auf `LRN:SSF:PHY-1103` „Warum ist der Himmel blau“ aufgelöst – fachlich falsch; der Abschluss wird unter `PHY-1103` gespeichert und zählt nicht als Orbitalmechanik.
    Bitte Inhalte für Gravitation liefern und `AST-2101` auf einen Orbitalmechanik-Pfad abbilden.
 5. **Kaufmännische Grundausbildung:** NOXIA verlangt drei verschiedene Wirtschafts-Grundmodule `ECO-L0-…`; die SSF bietet nur zwei (`ECO-L0-000001`, `ECO-L0-000002`). Ein drittes (z. B. `ECO-L0-000003` Sicherheitenwert, s. Punkt 3) würde den Weg über die Akademie öffnen.
+
+---
+
+## Erledigt-Vermerk SSF (02.11.2026)
+
+Ersetzt durch `EXT-NOXIA-SSF-20261029-learning-prerequisites` (Abschnitte A, E und F). Kredit und Festgeld tragen jetzt `UNL:NOX:bank-credit` und `UNL:NOX:bank-compound`; Details und Kennungen dort.
