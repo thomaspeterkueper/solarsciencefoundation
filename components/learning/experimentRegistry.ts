@@ -72,6 +72,7 @@ import HydrogenBondExperiment from './HydrogenBondExperiment';
 import OsmosisExperiment from './OsmosisExperiment';
 import BatteryManagementExperiment from './BatteryManagementExperiment';
 import BatteryFastChargeExperiment from './BatteryFastChargeExperiment';
+import { GearboxCastingExperiment, GearboxAssemblyExperiment } from './GearboxHousingExperiment';
 
 export type ExperimentModelType = 'interactive-model' | 'simulation' | 'calculator' | 'visualization';
 export type ExperimentDefinition = { component: ComponentType; modelType: ExperimentModelType; concepts?: string[] };
@@ -197,6 +198,8 @@ const registry: Record<string, ExperimentDefinition> = {
   'EXP:NOX-WATER-DESTILLATION': { component: WaterTreatmentExperiment, modelType: 'interactive-model' },
   'EXP:NOX-WATER-CHAIN': { component: WaterTreatmentExperiment, modelType: 'simulation' },
   'EXP:NOX-RESOURCE-CHAIN': { component: ResourceSeparationExperiment, modelType: 'simulation' },
+  'EXP:GEHAEUSE-SANDGUSS': { component: GearboxCastingExperiment, modelType: 'visualization', concepts: ['CON:MTL:sand-casting','CON:ENG:design-for-casting'] },
+  'EXP:GETRIEBE-MONTAGE': { component: GearboxAssemblyExperiment, modelType: 'visualization', concepts: ['CON:ENG:assembly-sequence','CON:ENG:locating-floating-bearing'] },
 };
 
 export function getExperimentDefinition(id: string | undefined): ExperimentDefinition | undefined { return id ? registry[id] : undefined; }
