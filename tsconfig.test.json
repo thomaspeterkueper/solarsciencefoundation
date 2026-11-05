@@ -29,6 +29,7 @@
     "tests/noxiaExams.test.ts",
     "tests/surveyingLearningPaths.test.ts",
     "tests/experimentSemanticContracts.test.ts",
+    "tests/goldTransmutationModule.test.ts",
     "tests/levitatedOptomechanics.test.ts"
   ],
   "exclude": [
