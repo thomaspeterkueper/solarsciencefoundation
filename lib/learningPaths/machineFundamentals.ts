@@ -2,16 +2,19 @@
  * KUEPER · Solar Science Foundation (SSF)
  * Path:      lib/learningPaths/machineFundamentals.ts
  * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/learningPaths/machineFundamentals.ts
- * Name:      Maschinenkunde – Kolbenmaschinen (Lernpfad)
- * Version:   0.1.0
+ * Name:      Maschinenkunde – Kolbenmaschinen (zwei Lernpfade)
+ * Version:   0.2.0
  * Created:   2026-11-06
- * Modified:  2026-11-06 19:00 CET
+ * Modified:  2026-11-06 20:15 CET
  * Depends:   lib/learningPaths.ts, lib/learningPaths/quizAuthoring.ts
  *
- * Engineering-Pfad nach docs/ENGINEERING-LEARNING-TEMPLATE.md:
- * Arbeits-/Kraftmaschine und Pumpe → Kurbeltrieb (Bewegung, Kräfte) → Massenausgleich
- * (Einzylinder, Mehrzylinder) → Arbeitsverfahren und Vergleichsprozesse → Leistung und
- * Wirkungsgradkette → Drehkraft und Schwungrad.
+ * Engineering-Pfade nach docs/ENGINEERING-LEARNING-TEMPLATE.md, aufgeteilt in zwei Module:
+ *   1. PATH:SSF:ENG-KOLBENMASCHINEN-PROZESS-0001 – Maschinenart und Pumpe → Takte und
+ *      Vergleichsprozesse → Leistung und Wirkungsgradkette → Aufladung
+ *   2. PATH:SSF:ENG-KURBELTRIEB-0001 – Kinematik → Kräfte bis Drehmoment → Massenausgleich
+ *      Einzylinder → Massenausgleich Mehrzylinder → Drehkraft und Schwungrad
+ * Empfohlene Reihenfolge 1 → 2 (Pfad 2 verwendet Zünd-OT, Ausschiebetakt und Taktfaktor).
+ * v0.1.0 führte beides als einen Pfad PATH:SSF:ENG-MASCHINENKUNDE-0001; dieser Prototyp ist ersetzt.
  *
  * Anlass: Prüfungsvorbereitung Maschinenkunde (Hochschul-Grundlagenfach, Herbst 2026).
  * Skript und Altklausuren dienten nur als Referenz für Themenauswahl und Gewichtung
@@ -20,7 +23,7 @@
  *
  * KG-Status: Kanonische IDs (sourceModuleId, CON:*) sind beim kueper-knowledge-graph angefragt
  * (EXT-SSF-KG-20261106-maschinenkunde-kolbenmaschinen). Bereits kanonische KG-Konzepte sind
- * direkt referenziert, neue als „Kandidat“ markiert. Bis zur Rückmeldung bleibt der Pfad 'prototype'.
+ * direkt referenziert, neue als „Kandidat“ markiert. Bis zur Rückmeldung bleiben die Pfade 'prototype'.
  */
 
 import type { LearningPath, LearningPathSection } from '../learningPaths';
@@ -32,37 +35,30 @@ function exercise(id: string, title: string, summary: string, solution: string):
   return { id, kind: 'exercise', title: `Aufgabe: ${title}`, summary, solution, depthPoints: 10 };
 }
 
-export const machineFundamentalsLearningPath: LearningPath = {
-  id: 'PATH:SSF:ENG-MASCHINENKUNDE-0001',
-  title: 'Wie wird aus Druck im Zylinder ein ruhig laufender Motor?',
+const SSF_SUPPLIED = [
+  'Engineering-Dramaturgie (ENGINEERING-LEARNING-TEMPLATE.md)',
+  'Durchgerechnete Aufgaben mit Lösungsweg',
+];
+
+export const pistonMachineProcessLearningPath: LearningPath = {
+  id: 'PATH:SSF:ENG-KOLBENMASCHINEN-PROZESS-0001',
+  title: 'Wie viel Arbeit steckt in einem Arbeitsspiel?',
   subtitle:
-    'Maschinenkunde der Kolbenmaschinen: Arbeits- und Kraftmaschinen, Pumpen, Kurbeltrieb, Massenausgleich, Vergleichsprozesse, Leistung, Wirkungsgrade und Schwungrad.',
+    'Maschinenkunde, Teil 1: Arbeits- und Kraftmaschinen, Pumpen, Viertakt und Zweitakt, Vergleichsprozesse, Mitteldruck, Leistung, Wirkungsgradkette und Aufladung.',
   status: 'prototype',
-  sourceModuleId: 'SSF-ENG-MASCHINENKUNDE-0001',
-  kxfModuleId: 'LRN:SSF:ENG-MASCHINENKUNDE-0001',
-  domainsNeeded: ['KD:ENG:N1', 'KD:PHYS-MECH:N1', 'KD:PHYS-THERM:N1', 'KD:ENG-MECH:N2'],
+  sourceModuleId: 'SSF-ENG-KOLBENMASCHINEN-PROZESS-0001',
+  kxfModuleId: 'LRN:SSF:ENG-KOLBENMASCHINEN-PROZESS-0001',
+  domainsNeeded: ['KD:ENG:N1', 'KD:PHYS-THERM:N1', 'KD:PHYS-MECH:N1'],
   suppliedBy: {
     knowledgeGraph: [
       'KD:ENG:N1',
-      'KD:PHYS-MECH:N1',
       'KD:PHYS-THERM:N1',
-      'KD:ENG-MECH:N2',
-      'CON:L1:kraft',
+      'KD:PHYS-MECH:N1',
       'CON:L1:drehmoment',
-      'CON:L1:lagerreaktion',
       'CON:L0:energie',
       'Kandidat CON:L1:arbeits-und-kraftmaschine',
       'Kandidat CON:L1:verdraengerpumpe',
       'Kandidat CON:L1:liefergrad',
-      'Kandidat CON:L1:kurbeltrieb',
-      'Kandidat CON:L1:pleuelverhaeltnis',
-      'Kandidat CON:L1:kolbenkinematik',
-      'Kandidat CON:L1:oszillierende-massenkraft',
-      'Kandidat CON:L1:rotierende-massenkraft',
-      'Kandidat CON:L1:pleuelstangenkraft-tangentialkraft',
-      'Kandidat CON:L1:massenausgleich',
-      'Kandidat CON:L1:kurbelstern',
-      'Kandidat CON:L1:freies-massenmoment',
       'Kandidat CON:L1:viertakt-zweitakt',
       'Kandidat CON:L1:gleichraumprozess',
       'Kandidat CON:L1:gemischter-vergleichsprozess',
@@ -71,16 +67,10 @@ export const machineFundamentalsLearningPath: LearningPath = {
       'Kandidat CON:L1:wirkungsgradkette-verbrennungsmotor',
       'Kandidat CON:L1:spezifischer-kraftstoffverbrauch',
       'Kandidat CON:L1:aufladung-ladeluftkuehlung',
-      'Kandidat CON:L1:drehkraftdiagramm',
-      'Kandidat CON:L1:ungleichfoermigkeitsgrad',
     ],
     kueperCom: [],
     overtimeArchive: [],
-    ssf: [
-      'Engineering-Dramaturgie (ENGINEERING-LEARNING-TEMPLATE.md)',
-      'Durchgerechnete Aufgaben mit Lösungsweg',
-      'Ergebnistabelle Massenausgleich für R2, R3, R4, Boxer, R6',
-    ],
+    ssf: SSF_SUPPLIED,
   },
   unlocks: [],
   units: [
@@ -90,7 +80,7 @@ export const machineFundamentalsLearningPath: LearningPath = {
       title: 'Arbeitsmaschine oder Kraftmaschine – und wie eine Pumpe fördert',
       entryQuestion: 'Ein Turbolader sitzt am Motor und dreht sich vom Abgas. Ist er eine Kraftmaschine oder eine Arbeitsmaschine?',
       takeaway: 'Nicht der Name entscheidet, sondern die Welle: Wer an ihr Arbeit abgibt, ist Kraftmaschine, wer an ihr Arbeit aufnimmt, ist Arbeitsmaschine.',
-      gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:MK:KINEMATIK' },
+      gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:MK:PROZESSE' },
       sections: [
         {
           id: 'OBS:MK:TURBOLADER',
@@ -167,305 +157,7 @@ export const machineFundamentalsLearningPath: LearningPath = {
       ],
     },
 
-    // ── 2 · Kinematik des Kurbeltriebs ───────────────────────────────────────
-    {
-      id: 'UNIT:MK:KINEMATIK',
-      title: 'Der Kurbeltrieb: Wie sich der Kolben bewegt',
-      entryQuestion: 'Die Kurbelwelle dreht ganz gleichmäßig. Warum bewegt sich der Kolben trotzdem ruckartig?',
-      takeaway: 'Gleichmäßige Drehung wird zu ungleichmäßigem Hub: Der Kolben wird ständig beschleunigt und gebremst – am stärksten im oberen Totpunkt.',
-      gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:MK:KRAEFTE' },
-      sections: [
-        {
-          id: 'OBS:MK:TOTPUNKTE',
-          kind: 'observation',
-          title: 'Zweimal Stillstand pro Umdrehung',
-          summary:
-            'Im oberen Totpunkt (OT) und im unteren Totpunkt (UT) steht der Kolben für einen Moment still und kehrt um. Dazwischen erreicht er hohe Geschwindigkeiten. Bei 6000 min⁻¹ passiert dieses Anhalten und Umkehren 200-mal pro Sekunde.',
-          depthPoints: 5,
-        },
-        {
-          id: 'EXPL:MK:GEOMETRIE',
-          kind: 'explanation',
-          title: 'Kurbelradius, Pleuellänge, Pleuelverhältnis',
-          summary:
-            'Der Kurbelradius r ist der Abstand Kurbelwellenmitte – Kurbelzapfen, der Hub ist H = 2r. Die Pleuellänge l verbindet Kurbelzapfen und Kolbenbolzen. Ihr Verhältnis λ = r/l liegt bei Pkw-Motoren um 0,25–0,33. Der Kurbelwinkel α wird ab OT gezählt, der Kolbenweg s ebenfalls ab OT. Das Pleuel steht um den Winkel β schräg, mit sin β = λ · sin α. Angaben wie „30° vor Ende des Ausschiebetakts“ übersetzt man zuerst in α ab OT, hier α = 330°.',
-          depthPoints: 8,
-        },
-        {
-          id: 'EXPL:MK:KOLBENWEG',
-          kind: 'explanation',
-          title: 'Kolbenweg, Geschwindigkeit, Beschleunigung',
-          summary:
-            'Exakt setzt sich der Kolbenweg aus zwei Anteilen zusammen: s = r(1 − cos α) + l(1 − cos β). Der erste stammt aus der Kurbel, der zweite aus der Schrägstellung des Pleuels. Die übliche Näherung lautet s = r · (1 − cos α + λ/2 · sin²α), daraus folgen v = r·ω · (sin α + λ/2 · sin 2α) und a = r·ω² · (cos α + λ · cos 2α). Der Term mit cos α schwingt einmal pro Umdrehung (1. Ordnung), der Term mit λ · cos 2α zweimal (2. Ordnung). Im OT ist a = rω²(1 + λ) am größten, im UT ist |a| = rω²(1 − λ) kleiner. Bei α = 90° ist der Kolben wegen des Pleuelanteils schon über der Hubmitte. Die mittlere Kolbengeschwindigkeit ist v_m = 2 · H · n (n in 1/s); bei Pkw-Motoren liegt sie etwa bei 10–20 m/s.',
-          depthPoints: 10,
-        },
-        exercise(
-          'EXERCISE:MK:KOLBENWEG',
-          'Wo steht der Kolben bei 90°?',
-          'Ein Motor hat r = 40 mm, l = 160 mm und dreht mit n = 4800 min⁻¹. Berechne λ, ω, den Kolbenweg bei α = 90° (Näherung und Pleuelanteil exakt), die Kolbenbeschleunigung in OT und bei 90° sowie v_m.',
-          'λ = 40/160 = 0,25, n = 80 s⁻¹, ω = 2π · 80 = 502,7 s⁻¹. Bei 90°: s = 40 · (1 − 0 + 0,125 · 1) = 45 mm, also 5 mm unter der Hubmitte von 40 mm. Exakt: β = arcsin 0,25 = 14,5°, Pleuelanteil l(1 − cos β) = 5,1 mm. a_OT = 0,04 · 502,7² · 1,25 ≈ 12 630 m/s², a(90°) = 0,04 · 502,7² · (0 − 0,25) ≈ −2 530 m/s². Bei 90° ist der Anteil 1. Ordnung null, übrig bleibt nur die 2. Ordnung. v_m = 2 · 0,08 m · 80 s⁻¹ = 12,8 m/s.',
-        ),
-        {
-          id: 'QUIZ:MK:KINEMATIK',
-          kind: 'quiz',
-          title: QUIZ_TITLE,
-          summary: quiz([
-            {
-              q: 'Ein Motor hat 90 mm Hub und dreht mit 6000 min⁻¹. Wie groß ist die mittlere Kolbengeschwindigkeit?',
-              a: ['9 m/s', '36 m/s', '28,3 m/s', '18 m/s'],
-              correct: 3,
-              why: 'v_m = 2 · H · n = 2 · 0,09 m · 100 s⁻¹ = 18 m/s. Pro Umdrehung legt der Kolben den Hub zweimal zurück, einmal hin und einmal zurück.',
-            },
-            {
-              q: 'Warum ist die Kolbenbeschleunigung im OT größer als im UT?',
-              a: ['Weil im OT der Gasdruck am höchsten ist.', 'Weil sich im OT die Anteile 1. und 2. Ordnung addieren, im UT aber teilweise aufheben.', 'Weil die Kurbelwelle im OT schneller dreht.', 'Weil das Pleuel im OT am stärksten schräg steht.'],
-              correct: 1,
-              why: 'a = rω²(cos α + λ cos 2α). Im OT sind cos α = 1 und cos 2α = 1, also rω²(1 + λ). Im UT ist cos α = −1, cos 2α bleibt +1, also rω²(−1 + λ). Das ist eine reine Geometriefolge des endlich langen Pleuels, der Gasdruck spielt dafür keine Rolle.',
-            },
-            {
-              q: 'Ein Konstrukteur verlängert bei gleichem Hub das Pleuel deutlich. Was ändert sich an der Kolbenbewegung?',
-              a: ['λ wird kleiner, die Bewegung wird sinusförmiger und der Anteil 2. Ordnung schrumpft.', 'Der Hub wird größer.', 'λ wird größer und die Beschleunigung im OT steigt.', 'Nichts, die Kinematik hängt nur vom Kurbelradius ab.'],
-              correct: 0,
-              why: 'Mit längerem l sinkt λ = r/l. Je kleiner λ, desto näher kommt die Bewegung einer reinen Sinusbewegung und desto kleiner sind Anteil 2. Ordnung und Pleuelwinkel. Der Hub bleibt 2r. Der Preis ist mehr Bauhöhe und Masse.',
-            },
-          ]),
-          depthPoints: 9,
-        },
-      ],
-    },
-
-    // ── 3 · Kräfte im Kurbeltrieb ────────────────────────────────────────────
-    {
-      id: 'UNIT:MK:KRAEFTE',
-      title: 'Vom Gasdruck zum Drehmoment',
-      entryQuestion: 'Im oberen Totpunkt ist der Druck im Zylinder am höchsten. Warum liefert der Motor genau dort kein Drehmoment?',
-      takeaway: 'Die Kolbenkraft wird erst über die Schrägstellung von Pleuel und Kurbel zu Drehmoment – in OT und UT fehlt der Hebel.',
-      gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:MK:AUSGLEICH-EINZYLINDER' },
-      sections: [
-        {
-          id: 'OBS:MK:PLEUELBRUCH',
-          kind: 'observation',
-          title: 'Ein Pleuel reißt beim Ausschieben, nicht beim Zünden',
-          summary:
-            'Motorschäden bei Überdrehzahl zeigen oft gerissene Pleuel oder Pleuelschrauben – und zwar im Ladungswechsel-OT, wo fast kein Gasdruck herrscht. Im Zünd-OT drücken dagegen viele Tonnen Gaskraft auf den Kolben. Die Erklärung liegt in der Trägheit der Teile, die bei jeder Umdrehung zweimal angehalten werden.',
-          depthPoints: 5,
-        },
-        {
-          id: 'EXPL:MK:MASSEN',
-          kind: 'explanation',
-          title: 'Massen sortieren: Was schwingt, was dreht',
-          summary:
-            'Das Pleuel bewegt sich kompliziert: oben hin und her, unten im Kreis. Man ersetzt es durch zwei Punktmassen mit gleicher Gesamtmasse und gleichem Schwerpunkt. m_Pl2 sitzt am Kolbenbolzen und schwingt mit, m_Pl1 sitzt am Kurbelzapfen und dreht mit. Ist a der Abstand des Pleuelschwerpunkts vom großen Pleuelauge, gilt m_Pl2 = m_Pl · a/l und m_Pl1 = m_Pl − m_Pl2; grob schwingt etwa ein Drittel. Oszillierende Masse m_os = Kolben samt Ringen und Bolzen + m_Pl2. Rotierende Masse m_r = Kurbelzapfen + Kurbelwangen (auf den Radius r umgerechnet) + m_Pl1.',
-          depthPoints: 9,
-        },
-        {
-          id: 'EXPL:MK:KRAFTKETTE',
-          kind: 'explanation',
-          title: 'Die Kraftkette in sechs Schritten',
-          summary:
-            '1. Gaskraft F_G = p_ü · A_K mit dem Überdruck im Zylinder und A_K = π d²/4. 2. Oszillierende Massenkraft F_os = m_os · r·ω² · (cos α + λ cos 2α). 3. Kolbenkraft F = F_G − F_os (positiv = Richtung Kurbelwelle). 4. Am Kolbenbolzen zerlegt: Pleuelstangenkraft S = F / cos β und Normalkraft auf die Zylinderwand N = F · tan β. 5. Am Kurbelzapfen zerlegt: Tangentialkraft T = S · sin(α + β) und Radialkraft R = S · cos(α + β). 6. Drehmoment M_d = T · r. Die Rotationsfliehkraft F_r = m_r · r · ω² wirkt zusätzlich am Zapfen und in den Lagern.',
-          depthPoints: 10,
-        },
-        {
-          id: 'EXPL:MK:RICHTUNGEN',
-          kind: 'explanation',
-          title: 'Zug oder Druck im Pleuel?',
-          summary:
-            'Die Gaskraft drückt den Kolben immer Richtung Kurbelwelle, das Pleuel wird auf Druck belastet; nur beim Ansaugen zieht ein leichter Unterdruck den Kolben nach oben. Die Massenkraft wirkt immer gegen die Beschleunigung. In OT-Nähe wird der Kolben abgebremst und umgekehrt, seine Trägheit will weiter nach oben – das Pleuel wird auf Zug belastet. In UT-Nähe will der Kolben weiter nach unten – Druck im Pleuel. Kurz nach dem Zünd-OT wirkt die Massenkraft deshalb gegen die Gaskraft und entlastet das Triebwerk. Bei hoher Last und niedriger Drehzahl dominiert die Gaskraft, bei hoher Drehzahl die Massenkraft, denn sie wächst mit n².',
-          depthPoints: 9,
-        },
-        exercise(
-          'EXERCISE:MK:KRAFTKETTE',
-          'Drehmoment bei 45° nach Zünd-OT',
-          'Motor aus der vorigen Aufgabe (r = 40 mm, l = 160 mm, n = 4800 min⁻¹, ω = 502,7 s⁻¹). Kolbendurchmesser 80 mm, oszillierende Masse 0,6 kg, Gasüberdruck bei α = 45° p_ü = 30 bar. Berechne F_os, F_G, F, β, S, N, T und M_d.',
-          'a = 0,04 · 502,7² · (cos 45° + 0,25 · cos 90°) = 10 108 · 0,707 ≈ 7 146 m/s², F_os = 0,6 · 7 146 ≈ 4,29 kN. A_K = π · 0,08²/4 = 5,03 · 10⁻³ m², F_G = 3 · 10⁶ Pa · 5,03 · 10⁻³ m² ≈ 15,08 kN. F = 15,08 − 4,29 = 10,79 kN (positiv: der Kolben treibt an). sin β = 0,25 · 0,707 → β = 10,2°. S = 10,79/cos 10,2° ≈ 10,96 kN, N = 10,79 · tan 10,2° ≈ 1,94 kN. T = 10,96 · sin 55,2° ≈ 9,00 kN, M_d = 9,00 kN · 0,04 m = 360 Nm.',
-        ),
-        exercise(
-          'EXERCISE:MK:FLAECHENPRESSUNG',
-          'Belastung des Kurbelzapfenlagers im Ladungswechsel-OT',
-          'Derselbe Motor steht im OT am Ende des Ausschiebetakts, die Gaskraft ist vernachlässigbar. m_os = 0,6 kg, rotierender Pleuelanteil m_Pl1 = 0,4 kg, Zapfendurchmesser 45 mm, tragende Lagerbreite 20 mm. Wie groß ist die Flächenpressung im Pleuellager?',
-          'Ohne Gaskraft bleibt nur die Massenkraft: F_os = 0,6 · 0,04 · 502,7² · 1,25 ≈ 7,58 kN nach oben, das Pleuel wird auf Zug belastet, S = 7,58 kN (in OT ist β = 0). Die Fliehkraft des unteren Pleuelanteils zeigt im OT ebenfalls nach oben: F_rPl1 = 0,4 · 0,04 · 502,7² ≈ 4,04 kN. Beide addieren sich: 11,62 kN. Projizierte Fläche 45 · 20 = 900 mm², p ≈ 12,9 N/mm². Im Zünd-OT dagegen zeigt S nach unten und die Fliehkraft zieht davon ab. Deshalb immer zuerst die Richtungen skizzieren.',
-        ),
-        {
-          id: 'QUIZ:MK:KRAEFTE',
-          kind: 'quiz',
-          title: QUIZ_TITLE,
-          summary: quiz([
-            {
-              q: 'In OT beträgt die Kolbenkraft F = 18 kN. Wie groß sind Pleuelstangenkraft S und Drehmoment M_d?',
-              a: ['S = 18 kN, M_d = 0 Nm', 'S = 0 kN, M_d = 18 kN · r', 'S = 18 kN · tan β, M_d = S · r', 'S = 18 kN, M_d = 18 kN · r'],
-              correct: 0,
-              why: 'In OT ist β = 0, also S = F/cos 0 = F. Die Pleuelkraft zeigt genau durch die Kurbelwellenmitte, deshalb ist T = S · sin(0 + 0) = 0 und auch das Drehmoment. Die ganze Kraft geht als Radialkraft in die Lager.',
-            },
-            {
-              q: 'Warum wird das Pleuel kurz vor dem OT des Ausschiebetakts auf Zug belastet?',
-              a: ['Weil das Abgas den Kolben nach oben drückt.', 'Weil der Kolben dort abgebremst werden muss und seine Trägheit ihn weiter nach oben ziehen will.', 'Weil die Kurbelwelle dort langsamer dreht.', 'Weil der Unterdruck des Ansaugens schon wirkt.'],
-              correct: 1,
-              why: 'Die Gaskraft ist beim Ausschieben klein. Der Kolben läuft nach oben und muss bis zum OT auf null abgebremst werden. Die nötige Bremskraft liefert das Pleuel, indem es am Kolben zieht. Die Massenkraft zeigt nach oben – Zug im Pleuel.',
-            },
-            {
-              q: 'Ein Motor läuft statt mit 3000 nun mit 6000 min⁻¹, Last und Gasdruck bleiben ungefähr gleich. Was passiert mit dem Verhältnis von Massenkraft zu Gaskraft?',
-              a: ['Es bleibt gleich, weil beide mit der Drehzahl steigen.', 'Es halbiert sich, weil der Kolben weniger Zeit hat.', 'Die Massenkraft vervierfacht sich, die Gaskraft bleibt etwa gleich – die Massenkraft gewinnt an Gewicht.', 'Die Massenkraft verdoppelt sich, die Gaskraft halbiert sich.'],
-              correct: 2,
-              why: 'F_os ∼ ω² ∼ n². Doppelte Drehzahl bedeutet vierfache Massenkraft. Die Gaskraft hängt am Zylinderdruck, also an der Last. Bei hohen Drehzahlen bestimmen deshalb die Massenkräfte die Belastung von Pleuel und Lagern.',
-            },
-          ]),
-          depthPoints: 9,
-        },
-      ],
-    },
-
-    // ── 4 · Massenausgleich am Einzylinder ───────────────────────────────────
-    {
-      id: 'UNIT:MK:AUSGLEICH-EINZYLINDER',
-      title: 'Warum ein Einzylinder rüttelt – und was dagegen hilft',
-      entryQuestion: 'Ein Rasenmähermotor vibriert spürbar. Kann man das mit einem Gegengewicht an der Kurbelwelle einfach wegnehmen?',
-      takeaway: 'Was rotiert, lässt sich mit einem Gegengewicht ausgleichen. Was hin und her schwingt, braucht zwei gegenläufig drehende Massen.',
-      gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:MK:AUSGLEICH-MEHRZYLINDER' },
-      sections: [
-        {
-          id: 'OBS:MK:WANDERNDER-MOTOR',
-          kind: 'observation',
-          title: 'Ein Motor, der über den Tisch wandert',
-          summary:
-            'Stellt man einen kleinen Einzylinder ohne Befestigung auf eine glatte Werkbank und lässt ihn laufen, hüpft und wandert er. Dreht man ihn höher, wird das Rütteln nicht nur schneller, sondern auch deutlich stärker. Die Ursache sind Kräfte, die nach außen wirken, weil im Motor nichts sie aufhebt.',
-          depthPoints: 5,
-        },
-        {
-          id: 'EXPL:MK:DREI-SORTEN',
-          kind: 'explanation',
-          title: 'Drei Sorten Massenkraft',
-          summary:
-            'Rotierend: F_r = m_r · r · ω², konstanter Betrag, die Richtung dreht mit der Kurbel. Oszillierend 1. Ordnung: F_I = m_os · r · ω² · cos α, wirkt nur in Zylinderachse und schwingt einmal pro Umdrehung; Maximalwert F_I,max = m_os · r · ω². Oszillierend 2. Ordnung: F_II = λ · m_os · r · ω² · cos 2α, ebenfalls in Zylinderachse, aber zweimal pro Umdrehung; F_II,max = λ · F_I,max. Freie Massenkräfte sind periodisch und regen Motorlager und Umgebung zu Schwingungen an. Ein Einzylinder hat Massenkräfte, aber keine Massenmomente.',
-          depthPoints: 9,
-        },
-        {
-          id: 'EXPL:MK:GEGENGEWICHT',
-          kind: 'explanation',
-          title: 'Gegengewichte: voll für das Rotierende, halb für das Oszillierende',
-          summary:
-            'Die rotierende Kraft wird vollständig durch Gegengewichte gegenüber dem Kurbelzapfen ausgeglichen. Gegen die oszillierende Kraft 1. Ordnung hilft ein umlaufendes Gegengewicht nur mit seiner senkrechten Komponente; seine waagerechte Komponente ist eine neue Störkraft, die bei 90° ihr Maximum hat. Man gleicht deshalb meist nur etwa 50 % aus (Ausgleichsanteil φ ≈ 0,5) und tauscht so eine große senkrechte Schwingung gegen zwei halb so große in senkrechter und waagerechter Richtung. Je Wange: m_G = φ · m_os · r / (2 · y), mit y = Schwerpunktabstand des Gegengewichts.',
-          depthPoints: 9,
-        },
-        {
-          id: 'EXPL:MK:AUSGLEICHSWELLEN',
-          kind: 'explanation',
-          title: 'Zwei gegenläufige Wellen',
-          summary:
-            'Zwei Unwuchten, die gegenläufig mit gleicher Drehzahl umlaufen, addieren sich in senkrechter Richtung und heben sich in waagerechter Richtung genau auf. Laufen sie mit Kurbelwellendrehzahl, gleichen sie die 1. Ordnung aus; eine der beiden Wellen darf die Kurbelwelle selbst sein. Für die 2. Ordnung laufen beide mit doppelter Drehzahl (Lanchester-Ausgleich). Die Wellen müssen formschlüssig angetrieben werden (Zahnräder, Kette, Zahnriemen), damit ihre Winkellage zur Kurbel stimmt. Liegen die Wellen auf unterschiedlicher Höhe, entsteht aus den waagerechten Kräften ein Moment um die Kurbelwellenachse.',
-          depthPoints: 9,
-        },
-        exercise(
-          'EXERCISE:MK:EINZYLINDER',
-          'Massenkräfte eines Motorradmotors',
-          'Einzylinder mit m_os = 0,5 kg, r = 35 mm, λ = 0,25, n = 6000 min⁻¹. Berechne F_I,max und F_II,max. Wie schwer muss je Kurbelwange ein Gegengewicht im Schwerpunktabstand y = 50 mm sein, wenn 50 % der Kraft 1. Ordnung ausgeglichen werden sollen?',
-          'ω = 2π · 100 = 628,3 s⁻¹. F_I,max = 0,5 · 0,035 · 628,3² ≈ 6,91 kN, F_II,max = 0,25 · 6,91 ≈ 1,73 kN. m_G = 0,5 · 0,5 kg · 35 mm / (2 · 50 mm) = 0,0875 kg, also rund 88 g je Wange – zusätzlich zu den Gegengewichten für die rotierenden Massen.',
-        ),
-        {
-          id: 'QUIZ:MK:AUSGLEICH-EINZYLINDER',
-          kind: 'quiz',
-          title: QUIZ_TITLE,
-          summary: quiz([
-            {
-              q: 'm_os = 0,8 kg, r = 40 mm, n = 3000 min⁻¹. Wie groß ist die maximale Massenkraft 1. Ordnung?',
-              a: ['ca. 3,16 kN', 'ca. 0,79 kN', 'ca. 100 N', 'ca. 12,6 kN'],
-              correct: 0,
-              why: 'ω = 2π · 50 = 314,2 s⁻¹, F_I,max = 0,8 · 0,04 · 314,2² ≈ 3 160 N. Wer n in min⁻¹ einsetzt oder ω nicht quadriert, liegt um Größenordnungen daneben.',
-            },
-            {
-              q: 'Warum gleicht man die Massenkraft 1. Ordnung mit einem Gegengewicht an der Kurbelwelle meist nur zur Hälfte aus?',
-              a: ['Weil ein volles Gegengewicht die Kurbelwelle bricht.', 'Weil das umlaufende Gegengewicht eine waagerechte Störkraft erzeugt, die bei vollem Ausgleich so groß wäre wie die ursprüngliche Kraft.', 'Weil die Massenkraft 1. Ordnung nur in jeder zweiten Umdrehung wirkt.', 'Weil die Gaskraft die andere Hälfte ausgleicht.'],
-              correct: 1,
-              why: 'Das Gegengewicht läuft im Kreis, die Kolbenkraft wirkt nur in Zylinderachse. Senkrecht hilft es, waagerecht stört es. Bei 100 % Ausgleich würde die Schwingung nur von senkrecht nach waagerecht verlegt. 50 % verteilt sie auf zwei halb so große Anteile.',
-            },
-            {
-              q: 'Ein Hersteller will bei einem Einzylinder auch die Massenkraft 2. Ordnung beseitigen. Was braucht er?',
-              a: ['Ein größeres Schwungrad.', 'Ein zusätzliches Gegengewicht direkt an der Kurbelwelle.', 'Eine einzelne Ausgleichswelle mit Kurbelwellendrehzahl.', 'Zwei gegenläufige Ausgleichswellen, die mit doppelter Kurbelwellendrehzahl laufen.'],
-              correct: 3,
-              why: 'Die 2. Ordnung schwingt zweimal pro Umdrehung. Eine Ausgleichsmasse muss deshalb mit 2n umlaufen. Damit sich die waagerechten Anteile aufheben, braucht man zwei gegenläufige Wellen. Ein Schwungrad glättet nur die Drehzahl, nicht die Massenkräfte.',
-            },
-          ]),
-          depthPoints: 9,
-        },
-      ],
-    },
-
-    // ── 5 · Massenausgleich am Mehrzylinder ──────────────────────────────────
-    {
-      id: 'UNIT:MK:AUSGLEICH-MEHRZYLINDER',
-      title: 'Kurbelstern, Kräfteplan, Momentenplan',
-      entryQuestion: 'Ein Vierzylinder-Reihenmotor gilt als gut ausgeglichen. Warum bekommt er trotzdem oft zwei Ausgleichswellen?',
-      takeaway: 'Bei der 2. Ordnung zählt der doppelte Winkel – dann zeigen OT- und UT-Zylinder in dieselbe Richtung.',
-      gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:MK:PROZESSE' },
-      sections: [
-        {
-          id: 'OBS:MK:VIERZYLINDER',
-          kind: 'observation',
-          title: 'Ruhig, aber nicht ganz',
-          summary:
-            'Ein Vierzylinder-Reihenmotor läuft deutlich ruhiger als ein Ein- oder Zweizylinder. Bei hohen Drehzahlen spürt man trotzdem ein feines Brummen mit doppelter Drehfrequenz. Viele größere Vierzylinder tragen deshalb unten im Ölsumpf zwei kleine Wellen mit Unwuchten, die doppelt so schnell drehen wie die Kurbelwelle.',
-          depthPoints: 5,
-        },
-        {
-          id: 'EXPL:MK:KURBELSTERN',
-          kind: 'explanation',
-          title: 'Zündabstand und Kurbelstern',
-          summary:
-            'Gleichmäßiger Zündabstand: Viertakt 720°/z, Zweitakt 360°/z. Beim Viertakt-R4 also 180°: Zylinder 1 und 4 stehen gemeinsam im OT, 2 und 3 im UT, Zündfolge 1-3-4-2. Beim R3 Viertakt 240°, beim R4 Zweitakt 90°, beim R2 Viertakt 360° – dann stehen beide Kröpfungen gleich. Der Kurbelstern ist die Kurbelwelle von vorn gesehen: jeder Kurbelarm als Strich mit Zylindernummer, Zylinder 1 meist oben im OT.',
-          depthPoints: 8,
-        },
-        {
-          id: 'EXPL:MK:KRAEFTEPLAN',
-          kind: 'explanation',
-          title: 'Resultierende grafisch bestimmen',
-          summary:
-            'Lageplan: In Richtung jedes Kurbelarms einen Pfeil der Länge F_r bzw. F_I,max zeichnen. Kräfteplan: die Pfeile aneinanderhängen. Schließt sich der Zug, ist die Resultierende null. Bei 1. und 2. Ordnung wird die Resultierende der Maximalwerte noch auf die Zylinderachse projiziert. Für die 2. Ordnung trägt man jeden Kurbelwinkel verdoppelt ein: 180° wird zu 360°, also zeigt ein UT-Zylinder wie ein OT-Zylinder nach oben. Sind rotierende Kräfte ausgeglichen, sind es die Kräfte 1. Ordnung auch, denn beide Pläne unterscheiden sich nur in der Pfeillänge.',
-          depthPoints: 9,
-        },
-        {
-          id: 'EXPL:MK:MOMENTE',
-          kind: 'explanation',
-          title: 'Massenmomente',
-          summary:
-            'Die Kräfte greifen an verschiedenen Stellen längs der Kurbelwelle an. Bezogen auf die Motormitte erzeugt jede ein Moment M = F · a, wobei a der Abstand des Zylinders von der Mitte ist; äußere Zylinder haben die größeren Hebel. Im Momentenplan zeigen die Pfeile von Zylindern links der Mitte nach außen, rechts der Mitte nach innen. Die wahre Lage des resultierenden Moments erhält man, indem man die Resultierende um 90° im Uhrzeigersinn dreht. Ergebnisse, die man kennen sollte: R2 Viertakt (beide im OT) – Kräfte aller Sorten doppelt, Momente null. R3 – alle Kräfte null, freie Momente 1. und 2. Ordnung, deshalb eine Ausgleichswelle mit Kurbelwellendrehzahl. R4 Viertakt – Kräfte rotierend und 1. Ordnung null, freie Kraft 2. Ordnung 4 · F_II,max, Momente null. Boxer-4 – Kräfte und Momente 1. Ordnung heben sich paarweise auf. R6 – vollständig ausgeglichen.',
-          depthPoints: 10,
-        },
-        exercise(
-          'EXERCISE:MK:R4',
-          'Freie Kraft und Momente am Vierzylinder',
-          'Viertakt-R4, je Zylinder m_os = 0,4 kg, r = 45 mm, λ = 0,28, n = 5400 min⁻¹, gleichmäßiger Zylinderabstand a = 90 mm. Bestimme F_I,max und F_II,max eines Zylinders, die resultierenden Kräfte 1. und 2. Ordnung sowie das Moment 2. Ordnung eines äußeren und eines inneren Zylinders und das resultierende Moment.',
-          'ω = 2π · 90 = 565,5 s⁻¹. F_I,max = 0,4 · 0,045 · 565,5² ≈ 5,76 kN, F_II,max = 0,28 · 5,76 ≈ 1,61 kN. 1. Ordnung: 1 und 4 nach oben, 2 und 3 nach unten → Resultierende null. 2. Ordnung mit doppeltem Winkel: alle vier nach oben → 4 · 1,61 ≈ 6,45 kN. Hebel außen 1,5 · a = 135 mm: M = 1,61 kN · 0,135 m ≈ 218 Nm; innen 0,5 · a = 45 mm: ≈ 73 Nm. Zylinder 1 und 4 bzw. 2 und 3 haben gleiche Kräfte, aber entgegengesetzte Hebel → resultierendes Moment null. Abhilfe für die freie Kraft: zwei gegenläufige Ausgleichswellen mit 2n.',
-        ),
-        {
-          id: 'QUIZ:MK:AUSGLEICH-MEHRZYLINDER',
-          kind: 'quiz',
-          title: QUIZ_TITLE,
-          summary: quiz([
-            {
-              q: 'Welcher Zündabstand ergibt sich bei einem Viertakt-Sechszylinder mit gleichmäßiger Zündfolge?',
-              a: ['60°', '180°', '120°', '360°'],
-              correct: 2,
-              why: 'Ein Viertakter braucht für ein Arbeitsspiel zwei Umdrehungen, also 720°. Verteilt auf sechs Zylinder: 720°/6 = 120°.',
-            },
-            {
-              q: 'Warum hat der Viertakt-R4 eine freie Kraft 2. Ordnung, aber kein freies Moment 2. Ordnung?',
-              a: ['Weil die Kräfte 2. Ordnung zu klein sind, um ein Moment zu erzeugen.', 'Weil alle vier Kräfte 2. Ordnung gleichgerichtet sind, ihre Hebel zur Motormitte aber paarweise entgegengesetzt.', 'Weil das Schwungrad das Moment aufnimmt.', 'Weil die Zylinder 2 und 3 keine Kraft 2. Ordnung haben.'],
-              correct: 1,
-              why: 'Mit doppeltem Winkel zeigen OT- und UT-Zylinder gleich: Summe 4 · F_II. Zylinder 1 und 4 sitzen aber bei ±1,5a, 2 und 3 bei ±0,5a. Gleiche Kraft mal entgegengesetzter Hebel ergibt Momente, die sich aufheben.',
-            },
-            {
-              q: 'Ein Dreizylinder-Reihenmotor hat ausgeglichene Massenkräfte. Wozu bekommt er trotzdem eine Ausgleichswelle mit Kurbelwellendrehzahl?',
-              a: ['Um das freie Massenmoment 1. Ordnung auszugleichen, das den Motor um seine Querachse taumeln lässt.', 'Um die freie Kraft 2. Ordnung auszugleichen.', 'Um die Ölpumpe anzutreiben, mehr nicht.', 'Um die Drehungleichförmigkeit zu glätten.'],
-              correct: 0,
-              why: 'Beim R3 schließen sich die Kräftepläne, weil die Kurbeln um 120° versetzt sind. Die Zylinder liegen aber hintereinander auf unterschiedlichen Hebeln, die Momente heben sich nicht auf. Gegen das Moment 1. Ordnung hilft eine Welle mit versetzten Ausgleichsmassen, die gegenläufig mit Kurbelwellendrehzahl dreht.',
-            },
-          ]),
-          depthPoints: 9,
-        },
-      ],
-    },
-
-    // ── 6 · Arbeitsverfahren und Vergleichsprozesse ──────────────────────────
+    // ── 2 · Arbeitsverfahren und Vergleichsprozesse ──────────────────────────
     {
       id: 'UNIT:MK:PROZESSE',
       title: 'Takte und Vergleichsprozesse',
@@ -549,13 +241,13 @@ export const machineFundamentalsLearningPath: LearningPath = {
       ],
     },
 
-    // ── 7 · Leistung und Wirkungsgrade ───────────────────────────────────────
+    // ── 3 · Leistung und Wirkungsgrade ───────────────────────────────────────
     {
       id: 'UNIT:MK:LEISTUNG',
       title: 'Leistung, Mitteldruck und die Wirkungsgradkette',
       entryQuestion: 'Von 100 Litern Benzin im Tank bewegen nur etwa 30 Liter das Auto. Wo bleibt der Rest?',
       takeaway: 'Der Motor verliert Leistung in Stufen: η_e = η_th · η_g · η_m. Wer die Kette kennt, kann jede Größe vorwärts und rückwärts rechnen.',
-      gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:MK:DREHKRAFT' },
+      gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:MK:AUFLADUNG' },
       sections: [
         {
           id: 'OBS:MK:PRUEFSTAND',
@@ -589,25 +281,11 @@ export const machineFundamentalsLearningPath: LearningPath = {
             'Nennleistung: hohes Moment bei hoher Drehzahl, maximale Leistung. Bester Wirkungsgrad: hohes Moment bei niedriger bis mittlerer Drehzahl, mittlere Leistung. Langsame Fahrt in der Spielstraße: sehr geringes Moment nahe Leerlaufdrehzahl, sehr geringe Leistung und schlechter Wirkungsgrad. Bei konstanter Geschwindigkeit ist die Fahrleistung fest; im höheren Gang sinkt die Drehzahl und steigt das Moment, der Betriebspunkt rückt näher an den Bestpunkt und b_e sinkt. Die effektive Leistung steigt mit Drehzahl, Last, Hubraum, Verdichtung, Aufladung, Ladeluftkühlung und besseren Teilwirkungsgraden.',
           depthPoints: 8,
         },
-        {
-          id: 'EXPL:MK:AUFLADUNG',
-          kind: 'explanation',
-          title: 'Aufladung und Ladeluftkühler',
-          summary:
-            'Aufladung erhöht die Luftmasse pro Hub. Mehr Luft erlaubt mehr Kraftstoff, die Arbeit pro Arbeitsspiel und damit p_e steigt – bei gleichem Hubraum. Der Verdichter heizt die Luft aber auf: T₂ = T₁ · (p₂/p₁)^((κ−1)/κ). Weil die Dichte ρ = p/(R · T) ist, wächst sie weniger stark als der Druck. Der Ladeluftkühler senkt die Temperatur, hebt die Dichte und verringert zugleich Klopfneigung und Bauteiltemperaturen. Grenzen starker Aufladung: Spitzendruck und mechanische Belastung, Klopfgrenze, Abgas- und Bauteiltemperaturen, Verdichterarbeit und Abgasgegendruck, Ansprechverhalten (Turboloch), Emissionen.',
-          depthPoints: 9,
-        },
         exercise(
           'EXERCISE:MK:LEISTUNG',
           'Vom Mitteldruck zum Verbrauch',
           'Ein Viertakt-Vierzylinder mit 1,6 L Hubraum erreicht bei 4200 min⁻¹ einen effektiven Mitteldruck von 9 bar, der spezifische Verbrauch beträgt 240 g/kWh, η_m = 0,82. Berechne P_e, das Drehmoment, p_i, den Kraftstoffmassenstrom und η_e.',
           'n = 70 s⁻¹. P_e = 9 · 10⁵ Pa · 1,6 · 10⁻³ m³ · 70 s⁻¹ · 0,5 = 50,4 kW (V_h · z = V_H). M = P_e/(2π · n) = 50 400/(2π · 70) ≈ 115 Nm. p_i = p_e/η_m = 9/0,82 ≈ 11,0 bar. ṁ_B = 0,24 kg/kWh · 50,4 kW ≈ 12,1 kg/h = 3,36 g/s. η_e = 50,4 kW / (3,36 · 10⁻³ kg/s · 42 000 kJ/kg) ≈ 0,36.',
-        ),
-        exercise(
-          'EXERCISE:MK:LADELUFT',
-          'Was bringt der Ladeluftkühler?',
-          'Der Ladedruck wird absolut von 1,0 auf 1,8 bar erhöht, T₁ = 293 K, Verdichtung isentrop mit κ = 1,4. Um welchen Faktor steigt die Luftdichte ohne Ladeluftkühler, und um welchen Faktor, wenn ein Kühler die Ladeluft auf 318 K zurückkühlt?',
-          'T₂ = 293 K · 1,8^0,286 ≈ 347 K. Ohne Kühler: ρ₂/ρ₁ = 1,8 · 293/347 ≈ 1,52. Mit Kühler auf 318 K: 1,8 · 293/318 ≈ 1,66. Mit idealem Kühler auf 293 K wäre es 1,8. Wer die Erwärmung im Verdichter vergisst, rechnet fälschlich mit dem vollen Druckverhältnis.',
         ),
         {
           id: 'QUIZ:MK:LEISTUNG',
@@ -638,7 +316,400 @@ export const machineFundamentalsLearningPath: LearningPath = {
       ],
     },
 
-    // ── 8 · Drehkraft und Schwungrad ─────────────────────────────────────────
+    // ── 4 · Aufladung ────────────────────────────────────────────────────────
+    {
+      id: 'UNIT:MK:AUFLADUNG',
+      title: 'Mehr Leistung ohne mehr Hubraum: Aufladung',
+      entryQuestion: 'Warum leistet ein 1,4-Liter-Turbomotor so viel wie ein 2-Liter-Saugmotor?',
+      takeaway: 'Leistung kommt aus Luftmasse, nicht aus Hubraum. Druck allein reicht nicht – die Luft muss auch kalt sein.',
+      sections: [
+        {
+          id: 'OBS:MK:LADELUFTKUEHLER',
+          kind: 'observation',
+          title: 'Ein Kühler, der kein Wasser kühlt',
+          summary:
+            'Hinter dem Frontgrill vieler Turbomotoren sitzt ein zweiter Kühler, durch den kein Kühlwasser fließt, sondern Luft. Er liegt zwischen Turbolader und Ansaugkrümmer. Fasst man nach einer Vollgasfahrt das Rohr vor ihm an, ist es heiß, das Rohr dahinter nur noch warm.',
+          depthPoints: 5,
+        },
+        {
+          id: 'EXPL:MK:AUFLADUNG',
+          kind: 'explanation',
+          title: 'Aufladung und Ladeluftkühler',
+          summary:
+            'Aufladung erhöht die Luftmasse pro Hub. Mehr Luft erlaubt mehr Kraftstoff, die Arbeit pro Arbeitsspiel und damit p_e steigt – bei gleichem Hubraum. Der Verdichter heizt die Luft aber auf: T₂ = T₁ · (p₂/p₁)^((κ−1)/κ). Weil die Dichte ρ = p/(R · T) ist, wächst sie weniger stark als der Druck. Der Ladeluftkühler senkt die Temperatur, hebt die Dichte und verringert zugleich Klopfneigung und Bauteiltemperaturen. Grenzen starker Aufladung: Spitzendruck und mechanische Belastung, Klopfgrenze, Abgas- und Bauteiltemperaturen, Verdichterarbeit und Abgasgegendruck, Ansprechverhalten (Turboloch), Emissionen.',
+          depthPoints: 9,
+        },
+        exercise(
+          'EXERCISE:MK:LADELUFT',
+          'Was bringt der Ladeluftkühler?',
+          'Der Ladedruck wird absolut von 1,0 auf 1,8 bar erhöht, T₁ = 293 K, Verdichtung isentrop mit κ = 1,4. Um welchen Faktor steigt die Luftdichte ohne Ladeluftkühler, und um welchen Faktor, wenn ein Kühler die Ladeluft auf 318 K zurückkühlt?',
+          'T₂ = 293 K · 1,8^0,286 ≈ 347 K. Ohne Kühler: ρ₂/ρ₁ = 1,8 · 293/347 ≈ 1,52. Mit Kühler auf 318 K: 1,8 · 293/318 ≈ 1,66. Mit idealem Kühler auf 293 K wäre es 1,8. Wer die Erwärmung im Verdichter vergisst, rechnet fälschlich mit dem vollen Druckverhältnis.',
+        ),
+        {
+          id: 'QUIZ:MK:AUFLADUNG',
+          kind: 'quiz',
+          title: QUIZ_TITLE,
+          summary: quiz([
+            {
+              q: 'Ein Saugmotor hat p_e = 10 bar. Durch Aufladung steigt die Luftmasse pro Hub um 40 %, Wirkungsgrade und Luftverhältnis bleiben gleich. Welcher effektive Mitteldruck ist zu erwarten?',
+              a: ['etwa 10 bar, der Hubraum ist ja gleich', 'etwa 14 bar', 'etwa 20 bar', 'etwa 11,4 bar'],
+              correct: 1,
+              why: 'Bei gleichem λ wird mit 40 % mehr Luft auch 40 % mehr Kraftstoff verbrannt. Bei gleichen Wirkungsgraden wächst die Arbeit pro Arbeitsspiel und damit p_e im selben Verhältnis: 10 bar · 1,4 = 14 bar.',
+            },
+            {
+              q: 'Warum steigt die Luftdichte nach dem Verdichter weniger stark als der Ladedruck?',
+              a: ['Weil ein Teil der Luft am Verdichter vorbeiströmt.', 'Weil Luft bei hohem Druck zu Flüssigkeit kondensiert.', 'Weil die Verdichtung die Luft erwärmt und die Dichte mit p/T geht.', 'Weil der Liefergrad bei Aufladung unter 0,5 fällt.'],
+              correct: 2,
+              why: 'ρ = p/(R · T). Bei der Verdichtung steigt nicht nur p, sondern auch T, nach T₂ = T₁ · (p₂/p₁)^((κ−1)/κ). Der Temperaturanstieg frisst einen Teil des Dichtegewinns, genau den holt der Ladeluftkühler zurück.',
+            },
+            {
+              q: 'Ein Tuner erhöht beim Ottomotor den Ladedruck stark, ohne sonst etwas zu ändern. Welches Problem tritt am wahrscheinlichsten zuerst auf?',
+              a: ['Klopfen, weil Druck und Temperatur der Ladung am Verdichtungsende steigen.', 'Der Motor geht aus, weil zu viel Luft da ist.', 'Die Drehzahl sinkt, weil der Mitteldruck fällt.', 'Der Liefergrad fällt unter 1.'],
+              correct: 0,
+              why: 'Mehr Ladedruck heißt höherer Druck und höhere Temperatur am Ende der Verdichtung. Beim Ottomotor kann sich das Gemisch dann selbst entzünden, bevor die Flammenfront es erreicht. Gegenmittel: Ladeluftkühlung, späterer Zündzeitpunkt, geringere Verdichtung.',
+            },
+          ]),
+          depthPoints: 9,
+        },
+      ],
+    },
+  ],
+};
+
+export const crankTrainLearningPath: LearningPath = {
+  id: 'PATH:SSF:ENG-KURBELTRIEB-0001',
+  title: 'Wie wird aus Kolbenkraft ein ruhig laufender Motor?',
+  subtitle:
+    'Maschinenkunde, Teil 2: Kolbenbewegung, Kräfte im Kurbeltrieb, Drehmoment, Massenkräfte und Massenausgleich, Kurbelstern, Drehkraftverlauf und Schwungrad.',
+  status: 'prototype',
+  sourceModuleId: 'SSF-ENG-KURBELTRIEB-0001',
+  kxfModuleId: 'LRN:SSF:ENG-KURBELTRIEB-0001',
+  domainsNeeded: ['KD:ENG:N1', 'KD:PHYS-MECH:N1', 'KD:ENG-MECH:N2'],
+  suppliedBy: {
+    knowledgeGraph: [
+      'KD:ENG:N1',
+      'KD:PHYS-MECH:N1',
+      'KD:ENG-MECH:N2',
+      'CON:L1:kraft',
+      'CON:L1:drehmoment',
+      'CON:L1:lagerreaktion',
+      'Kandidat CON:L1:kurbeltrieb',
+      'Kandidat CON:L1:pleuelverhaeltnis',
+      'Kandidat CON:L1:kolbenkinematik',
+      'Kandidat CON:L1:oszillierende-massenkraft',
+      'Kandidat CON:L1:rotierende-massenkraft',
+      'Kandidat CON:L1:pleuelstangenkraft-tangentialkraft',
+      'Kandidat CON:L1:massenausgleich',
+      'Kandidat CON:L1:kurbelstern',
+      'Kandidat CON:L1:freies-massenmoment',
+      'Kandidat CON:L1:drehkraftdiagramm',
+      'Kandidat CON:L1:ungleichfoermigkeitsgrad',
+    ],
+    kueperCom: [],
+    overtimeArchive: [],
+    ssf: [...SSF_SUPPLIED, 'Ergebnistabelle Massenausgleich für R2, R3, R4, Boxer, R6'],
+  },
+  unlocks: [],
+  units: [
+    // ── 1 · Kinematik des Kurbeltriebs ───────────────────────────────────────
+    {
+      id: 'UNIT:MK:KINEMATIK',
+      title: 'Der Kurbeltrieb: Wie sich der Kolben bewegt',
+      entryQuestion: 'Die Kurbelwelle dreht ganz gleichmäßig. Warum bewegt sich der Kolben trotzdem ruckartig?',
+      takeaway: 'Gleichmäßige Drehung wird zu ungleichmäßigem Hub: Der Kolben wird ständig beschleunigt und gebremst – am stärksten im oberen Totpunkt.',
+      gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:MK:KRAEFTE' },
+      sections: [
+        {
+          id: 'OBS:MK:TOTPUNKTE',
+          kind: 'observation',
+          title: 'Zweimal Stillstand pro Umdrehung',
+          summary:
+            'Im oberen Totpunkt (OT) und im unteren Totpunkt (UT) steht der Kolben für einen Moment still und kehrt um. Dazwischen erreicht er hohe Geschwindigkeiten. Bei 6000 min⁻¹ passiert dieses Anhalten und Umkehren 200-mal pro Sekunde.',
+          depthPoints: 5,
+        },
+        {
+          id: 'EXPL:MK:GEOMETRIE',
+          kind: 'explanation',
+          title: 'Kurbelradius, Pleuellänge, Pleuelverhältnis',
+          summary:
+            'Der Kurbelradius r ist der Abstand Kurbelwellenmitte – Kurbelzapfen, der Hub ist H = 2r. Die Pleuellänge l verbindet Kurbelzapfen und Kolbenbolzen. Ihr Verhältnis λ = r/l liegt bei Pkw-Motoren um 0,25–0,33. Der Kurbelwinkel α wird ab OT gezählt, der Kolbenweg s ebenfalls ab OT. Das Pleuel steht um den Winkel β schräg, mit sin β = λ · sin α. Angaben wie „30° vor Ende des Ausschiebetakts“ übersetzt man zuerst in α ab OT, hier α = 330°.',
+          depthPoints: 8,
+        },
+        {
+          id: 'EXPL:MK:KOLBENWEG',
+          kind: 'explanation',
+          title: 'Kolbenweg, Geschwindigkeit, Beschleunigung',
+          summary:
+            'Exakt setzt sich der Kolbenweg aus zwei Anteilen zusammen: s = r(1 − cos α) + l(1 − cos β). Der erste stammt aus der Kurbel, der zweite aus der Schrägstellung des Pleuels. Die übliche Näherung lautet s = r · (1 − cos α + λ/2 · sin²α), daraus folgen v = r·ω · (sin α + λ/2 · sin 2α) und a = r·ω² · (cos α + λ · cos 2α). Der Term mit cos α schwingt einmal pro Umdrehung (1. Ordnung), der Term mit λ · cos 2α zweimal (2. Ordnung). Im OT ist a = rω²(1 + λ) am größten, im UT ist |a| = rω²(1 − λ) kleiner. Bei α = 90° ist der Kolben wegen des Pleuelanteils schon über der Hubmitte. Die mittlere Kolbengeschwindigkeit ist v_m = 2 · H · n (n in 1/s); bei Pkw-Motoren liegt sie etwa bei 10–20 m/s.',
+          depthPoints: 10,
+        },
+        exercise(
+          'EXERCISE:MK:KOLBENWEG',
+          'Wo steht der Kolben bei 90°?',
+          'Ein Motor hat r = 40 mm, l = 160 mm und dreht mit n = 4800 min⁻¹. Berechne λ, ω, den Kolbenweg bei α = 90° (Näherung und Pleuelanteil exakt), die Kolbenbeschleunigung in OT und bei 90° sowie v_m.',
+          'λ = 40/160 = 0,25, n = 80 s⁻¹, ω = 2π · 80 = 502,7 s⁻¹. Bei 90°: s = 40 · (1 − 0 + 0,125 · 1) = 45 mm, also 5 mm unter der Hubmitte von 40 mm. Exakt: β = arcsin 0,25 = 14,5°, Pleuelanteil l(1 − cos β) = 5,1 mm. a_OT = 0,04 · 502,7² · 1,25 ≈ 12 630 m/s², a(90°) = 0,04 · 502,7² · (0 − 0,25) ≈ −2 530 m/s². Bei 90° ist der Anteil 1. Ordnung null, übrig bleibt nur die 2. Ordnung. v_m = 2 · 0,08 m · 80 s⁻¹ = 12,8 m/s.',
+        ),
+        {
+          id: 'QUIZ:MK:KINEMATIK',
+          kind: 'quiz',
+          title: QUIZ_TITLE,
+          summary: quiz([
+            {
+              q: 'Ein Motor hat 90 mm Hub und dreht mit 6000 min⁻¹. Wie groß ist die mittlere Kolbengeschwindigkeit?',
+              a: ['9 m/s', '36 m/s', '28,3 m/s', '18 m/s'],
+              correct: 3,
+              why: 'v_m = 2 · H · n = 2 · 0,09 m · 100 s⁻¹ = 18 m/s. Pro Umdrehung legt der Kolben den Hub zweimal zurück, einmal hin und einmal zurück.',
+            },
+            {
+              q: 'Warum ist die Kolbenbeschleunigung im OT größer als im UT?',
+              a: ['Weil im OT der Gasdruck am höchsten ist.', 'Weil sich im OT die Anteile 1. und 2. Ordnung addieren, im UT aber teilweise aufheben.', 'Weil die Kurbelwelle im OT schneller dreht.', 'Weil das Pleuel im OT am stärksten schräg steht.'],
+              correct: 1,
+              why: 'a = rω²(cos α + λ cos 2α). Im OT sind cos α = 1 und cos 2α = 1, also rω²(1 + λ). Im UT ist cos α = −1, cos 2α bleibt +1, also rω²(−1 + λ). Das ist eine reine Geometriefolge des endlich langen Pleuels, der Gasdruck spielt dafür keine Rolle.',
+            },
+            {
+              q: 'Ein Konstrukteur verlängert bei gleichem Hub das Pleuel deutlich. Was ändert sich an der Kolbenbewegung?',
+              a: ['λ wird kleiner, die Bewegung wird sinusförmiger und der Anteil 2. Ordnung schrumpft.', 'Der Hub wird größer.', 'λ wird größer und die Beschleunigung im OT steigt.', 'Nichts, die Kinematik hängt nur vom Kurbelradius ab.'],
+              correct: 0,
+              why: 'Mit längerem l sinkt λ = r/l. Je kleiner λ, desto näher kommt die Bewegung einer reinen Sinusbewegung und desto kleiner sind Anteil 2. Ordnung und Pleuelwinkel. Der Hub bleibt 2r. Der Preis ist mehr Bauhöhe und Masse.',
+            },
+          ]),
+          depthPoints: 9,
+        },
+      ],
+    },
+
+    // ── 2 · Kräfte im Kurbeltrieb ────────────────────────────────────────────
+    {
+      id: 'UNIT:MK:KRAEFTE',
+      title: 'Vom Gasdruck zum Drehmoment',
+      entryQuestion: 'Im oberen Totpunkt ist der Druck im Zylinder am höchsten. Warum liefert der Motor genau dort kein Drehmoment?',
+      takeaway: 'Die Kolbenkraft wird erst über die Schrägstellung von Pleuel und Kurbel zu Drehmoment – in OT und UT fehlt der Hebel.',
+      gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:MK:AUSGLEICH-EINZYLINDER' },
+      sections: [
+        {
+          id: 'OBS:MK:PLEUELBRUCH',
+          kind: 'observation',
+          title: 'Ein Pleuel reißt beim Ausschieben, nicht beim Zünden',
+          summary:
+            'Motorschäden bei Überdrehzahl zeigen oft gerissene Pleuel oder Pleuelschrauben – und zwar im Ladungswechsel-OT, wo fast kein Gasdruck herrscht. Im Zünd-OT drücken dagegen viele Tonnen Gaskraft auf den Kolben. Die Erklärung liegt in der Trägheit der Teile, die bei jeder Umdrehung zweimal angehalten werden.',
+          depthPoints: 5,
+        },
+        {
+          id: 'EXPL:MK:MASSEN',
+          kind: 'explanation',
+          title: 'Massen sortieren: Was schwingt, was dreht',
+          summary:
+            'Das Pleuel bewegt sich kompliziert: oben hin und her, unten im Kreis. Man ersetzt es durch zwei Punktmassen mit gleicher Gesamtmasse und gleichem Schwerpunkt. m_Pl2 sitzt am Kolbenbolzen und schwingt mit, m_Pl1 sitzt am Kurbelzapfen und dreht mit. Ist a der Abstand des Pleuelschwerpunkts vom großen Pleuelauge, gilt m_Pl2 = m_Pl · a/l und m_Pl1 = m_Pl − m_Pl2; grob schwingt etwa ein Drittel. Oszillierende Masse m_os = Kolben samt Ringen und Bolzen + m_Pl2. Rotierende Masse m_r = Kurbelzapfen + Kurbelwangen (auf den Radius r umgerechnet) + m_Pl1.',
+          depthPoints: 9,
+        },
+        {
+          id: 'EXPL:MK:KRAFTKETTE',
+          kind: 'explanation',
+          title: 'Die Kraftkette in sechs Schritten',
+          summary:
+            '1. Gaskraft F_G = p_ü · A_K mit dem Überdruck im Zylinder und A_K = π d²/4. 2. Oszillierende Massenkraft F_os = m_os · r·ω² · (cos α + λ cos 2α). 3. Kolbenkraft F = F_G − F_os (positiv = Richtung Kurbelwelle). 4. Am Kolbenbolzen zerlegt: Pleuelstangenkraft S = F / cos β und Normalkraft auf die Zylinderwand N = F · tan β. 5. Am Kurbelzapfen zerlegt: Tangentialkraft T = S · sin(α + β) und Radialkraft R = S · cos(α + β). 6. Drehmoment M_d = T · r. Die Rotationsfliehkraft F_r = m_r · r · ω² wirkt zusätzlich am Zapfen und in den Lagern.',
+          depthPoints: 10,
+        },
+        {
+          id: 'EXPL:MK:RICHTUNGEN',
+          kind: 'explanation',
+          title: 'Zug oder Druck im Pleuel?',
+          summary:
+            'Die Gaskraft drückt den Kolben immer Richtung Kurbelwelle, das Pleuel wird auf Druck belastet; nur beim Ansaugen zieht ein leichter Unterdruck den Kolben nach oben. Die Massenkraft wirkt immer gegen die Beschleunigung. In OT-Nähe wird der Kolben abgebremst und umgekehrt, seine Trägheit will weiter nach oben – das Pleuel wird auf Zug belastet. In UT-Nähe will der Kolben weiter nach unten – Druck im Pleuel. Kurz nach dem Zünd-OT wirkt die Massenkraft deshalb gegen die Gaskraft und entlastet das Triebwerk. Bei hoher Last und niedriger Drehzahl dominiert die Gaskraft, bei hoher Drehzahl die Massenkraft, denn sie wächst mit n².',
+          depthPoints: 9,
+        },
+        exercise(
+          'EXERCISE:MK:KRAFTKETTE',
+          'Drehmoment bei 45° nach Zünd-OT',
+          'Motor aus der vorigen Aufgabe (r = 40 mm, l = 160 mm, n = 4800 min⁻¹, ω = 502,7 s⁻¹). Kolbendurchmesser 80 mm, oszillierende Masse 0,6 kg, Gasüberdruck bei α = 45° p_ü = 30 bar. Berechne F_os, F_G, F, β, S, N, T und M_d.',
+          'a = 0,04 · 502,7² · (cos 45° + 0,25 · cos 90°) = 10 108 · 0,707 ≈ 7 146 m/s², F_os = 0,6 · 7 146 ≈ 4,29 kN. A_K = π · 0,08²/4 = 5,03 · 10⁻³ m², F_G = 3 · 10⁶ Pa · 5,03 · 10⁻³ m² ≈ 15,08 kN. F = 15,08 − 4,29 = 10,79 kN (positiv: der Kolben treibt an). sin β = 0,25 · 0,707 → β = 10,2°. S = 10,79/cos 10,2° ≈ 10,96 kN, N = 10,79 · tan 10,2° ≈ 1,94 kN. T = 10,96 · sin 55,2° ≈ 9,00 kN, M_d = 9,00 kN · 0,04 m = 360 Nm.',
+        ),
+        exercise(
+          'EXERCISE:MK:FLAECHENPRESSUNG',
+          'Belastung des Kurbelzapfenlagers im Ladungswechsel-OT',
+          'Derselbe Motor steht im OT am Ende des Ausschiebetakts, die Gaskraft ist vernachlässigbar. m_os = 0,6 kg, rotierender Pleuelanteil m_Pl1 = 0,4 kg, Zapfendurchmesser 45 mm, tragende Lagerbreite 20 mm. Wie groß ist die Flächenpressung im Pleuellager?',
+          'Ohne Gaskraft bleibt nur die Massenkraft: F_os = 0,6 · 0,04 · 502,7² · 1,25 ≈ 7,58 kN nach oben, das Pleuel wird auf Zug belastet, S = 7,58 kN (in OT ist β = 0). Die Fliehkraft des unteren Pleuelanteils zeigt im OT ebenfalls nach oben: F_rPl1 = 0,4 · 0,04 · 502,7² ≈ 4,04 kN. Beide addieren sich: 11,62 kN. Projizierte Fläche 45 · 20 = 900 mm², p ≈ 12,9 N/mm². Im Zünd-OT dagegen zeigt S nach unten und die Fliehkraft zieht davon ab. Deshalb immer zuerst die Richtungen skizzieren.',
+        ),
+        {
+          id: 'QUIZ:MK:KRAEFTE',
+          kind: 'quiz',
+          title: QUIZ_TITLE,
+          summary: quiz([
+            {
+              q: 'In OT beträgt die Kolbenkraft F = 18 kN. Wie groß sind Pleuelstangenkraft S und Drehmoment M_d?',
+              a: ['S = 18 kN, M_d = 0 Nm', 'S = 0 kN, M_d = 18 kN · r', 'S = 18 kN · tan β, M_d = S · r', 'S = 18 kN, M_d = 18 kN · r'],
+              correct: 0,
+              why: 'In OT ist β = 0, also S = F/cos 0 = F. Die Pleuelkraft zeigt genau durch die Kurbelwellenmitte, deshalb ist T = S · sin(0 + 0) = 0 und auch das Drehmoment. Die ganze Kraft geht als Radialkraft in die Lager.',
+            },
+            {
+              q: 'Warum wird das Pleuel kurz vor dem OT des Ausschiebetakts auf Zug belastet?',
+              a: ['Weil das Abgas den Kolben nach oben drückt.', 'Weil der Kolben dort abgebremst werden muss und seine Trägheit ihn weiter nach oben ziehen will.', 'Weil die Kurbelwelle dort langsamer dreht.', 'Weil der Unterdruck des Ansaugens schon wirkt.'],
+              correct: 1,
+              why: 'Die Gaskraft ist beim Ausschieben klein. Der Kolben läuft nach oben und muss bis zum OT auf null abgebremst werden. Die nötige Bremskraft liefert das Pleuel, indem es am Kolben zieht. Die Massenkraft zeigt nach oben – Zug im Pleuel.',
+            },
+            {
+              q: 'Ein Motor läuft statt mit 3000 nun mit 6000 min⁻¹, Last und Gasdruck bleiben ungefähr gleich. Was passiert mit dem Verhältnis von Massenkraft zu Gaskraft?',
+              a: ['Es bleibt gleich, weil beide mit der Drehzahl steigen.', 'Es halbiert sich, weil der Kolben weniger Zeit hat.', 'Die Massenkraft vervierfacht sich, die Gaskraft bleibt etwa gleich – die Massenkraft gewinnt an Gewicht.', 'Die Massenkraft verdoppelt sich, die Gaskraft halbiert sich.'],
+              correct: 2,
+              why: 'F_os ∼ ω² ∼ n². Doppelte Drehzahl bedeutet vierfache Massenkraft. Die Gaskraft hängt am Zylinderdruck, also an der Last. Bei hohen Drehzahlen bestimmen deshalb die Massenkräfte die Belastung von Pleuel und Lagern.',
+            },
+          ]),
+          depthPoints: 9,
+        },
+      ],
+    },
+
+    // ── 3 · Massenausgleich am Einzylinder ───────────────────────────────────
+    {
+      id: 'UNIT:MK:AUSGLEICH-EINZYLINDER',
+      title: 'Warum ein Einzylinder rüttelt – und was dagegen hilft',
+      entryQuestion: 'Ein Rasenmähermotor vibriert spürbar. Kann man das mit einem Gegengewicht an der Kurbelwelle einfach wegnehmen?',
+      takeaway: 'Was rotiert, lässt sich mit einem Gegengewicht ausgleichen. Was hin und her schwingt, braucht zwei gegenläufig drehende Massen.',
+      gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:MK:AUSGLEICH-MEHRZYLINDER' },
+      sections: [
+        {
+          id: 'OBS:MK:WANDERNDER-MOTOR',
+          kind: 'observation',
+          title: 'Ein Motor, der über den Tisch wandert',
+          summary:
+            'Stellt man einen kleinen Einzylinder ohne Befestigung auf eine glatte Werkbank und lässt ihn laufen, hüpft und wandert er. Dreht man ihn höher, wird das Rütteln nicht nur schneller, sondern auch deutlich stärker. Die Ursache sind Kräfte, die nach außen wirken, weil im Motor nichts sie aufhebt.',
+          depthPoints: 5,
+        },
+        {
+          id: 'EXPL:MK:DREI-SORTEN',
+          kind: 'explanation',
+          title: 'Drei Sorten Massenkraft',
+          summary:
+            'Rotierend: F_r = m_r · r · ω², konstanter Betrag, die Richtung dreht mit der Kurbel. Oszillierend 1. Ordnung: F_I = m_os · r · ω² · cos α, wirkt nur in Zylinderachse und schwingt einmal pro Umdrehung; Maximalwert F_I,max = m_os · r · ω². Oszillierend 2. Ordnung: F_II = λ · m_os · r · ω² · cos 2α, ebenfalls in Zylinderachse, aber zweimal pro Umdrehung; F_II,max = λ · F_I,max. Freie Massenkräfte sind periodisch und regen Motorlager und Umgebung zu Schwingungen an. Ein Einzylinder hat Massenkräfte, aber keine Massenmomente.',
+          depthPoints: 9,
+        },
+        {
+          id: 'EXPL:MK:GEGENGEWICHT',
+          kind: 'explanation',
+          title: 'Gegengewichte: voll für das Rotierende, halb für das Oszillierende',
+          summary:
+            'Die rotierende Kraft wird vollständig durch Gegengewichte gegenüber dem Kurbelzapfen ausgeglichen. Gegen die oszillierende Kraft 1. Ordnung hilft ein umlaufendes Gegengewicht nur mit seiner senkrechten Komponente; seine waagerechte Komponente ist eine neue Störkraft, die bei 90° ihr Maximum hat. Man gleicht deshalb meist nur etwa 50 % aus (Ausgleichsanteil φ ≈ 0,5) und tauscht so eine große senkrechte Schwingung gegen zwei halb so große in senkrechter und waagerechter Richtung. Je Wange: m_G = φ · m_os · r / (2 · y), mit y = Schwerpunktabstand des Gegengewichts.',
+          depthPoints: 9,
+        },
+        {
+          id: 'EXPL:MK:AUSGLEICHSWELLEN',
+          kind: 'explanation',
+          title: 'Zwei gegenläufige Wellen',
+          summary:
+            'Zwei Unwuchten, die gegenläufig mit gleicher Drehzahl umlaufen, addieren sich in senkrechter Richtung und heben sich in waagerechter Richtung genau auf. Laufen sie mit Kurbelwellendrehzahl, gleichen sie die 1. Ordnung aus; eine der beiden Wellen darf die Kurbelwelle selbst sein. Für die 2. Ordnung laufen beide mit doppelter Drehzahl (Lanchester-Ausgleich). Die Wellen müssen formschlüssig angetrieben werden (Zahnräder, Kette, Zahnriemen), damit ihre Winkellage zur Kurbel stimmt. Liegen die Wellen auf unterschiedlicher Höhe, entsteht aus den waagerechten Kräften ein Moment um die Kurbelwellenachse.',
+          depthPoints: 9,
+        },
+        exercise(
+          'EXERCISE:MK:EINZYLINDER',
+          'Massenkräfte eines Motorradmotors',
+          'Einzylinder mit m_os = 0,5 kg, r = 35 mm, λ = 0,25, n = 6000 min⁻¹. Berechne F_I,max und F_II,max. Wie schwer muss je Kurbelwange ein Gegengewicht im Schwerpunktabstand y = 50 mm sein, wenn 50 % der Kraft 1. Ordnung ausgeglichen werden sollen?',
+          'ω = 2π · 100 = 628,3 s⁻¹. F_I,max = 0,5 · 0,035 · 628,3² ≈ 6,91 kN, F_II,max = 0,25 · 6,91 ≈ 1,73 kN. m_G = 0,5 · 0,5 kg · 35 mm / (2 · 50 mm) = 0,0875 kg, also rund 88 g je Wange – zusätzlich zu den Gegengewichten für die rotierenden Massen.',
+        ),
+        {
+          id: 'QUIZ:MK:AUSGLEICH-EINZYLINDER',
+          kind: 'quiz',
+          title: QUIZ_TITLE,
+          summary: quiz([
+            {
+              q: 'm_os = 0,8 kg, r = 40 mm, n = 3000 min⁻¹. Wie groß ist die maximale Massenkraft 1. Ordnung?',
+              a: ['ca. 3,16 kN', 'ca. 0,79 kN', 'ca. 100 N', 'ca. 12,6 kN'],
+              correct: 0,
+              why: 'ω = 2π · 50 = 314,2 s⁻¹, F_I,max = 0,8 · 0,04 · 314,2² ≈ 3 160 N. Wer n in min⁻¹ einsetzt oder ω nicht quadriert, liegt um Größenordnungen daneben.',
+            },
+            {
+              q: 'Warum gleicht man die Massenkraft 1. Ordnung mit einem Gegengewicht an der Kurbelwelle meist nur zur Hälfte aus?',
+              a: ['Weil ein volles Gegengewicht die Kurbelwelle bricht.', 'Weil das umlaufende Gegengewicht eine waagerechte Störkraft erzeugt, die bei vollem Ausgleich so groß wäre wie die ursprüngliche Kraft.', 'Weil die Massenkraft 1. Ordnung nur in jeder zweiten Umdrehung wirkt.', 'Weil die Gaskraft die andere Hälfte ausgleicht.'],
+              correct: 1,
+              why: 'Das Gegengewicht läuft im Kreis, die Kolbenkraft wirkt nur in Zylinderachse. Senkrecht hilft es, waagerecht stört es. Bei 100 % Ausgleich würde die Schwingung nur von senkrecht nach waagerecht verlegt. 50 % verteilt sie auf zwei halb so große Anteile.',
+            },
+            {
+              q: 'Ein Hersteller will bei einem Einzylinder auch die Massenkraft 2. Ordnung beseitigen. Was braucht er?',
+              a: ['Ein größeres Schwungrad.', 'Ein zusätzliches Gegengewicht direkt an der Kurbelwelle.', 'Eine einzelne Ausgleichswelle mit Kurbelwellendrehzahl.', 'Zwei gegenläufige Ausgleichswellen, die mit doppelter Kurbelwellendrehzahl laufen.'],
+              correct: 3,
+              why: 'Die 2. Ordnung schwingt zweimal pro Umdrehung. Eine Ausgleichsmasse muss deshalb mit 2n umlaufen. Damit sich die waagerechten Anteile aufheben, braucht man zwei gegenläufige Wellen. Ein Schwungrad glättet nur die Drehzahl, nicht die Massenkräfte.',
+            },
+          ]),
+          depthPoints: 9,
+        },
+      ],
+    },
+
+    // ── 4 · Massenausgleich am Mehrzylinder ──────────────────────────────────
+    {
+      id: 'UNIT:MK:AUSGLEICH-MEHRZYLINDER',
+      title: 'Kurbelstern, Kräfteplan, Momentenplan',
+      entryQuestion: 'Ein Vierzylinder-Reihenmotor gilt als gut ausgeglichen. Warum bekommt er trotzdem oft zwei Ausgleichswellen?',
+      takeaway: 'Bei der 2. Ordnung zählt der doppelte Winkel – dann zeigen OT- und UT-Zylinder in dieselbe Richtung.',
+      gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:MK:DREHKRAFT' },
+      sections: [
+        {
+          id: 'OBS:MK:VIERZYLINDER',
+          kind: 'observation',
+          title: 'Ruhig, aber nicht ganz',
+          summary:
+            'Ein Vierzylinder-Reihenmotor läuft deutlich ruhiger als ein Ein- oder Zweizylinder. Bei hohen Drehzahlen spürt man trotzdem ein feines Brummen mit doppelter Drehfrequenz. Viele größere Vierzylinder tragen deshalb unten im Ölsumpf zwei kleine Wellen mit Unwuchten, die doppelt so schnell drehen wie die Kurbelwelle.',
+          depthPoints: 5,
+        },
+        {
+          id: 'EXPL:MK:KURBELSTERN',
+          kind: 'explanation',
+          title: 'Zündabstand und Kurbelstern',
+          summary:
+            'Gleichmäßiger Zündabstand: Viertakt 720°/z, Zweitakt 360°/z. Beim Viertakt-R4 also 180°: Zylinder 1 und 4 stehen gemeinsam im OT, 2 und 3 im UT, Zündfolge 1-3-4-2. Beim R3 Viertakt 240°, beim R4 Zweitakt 90°, beim R2 Viertakt 360° – dann stehen beide Kröpfungen gleich. Der Kurbelstern ist die Kurbelwelle von vorn gesehen: jeder Kurbelarm als Strich mit Zylindernummer, Zylinder 1 meist oben im OT.',
+          depthPoints: 8,
+        },
+        {
+          id: 'EXPL:MK:KRAEFTEPLAN',
+          kind: 'explanation',
+          title: 'Resultierende grafisch bestimmen',
+          summary:
+            'Lageplan: In Richtung jedes Kurbelarms einen Pfeil der Länge F_r bzw. F_I,max zeichnen. Kräfteplan: die Pfeile aneinanderhängen. Schließt sich der Zug, ist die Resultierende null. Bei 1. und 2. Ordnung wird die Resultierende der Maximalwerte noch auf die Zylinderachse projiziert. Für die 2. Ordnung trägt man jeden Kurbelwinkel verdoppelt ein: 180° wird zu 360°, also zeigt ein UT-Zylinder wie ein OT-Zylinder nach oben. Sind rotierende Kräfte ausgeglichen, sind es die Kräfte 1. Ordnung auch, denn beide Pläne unterscheiden sich nur in der Pfeillänge.',
+          depthPoints: 9,
+        },
+        {
+          id: 'EXPL:MK:MOMENTE',
+          kind: 'explanation',
+          title: 'Massenmomente',
+          summary:
+            'Die Kräfte greifen an verschiedenen Stellen längs der Kurbelwelle an. Bezogen auf die Motormitte erzeugt jede ein Moment M = F · a, wobei a der Abstand des Zylinders von der Mitte ist; äußere Zylinder haben die größeren Hebel. Im Momentenplan zeigen die Pfeile von Zylindern links der Mitte nach außen, rechts der Mitte nach innen. Die wahre Lage des resultierenden Moments erhält man, indem man die Resultierende um 90° im Uhrzeigersinn dreht. Ergebnisse, die man kennen sollte: R2 Viertakt (beide im OT) – Kräfte aller Sorten doppelt, Momente null. R3 – alle Kräfte null, freie Momente 1. und 2. Ordnung, deshalb eine Ausgleichswelle mit Kurbelwellendrehzahl. R4 Viertakt – Kräfte rotierend und 1. Ordnung null, freie Kraft 2. Ordnung 4 · F_II,max, Momente null. Boxer-4 – Kräfte und Momente 1. Ordnung heben sich paarweise auf. R6 – vollständig ausgeglichen.',
+          depthPoints: 10,
+        },
+        exercise(
+          'EXERCISE:MK:R4',
+          'Freie Kraft und Momente am Vierzylinder',
+          'Viertakt-R4, je Zylinder m_os = 0,4 kg, r = 45 mm, λ = 0,28, n = 5400 min⁻¹, gleichmäßiger Zylinderabstand a = 90 mm. Bestimme F_I,max und F_II,max eines Zylinders, die resultierenden Kräfte 1. und 2. Ordnung sowie das Moment 2. Ordnung eines äußeren und eines inneren Zylinders und das resultierende Moment.',
+          'ω = 2π · 90 = 565,5 s⁻¹. F_I,max = 0,4 · 0,045 · 565,5² ≈ 5,76 kN, F_II,max = 0,28 · 5,76 ≈ 1,61 kN. 1. Ordnung: 1 und 4 nach oben, 2 und 3 nach unten → Resultierende null. 2. Ordnung mit doppeltem Winkel: alle vier nach oben → 4 · 1,61 ≈ 6,45 kN. Hebel außen 1,5 · a = 135 mm: M = 1,61 kN · 0,135 m ≈ 218 Nm; innen 0,5 · a = 45 mm: ≈ 73 Nm. Zylinder 1 und 4 bzw. 2 und 3 haben gleiche Kräfte, aber entgegengesetzte Hebel → resultierendes Moment null. Abhilfe für die freie Kraft: zwei gegenläufige Ausgleichswellen mit 2n.',
+        ),
+        {
+          id: 'QUIZ:MK:AUSGLEICH-MEHRZYLINDER',
+          kind: 'quiz',
+          title: QUIZ_TITLE,
+          summary: quiz([
+            {
+              q: 'Welcher Zündabstand ergibt sich bei einem Viertakt-Sechszylinder mit gleichmäßiger Zündfolge?',
+              a: ['60°', '180°', '120°', '360°'],
+              correct: 2,
+              why: 'Ein Viertakter braucht für ein Arbeitsspiel zwei Umdrehungen, also 720°. Verteilt auf sechs Zylinder: 720°/6 = 120°.',
+            },
+            {
+              q: 'Warum hat der Viertakt-R4 eine freie Kraft 2. Ordnung, aber kein freies Moment 2. Ordnung?',
+              a: ['Weil die Kräfte 2. Ordnung zu klein sind, um ein Moment zu erzeugen.', 'Weil alle vier Kräfte 2. Ordnung gleichgerichtet sind, ihre Hebel zur Motormitte aber paarweise entgegengesetzt.', 'Weil das Schwungrad das Moment aufnimmt.', 'Weil die Zylinder 2 und 3 keine Kraft 2. Ordnung haben.'],
+              correct: 1,
+              why: 'Mit doppeltem Winkel zeigen OT- und UT-Zylinder gleich: Summe 4 · F_II. Zylinder 1 und 4 sitzen aber bei ±1,5a, 2 und 3 bei ±0,5a. Gleiche Kraft mal entgegengesetzter Hebel ergibt Momente, die sich aufheben.',
+            },
+            {
+              q: 'Ein Dreizylinder-Reihenmotor hat ausgeglichene Massenkräfte. Wozu bekommt er trotzdem eine Ausgleichswelle mit Kurbelwellendrehzahl?',
+              a: ['Um das freie Massenmoment 1. Ordnung auszugleichen, das den Motor um seine Querachse taumeln lässt.', 'Um die freie Kraft 2. Ordnung auszugleichen.', 'Um die Ölpumpe anzutreiben, mehr nicht.', 'Um die Drehungleichförmigkeit zu glätten.'],
+              correct: 0,
+              why: 'Beim R3 schließen sich die Kräftepläne, weil die Kurbeln um 120° versetzt sind. Die Zylinder liegen aber hintereinander auf unterschiedlichen Hebeln, die Momente heben sich nicht auf. Gegen das Moment 1. Ordnung hilft eine Welle mit versetzten Ausgleichsmassen, die gegenläufig mit Kurbelwellendrehzahl dreht.',
+            },
+          ]),
+          depthPoints: 9,
+        },
+      ],
+    },
+
+    // ── 5 · Drehkraft und Schwungrad ─────────────────────────────────────────
     {
       id: 'UNIT:MK:DREHKRAFT',
       title: 'Drehkraftverlauf und Schwungrad',
@@ -705,3 +776,5 @@ export const machineFundamentalsLearningPath: LearningPath = {
     },
   ],
 };
+
+export const machineFundamentalsLearningPaths: LearningPath[] = [pistonMachineProcessLearningPath, crankTrainLearningPath];
