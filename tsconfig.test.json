@@ -31,7 +31,8 @@
     "tests/surveyingLearningPaths.test.ts",
     "tests/experimentSemanticContracts.test.ts",
     "tests/levitatedOptomechanics.test.ts",
-    "tests/orbitalInteractives.test.ts"
+    "tests/orbitalInteractives.test.ts",
+    "tests/machineFundamentalsLearningPath.test.ts"
   ],
   "exclude": [
     "node_modules"
