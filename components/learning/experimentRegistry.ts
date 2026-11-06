@@ -51,6 +51,7 @@ import RotweinExperiment from './RotweinExperiment';
 import SpiralExperiment from './SpiralExperiment';
 import ColonyExperiment from './ColonyExperiment';
 import HohmannExperiment from './HohmannExperiment';
+import TransferComparisonExperiment from './TransferComparisonExperiment';
 import KreditExperiment from './KreditExperiment';
 import StationExperiment from './StationExperiment';
 import WaterTreatmentExperiment from './WaterTreatmentExperiment';
@@ -178,6 +179,8 @@ const registry: Record<string, ExperimentDefinition> = {
   'EXP:PUMPENKENNLINIE': { component: PumpExperiment, modelType: 'interactive-model' },
   'EXP:COULOMB-QUIZ': { component: CoulombQuizExperiment, modelType: 'interactive-model' },
   'EXP:HOHMANN-TRANSFER': { component: HohmannExperiment, modelType: 'simulation' },
+  'hohmann-rechner': { component: HohmannExperiment, modelType: 'simulation' },
+  'transferbahn-vergleich': { component: TransferComparisonExperiment, modelType: 'simulation' },
   'EXP:KREDIT-RECHNER': { component: KreditExperiment, modelType: 'calculator' },
   'EXP:KREDIT-NOXIA': { component: KreditExperiment, modelType: 'calculator' },
   'EXP:COLONY-STANDORT': { component: ColonyExperiment, modelType: 'simulation' },
@@ -190,7 +193,6 @@ const registry: Record<string, ExperimentDefinition> = {
   'EXP:FLECK-BEHANDLUNG': { component: RotweinExperiment, modelType: 'interactive-model' },
   'EXP:ABSORPTIONSLINIEN': { component: SpectralAnalysisExperiment, modelType: 'interactive-model' },
   'EXP:LICHTSPEKTRUM': { component: SpectralAnalysisExperiment, modelType: 'interactive-model' },
-  'EXP:SOLAR-SYSTEM': { component: SpectralAnalysisExperiment, modelType: 'interactive-model' },
   'EXP:DIFFERENTIAL-MECHANIK': { component: DifferentialExperiment, modelType: 'interactive-model' },
   'EXP:DIFFERENTIAL-SIMULATION': { component: DifferentialExperiment, modelType: 'simulation' },
   'EXP:DIFFERENTIAL-VERGLEICH': { component: DifferentialExperiment, modelType: 'interactive-model' },

@@ -19,6 +19,7 @@
     "lib/learningPathAssessment.ts",
     "lib/learningEvidence.ts",
     "lib/learningPaths.ts",
+    "lib/learningInteractives.ts",
     "lib/learningPathRegistry.ts",
     "lib/experimentSemanticContracts.ts",
     "lib/learningPaths/**/*.ts",
@@ -29,7 +30,8 @@
     "tests/noxiaExams.test.ts",
     "tests/surveyingLearningPaths.test.ts",
     "tests/experimentSemanticContracts.test.ts",
-    "tests/levitatedOptomechanics.test.ts"
+    "tests/levitatedOptomechanics.test.ts",
+    "tests/orbitalInteractives.test.ts"
   ],
   "exclude": [
     "node_modules"

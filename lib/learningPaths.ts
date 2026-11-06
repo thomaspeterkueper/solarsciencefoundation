@@ -4473,9 +4473,10 @@ export const learningPaths: LearningPath[] = [
           {
             id: 'EXP:ORBITAL-DEMO',
             kind: 'experiment',
-            title: 'Experiment: Sonnensystem und Transferbahnen',
-            summary: 'Klicke auf Erde und Mars um eine Transferbahn zu berechnen. Slider: Startgeschwindigkeit (Δv). Anzeige: benötigte Energie, Reisezeit, Ankunftsfenster. Direkter Weg vs. Hohmann-Bogen Vergleich. Realistisch: Hohmann-Transfer Erde→Mars benötigt Δv ≈ 2.9 km/s, Reisezeit ≈ 259 Tage.',
+            title: 'Experiment: Bogen oder fast gerade? Erde → Mars',
+            summary: 'Slider Startschub Δv₁ von 2,95 bis 30 km/s. Grafik: Bahn von der Erd- zur Marsbahn, vom Hohmann-Bogen (180°) bis zur gestreckten, fast geraden Bahn. Anzeige: Reisezeit, Bremsbedarf am Mars, Gesamt-Δv. Hohmann: 5,6 km/s in 259 Tagen; 5 km/s Startschub: 129 Tage, aber 14 km/s gesamt.',
             interactive: true,
+            interactiveId: 'transferbahn-vergleich',
             depthPoints: 8,
           },
           {
@@ -4485,14 +4486,6 @@ export const learningPaths: LearningPath[] = [
             summary: examQuiz('QUIZ:ORBITAL-1'),
             depthPoints: 12,
           },
-          {
-            id: 'EXP:HOHMANN-TRANSFER',
-            kind: 'experiment',
-            title: 'Experiment: Hohmann-Transfer-Rechner',
-            summary: 'Waehle Start- und Zielplanet (Merkur bis Jupiter). Canvas zeigt Transferellipse mit echter Physik. Erde-Mars: Delta-v1=2.94 km/s, 259 Tage. Formel: Delta-v = sqrt(GM/r1) * (sqrt(2r2/(r1+r2)) - 1).',
-            interactive: true,
-            depthPoints: 10,
-          }
         ],
       },
       {
@@ -4509,12 +4502,13 @@ export const learningPaths: LearningPath[] = [
             depthPoints: 4,
           },
           {
-            id: 'EXP:SOLAR-SYSTEM',
+            id: 'EXP:HOHMANN-TRANSFER',
             kind: 'experiment',
-            title: 'Experiment: Δv und Reisezeit',
-            summary: 'Interaktiver Hohmann-Rechner: Startorbit (AU), Zielorbit (AU). Ausgabe: Δv₁ (m/s), Δv₂ (m/s), Gesamtenergie (MJ/kg), Reisezeit (Tage). Voreingestellt: Erde (1 AU) → Mars (1.524 AU) → 259 Tage, Δv_ges ≈ 5.6 km/s. Vergleich mit Jupiter: 996 Tage, Δv_ges ≈ 9.2 km/s.',
+            title: 'Experiment: Hohmann-Rechner',
+            summary: 'Wähle Start- und Zielplanet (Merkur bis Jupiter). Grafik: halbe Transferellipse, Sonne im Brennpunkt. Ausgabe: Δv₁, Δv₂, Δv gesamt, Reisezeit, Abstand der Startfenster, Vorlaufwinkel des Ziels. Erde → Mars: 2,95 + 2,65 = 5,6 km/s, 259 Tage, Fenster alle 26 Monate. Erde → Jupiter: 14,4 km/s, 997 Tage.',
             interactive: true,
-            depthPoints: 9,
+            interactiveId: 'hohmann-rechner',
+            depthPoints: 10,
           },
           {
             id: 'QUIZ:ORBITAL-2',
