@@ -3,9 +3,9 @@
  * Path:      lib/learningPaths/machineFundamentals.ts
  * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/learningPaths/machineFundamentals.ts
  * Name:      Maschinenkunde – Kolbenmaschinen (zwei Lernpfade)
- * Version:   0.2.0
+ * Version:   0.3.0
  * Created:   2026-11-06
- * Modified:  2026-11-06 20:15 CET
+ * Modified:  2026-11-07 19:00 CET
  * Depends:   lib/learningPaths.ts, lib/learningPaths/quizAuthoring.ts
  *
  * Engineering-Pfade nach docs/ENGINEERING-LEARNING-TEMPLATE.md, aufgeteilt in zwei Module:
@@ -21,9 +21,11 @@
  * (Abschnitt 7 des Templates). Alle Texte sind eigenständig formuliert, alle Zahlenbeispiele
  * sind neu gewählt und nachgerechnet.
  *
- * KG-Status: Kanonische IDs (sourceModuleId, CON:*) sind beim kueper-knowledge-graph angefragt
- * (EXT-SSF-KG-20261106-maschinenkunde-kolbenmaschinen). Bereits kanonische KG-Konzepte sind
- * direkt referenziert, neue als „Kandidat“ markiert. Bis zur Rückmeldung bleiben die Pfade 'prototype'.
+ * KG-Status: Kanonisch im kueper-knowledge-graph seit 2026-11-07 (EXT-SSF-KG-20261106-maschinenkunde-
+ * kolbenmaschinen, done): Module ENG-L2-000003 und ENG-L2-000004, Domain KD:ENG-PISTON-MACHINES:N2,
+ * 22 Konzepte CON:L1:*, Ontologie ONT:KG:PISTON-MACHINES-0.1 mit Modellgrenzen.
+ * Frühere SSF-Kandidaten: SSF-ENG-KOLBENMASCHINEN-PROZESS-0001, SSF-ENG-KURBELTRIEB-0001 (im KG als Alias).
+ * Status bleibt 'prototype' bis zur didaktischen Prüfung (docs/SSF-LERNPFAD-TEMPLATE.md).
  */
 
 import type { LearningPath, LearningPathSection } from '../learningPaths';
@@ -46,27 +48,28 @@ export const pistonMachineProcessLearningPath: LearningPath = {
   subtitle:
     'Maschinenkunde, Teil 1: Arbeits- und Kraftmaschinen, Pumpen, Viertakt und Zweitakt, Vergleichsprozesse, Mitteldruck, Leistung, Wirkungsgradkette und Aufladung.',
   status: 'prototype',
-  sourceModuleId: 'SSF-ENG-KOLBENMASCHINEN-PROZESS-0001',
-  kxfModuleId: 'LRN:SSF:ENG-KOLBENMASCHINEN-PROZESS-0001',
-  domainsNeeded: ['KD:ENG:N1', 'KD:PHYS-THERM:N1', 'KD:PHYS-MECH:N1'],
+  sourceModuleId: 'ENG-L2-000003',
+  kxfModuleId: 'ENG-L2-000003',
+  domainsNeeded: ['KD:ENG-PISTON-MACHINES:N2', 'KD:PHYS-THERM:N1', 'KD:PHYS-MECH:N1'],
   suppliedBy: {
     knowledgeGraph: [
-      'KD:ENG:N1',
+      'ENG-L2-000003',
+      'KD:ENG-PISTON-MACHINES:N2',
       'KD:PHYS-THERM:N1',
       'KD:PHYS-MECH:N1',
       'CON:L1:drehmoment',
       'CON:L0:energie',
-      'Kandidat CON:L1:arbeits-und-kraftmaschine',
-      'Kandidat CON:L1:verdraengerpumpe',
-      'Kandidat CON:L1:liefergrad',
-      'Kandidat CON:L1:viertakt-zweitakt',
-      'Kandidat CON:L1:gleichraumprozess',
-      'Kandidat CON:L1:gemischter-vergleichsprozess',
-      'Kandidat CON:L1:verdichtungsverhaeltnis',
-      'Kandidat CON:L1:mitteldruck',
-      'Kandidat CON:L1:wirkungsgradkette-verbrennungsmotor',
-      'Kandidat CON:L1:spezifischer-kraftstoffverbrauch',
-      'Kandidat CON:L1:aufladung-ladeluftkuehlung',
+      'CON:L1:arbeits-und-kraftmaschine',
+      'CON:L1:verdraengerpumpe',
+      'CON:L1:liefergrad',
+      'CON:L1:viertakt-zweitakt',
+      'CON:L1:gleichraumprozess',
+      'CON:L1:gemischter-vergleichsprozess',
+      'CON:L1:verdichtungsverhaeltnis',
+      'CON:L1:mitteldruck',
+      'CON:L1:wirkungsgradkette-verbrennungsmotor',
+      'CON:L1:spezifischer-kraftstoffverbrauch',
+      'CON:L1:aufladung-ladeluftkuehlung',
     ],
     kueperCom: [],
     overtimeArchive: [],
@@ -382,28 +385,30 @@ export const crankTrainLearningPath: LearningPath = {
   subtitle:
     'Maschinenkunde, Teil 2: Kolbenbewegung, Kräfte im Kurbeltrieb, Drehmoment, Massenkräfte und Massenausgleich, Kurbelstern, Drehkraftverlauf und Schwungrad.',
   status: 'prototype',
-  sourceModuleId: 'SSF-ENG-KURBELTRIEB-0001',
-  kxfModuleId: 'LRN:SSF:ENG-KURBELTRIEB-0001',
-  domainsNeeded: ['KD:ENG:N1', 'KD:PHYS-MECH:N1', 'KD:ENG-MECH:N2'],
+  sourceModuleId: 'ENG-L2-000004',
+  kxfModuleId: 'ENG-L2-000004',
+  domainsNeeded: ['KD:ENG-PISTON-MACHINES:N2', 'KD:PHYS-MECH:N1', 'KD:ENG-MECH:N2'],
   suppliedBy: {
     knowledgeGraph: [
-      'KD:ENG:N1',
+      'ENG-L2-000004',
+      'KD:ENG-PISTON-MACHINES:N2',
       'KD:PHYS-MECH:N1',
       'KD:ENG-MECH:N2',
+      'PHY-L1-000032',
       'CON:L1:kraft',
       'CON:L1:drehmoment',
       'CON:L1:lagerreaktion',
-      'Kandidat CON:L1:kurbeltrieb',
-      'Kandidat CON:L1:pleuelverhaeltnis',
-      'Kandidat CON:L1:kolbenkinematik',
-      'Kandidat CON:L1:oszillierende-massenkraft',
-      'Kandidat CON:L1:rotierende-massenkraft',
-      'Kandidat CON:L1:pleuelstangenkraft-tangentialkraft',
-      'Kandidat CON:L1:massenausgleich',
-      'Kandidat CON:L1:kurbelstern',
-      'Kandidat CON:L1:freies-massenmoment',
-      'Kandidat CON:L1:drehkraftdiagramm',
-      'Kandidat CON:L1:ungleichfoermigkeitsgrad',
+      'CON:L1:kurbeltrieb',
+      'CON:L1:pleuelverhaeltnis',
+      'CON:L1:kolbenkinematik',
+      'CON:L1:oszillierende-massenkraft',
+      'CON:L1:rotierende-massenkraft',
+      'CON:L1:pleuelstangenkraft-tangentialkraft',
+      'CON:L1:massenausgleich',
+      'CON:L1:kurbelstern',
+      'CON:L1:freies-massenmoment',
+      'CON:L1:drehkraftdiagramm',
+      'CON:L1:ungleichfoermigkeitsgrad',
     ],
     kueperCom: [],
     overtimeArchive: [],

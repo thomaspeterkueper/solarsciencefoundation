@@ -4,15 +4,16 @@ import { getRegisteredLearningPathById, getRegisteredLearningPathForModule, lear
 import { parseLearningQuiz } from '../lib/learningQuiz';
 
 const SERIES = [
-  { pathId: 'PATH:SSF:ENG-KOLBENMASCHINEN-PROZESS-0001', moduleId: 'SSF-ENG-KOLBENMASCHINEN-PROZESS-0001' },
-  { pathId: 'PATH:SSF:ENG-KURBELTRIEB-0001', moduleId: 'SSF-ENG-KURBELTRIEB-0001' },
+  { pathId: 'PATH:SSF:ENG-KOLBENMASCHINEN-PROZESS-0001', moduleId: 'ENG-L2-000003' },
+  { pathId: 'PATH:SSF:ENG-KURBELTRIEB-0001', moduleId: 'ENG-L2-000004' },
 ];
 
 for (const entry of SERIES) {
-  test(`${entry.pathId} is registered and resolvable via its SSF module id`, () => {
+  test(`${entry.pathId} is registered and resolvable via its KG module id`, () => {
     const path = getRegisteredLearningPathById(entry.pathId);
     assert.ok(path, 'path must be registered');
-    assert.equal(path.status, 'prototype', 'stays prototype until KG returns canonical ids');
+    assert.equal(path.kxfModuleId, entry.moduleId, 'uses the canonical KG module id');
+    assert.ok(path.domainsNeeded.includes('KD:ENG-PISTON-MACHINES:N2'));
     assert.equal(getRegisteredLearningPathForModule(entry.moduleId)?.id, entry.pathId);
     assert.ok(path.domainsNeeded.every((domain) => domain.startsWith('KD:')));
     const issues = learningPathRegistryIssues.filter((issue) => issue.pathIds?.includes(entry.pathId));
@@ -36,25 +37,25 @@ for (const entry of SERIES) {
     });
   });
 
-  test(`${entry.pathId} uses layer-form concept candidates (KG-0027)`, () => {
+  test(`${entry.pathId} references only canonical KG concepts (KG-0027)`, () => {
     const path = getRegisteredLearningPathById(entry.pathId);
     assert.ok(path);
-    const conceptRefs = path.suppliedBy.knowledgeGraph
-      .map((ref) => ref.replace(/^Kandidat /, ''))
-      .filter((ref) => ref.startsWith('CON:'));
-    assert.ok(conceptRefs.length > 0);
+    assert.ok(path.suppliedBy.knowledgeGraph.every((ref) => !ref.startsWith('Kandidat ')), 'no open candidates left');
+    const conceptRefs = path.suppliedBy.knowledgeGraph.filter((ref) => ref.startsWith('CON:'));
+    assert.ok(conceptRefs.length >= 11);
     for (const id of conceptRefs) assert.match(id, /^CON:L[0-9]:[a-z0-9-]+$/, `${id} must use CON:<LAYER>:<slug>`);
   });
 }
 
-test('the two Maschinenkunde modules do not share units or concept candidates', () => {
+test('the two Maschinenkunde modules do not share units or taught concepts', () => {
   const [first, second] = SERIES.map((entry) => getRegisteredLearningPathById(entry.pathId));
   assert.ok(first && second);
   const firstUnits = new Set(first.units.map((unit) => unit.id));
   assert.ok(second.units.every((unit) => !firstUnits.has(unit.id)));
-  const candidates = (path: typeof first) => path.suppliedBy.knowledgeGraph.filter((ref) => ref.startsWith('Kandidat '));
-  const firstCandidates = new Set(candidates(first));
-  assert.ok(candidates(second).every((ref) => !firstCandidates.has(ref)));
+  const SHARED = new Set(['CON:L1:drehmoment']);
+  const taught = (path: typeof first) => path.suppliedBy.knowledgeGraph.filter((ref) => ref.startsWith('CON:L1:') && !SHARED.has(ref));
+  const firstTaught = new Set(taught(first));
+  assert.ok(taught(second).every((ref) => !firstTaught.has(ref)));
 });
 
 test('the merged v0.1.0 prototype path is gone', () => {
