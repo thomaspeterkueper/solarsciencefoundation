@@ -25,7 +25,7 @@
  * kolbenmaschinen, done): Module ENG-L2-000003 und ENG-L2-000004, Domain KD:ENG-PISTON-MACHINES:N2,
  * 22 Konzepte CON:L1:*, Ontologie ONT:KG:PISTON-MACHINES-0.1 mit Modellgrenzen.
  * Frühere SSF-Kandidaten: SSF-ENG-KOLBENMASCHINEN-PROZESS-0001, SSF-ENG-KURBELTRIEB-0001 (im KG als Alias).
- * Voraussetzungen laut KG: ENG-L2-000003 ← ENG-L1-000001 (Stromerzeugung), PHY-L1-000032 (Kraft und
+ * Voraussetzungen laut KG: ENG-L2-000003 ← PHY-L1-000025 (Was ist Energie?), PHY-L1-000032 (Kraft und
  * Moment); ENG-L2-000004 ← ENG-L2-000003, PHY-L1-000032 (EXT-KG-KG-20261107-energy-concepts-active-shard).
  * Status bleibt 'prototype' bis zur didaktischen Prüfung (docs/SSF-LERNPFAD-TEMPLATE.md).
  */
@@ -57,7 +57,7 @@ export const pistonMachineProcessLearningPath: LearningPath = {
     knowledgeGraph: [
       'ENG-L2-000003',
       'KD:ENG-PISTON-MACHINES:N2',
-      'ENG-L1-000001',
+      'PHY-L1-000025',
       'PHY-L1-000032',
       'KD:PHYS-THERM:N1',
       'KD:PHYS-MECH:N1',
