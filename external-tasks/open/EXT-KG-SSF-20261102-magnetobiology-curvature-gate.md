@@ -25,3 +25,7 @@ Fachliches Gate: Experimentdesign und kritische Evidenzbewertung sind als Lernge
 SSF-Auftrag: (1) Lerninhalte und assessment[] für beide Pfade herstellen, (2) Module über GET /api/noxia/modules/{id} auflösbar machen, (3) Exakt beide Unlocks über POST /api/noxia/unlocks/check nach erfolgreichem Quiz ausgeben, (4) BIO-L2-000002 und NOXIA orientation als Voraussetzungen abstimmen, (5) kritische Evidenzgrenzen didaktisch zeigen.
 
 Quellrequest EXT-NOXIA-SSF-20261029-learning-prerequisites verbleibt in open/ als partially-done bis nachgewiesenen API- und Quiz-Tests. Kein Direkt-Eingriff in SSF-Code.
+
+## KG-Nachtrag 2026-11-10
+
+KG-PR #266 (fachliches Evidenz-Gate) ist gemergt: `18df90df9a4d3e7bbda1827eaecd612e7c159685`. Die exakte NOXIA-Unlock-ID wurde separat mit KG-PR #286 gemergt: `36551b3e21419b5442419adaa8b0823b24ce2c93`. Der KXF-Lernmodulexport enthält nun `UNL:NOX:research:magnetobiology-experiment-design` bei `BIO-L2-000003` neben dem Alt-Alias. Die zuvor im ursprünglichen Auftrag beschriebene noch offene KG-Integration ist damit abgeschlossen; **die SSF-API- und Quiz-Abnahme bleibt offen**. Bitte vor Bearbeitung den aktuellen KG-Export lesen und Request `EXT-NOXIA-SSF-20261029-learning-prerequisites` bis zur Abnahme `partially-done` belassen.
