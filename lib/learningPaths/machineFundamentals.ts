@@ -3,14 +3,14 @@
  * Path:      lib/learningPaths/machineFundamentals.ts
  * Repo:      github.com/thomaspeterkueper/solarsciencefoundation/blob/main/lib/learningPaths/machineFundamentals.ts
  * Name:      Maschinenkunde – Kolbenmaschinen (zwei Lernpfade)
- * Version:   0.3.0
+ * Version:   0.4.0
  * Created:   2026-11-06
- * Modified:  2026-11-08 09:00 CET
+ * Modified:  2026-11-12 07:00 CET
  * Depends:   lib/learningPaths.ts, lib/learningPaths/quizAuthoring.ts
  *
  * Engineering-Pfade nach docs/ENGINEERING-LEARNING-TEMPLATE.md, aufgeteilt in zwei Module:
- *   1. PATH:SSF:ENG-KOLBENMASCHINEN-PROZESS-0001 – Maschinenart und Pumpe → Takte und
- *      Vergleichsprozesse → Leistung und Wirkungsgradkette → Aufladung
+ *   1. PATH:SSF:ENG-KOLBENMASCHINEN-PROZESS-0001 – Maschinenart und Pumpe → Kolbenverdichter →
+ *      Takte und Vergleichsprozesse → Leistung und Wirkungsgradkette → Aufladung
  *   2. PATH:SSF:ENG-KURBELTRIEB-0001 – Kinematik → Kräfte bis Drehmoment → Massenausgleich
  *      Einzylinder → Massenausgleich Mehrzylinder → Drehkraft und Schwungrad
  * Empfohlene Reihenfolge 1 → 2 (Pfad 2 verwendet Zünd-OT, Ausschiebetakt und Taktfaktor).
@@ -49,7 +49,7 @@ export const pistonMachineProcessLearningPath: LearningPath = {
   id: 'PATH:SSF:ENG-KOLBENMASCHINEN-PROZESS-0001',
   title: 'Wie viel Arbeit steckt in einem Arbeitsspiel?',
   subtitle:
-    'Maschinenkunde, Teil 1: Arbeits- und Kraftmaschinen, Pumpen, Viertakt und Zweitakt, Vergleichsprozesse, Mitteldruck, Leistung, Wirkungsgradkette und Aufladung.',
+    'Maschinenkunde, Teil 1: Arbeits- und Kraftmaschinen, Pumpen und Pumpenaggregate, Kolbenverdichter, Viertakt und Zweitakt, Vergleichsprozesse, Mitteldruck, Leistung, Wirkungsgradkette und Aufladung.',
   status: 'prototype',
   sourceModuleId: 'ENG-L2-000003',
   kxfModuleId: 'ENG-L2-000003',
@@ -75,6 +75,7 @@ export const pistonMachineProcessLearningPath: LearningPath = {
       'CON:L1:wirkungsgradkette-verbrennungsmotor',
       'CON:L1:spezifischer-kraftstoffverbrauch',
       'CON:L1:aufladung-ladeluftkuehlung',
+      'CON:L1:kolbenverdichter',
     ],
     kueperCom: [],
     overtimeArchive: [],
@@ -88,7 +89,7 @@ export const pistonMachineProcessLearningPath: LearningPath = {
       title: 'Arbeitsmaschine oder Kraftmaschine – und wie eine Pumpe fördert',
       entryQuestion: 'Ein Turbolader sitzt am Motor und dreht sich vom Abgas. Ist er eine Kraftmaschine oder eine Arbeitsmaschine?',
       takeaway: 'Nicht der Name entscheidet, sondern die Welle: Wer an ihr Arbeit abgibt, ist Kraftmaschine, wer an ihr Arbeit aufnimmt, ist Arbeitsmaschine.',
-      gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:MK:PROZESSE' },
+      gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:MK:VERDICHTER' },
       sections: [
         {
           id: 'OBS:MK:TURBOLADER',
@@ -136,6 +137,12 @@ export const pistonMachineProcessLearningPath: LearningPath = {
           'Eine Außenzahnradpumpe mit V_g = 8 cm³ pro Umdrehung wird mit n = 1500 min⁻¹ und M = 12 Nm angetrieben. Sie fördert V̇ = 11 L/min gegen Δp = 80 bar. Berechne P_an, P_hyd, den Liefergrad λ_l, η_ges und η_m.',
           'n = 1500/60 = 25 s⁻¹, ω = 2π · 25 = 157,1 s⁻¹, P_an = 12 · 157,1 ≈ 1,88 kW. V̇_th = 8 · 10⁻⁶ m³ · 25 s⁻¹ = 2,0 · 10⁻⁴ m³/s = 12 L/min, λ_l = 11/12 ≈ 0,92. V̇ = 11/60000 m³/s = 1,83 · 10⁻⁴ m³/s, P_hyd = 8 · 10⁶ Pa · 1,83 · 10⁻⁴ m³/s ≈ 1,47 kW. η_ges = 1,47/1,88 ≈ 0,78, η_m = η_ges/λ_l ≈ 0,85. Typische Fehlerquellen: n in min⁻¹ eingesetzt, bar nicht in Pa umgerechnet, L/min nicht durch 60 geteilt.',
         ),
+        exercise(
+          'EXERCISE:MK:PUMPENAGGREGAT',
+          'Elektromotor und Kreiselpumpe hintereinander',
+          'Ein Drehstrommotor (U = 400 V, I = 16 A, cos φ = 0,86) treibt eine Pumpe an. An der Welle werden n = 2950 min⁻¹ und M = 26 Nm gemessen. Die Pumpe fördert 72 m³/h Wasser auf eine Förderhöhe von H = 30 m. Berechne P_el, P_mech, P_hyd, die Wirkungsgrade von Motor, Pumpe und Aggregat sowie die Verlustleistungen.',
+          'P_el = √3 · U · I · cos φ = √3 · 400 · 16 · 0,86 ≈ 9,53 kW. n = 49,17 s⁻¹, P_mech = 26 · 2π · 49,17 ≈ 8,03 kW. V̇ = 72/3600 = 0,020 m³/s, P_hyd = ρ · g · H · V̇ = 1000 · 9,81 · 30 · 0,020 ≈ 5,89 kW. η_M = 8,03/9,53 ≈ 0,84, η_P = 5,89/8,03 ≈ 0,73, η_ges = 5,89/9,53 ≈ 0,62 = η_M · η_P. Verluste: Motor ≈ 1,50 kW, Pumpe ≈ 2,15 kW. Der Motor ist hier die Kraftmaschine, die Pumpe die Arbeitsmaschine; ihre Wirkungsgrade multiplizieren sich.',
+        ),
         {
           id: 'QUIZ:MK:MASCHINEN',
           kind: 'quiz',
@@ -165,7 +172,88 @@ export const pistonMachineProcessLearningPath: LearningPath = {
       ],
     },
 
-    // ── 2 · Arbeitsverfahren und Vergleichsprozesse ──────────────────────────
+    // ── 2 · Kolbenverdichter ─────────────────────────────────────────────────
+    {
+      id: 'UNIT:MK:VERDICHTER',
+      title: 'Kolbenverdichter: Gas zusammendrücken kostet mehr als Flüssigkeit fördern',
+      entryQuestion: 'Warum wird ein Kompressor heiß – und warum steckt die meiste Antriebsleistung am Ende im Kühlwasser?',
+      takeaway: 'Maßstab für den Verdichter ist die isotherme Verdichtung. Was darüber hinaus an der Welle aufgewendet wird, geht als Wärme, Drosselung und Reibung verloren.',
+      gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:MK:PROZESSE' },
+      sections: [
+        {
+          id: 'OBS:MK:KOMPRESSOR',
+          kind: 'observation',
+          title: 'Die heiße Druckleitung',
+          summary:
+            'Nach ein paar Minuten Betrieb ist der Zylinderkopf eines Werkstattkompressors so heiß, dass man ihn nicht anfassen kann. Die Leitung zum Kessel ist warm, der Kessel selbst kühlt langsam auf Raumtemperatur ab. Der Druck im Kessel bleibt dabei hoch.',
+          depthPoints: 5,
+        },
+        {
+          id: 'EXPL:MK:ISOTHERM',
+          kind: 'explanation',
+          title: 'Isotherme Vergleichsleistung und Wirkungsgrade',
+          summary:
+            'Am wenigsten Arbeit braucht eine Verdichtung, bei der das Gas so gekühlt wird, dass seine Temperatur gleich bleibt (isotherm). Die zugehörige Leistung ist P_is = p₁ · V̇₁ · ln(p₂/p₁) mit absolutem Ansaugdruck p₁ und Ansaugvolumenstrom V̇₁. Der reale Zylinderprozess braucht mehr, die indizierte Leistung P_i; an der Kupplung kommt die Triebwerksreibung dazu: P_e = P_i + P_RT. Weil bei der Arbeitsmaschine die Leistung von der Welle zum Kolben fließt, ist η_m = P_i/P_e. Innerer isothermischer Wirkungsgrad η_isi = P_is/P_i, effektiver isothermischer Wirkungsgrad η_ise = P_is/P_e = η_isi · η_m. Reale Kolbenverdichter erreichen η_ise etwa 0,6–0,75.',
+          depthPoints: 10,
+        },
+        {
+          id: 'EXPL:MK:VERDICHTER-INDIKATOR',
+          kind: 'explanation',
+          title: 'Indizierte Leistung aus dem Indikatordiagramm',
+          summary:
+            'Wie beim Motor wird die Fläche des p-V-Diagramms in ein flächengleiches Rechteck umgewandelt. Höhe in mm mal Druckmaßstab ergibt den mittleren indizierten Druck p_i, Breite in mm mal Volumenmaßstab muss das Hubvolumen V_h = π/4 · D² · s ergeben – eine gute Kontrolle. Arbeit je Arbeitsspiel W_i = p_i · V_h, Arbeitsspiele n_a = n · i mit i = 1 für Verdichter und Pumpen, indizierte Leistung P_i = W_i · z · n_a. Typisch im Diagramm: Verdichten, Ausschieben bei geöffnetem Druckventil, Rückexpansion aus dem Schadraum, Ansaugen.',
+          depthPoints: 9,
+        },
+        {
+          id: 'EXPL:MK:NACHKUEHLER',
+          kind: 'explanation',
+          title: 'Energiebilanz mit Nachkühler',
+          summary:
+            'Bilanziert man Verdichter und Nachkühler zusammen und kühlt auf die Ansaugtemperatur zurück, hat ideales Gas am Austritt dieselbe Enthalpie wie am Eintritt. Die gesamte Wellenleistung verlässt die Anlage deshalb als Wärme: P_e = Q̇_ab. Der Druck bleibt trotzdem hoch, denn beim Kühlen unter konstantem Druck wird das Gas nur dichter, sein Volumenstrom kleiner. Der Nutzen der Druckluft liegt in ihrer Fähigkeit, sich später wieder unter Arbeitsabgabe zu entspannen.',
+          depthPoints: 9,
+        },
+        exercise(
+          'EXERCISE:MK:VERDICHTER-WIRKUNGSGRADE',
+          'Wie gut ist der Kompressor?',
+          'Ein einstufiger Kolbenverdichter saugt V̇₁ = 0,090 m³/s Luft bei p₁ = 1,0 bar an und verdichtet auf p₂ = 8,0 bar. Indiziert werden P_i = 26 kW gemessen, an der Kupplung P_e = 29 kW. Berechne P_is, η_m, η_isi, η_ise und P_RT.',
+          'P_is = 10⁵ Pa · 0,090 m³/s · ln 8 = 9 000 W · 2,079 ≈ 18,7 kW. η_m = 26/29 ≈ 0,90, η_isi = 18,7/26 ≈ 0,72, η_ise = 18,7/29 ≈ 0,65 (Kontrolle: 0,72 · 0,90 ≈ 0,65). P_RT = 29 − 26 = 3 kW. Typischer Fehler: log statt ln oder Überdruck statt absolutem Druck einsetzen.',
+        ),
+        exercise(
+          'EXERCISE:MK:VERDICHTER-INDIKATOR',
+          'Indizierte Leistung aus dem Diagramm',
+          'Ein Zweizylinder-Verdichter hat D = 100 mm, s = 120 mm und läuft mit 600 min⁻¹. Das flächengleiche Rechteck im Indikatordiagramm ist 30 mm hoch (0,25 bar/mm) und 37,7 mm breit (2,5 · 10⁻⁵ m³/mm). An der Kupplung werden 16 kW gemessen. Bestimme V_h, p_i, W_i, P_i und η_m.',
+          'V_h = π/4 · 0,1² · 0,12 = 9,42 · 10⁻⁴ m³; Kontrolle 37,7 mm · 2,5 · 10⁻⁵ m³/mm = 9,42 · 10⁻⁴ m³. p_i = 30 · 0,25 = 7,5 bar. W_i = 7,5 · 10⁵ Pa · 9,42 · 10⁻⁴ m³ ≈ 707 J. n_a = 10 s⁻¹, P_i = 707 · 2 · 10 ≈ 14,1 kW. η_m = 14,1/16 ≈ 0,88.',
+        ),
+        {
+          id: 'QUIZ:MK:VERDICHTER',
+          kind: 'quiz',
+          title: QUIZ_TITLE,
+          summary: quiz([
+            {
+              q: 'Ein Verdichter saugt 0,05 m³/s Luft bei 1 bar an und verdichtet auf 1 bar · e ≈ 2,72 bar. Wie groß ist die isotherme Leistung?',
+              a: ['5 kW', '13,6 kW', '1,84 kW', '50 kW'],
+              correct: 0,
+              why: 'P_is = p₁ · V̇₁ · ln(p₂/p₁) = 10⁵ Pa · 0,05 m³/s · ln e = 5 000 W · 1 = 5 kW. Das Druckverhältnis e ist so gewählt, dass der Logarithmus genau 1 wird.',
+            },
+            {
+              q: 'Ein Verdichter hat P_i = 40 kW und P_e = 45 kW. Wie groß ist sein mechanischer Wirkungsgrad?',
+              a: ['1,125', '0,889', '0,111', '5 kW'],
+              correct: 1,
+              why: 'Bei der Arbeitsmaschine fließt die Leistung von der Kupplung zum Kolben: η_m = P_i/P_e = 40/45 ≈ 0,889. Wer wie beim Motor P_e/P_i rechnet, erhält einen Wert über 1 – ein sicheres Zeichen für einen umgedrehten Bruch.',
+            },
+            {
+              q: 'Hinter einem Verdichter wird die Druckluft im Nachkühler wieder auf Ansaugtemperatur gekühlt. Warum fällt der Druck dabei nicht auf den Ansaugdruck zurück?',
+              a: ['Weil der Nachkühler einen Druckverlust verhindert.', 'Weil die Luft im durchströmten Nachkühler bei nahezu gleichem Druck abkühlt und dabei nur dichter wird; ihr Volumenstrom sinkt.', 'Weil Luft beim Abkühlen Energie aufnimmt.', 'Weil die Enthalpie der Luft beim Kühlen steigt.'],
+              correct: 1,
+              why: 'Im Nachkühler strömt die Luft durch, sie wird bei praktisch konstantem Druck gekühlt. Masse pro Sekunde bleibt gleich, die Dichte steigt, der Volumenstrom sinkt. Nur in einem geschlossenen starren Behälter würde Kühlen den Druck senken.',
+            },
+          ]),
+          depthPoints: 9,
+        },
+      ],
+    },
+
+    // ── 3 · Arbeitsverfahren und Vergleichsprozesse ──────────────────────────
     {
       id: 'UNIT:MK:PROZESSE',
       title: 'Takte und Vergleichsprozesse',
@@ -220,6 +308,12 @@ export const pistonMachineProcessLearningPath: LearningPath = {
           'Ein Zylinder hat V_h = 450 cm³ und V_c = 50 cm³. Ansaugzustand p₁ = 1 bar, T₁ = 300 K, κ = 1,4. Berechne ε, p₂, T₂ und η_th.',
           'ε = (450 + 50)/50 = 10. p₂ = 1 bar · 10^1,4 ≈ 25,1 bar. T₂ = 300 K · 10^0,4 ≈ 754 K, also rund 480 °C – darum muss beim Ottomotor die Verdichtung unter der Klopfgrenze bleiben. η_th = 1 − 10^(−0,4) ≈ 0,60. Zum Vergleich: ε = 8 ergäbe 0,56, ε = 18 wie beim Diesel 0,69.',
         ),
+        exercise(
+          'EXERCISE:MK:SEILIGER',
+          'Der aufgeladene Diesel nach Seiliger',
+          'Zustand 1 nach dem Ladeluftkühler: p₁ = 1,8 bar, T₁ = 320 K. ε = 17, Drucksteigerungsverhältnis ξ = p₃/p₂ = 1,5, Einspritzverhältnis ψ = V₄/V₃ = 1,6, κ = 1,4, R = 287 J/(kg K). Berechne die Zustände 2 bis 5, die Wärmen je kg und η_th.',
+          'p₂ = 1,8 · 17^1,4 ≈ 95,0 bar, T₂ = 320 · 17^0,4 ≈ 994 K. p₃ = 1,5 · p₂ ≈ 142,6 bar, T₃ = 1,5 · T₂ ≈ 1491 K. p₄ = p₃, T₄ = 1,6 · T₃ ≈ 2385 K. T₅ = T₁ · ξ · ψ^κ ≈ 927 K, p₅ ≈ 5,2 bar. Mit c_v = R/(κ − 1) = 717,5 J/(kg K) und c_p = κ · c_v: q_zu = c_v(T₃ − T₂) + c_p(T₄ − T₃) ≈ 1255 kJ/kg, q_ab = c_v(T₅ − T₁) ≈ 435 kJ/kg, η_th = 1 − q_ab/q_zu ≈ 0,653. Die geschlossene Formel η_th = 1 − (ξψ^κ − 1)/(ε^(κ−1)[(ξ − 1) + κξ(ψ − 1)]) liefert denselben Wert; Otto mit ε = 17 käme auf 0,678.',
+        ),
         {
           id: 'QUIZ:MK:PROZESSE',
           kind: 'quiz',
@@ -249,7 +343,7 @@ export const pistonMachineProcessLearningPath: LearningPath = {
       ],
     },
 
-    // ── 3 · Leistung und Wirkungsgrade ───────────────────────────────────────
+    // ── 4 · Leistung und Wirkungsgrade ───────────────────────────────────────
     {
       id: 'UNIT:MK:LEISTUNG',
       title: 'Leistung, Mitteldruck und die Wirkungsgradkette',
@@ -324,7 +418,7 @@ export const pistonMachineProcessLearningPath: LearningPath = {
       ],
     },
 
-    // ── 4 · Aufladung ────────────────────────────────────────────────────────
+    // ── 5 · Aufladung ────────────────────────────────────────────────────────
     {
       id: 'UNIT:MK:AUFLADUNG',
       title: 'Mehr Leistung ohne mehr Hubraum: Aufladung',
