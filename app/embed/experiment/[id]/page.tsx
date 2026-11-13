@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { getExperimentDefinition } from '../../../../components/learning/experimentRegistry';
+import EmbedHeightReporter from '../../../../components/EmbedHeightReporter';
 import { resolveExperimentComponent } from '../../../../components/learning/experimentResolver';
 
 export const metadata: Metadata = {
@@ -27,6 +28,7 @@ export default async function EmbeddedExperimentPage({ params }: PageProps) {
         body { background: #fff; }
         main { padding: 0 !important; margin: 0 !important; }
       `}</style>
+      <EmbedHeightReporter id={id} />
       <div style={{ padding: 12, maxWidth: 960, margin: '0 auto' }}>
         {Experiment ? (
           <Experiment />
