@@ -31,7 +31,7 @@ export type NoxiaModuleSection =
   | { type: 'text'; text: string }
   | { type: 'key_point'; text: string }
   | { type: 'example'; title: string; text: string }
-  | { type: 'task'; prompt: string; hint?: string }
+  | { type: 'task'; prompt: string; hint?: string; solution?: string }
   /** kind: 'gravity-well' | 'hohmann-calculator' | 'transfer-comparison' – params je nach kind */
   | ({ type: 'interactive' } & LearningInteractive)
   /** SSF-Experiment als eingebettete Seite: NOXIA zeigt `embedUrl` in einem Rahmen (iframe) im rechten Lernfeld. */
@@ -174,7 +174,7 @@ function sectionToNoxia(section: LearningPathSection): NoxiaModuleSection[] {
     return [{ type: 'example', title: section.title, text: section.summary }];
   }
   if (section.kind === 'exercise') {
-    return [{ type: 'task', prompt: section.summary }];
+    return [{ type: 'task', prompt: section.summary, ...(section.solution ? { solution: section.solution } : {}) }];
   }
   if (section.kind === 'quiz') {
     // Governed Kurztests are delivered as assessment[]; only free-form self-checks stay a task.

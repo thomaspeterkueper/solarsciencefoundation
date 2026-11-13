@@ -1,5 +1,6 @@
 import type { LearningPath, LearningPathSection } from '../learningPaths';
 import { examQuiz, hasExamQuiz } from './noxiaExamQuizzes';
+import { unlockUnitContent, type UnitContent } from './noxiaUnlockContent';
 
 type UnlockPathSpec = {
   slug: string;
@@ -19,7 +20,7 @@ function examKeyForUnit(slug: string, index: number): string | undefined {
   return key && hasExamQuiz(key) ? key : undefined;
 }
 
-function sections(slug: string, topic: string, question: string, takeaway: string, examKey: string | undefined, hasExams: boolean): LearningPathSection[] {
+function sections(slug: string, topic: string, question: string, takeaway: string, examKey: string | undefined, hasExams: boolean, content: UnitContent | undefined): LearningPathSection[] {
   const quizSections: LearningPathSection[] = examKey
     ? [{ id: `QUIZ:${slug}-${topic}`, kind: 'quiz', title: 'Kurztest', summary: examQuiz(examKey), depthPoints: 9 }]
     : hasExams
@@ -31,26 +32,39 @@ function sections(slug: string, topic: string, question: string, takeaway: strin
           summary: 'Erkläre die zentrale Ursache-Wirkungs-Kette in eigenen Worten und nenne eine Fehlentscheidung, die dadurch vermieden wird.',
           depthPoints: 5,
         }];
+  const experiment: LearningPathSection[] = content?.experiment
+    ? [{
+        id: `EXPERIMENT:${slug}-${topic}`,
+        kind: 'experiment',
+        title: content.experiment.title,
+        summary: content.experiment.summary,
+        interactive: true,
+        interactiveId: content.experiment.id,
+        depthPoints: 12,
+      }]
+    : [];
   return [
     {
       id: `OBS:${slug}-${topic}`,
       kind: 'observation',
       title: 'Ausgangslage beobachten',
-      summary: question,
+      summary: content?.observation ?? question,
       depthPoints: 5,
     },
     {
       id: `EXPL:${slug}-${topic}`,
       kind: 'explanation',
       title: 'Das System verstehen',
-      summary: takeaway,
+      summary: content?.explanation ?? takeaway,
       depthPoints: 8,
     },
+    ...experiment,
     {
       id: `EXP:${slug}-${topic}`,
       kind: 'exercise',
-      title: 'Entscheidung auf einen Anwendungsfall übertragen',
-      summary: 'Ordne die entscheidenden Größen, Risiken und Abhängigkeiten und begründe, welche technische Entscheidung daraus folgt.',
+      title: content ? 'Rechne es nach' : 'Entscheidung auf einen Anwendungsfall übertragen',
+      summary: content?.exercise.task ?? 'Ordne die entscheidenden Größen, Risiken und Abhängigkeiten und begründe, welche technische Entscheidung daraus folgt.',
+      solution: content?.exercise.solution,
       depthPoints: 8,
     },
     ...quizSections,
@@ -89,7 +103,7 @@ function buildPath(spec: UnlockPathSpec): LearningPath {
       takeaway: spec.takeaways[index],
       // Nur Einheiten mit einem echten, auswertbaren Kurztest sperren die nächste Einheit; sonst gäbe es eine Sackgasse.
       gate: index < 2 && examKeyForUnit(spec.slug, index) ? { type: 'quiz_all_correct', unlocksUnitId: unitIds[index + 1] } : undefined,
-      sections: sections(spec.slug, String(index + 1), spec.questions[index], spec.takeaways[index], examKeyForUnit(spec.slug, index), hasExamQuiz(`${spec.slug}:2`)),
+      sections: sections(spec.slug, String(index + 1), spec.questions[index], spec.takeaways[index], examKeyForUnit(spec.slug, index), hasExamQuiz(`${spec.slug}:2`), unlockUnitContent[spec.slug]?.[index]),
     })),
   };
 }

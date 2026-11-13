@@ -74,6 +74,7 @@ import OsmosisExperiment from './OsmosisExperiment';
 import BatteryManagementExperiment from './BatteryManagementExperiment';
 import BatteryFastChargeExperiment from './BatteryFastChargeExperiment';
 import { GearboxCastingExperiment, GearboxAssemblyExperiment } from './GearboxHousingExperiment';
+import { PressureLeakExperiment, AirlockCycleExperiment, Co2BuildupExperiment, ThermalDriftExperiment, RadiationShelterExperiment, MonitoringTrendExperiment, RedundancyCommonCauseExperiment, MarsStormExperiment } from './habitat/HabitatModelExperiments';
 
 export type ExperimentModelType = 'interactive-model' | 'simulation' | 'calculator' | 'visualization';
 export type ExperimentDefinition = { component: ComponentType; modelType: ExperimentModelType; concepts?: string[] };
@@ -200,6 +201,14 @@ const registry: Record<string, ExperimentDefinition> = {
   'EXP:NOX-WATER-DESTILLATION': { component: WaterTreatmentExperiment, modelType: 'interactive-model' },
   'EXP:NOX-WATER-CHAIN': { component: WaterTreatmentExperiment, modelType: 'simulation' },
   'EXP:NOX-RESOURCE-CHAIN': { component: ResourceSeparationExperiment, modelType: 'simulation' },
+  'EXP:HABITAT:PRESSURE-LEAK': { component: PressureLeakExperiment, modelType: 'simulation' },
+  'EXP:HABITAT:AIRLOCK-CYCLE': { component: AirlockCycleExperiment, modelType: 'simulation' },
+  'EXP:HABITAT:CO2-BUILDUP': { component: Co2BuildupExperiment, modelType: 'simulation' },
+  'EXP:HABITAT:THERMAL-DRIFT': { component: ThermalDriftExperiment, modelType: 'simulation' },
+  'EXP:HABITAT:RADIATION-SHELTER': { component: RadiationShelterExperiment, modelType: 'simulation' },
+  'EXP:HABITAT:MONITORING-TREND': { component: MonitoringTrendExperiment, modelType: 'simulation' },
+  'EXP:HABITAT:REDUNDANCY-COMMON-CAUSE': { component: RedundancyCommonCauseExperiment, modelType: 'simulation' },
+  'EXP:HABITAT:MARS-STORM': { component: MarsStormExperiment, modelType: 'simulation' },
   'EXP:GEHAEUSE-SANDGUSS': { component: GearboxCastingExperiment, modelType: 'visualization', concepts: ['CON:MTL:sand-casting','CON:ENG:design-for-casting'] },
   'EXP:GETRIEBE-MONTAGE': { component: GearboxAssemblyExperiment, modelType: 'visualization', concepts: ['CON:ENG:assembly-sequence','CON:ENG:locating-floating-bearing'] },
 };
