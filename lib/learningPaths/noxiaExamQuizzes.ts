@@ -350,6 +350,26 @@ const tests: Record<string, QuizTriple> = {
   ],
 
   // ── Energieerzeugung ────────────────────────────────────────────────────────
+  'QUIZ:POWER:CONVERSION': [
+    q(
+      'Ein Solarmodul liefert Strom, eine Batterie speichert ihn, eine Lampe nutzt ihn. Welches Bauteil ist der Wandler?',
+      ['die Sonne', 'das Solarmodul', 'die Batterie', 'die Lampe'],
+      1,
+      'Das Solarmodul wandelt Strahlungsenergie in elektrische Energie. Die Sonne ist die Quelle, die Batterie ein Speicher und die Lampe der Verbraucher. Energie wird umgewandelt und nicht erzeugt.',
+    ),
+    q(
+      'Warum kann nachts das Licht ausgehen, obwohl die Sonne als Quelle „unerschöpflich“ ist?',
+      ['Weil Solarmodule nachts Energie verbrauchen.', 'Weil nachts keine Strahlung ankommt und ohne Speicher oder Zusatzquelle nichts zur Verfügung steht.', 'Weil die Lampe nachts mehr Leistung braucht.', 'Weil die Sonne nachts weniger Energie abgibt, aber trotzdem ausreicht.'],
+      1,
+      'Eine Quelle ist nur so nützlich wie ihr Zugang zur Last. Nachts kommt keine Strahlung an. Ohne Speicher oder regelbare Zusatzquelle bricht die Versorgung ab, auch wenn die Quelle an sich unerschöpflich ist.',
+    ),
+    q(
+      'Ein Habitat hat Solarmodule, aber weder Speicher noch weitere Quelle. Was fehlt, damit die Nachtlast versorgt wird?',
+      ['Ein größerer Verbraucher.', 'Ein Speicher oder eine regelbare Zusatzquelle, die Energie vom Tag in die Nacht verschiebt oder ersetzt.', 'Ein zweites Solarmodul gleicher Bauart am selben Platz.', 'Ein Sensor, der die Dunkelheit meldet.'],
+      1,
+      'Ein zweites gleichartiges Modul liefert nachts ebenfalls nichts. Es braucht ein Element, das Energie zeitlich verschiebt (Speicher) oder unabhängig vom Licht liefert. Das ist der Grund, warum Versorgung als System betrachtet wird.',
+    ),
+  ],
   'QUIZ:POWER:P-VS-E': [
     q(
       'Eine Anlage liefert 3 Stunden lang konstant 10 kW. Wie viel Energie ist das?',

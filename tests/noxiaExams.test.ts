@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { pathAssessment } from '../lib/learningPathAssessment';
+import { parseLearningQuiz } from '../lib/learningQuiz';
 import { getRegisteredLearningPathForModule, registeredLearningPaths } from '../lib/learningPathRegistry';
 
 /** NOXIA besteht ein Modul ab 70 %. Mit mindestens 6 Fragen ist das mit einem Fehler erreichbar. */
@@ -87,4 +88,15 @@ test('jedes Modul mit UNL:NOX-Freischaltung hat eine Prüfung (Ausnahmen sind be
   assert.deepEqual(unexpected, [], `Module mit UNL:NOX-Freischaltung ohne Prüfung: ${unexpected.join(', ')}`);
   const resolved = KNOWN_EXAM_GAPS.filter((id) => !missing.includes(id));
   assert.deepEqual(resolved, [], `Diese Ausnahmen sind erledigt und gehören aus KNOWN_EXAM_GAPS gestrichen: ${resolved.join(', ')}`);
+});
+
+test('keine Sackgasse: gesperrte Einheiten der Prüfungsmodule haben einen auswertbaren Kurztest', () => {
+  for (const { path } of EXAM_MODULES) {
+    const resolved = registeredLearningPaths.find((candidate) => candidate.id === path)!;
+    for (const unit of resolved.units) {
+      if (unit.gate?.type !== 'quiz_all_correct') continue;
+      const playable = unit.sections.some((section) => section.kind === 'quiz' && parseLearningQuiz(section.summary));
+      assert.ok(playable, `${path} / ${unit.id}: Gate ohne auswertbaren Kurztest sperrt die nächste Einheit dauerhaft`);
+    }
+  }
 });

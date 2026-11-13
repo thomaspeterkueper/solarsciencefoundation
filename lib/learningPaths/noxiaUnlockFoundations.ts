@@ -13,7 +13,24 @@ type UnlockPathSpec = {
   takeaways: [string, string, string];
 };
 
-function sections(slug: string, topic: string, question: string, takeaway: string): LearningPathSection[] {
+/** Kurztest-Schlüssel je Einheit: Einheit 1 und 2 tragen die zwei Tests, Einheit 3 ist der abschließende Transfer. */
+function examKeyForUnit(slug: string, index: number): string | undefined {
+  const key = index === 0 ? `${slug}:2` : index === 1 ? `${slug}:3` : undefined;
+  return key && hasExamQuiz(key) ? key : undefined;
+}
+
+function sections(slug: string, topic: string, question: string, takeaway: string, examKey: string | undefined, hasExams: boolean): LearningPathSection[] {
+  const quizSections: LearningPathSection[] = examKey
+    ? [{ id: `QUIZ:${slug}-${topic}`, kind: 'quiz', title: 'Kurztest', summary: examQuiz(examKey), depthPoints: 9 }]
+    : hasExams
+      ? []
+      : [{
+          id: `QUIZ:${slug}-${topic}`,
+          kind: 'quiz',
+          title: 'Verständnis prüfen',
+          summary: 'Erkläre die zentrale Ursache-Wirkungs-Kette in eigenen Worten und nenne eine Fehlentscheidung, die dadurch vermieden wird.',
+          depthPoints: 5,
+        }];
   return [
     {
       id: `OBS:${slug}-${topic}`,
@@ -36,21 +53,7 @@ function sections(slug: string, topic: string, question: string, takeaway: strin
       summary: 'Ordne die entscheidenden Größen, Risiken und Abhängigkeiten und begründe, welche technische Entscheidung daraus folgt.',
       depthPoints: 8,
     },
-    hasExamQuiz(`${slug}:${topic}`)
-      ? {
-          id: `QUIZ:${slug}-${topic}`,
-          kind: 'quiz',
-          title: 'Kurztest',
-          summary: examQuiz(`${slug}:${topic}`),
-          depthPoints: 9,
-        }
-      : {
-          id: `QUIZ:${slug}-${topic}`,
-          kind: 'quiz',
-          title: 'Verständnis prüfen',
-          summary: 'Erkläre die zentrale Ursache-Wirkungs-Kette in eigenen Worten und nenne eine Fehlentscheidung, die dadurch vermieden wird.',
-          depthPoints: 5,
-        },
+    ...quizSections,
   ];
 }
 
@@ -84,8 +87,9 @@ function buildPath(spec: UnlockPathSpec): LearningPath {
       title: index === 0 ? 'Problem erkennen' : index === 1 ? 'Zusammenhänge verstehen' : 'Systementscheidung treffen',
       entryQuestion: spec.questions[index],
       takeaway: spec.takeaways[index],
-      gate: index < 2 ? { type: 'quiz_all_correct', unlocksUnitId: unitIds[index + 1] } : undefined,
-      sections: sections(spec.slug, String(index + 1), spec.questions[index], spec.takeaways[index]),
+      // Nur Einheiten mit einem echten, auswertbaren Kurztest sperren die nächste Einheit; sonst gäbe es eine Sackgasse.
+      gate: index < 2 && examKeyForUnit(spec.slug, index) ? { type: 'quiz_all_correct', unlocksUnitId: unitIds[index + 1] } : undefined,
+      sections: sections(spec.slug, String(index + 1), spec.questions[index], spec.takeaways[index], examKeyForUnit(spec.slug, index), hasExamQuiz(`${spec.slug}:2`)),
     })),
   };
 }
