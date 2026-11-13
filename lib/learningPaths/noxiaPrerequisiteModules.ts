@@ -34,6 +34,7 @@ type UnitSpec = {
   observation: [string, string];
   explanations: Array<[string, string, string]>;
   exercise: [string, string, string];
+  experiment?: { id: string; title: string; summary: string };
   quiz: [QuizQuestion, QuizQuestion, QuizQuestion];
 };
 
@@ -42,6 +43,7 @@ function unit(spec: UnitSpec): LearningPathUnit {
   const sections: LearningPathSection[] = [
     section(`OBS:${slug}`, 'observation', spec.observation[0], spec.observation[1], 5),
     ...spec.explanations.map(([id, title, summary]) => section(`EXPL:${slug}-${id}`, 'explanation', title, summary, 8)),
+    ...(spec.experiment ? [section(`EXPERIMENT:${slug}`, 'experiment', spec.experiment.title, spec.experiment.summary, 12, { interactive: true, interactiveId: spec.experiment.id })] : []),
     section(`EXERCISE:${slug}`, 'exercise', spec.exercise[0], spec.exercise[1], 10, { solution: spec.exercise[2] }),
     section(`QUIZ:${slug}`, 'quiz', 'Kurztest', quiz(spec.quiz), 10),
   ];
@@ -123,6 +125,7 @@ export const noxiaSmeltingLearningPath: LearningPath = {
         ['ENERGIE', 'Schmelzen kostet Energie', 'Eisen schmilzt bei etwa 1538 °C. Aufheizen und Schmelzen eines Kilogramms braucht größenordnungsmäßig 1 MJ, dazu kommen Wärmeverluste, die Schlacke und ggf. die Reduktion. Je höher der Verlustanteil, desto weniger Metall schafft ein Ofen mit gegebener Leistung.'],
         ['LEGIEREN', 'Legieren und Gießen', 'Kleine Zusätze verändern Eigenschaften: Stahl ist Eisen mit wenigen Prozent Kohlenstoff oder weniger. Beim Gießen schrumpft das Metall beim Erstarren; die Form muss das berücksichtigen, sonst entstehen Hohlräume (Lunker). Die nötige Reinheit hängt vom Verwendungszweck ab – für einfache Halterungen genügt weniger als für tragende Präzisionsteile.'],
       ],
+      experiment: { id: 'EXP:NOX:SMELTING-FURNACE', title: 'Was schafft ein Schmelzofen?', summary: 'Verändere Ofenleistung, Wärmeverluste, Erzqualität und Schlacke und beobachte, wie lange ein Auftrag dauert.' },
       exercise: [
         'Ofenleistung abschätzen',
         'Ein Ofen mit 5 kW elektrischer Leistung verliert die Hälfte der Energie als Wärme an die Umgebung. Aufheizen und Schmelzen brauchen rund 1,2 MJ je kg. Wie viel Metall schafft er in einer Stunde?',
@@ -219,6 +222,7 @@ export const noxiaRobotFabricationLearningPath: LearningPath = {
         ['REAKTION', 'Kraft und Gegenkraft', 'Drückt der Bohrer mit einer Kraft F auf das Gestein, wirkt dieselbe Kraft entgegengesetzt auf den Roboter. Seine Beschleunigung ist a = F / m. Ohne Verankerung wird er weggedrückt, statt zu bohren. Lösungen: Anker oder Spreizen, die den Roboter am Boden fixieren, oder ein reaktionskompensierter Bohrer, dessen Gegenkraft über eine bewegte Gegenmasse aufgefangen wird.'],
         ['STAUB', 'Staub und Verschleiß', 'Regolith ist feinkörnig, scharfkantig und elektrostatisch aufgeladen. Er dringt in Gelenke ein und schleift Dichtungen ab. Dagegen helfen staubdichte Gehäuse, geschlossene Förderwege (etwa ein geschlossener Materialhopper) und planbarer Austausch von Verschleißteilen aus dem Ersatzteilrack.'],
       ],
+      experiment: { id: 'EXP:NOX:ROBOT-DRILL', title: 'Bohren, wo nichts andrückt', summary: 'Wähle Himmelskörper, Masse, Bohrkraft und Verankerung und beobachte, ob der Roboter am Boden bleibt.' },
       exercise: [
         'Abdrücken berechnen',
         'Ein 40-kg-Roboter presst auf Phobos mit 300 N gegen das Gestein. Wie groß ist die Beschleunigung, mit der er ohne Verankerung wegfliegt? Vergleiche mit seiner Gewichtskraft von 0,23 N.',
@@ -279,6 +283,7 @@ export const noxiaPrecisionInstrumentationLearningPath: LearningPath = {
         ['FEHLER', 'Systematisch und zufällig', 'Ein Messwert weicht aus zwei Gründen vom wahren Wert ab. Ein systematischer Fehler verschiebt alle Werte in dieselbe Richtung (falscher Nullpunkt, falscher Faktor). Ein zufälliger Fehler streut die Einzelwerte um einen Mittelwert. Mehrfaches Messen und Mitteln verkleinert die Streuung, aber nicht den systematischen Fehler.'],
         ['KALIBRIERUNG', 'Kalibrierung und Messunsicherheit', 'Bei der Kalibrierung misst man eine bekannte Referenz und korrigiert das Gerät. Zu jedem Messwert gehört eine Unsicherheit, etwa 100,0 g ± 0,5 g. Sie sagt, wie weit man Schlussfolgerungen trauen darf – zum Beispiel ob zwei Messwerte wirklich verschieden sind.'],
       ],
+      experiment: { id: 'EXP:NOX:CALIBRATION-SERIES', title: 'Messreihe an einem Referenzgewicht', summary: 'Verändere systematischen Fehler, Streuung und Messzahl und beobachte, wann sich ein Fehler vom Zufall trennen lässt.' },
       exercise: [
         'Kalibrierung auswerten',
         'Ein Referenzgewicht von 100,0 g wird fünfmal gewogen: 100,2 g; 100,3 g; 100,2 g; 100,4 g; 100,3 g. Was verrät das über Waage und Messung?',
@@ -410,6 +415,7 @@ export const ecoCollateralLearningPath: LearningPath = {
       explanations: [
         ['OBERGRENZE', 'Warum es eine Obergrenze gibt', 'Eine Bank begrenzt das Gesamtrisiko je Kunde, auch wenn die Sicherheiten hoch sind. Ein sehr hoher Sicherheitenwert ergibt dann nicht beliebig viel Kredit; ab der Grenze bremst die Obergrenze, nicht mehr die Sicherheit.'],
       ],
+      experiment: { id: 'EXP:NOX:COLLATERAL-FRAME', title: 'Kreditrahmen aus Sicherheiten', summary: 'Verändere Gebäudewert, Schiffswert, Quote und Wertverlust und beobachte, wo die Obergrenze greift.' },
       exercise: [
         'Kreditrahmen in NOXIA',
         'Ein Spieler besitzt Gebäude im Wert von 20 000 Cr und ein Schiff mit Neupreis 30 000 Cr (zählt zu 60 %). Wie hoch ist der Kreditrahmen bei 70 % Beleihung? Was ändert sich, wenn das Schiff verkauft wird?',
@@ -506,6 +512,7 @@ export const ecoArbitrageLearningPath: LearningPath = {
         ['UMSCHLAG', 'Gewinn pro Zeit', 'Der Vergleich zweier Routen sollte den Gewinn je Zeiteinheit betrachten, nicht nur den Gewinn je Fahrt. Eine kürzere Route mit kleinerem Gewinn kann pro Tag mehr bringen und das Kapital früher für die nächste Fahrt freigeben.'],
         ['RISIKO', 'Preisrisiko', 'Der Zielpreis kann bis zur Ankunft fallen. Wer nur auf den heutigen Preisunterschied schaut, rechnet mit einem Wert, der sich vor dem Verkauf noch ändern kann. Ein Sicherheitsabschlag oder eine Verteilung auf mehrere Routen senkt das Risiko.'],
       ],
+      experiment: { id: 'EXP:NOX:ARBITRAGE-ROUTE', title: 'Lohnt sich die Handelsroute?', summary: 'Verändere Preise, Spediteur, Wettbewerber und Reisedauer und vergleiche zwei Routen über 60 Tage.' },
       exercise: [
         'Zwei Routen vergleichen',
         'Route A bringt 900 Cr Gewinn in 10 Tagen, Route B 600 Cr in 5 Tagen. Beide binden dasselbe Kapital. Welche Route bringt pro Tag mehr, und wie viel Gewinn schafft Route B in 10 Tagen, wenn die Fahrt sofort wiederholt wird?',
@@ -596,6 +603,7 @@ export const ecoLandValueLearningPath: LearningPath = {
       explanations: [
         ['STEUER', 'Netto, Brutto und Grundsteuer', 'Bei 19 % Konsumsteuer gilt Brutto = Netto · 1,19. Umgekehrt ist Netto = Brutto / 1,19, nicht Brutto · 0,81. Zusätzlich kann der Besitz von Boden laufende Kosten verursachen, etwa eine Grundsteuer, die sich am Bodenwert orientiert: Wer wertvollen Boden unbebaut hält, zahlt, ohne zu verdienen.'],
       ],
+      experiment: { id: 'EXP:NOX:LAND-VALUE-PAYBACK', title: 'Lage, Steuern und Amortisation eines Grundstücks', summary: 'Vergleiche Ortsmitte und Ortsrand bei gleichem Gebäude und sieh, wann der Einsatz zurück ist.' },
       exercise: [
         'Netto und Brutto',
         'Ein Gebäude kostet brutto 1190 Cr bei 19 % Konsumsteuer. Wie hoch ist der Nettopreis und wie viel Steuer ist enthalten? Warum ist 1190 · 0,81 falsch?',

@@ -74,7 +74,7 @@ import OsmosisExperiment from './OsmosisExperiment';
 import BatteryManagementExperiment from './BatteryManagementExperiment';
 import BatteryFastChargeExperiment from './BatteryFastChargeExperiment';
 import { GearboxCastingExperiment, GearboxAssemblyExperiment } from './GearboxHousingExperiment';
-import { PressureLeakExperiment, AirlockCycleExperiment, Co2BuildupExperiment, ThermalDriftExperiment, RadiationShelterExperiment, MonitoringTrendExperiment, RedundancyCommonCauseExperiment, MarsStormExperiment } from './habitat/HabitatModelExperiments';
+import { PressureLeakExperiment, AirlockCycleExperiment, Co2BuildupExperiment, ThermalDriftExperiment, RadiationShelterExperiment, MonitoringTrendExperiment, RedundancyCommonCauseExperiment, MarsStormExperiment, SmeltingFurnaceExperiment, RobotDrillExperiment, CalibrationSeriesExperiment, CollateralFrameExperiment, ArbitrageRouteExperiment, LandValuePaybackExperiment } from './habitat/HabitatModelExperiments';
 
 export type ExperimentModelType = 'interactive-model' | 'simulation' | 'calculator' | 'visualization';
 export type ExperimentDefinition = { component: ComponentType; modelType: ExperimentModelType; concepts?: string[] };
@@ -209,6 +209,12 @@ const registry: Record<string, ExperimentDefinition> = {
   'EXP:HABITAT:MONITORING-TREND': { component: MonitoringTrendExperiment, modelType: 'simulation' },
   'EXP:HABITAT:REDUNDANCY-COMMON-CAUSE': { component: RedundancyCommonCauseExperiment, modelType: 'simulation' },
   'EXP:HABITAT:MARS-STORM': { component: MarsStormExperiment, modelType: 'simulation' },
+  'EXP:NOX:SMELTING-FURNACE': { component: SmeltingFurnaceExperiment, modelType: 'simulation' },
+  'EXP:NOX:ROBOT-DRILL': { component: RobotDrillExperiment, modelType: 'simulation' },
+  'EXP:NOX:CALIBRATION-SERIES': { component: CalibrationSeriesExperiment, modelType: 'simulation' },
+  'EXP:NOX:COLLATERAL-FRAME': { component: CollateralFrameExperiment, modelType: 'calculator' },
+  'EXP:NOX:ARBITRAGE-ROUTE': { component: ArbitrageRouteExperiment, modelType: 'calculator' },
+  'EXP:NOX:LAND-VALUE-PAYBACK': { component: LandValuePaybackExperiment, modelType: 'calculator' },
   'EXP:GEHAEUSE-SANDGUSS': { component: GearboxCastingExperiment, modelType: 'visualization', concepts: ['CON:MTL:sand-casting','CON:ENG:design-for-casting'] },
   'EXP:GETRIEBE-MONTAGE': { component: GearboxAssemblyExperiment, modelType: 'visualization', concepts: ['CON:ENG:assembly-sequence','CON:ENG:locating-floating-bearing'] },
 };

@@ -74,12 +74,12 @@ export function fmtDuration(hours: number): string {
   return `${fmt(hours / 24, 1)} Tage`;
 }
 
-function linspace(a: number, b: number, n: number): number[] {
+export function linspace(a: number, b: number, n: number): number[] {
   return Array.from({ length: n }, (_, i) => a + ((b - a) * i) / (n - 1));
 }
 
 /** Deterministischer Zufall, damit Rauschen bei gleichen Reglern reproduzierbar bleibt. */
-function mulberry32(seed: number) {
+export function mulberry32(seed: number) {
   let a = seed >>> 0;
   return () => {
     a = (a + 0x6d2b79f5) >>> 0;
@@ -89,7 +89,7 @@ function mulberry32(seed: number) {
     return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
   };
 }
-function gaussian(rand: () => number): number {
+export function gaussian(rand: () => number): number {
   const u = Math.max(rand(), 1e-12);
   const v = rand();
   return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);

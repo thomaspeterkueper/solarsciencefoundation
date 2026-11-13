@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { defaults, fmt, getHabitatModel, type ModelDef, type SimResult } from '../../../lib/habitatModels';
+import { defaults, fmt, type ModelDef, type SimResult } from '../../../lib/habitatModels';
+import { getModel } from '../../../lib/workshopModels';
 import styles from './ModelLab.module.css';
 
 const W = 640, H = 300;
@@ -37,7 +38,9 @@ function Chart({ result, cursor }: { result: SimResult; cursor: number }) {
     : niceTicks(yMin, yMax);
   const xTicks = x.length <= 8 ? x : niceTicks(xMin, xMax, 6);
   const path = (vals: number[]) => vals.map((v, i) => `${i ? 'L' : 'M'}${sx(x[i]).toFixed(1)},${sy(v).toFixed(1)}`).join(' ');
-  const tickLabel = (v: number) => (logY ? `10${superscript(Math.round(Math.log10(v)))}` : fmt(v, v >= 100 ? 0 : 1));
+  const yStep = yTicks.length > 1 ? Math.abs(yTicks[1] - yTicks[0]) : 1;
+  const yDecimals = Math.min(3, Math.max(0, -Math.floor(Math.log10(yStep) + 1e-9)));
+  const tickLabel = (v: number) => (logY ? `10${superscript(Math.round(Math.log10(v)))}` : v.toLocaleString('de-DE', { minimumFractionDigits: yDecimals, maximumFractionDigits: yDecimals }));
   return (
     <svg viewBox={`0 0 ${W} ${H}`} className={styles.chart} role="img" aria-label={`${result.yLabel} über ${result.xLabel}`}>
       {yTicks.map((v) => (
@@ -157,8 +160,8 @@ export function ModelLab({ model }: { model: ModelDef }) {
 }
 
 export function habitatExperiment(id: string) {
-  const model = getHabitatModel(id);
-  if (!model) throw new Error(`Unbekanntes Habitat-Modell ${id}`);
+  const model = getModel(id);
+  if (!model) throw new Error(`Unbekanntes Lernmodell ${id}`);
   const Component = () => <ModelLab model={model} />;
   Component.displayName = `HabitatModel(${id})`;
   return Component;
