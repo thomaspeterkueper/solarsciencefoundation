@@ -5,6 +5,7 @@ import { getRegisteredLearningPathById, getRegisteredLearningPathForModule } fro
 import type { LearningPath, LearningPathSection } from './learningPaths';
 import { getLearningInteractive, type LearningInteractive } from './learningInteractives';
 import { gravitationsbrunnenLearningPath } from './learningPaths/gravitationsbrunnen';
+import { getSemanticExperimentId, resolveExperimentComponent } from '../components/learning/experimentResolver';
 import { buildUnlocks } from './progress';
 import { parseLearningQuiz } from './learningQuiz';
 import { pathAssessment } from './learningPathAssessment';
@@ -32,7 +33,16 @@ export type NoxiaModuleSection =
   | { type: 'example'; title: string; text: string }
   | { type: 'task'; prompt: string; hint?: string }
   /** kind: 'gravity-well' | 'hohmann-calculator' | 'transfer-comparison' – params je nach kind */
-  | ({ type: 'interactive' } & LearningInteractive);
+  | ({ type: 'interactive' } & LearningInteractive)
+  /** SSF-Experiment als eingebettete Seite: NOXIA zeigt `embedUrl` in einem Rahmen (iframe) im rechten Lernfeld. */
+  | {
+      type: 'embed';
+      embedId: string;
+      title: string;
+      instruction: string;
+      embedUrl: string;
+      fallback: string;
+    };
 
 export type NoxiaModuleDetail = NoxiaKnowledgeModule & {
   schemaVersion: '1.0';
@@ -70,11 +80,17 @@ function collectInteractiveSections(moduleId: string): NoxiaModuleSection[] {
   const sections: NoxiaModuleSection[] = [];
   for (const unit of path.units) {
     for (const section of unit.sections) {
-      if (!section.interactiveId || seen.has(section.interactiveId)) continue;
-      const interactive = getLearningInteractive(section.interactiveId);
-      if (!interactive) continue;
-      seen.add(section.interactiveId);
-      sections.push({ type: 'interactive', ...interactive });
+      const interactive = section.interactiveId ? getLearningInteractive(section.interactiveId) : undefined;
+      if (interactive && section.interactiveId && !seen.has(section.interactiveId)) {
+        seen.add(section.interactiveId);
+        sections.push({ type: 'interactive', ...interactive });
+        continue;
+      }
+      const embed = interactive ? null : sectionEmbed(section);
+      if (embed && embed.type === 'embed' && !seen.has(embed.embedId)) {
+        seen.add(embed.embedId);
+        sections.push(embed);
+      }
     }
   }
   return sections;
@@ -129,7 +145,27 @@ function toNoxiaPathModule(path: LearningPath): NoxiaKnowledgeModule {
   };
 }
 
+/** Liefert das einbettbare SSF-Experiment einer Sektion, falls für sie ein Modell hinterlegt ist. */
+function sectionEmbed(section: LearningPathSection): NoxiaModuleSection | null {
+  if (section.kind !== 'experiment' && !section.interactive && !section.interactiveId) return null;
+  if (!resolveExperimentComponent(section)) return null;
+  const embedId = getSemanticExperimentId(section);
+  if (!embedId) return null;
+  return {
+    type: 'embed',
+    embedId,
+    title: section.title,
+    instruction: section.summary,
+    embedUrl: `${baseUrl()}/embed/experiment/${encodeURIComponent(embedId)}`,
+    fallback: section.summary,
+  };
+}
+
 function sectionToNoxia(section: LearningPathSection): NoxiaModuleSection[] {
+  const embed = sectionEmbed(section);
+  if (embed && !(section.interactiveId && getLearningInteractive(section.interactiveId))) {
+    return [embed, { type: 'example', title: section.title, text: section.summary }];
+  }
   if (section.interactiveId) {
     const interactive = getLearningInteractive(section.interactiveId);
     if (interactive) return [{ type: 'interactive', ...interactive }];
@@ -159,7 +195,13 @@ function pathDetail(path: LearningPath): NoxiaModuleDetail {
   for (const unit of path.units) {
     sections.push({ type: 'heading', text: unit.title });
     if (unit.entryQuestion) sections.push({ type: 'text', text: unit.entryQuestion });
-    for (const section of unit.sections) sections.push(...sectionToNoxia(section));
+    for (const section of unit.sections) {
+      for (const item of sectionToNoxia(section)) {
+        // Dasselbe Experiment nicht mehrfach einbetten.
+        if (item.type === 'embed' && sections.some((existing) => existing.type === 'embed' && existing.embedId === item.embedId)) continue;
+        sections.push(item);
+      }
+    }
     if (unit.takeaway) sections.push({ type: 'key_point', text: `Merksatz: ${unit.takeaway}` });
   }
   const base = toNoxiaPathModule(path);

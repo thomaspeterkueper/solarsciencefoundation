@@ -12,6 +12,13 @@ const nextConfig = {
           { key: 'Access-Control-Allow-Headers',     value: 'Content-Type, Authorization, x-vercel-protection-bypass, x-vercel-trusted-oidc-idp-token' },
         ],
       },
+      {
+        // Experimente dürfen von NOXIA im Lernraum eingebettet werden, sonst von niemandem.
+        source: '/embed/:path*',
+        headers: [
+          { key: 'Content-Security-Policy', value: "frame-ancestors 'self' https://noxiagame.vercel.app http://localhost:3000" },
+        ],
+      },
     ];
   },
 };
