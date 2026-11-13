@@ -51,6 +51,7 @@ import RotweinExperiment from './RotweinExperiment';
 import SpiralExperiment from './SpiralExperiment';
 import ColonyExperiment from './ColonyExperiment';
 import HohmannExperiment from './HohmannExperiment';
+import TransferComparisonExperiment from './TransferComparisonExperiment';
 import KreditExperiment from './KreditExperiment';
 import StationExperiment from './StationExperiment';
 import WaterTreatmentExperiment from './WaterTreatmentExperiment';
@@ -72,6 +73,7 @@ import HydrogenBondExperiment from './HydrogenBondExperiment';
 import OsmosisExperiment from './OsmosisExperiment';
 import BatteryManagementExperiment from './BatteryManagementExperiment';
 import BatteryFastChargeExperiment from './BatteryFastChargeExperiment';
+import { GearboxCastingExperiment, GearboxAssemblyExperiment } from './GearboxHousingExperiment';
 
 export type ExperimentModelType = 'interactive-model' | 'simulation' | 'calculator' | 'visualization';
 export type ExperimentDefinition = { component: ComponentType; modelType: ExperimentModelType; concepts?: string[] };
@@ -177,6 +179,8 @@ const registry: Record<string, ExperimentDefinition> = {
   'EXP:PUMPENKENNLINIE': { component: PumpExperiment, modelType: 'interactive-model' },
   'EXP:COULOMB-QUIZ': { component: CoulombQuizExperiment, modelType: 'interactive-model' },
   'EXP:HOHMANN-TRANSFER': { component: HohmannExperiment, modelType: 'simulation' },
+  'hohmann-rechner': { component: HohmannExperiment, modelType: 'simulation' },
+  'transferbahn-vergleich': { component: TransferComparisonExperiment, modelType: 'simulation' },
   'EXP:KREDIT-RECHNER': { component: KreditExperiment, modelType: 'calculator' },
   'EXP:KREDIT-NOXIA': { component: KreditExperiment, modelType: 'calculator' },
   'EXP:COLONY-STANDORT': { component: ColonyExperiment, modelType: 'simulation' },
@@ -189,7 +193,6 @@ const registry: Record<string, ExperimentDefinition> = {
   'EXP:FLECK-BEHANDLUNG': { component: RotweinExperiment, modelType: 'interactive-model' },
   'EXP:ABSORPTIONSLINIEN': { component: SpectralAnalysisExperiment, modelType: 'interactive-model' },
   'EXP:LICHTSPEKTRUM': { component: SpectralAnalysisExperiment, modelType: 'interactive-model' },
-  'EXP:SOLAR-SYSTEM': { component: SpectralAnalysisExperiment, modelType: 'interactive-model' },
   'EXP:DIFFERENTIAL-MECHANIK': { component: DifferentialExperiment, modelType: 'interactive-model' },
   'EXP:DIFFERENTIAL-SIMULATION': { component: DifferentialExperiment, modelType: 'simulation' },
   'EXP:DIFFERENTIAL-VERGLEICH': { component: DifferentialExperiment, modelType: 'interactive-model' },
@@ -197,6 +200,8 @@ const registry: Record<string, ExperimentDefinition> = {
   'EXP:NOX-WATER-DESTILLATION': { component: WaterTreatmentExperiment, modelType: 'interactive-model' },
   'EXP:NOX-WATER-CHAIN': { component: WaterTreatmentExperiment, modelType: 'simulation' },
   'EXP:NOX-RESOURCE-CHAIN': { component: ResourceSeparationExperiment, modelType: 'simulation' },
+  'EXP:GEHAEUSE-SANDGUSS': { component: GearboxCastingExperiment, modelType: 'visualization', concepts: ['CON:MTL:sand-casting','CON:ENG:design-for-casting'] },
+  'EXP:GETRIEBE-MONTAGE': { component: GearboxAssemblyExperiment, modelType: 'visualization', concepts: ['CON:ENG:assembly-sequence','CON:ENG:locating-floating-bearing'] },
 };
 
 export function getExperimentDefinition(id: string | undefined): ExperimentDefinition | undefined { return id ? registry[id] : undefined; }

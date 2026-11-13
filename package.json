@@ -14,12 +14,14 @@
     "@supabase/supabase-js": "latest",
     "next": "latest",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "three": "0.128.0"
   },
   "devDependencies": {
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "@types/three": "0.128.0"
   }
 }

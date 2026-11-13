@@ -6,6 +6,8 @@ export const CRITICAL_EXPERIMENT_CONTRACTS = {
   'EXP:POWER:FLOW': 'EnergyFlowExperiment',
   'EXP:POWER:HABITAT': 'HabitatPowerExperiment',
   'EXP:POWER:REDUNDANCY': 'PowerRedundancyExperiment',
+  'EXP:GEHAEUSE-SANDGUSS': 'GearboxCastingExperiment',
+  'EXP:GETRIEBE-MONTAGE': 'GearboxAssemblyExperiment',
 } as const;
 
 export const KNOWN_SEMANTIC_MISMATCHES = {

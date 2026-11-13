@@ -3,7 +3,7 @@ import { getDidacticModuleContent, type DidacticModuleContent } from './didactic
 import { getScienceFoundationContent } from './didacticScienceFoundations';
 import { getRegisteredLearningPathById, getRegisteredLearningPathForModule } from './learningPathRegistry';
 import type { LearningPath, LearningPathSection } from './learningPaths';
-import { getLearningInteractive, type LearningInteractiveParams } from './learningInteractives';
+import { getLearningInteractive, type LearningInteractive } from './learningInteractives';
 import { gravitationsbrunnenLearningPath } from './learningPaths/gravitationsbrunnen';
 import { buildUnlocks } from './progress';
 import { parseLearningQuiz } from './learningQuiz';
@@ -31,14 +31,8 @@ export type NoxiaModuleSection =
   | { type: 'key_point'; text: string }
   | { type: 'example'; title: string; text: string }
   | { type: 'task'; prompt: string; hint?: string }
-  | {
-      type: 'interactive';
-      interactiveId: string;
-      title: string;
-      instruction: string;
-      params: LearningInteractiveParams;
-      fallback: string;
-    };
+  /** kind: 'gravity-well' | 'hohmann-calculator' | 'transfer-comparison' – params je nach kind */
+  | ({ type: 'interactive' } & LearningInteractive);
 
 export type NoxiaModuleDetail = NoxiaKnowledgeModule & {
   schemaVersion: '1.0';
