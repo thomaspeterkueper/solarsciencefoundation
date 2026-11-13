@@ -1,4 +1,6 @@
 import { learningPaths, type LearningPath } from './learningPaths';
+import { applyQuizRepairs } from './learningPaths/quizRepairs';
+import { parseLearningQuiz } from './learningQuiz';
 import { maillardLearningPath } from './learningPaths/maillard';
 import { magnetismMaterialsLearningPath } from './learningPaths/magnetismMaterials';
 import { noxiaWaterProcessingLearningPath } from './learningPaths/noxiaWaterProcessing';
@@ -40,7 +42,7 @@ export function validateLearningPathRegistry(source:LearningPath[]){const byId=n
 const governedPaths:LearningPath[]=[powerGenerationLearningPath,caramelizationLearningPath,redWineStainLearningPath,...financeLearningPaths,...acidBaseFoundationLearningPaths,limescaleCleaningLearningPath,chlorineCleaningLearningPath,maillardLearningPath,magnetismMaterialsLearningPath,noxiaWaterProcessingLearningPath,noxiaResourceExtractionLearningPath,noxiaScientificObservationLearningPath,...noxiaUnlockFoundationLearningPaths.filter(path=>!SUPERSEDED_FOUNDATION_PATH_IDS.has(path.id)),contracomologyLearningPath,...surveyingLearningPaths,...noxiaPrerequisiteLearningPaths,gravitationsbrunnenLearningPath,gearboxCastHousingLearningPath,...machineFundamentalsLearningPaths,dynamicsFoundationsLearningPath];
 const governedPathIds=new Set(governedPaths.map(path=>path.id));
 const legacyPaths=learningPaths.filter(path=>!SUPERSEDED_LEGACY_PATH_IDS.has(path.id));
-const candidates=dedupePathsById([...governedPaths,...legacyPaths].map(canonicalizeDomains));
+const candidates=dedupePathsById([...governedPaths,...legacyPaths].map(canonicalizeDomains).map(path=>applyQuizRepairs(path,summary=>parseLearningQuiz(summary)!==null)));
 const quarantine=quarantineUnmappedLegacyDomains(candidates);
 const withUniqueModules=scopeAmbiguousModuleIds(quarantine.active,governedPathIds);
 const normalizedPaths=scopeDuplicateLearningObjectIds(withUniqueModules);

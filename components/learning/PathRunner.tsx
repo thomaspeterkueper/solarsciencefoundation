@@ -5,6 +5,7 @@ import type { LearningPath, LearningPathSection, LearningPathUnit } from '../../
 import { LEARNING_EVIDENCE_LABELS } from '../../lib/learningEvidence';
 import styles from './PathRunner.module.css';
 import GovernedQuizSection from './GovernedQuizSection';
+import { parseLearningQuiz } from '../../lib/learningQuiz';
 import { resolveExperimentComponent } from './experimentResolver';
 
 function depthDisplay(raw: number) {
@@ -98,6 +99,7 @@ function UnitBlock({ unit, index, unlocked, isLast, onUnlock, onDepth }: {
   onDepth: (pts: number) => void;
 }) {
   const [quizDone, setQuizDone] = useState(false);
+  const hasPlayableQuiz = unit.sections.some(section => section.kind === 'quiz' && parseLearningQuiz(section.summary) !== null);
   if (!unlocked) return <div className={styles.unitLocked}>
     <span>0{index + 1}</span>
     <div><strong>{unit.title}</strong><p>Schließe die vorherige Einheit ab, um fortzufahren.</p></div>
@@ -113,7 +115,12 @@ function UnitBlock({ unit, index, unlocked, isLast, onUnlock, onDepth }: {
       {unit.sections.map(section => <SectionCard key={section.id} section={section} onQuizComplete={() => setQuizDone(true)} onDepth={onDepth} />)}
     </div>
     <div className={styles.takeaway}><span>Merksatz</span><p>{unit.takeaway}</p></div>
-    {!isLast && unit.gate && <button className={styles.continueBtn} disabled={!quizDone} onClick={onUnlock}>{quizDone ? 'Nächste Einheit →' : 'Quiz abschließen, um fortzufahren'}</button>}
+    {!isLast && unit.gate && (hasPlayableQuiz
+      ? <button className={styles.continueBtn} disabled={!quizDone} onClick={onUnlock}>{quizDone ? 'Nächste Einheit →' : 'Quiz abschließen, um fortzufahren'}</button>
+      : <>
+          <p className={styles.quizFeedback}>Für diese Einheit gibt es noch keinen Kurztest. Du kannst weiterlernen; eine Kompetenz wird erst mit einem gültigen Kurztest freigeschaltet.</p>
+          <button className={styles.continueBtn} onClick={onUnlock}>Nächste Einheit →</button>
+        </>)}
   </div>;
 }
 

@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import { quizRepairs } from '../lib/learningPaths/quizRepairs';
 import { pathAssessment } from '../lib/learningPathAssessment';
 import { parseLearningQuiz } from '../lib/learningQuiz';
 import { getRegisteredLearningPathForModule, registeredLearningPaths } from '../lib/learningPathRegistry';
@@ -62,21 +63,7 @@ test('Prüfungsfragen sind eindeutig und mit Erklärung versehen', () => {
  * Regel: Jedes Modul mit einer NOXIA-Freischaltung (UNL:NOX:…) braucht eine Prüfung.
  * Bekannte Lücken stehen in der Liste und werden abgebaut; neue Module dürfen nicht hinzukommen.
  */
-const KNOWN_EXAM_GAPS: string[] = [
-  'PATH:SSF:AST-MARS-REGOLITH-0001',
-  'PATH:SSF:AST-MONDNAVIGATION-0001',
-  'PATH:SSF:ENG-COLONY-FOUND-0001',
-  'PATH:SSF:ENG-LIFESUPPORT-MOBIL-0001',
-  'PATH:SSF:ENG-STATION-FOUND-0001',
-  'PATH:SSF:NOX-SCIENTIFIC-OBSERVATION-0001',
-  'PATH:SSF:PHY-MONDSTAUB-VERSCHLEISS-0001',
-  'PATH:SSF:PHY-SPEKTRALANALYSE-0001',
-  'PATH:SSF:PHY-WASSER-DIPOL-0001',
-  'PATH:SSF:PHY-WASSER-EIS-0001',
-  'PATH:SSF:PHY-WASSER-PHASEN-0001',
-  'PATH:SSF:PHY-WASSER-SUBLIM-0001',
-  'PATH:SSF:PHY-WASSER-VAKUUM-0001',
-];
+const KNOWN_EXAM_GAPS: string[] = [];
 
 test('jedes Modul mit UNL:NOX-Freischaltung hat eine Prüfung (Ausnahmen sind benannt)', () => {
   const missing = registeredLearningPaths
@@ -98,5 +85,16 @@ test('keine Sackgasse: gesperrte Einheiten der Prüfungsmodule haben einen auswe
       const playable = unit.sections.some((section) => section.kind === 'quiz' && parseLearningQuiz(section.summary));
       assert.ok(playable, `${path} / ${unit.id}: Gate ohne auswertbaren Kurztest sperrt die nächste Einheit dauerhaft`);
     }
+  }
+});
+
+test('jeder Kurztest-Ersatz trifft eine vorhandene Einheit und ist auswertbar', () => {
+  for (const key of Object.keys(quizRepairs)) {
+    const [pathId, unitId] = key.split('|');
+    const path = registeredLearningPaths.find((candidate) => candidate.id === pathId);
+    assert.ok(path, `${key}: Pfad nicht registriert`);
+    const unit = path.units.find((candidate) => candidate.id === unitId || candidate.id.endsWith(`:${unitId.replace(/^UNIT:/, '')}`));
+    assert.ok(unit, `${key}: Einheit nicht gefunden`);
+    assert.ok(unit.sections.some((section) => section.kind === 'quiz' && parseLearningQuiz(section.summary)), `${key}: Ersatz greift nicht`);
   }
 });
