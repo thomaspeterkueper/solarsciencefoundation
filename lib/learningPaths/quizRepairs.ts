@@ -3,6 +3,7 @@ import { waterQuizRepairs } from './quizRepairsWater';
 import { kitchenQuizRepairs } from './quizRepairsKitchen';
 import { materialsQuizRepairs } from './quizRepairsMaterials';
 import { technikQuizRepairs } from './quizRepairsTechnik';
+import { scienceQuizRepairs } from './quizRepairsScience';
 import type { LearningPath, LearningPathSection } from '../learningPaths';
 
 /**
@@ -17,6 +18,7 @@ export const quizRepairs: Record<string, QuizTriple> = {
   ...kitchenQuizRepairs,
   ...materialsQuizRepairs,
   ...technikQuizRepairs,
+  ...scienceQuizRepairs,
   'PATH:SSF:NOX-SCIENTIFIC-OBSERVATION-0001|UNIT:NOX-OBS-1': [
     q('Ein Magnetometer misst eine Feldanomalie. Welche Aussage ist unmittelbar gemessen?', ['Die Feldabweichung', 'Eine große Eisenerzlagerstätte', 'Der exakte Erzgehalt', 'Der Marktwert des Vorkommens'], 0, 'Gemessen wird das Signal, hier die Abweichung des Magnetfelds. Lagerstätte, Gehalt und Wert sind Schlüsse, die auf Modellen und weiterer Evidenz beruhen.'),
     q('Warum darf eine Interpretation unsicher bleiben?', ['Messgeräte liefern grundsätzlich Zufallszahlen', 'Mehrere Ursachen können dasselbe Signal erzeugen', 'Unsicherheit bedeutet Messung ohne Einheit', 'Modelle dürfen keine Daten verwenden'], 1, 'Dasselbe Signal kann verschiedene Ursachen haben. Erst weitere, unabhängige Evidenz macht eine Deutung belastbarer.'),
