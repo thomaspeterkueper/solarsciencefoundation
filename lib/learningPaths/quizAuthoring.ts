@@ -21,3 +21,6 @@ export function quiz(questions: QuizTriple): string {
     })
     .join('---');
 }
+
+/** Kurzform für Fragen in Ersatz-Kurztests (siehe quizRepairs.ts). */
+export const q = (question: string, a: QuizQuestion['a'], correct: QuizQuestion['correct'], why: string): QuizQuestion => ({ q: question, a, correct, why });
