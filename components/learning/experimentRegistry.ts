@@ -19,6 +19,8 @@ import CupResonanceExperiment from './CupResonanceExperiment';
 import KaramellTempExperiment from './KaramellTempExperiment';
 import ZuckerartenExperiment from './ZuckerartenExperiment';
 import KaramellSimulatorExperiment from './KaramellSimulatorExperiment';
+import EggSetExperiment from './EggSetExperiment';
+import MilkAcidExperiment from './MilkAcidExperiment';
 import WaterMoleculeExperiment from './WaterMoleculeExperiment';
 import HeatingCurveExperiment from './HeatingCurveExperiment';
 import DensityAnomalyExperiment from './DensityAnomalyExperiment';
@@ -110,6 +112,8 @@ const registry: Record<string, ExperimentDefinition> = {
   'EXP:KARAMELL-TEMP': { component: KaramellTempExperiment, modelType: 'interactive-model' },
   'EXP:ZUCKERARTEN': { component: ZuckerartenExperiment, modelType: 'interactive-model' },
   'EXP:KARAMELL-SIMULATION': { component: KaramellSimulatorExperiment, modelType: 'simulation' },
+  'EXP:REZEPTE:EI-BINDET': { component: EggSetExperiment, modelType: 'interactive-model' },
+  'EXP:REZEPTE:MILCH-SAEURE': { component: MilkAcidExperiment, modelType: 'interactive-model' },
   'EXP:WASSER-MOLEKUEL': { component: WaterMoleculeExperiment, modelType: 'visualization' },
   'EXP:ERWAERMUNGSKURVE': { component: HeatingCurveExperiment, modelType: 'interactive-model' },
   'EXP:DICHTE-KURVE': { component: DensityAnomalyExperiment, modelType: 'interactive-model' },

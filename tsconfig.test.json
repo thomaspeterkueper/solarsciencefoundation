@@ -38,7 +38,8 @@
     "tests/levitatedOptomechanics.test.ts",
     "tests/orbitalInteractives.test.ts",
     "tests/machineFundamentalsLearningPath.test.ts",
-    "tests/dynamicsFoundationsLearningPath.test.ts"
+    "tests/dynamicsFoundationsLearningPath.test.ts",
+    "tests/historicalRecipesLearningPath.test.ts"
   ],
   "exclude": [
     "node_modules"
