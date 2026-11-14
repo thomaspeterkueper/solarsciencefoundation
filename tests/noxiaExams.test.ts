@@ -98,3 +98,14 @@ test('jeder Kurztest-Ersatz trifft eine vorhandene Einheit und ist auswertbar', 
     assert.ok(unit.sections.some((section) => section.kind === 'quiz' && parseLearningQuiz(section.summary)), `${key}: Ersatz greift nicht`);
   }
 });
+
+test('keine Sackgasse in keinem Lernpfad: jedes Quiz-Gate hat einen auswertbaren Kurztest', () => {
+  const dead: string[] = [];
+  for (const path of registeredLearningPaths) {
+    for (const unit of path.units) {
+      if (unit.gate?.type !== 'quiz_all_correct') continue;
+      if (!unit.sections.some((section) => section.kind === 'quiz' && parseLearningQuiz(section.summary))) dead.push(`${path.id} / ${unit.id}`);
+    }
+  }
+  assert.deepEqual(dead, [], `Gates ohne auswertbaren Kurztest: ${dead.join(', ')}`);
+});
