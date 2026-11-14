@@ -109,3 +109,14 @@ test('keine Sackgasse in keinem Lernpfad: jedes Quiz-Gate hat einen auswertbaren
   }
   assert.deepEqual(dead, [], `Gates ohne auswertbaren Kurztest: ${dead.join(', ')}`);
 });
+
+test('jede Lerneinheit hat einen echten Merksatz (nie leer oder "undefined")', () => {
+  const missing: string[] = [];
+  for (const path of registeredLearningPaths) {
+    for (const unit of path.units) {
+      const t = typeof unit.takeaway === 'string' ? unit.takeaway.trim() : '';
+      if (t.length < 15 || /\bundefined\b/i.test(t)) missing.push(`${path.id} | ${unit.id}`);
+    }
+  }
+  assert.deepEqual(missing, []);
+});

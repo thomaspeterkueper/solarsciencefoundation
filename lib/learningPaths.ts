@@ -161,6 +161,7 @@ export const learningPaths: LearningPath[] = [
         id: 'UNIT:LICHT',
         title: 'Licht als Informationstraeger',
         entryQuestion: 'Was erzaehlt uns Licht — ueber Dinge, die wir nie beruehren werden?',
+        takeaway: 'Licht ist eine Welle: Es beugt sich an Spalten und Gittern und lässt sich in Farben zerlegen. Jede Farbe hat eigene Wellenlänge, Frequenz und Energie (c = λ · f, E = h · f). Jedes Element absorbiert und sendet charakteristische Linien, wie die Fraunhofer-Linien im Sonnenspektrum zeigen, und der Doppler-Effekt verschiebt sie je nach Bewegung der Quelle. So verrät Licht Zusammensetzung, Temperatur und Bewegung ferner Objekte.',
         sections: [
           {
             id: 'OBS:JALOUSIE',
@@ -289,6 +290,7 @@ export const learningPaths: LearningPath[] = [
         id: 'UNIT:FEHLER-FORTPFLANZUNG',
         title: 'Fehler pflanzen sich fort',
         entryQuestion: 'Wenn jede Messung ungenau ist — wie ungenau ist dann das Ergebnis?',
+        takeaway: 'Messfehler addieren sich nicht einfach. Bei Potenzen wird der relative Fehler mit dem Exponenten multipliziert, deshalb zählt der Radius in ρ ∝ m / r³ dreimal so stark wie die Masse. Die Summe der Beträge liefert den ungünstigsten Fall, die quadratische Addition den statistisch typischen.',
         gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:FEHLER-BUILDER' },
         sections: [
           { id: 'OBS:BACKFEHLER', kind: 'observation', title: 'Beobachtung: Backrezept', summary: 'Waage +-5g, Ofen +-10 Grad — addieren sich diese Fehler einfach?', depthPoints: 3 },
@@ -301,6 +303,7 @@ export const learningPaths: LearningPath[] = [
         id: 'UNIT:FEHLER-BUILDER',
         title: 'Engpass finden',
         entryQuestion: 'Wie findet man den Engpass in jeder Messung?',
+        takeaway: 'Den Gesamtfehler bestimmt die Größe mit dem größten Beitrag, also relativer Fehler mal Exponent. Dort lohnt sich eine genauere Messung; Verbesserungen an kleinen Beiträgen ändern das Ergebnis kaum.',
         sections: [
           { id: 'EXP:BUILDER', kind: 'experiment', title: 'Experiment: Allgemeiner Fehler-Builder', summary: 'Bis zu 3 Groessen, Exponent und relativer Fehler einstellbar — Gesamt-Fehler und dominante Quelle live.', interactive: true, depthPoints: 6 },
           { id: 'QUIZ:FEHLER-2', kind: 'quiz', title: 'Quiz Fehler-Builder', summary: 'Formel einsetzen, Ausloesche bei Differenzen, n Faktoren mit gleichem Fehler.', depthPoints: 18 }
@@ -327,6 +330,7 @@ export const learningPaths: LearningPath[] = [
         id: 'UNIT:KENNLINIE',
         title: 'Kennlinie & Schleusenspannung',
         entryQuestion: 'Was passiert wenn man eine Diode direkt an eine Batterie haengt?',
+        takeaway: 'Eine Diode leitet in Durchlassrichtung erst oberhalb der Schleusenspannung (Silizium etwa 0,7 V, LED etwa 1,8 bis 3 V) und steigt dann steil an. Ohne Vorwiderstand würde der Strom sie zerstören, deshalb gehört immer eine Strombegrenzung davor.',
         gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:ARBEITSPUNKT' },
         sections: [
           { id: 'OBS:DIODE-ALLTAG', kind: 'observation', title: 'Beobachtung: Dioden im Alltag', summary: 'Fernbedienung, Ladegeraet, LED — ueberall Dioden. Direktes Anschliessen zerstoert sie.', depthPoints: 3 },
@@ -338,6 +342,7 @@ export const learningPaths: LearningPath[] = [
         id: 'UNIT:ARBEITSPUNKT',
         title: 'Arbeitspunkt & Lastgerade',
         entryQuestion: 'Wo arbeitet die Diode wirklich — und was aendert ein Parallelwiderstand?',
+        takeaway: 'Der Arbeitspunkt liegt dort, wo Kennlinie und Lastgerade der Schaltung sich schneiden. Quellspannung und Vorwiderstand verschieben die Lastgerade, ein Parallelwiderstand verändert die Stromverteilung. Das einfache Schleusenmodell mit konstantem UD hat Grenzen und muss gegen die Kennlinie geprüft werden.',
         sections: [
           { id: 'EXP:ARBEITSPUNKT', kind: 'experiment', title: 'Experiment: Lastgerade & Arbeitspunkt', summary: 'Uq, Rv, Rp Slider — Lastgerade und Kennlinie, AP als goldener Punkt live. Alle Stroeme berechnet.', interactive: true, depthPoints: 7 },
           { id: 'BRANCH:MODELL', kind: 'branch', title: 'Seitenast: Warum bleibt UD bei US?', summary: 'Konsistenzpruefung des Schleusenmodells — wann es bricht.', optional: true, depthPoints: 8 },
@@ -365,6 +370,7 @@ export const learningPaths: LearningPath[] = [
         id: 'UNIT:GEOM-REIHE',
         title: 'Geometrische Reihe',
         entryQuestion: 'Wenn du immer die Haelfte der verbleibenden Strecke gehst — kommst du je an?',
+        takeaway: 'Eine geometrische Reihe mit |q| < 1 hat trotz unendlich vieler Summanden die endliche Summe 1 / (1 − q). Deshalb erreicht man im Zenon-Paradoxon das Ziel. Bei |q| ≥ 1 divergiert die Reihe.',
         gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:FOURIER' },
         sections: [
           { id: 'OBS:ZENON', kind: 'observation', title: 'Zenons Paradoxon', summary: 'Unendlich viele Schritte — trotzdem endlich. Warum Zenon Unrecht hatte.', depthPoints: 4 },
@@ -377,6 +383,7 @@ export const learningPaths: LearningPath[] = [
         id: 'UNIT:FOURIER',
         title: 'Fourier-Synthesizer',
         entryQuestion: 'Wie baut man aus runden Wellen eine eckige?',
+        takeaway: 'Jede periodische Schwingung lässt sich als Summe von Sinuswellen aus Grundton und Obertönen darstellen. Mit mehr Obertönen nähern sich Rechteck, Dreieck und Sägezahn immer besser an. Das ist die Grundlage jedes Klangs und jedes additiven Synthesizers.',
         sections: [
           { id: 'OBS:SYNTHESIZER', kind: 'observation', title: 'Beobachtung: Synthesizer & Klang', summary: 'Jeder Klang ist eine Fourier-Reihe. Ein Synthesizer addiert Sinuswellen.', depthPoints: 3 },
           { id: 'EXP:FOURIER', kind: 'experiment', title: 'Experiment: Fourier-Synthesizer', summary: 'Saegezahn/Rechteck/Dreieck, N=1..20 Obertoene, Web Audio, 3 Canvas-Ansichten.', interactive: true, depthPoints: 8 },
@@ -405,6 +412,7 @@ export const learningPaths: LearningPath[] = [
         id: 'UNIT:POLARKURVEN',
         title: 'Polarkurven',
         entryQuestion: 'Warum haben Schnecken und Sonnenblumen dieselbe Spirale?',
+        takeaway: 'In Polarkoordinaten beschreibt man eine Kurve durch den Abstand r in Abhängigkeit vom Winkel φ. Spiralen, Kardioiden, Rosen und Lemniskaten werden dadurch einfach, und ein Kreis wie r = 6 cos φ bekommt eine kurze Formel. Polar wählt man bei Drehsymmetrie, kartesisch bei geraden Bewegungen.',
         gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:BOGENLANGE' },
         sections: [
           { id: 'OBS:NATUR-SPIRALE', kind: 'observation', title: 'Beobachtung: Spiralen in der Natur', summary: 'Schneckenhaus, Sonnenblume, Weisskohlwirbel — alle folgen Polarkurven.', depthPoints: 4 },
@@ -417,6 +425,7 @@ export const learningPaths: LearningPath[] = [
         id: 'UNIT:BOGENLANGE',
         title: 'Bogenlange & Kruemmung',
         entryQuestion: 'Wie misst man eine Kurve — und wie stark biegt sie sich?',
+        takeaway: 'Die Bogenlänge misst, wie lang eine Kurve ist, die Krümmung κ, wie stark sie sich biegt. Der Schmiegekreis an einem Punkt hat den Krümmungsradius 1 / κ. Ingenieure begrenzen ihn nach unten, etwa bei Bahnkurven.',
         sections: [
           { id: 'OBS:SCHIENE', kind: 'observation', title: 'Beobachtung: Eisenbahnkurven', summary: 'Kruemmungsradius darf nicht zu klein sein — Ingenieure brauchen kappa an jedem Punkt.', depthPoints: 3 },
           { id: 'EXP:SCHMIEGEKREIS', kind: 'experiment', title: 'Experiment: Schmiegekreis live', summary: 'Parabel, Evolvente, Spirale — Punkt-Slider, Schmiegekreis als blauer Kreis live.', interactive: true, depthPoints: 7 },
@@ -444,6 +453,7 @@ export const learningPaths: LearningPath[] = [
         id: 'UNIT:VEC-GRUNDLAGEN',
         title: 'Vektoren & Grundrechenarten',
         entryQuestion: 'Was ist der Unterschied zwischen 50 km/h und 50 km/h nach Norden?',
+        takeaway: 'Ein Vektor hat Betrag und Richtung: 50 km/h nach Norden ist mehr Information als 50 km/h. Vektoren addiert man komponentenweise oder als Diagonale des Parallelogramms, den Betrag berechnet man mit dem Satz des Pythagoras.',
         gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:SKALARPRODUKT' },
         sections: [
           { id: 'OBS:KRAFT-RICHTUNG', kind: 'observation', title: 'Beobachtung: Kraft braucht Richtung', summary: 'Tisch auf Rollen — schraeg druecken bewegt ihn in anderer Richtung als gerade. Eine Zahl reicht nicht.', depthPoints: 3 },
@@ -455,6 +465,7 @@ export const learningPaths: LearningPath[] = [
         id: 'UNIT:SKALARPRODUKT',
         title: 'Skalarprodukt & Winkel',
         entryQuestion: 'Wie viel Arbeit leistet eine Kraft — wenn sie nicht in Bewegungsrichtung zeigt?',
+        takeaway: 'Das Skalarprodukt a · b = |a| · |b| · cos φ misst, wie weit zwei Vektoren in dieselbe Richtung zeigen. Bei 90° ist es null. Deshalb leistet nur die Kraftkomponente in Bewegungsrichtung Arbeit (W = F · s).',
         gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:KREUZPRODUKT' },
         sections: [
           { id: 'OBS:KOFFER', kind: 'observation', title: 'Beobachtung: Koffer ziehen', summary: 'Schraeger Griff — Winkel zwischen Kraft und Bewegung bestimmt Effizienz. Bei 90 Grad: keine Arbeit.', depthPoints: 3 },
@@ -467,6 +478,7 @@ export const learningPaths: LearningPath[] = [
         id: 'UNIT:KREUZPRODUKT',
         title: 'Kreuzprodukt & Drehmoment',
         entryQuestion: 'Warum greift man eine Tuer am Rand an — und nicht an der Angel?',
+        takeaway: 'Das Drehmoment M = r × F wächst mit Hebelarm und Kraft und ist am größten, wenn die Kraft senkrecht zum Hebelarm wirkt. An der Angel ist der Hebelarm null, am Türrand maximal. Das Kreuzprodukt steht senkrecht auf beiden Vektoren und ist antikommutativ: a × b = −b × a.',
         sections: [
           { id: 'OBS:TUER', kind: 'observation', title: 'Beobachtung: Tuer und Schraubenschluessel', summary: 'Angel: kein Drehmoment. Rand: maximales Drehmoment. Laengerer Schluessel: mehr Moment.', depthPoints: 3 },
           { id: 'EXP:DREHMOMENT', kind: 'experiment', title: 'Experiment: Drehmoment M=r×F', summary: 'Hebelarm r, Kraft F, Winkel alpha als Slider — Drehmoment und Effizienz-Balken live.', interactive: true, depthPoints: 6 },
@@ -495,6 +507,7 @@ export const learningPaths: LearningPath[] = [
         id: 'UNIT:EDM-GRUNDPRINZIP',
         title: 'Grundprinzip & Funkenentladung',
         entryQuestion: 'Wie kann ein duenner Messingdraht polykristallinen Diamant schneiden — ohne ihn zu beruehren?',
+        takeaway: 'Beim Erodieren tragen Funkenentladungen zwischen Elektrode und Werkstück winzige Materialteilchen ab, ohne dass sich beide berühren. Die Härte des Werkstoffs spielt keine Rolle, er muss aber elektrisch leitfähig sein. Die Pulsenergie W = U · I · t bestimmt Abtrag und Oberfläche: viel Energie zum Schruppen, wenig zum Schlichten.',
         gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:DRAHTERODIEREN' },
         sections: [
           { id: 'OBS:PARADOXON', kind: 'observation', title: 'Das Paradoxon', summary: 'Diamant haerter als jedes Werkzeug — und trotzdem formbar. Das Werkzeug beruehrt das Material nicht.', depthPoints: 4 },
@@ -506,6 +519,7 @@ export const learningPaths: LearningPath[] = [
         id: 'UNIT:DRAHTERODIEREN',
         title: 'Drahterodieren',
         entryQuestion: 'Warum kann man mit Drahterodieren keine Sacklocher machen?',
+        takeaway: 'Ein dünner, ständig nachlaufender Draht schneidet berührungslos Konturen durch gehärteten Stahl, mit etwa ±0,001 mm Genauigkeit. Weil der Draht das Werkstück ganz durchläuft, sind nur durchgehende Schnitte möglich, Sacklöcher dagegen nicht.',
         gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:BOHR-SENK' },
         sections: [
           { id: 'OBS:BANDSAEGE', kind: 'observation', title: 'Prinzip Drahterodieren', summary: 'Wie eine Bandsaege — aber beruehrungslos, mikrometergenau, durch gehaerteten Stahl.', depthPoints: 3 },
@@ -518,6 +532,7 @@ export const learningPaths: LearningPath[] = [
         id: 'UNIT:BOHR-SENK',
         title: 'Bohr- und Senkerodieren',
         entryQuestion: 'Wie bohrt man ein Loch das 1000x tiefer als breit ist?',
+        takeaway: 'Bohr- und Senkerodieren formen Löcher und Hohlräume mit einer Elektrode, auch bei extremen Verhältnissen von Tiefe zu Durchmesser, etwa 3 mm tief bei 0,003 mm Durchmesser. Elektrodenmaterial und Dielektrikum (Öl oder Wasser) beeinflussen Abtrag und Verschleiß.',
         sections: [
           { id: 'OBS:WELTREKORD', kind: 'observation', title: 'Weltrekord Aspektverhaeltnis', summary: 'Durchmesser 0,003 mm, Tiefe 3 mm — 20x duenner als ein Menschenhaar, 3 mm tief.', depthPoints: 4 },
           { id: 'EXP:ASPEKT', kind: 'experiment', title: 'Experiment: Aspektverhaeltnis', summary: 'Durchmesser- und Tiefe-Slider → Verfahrensempfehlung (konv./Tiefbohren/Bohrerodieren/Weltrekord), Querschnitt-Canvas.', interactive: true, depthPoints: 5 },
@@ -546,6 +561,7 @@ export const learningPaths: LearningPath[] = [
         id: 'UNIT:LGS-GRAFISCH',
         title: 'Grafisch & geometrisch',
         entryQuestion: 'Zwei Rohre fuellen ein Becken — wie lange braucht jedes allein?',
+        takeaway: 'Zwei Bedingungen brauchen zwei Gleichungen. Grafisch sind es zwei Geraden: Schneiden sie sich, gibt es genau eine Lösung, sind sie parallel keine, sind sie identisch unendlich viele. Die Determinante zeigt, welcher Fall vorliegt.',
         gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:GAUSS' },
         sections: [
           { id: 'OBS:ROHRE', kind: 'observation', title: 'Beobachtung: Rohrproblem', summary: 'Eine Unbekannte reicht nicht — zwei Bedingungen brauchen zwei Gleichungen.', depthPoints: 3 },
@@ -557,6 +573,7 @@ export const learningPaths: LearningPath[] = [
         id: 'UNIT:GAUSS',
         title: 'Gauss-Elimination',
         entryQuestion: 'Wie loest man drei Gleichungen mit drei Unbekannten — ohne zu raten?',
+        takeaway: 'Das Gauß-Verfahren bringt ein Gleichungssystem durch Zeilenumformungen auf Stufenform, aus der man von unten nach oben die Unbekannten bestimmt (Rückwärtseinsetzen). Es funktioniert für beliebig viele Gleichungen, die Cramersche Regel ist nur für kleine Systeme bequem.',
         sections: [
           { id: 'EXP:GAUSS', kind: 'experiment', title: 'Experiment: Gauss-Elimination animiert', summary: '4-Schritt-Walkthrough: Ausgangsmatrix → Pivot Sp.1 → Pivot Sp.2 → Rueckwaertseinsetzen.', interactive: true, depthPoints: 6 },
           { id: 'BRANCH:CRAMER', kind: 'branch', title: 'Seitenast: Cramer-Regel', summary: 'x = det(Ax)/det(A), y = det(Ay)/det(A) — elegant fuer 2x2.', optional: true, depthPoints: 7 },
