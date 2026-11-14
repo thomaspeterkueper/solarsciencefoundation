@@ -28,6 +28,7 @@
     "tests/research-watch/**/*.ts",
     "tests/learningQuiz.test.ts",
     "tests/learningPathRegistry.test.ts",
+    "tests/noxiaScientificObservation.test.ts",
     "tests/noxiaPrerequisites.test.ts",
     "tests/noxiaExams.test.ts",
     "tests/habitatModels.test.ts",
