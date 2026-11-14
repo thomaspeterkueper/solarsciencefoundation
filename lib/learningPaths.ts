@@ -2283,7 +2283,7 @@ export const learningPaths: LearningPath[] = [
       id: 'UNIT:AUTO-MOTOR-K1',
       title: 'Die kleine Explosion',
       entryQuestion: 'Warum wird der Motorblock eines Autos so heiß — und was hat das mit dem Antrieb zu tun?',
-      takeaway: 'Im Zylinder verbrennt Benzin bei etwa 2500°C. Ein Teil der Energie drückt den Kolben nach unten (das ist die Arbeit), der größte Teil (über 60%) wird als Wärme an den Motorblock abgegeben — deshalb wird er heiß und muss gekühlt werden.',
+      takeaway: 'Im Zylinder verbrennt Benzin bei etwa 2500°C. Ein Teil der Energie drückt den Kolben nach unten (das ist die Arbeit), der größte Teil (typisch 60 bis 75 %) verlässt den Motor als Wärme über Kühlsystem und Abgas. Deshalb wird er heiß und muss gekühlt werden.',
       gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:AUTO-MOTOR-K2' },
       sections: [
         {
@@ -2305,7 +2305,7 @@ export const learningPaths: LearningPath[] = [
           id: 'EXP:WIRKUNGSGRAD',
           kind: 'experiment',
           title: 'Experiment: Was bleibt übrig?',
-          summary: 'Energie-Slider zeigt die Verteilung: 35% werden zu Bewegung (Kolben/Kurbelwelle), 35% gehen an das Kühlsystem (Wärme), 30% gehen als Abgaswärme aus dem Auspuff. Nur ein Drittel wird tatsächlich zum Fahren genutzt.',
+          summary: 'Energie-Slider zeigt eine typische Verteilung bei einem Benzinmotor: etwa ein Drittel wird zu Bewegung (Kolben/Kurbelwelle), etwa ein Drittel geht als Wärme an das Kühlsystem, der Rest als Abgaswärme aus dem Auspuff. Die genaue Aufteilung hängt von Last, Drehzahl und Motorbauart ab. Nur rund ein Drittel wird tatsächlich zum Fahren genutzt.',
           interactive: true,
           depthPoints: 8,
         },
@@ -4228,7 +4228,7 @@ export const learningPaths: LearningPath[] = [
         id: 'UNIT:ROHSTOFFE-TECHNOLOGIE',
         title: 'Was steckt in einer Windkraftanlage?',
         entryQuestion: 'Eine Windkraftanlage erzeugt sauberen Strom — aber was steckt in ihr drin?',
-        takeaway: 'Eine 3-MW-Windkraftanlage enthält etwa 335 Tonnen Stahl, 4,7 Tonnen Kupfer, 2 Tonnen Dysprosium (für den Permanentmagneten), 0,67 Tonnen Neodym und Spuren von Terbium. Ohne diese Seltenen Erden dreht der Generator nicht effizient. "Sauber" bezieht sich auf den Betrieb — nicht auf die Herstellung.',
+        takeaway: 'Eine Windkraftanlage besteht überwiegend aus Stahl und Beton, dazu kommen Kupfer, Glasfaser und Kunststoff. Anlagen mit Permanentmagnet-Generator enthalten zusätzlich Hunderte Kilogramm Neodym je Megawatt, Dysprosium und Terbium gibt es nur in kleinen Anteilen als Hitzestabilisator. Ohne diese Seltenen Erden würde der Magnet bei Betriebstemperatur an Kraft verlieren. "Sauber" bezieht sich auf den Betrieb, nicht auf die Herstellung.',
         gate: { type: 'quiz_all_correct', unlocksUnitId: 'UNIT:ROHSTOFFE-KNAPPHEIT' },
         sections: [
           {
@@ -5416,7 +5416,7 @@ export const learningPaths: LearningPath[] = [
             id: 'EXP:STATION-ANDOCK',
             kind: 'experiment',
             title: 'Experiment: Andock-Simulator',
-            summary: 'Schieberegler: Annaeherungsgeschwindigkeit (0-1 m/s), Winkelabweichung (0-10 Grad), Lateralversatz (0-50 cm). ISS-Zielwerte: <0.05 m/s, <2 Grad, <10 cm. Physik: bei 0.5 m/s und 10t Kapsel = 2.5 kJ Aufprallenergie.',
+            summary: 'Schieberegler: Annaeherungsgeschwindigkeit (0-1 m/s), Winkelabweichung (0-10 Grad), Lateralversatz (0-50 cm). ISS-Zielwerte: <0.05 m/s, <2 Grad, <10 cm. Physik: bei 0.5 m/s und 10t Kapsel = 1.25 kJ Aufprallenergie (E = ½·m·v²).',
             interactive: true,
             depthPoints: 9,
           },
