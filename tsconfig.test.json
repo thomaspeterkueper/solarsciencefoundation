@@ -41,7 +41,8 @@
     "tests/dynamicsFoundationsLearningPath.test.ts",
     "tests/historicalRecipesLearningPath.test.ts",
     "lib/health/**/*.ts",
-    "tests/botanicalHealthEvidence.test.ts"
+    "tests/botanicalHealthEvidence.test.ts",
+    "tests/everydayHealth.test.ts"
   ],
   "exclude": [
     "node_modules"
