@@ -1,10 +1,11 @@
 # SSF · Wissen aus den Chronomaps
 
 ```
-Aktualisiert: 18.11.2026 – 1.0.2: tageszeiten im Fahrplan
+Aktualisiert: 18.11.2026 – 1.0.3: Tagelöhner (tageszeiten 5a) auch bei Arbeit, Wege und Häuser
+              18.11.2026 – 1.0.2: tageszeiten im Fahrplan
               18.11.2026 – 1.0.1: nachrichten-boten im Fahrplan
               18.11.2026 – 1.0.0: angelegt (Thomas: „nicht vergessen alles in SSF“). Erster Lernpfad PATH:SSF:HIS-ALLTAG-GALILAEA-30-0001; Fahrplan für alle Wissensdateien der Chronomaps
-Version:      1.0.2
+Version:      1.0.3
 ```
 
 Die Recherche zu den Chronomaps in noxia liegt in drei Schichten, die aufeinander verweisen:
@@ -31,7 +32,7 @@ Die Recherche zu den Chronomaps in noxia liegt in drei Schichten, die aufeinande
 | Glauben und Feiern in Galiläa | religion-alltag, feste-kalender, tageszeiten, prophetinnen, musik-klang |
 | Recht, Macht und Besatzung | recht-gericht, militaer-besatzung, waffen, judaea-herodes-20-v-chr |
 | Leben von der Geburt bis zum Grab | familie-lebenslauf, medizin-heilung, tod-bestattung, essen-mahlzeiten |
-| Arbeit, Wege und Häuser | arbeit-handwerk, reisen-wege, nachrichten-boten, wohnen-siedlung, natur-landschaft |
+| Arbeit, Wege und Häuser | arbeit-handwerk, reisen-wege, nachrichten-boten, wohnen-siedlung, natur-landschaft, tageszeiten 5a (Tagelöhner: Mt 20, Ortsbrauch Tiberias/Bet Maon) |
 | Lesen, Schreiben, Urkunden | schrift-sprache, bildung-wissen, urkunden-archive, spiele-spielzeug |
 | Erzählen und Erinnern | lieder-sagen-erzaehlungen, blick-der-nachbarn |
 | Andere Epochen (eigene Reihen) | buto-saitenzeit, perserzeit-614-638 |
