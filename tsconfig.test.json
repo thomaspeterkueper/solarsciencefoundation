@@ -40,7 +40,8 @@
     "tests/machineFundamentalsLearningPath.test.ts",
     "tests/dynamicsFoundationsLearningPath.test.ts",
     "tests/historicalRecipesLearningPath.test.ts",
-    "tests/galileeEverydayLearningPath.test.ts"
+    "tests/galileeEverydayLearningPath.test.ts",
+    "tests/playingCardsLearningPaths.test.ts"
   ],
   "exclude": [
     "node_modules"
