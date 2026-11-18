@@ -633,6 +633,205 @@ export const ecoLandValueLearningPath: LearningPath = {
   ],
 };
 
+/* ------------------------------------------------------------------ */
+/* G · Bahnkrümmung (KG-Anker MAT-L0-000003)                          */
+/* ------------------------------------------------------------------ */
+
+export const noxiaCurvatureLearningPath: LearningPath = {
+  id: 'PATH:SSF:MAT-KRUEMMUNG-NOXIA-0001',
+  title: 'Wie stark biegt sich eine Bahn?',
+  subtitle: 'Kreis, Radius und Krümmung als Grundwerkzeug, um Kurven zu vergleichen und Kurse zu planen.',
+  status: 'prototype',
+  sourceModuleId: 'MAT-L0-000003',
+  kxfModuleId: 'LRN:SSF:MAT-L0-000003',
+  domainsNeeded: ['KD:MATH-GEO:N1', 'KD:SPACE-NAVIGATION:N2'],
+  suppliedBy: {
+    knowledgeGraph: ['Kanonische Modulidentität MAT-L0-000003 (Geometrie Grundlagen, KG-Legacy LRN:SSF:MAT-1003)', 'Unlock-Zuordnung UNL:NOX:NAV:CURVATURE (KG-20261102-magnetobiology-learning-evidence-gate)'],
+    kueperCom: [],
+    overtimeArchive: [],
+    ssf: ['Einstieg Krümmung als Kehrwert des Radius', 'Bogenlänge und Kurswinkel im Bogenmaß', 'Kurztests mit Erklärung'],
+  },
+  unlocks: ['UNL:NOX:NAV:CURVATURE'],
+  units: [
+    unit({
+      id: 'UNIT:MAT-KRUEMMUNG-NOXIA-1',
+      title: 'Kreis, Radius und Krümmung',
+      entryQuestion: 'Wie sagt man mit einer Zahl, wie stark sich eine Linie biegt?',
+      takeaway: 'Die Krümmung eines Kreises ist der Kehrwert seines Radius: κ = 1/r. Kleiner Radius bedeutet starke Krümmung, eine Gerade hat die Krümmung null.',
+      nextUnitId: 'UNIT:MAT-KRUEMMUNG-NOXIA-2',
+      observation: ['Enge und weite Kurven', 'Ein Kreisverkehr ist eng, eine Autobahnkurve weit. Beide sind Kreisbögen, aber auf dem Kreisverkehr dreht sich die Fahrtrichtung auf wenigen Metern um viel, auf der Autobahn erst nach Hunderten Metern. Der Radius des Kreises sagt, wie eng die Kurve ist.'],
+      explanations: [
+        ['KRUEMMUNG', 'Krümmung ist 1 durch Radius', 'Für einen Kreis mit Radius r gilt κ = 1/r, gemessen in 1/m. Ein Kreis mit 10 m Radius hat κ = 0,1 1/m, einer mit 1000 m Radius nur 0,001 1/m. Je größer der Radius, desto mehr gleicht der Bogen einer Geraden; eine Gerade hat keinen Mittelpunkt in endlicher Entfernung und daher die Krümmung null.'],
+        ['BOGEN', 'Bogenlänge und Winkel', 'Läuft man auf einem Kreis den Winkel φ ab, legt man die Bogenlänge s = r · φ zurück – wenn φ im Bogenmaß steht. Das Bogenmaß ist genau so definiert: Bogenlänge geteilt durch Radius. Ein voller Kreis hat 2π, also gilt für den Umfang U = 2π · r.'],
+      ],
+      exercise: [
+        'Kurven vergleichen',
+        'Eine Bahn hat 50 m Radius, eine andere 500 m. Berechne beide Krümmungen. Wie viel stärker ist die erste gekrümmt?',
+        'κ₁ = 1/50 m = 0,02 1/m, κ₂ = 1/500 m = 0,002 1/m. Die erste Bahn ist zehnmal stärker gekrümmt – der Radius ist zehnmal kleiner.',
+      ],
+      quiz: [
+        {
+          q: 'Ein Fahrzeug fährt auf einem Kreisbogen mit 200 m Radius. Wie groß ist die Krümmung der Bahn?',
+          a: ['200 1/m', '0,005 1/m', '0,5 1/m', '2π · 200 m'],
+          correct: 1,
+          why: 'κ = 1/r = 1/200 m = 0,005 1/m. 2π · 200 m wäre der Umfang des Kreises, keine Krümmung.',
+        },
+        {
+          q: 'Warum hat eine Gerade die Krümmung null?',
+          a: ['Weil sie keine Länge hat', 'Weil ihre Richtung sich nie ändert – ein passender Kreis müsste einen unendlich großen Radius haben', 'Weil Geraden nur auf Papier vorkommen', 'Weil man Krümmung nur bei geschlossenen Kurven messen kann'],
+          correct: 1,
+          why: 'Krümmung misst, wie schnell sich die Richtung entlang der Kurve ändert. Bei einer Geraden ändert sie sich nicht; das entspricht κ = 1/r mit unbegrenzt wachsendem r.',
+        },
+        {
+          q: 'Kurve A hat 40 m Radius, Kurve B hat 400 m Radius. Was gilt?',
+          a: ['B ist zehnmal stärker gekrümmt', 'Beide sind gleich stark gekrümmt, nur verschieden lang', 'A ist zehnmal stärker gekrümmt', 'A ist hundertmal stärker gekrümmt'],
+          correct: 2,
+          why: 'κ_A = 1/40 m = 0,025 1/m, κ_B = 1/400 m = 0,0025 1/m. Krümmung und Radius verhalten sich umgekehrt: zehnmal kleiner Radius, zehnmal stärkere Krümmung.',
+        },
+      ],
+    }),
+    unit({
+      id: 'UNIT:MAT-KRUEMMUNG-NOXIA-2',
+      title: 'Bahnkrümmung in der Navigation',
+      entryQuestion: 'Wie eng ist die Kurve, die ein Fahrzeug fährt, wenn man nur Kursänderung und Strecke kennt?',
+      takeaway: 'Aus Kursänderung Δθ und zurückgelegter Strecke Δs folgt die Bahnkrümmung κ = Δθ/Δs und damit der Kurvenradius r = Δs/Δθ. Engere Kurven verlangen bei gleicher Geschwindigkeit mehr Seitenkraft.',
+      observation: ['Der Kompass dreht sich', 'Ein Rover fährt gleichmäßig eine Kurve. Der Bordkompass zeigt: Nach 314 m Fahrt hat sich der Kurs um 90° gedreht. Den Kreis selbst sieht niemand – aber aus diesen beiden Zahlen lässt sich sein Radius bestimmen.'],
+      explanations: [
+        ['KURS', 'Krümmung aus Kurswinkel und Strecke', 'Entlang einer Kurve dreht sich der Kurs. Die Krümmung ist die Kursänderung je Wegstück: κ = Δθ/Δs, Δθ im Bogenmaß. 90° sind π/2 ≈ 1,57. Dreht sich der Kurs um 1,57 auf 314 m, ist κ = 1,57/314 m = 0,005 1/m und der Radius r = 1/κ = 200 m.'],
+        ['SCHMIEGEKREIS', 'Jede glatte Kurve hat in jedem Punkt einen passenden Kreis', 'Auch eine Bahn, die kein Kreis ist, lässt sich Stück für Stück durch Kreise annähern. Der Kreis, der sich in einem Punkt am besten anschmiegt, heißt Schmiegekreis; sein Radius gibt die örtliche Krümmung an. Navigation plant so: gerade Abschnitte (κ = 0) und Kreisbögen mit bekanntem Radius.'],
+        ['SEITENKRAFT', 'Warum enge Kurven fordern', 'Wer mit der Geschwindigkeit v einen Kreis mit Radius r fährt, braucht eine Beschleunigung zum Mittelpunkt hin von a = v²/r. Halbiert man den Radius bei gleicher Geschwindigkeit, verdoppelt sich die nötige Seitenkraft. Deshalb begrenzen Haftung, Schub oder Steuerruder, wie eng ein Fahrzeug bei gegebenem Tempo wenden kann.'],
+      ],
+      exercise: [
+        'Kurvenradius aus dem Fahrtenbuch',
+        'Ein Fahrzeug ändert gleichmäßig seinen Kurs um 60° auf 2 km Strecke. Wie groß sind Krümmung und Radius der Kurve?',
+        '60° = π/3 ≈ 1,047. κ = 1,047 / 2000 m ≈ 0,00052 1/m, r = 2000 m / 1,047 ≈ 1910 m. Mit Grad statt Bogenmaß (60/2000) käme ein falscher Wert heraus.',
+      ],
+      quiz: [
+        {
+          q: 'Ein Rover dreht seinen Kurs gleichmäßig um 90° (≈ 1,57 im Bogenmaß) und legt dabei 314 m zurück. Wie groß ist der Kurvenradius?',
+          a: ['200 m', '314 m', '90 m', '493 m'],
+          correct: 0,
+          why: 'r = Δs/Δθ = 314 m / 1,57 = 200 m. Wer 314 · 1,57 rechnet, multipliziert statt zu dividieren.',
+        },
+        {
+          q: 'Warum muss der Winkel in s = r · φ im Bogenmaß stehen?',
+          a: ['Weil Grad in der Navigation verboten sind', 'Weil das Bogenmaß als Bogenlänge geteilt durch Radius definiert ist – nur dann stimmt die Gleichung ohne Umrechnungsfaktor', 'Weil Bogenmaß immer kleinere Zahlen liefert', 'Weil Kreise sonst keinen Umfang hätten'],
+          correct: 1,
+          why: 'φ = s/r ist die Definition des Bogenmaßes. In Grad bräuchte man den Faktor π/180, sonst ist das Ergebnis um rund das 57-Fache falsch.',
+        },
+        {
+          q: 'Ein Fahrzeug fährt mit gleicher Geschwindigkeit eine Kurve mit halbem Radius. Was passiert mit der nötigen Seitenbeschleunigung a = v²/r?',
+          a: ['Sie halbiert sich', 'Sie bleibt gleich', 'Sie vervierfacht sich', 'Sie verdoppelt sich'],
+          correct: 3,
+          why: 'r steht im Nenner: halber Radius, doppelte Beschleunigung. Vervierfachen würde sie sich bei doppelter Geschwindigkeit, weil v quadriert wird.',
+        },
+      ],
+    }),
+  ],
+};
+
+/* ------------------------------------------------------------------ */
+/* G · Magnetobiologie-Experimentdesign (KG-Anker BIO-L2-000003)       */
+/* ------------------------------------------------------------------ */
+
+export const noxiaMagnetobiologyExperimentDesignLearningPath: LearningPath = {
+  id: 'PATH:SSF:BIO-MAGNETOBIOLOGIE-EXPERIMENT-NOXIA-0001',
+  title: 'Vom Paper zum Habitat-Experiment',
+  subtitle: 'Magnetfeld-Expositionen als Forschungsvariable planen – mit Kontrollen, Endpunkten, Replikation und Nullbefunden, ohne Human- oder Therapiewirkung vorauszusetzen.',
+  status: 'prototype',
+  sourceModuleId: 'BIO-L2-000003',
+  kxfModuleId: 'LRN:SSF:BIO-L2-000003',
+  domainsNeeded: ['KD:BIO:N1', 'KD:PHYS-EM:N2', 'KD:MATH-STAT:N2'],
+  suppliedBy: {
+    knowledgeGraph: [
+      'Kanonische Modulidentität BIO-L2-000003 (Experimentdesign für NOXIA-Magnetobiologie, KG-Legacy LRN:SSF:BIO-MAGNETOBIOLOGY-EXPERIMENT-0001)',
+      'Evidenz-Gate KG-20261102-magnetobiology-learning-evidence-gate und Evidenzgraph magnetobiology-0.1',
+      'Fachliche Voraussetzung: BIO-L2-000002 (Radikalpaarmechanismus und Evidenzlogik); NOXIA-Vorstufe UNL:NOX:orientation',
+    ],
+    kueperCom: [],
+    overtimeArchive: ['OTA-SCI-0096-2026-DE (Archivbezug laut KG)'],
+    ssf: ['Evidenzgrenzen der zwei Primärquellen', 'Planungsschema für Magnetfeld-Experimente', 'Kurztests mit Erklärung'],
+  },
+  unlocks: ['UNL:NOX:research:magnetobiology-experiment-design', 'UNL:NOX:RESEARCH:MAGNETOBIOLOGY-EXPERIMENT-DESIGN'],
+  units: [
+    unit({
+      id: 'UNIT:BIO-MAGEXP-NOXIA-1',
+      title: 'Was die Befunde tragen – und was nicht',
+      entryQuestion: 'Eine Studie meldet einen Effekt eines sehr schwachen Magnetfelds auf Fliegen. Was genau weiß man danach?',
+      takeaway: 'Ein Befund gilt für den untersuchten Organismus, Genotyp, Feldzustand und Endpunkt. Menschen, Habitate oder ein gemeinsamer Wirkmechanismus sind damit nicht belegt.',
+      nextUnitId: 'UNIT:BIO-MAGEXP-NOXIA-2',
+      observation: ['Zwei Studien, viele Schlagzeilen', 'Reed et al. (Aging 2026, DOI 10.18632/aging.206424) hielten männliche Taufliegen – Wildtyp und Pink1-Mutante – in einem abgeschirmten Feld von etwa 5 nT, rund zehntausendmal schwächer als das Erdfeld. Rishabh et al. (PNAS Nexus 2026, DOI 10.1093/pnasnexus/pgag152) untersuchten Superoxid und Regeneration bei Planarien und verglichen die Daten mit einem Radikalpaar-Modell. Aus beidem lässt sich leicht „Magnetfeld steuert Altern“ machen – das geben die Daten nicht her.'],
+      explanations: [
+        ['KONTEXT', 'Befunde hängen an Genotyp und Endpunkt', 'Bei Reed et al. waren die Ergebnisse endpunkt- und genotypabhängig: Einzelne Vergleiche waren im statistischen Modell relevant, andere nicht, und Bewegungsfähigkeit und Lebensdauer liefen nicht einfach parallel. Daraus folgt keine allgemeine Lebensverlängerung, sondern eine präzise, eng umgrenzte Beobachtung an einem Modellorganismus.'],
+        ['MODELL', 'Modellfit ist kein Mechanismusnachweis', 'Dass Planarien-Daten zu einem Radikalpaar-Modell passen, zeigt Vereinbarkeit. Es schließt andere Erklärungen nicht aus und überträgt sich nicht von selbst auf andere Arten oder auf Menschen. Ein Mechanismus gilt erst als etabliert, wenn Alternativen geprüft und Vorhersagen unabhängig bestätigt sind.'],
+        ['GRENZE', 'Evidenzgrenze dieses Moduls', 'Gedeckt sind nur quellengebundene tierexperimentelle Beobachtungen. Nicht gedeckt sind klinischer Nutzen für Menschen, ein zwingender Bedarf an künstlichem Erdmagnetfeld in Habitaten, ein gesicherter gemeinsamer quantenbiologischer Mechanismus und jede therapeutische Anweisung. Vor weitergehenden Aussagen braucht es unabhängige Replikation und artspezifische Kontrollen.'],
+      ],
+      exercise: [
+        'Aussagen sortieren',
+        'Ordne zu, ob die Aussage durch die beiden Studien gedeckt ist: (1) „Pink1-Fliegen zeigten unter etwa 5 nT bei einzelnen Endpunkten Unterschiede.“ (2) „Ein schwaches Magnetfeld verlängert das Leben.“ (3) „Planarien-Daten sind mit einem Radikalpaar-Modell vereinbar.“ (4) „Mars-Habitate brauchen ein künstliches Erdfeld.“',
+        '(1) gedeckt, eng gefasst. (2) nicht gedeckt – Befunde sind endpunkt- und genotypabhängig, nicht universell. (3) gedeckt als Vereinbarkeit, nicht als Nachweis. (4) nicht gedeckt – Habitat- und Humanextrapolation ist offen.',
+      ],
+      quiz: [
+        {
+          q: 'Eine Studie findet bei einer Fliegenmutante unter stark abgeschirmtem Feld bei einem Endpunkt einen Unterschied, beim Wildtyp nicht. Welche Aussage ist durch diesen Befund gedeckt?',
+          a: ['Magnetfeldentzug verlängert das Leben von Tieren', 'Unter diesen Bedingungen zeigte dieser Genotyp bei diesem Endpunkt einen Unterschied', 'Menschen in Raumstationen altern schneller', 'Der Mechanismus ist damit bewiesen'],
+          correct: 1,
+          why: 'Gedeckt ist nur, was gemessen wurde: Organismus, Genotyp, Feldzustand, Endpunkt. Die anderen Antworten verallgemeinern auf andere Tiere, auf Menschen oder auf einen Mechanismus.',
+        },
+        {
+          q: 'Warum ist ein guter Fit von Messdaten an ein Radikalpaar-Modell noch kein Nachweis dieses Mechanismus?',
+          a: ['Weil Modelle grundsätzlich falsch sind', 'Weil Radikalpaare in Lebewesen nicht vorkommen können', 'Weil andere Mechanismen dieselben Daten ebenfalls erklären könnten und der Fit sie nicht ausschließt', 'Weil Planarien zu klein für Messungen sind'],
+          correct: 2,
+          why: 'Ein Fit zeigt, dass Daten und Modell zusammenpassen. Ein Nachweis verlangt, dass konkurrierende Erklärungen geprüft und unabhängige Vorhersagen bestätigt werden.',
+        },
+        {
+          q: 'Eine Habitat-Planerin fragt, ob ihr Habitat wegen dieser Studien ein künstliches Erdmagnetfeld braucht. Was ist die ehrliche Antwort?',
+          a: ['Ja, sonst altern die Bewohner schneller', 'Nein, Magnetfelder sind biologisch immer wirkungslos', 'Ja, aber nur für Fliegen an Bord', 'Das lässt sich aus diesen Tierdaten nicht ableiten; dafür bräuchte es replizierte, artspezifische Untersuchungen'],
+          correct: 3,
+          why: 'Die Studien betreffen Taufliegen und Planarien unter bestimmten Bedingungen. Sie belegen weder einen Bedarf noch schließen sie jede Wirkung aus – die Frage bleibt offen.',
+        },
+      ],
+    }),
+    unit({
+      id: 'UNIT:BIO-MAGEXP-NOXIA-2',
+      title: 'Ein sauberes Magnetfeld-Experiment planen',
+      entryQuestion: 'Wie baut man ein Experiment, dessen Ergebnis man auch dann glauben kann, wenn es niemand erwartet hat?',
+      takeaway: 'Ein belastbares Experiment legt Organismus, Genotyp, Feldexposition, Scheinkontrolle, Endpunkte, Stichprobe und Auswertung vorab fest, wiederholt unabhängig und berichtet Nullbefunde.',
+      observation: ['Die Spule wird warm', 'Eine Spule, die ein Magnetfeld erzeugt, wird auch warm, brummt leicht und steht an einem anderen Platz im Labor als die Kontrollgruppe. Zeigen die Tiere in der Spule später einen Unterschied – war es das Feld, die Wärme, die Vibration oder der Platz?'],
+      explanations: [
+        ['EXPOSITION', 'Die Exposition messen, nicht annehmen', 'Feldstärke, Richtung, Zeitverlauf und Dauer werden am Ort der Tiere gemessen und protokolliert. Auch Störfelder durch Geräte im Raum gehören dazu. Ohne gemessene Exposition lässt sich ein Ergebnis weder vergleichen noch wiederholen.'],
+        ['KONTROLLE', 'Scheinexposition, Zufall und Verblindung', 'Die Kontrollgruppe sitzt in einem baugleichen Apparat, der alles gleich macht außer dem Feld – etwa mit gegenläufig gewickelten Spulen, die Wärme und Geräusch erzeugen, deren Felder sich aber aufheben. Tiere werden zufällig zugeteilt, und wer misst, weiß nicht, welche Gruppe vor ihm liegt.'],
+        ['AUSWERTUNG', 'Endpunkte vorab, Replikation, Nullbefunde', 'Endpunkte und Auswertung werden vor dem Versuch festgelegt. Wer zehn Endpunkte mit je 5 % Irrtumswahrscheinlichkeit prüft, erhält auch ohne jeden Effekt mit rund 40 % Wahrscheinlichkeit mindestens einen „signifikanten“ Befund (1 − 0,95¹⁰ ≈ 0,40). Unabhängige Wiederholung in einem anderen Labor und das Berichten von Nullbefunden schützen davor, Zufall für Wirkung zu halten.'],
+      ],
+      exercise: [
+        'Versuchsplan skizzieren',
+        'Plane ein Experiment, das prüft, ob ein abgeschirmtes Magnetfeld die Lauffähigkeit einer Fliegenlinie verändert. Nenne Organismus und Genotyp, Feldbedingungen, Kontrollgruppe, Endpunkt, Gruppengröße und was du tust, wenn kein Effekt auftritt.',
+        'Beispiel: männliche Fliegen zweier Genotypen; Feld abgeschirmt (gemessen am Käfig) gegen Scheinapparat mit gleichem Aufbau; zufällige Zuteilung, verblindete Messung; ein vorab festgelegter Hauptendpunkt (Lauftest an festen Tagen); Gruppengröße vorab begründet; zweite unabhängige Kohorte; ein Nullbefund wird mit gleicher Sorgfalt berichtet wie ein positiver.',
+      ],
+      quiz: [
+        {
+          q: 'Du prüfst zehn Endpunkte, jeden mit 5 % Irrtumswahrscheinlichkeit, und es gibt in Wahrheit keinen Effekt. Wie wahrscheinlich ist es ungefähr, trotzdem mindestens einen „signifikanten“ Befund zu erhalten?',
+          a: ['5 %', '10 %', '40 %', '100 %'],
+          correct: 2,
+          why: 'Die Wahrscheinlichkeit, dass alle zehn Tests unauffällig bleiben, ist 0,95¹⁰ ≈ 0,60. Mindestens ein Zufallstreffer tritt also in rund 40 % der Fälle auf – deshalb Endpunkte vorab festlegen.',
+        },
+        {
+          q: 'Warum sitzt die Kontrollgruppe in einem baugleichen Scheinapparat statt einfach ohne Gerät daneben?',
+          a: ['Weil sonst Wärme, Vibration, Licht und Standort zwischen den Gruppen verschieden wären und man sie dem Feld zuschreiben würde', 'Weil Fliegen ohne Gerät nicht überleben', 'Weil das Gerät die Tiere zählt', 'Weil Kontrollgruppen immer kleiner sein müssen'],
+          correct: 0,
+          why: 'Nur wenn sich die Gruppen allein im Feld unterscheiden, lässt sich ein Unterschied dem Feld zuordnen. Alle anderen Gerätewirkungen müssen in beiden Gruppen gleich sein.',
+        },
+        {
+          q: 'Ein zweites, unabhängiges Labor wiederholt deinen Versuch und findet keinen Effekt. Was ist der richtige nächste Schritt?',
+          a: ['Den Nullbefund verschweigen, weil er nicht interessant ist', 'Nullbefund berichten, Unterschiede in Bedingungen prüfen und die Gesamtevidenz neu gewichten', 'Den eigenen Befund als bewiesen ansehen, weil er zuerst kam', 'So lange neue Endpunkte testen, bis einer signifikant ist'],
+          correct: 1,
+          why: 'Ein Nullbefund ist Information. Er kann auf Zufall im ersten Versuch, auf andere Bedingungen oder auf eine echte Kontextabhängigkeit hinweisen – das klärt man offen, nicht durch Weglassen oder Nachsuchen.',
+        },
+      ],
+    }),
+  ],
+};
+
 export const noxiaPrerequisiteLearningPaths: LearningPath[] = [
   noxiaSmeltingLearningPath,
   noxiaRobotFabricationLearningPath,
@@ -640,4 +839,6 @@ export const noxiaPrerequisiteLearningPaths: LearningPath[] = [
   ecoCollateralLearningPath,
   ecoArbitrageLearningPath,
   ecoLandValueLearningPath,
+  noxiaCurvatureLearningPath,
+  noxiaMagnetobiologyExperimentDesignLearningPath,
 ];

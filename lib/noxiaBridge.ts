@@ -221,13 +221,17 @@ export async function getNoxiaKnowledgeModules(): Promise<NoxiaKnowledgeModule[]
   return modules.map(toNoxiaModule);
 }
 
-export async function getNoxiaKnowledgeModule(moduleId: string): Promise<NoxiaModuleDetail | null> {
-  const module = await getKxfLearningModuleById(moduleId);
-  if (!module) {
-    const path = getPathForModule(moduleId);
-    return path ? pathDetail(path) : null;
+/**
+ * Abschnitte für ein KXF-Modul: didaktischer Text plus Experimente. Fehlt didaktischer Text,
+ * aber ein gesteuerter Lernpfad ist zugeordnet, liefert der Pfad die Abschnitte – sonst
+ * bekäme NOXIA ein Modul ohne Inhalt (EXT-KG-SSF-20261102, Abschnitt G).
+ */
+export function kxfModuleSections(moduleId: string): NoxiaModuleSection[] {
+  const didactic = getDidactic(moduleId);
+  if (!didactic) {
+    const linkedPath = getPathForModule(moduleId);
+    if (linkedPath) return pathDetail(linkedPath).sections;
   }
-  const didactic = getDidactic(module.id);
   const sections: NoxiaModuleSection[] = [];
   if (didactic) {
     sections.push({ type: 'heading', text: 'Lernziele' });
@@ -235,13 +239,24 @@ export async function getNoxiaKnowledgeModule(moduleId: string): Promise<NoxiaMo
     sections.push({ type: 'heading', text: 'Entdecken' });
     for (const paragraph of didactic.introduction) sections.push({ type: 'text', text: paragraph });
   }
-  sections.push(...collectInteractiveSections(module.id));
+  sections.push(...collectInteractiveSections(moduleId));
   if (didactic) {
     sections.push({ type: 'heading', text: 'Beispiele' });
     for (const example of didactic.examples) sections.push({ type: 'example', title: example.title, text: example.body });
     sections.push({ type: 'heading', text: 'Jetzt du' });
     sections.push({ type: 'task', prompt: didactic.task.prompt, ...(didactic.task.hint ? { hint: didactic.task.hint } : {}) });
   }
+  return sections;
+}
+
+export async function getNoxiaKnowledgeModule(moduleId: string): Promise<NoxiaModuleDetail | null> {
+  const module = await getKxfLearningModuleById(moduleId);
+  if (!module) {
+    const path = getPathForModule(moduleId);
+    return path ? pathDetail(path) : null;
+  }
+  const didactic = getDidactic(module.id);
+  const sections = kxfModuleSections(module.id);
   const linkedPath = getPathForModule(module.id);
   const pathItems = linkedPath ? pathAssessment(linkedPath) : [];
   const base = toNoxiaModule(module);

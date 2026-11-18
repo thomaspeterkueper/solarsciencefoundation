@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { parseLearningQuiz } from '../lib/learningQuiz';
+import { pathAssessment } from '../lib/learningPathAssessment';
 import {
   getRegisteredLearningPathForModule,
   learningPathRegistryIssues,
@@ -17,6 +18,8 @@ const REQUIRED_UNLOCKS: Array<{ ids: string[]; unlock: string }> = [
   { ids: ['LRN:SSF:NOX-SMELTING', 'SSF-NOX-SMELTING-0001'], unlock: 'UNL:NOX:smelting' },
   { ids: ['LRN:SSF:NOX-ROBOT-FABRICATION', 'SSF-NOX-ROBOT-FABRICATION-0001'], unlock: 'UNL:NOX:ENG:ROBOT-FABRICATION' },
   { ids: ['LRN:SSF:NOX-PRECISION-INSTRUMENTATION', 'SSF-NOX-PRECISION-INSTRUMENTATION-0001'], unlock: 'UNL:NOX:ENG:PRECISION-INSTRUMENTATION' },
+  { ids: ['LRN:SSF:MAT-L0-000003', 'MAT-L0-000003'], unlock: 'UNL:NOX:NAV:CURVATURE' },
+  { ids: ['LRN:SSF:BIO-L2-000003', 'BIO-L2-000003'], unlock: 'UNL:NOX:research:magnetobiology-experiment-design' },
 ];
 
 test('NOXIA-Freischaltungen sind über KXF- und Legacy-Kennung auflösbar', () => {
@@ -51,4 +54,26 @@ test('Registry bleibt ohne Identitätskonflikte', () => {
   );
   assert.deepEqual(blockers, [], JSON.stringify(blockers, null, 2));
   assert.ok(registeredLearningPaths.length > 0);
+});
+
+test('Abschnitt G: Bahnkrümmung und Magnetobiologie liefern exakt die NOXIA-Kennungen mit Prüfung', () => {
+  const cases: Array<{ id: string; unlock: string }> = [
+    { id: 'MAT-L0-000003', unlock: 'UNL:NOX:NAV:CURVATURE' },
+    { id: 'BIO-L2-000003', unlock: 'UNL:NOX:research:magnetobiology-experiment-design' },
+  ];
+  for (const { id, unlock } of cases) {
+    const path = getRegisteredLearningPathForModule(id)!;
+    // exakte Schreibweise, nicht normalisiert (KG-20261102-magnetobiology-learning-evidence-gate)
+    assert.ok(path.unlocks.includes(unlock), `${id}: ${unlock} fehlt`);
+    assert.ok(path.units.flatMap((unit) => unit.sections).filter((section) => section.kind !== 'quiz').length > 0, `${id}: Inhalt fehlt`);
+    assert.ok(pathAssessment(path).length >= 6, `${id}: assessment[] braucht mindestens sechs Fragen`);
+  }
+});
+
+test('Magnetobiologie-Modul nennt die Evidenzgrenze ausdrücklich', () => {
+  const path = getRegisteredLearningPathForModule('BIO-L2-000003')!;
+  const text = path.units.flatMap((unit) => unit.sections.map((section) => section.summary)).join(' ');
+  for (const phrase of ['10.18632/aging.206424', '10.1093/pnasnexus/pgag152', 'Nicht gedeckt']) {
+    assert.ok(text.includes(phrase), `Evidenzgrenze: ${phrase} fehlt`);
+  }
 });
