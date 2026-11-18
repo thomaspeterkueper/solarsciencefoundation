@@ -49,6 +49,13 @@ const CLUSTERS: Record<string, {
       'PATH:SSF:CHE-KUECHE-ALTE-REZEPTE-0001',
     ],
   },
+  geschichte: {
+    label: 'Geschichte & Chronomaps', icon: '🏺', color: '#A0522D',
+    horizon: 'Als nächstes: Wie reisten Nachrichten um das Jahr 30? — Boten, Briefe, Feuersignale',
+    ids: [
+      'PATH:SSF:HIS-ALLTAG-GALILAEA-30-0001',
+    ],
+  },
   auto: {
     label: 'Auto & Antrieb', icon: '🚗', color: '#888',
     horizon: 'Als nächstes: Wie speichert ein Schwungrad Energie? — Trägheitsmoment und Rotationsenergie',
