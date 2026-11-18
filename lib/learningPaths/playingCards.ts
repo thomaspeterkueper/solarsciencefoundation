@@ -4,7 +4,7 @@ import { q, quiz } from './quizAuthoring';
 // Reihe „Am Kartentisch“ (Thomas, 18.11.2026: „Kartenspiele integrieren … dazu auch im SSF und KG
 // Lernmodule anlegen“). Drei Lernpfade: Geschichte der Spielkarten, Wahrscheinlichkeit am Kartentisch,
 // Skat rechnen. Die Spiele selbst stehen in noxiagame (lib/game/cards, Seite /cards); dort verweist jedes
-// Spiel auf seinen Lernpfad. NPCs in noχ¹ᐃ lernen aus denselben Pfaden (R-47).
+// Spiel auf seinen Lernpfad. NPCs in noχ¹ᐃ lernen aus denselben Pfaden (noxiagame R-48).
 // Wissensknoten: kueper-knowledge-graph, Shard games-playing-cards. Belegstufen nach docs/SSF-BELEGSTUFEN.md.
 
 const QUIZ_TITLE = 'Anwendung → Verständnis → Transfer';
