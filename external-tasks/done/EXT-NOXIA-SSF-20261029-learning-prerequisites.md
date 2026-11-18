@@ -1,5 +1,5 @@
 ---
-status: partially-done
+status: done
 id: EXT-NOXIA-SSF-20261029-learning-prerequisites
 requester: SYS:KUEPER:noxia
 recipient: SYS:KUEPER:ssf
@@ -238,3 +238,8 @@ SSF hat die Kennungen **nicht** auf `PHY-1101` gelegt. `LRN:SSF:PHY-1101` gehör
 
 ### H · zur Kenntnis genommen
 Vorgemerkt. Hinweis: `UNL:NOX:orbital-navigation` trägt heute `SSF-PHY-1101` und wird mit der Klärung der Kennung neu zugeordnet.
+
+## Erledigt-Vermerk G (Claude, Ökosystem-Kreislauf, 18.11.2026)
+
+Status: done – A–G erledigt, H zur Kenntnis genommen.
+Umgesetzt: `UNL:NOX:NAV:CURVATURE` über `LRN:SSF:MAT-L0-000003` (Legacy `MAT-L0-000003`), `UNL:NOX:research:magnetobiology-experiment-design` über `LRN:SSF:BIO-L2-000003` (Legacy `BIO-L2-000003`), jeweils mit Inhalt und 6 Prüfungsfragen. Details und Abnahme in `external-tasks/done/EXT-KG-SSF-20261102-magnetobiology-curvature-gate.md`.
