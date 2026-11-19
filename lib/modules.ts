@@ -603,6 +603,54 @@ export const learningModules: LearningModule[] = [
     ]
   },
 
+  // Dione: science literacy; NOXIA exobiology remains fictional. Canonical KG entity pending #314.
+  {
+    id: 'SSF-GEO-2101',
+    title: 'Dione: Was wissen wir über einen möglichen Ozean?',
+    domain: 'Planetary Science',
+    difficulty: 2,
+    durationMinutes: 12,
+    summary:
+      'Cassini hat Diones Eis und Schwerefeld untersucht – aber hat die Raumsonde tatsächlich einen Ozean entdeckt?',
+    source: { authority: 'kueper.com:DOC:KUE:KUE-GEO-DIONE-2026-DE', kxfEntityIds: [] },
+    unlocks: [],
+    exercises: [
+      {
+        id: 'EX:SSF-GEO-2101:001', type: 'single_choice',
+        question: 'Was bedeutet die geschätzte Ozeandicke von 65 ± 30 km?',
+        options: [
+          'Cassini hat den Ozean direkt fotografiert.',
+          'Es ist ein Ergebnis eines geophysikalischen Modells mit Unsicherheit.',
+          'Dione besitzt garantiert einen warmen Ozean.',
+          'Auf Dione wurde schwimmendes Leben entdeckt.'
+        ],
+        correctOption: 1
+      },
+      {
+        id: 'EX:SSF-GEO-2101:002', type: 'single_choice',
+        question: 'Was wurde in Diones Umgebung tatsächlich nachgewiesen?',
+        options: [
+          'Biologisch produzierter Sauerstoff.',
+          'Eine dichte atembare Atmosphäre.',
+          'Molekulare Sauerstoffionen in einer extrem dünnen Exosphärenumgebung.',
+          'Aktive hydrothermale Schlote.'
+        ],
+        correctOption: 2
+      },
+      {
+        id: 'EX:SSF-GEO-2101:003', type: 'single_choice',
+        question: 'Welche Aussage ist für ein Schwarmexperiment in NOXIA korrekt?',
+        options: [
+          'Simulationsergebnisse beweisen außerirdisches Bewusstsein.',
+          'Ein komplexes Muster beweist eine intelligente Spezies.',
+          'Die fiktive Biosphäre muss als Simulation getrennt von realen Messdaten ausgewiesen werden.',
+          'Alle Organismen müssen dieselben globalen Weltinformationen kennen.'
+        ],
+        correctOption: 2
+      }
+    ]
+  },
+
 ];
 
 export function getModuleById(id: string) {
