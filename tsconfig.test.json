@@ -41,6 +41,7 @@
     "tests/dynamicsFoundationsLearningPath.test.ts",
     "tests/historicalRecipesLearningPath.test.ts",
     "tests/galileeEverydayLearningPath.test.ts",
+    "tests/galileeFaithLearningPath.test.ts",
     "tests/playingCardsLearningPaths.test.ts"
   ],
   "exclude": [

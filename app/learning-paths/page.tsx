@@ -54,6 +54,7 @@ const CLUSTERS: Record<string, {
     horizon: 'Als nächstes: Wie reisten Nachrichten um das Jahr 30? — Boten, Briefe, Feuersignale',
     ids: [
       'PATH:SSF:HIS-ALLTAG-GALILAEA-30-0001',
+      'PATH:SSF:HIS-GLAUBE-FEIERN-GALILAEA-30-0001',
     ],
   },
   auto: {
