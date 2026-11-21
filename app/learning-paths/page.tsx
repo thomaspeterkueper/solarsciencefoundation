@@ -55,6 +55,7 @@ const CLUSTERS: Record<string, {
     ids: [
       'PATH:SSF:HIS-ALLTAG-GALILAEA-30-0001',
       'PATH:SSF:HIS-GLAUBE-FEIERN-GALILAEA-30-0001',
+      'PATH:SSF:HIS-RECHT-MACHT-GALILAEA-30-0001',
     ],
   },
   auto: {
