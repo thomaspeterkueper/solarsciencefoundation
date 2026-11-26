@@ -30,6 +30,10 @@ What is gravity?
 Unlock: UNL:NOX:orbital-navigation
 ```
 
+## Entwicklungsstand
+
+Active workstreams with goal, status, branch/PR, last verified revision and open steps are listed in [`docs/development/README.md`](docs/development/README.md).
+
 ## Repository structure
 
 ```text
