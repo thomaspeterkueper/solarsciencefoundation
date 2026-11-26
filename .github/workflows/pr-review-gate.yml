@@ -1,0 +1,40 @@
+name: SSF Exact-Head Review Gate
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  issue_comment:
+    types: [created, edited]
+
+permissions:
+  contents: read
+  pull-requests: read
+  issues: read
+  # Needed to report the gate verdict as a check run on the PR head from
+  # issue_comment runs, which otherwise execute on the default branch and
+  # never attach their check suite to the PR head.
+  checks: write
+
+jobs:
+  exact-head-review-gate:
+    if: >-
+      (github.event_name == 'pull_request' && github.event.pull_request.draft == false) ||
+      (github.event_name == 'issue_comment' && github.event.issue.pull_request != null)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GITHUB_TOKEN: ${{ github.token }}
+      PR_NUMBER: ${{ github.event.pull_request.number || github.event.issue.number }}
+      PR_HEAD_SHA: ${{ github.event.pull_request.head.sha || '' }}
+      # Accounts allowed to publish KUEPER automated review PASS evidence.
+      # The Ecosystem review service posts as the owner account; keep this in
+      # sync with the reviewer identity that publishes evidence comments.
+      REVIEWER_LOGINS: thomaspeterkueper
+      # issue_comment runs execute on the default branch, so their check suite
+      # never attaches to the PR head. The gate then reports its verdict
+      # explicitly as a check run on the PR head via the Checks API.
+      REPORT_CHECK_RUN: ${{ github.event_name == 'issue_comment' }}
+    steps:
+      - uses: actions/checkout@v6
+      - name: Require KUEPER automated PASS for exact current head
+        run: python tools/verify_pr_review_gate.py
