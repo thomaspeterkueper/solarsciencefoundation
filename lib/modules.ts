@@ -32,6 +32,11 @@ export type LearningModule = {
   };
   unlocks: string[];
   exercises: Exercise[];
+  /**
+   * Publication gate. Draft modules stay out of the public APIs and pages
+   * (lib/kxf.ts) until their canonical KG source is registered.
+   */
+  status?: 'draft' | 'published';
 };
 
 export const learningModules: LearningModule[] = [
@@ -603,7 +608,69 @@ export const learningModules: LearningModule[] = [
     ]
   },
 
+  // Dione: science literacy; NOXIA exobiology remains fictional.
+  // Draft gate (canonical KG entity pending #314): DOC:KUE:KUE-GEO-DIONE-2026-DE
+  // and its concept entities are not registered in the Knowledge Graph yet, so
+  // this module must stay out of the public APIs and pages. Remove
+  // `status: 'draft'` only after the KG registers the document and its entity
+  // ids; then restore the research-watch topic too.
+  {
+    id: 'SSF-GEO-2101',
+    title: 'Dione: Was wissen wir über einen möglichen Ozean?',
+    domain: 'Earth science',
+    difficulty: 2,
+    durationMinutes: 12,
+    summary:
+      'Cassini hat Diones Eis und Schwerefeld untersucht – aber hat die Raumsonde tatsächlich einen Ozean entdeckt?',
+    source: { authority: 'DOC:KUE:KUE-GEO-DIONE-2026-DE', kxfEntityIds: [] },
+    status: 'draft',
+    unlocks: [],
+    exercises: [
+      {
+        id: 'EX:SSF-GEO-2101:001', type: 'single_choice',
+        question: 'Was bedeutet die geschätzte Ozeandicke von 65 ± 30 km?',
+        options: [
+          'Cassini hat den Ozean direkt fotografiert.',
+          'Es ist ein Ergebnis eines geophysikalischen Modells mit Unsicherheit.',
+          'Dione besitzt garantiert einen warmen Ozean.',
+          'Auf Dione wurde schwimmendes Leben entdeckt.'
+        ],
+        correctOption: 1
+      },
+      {
+        id: 'EX:SSF-GEO-2101:002', type: 'single_choice',
+        question: 'Was wurde in Diones Umgebung tatsächlich nachgewiesen?',
+        options: [
+          'Biologisch produzierter Sauerstoff.',
+          'Eine dichte atembare Atmosphäre.',
+          'Molekulare Sauerstoffionen in einer extrem dünnen Exosphärenumgebung.',
+          'Aktive hydrothermale Schlote.'
+        ],
+        correctOption: 2
+      },
+      {
+        id: 'EX:SSF-GEO-2101:003', type: 'single_choice',
+        question: 'Welche Aussage ist für ein Schwarmexperiment in NOXIA korrekt?',
+        options: [
+          'Simulationsergebnisse beweisen außerirdisches Bewusstsein.',
+          'Ein komplexes Muster beweist eine intelligente Spezies.',
+          'Die fiktive Biosphäre muss als Simulation getrennt von realen Messdaten ausgewiesen werden.',
+          'Alle Organismen müssen dieselben globalen Weltinformationen kennen.'
+        ],
+        correctOption: 2
+      }
+    ]
+  },
+
 ];
+
+/** A module is publishable unless it is explicitly gated as a draft. */
+export function isPublishedModule(module: LearningModule) {
+  return module.status !== 'draft';
+}
+
+/** Modules that may be served through public APIs and pages. */
+export const publishedLearningModules = learningModules.filter(isPublishedModule);
 
 export function getModuleById(id: string) {
   return learningModules.find((module) => module.id === id) ?? null;
