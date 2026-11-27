@@ -50,9 +50,10 @@ architecture document. Discovery alone MUST NOT update learning content.
 ## Watch topics
 
 `topics.json` is the explicit registry against which relevance is evaluated.
-It is derived from the current SSF module scope (`modules` field per topic;
-`watchScopeGap()` in `lib/research-watch/topics.ts` reports drift, asserted
-empty by the tests). `canon_claims` are v0.1 seed statements maintained by
+It is derived from the published SSF module scope (`modules` field per topic;
+draft modules are outside watch scope until publication, and `watchScopeGap()`
+in `lib/research-watch/topics.ts` reports drift, asserted empty by the tests).
+`canon_claims` are v0.1 seed statements maintained by
 SSF curators — the KG remains the source of truth; CANON_VALIDATION defers
 judgment there. New topics may be proposed but MUST NOT silently expand the
 monitored scope.

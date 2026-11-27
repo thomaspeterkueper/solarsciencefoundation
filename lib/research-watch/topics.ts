@@ -13,7 +13,7 @@
  * NOT silently expand the monitored curriculum scope.
  */
 
-import { learningModules } from '../modules';
+import { publishedLearningModules } from '../modules';
 import topicRegistry from '../../config/research-watch/topics.json';
 import type { CanonClaim, WatchTopic } from './types';
 
@@ -77,13 +77,14 @@ export function getCanonClaimById(topics: WatchTopic[], id: string): CanonClaim 
 }
 
 /**
- * Current SSF module ids that are NOT covered by any topic.
- * Empty means the registry is in sync with the current module scope.
+ * Published SSF module ids that are NOT covered by any topic.
+ * Draft modules are outside the watch scope until they are published.
+ * Empty means the registry is in sync with the published module scope.
  */
 export function watchScopeGap(topics: WatchTopic[]): string[] {
   const covered = new Set<string>();
   for (const topic of topics) {
     for (const moduleId of topic.modules ?? []) covered.add(moduleId);
   }
-  return learningModules.map((module) => module.id).filter((id) => !covered.has(id));
+  return publishedLearningModules.map((module) => module.id).filter((id) => !covered.has(id));
 }

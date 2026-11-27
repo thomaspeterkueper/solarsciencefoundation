@@ -327,53 +327,6 @@
         }
       ],
       "status": "active"
-    },
-    {
-      "id": "TOP:SSF:GEO:DIONE-OCEAN",
-      "label": "Dione and ocean-world evidence literacy",
-      "domains": [
-        "Planetary Science",
-        "Astronomy"
-      ],
-      "modules": [
-        "SSF-GEO-2101"
-      ],
-      "keywords": [
-        "dione",
-        "cassini",
-        "saturnian moon",
-        "ocean world",
-        "subsurface ocean",
-        "ice shell",
-        "gravity field",
-        "exosphere",
-        "molecular oxygen",
-        "geophysical model"
-      ],
-      "canon_claims": [
-        {
-          "id": "CLM:SSF:GEO:DIONE-OCEAN:001",
-          "text": "Dione's gravity and topography data are consistent with a subsurface ocean, but the estimated ocean thickness (about 65 ± 30 km) is a geophysical model result with uncertainty, not a direct observation.",
-          "sources": [
-            "SSF-GEO-2101"
-          ]
-        },
-        {
-          "id": "CLM:SSF:GEO:DIONE-OCEAN:002",
-          "text": "Cassini detected molecular oxygen ions in Dione's extremely thin exosphere; this is not evidence of a dense atmosphere or of life.",
-          "sources": [
-            "SSF-GEO-2101"
-          ]
-        },
-        {
-          "id": "CLM:SSF:GEO:DIONE-OCEAN:003",
-          "text": "In NOXIA the fictional biosphere is a simulation and must be presented separately from real measurement data; simulations do not prove extraterrestrial intelligence or consciousness.",
-          "sources": [
-            "SSF-GEO-2101"
-          ]
-        }
-      ],
-      "status": "active"
     }
   ]
 }

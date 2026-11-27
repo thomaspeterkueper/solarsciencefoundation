@@ -9,7 +9,12 @@
  * Depends: lib/modules, lib/api/kg
  */
 
-import { learningModules, type LearningModule } from './modules';
+import {
+  isPublishedModule,
+  learningModules,
+  publishedLearningModules,
+  type LearningModule
+} from './modules';
 import { fetchKgExport } from './api/kg';
 
 const LEGACY_KXF_EXPORT = 'exports/kxf-0.1.json';
@@ -262,7 +267,7 @@ export function normaliseKxfModules(kxf: KxfExport, legacyKxf?: KxfExport): Lear
   const entities = legacyKxf?.records?.entities ?? kxf.records?.entities ?? [];
 
   if (kxfModules.length === 0) {
-    return learningModules;
+    return publishedLearningModules;
   }
 
   const merged = new Map<string, LearningModule>();
@@ -288,17 +293,20 @@ export function normaliseKxfModules(kxf: KxfExport, legacyKxf?: KxfExport): Lear
         kxfEntityIds: module.teaches ?? fallback?.source.kxfEntityIds ?? []
       },
       unlocks: [...moduleUnlocks(module), ...moduleNoxiaGrants(module)].filter(Boolean),
-      exercises: fallback?.exercises ?? []
+      exercises: fallback?.exercises ?? [],
+      status: fallback?.status
     });
   }
 
-  for (const fallback of learningModules) {
+  for (const fallback of publishedLearningModules) {
     if (!merged.has(fallback.id)) {
       merged.set(fallback.id, fallback);
     }
   }
 
-  return [...merged.values()].sort((a, b) => moduleSortValue(a).localeCompare(moduleSortValue(b)));
+  return [...merged.values()]
+    .filter(isPublishedModule)
+    .sort((a, b) => moduleSortValue(a).localeCompare(moduleSortValue(b)));
 }
 
 export async function getKxfLearningModules(): Promise<LearningModule[]> {
@@ -315,7 +323,7 @@ export async function getKxfLearningModules(): Promise<LearningModule[]> {
     return normaliseKxfModules(legacySnapshot.data);
   }
 
-  return learningModules;
+  return publishedLearningModules;
 }
 
 export async function getKxfLearningModuleById(id: string): Promise<LearningModule | null> {
