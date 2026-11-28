@@ -1,7 +1,7 @@
 ---
 id: EXT-KG-SSF-20261023-REFRACTION
 title: SSF-Refraktion auf kanonische KG-KXF-Identitäten umstellen
-status: open
+status: done
 source: KG
 target: SSF
 created: 2026-10-23
@@ -36,3 +36,15 @@ Verbindliche KG-Identitäten:
 KG verwaltet IDs, Ontologie und KXF; SSF besitzt Lerninhalte und Prüfungen; NOXIA besitzt Simulatorphysik. Diese Datei ist ein Auftrag, keine Implementierung auf SSF.
 
 Quellen: https://github.com/thomaspeterkueper/kueper-knowledge-graph/pull/146 ; https://github.com/thomaspeterkueper/solarsciencefoundation/pull/60 ; https://github.com/thomaspeterkueper/solarsciencefoundation/pull/61
+
+## Erledigt
+
+Status: done – Ökosystem-Kreislauf (Claude), 28.11.2026, Branch `claude/EXT-KG-SSF-20261023-REFRACTION`.
+
+## Umgesetzt
+
+- Neuer Lernpfad `PATH:SSF:PHY-ATMOSPHAERISCHE-REFRAKTION-0001` in `lib/learningPaths/atmosphericRefraction.ts`: `sourceModuleId`/`kxfModuleId` `PHY-L1-000030`, Domain `KD:PHYS:N1`, KG-Quellenidentitäten `PHY-L1-000003` (Voraussetzung), `CON:L1:atmosphaerische-refraktion`, `MOD:L2:bennett-atmosphaerische-refraktion`; im Registry registriert.
+- Fünf Kapitel nach Autorenleitfaden (Beobachtung, Erklärung, gelöste Aufgabe, Kurztest mit drei Fragen); Inhalte aus PR #60 übernommen und fachlich ergänzt. Bennett-Ergebnis ausdrücklich als Modellwert für eine Standardatmosphäre, Inversionen und Luftspiegelungen als Gültigkeitsgrenzen. Simulator `NOXIA:DEMO:PHY:ATMOSPHERIC-REFRACTION:V1` nur als Consumer, mit SSF-Fallback ohne Simulator; keine Änderung an `noxiaBridge.ts`.
+- Keine Parallelidentität: `PHY-L1-000004` (KG: Wasser-Phasenmodul) und `SSF-PHY-HORIZON-REFRACTION-0001` werden nicht verwendet; Regressionstest `tests/atmosphericRefractionLearningPath.test.ts`.
+- PR #60 und #61 sind damit überholt und werden mit Verweis geschlossen (Branches bleiben).
+- Prüfungen: `npm test` (139/139) und `npm run build` grün.
