@@ -43,7 +43,8 @@
     "tests/galileeEverydayLearningPath.test.ts",
     "tests/galileeFaithLearningPath.test.ts",
     "tests/galileeLawLearningPath.test.ts",
-    "tests/playingCardsLearningPaths.test.ts"
+    "tests/playingCardsLearningPaths.test.ts",
+    "tests/atmosphericRefractionLearningPath.test.ts"
   ],
   "exclude": [
     "node_modules"
