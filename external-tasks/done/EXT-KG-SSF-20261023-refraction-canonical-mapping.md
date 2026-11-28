@@ -46,5 +46,5 @@ Status: done – Ökosystem-Kreislauf (Claude), 28.11.2026, Branch `claude/EXT-K
 - Neuer Lernpfad `PATH:SSF:PHY-ATMOSPHAERISCHE-REFRAKTION-0001` in `lib/learningPaths/atmosphericRefraction.ts`: `sourceModuleId`/`kxfModuleId` `PHY-L1-000030`, Domain `KD:PHYS:N1`, KG-Quellenidentitäten `PHY-L1-000003` (Voraussetzung), `CON:L1:atmosphaerische-refraktion`, `MOD:L2:bennett-atmosphaerische-refraktion`; im Registry registriert.
 - Fünf Kapitel nach Autorenleitfaden (Beobachtung, Erklärung, gelöste Aufgabe, Kurztest mit drei Fragen); Inhalte aus PR #60 übernommen und fachlich ergänzt. Bennett-Ergebnis ausdrücklich als Modellwert für eine Standardatmosphäre, Inversionen und Luftspiegelungen als Gültigkeitsgrenzen. Simulator `NOXIA:DEMO:PHY:ATMOSPHERIC-REFRACTION:V1` nur als Consumer, mit SSF-Fallback ohne Simulator; keine Änderung an `noxiaBridge.ts`.
 - Keine Parallelidentität: `PHY-L1-000004` (KG: Wasser-Phasenmodul) und `SSF-PHY-HORIZON-REFRACTION-0001` werden nicht verwendet; Regressionstest `tests/atmosphericRefractionLearningPath.test.ts`.
-- PR #60 und #61 sind damit überholt und werden mit Verweis geschlossen (Branches bleiben).
+- PR #60 und #61 sind damit überholt und sollten ohne Merge geschlossen werden (im Lauf nicht geschlossen, Entscheidung bei Thomas).
 - Prüfungen: `npm test` (139/139) und `npm run build` grün.
